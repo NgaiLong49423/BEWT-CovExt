@@ -1,0 +1,20 @@
+# Original benchmark
+/bewt-original/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Node.js
+node_modules/
+
+# Java Maven
+target/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
