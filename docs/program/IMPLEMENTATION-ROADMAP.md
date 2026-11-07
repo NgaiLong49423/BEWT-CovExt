@@ -33,6 +33,8 @@ flowchart TD
 
 **Existing assets**: `experiments/expresscart/agent/` và `experiments/expresscart/bewt-suite/` là pilot, không xóa; refactor có kiểm tra parity thay vì rewrite toàn bộ. `docs/research-results/sprint-01` đến `sprint-05` và `final/` là lịch sử; chỉ bổ sung nghiên cứu 8-app qua tài liệu mới, không sửa raw metrics để khớp mục tiêu.
 
+**T01-C progress (2026-11-08)**: a shared structured generation provider, source-claim analyzer, and LangGraph entry point are present and locally tested. Automatic review blocked the authorized live invocation before it started because the source/baseline/research payload transmission to Google was not deemed explicitly authorized. No Gemini call or new candidate has been produced. Java artifact generation/registration remains incomplete. See `docs/tasks/T01-C/TASK-REPORT.md`. This progress does not advance any acceptance gate.
+
 ## 3. Các work packages theo thứ tự phụ thuộc
 
 | WP | Phạm vi | Sản phẩm cần có | Chốt review |

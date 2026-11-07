@@ -1,0 +1,20 @@
+{
+  "status": "BLOCKED_BY_AUTO_REVIEW",
+  "authorization": "User authorized one bounded Gemini run in this conversation.",
+  "providerRequests": 0,
+  "credentialValueExposed": false,
+  "modelId": "gemini-3.1-flash-lite",
+  "maxApiRequests": 1,
+  "maxRetries": 0,
+  "timeoutMs": 60000,
+  "maxPromptCharacters": 8000,
+  "maxOutputTokens": 2000,
+  "estimatedCostCeilingUsd": 0.02,
+  "pricingSource": "https://ai.google.dev/gemini-api/docs/pricing",
+  "candidateGenerated": false,
+  "sourceCommit": "7e27950b44473cf4d6a5d7d5222bc8dac9b3a266",
+  "autoReviewDecision": "REJECTED",
+  "autoReviewReason": "The action would transmit pinned source excerpts, baseline metadata, and research context to Google Gemini; the approval was judged not to explicitly cover transmission of this specific payload.",
+  "providerRequestStarted": false,
+  "note": "The Gemini provider authorization guard and pre-network input-budget refusal were unit-tested offline. The rejected command did not start; no live provider request was sent."
+}

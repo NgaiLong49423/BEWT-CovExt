@@ -1,0 +1,3 @@
+# Generated Java Results
+
+No generated Java artifact was written, registered, compiled or executed. Existing ExpressCart adapter behavior still reuses the historical `ForgottenPasswordTest`; that artifact is not T01-C generated output. The provider schema checks a Java class identifier and source text; an additional static contract requires the returned class declaration, suite `BaseTest`, JUnit `@Test`, and no direct process spawn. Binding the new class/hash to a candidate revision, writing an immutable artifact under an approved extension root, and compiling in an isolated Maven workspace remain implementation blockers.

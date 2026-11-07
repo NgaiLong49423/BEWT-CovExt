@@ -1,0 +1,7 @@
+# Model Integration Design
+
+`framework/src/runtime/model-provider.ts` introduces `GenerationProvider.generate()` over a pinned baseline, coverage gaps, candidate ID and revision. The response schema validates Gherkin, preconditions, oracle, novelty rationale, Java source and a Java class identifier. `candidateFromGeneration()` deliberately copies only candidate fields and binds source pins/evidence to input provenance.
+
+`FakeGenerationProvider` is a deterministic test double, explicitly not model or study evidence. `GeminiGenerationProvider` requires `authorized: true` and a key at construction; it performs no request before `generate()`. Live calls have a bounded timeout and at most three attempts. The provider exposes in-memory call/attempt/latency/status telemetry, but token usage and durable evidence persistence are not implemented. It is not wired into the graph; therefore this is a contract prototype, not a completed model integration.
+
+The user authorized one bounded Gemini run. The launch command was rejected by automatic review because it would transmit pinned source excerpts, baseline metadata, and research context to Google Gemini, and the reviewer determined the authorization did not specifically cover that payload. The command did not start and no request was sent. The code-enforced limits are one API request, no retry, 60-second timeout, 8,000 prompt characters, 2,000 output tokens, and conservative estimated USD 0.02 ceiling. Generation would produce Gherkin only; Java generation remains post-ACCEPT.

@@ -27,6 +27,7 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "modelGenerationProvider": "PROTOTYPE_WIRED_TO_T01C_LANGGRAPH_TESTED_LIVE_CALL_BLOCKED_JAVA_GENERATION_INCOMPLETE",
     "sources": [
       "experiments/expresscart/agent/",
       "framework/src/",
@@ -246,9 +247,10 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "currentTaskId": "T01-B",
-    "currentTaskStatus": "READY_FOR_REVIEW",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/3",
+    "currentTaskId": "T01-C",
+    "currentTaskStatus": "BLOCKED_BY_AUTO_REVIEW",
+    "currentTaskBranch": "feature/t01c-model-backed-generation",
+    "currentTaskPrUrl": null,
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
@@ -262,7 +264,8 @@
     "docs/research-results/sprint-04/",
     "docs/research-results/sprint-05/",
     "docs/research-results/final/",
-    "docs/tasks/T01-B/evidence/"
+    "docs/tasks/T01-B/evidence/",
+    "docs/tasks/T01-C/evidence/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
 }
