@@ -50,7 +50,8 @@ export async function registerGeneratedJava(
 ): Promise<{ artifact: GeneratedJavaArtifact; registration: GeneratedJavaRegistration }> {
   assertCanGenerateJava(workflow, candidate);
   const expectedClass = expectedGeneratedTestClass(candidate);
-  validateGeneratedJavaContract(output, expectedClass);
+  const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
+  validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
 
   const directory = registrationDirectory(candidate);
   await ensureContainedDirectory(repositoryRoot, directory);

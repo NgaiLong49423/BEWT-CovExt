@@ -43,27 +43,34 @@ function acceptedState(): AgentWorkflowState {
   return submitReviewDecision(pending, decision);
 }
 
-test("isolated ExpressCart workspace contains only POM, BaseTest and exact registered generated class", async () => {
+test("isolated ExpressCart workspace contains only approved POM/PageObject/BaseTest and exact registered class", async () => {
   const root = await mkdtemp(join(tmpdir(), "bewt-t01c-isolated-maven-"));
   const state = acceptedState();
   const generatedClass = expectedGeneratedTestClass(candidate);
     const javaSource = (await new FakeJavaGenerationProvider().generateJava(state.candidate!, state)).javaSource;
   try {
     const suite = join(root, manifest.baseSuitePath);
+    await mkdir(join(suite, "src/main/java/po"), { recursive: true });
     await mkdir(join(suite, "src/test/java/tests"), { recursive: true });
+    await mkdir(join(root, "adapters/expresscart/java"), { recursive: true });
     await writeFile(join(suite, "pom.xml"), "<project><modelVersion>4.0.0</modelVersion></project>\n");
+    await writeFile(join(suite, "src/main/java/po/PageObject.java"), "package po; public class PageObject { public PageObject(org.openqa.selenium.WebDriver driver) {} }\n");
+    await writeFile(join(root, "adapters/expresscart/java/CustomerPasswordResetPage.java"), "package po; public final class CustomerPasswordResetPage extends PageObject {}\n");
     await writeFile(join(suite, "src/test/java/tests/BaseTest.java"), "package tests; public class BaseTest { protected String appUrl = \"http://127.0.0.1\"; }\n");
     await writeFile(join(suite, "src/test/java/tests/ForgottenPasswordTest.java"), "historical sentinel\n");
     const { artifact } = await registerGeneratedJava(root, state, state.candidate!, { testClass: generatedClass, javaSource });
     const workspace = await createIsolatedExpressCartWorkspace(root, manifest, state, state.candidate!, artifact, "invocation-01");
     const javaFolder = join(workspace.path, "src/test/java/tests");
+    const pageObjectFolder = join(workspace.path, "src/main/java/po");
     const files = (await import("node:fs/promises")).readdir(javaFolder);
     assert.deepEqual((await files).sort(), ["BaseTest.java", `${generatedClass}.java`].sort());
+    assert.deepEqual((await (await import("node:fs/promises")).readdir(pageObjectFolder)).sort(), ["CustomerPasswordResetPage.java", "PageObject.java"]);
     assert.equal(await readFile(join(workspace.path, "pom.xml"), "utf8"), "<project><modelVersion>4.0.0</modelVersion></project>\n");
     const owner = JSON.parse(await readFile(join(root, workspace.metadataPath), "utf8")) as Record<string, unknown>;
     assert.equal(owner.excludedHistoricalTests, true);
     assert.equal(owner.noApplicationSourceCopied, true);
     assert.equal(owner.testClass, `tests.${generatedClass}`);
+    assert.deepEqual(owner.copiedFiles, ["pom.xml", "src/main/java/po/PageObject.java", "src/main/java/po/CustomerPasswordResetPage.java", "src/test/java/tests/BaseTest.java", `src/test/java/tests/${generatedClass}.java`]);
     await assert.rejects(createIsolatedExpressCartWorkspace(root, manifest, state, state.candidate!, artifact, "invocation-01"), /already exists/);
 
     const forgedWorkspace = { ...workspace, path: suite };

@@ -9,24 +9,29 @@ const ref: EvidenceReference = { repositoryCommit: commit, sourceVersion: "1.1.1
 
 test("source-backed analyzer distinguishes covered, novel-to-baseline candidate, historical overlap and insufficient evidence", () => {
   const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: ["historic.behavior"], sourceClaims: [
-    { behaviorId: "existing.behavior", behavior: "Existing", sourceReferences: [ref], evidenceSummary: "Route and assertion identified." },
-    { behaviorId: "candidate.behavior", behavior: "Candidate", sourceReferences: [ref], evidenceSummary: "Source branch and response identified." },
-    { behaviorId: "historic.behavior", behavior: "Historic", sourceReferences: [ref], evidenceSummary: "Source branch identified." },
-    { behaviorId: "uncertain.behavior", behavior: "Uncertain", sourceReferences: [], evidenceSummary: "" },
+    { behaviorId: "existing.behavior", behavior: "Existing", behavioralCategory: "account", sourceReferences: [ref], evidenceSummary: "Route and assertion identified." },
+    { behaviorId: "candidate.behavior", behavior: "Candidate", behavioralCategory: "account", sourceReferences: [ref], evidenceSummary: "Source branch and response identified." },
+    { behaviorId: "historic.behavior", behavior: "Historic", behavioralCategory: "account", sourceReferences: [ref], evidenceSummary: "Source branch identified." },
+    { behaviorId: "uncertain.behavior", behavior: "Uncertain", behavioralCategory: "account", sourceReferences: [], evidenceSummary: "" },
   ] });
   assert.deepEqual(results.map((item) => item.disposition), ["COVERED", "CANDIDATE_GAP", "HISTORICAL_OVERLAP", "INSUFFICIENT_EVIDENCE"]);
   assert.equal(results[1]?.gap?.sourceReferences[0]?.repositoryCommit, commit);
+  assert.equal(results[1]?.behavioralCategory, "account");
+  assert.equal(results[1]?.baselineComparison, "NO_EXACT_BEHAVIOR_TAG_MATCH");
+  assert.equal(results[1]?.candidateConfidence, "LOW");
+  assert.equal(results[1]?.uncertainties.length, 2);
   assert.match(results[1]?.rationale ?? "", /not a novelty decision/);
 });
 
 test("analyzer refuses wrong source pins and duplicate behavior IDs", () => {
   const stale = { ...ref, repositoryCommit: "a".repeat(40) };
   const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: [], sourceClaims: [
-    { behaviorId: "stale", behavior: "Stale", sourceReferences: [stale], evidenceSummary: "Not pinned." },
-    { behaviorId: "dup", behavior: "First", sourceReferences: [ref], evidenceSummary: "Supported." },
-    { behaviorId: "dup", behavior: "Second", sourceReferences: [ref], evidenceSummary: "Supported." },
+    { behaviorId: "stale", behavior: "Stale", behavioralCategory: "security", sourceReferences: [stale], evidenceSummary: "Not pinned." },
+    { behaviorId: "dup", behavior: "First", behavioralCategory: "security", sourceReferences: [ref], evidenceSummary: "Supported." },
+    { behaviorId: "dup", behavior: "Second", behavioralCategory: "security", sourceReferences: [ref], evidenceSummary: "Supported." },
+    { behaviorId: "uncategorized", behavior: "No category", behavioralCategory: " ", sourceReferences: [ref], evidenceSummary: "Category missing." },
   ] });
-  assert.deepEqual(results.map((item) => item.disposition), ["INSUFFICIENT_EVIDENCE", "CANDIDATE_GAP", "INSUFFICIENT_EVIDENCE"]);
+  assert.deepEqual(results.map((item) => item.disposition), ["INSUFFICIENT_EVIDENCE", "CANDIDATE_GAP", "INSUFFICIENT_EVIDENCE", "INSUFFICIENT_EVIDENCE"]);
   assert.ok(!results[0]?.gap);
   assert.ok(!results[2]?.gap);
 });

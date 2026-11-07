@@ -2,7 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
-import { parseApplicationManifest, parseCandidateScenario, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult } from "./contracts.js";
+import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult } from "./contracts.js";
 import { assertBaselineMatchesManifest } from "./policy.js";
 import { analyzeSourceBackedCoverage } from "./runtime/coverage-analysis.js";
 import { candidateFromGeneration, GeminiGenerationProvider, GeminiJavaGenerationProvider, newCandidateId, type GenerationOutput } from "./runtime/model-provider.js";
@@ -20,6 +20,13 @@ const evidenceRoot = "docs/tasks/T01-C/evidence";
 
 async function writeUnique(relativePath: string, content: string): Promise<void> {
   await writeFile(await resolveContainedOutputPath(root, relativePath), content, { flag: "wx" });
+}
+
+async function readCoverageReviewData(runId: string): Promise<{ analysis: unknown[]; gaps: CoverageGap[] }> {
+  const path = await resolveContainedExistingPath(root, `${evidenceRoot}/${runId}/source-coverage-analysis.json`);
+  const value = JSON.parse(await readFile(path, "utf8")) as Record<string, unknown>;
+  if (!Array.isArray(value.coverageAnalysis) || !Array.isArray(value.candidateGaps)) throw new Error("coverage review evidence is incomplete");
+  return { analysis: value.coverageAnalysis, gaps: value.candidateGaps.map(parseCoverageGap) };
 }
 
 interface ModelRunBudget { apiRequestsAllowed: number; runCostCeilingUsd: number; perCallCostCeilingUsd: number; }
@@ -68,6 +75,13 @@ async function approvedJavaContext(candidate: NonNullable<AgentWorkflowState["ca
   const baseContract = base.split(/\r?\n/).filter((line) => /public\s+WebDriver\s+driver|public\s+String\s+appUrl|void\s+setupNativeBrowser\s*\(/.test(line)).join("\n");
   context.push(`Approved existing BaseTest declarations (${basePath}):\n${baseContract}`);
   if (candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js")) {
+    const pageObjectBasePath = "experiments/expresscart/bewt-suite/src/main/java/po/PageObject.java";
+    const pageObjectBase = await readFile(await resolveContainedExistingPath(root, pageObjectBasePath), "utf8");
+    const resetPagePath = "adapters/expresscart/java/CustomerPasswordResetPage.java";
+    const resetPage = await readFile(await resolveContainedExistingPath(root, resetPagePath), "utf8");
+    context.push(`Existing PageObject base (${pageObjectBasePath}):\n${pageObjectBase}`);
+    const resetPageApi = resetPage.split(/\r?\n/).filter((line) => /public\s+(?:final\s+class\s+CustomerPasswordResetPage|CustomerPasswordResetPage\s*\(|void\s+openResetLink\s*\(|boolean\s+redirectedToForgotPage\s*\(|String\s+notificationMessage\s*\()/.test(line)).join("\n");
+    context.push(`Approved source-grounded reset PageObject API (${resetPagePath}):\n${resetPageApi}`);
     const routePath = "experiments/expresscart/source/routes/customer.js";
     const route = await readFile(await resolveContainedExistingPath(root, routePath), "utf8");
     const start = route.indexOf("// reset password form");
@@ -110,20 +124,22 @@ async function main(args: string[]): Promise<void> {
         const reference = { repositoryCommit: sourceCommit, sourceVersion, runId: `t01c-source-${runIdForEvidence}`, artifactPath: routePath };
         const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: [
           "cart.discount.remove", "cart.empty", "product.publication.admin-state", "customer.password.forgotten-request", "admin.static-page.create-view",
-        ], sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavior: "An invalid or expired password-reset token redirects to the forgot-password page and displays the invalid-or-expired message.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.", sourceReferences: [reference] }] });
+        ], sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavioralCategory: "Account recovery and reset-token security", behavior: "An invalid or expired password-reset token redirects to the forgot-password page and displays the invalid-or-expired message.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.", sourceReferences: [reference] }] });
         const gap = results.find((item) => item.disposition === "CANDIDATE_GAP")?.gap;
         if (!gap) throw new Error(`source-backed candidate gap unavailable: ${results.map((item) => `${item.behaviorId}:${item.disposition}`).join(",")}`);
         const evidenceDirectory = `${evidenceRoot}/${runIdForEvidence}`;
         await ensureContainedDirectory(root, evidenceDirectory);
         await writeUnique(`${evidenceDirectory}/source-coverage-analysis.json`, JSON.stringify({ runId: runIdForEvidence, appId: baseline.appId, sourceCommit, sourceVersion,
-          baselineObservedScenarios: baseline.observedScenarioCount, sourceIdentity: sourcePin, sourceClaims: results.map(({ behaviorId, disposition, sourceReferences, rationale }) => ({ behaviorId, disposition, sourceReferences, rationale })),
+          baselineObservedScenarios: baseline.observedScenarioCount, sourceIdentity: sourcePin, coverageAnalysis: results, candidateGaps: results.flatMap((result) => result.gap ? [result.gap] : []),
+          sourceClaims: results.map(({ behaviorId, behavioralCategory, disposition, sourceReferences, rationale }) => ({ behaviorId, behavioralCategory, disposition, sourceReferences, rationale })),
           sourceArtifactSha256: createHash("sha256").update(route).digest("hex"), historicProposalSet: "docs/research-results/sprint-02/CANDIDATE-REVIEW.md; EC-C01..EC-C05 topics",
           historicApprovalReused: false, researchNovelty: "UNVERIFIED" }, null, 2));
         sourceContext = [
           `Pinned application source excerpt (${routePath}):\n${routeContext}`,
           `Baseline observed scenarios: ${baseline.cases.map((item) => `${item.caseId}: ${item.scenarioName}`).slice(0, 31).join("; ")}`,
           "Historic proposal topics already recorded: discount removal, empty cart, product publication state, forgotten-password request, static-page create/view. Do not present those as novel.",
-          "The source claim is a token-validation flow. Coverage gap status is a candidate only; technical behavior, oracle, testability, and novelty remain subject to human review.",
+          `Coverage assessment: ${JSON.stringify(results.map(({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale }) => ({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale })))}.`,
+          "Coverage gap status is a candidate only; technical behavior, oracle, testability, and novelty remain subject to human review.",
         ];
         return [gap];
       },
@@ -237,7 +253,9 @@ async function main(args: string[]): Promise<void> {
       const initial: AgentWorkflowState = { appId: manifest.appId, sourceCommit, sourceVersion, runId, currentRole: "coverage_analysis", status: "STARTED", reviewDecisions: [], appliedDecisionIds: [], artifacts: [], repairAttempts: 0 };
       const result = await app.invoke({ workflow: initial }, { configurable: { thread_id: runId } }) as RuntimeState;
       if (result.workflow.status !== "AWAITING_HUMAN_REVIEW" || !result.workflow.candidate || !result.workflow.checkpoint) throw new Error(`LangGraph did not pause at human review: ${result.workflow.status}; ${result.terminalError?.message ?? "no detail"}`);
-      const packet = { runId, threadId: runId, checkpointId: result.workflow.checkpoint.checkpointId, appId: result.workflow.appId, candidate: result.workflow.candidate,
+      const reviewData = await readCoverageReviewData(runId);
+      const packet = { runId, threadId: runId, checkpointId: result.workflow.checkpoint.checkpointId, appId: result.workflow.appId,
+        coverageGaps: reviewData.gaps, coverageAnalysis: reviewData.analysis, candidate: result.workflow.candidate,
         sourceCommit, sourceVersion, model: provider.model, modelTelemetry: provider.lastTelemetry, decisionOptions: ["ACCEPT", "REVISE", "REJECT"],
         modelBudgetPath: `${evidenceRoot}/${runId}/model-run-budget.json`,
         note: "ACCEPT is implementation authorization only. A separate --live-authorized flag and remaining run budget are required before Java generation. Research novelty/oracle review remains separate." };
@@ -268,6 +286,18 @@ async function main(args: string[]): Promise<void> {
     }
     const review = resumeReview(state, threadId, state.workflow.checkpoint?.checkpointId ?? "", decision as "ACCEPT" | "REVISE" | "REJECT", sanitizeToolOutput(rationale));
     const result = await app.invoke(review, config) as RuntimeState;
+    if (decision === "REVISE" && result.workflow.status === "AWAITING_HUMAN_REVIEW" && result.workflow.candidate && result.workflow.checkpoint) {
+      const reviewData = await readCoverageReviewData(result.workflow.runId);
+      const packet = { runId: result.workflow.runId, threadId, checkpointId: result.workflow.checkpoint.checkpointId, appId: result.workflow.appId,
+        coverageGaps: reviewData.gaps, coverageAnalysis: reviewData.analysis, candidate: result.workflow.candidate,
+        sourceCommit: result.workflow.sourceCommit, sourceVersion: result.workflow.sourceVersion, model: provider?.model ?? "gemini-3.1-flash-lite",
+        modelTelemetry: provider?.lastTelemetry ?? { status: "NOT_RUN" }, decisionOptions: ["ACCEPT", "REVISE", "REJECT"],
+        priorReviewDecisions: result.workflow.reviewDecisions, modelBudgetPath: `${evidenceRoot}/${result.workflow.runId}/model-run-budget.json` };
+      const packetPath = `${evidenceRoot}/${result.workflow.runId}/human-review-request-revision-${result.workflow.candidate.revision}.json`;
+      await writeUnique(packetPath, JSON.stringify(packet, null, 2));
+      process.stdout.write(`${JSON.stringify({ ...packet, packetPath }, null, 2)}\n`);
+      return;
+    }
     process.stdout.write(`${JSON.stringify({ runId: result.workflow.runId, status: result.workflow.status, reviewDecisions: result.workflow.reviewDecisions, terminalError: result.terminalError }, null, 2)}\n`);
   } finally { saver.db.close(); }
 }

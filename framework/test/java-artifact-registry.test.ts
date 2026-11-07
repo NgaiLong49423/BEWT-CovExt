@@ -6,7 +6,7 @@ import { join } from "node:path";
 import type { AgentWorkflowState, CandidateScenario, EvidenceReference, HumanReviewDecision } from "../src/contracts.js";
 import { pauseAtHumanReview, submitReviewDecision, transitionWorkflow } from "../src/policy.js";
 import { expectedGeneratedTestClass, registerGeneratedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
-import { FakeJavaGenerationProvider } from "../src/runtime/model-provider.js";
+import { FakeJavaGenerationProvider, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
 const sourceReference: EvidenceReference = { repositoryCommit: sourceCommit, sourceVersion: "1.1.19", runId: "unit-source", artifactPath: "docs/tasks/T01-C/evidence/source.json" };
@@ -28,9 +28,9 @@ function acceptedWorkflow(candidate: CandidateScenario): AgentWorkflowState {
   return submitReviewDecision(awaiting, decision);
 }
 
-function javaOutput(candidate: CandidateScenario) {
+function javaOutput(candidate: CandidateScenario, useResetPageObject = false) {
   const testClass = expectedGeneratedTestClass(candidate);
-  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { org.junit.Assert.assertNotNull(appUrl); }\n}\n` };
+  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl);" : "org.junit.Assert.assertNotNull(appUrl);"} }\n}\n` };
 }
 
 test("generated Java registration is immutable, candidate/revision-bound and requires current ACCEPT", async () => {
@@ -45,6 +45,13 @@ test("generated Java registration is immutable, candidate/revision-bound and req
     await assert.rejects(registerGeneratedJava(root, paused, candidate, javaOutput(candidate)), /requires ACCEPTED_FOR_IMPLEMENTATION/);
     assert.equal(await import("node:fs/promises").then(({ readdir }) => readdir(root).catch(() => [] as string[])).then((items) => items.length), 0,
       "no artifact may be written before current-revision ACCEPT");
+
+    const resetCandidate = { ...candidate, sourceReferences: [{ ...sourceReference, artifactPath: "experiments/expresscart/source/routes/customer.js" }] };
+    const resetAccepted = acceptedWorkflow(resetCandidate);
+    await assert.rejects(registerGeneratedJava(root, resetAccepted, resetAccepted.candidate!, javaOutput(resetCandidate)), /source-specific Page Object/);
+    assert.equal(await import("node:fs/promises").then(({ readdir }) => readdir(root).catch(() => [] as string[])).then((items) => items.length), 0,
+      "a reset-token test that bypasses the approved Page Object cannot be registered");
+    assert.doesNotThrow(() => validateGeneratedJavaContract(javaOutput(resetAccepted.candidate!, true), expectedGeneratedTestClass(resetCandidate), "CustomerPasswordResetPage"));
 
     const accepted = acceptedWorkflow(candidate);
     const generated = await fakeProvider.generateJava(accepted.candidate!, accepted);

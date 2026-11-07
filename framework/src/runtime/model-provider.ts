@@ -16,6 +16,8 @@ const JavaOutput = z.object({ javaSource: z.string().min(1).max(30_000), testCla
 
 export type GenerationOutput = z.infer<typeof ModelOutput>;
 export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
+export function parseGenerationOutput(input: unknown): GenerationOutput { return ModelOutput.parse(input); }
+export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { return JavaOutput.parse(input); }
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
 export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
@@ -23,17 +25,19 @@ export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; read
 
 export function classifyModelError(error: unknown): string {
   const message = error instanceof Error ? error.message.toLowerCase() : "unknown";
-  if (/\btimeout\b|timed out/.test(message)) return "TIMEOUT";
+  if (/\btimeout\b|timed out|_timeout\b/.test(message)) return "TIMEOUT";
   if (/api_key_invalid|invalid api key|\b401\b|\b403\b|unauthorized|permission denied/.test(message)) return "AUTHORIZATION";
   if (/\b429\b|rate[\s_-]+limit|quota|resource_exhausted/.test(message)) return "RATE_LIMIT";
   if (message.includes("validation") || message.includes("schema")) return "OUTPUT_SCHEMA";
   return "PROVIDER_ERROR";
 }
 
-function invokeWithTimeout<T>(invoke: () => Promise<T>, timeoutMs: number): Promise<T> {
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  return Promise.race([invoke(), new Promise<never>((_, reject) => { timer = setTimeout(() => reject(new Error("MODEL_TIMEOUT")), timeoutMs); })])
-    .finally(() => { if (timer) clearTimeout(timer); });
+export function invokeWithTimeout<T>(invoke: (signal: AbortSignal) => Promise<T>, timeoutMs: number): Promise<T> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return Promise.race([Promise.resolve().then(() => invoke(controller.signal)), new Promise<never>((_, reject) => {
+    controller.signal.addEventListener("abort", () => reject(new Error("MODEL_TIMEOUT")), { once: true });
+  })]).finally(() => clearTimeout(timer));
 }
 
 function usageNumber(value: unknown, keys: string[]): number | undefined {
@@ -44,12 +48,13 @@ function usageNumber(value: unknown, keys: string[]): number | undefined {
 }
 
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
-export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string): void {
+export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string): void {
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
   if (!/^\s*package\s+tests\s*;/m.test(output.javaSource)) throw new Error("generated Java must use the approved tests package");
   if (!new RegExp(`\\bclass\\s+${output.testClass}\\b`).test(output.javaSource)) throw new Error("generated Java must declare the returned class name");
   if (!/extends\s+BaseTest\b/.test(output.javaSource)) throw new Error("generated Java must extend the suite BaseTest");
   if (!/@Test\b/.test(output.javaSource)) throw new Error("generated Java must contain a JUnit test method");
+  if (requiredPageObject && (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(requiredPageObject) || !new RegExp(`\\bnew\\s+${requiredPageObject}\\s*\\(`).test(output.javaSource))) throw new Error("generated Java must use the approved source-specific Page Object API");
   if (/\b(?:Runtime\.getRuntime\(\)\.exec|new\s+ProcessBuilder)\b/.test(output.javaSource)) throw new Error("generated Java must not spawn arbitrary processes");
   if (/\b(?:java\.net\.http|HttpClient|MongoClient|java\.sql\.|DriverManager|RestAssured|OkHttpClient)\b/.test(output.javaSource)) throw new Error("generated Java must not bypass browser interaction through API or database clients");
 }
@@ -61,7 +66,7 @@ export class FakeGenerationProvider implements GenerationProvider {
   async generate(request: GenerationRequest): Promise<GenerationOutput> {
     const first = request.gaps[0];
     if (!first) throw new Error("coverage analysis supplied no grounded gaps");
-    return ModelOutput.parse({
+    return parseGenerationOutput({
       gherkin: `Feature: ${first.behavior}\n\n  Scenario: Verify ${first.behavior.toLowerCase()}\n    Given the application is running in an isolated test environment\n    When the documented behavior is exercised\n    Then the observed result matches the approved oracle`,
       preconditions: ["The isolated application fixture is available."],
       oracle: [`Observe the outcome for: ${first.behavior}`],
@@ -77,7 +82,7 @@ export class FakeJavaGenerationProvider implements JavaGenerationProvider {
   async generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState): Promise<GeneratedJavaOutput> {
     assertCanGenerateJava(workflow, candidate);
     const testClass = expectedGeneratedTestClass(candidate);
-    const output = JavaOutput.parse({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { Assert.assertNotNull(appUrl); }\n}\n` });
+    const output = parseGeneratedJavaOutput({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { Assert.assertNotNull(appUrl); }\n}\n` });
     validateGeneratedJavaContract(output, testClass);
     return output;
   }
@@ -87,7 +92,7 @@ export class FakeJavaGenerationProvider implements JavaGenerationProvider {
 export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   readonly name = "Gemini" as const;
   lastTelemetry: ModelTelemetry = { provider: "Gemini", model: "unavailable", calls: 0, attempts: 0, elapsedMs: 0, status: "NOT_RUN", estimatedMaxCostUsd: 0 };
-  private readonly modelClient: { invoke(input: string): Promise<unknown> };
+  private readonly modelClient: { invoke(input: string, options?: { signal?: AbortSignal }): Promise<unknown> };
   private used = false;
   private readonly timeoutMs: number;
   private readonly maxOutputTokens: number;
@@ -112,7 +117,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     const context = approvedImplementationContext.slice(0, 8).map((item) => item.slice(0, 1_000));
     const prompt = [
       "Implement exactly one Java Selenium/JUnit test from this accepted candidate. Do not claim any test has run.",
-      "Use package tests, extend the existing BaseTest, use only APIs/selectors demonstrated in the supplied approved source context, and interact through the browser UI.",
+      "Use package tests, extend the existing BaseTest, use only APIs/selectors demonstrated in the supplied approved source context, and interact through the browser UI. When the approved source context provides a Page Object for this behavior, call its documented API instead of implementing selectors in the test.",
       "Do not use direct HTTP/API/database access, credentials, process execution, arbitrary build commands, or weaken the accepted oracle.",
       `The required simple class name is exactly ${expectedClass}. Return only javaSource and testClass.`,
       JSON.stringify({ candidate: { candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
@@ -128,9 +133,10 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     this.used = true;
     const startedAt = Date.now();
     try {
-      const response = await invokeWithTimeout(() => this.modelClient.invoke(prompt), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
-      const output = JavaOutput.parse(response.parsed);
-      validateGeneratedJavaContract(output, expectedClass);
+      const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
+      const output = parseGeneratedJavaOutput(response.parsed);
+      const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
+      validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
       const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
@@ -151,7 +157,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
 export class GeminiGenerationProvider implements GenerationProvider {
   readonly name = "Gemini" as const;
   lastTelemetry: ModelTelemetry = { provider: "Gemini", model: "unavailable", calls: 0, attempts: 0, elapsedMs: 0, status: "NOT_RUN", estimatedMaxCostUsd: 0 };
-  private readonly modelClient: { invoke(input: string): Promise<unknown> };
+  private readonly modelClient: { invoke(input: string, options?: { signal?: AbortSignal }): Promise<unknown> };
   private used = false;
   private readonly maxOutputTokens: number;
   private readonly costCeilingUsd: number;
@@ -189,8 +195,8 @@ export class GeminiGenerationProvider implements GenerationProvider {
       throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
     }
     try {
-      const response = await invokeWithTimeout(() => this.modelClient.invoke(prompt), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
-      const output = ModelOutput.parse(response.parsed);
+      const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
+      const output = parseGenerationOutput(response.parsed);
       const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);

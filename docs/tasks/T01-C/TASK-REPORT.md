@@ -6,10 +6,11 @@
 
 ## Implemented
 
-- LangGraph T01-C CLI wires pinned coverage analysis, Gemini Gherkin generation, human review, post-ACCEPT Java generation, registry, adapter compile/fixture/Selenium/cleanup, and structured validation: `framework/src/t01c-cli.ts`, `framework/src/runtime/workflow.ts`, `framework/src/runtime/model-provider.ts`.
+- LangGraph T01-C CLI wires pinned coverage analysis, Gemini Gherkin generation, human review, post-ACCEPT Java generation, registry, adapter compile/fixture/Selenium/cleanup, and structured validation: `framework/src/t01c-cli.ts`, `framework/src/runtime/workflow.ts`, `framework/src/runtime/model-provider.ts`. Review packets include persisted coverage gaps; REVISE emits a fresh packet bound to the new revision/checkpoint.
 - Source-backed coverage analysis is in `framework/src/runtime/coverage-analysis.ts`; ExpressCart pinned-source identity is checked through `adapters/expresscart/source-identity.ts` and manifest `config/apps/expresscart.json`.
+- Coverage evidence now records behavioral category, exact-tag baseline comparison, conservative candidate confidence, uncertainty, source references and rationale. The review CLI includes that persisted evidence, and emits a fresh revision/checkpoint-bound packet after REVISE.
 - Generated class identity and immutable registration are implemented in `framework/src/runtime/java-class.ts` and `framework/src/runtime/java-artifact-registry.ts`. Registration is tied to current accepted candidate/revision/source and uses exclusive creation.
-- The generated-test harness (`adapters/expresscart/generated-test-harness.ts`) copies only the Maven manifest, approved `BaseTest`, and exact registered generated class into an isolated workspace. Adapter compile and Selenium methods are in `adapters/expresscart/experiment.ts`.
+- The generated-test harness (`adapters/expresscart/generated-test-harness.ts`) copies the Maven manifest, existing `PageObject` base, source-grounded `CustomerPasswordResetPage`, approved `BaseTest`, and exact registered generated class into an isolated workspace. Adapter compile and Selenium methods are in `adapters/expresscart/experiment.ts`.
 - Validation distinctions and provenance are represented by `parseValidationResult` in `framework/src/contracts.ts`; technical eligibility is separate from oracle/novelty and research acceptance.
 - The model run ledger is append-only and fail-closed across retries/restarts; the CLI requires explicit live authorization flags. No model API was called in this continuation.
 
@@ -19,13 +20,13 @@ The initial live attempt was rejected before invocation by automatic review. The
 
 ## Verification and limits
 
-- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 31/31. Logs: `evidence/verification/rerun-20261108-final/`.
-- ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final/expresscart-agent-unit.txt`).
-- `test/integration/t01c-offline-approved-java-pipeline.test.ts`: PASS, 1/1; actual Maven `test-compile` PASS in a temporary isolated workspace. Test log: `evidence/verification/rerun-20261108-final/t01c-offline-pipeline.txt`; latest compile detail: `evidence/t01c-offline-approved-5b8cef71-c34e-45c0-a7fe-403fbe46a406/isolated-maven-compile.json`.
+- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 33/33. Latest build/unit logs: `evidence/verification/rerun-20261108-final-audit-3/`.
+- ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final-audit-3/expresscart-agent-unit.txt`).
+- Focused offline T01-C and shared workflow integration: PASS, 7/7, covering pause-before-effects, fake Java after test approval, actual Maven compile, REVISE/new checkpoint/ACCEPT, REJECT, replay protection, two repairs, and process restart. Log: `evidence/verification/rerun-20261108-final-audit-3/t01c-workflow-integration.txt`; latest Maven compile: `evidence/t01c-offline-approved-7c20bd27-28ee-409e-896b-b21f0f787c68/isolated-maven-compile.json`.
 - Full framework integration suite last captured 12 PASS / 4 FAIL / 1 SKIP: three symlink tests hit sandbox `EPERM`; ExpressCart lifecycle was BLOCKED on unavailable Docker/runtime; crash/replay remained skipped. Evidence: `evidence/verification/rerun-20261108/framework-integration.txt`.
-- ExpressCart Agent unit tests: previously captured 5/5 PASS at `evidence/verification/rerun-20261108/expresscart-agent-unit.txt`.
 
-No live candidate/checkpoint, Selenium, fixture mutation, cleanup proof, bounded repair, three-repeat validation, or research decision exists. Runtime filesystem adversarial realpath/symlink behavior remains unverified under this sandbox. Historical EC-C04 reuse remains separate from the generated-artifact path. See `GENERATED-JAVA-RESULTS.md`, `VALIDATION-AND-REPAIR-RESULTS.md`, and `TEST-RESULTS.md`.
+
+No live candidate/checkpoint, Selenium, fixture mutation, cleanup proof, live bounded repair, three-repeat validation, or research decision exists. Offline bounded repair and revision/reject/replay behaviors pass in shared-workflow tests. No baseline reset-token Page Object existed; a source-grounded adapter Page Object is now staged by the isolated harness and still awaits a real Gemini Java call and Selenium run. Runtime filesystem adversarial realpath/symlink behavior remains unverified under this sandbox. Historical EC-C04 reuse remains separate from the generated-artifact path. See `SOURCE-REUSE-AND-GAPS.md`, `COVERAGE-AND-CANDIDATE-RESULTS.md`, `HUMAN-REVIEW-RESULTS.md`, `GENERATED-JAVA-RESULTS.md`, `VALIDATION-AND-REPAIR-RESULTS.md`, and `TEST-RESULTS.md`.
 
 ## Scope and handoff
 

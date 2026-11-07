@@ -24,7 +24,7 @@ function workspaceRelativePath(runId: string, invocationId: string): string {
   return `.local-state/t01c-maven/${sha256(runId).slice(0, 20)}/${sha256(invocationId).slice(0, 20)}`;
 }
 
-/** Stage only the existing POM/BaseTest and the exact registered generated class; historical tests are excluded. */
+/** Stage existing POM/BaseTest/PageObject foundation, reset-page adapter and exact registered test class. */
 export async function createIsolatedExpressCartWorkspace(
   repositoryRoot: string,
   manifestInput: ApplicationManifest,
@@ -40,21 +40,29 @@ export async function createIsolatedExpressCartWorkspace(
   const suiteRoot = manifest.baseSuitePath;
   const pom = await readFile(await resolveContainedExistingPath(repositoryRoot, `${suiteRoot}/pom.xml`));
   const baseTest = await readFile(await resolveContainedExistingPath(repositoryRoot, `${suiteRoot}/src/test/java/tests/BaseTest.java`));
+  const pageObjectBase = await readFile(await resolveContainedExistingPath(repositoryRoot, `${suiteRoot}/src/main/java/po/PageObject.java`));
+  const resetPageObject = await readFile(await resolveContainedExistingPath(repositoryRoot, "adapters/expresscart/java/CustomerPasswordResetPage.java"));
   const workspace = workspaceRelativePath(workflow.runId, invocationId);
   const workspaceAbsolute = await ensureContainedDirectory(repositoryRoot, workspace);
+  await ensureContainedDirectory(repositoryRoot, `${workspace}/src/main/java/po`);
   await ensureContainedDirectory(repositoryRoot, `${workspace}/src/test/java/tests`);
   const generatedSource = await readFile(registered.absolutePath);
   const pomPath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/pom.xml`);
+  const pageObjectBasePath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/src/main/java/po/PageObject.java`);
+  const resetPageObjectPath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/src/main/java/po/CustomerPasswordResetPage.java`);
   const baseTestPath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/src/test/java/tests/BaseTest.java`);
   const generatedPath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/src/test/java/tests/${artifact.testClass.slice("tests.".length)}.java`);
   await writeFile(pomPath, pom, { flag: "wx" });
+  await writeFile(pageObjectBasePath, pageObjectBase, { flag: "wx" });
+  await writeFile(resetPageObjectPath, resetPageObject, { flag: "wx" });
   await writeFile(baseTestPath, baseTest, { flag: "wx" });
   await writeFile(generatedPath, generatedSource, { flag: "wx" });
   const metadata = {
     schemaVersion: "1.0.0", appId: "expresscart", sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion,
     runId: workflow.runId, invocationId, candidateId: candidate.candidateId, candidateRevision: candidate.revision,
     testClass: registered.registration.testClass, generatedArtifactPath: artifact.path, generatedArtifactSha256: artifact.sha256,
-    pomSha256: sha256(pom), baseTestSha256: sha256(baseTest), copiedFiles: ["pom.xml", "src/test/java/tests/BaseTest.java", `src/test/java/tests/${artifact.testClass.slice("tests.".length)}.java`],
+    pomSha256: sha256(pom), baseTestSha256: sha256(baseTest), pageObjectBaseSha256: sha256(pageObjectBase), resetPageObjectSha256: sha256(resetPageObject),
+    copiedFiles: ["pom.xml", "src/main/java/po/PageObject.java", "src/main/java/po/CustomerPasswordResetPage.java", "src/test/java/tests/BaseTest.java", `src/test/java/tests/${artifact.testClass.slice("tests.".length)}.java`],
     excludedHistoricalTests: true, noApplicationSourceCopied: true,
   };
   const metadataPath = await resolveContainedOutputPath(repositoryRoot, `${workspace}/workspace-owner.json`);

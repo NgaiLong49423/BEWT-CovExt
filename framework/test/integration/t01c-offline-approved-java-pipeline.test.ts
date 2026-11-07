@@ -56,8 +56,14 @@ test("offline LangGraph path pauses before effects, then uses fake Java only aft
   const runId = `t01c-offline-approved-${randomUUID()}`;
   const suite = join(root, manifest.baseSuitePath);
   await mkdir(join(suite, "src/test/java/tests"), { recursive: true });
+  await mkdir(join(suite, "src/main/java/po"), { recursive: true });
+  await mkdir(join(root, "adapters/expresscart/java"), { recursive: true });
   await writeFile(join(suite, "pom.xml"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "pom.xml")));
   await writeFile(join(suite, "src/test/java/tests/BaseTest.java"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "src/test/java/tests/BaseTest.java")));
+  await writeFile(join(suite, "src/main/java/po/PageObject.java"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "src/main/java/po/PageObject.java")));
+  const resetPageObject = await readFile(join(repositoryRoot, "adapters/expresscart/java/CustomerPasswordResetPage.java"));
+  await writeFile(join(suite, "src/main/java/po/CustomerPasswordResetPage.java"), resetPageObject);
+  await writeFile(join(root, "adapters/expresscart/java/CustomerPasswordResetPage.java"), resetPageObject);
   const services: RuntimeServices = {
     readBaseline: async () => baseline,
     analyzeCoverage: async () => [gap],
@@ -100,7 +106,7 @@ test("offline LangGraph path pauses before effects, then uses fake Java only aft
 
     const checkpoint = state.workflow.checkpoint!;
     state = await app.invoke(resumeReview(state, initial.runId, checkpoint.checkpointId, "ACCEPT", "Synthetic test-only authorization of the current fake candidate."), config) as RuntimeState;
-    assert.equal(state.workflow.status, "EXECUTION_COMPLETED");
+    assert.equal(state.workflow.status, "EXECUTION_COMPLETED", JSON.stringify(state.terminalError));
     assert.equal(state.workflow.candidate?.reviewStatus, "ACCEPTED_FOR_IMPLEMENTATION");
     assert.equal(state.generatedArtifact?.origin, "GENERATED");
     assert.equal(state.validation?.compile.outcome, "PASS");

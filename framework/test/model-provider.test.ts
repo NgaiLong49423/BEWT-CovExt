@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, newCandidateId, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -27,6 +27,20 @@ test("model error classifier does not mistake generateContent for rate limiting"
   assert.equal(classifyModelError(new Error("network failure calling generateContent")), "PROVIDER_ERROR");
 });
 
+test("structured generation parser rejects incomplete model output", () => {
+  assert.throws(() => parseGenerationOutput({ gherkin: "Scenario: missing metadata" }));
+});
+
+test("model timeout aborts the in-flight invocation and classifies as TIMEOUT", async () => {
+  let observedSignal: AbortSignal | undefined;
+  await assert.rejects(invokeWithTimeout((signal) => {
+    observedSignal = signal;
+    return new Promise<never>(() => {});
+  }, 5), /MODEL_TIMEOUT/);
+  assert.equal(observedSignal?.aborted, true);
+  assert.equal(classifyModelError(new Error("MODEL_TIMEOUT")), "TIMEOUT");
+});
+
 test("generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution", () => {
   const source = { javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() {} }", testClass: "GeneratedTest" };
   assert.doesNotThrow(() => validateGeneratedJavaContract(source));
@@ -36,6 +50,8 @@ test("generated Java contract binds the declared class, BaseTest, and JUnit and 
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest { @Test void behavior() {} }" }), /extend the suite BaseTest/);
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Runtime.getRuntime().exec(\"mvn\"); } }" }), /spawn arbitrary processes/);
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new MongoClient(); } }" }), /bypass browser interaction/);
+  assert.throws(() => validateGeneratedJavaContract(source, undefined, "CustomerPasswordResetPage"), /source-specific Page Object/);
+  assert.doesNotThrow(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new CustomerPasswordResetPage(driver, appUrl); } }" }, undefined, "CustomerPasswordResetPage"));
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {
