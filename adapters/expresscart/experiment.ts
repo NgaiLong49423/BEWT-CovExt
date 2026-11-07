@@ -1,9 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { lstat, readFile, writeFile, readdir, stat, mkdir } from "node:fs/promises";
-import { join, resolve } from "node:path";
+import { join, relative, resolve } from "node:path";
 import { homedir, userInfo } from "node:os";
 import { parseApplicationManifest, parseBaselineInventory, parseCandidateScenario, parseToolResult, parseValidationResult, type AgentWorkflowState, type ApplicationManifest, type ApplicationAdapter, type BaselineInventory, type CandidateScenario, type EvidenceReference, type GeneratedJavaArtifact, type ToolName, type ToolResult, type ValidationResult } from "../../framework/src/contracts.js";
-import { assertBaselineMatchesManifest } from "../../framework/src/policy.js";
+import { assertBaselineMatchesManifest, assertHumanApprovedCandidate } from "../../framework/src/policy.js";
 import { canonicalGherkin, parseGherkin } from "../../framework/src/runtime/gherkin.js";
 import { FixedToolDispatcher, type FixedToolImplementations } from "../../framework/src/runtime/tool-dispatcher.js";
 import { runFixedMaven } from "../../framework/src/runtime/maven-command.js";
@@ -11,6 +11,7 @@ import { runFixedProcess } from "../../framework/src/runtime/process.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "../../framework/src/runtime/safe-path.js";
 import { sanitizeToolOutput } from "../../framework/src/contracts.js";
 import { verifyExpressCartSourceInputs, verifyObservedImageIds } from "./source-identity.js";
+import { compileIsolatedExpressCartWorkspace, createIsolatedExpressCartWorkspace, runRegisteredExpressCartSelenium, type IsolatedExpressCartWorkspace } from "./generated-test-harness.js";
 
 const SOURCE_COMMIT = "b31302f4e99c3293bd742c6d076a721e168118b0";
 const SOURCE_VERSION = "1.1.19";
@@ -21,12 +22,22 @@ const CLASS_BY_CANDIDATE: Readonly<Record<string, string>> = { "EC-C04": "tests.
 const STAGE_NAMES = ["compile", "fixture", "e2e", "cleanup"] as const;
 
 type Stage = (typeof STAGE_NAMES)[number];
-interface ActiveRun { workflowRunId: string; invocationId: string; project: string; composePath: string; composeSha256?: string; baseUrl?: string; fixtureEmail?: string; evidence: string[]; }
+interface ActiveRun { workflowRunId: string; invocationId: string; project: string; composePath: string; composeSha256?: string; baseUrl?: string; fixtureEmail?: string; fixtureKind?: "legacy-ec-c04" | "invalid-reset-token"; generatedWorkspace?: IsolatedExpressCartWorkspace; evidence: string[]; }
 function invocationId(state: AgentWorkflowState): string { return state.validationInvocationId ?? state.runId; }
-function evidenceDirectory(state: AgentWorkflowState): string { return `docs/tasks/T01-B/evidence/${state.runId}/invocations/${invocationId(state)}`; }
+function evidenceDirectory(state: AgentWorkflowState): string {
+  const taskRoot = state.runId.startsWith("t01c-") ? "docs/tasks/T01-C/evidence" : "docs/tasks/T01-B/evidence";
+  return `${taskRoot}/${state.runId}/invocations/${invocationId(state)}`;
+}
 
 function sha256(value: string | Buffer): string { return createHash("sha256").update(value).digest("hex"); }
 function uuid(): string { return randomUUID(); }
+export function resolveExpressCartFixtureProfile(candidate: CandidateScenario): "legacy-ec-c04" | "invalid-reset-token" {
+  if (candidate.candidateId === "EC-C04") return "legacy-ec-c04";
+  const hasPinnedResetRoute = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js" &&
+    reference.repositoryCommit === SOURCE_COMMIT && reference.sourceVersion === SOURCE_VERSION);
+  if (hasPinnedResetRoute && /reset/i.test(candidate.gherkin) && /token/i.test(candidate.gherkin) && /invalid|expired/i.test(candidate.gherkin)) return "invalid-reset-token";
+  throw new Error("no approved ExpressCart fixture profile matches this candidate's pinned behavior and source evidence");
+}
 function outcomeResult(tool: ToolName, outcome: ToolResult["outcome"], stdout = "", stderr = "", exitCode?: number, evidence: EvidenceReference[] = []): ToolResult {
   return parseToolResult({ tool, outcome, stdout, stderr, ...(exitCode === undefined ? {} : { exitCode }), evidence });
 }
@@ -114,9 +125,12 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
 
   async prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult> {
     if (experimentKey !== this.manifest.fixtureReset.experimentKey) throw new Error("experiment ownership key mismatch");
-    if (candidate.candidateId !== "EC-C04") throw new Error("this ExpressCart fixture adapter only implements the reviewed EC-C04 precondition");
+    assertHumanApprovedCandidate(state, candidate);
+    const fixtureKind = resolveExpressCartFixtureProfile(candidate);
+    const legacyCandidate = fixtureKind === "legacy-ec-c04";
     const invocation = invocationId(state);
     const run = await this.getOrCreateRun(state.runId, invocation);
+    run.fixtureKind = fixtureKind;
     try {
       await this.writeRunEvidence(state, "source-identity.json", JSON.stringify(await verifyExpressCartSourceInputs(this.repositoryRoot, this.manifest), null, 2));
       await verifyObservedImageIds(this.manifest, async (image) => {
@@ -131,7 +145,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       await writeFile(composePath, JSON.stringify(compose, null, 2), { flag: "wx" });
       run.composePath = composePath;
       run.composeSha256 = sha256(await readFile(composePath));
-      await this.writeRunEvidence(state, "owner.json", JSON.stringify({ workflowRunId: state.runId, invocationId: invocation, project: run.project, composeFile: composeRelative, composeSha256: run.composeSha256, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, candidateId: candidate.candidateId, candidateRevision: candidate.revision, ownedResourcesOnly: true }, null, 2));
+      await this.writeRunEvidence(state, "owner.json", JSON.stringify({ workflowRunId: state.runId, invocationId: invocation, project: run.project, composeFile: composeRelative, composeSha256: run.composeSha256, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, candidateId: candidate.candidateId, candidateRevision: candidate.revision, fixtureKind: run.fixtureKind, ownedResourcesOnly: true }, null, 2));
       const config = await this.compose(run, ["config", "--format", "json"]);
       if (config.exitCode !== 0 || !this.validateComposeConfig(config.stdout, run.project)) throw new Error("isolated Compose configuration did not match the run project and service set");
       const started = await this.compose(run, ["up", "-d", "--pull", "never", "--no-build"]);
@@ -142,17 +156,91 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       run.baseUrl = `http://127.0.0.1:${port}`;
       await this.waitUntilReady(run.baseUrl);
       const email = `${uuid()}@example.invalid`;
-      const query = `print(db.getSiblingDB('expresscart_experiment').customers.countDocuments({email:${JSON.stringify(email)}}))`;
-      const preflight = await this.compose(run, ["exec", "-T", "mongo", "mongo", "--quiet", "--eval", query]);
-      if (preflight.exitCode !== 0 || preflight.stdout.trim().split(/\s+/).at(-1) !== "0") throw new Error("fresh EC-C04 fixture address absence could not be verified in the run-scoped Mongo database");
+      let mongoCustomerMatchCountBefore: number | undefined;
+      if (legacyCandidate) {
+        const query = `print(db.getSiblingDB('expresscart_experiment').customers.countDocuments({email:${JSON.stringify(email)}}))`;
+        const preflight = await this.compose(run, ["exec", "-T", "mongo", "mongo", "--quiet", "--eval", query]);
+        if (preflight.exitCode !== 0 || preflight.stdout.trim().split(/\s+/).at(-1) !== "0") throw new Error("fresh EC-C04 fixture address absence could not be verified in the run-scoped Mongo database");
+        mongoCustomerMatchCountBefore = 0;
+      }
       run.fixtureEmail = email;
-      const fixture = { runId: state.runId, project: run.project, appUrl: run.baseUrl, mongoCustomerMatchCountBefore: 0, emailSha256: sha256(email), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, emailStored: false };
+      const fixture = { runId: state.runId, project: run.project, appUrl: run.baseUrl, fixtureKind: run.fixtureKind,
+        ...(mongoCustomerMatchCountBefore === undefined ? {} : { mongoCustomerMatchCountBefore }), emailSha256: sha256(email),
+        sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, emailStored: false, databaseModified: false };
       const evidence = await this.writeRunEvidence(state, "fixture-preflight.json", JSON.stringify({ ...fixture, invocationId: invocation }, null, 2));
-      return outcomeResult("prepare-fixture", "PASS", "App readiness and exact email-absence preflight passed.", "", 0, [this.evidenceRef(invocation, evidence)]);
+      return outcomeResult("prepare-fixture", "PASS", run.fixtureKind === "legacy-ec-c04" ? "App readiness and exact email-absence preflight passed." : "App readiness passed; invalid reset token requires no customer mutation.", "", 0, [this.evidenceRef(invocation, evidence)]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "fixture setup failed";
       const evidence = await this.writeRunEvidence(state, "fixture-blocked.json", JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: isBlocked(error) ? "BLOCKED" : "FAIL", error: sanitizeToolOutput(message), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION }, null, 2));
       return outcomeResult("prepare-fixture", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(invocation, evidence)]);
+    }
+  }
+
+  /** Compile a registered new artifact in the isolated T01-C workspace, excluding historical tests. */
+  async compileGenerated(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult> {
+    try {
+      assertHumanApprovedCandidate(state, candidate);
+      if (artifact.origin !== "GENERATED" || artifact.candidateId !== candidate.candidateId || artifact.revision !== candidate.revision) throw new Error("compile requires the newly generated artifact for the approved candidate revision");
+      const invocation = invocationId(state);
+      const run = await this.getOrCreateRun(state.runId, invocation);
+      const workspace = await createIsolatedExpressCartWorkspace(this.repositoryRoot, this.manifest, state, candidate, artifact, invocation);
+      run.generatedWorkspace = workspace;
+      const result = await compileIsolatedExpressCartWorkspace(workspace);
+      const evidence = await this.writeRunEvidence(state, "generated-java-compile.json", JSON.stringify({ runId: state.runId, invocationId: invocation,
+        candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: state.sourceCommit, sourceVersion: state.sourceVersion,
+        generatedArtifactPath: artifact.path, generatedArtifactSha256: artifact.sha256, workspaceOwner: workspace.metadataPath,
+        origin: "GENERATED", outcome: result.exitCode === 0 ? "PASS" : "FAIL", exitCode: result.exitCode, durationMs: result.durationMs,
+        stdout: sanitizeToolOutput(result.stdout), stderr: sanitizeToolOutput(result.stderr) }, null, 2));
+      return outcomeResult("compile-maven-project", result.exitCode === 0 ? "PASS" : "FAIL", sanitizeToolOutput(result.stdout), sanitizeToolOutput(result.stderr), result.exitCode,
+        [this.evidenceRef(invocation, evidence)]);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "isolated Maven compilation could not start";
+      return outcomeResult("compile-maven-project", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message));
+    }
+  }
+
+  /** Run only the hash-verified registered class from the isolated workspace after fixture PASS. */
+  async runGeneratedSelenium(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult> {
+    const invocation = invocationId(state);
+    const run = this.runs.get(invocation);
+    if (!run?.baseUrl || !run.fixtureEmail || !run.generatedWorkspace) return outcomeResult("run-selenium-test", "BLOCKED", "", "Generated candidate fixture or isolated compiled workspace is unavailable.");
+    try {
+      assertHumanApprovedCandidate(state, candidate);
+      const seleniumDirectory = await ensureContainedDirectory(this.repositoryRoot, `${evidenceDirectory(state)}/selenium-generated`);
+      const junitDirectory = await ensureContainedDirectory(this.repositoryRoot, `${evidenceDirectory(state)}/junit-generated`);
+      const driver = await this.findCompatibleChromeDriver();
+      const driverEvidence = await this.writeRunEvidence(state, "generated-webdriver-pin.json", JSON.stringify({ browserVersion: driver.version, driverVersion: driver.version,
+        driverSha256: driver.sha256, browserPathSha256: sha256(driver.browserPath), origin: "existing installed Chrome and cached ChromeDriver", driverPathPersisted: false }, null, 2));
+      const options = { baseUrl: run.baseUrl, evidenceDirectory: seleniumDirectory, mavenBuildDirectory: join(run.generatedWorkspace.path, "target"),
+        unregisteredEmail: run.fixtureEmail, chromeDriverPath: driver.path, chromeBinaryPath: driver.browserPath };
+      const startedAt = Date.now();
+      const result = await runRegisteredExpressCartSelenium(this.repositoryRoot, this.manifest, state, candidate, artifact, run.generatedWorkspace, options);
+      const logsPath = await this.writeRunEvidence(state, "generated-selenium-console.log", sanitizeToolOutput(`${result.stdout}\n${result.stderr}`));
+      const reportPath = join(run.generatedWorkspace.path, "target", "surefire-reports", `TEST-${artifact.testClass}.xml`);
+      let report = "";
+      try { report = await readFile(await resolveContainedExistingPath(this.repositoryRoot, relative(this.repositoryRoot, reportPath).replaceAll("\\", "/")), "utf8"); } catch { /* no report means inconclusive */ }
+      const sanitizedReport = report ? sanitizeJUnitEvidence(report) : "";
+      let junitEvidence: EvidenceReference[] = [];
+      if (sanitizedReport) {
+        const relative = `${evidenceDirectory(state)}/junit-generated/TEST-${artifact.testClass}.xml`;
+        const target = await resolveContainedOutputPath(this.repositoryRoot, relative);
+        await writeFile(target, sanitizedReport, { flag: "wx" });
+        junitEvidence = [this.evidenceRef(`${invocation}-e2e`, relative)];
+      }
+      const outcome = result.exitCode === 0 && sanitizedReport && /failures="0"/.test(sanitizedReport) && /errors="0"/.test(sanitizedReport)
+        ? "PASS" : report ? "FAIL" : "INCONCLUSIVE";
+      const classificationPath = await this.writeRunEvidence(state, "generated-selenium-classification.json", JSON.stringify({ outcome,
+        classification: outcome === "PASS" ? "E2E_PASS" : outcome === "FAIL" ? "SELENIUM_ASSERTION_OR_TEST_FAILURE" : "JUNIT_REPORT_MISSING",
+        exitCode: result.exitCode, durationMs: Date.now() - startedAt, registeredTestClass: artifact.testClass,
+        candidateId: candidate.candidateId, revision: candidate.revision, driverVersion: driver.version }, null, 2));
+      const logsRef = this.evidenceRef(`${invocation}-e2e`, logsPath);
+      return outcomeResult("run-selenium-test", outcome, sanitizeToolOutput(result.stdout), sanitizeToolOutput(result.stderr), result.exitCode,
+        [logsRef, ...junitEvidence, this.evidenceRef(`${invocation}-e2e`, driverEvidence), this.evidenceRef(`${invocation}-e2e`, classificationPath)]);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "generated Selenium execution failed";
+      const evidence = await this.writeRunEvidence(state, "generated-selenium-error.json", JSON.stringify({ outcome: isBlocked(error) ? "BLOCKED" : "FAIL",
+        error: sanitizeToolOutput(message), candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: state.sourceCommit, sourceVersion: state.sourceVersion }, null, 2));
+      return outcomeResult("run-selenium-test", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(`${invocation}-e2e`, evidence)]);
     }
   }
 

@@ -1,47 +1,32 @@
-# T01-C — Real AI-Generated Gherkin & Selenium Through LangGraph
+# T01-C — Model-Backed Gherkin and Generated Java Pipeline
 
 ## Status
 
-**BLOCKED_INVALID_GEMINI_CREDENTIALS_AND_INCOMPLETE_IMPLEMENTATION — implementation is not complete.** The initial launch was rejected by automatic review. After the user explicitly authorized the pinned source/baseline/research payload, one bounded Gemini request was sent and returned HTTP 400 `API_KEY_INVALID`. No retry, candidate or review checkpoint resulted. Java artifact generation/registration and end-to-end validation also remain incomplete. This report does not claim G2, D1, G3, or VALIDATED.
+**BLOCKED: live model credential and runtime verification are unresolved.** The one explicitly authorized Gemini Gherkin request returned HTTP 400 `API_KEY_INVALID`; the request allowance was consumed, with no retry. A code-backed offline path now reaches actual isolated Maven compilation using synthetic test output. This is implementation evidence, not a live study result. No G2, D1, or VALIDATED claim is made, and T02 has not started.
 
-## Completed in this worktree
+## Implemented
 
-- Added a structured Gherkin provider contract, Java output schema/static guard (not a Java generation provider), an explicitly synthetic offline provider, and a Gemini Gherkin provider requiring explicit `authorized: true` before construction. See `framework/src/runtime/model-provider.ts`.
-- Added a source-claim analyzer prototype that compares explicit behavior IDs with baseline tags and historic proposal IDs, emitting `INSUFFICIENT_EVIDENCE` for duplicate or incorrectly pinned claims. It is not yet wired to repository inventory collection.
-- Added a static generated-Java contract requiring declared class binding, suite `BaseTest`, and JUnit `@Test`, and rejecting direct process spawning. This is not a Java compile or artifact-isolation proof.
-- Added in-memory Gemini call/attempt/latency/status telemetry and bounded error categories; token usage and durable telemetry persistence remain incomplete.
-- Added tests for offline output pins/PROPOSED status and fail-closed live-model authorization in `framework/test/model-provider.test.ts`.
-- Initial offline verification is retained in `evidence/verification/`; latest results are listed below. The offline LangGraph integration reaches a fresh review checkpoint and confirms no Java side effect before acceptance.
+- LangGraph T01-C CLI wires pinned coverage analysis, Gemini Gherkin generation, human review, post-ACCEPT Java generation, registry, adapter compile/fixture/Selenium/cleanup, and structured validation: `framework/src/t01c-cli.ts`, `framework/src/runtime/workflow.ts`, `framework/src/runtime/model-provider.ts`.
+- Source-backed coverage analysis is in `framework/src/runtime/coverage-analysis.ts`; ExpressCart pinned-source identity is checked through `adapters/expresscart/source-identity.ts` and manifest `config/apps/expresscart.json`.
+- Generated class identity and immutable registration are implemented in `framework/src/runtime/java-class.ts` and `framework/src/runtime/java-artifact-registry.ts`. Registration is tied to current accepted candidate/revision/source and uses exclusive creation.
+- The generated-test harness (`adapters/expresscart/generated-test-harness.ts`) copies only the Maven manifest, approved `BaseTest`, and exact registered generated class into an isolated workspace. Adapter compile and Selenium methods are in `adapters/expresscart/experiment.ts`.
+- Validation distinctions and provenance are represented by `parseValidationResult` in `framework/src/contracts.ts`; technical eligibility is separate from oracle/novelty and research acceptance.
+- The model run ledger is append-only and fail-closed across retries/restarts; the CLI requires explicit live authorization flags. No model API was called in this continuation.
 
-## Remaining blockers
+## Root cause and live request
 
-- The existing CLI still uses a historical EC-C04 feature and hardcoded one-candidate coverage description. `adapters/expresscart/experiment.ts` still binds execution to `tests.ForgottenPasswordTest` and returns a reused artifact. New provider is not wired into the LangGraph CLI, and generated Java is not registered or executed by the adapter.
-- The analyzer prototype is not wired to actual Gherkin, Base test, application source, and historic proposal readers; no new candidate or Java artifact has been generated.
-- Integration suite: 16 PASS, 1 SKIP; the skipped test is retained as a skip and is not counted as passing.
-- Live model: the first launch was blocked before process start, then the user explicitly authorized the source/baseline/research payload. One Gemini request was attempted; the provider returned HTTP 400 `API_KEY_INVALID`. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`.
+The initial live attempt was rejected before invocation by automatic review. The user then explicitly authorized one bounded request with pinned source/baseline/research payload (8,000 prompt characters, 2,000 output tokens, <=60 seconds, <=$0.02, no retries). Gemini returned `API_KEY_INVALID`; original evidence remains at `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`. A later classifier regression had mistaken `generateContent` for rate limiting; `framework/src/runtime/model-provider.ts` now uses bounded patterns and `framework/test/model-provider.test.ts` covers this. No live Java request was made. Any further external model request requires fresh authorization and a valid local credential.
 
-## Scope and safety
+## Verification and limits
 
-No Docker, ExpressCart source, BEWT original source, or historical Sprint evidence was edited. No live Gemini request, Maven execution, Selenium run, candidate acceptance, gate acceptance, or T02 work occurred. The eight-application / target-40 program scope remains intact.
+- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 31/31. Logs: `evidence/verification/rerun-20261108-final/`.
+- ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final/expresscart-agent-unit.txt`).
+- `test/integration/t01c-offline-approved-java-pipeline.test.ts`: PASS, 1/1; actual Maven `test-compile` PASS in a temporary isolated workspace. Test log: `evidence/verification/rerun-20261108-final/t01c-offline-pipeline.txt`; compile detail: `evidence/t01c-offline-approved-2156c0a6-fe0b-456a-be0a-b6df2b2a25eb/isolated-maven-compile.json`.
+- Full framework integration suite last captured 12 PASS / 4 FAIL / 1 SKIP: three symlink tests hit sandbox `EPERM`; ExpressCart lifecycle was BLOCKED on unavailable Docker/runtime; crash/replay remained skipped. Evidence: `evidence/verification/rerun-20261108/framework-integration.txt`.
+- ExpressCart Agent unit tests: previously captured 5/5 PASS at `evidence/verification/rerun-20261108/expresscart-agent-unit.txt`.
 
-## Evidence and handoff
+No live candidate/checkpoint, Selenium, fixture mutation, cleanup proof, bounded repair, three-repeat validation, or research decision exists. Runtime filesystem adversarial realpath/symlink behavior remains unverified under this sandbox. Historical EC-C04 reuse remains separate from the generated-artifact path. See `GENERATED-JAVA-RESULTS.md`, `VALIDATION-AND-REPAIR-RESULTS.md`, and `TEST-RESULTS.md`.
 
-- Branch: `feature/t01c-model-backed-generation`
-- Draft PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4
-- `evidence/verification/framework-build.txt`
-- `evidence/verification/framework-unit-summary.json`
-- `evidence/verification/expresscart-agent-unit-summary.json`
-- `evidence/verification/live-model-authorization.json`
+## Scope and handoff
 
-## Latest verification refresh (2026-11-08)
-
-- `framework` build: PASS (`evidence/verification/rerun-20261108/framework-build.txt`).
-- `framework` unit suite before the error-classifier regression fix: PASS, 27/27 (`evidence/verification/rerun-20261108/framework-unit.txt`).
-- ExpressCart Agent unit suite: PASS, 5/5 (`evidence/verification/rerun-20261108/expresscart-agent-unit.txt`).
-- Full framework integration suite: FAIL in this managed sandbox, 12 passed / 4 failed / 1 skipped (`evidence/verification/rerun-20261108/framework-integration.txt`). Three tests could not create symlinks due Windows sandbox `EPERM`; the actual adapter lifecycle test returned BLOCKED where its test expects PASS. The crash/replay Docker+Selenium test remains skipped. These outcomes must not be summarized as a passing integration suite.
-- Follow-up build and unit suite after the error-classifier fix: PASS, 28/28 (`evidence/verification/after-live-20261108/`).
-- The status/report update was pushed to the existing branch and PR #4. The integration-generated T01-B evidence directories were not staged.
-
-The single authorized Gemini API request was attempted and rejected by the provider as `API_KEY_INVALID`; telemetry/correction evidence is under `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`. The run consumed the one-request budget and was not retried. A follow-up static audit found that the error classifier mislabeled the response `RATE_LIMIT` because it matched the substring in `generateContent`; the classifier now uses bounded error patterns, and a regression test covers invalid keys, 429s and `generateContent` provider errors. The original run evidence remains unchanged; the correction is a separate append-only record. No candidate, checkpoint or Java artifact was produced. Live acceptance, post-ACCEPT Java generation, Maven and Selenium requirements remain unmet.
-
-The one-request budget is consumed; no retry is authorized by the current run approval. A new credential must be configured locally, then a new run requires a separately bounded authorization. Team Lead review is required before T02. This is a progress report; it does not self-accept a program gate.
+Program scope remains eight applications and target 40 new test cases. `bewt-original/`, Docker files, ExpressCart application source, and historical Sprint 01–05 raw evidence were not intentionally modified. T01-B evidence directories were preserved and not staged. The existing draft PR #4 remains the handoff target; this task does not self-accept gates or start T02.

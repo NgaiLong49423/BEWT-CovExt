@@ -33,7 +33,7 @@ flowchart TD
 
 **Existing assets**: `experiments/expresscart/agent/` và `experiments/expresscart/bewt-suite/` là pilot, không xóa; refactor có kiểm tra parity thay vì rewrite toàn bộ. `docs/research-results/sprint-01` đến `sprint-05` và `final/` là lịch sử; chỉ bổ sung nghiên cứu 8-app qua tài liệu mới, không sửa raw metrics để khớp mục tiêu.
 
-**T01-C progress (2026-11-08)**: a shared structured generation provider, source-claim analyzer, and LangGraph entry point are present and locally tested. Automatic review blocked the authorized live invocation before it started because the source/baseline/research payload transmission to Google was not deemed explicitly authorized. No Gemini call or new candidate has been produced. Java artifact generation/registration remains incomplete. See `docs/tasks/T01-C/TASK-REPORT.md`. This progress does not advance any acceptance gate.
+**T01-C progress (2026-11-08)**: the LangGraph CLI now wires model-backed Gherkin, human review, post-ACCEPT Java generation, candidate-bound immutable registration, an isolated ExpressCart Maven harness, and structured validation. The one user-authorized Gemini Gherkin request returned HTTP 400 `API_KEY_INVALID` and was not retried; no live candidate was produced. A synthetic offline path compiled through Maven `test-compile`; it is not study evidence. Live Selenium/fixture/repeats and runtime filesystem checks remain unverified. See `docs/tasks/T01-C/TASK-REPORT.md`. This progress does not advance any acceptance gate or change the eight-app/40-case scope.
 
 ## 3. Các work packages theo thứ tự phụ thuộc
 

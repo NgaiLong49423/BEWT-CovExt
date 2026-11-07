@@ -27,7 +27,15 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
-    "modelGenerationProvider": "GHERKIN_PROVIDER_ONE_LIVE_REQUEST_FAILED_INVALID_API_KEY_JAVA_GENERATION_UNIMPLEMENTED",
+    "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_ONE_LIVE_GHERKIN_REQUEST_FAILED_INVALID_API_KEY",
+    "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
+    "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
+    "t01cValidation": "PARTIAL_TECHNICAL_CONTRACT_AND_OFFLINE_COMPILE_ONLY_NO_LIVE_CANDIDATE_OR_VALIDATION",
+    "t01cEvidence": [
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-2156c0a6-fe0b-456a-be0a-b6df2b2a25eb/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json"
+    ],
     "sources": [
       "experiments/expresscart/agent/",
       "framework/src/",
@@ -248,7 +256,7 @@
   },
   "taskReview": {
     "currentTaskId": "T01-C",
-    "currentTaskStatus": "BLOCKED_INVALID_GEMINI_CREDENTIALS_INCOMPLETE_IMPLEMENTATION_AND_RUNTIME_VERIFICATION",
+    "currentTaskStatus": "BLOCKED_INVALID_GEMINI_CREDENTIALS_AND_LIVE_RUNTIME_VERIFICATION",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",

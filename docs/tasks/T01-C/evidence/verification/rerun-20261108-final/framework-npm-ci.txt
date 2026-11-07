@@ -1,0 +1,4 @@
+Command: npm ci
+Exit code: 0
+Result: added 71 packages, audited 72 packages; 0 vulnerabilities.
+Warnings: deprecated prebuild-install@7.1.3; lifecycle scripts for better-sqlite3@12.11.1 and esbuild@0.28.2 were not allowed by npm's current allowScripts policy. Build/unit/integration checks below all ran successfully after install.

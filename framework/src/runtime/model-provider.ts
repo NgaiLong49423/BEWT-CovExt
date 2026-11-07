@@ -3,6 +3,8 @@ import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import type { BaselineInventory, CandidateScenario, CoverageGap } from "../contracts.js";
 import { parseCandidateScenario } from "../contracts.js";
+import { assertCanGenerateJava } from "../policy.js";
+import { expectedGeneratedTestClass } from "./java-class.js";
 
 const ModelOutput = z.object({
   gherkin: z.string().min(1).max(8_000),
@@ -17,6 +19,7 @@ export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
 export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
+export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; }
 
 export function classifyModelError(error: unknown): string {
   const message = error instanceof Error ? error.message.toLowerCase() : "unknown";
@@ -41,11 +44,14 @@ function usageNumber(value: unknown, keys: string[]): number | undefined {
 }
 
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
-export function validateGeneratedJavaContract(output: GeneratedJavaOutput): void {
+export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string): void {
+  if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
+  if (!/^\s*package\s+tests\s*;/m.test(output.javaSource)) throw new Error("generated Java must use the approved tests package");
   if (!new RegExp(`\\bclass\\s+${output.testClass}\\b`).test(output.javaSource)) throw new Error("generated Java must declare the returned class name");
   if (!/extends\s+BaseTest\b/.test(output.javaSource)) throw new Error("generated Java must extend the suite BaseTest");
   if (!/@Test\b/.test(output.javaSource)) throw new Error("generated Java must contain a JUnit test method");
   if (/\b(?:Runtime\.getRuntime\(\)\.exec|new\s+ProcessBuilder)\b/.test(output.javaSource)) throw new Error("generated Java must not spawn arbitrary processes");
+  if (/\b(?:java\.net\.http|HttpClient|MongoClient|java\.sql\.|DriverManager|RestAssured|OkHttpClient)\b/.test(output.javaSource)) throw new Error("generated Java must not bypass browser interaction through API or database clients");
 }
 
 /** Deterministic offline provider. It exists for contract/integration tests, never as Gemini evidence. */
@@ -64,18 +70,100 @@ export class FakeGenerationProvider implements GenerationProvider {
   }
 }
 
+/** Synthetic source for offline approval, registry and isolated-workspace tests only. */
+export class FakeJavaGenerationProvider implements JavaGenerationProvider {
+  readonly name = "Fake" as const;
+  readonly model = "deterministic-test-double";
+  async generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState): Promise<GeneratedJavaOutput> {
+    assertCanGenerateJava(workflow, candidate);
+    const testClass = expectedGeneratedTestClass(candidate);
+    const output = JavaOutput.parse({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { Assert.assertNotNull(appUrl); }\n}\n` });
+    validateGeneratedJavaContract(output, testClass);
+    return output;
+  }
+}
+
+/** Live Java generation is explicitly separate from Gherkin generation and requires current ACCEPT. */
+export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
+  readonly name = "Gemini" as const;
+  lastTelemetry: ModelTelemetry = { provider: "Gemini", model: "unavailable", calls: 0, attempts: 0, elapsedMs: 0, status: "NOT_RUN", estimatedMaxCostUsd: 0 };
+  private readonly modelClient: { invoke(input: string): Promise<unknown> };
+  private used = false;
+  private readonly timeoutMs: number;
+  private readonly maxOutputTokens: number;
+  private readonly costCeilingUsd: number;
+  constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
+    if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
+    const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
+    if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
+    if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
+    this.maxOutputTokens = options.maxOutputTokens ?? 4_000;
+    this.costCeilingUsd = options.costCeilingUsd ?? 0.02;
+    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 4_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > 0.02) throw new Error("Java model budget exceeds the T01-C per-call ceiling");
+    this.timeoutMs = options.timeoutMs ?? 60_000;
+    if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded T01-C run timeout cannot exceed 60 seconds");
+    const structured = new ChatGoogleGenerativeAI({ model, apiKey, temperature: 0, maxRetries: 0, maxOutputTokens: this.maxOutputTokens }).withStructuredOutput(JavaOutput, { includeRaw: true });
+    this.modelClient = structured as unknown as { invoke(input: string): Promise<unknown> };
+  }
+  async generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext: string[] = []): Promise<GeneratedJavaOutput> {
+    assertCanGenerateJava(workflow, candidate);
+    if (this.used) throw new Error("T01-C Java request budget is exhausted");
+    const expectedClass = expectedGeneratedTestClass(candidate);
+    const context = approvedImplementationContext.slice(0, 8).map((item) => item.slice(0, 1_000));
+    const prompt = [
+      "Implement exactly one Java Selenium/JUnit test from this accepted candidate. Do not claim any test has run.",
+      "Use package tests, extend the existing BaseTest, use only APIs/selectors demonstrated in the supplied approved source context, and interact through the browser UI.",
+      "Do not use direct HTTP/API/database access, credentials, process execution, arbitrary build commands, or weaken the accepted oracle.",
+      `The required simple class name is exactly ${expectedClass}. Return only javaSource and testClass.`,
+      JSON.stringify({ candidate: { candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
+        sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, preconditions: candidate.preconditions, oracle: candidate.oracle,
+        sourceReferences: candidate.sourceReferences }, approvedImplementationContext: context }),
+    ].join("\n\n");
+    const promptCharacters = Array.from(prompt).length;
+    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
+    if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
+      throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
+    }
+    this.used = true;
+    const startedAt = Date.now();
+    try {
+      const response = await invokeWithTimeout(() => this.modelClient.invoke(prompt), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
+      const output = JavaOutput.parse(response.parsed);
+      validateGeneratedJavaContract(output, expectedClass);
+      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
+      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
+      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
+      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
+      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd,
+        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+      return output;
+    } catch (error) {
+      const category = classifyModelError(error);
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd };
+      throw new Error(`MODEL_CALL_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
+    }
+  }
+}
+
 /** Construction requires explicit authorization; no API request occurs before generate(). */
 export class GeminiGenerationProvider implements GenerationProvider {
   readonly name = "Gemini" as const;
   lastTelemetry: ModelTelemetry = { provider: "Gemini", model: "unavailable", calls: 0, attempts: 0, elapsedMs: 0, status: "NOT_RUN", estimatedMaxCostUsd: 0 };
   private readonly modelClient: { invoke(input: string): Promise<unknown> };
   private used = false;
-  constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number }) {
+  private readonly maxOutputTokens: number;
+  private readonly costCeilingUsd: number;
+  constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
     const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
     if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
-    const structured = new ChatGoogleGenerativeAI({ model, apiKey, temperature: 0, maxRetries: 0, maxOutputTokens: 2_000 }).withStructuredOutput(ModelOutput, { includeRaw: true });
+    this.maxOutputTokens = options.maxOutputTokens ?? 2_000;
+    this.costCeilingUsd = options.costCeilingUsd ?? 0.02;
+    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 2_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > 0.02) throw new Error("Gherkin model budget exceeds the T01-C per-call ceiling");
+    const structured = new ChatGoogleGenerativeAI({ model, apiKey, temperature: 0, maxRetries: 0, maxOutputTokens: this.maxOutputTokens }).withStructuredOutput(ModelOutput, { includeRaw: true });
     this.modelClient = structured as unknown as { invoke(input: string): Promise<unknown> };
     this.timeoutMs = options.timeoutMs ?? 60_000;
     if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded T01-C run timeout cannot exceed 60 seconds");
@@ -95,8 +183,8 @@ export class GeminiGenerationProvider implements GenerationProvider {
         baselineCases: request.baseline.cases.slice(0, 40).map(({ caseId, scenarioName, behaviorTags }) => ({ caseId, scenarioName, behaviorTags })) }),
     ].join("\n\n");
     const promptCharacters = Array.from(prompt).length;
-    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + 2_000 * 1.5) / 1_000_000;
-    if (promptCharacters > 8_000 || estimatedMaxCostUsd > 0.02) {
+    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
+    if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: Date.now() - startedAt, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
       throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
     }

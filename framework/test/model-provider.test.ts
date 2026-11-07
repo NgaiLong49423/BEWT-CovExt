@@ -28,11 +28,14 @@ test("model error classifier does not mistake generateContent for rate limiting"
 });
 
 test("generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution", () => {
-  const source = { javaSource: "class GeneratedTest extends BaseTest { @Test void behavior() {} }", testClass: "GeneratedTest" };
+  const source = { javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() {} }", testClass: "GeneratedTest" };
   assert.doesNotThrow(() => validateGeneratedJavaContract(source));
   assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "OtherTest" }), /declare the returned class/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "class GeneratedTest { @Test void behavior() {} }" }), /extend the suite BaseTest/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "class GeneratedTest extends BaseTest { @Test void behavior() { Runtime.getRuntime().exec(\"mvn\"); } }" }), /spawn arbitrary processes/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "OtherTest" }, "ExpectedTest"), /deterministic candidate-bound/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package wrong; class GeneratedTest extends BaseTest { @Test void behavior() {} }" }), /approved tests package/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest { @Test void behavior() {} }" }), /extend the suite BaseTest/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Runtime.getRuntime().exec(\"mvn\"); } }" }), /spawn arbitrary processes/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new MongoClient(); } }" }), /bypass browser interaction/);
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {

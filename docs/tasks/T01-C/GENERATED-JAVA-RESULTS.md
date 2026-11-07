@@ -1,3 +1,20 @@
 # Generated Java Results
 
-No T01-C Java artifact was generated, registered, compiled or executed. `framework/src/runtime/model-provider.ts` defines a `JavaOutput` schema and `validateGeneratedJavaContract()` static check; it does **not** expose a Java generation method/provider. The runtime CLI in `framework/src/t01c-cli.ts` still sets `prepareJava` to fail with `POST_ACCEPT_JAVA_GENERATION_NOT_IMPLEMENTED`, and the ACCEPT command explicitly fails closed. The existing ExpressCart adapter in `adapters/expresscart/experiment.ts` still maps the historical EC-C04 candidate to `tests.ForgottenPasswordTest` and labels the artifact `REUSED`; this is not T01-C output. Candidate-bound immutable artifact writing, a generated-class registry, an isolated Maven workspace and actual compile/Selenium validation remain blockers. The reviewed candidate has not been accepted, so no Java generation or application fixture side effect is authorized by workflow state.
+## Result
+
+The T01-C code now has a candidate-bound Java generation contract, an explicitly synthetic Java provider for offline verification, an opt-in Gemini Java provider, an immutable generated-artifact registry, and an isolated ExpressCart Maven harness. These are implementation capabilities; they do not establish a live model-generated study artifact or research acceptance.
+
+`framework/src/runtime/java-class.ts` derives the class identity from candidate ID/revision. `framework/src/runtime/java-artifact-registry.ts` validates current ACCEPT, candidate/revision/source binding, package `tests`, `BaseTest`/JUnit shape and artifact hash, and writes artifact/registration with exclusive-create semantics. `framework/src/runtime/model-provider.ts` contains `FakeJavaGenerationProvider` and the explicit-authorized `GeminiJavaGenerationProvider`. `adapters/expresscart/generated-test-harness.ts` stages only the POM, `BaseTest`, and exact registered class into an isolated workspace; `adapters/expresscart/experiment.ts` exposes generated compile and Selenium operations.
+
+The offline approved-pipeline integration test used a test-only ACCEPT and fake Java output, then ran Maven `test-compile` in a temporary isolated workspace. Evidence: `evidence/t01c-offline-approved-2156c0a6-fe0b-456a-be0a-b6df2b2a25eb/isolated-maven-compile.json`. This establishes offline harness compilation only. The temporary artifact was not a Gemini output and was not retained as a study candidate.
+
+The one user-authorized Gemini request was sent for Gherkin generation and returned HTTP 400 `API_KEY_INVALID`; the request budget was consumed and no retry was made. No live candidate or review checkpoint exists. No Java Gemini call, live fixture, Selenium run, cleanup validation, or research acceptance has occurred. A new externally transmitted model run requires separate authorization and a valid locally configured credential.
+
+## Verification
+
+- `framework/test/java-artifact-registry.test.ts`: immutable registration, candidate/revision binding and approval policy.
+- `framework/test/expresscart-generated-harness.test.ts`: isolated workspace contents and selector binding.
+- `framework/test/integration/t01c-offline-approved-java-pipeline.test.ts`: offline graph-to-compile path, plus NOT_RUN/research-not-reviewed states.
+- Latest observed framework unit run: 31/31 PASS; build PASS. Latest dedicated offline integration run: 1/1 PASS and actual Maven `test-compile` PASS. These results are recorded in the T01-C verification directory and the per-run compile evidence above.
+
+The full framework integration suite remains non-green in this managed Windows sandbox (12 pass / 4 fail / 1 skip in its last captured run); symlink tests hit `EPERM`, and a lifecycle test was BLOCKED on unavailable Docker/runtime prerequisites. See `evidence/verification/rerun-20261108/framework-integration.txt`. This does not prove live Selenium operation.

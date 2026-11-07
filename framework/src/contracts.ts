@@ -582,7 +582,10 @@ export function sanitizeToolOutput(output: string): string {
     .replace(/Host info:\s*host:\s*'[^']*',\s*ip:\s*'[^']*'/gi, "Host info: host: '[REDACTED_HOST]', ip: '[REDACTED_IP]'")
     .replace(/\b(?:DESKTOP|LAPTOP)-[A-Z0-9-]+\b/gi, "[REDACTED_HOST]")
     .replace(/\b(?:10\.(?:\d{1,3}\.){2}\d{1,3}|192\.168\.(?:\d{1,3}\.)\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.(?:\d{1,3}\.)\d{1,3})\b/g, "[REDACTED_PRIVATE_IP]")
+    .replace(/\/?[A-Z]:\/Users\/[^:\r\n]+(?=:)/gi, "[REDACTED_USER_PATH]")
     .replace(/[A-Z]:\\Users\\[^\\\s"'<>]+(?:\\[^\\\s"'<>]+)*/gi, "[REDACTED_USER_PATH]")
+    .replace(/\/?[A-Z]:\/Users\/[^/\s"'<>]+(?:\/[^/\s"'<>]+)*/gi, "[REDACTED_USER_PATH]")
+    .replace(/\/?[A-Z]:[\\/][^:\r\n]+(?=:)/gi, "[REDACTED_ABSOLUTE_PATH]")
     .replace(/\b(password|passwd|token|secret|api[_-]?key)\b(?:\s*[:=]\s*|\s+(?:is\s+)?)(?:"[^"]*"|'[^']*'|[^\s,;]+)/gi, "$1=[REDACTED]");
 }
 

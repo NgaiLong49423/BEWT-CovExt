@@ -1,15 +1,16 @@
 import { createHash, randomUUID } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
-import { parseApplicationManifest, parseCandidateScenario, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap } from "./contracts.js";
+import { parseApplicationManifest, parseCandidateScenario, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult } from "./contracts.js";
 import { assertBaselineMatchesManifest } from "./policy.js";
 import { analyzeSourceBackedCoverage } from "./runtime/coverage-analysis.js";
-import { candidateFromGeneration, GeminiGenerationProvider, newCandidateId, type GenerationOutput } from "./runtime/model-provider.js";
+import { candidateFromGeneration, GeminiGenerationProvider, GeminiJavaGenerationProvider, newCandidateId, type GenerationOutput } from "./runtime/model-provider.js";
 import { parseGherkin } from "./runtime/gherkin.js";
 import { buildWorkflow, openSqliteCheckpointer, resumeReview, type RuntimeServices, type RuntimeState } from "./runtime/workflow.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./runtime/safe-path.js";
 import { verifyExpressCartSourceInputs } from "../../adapters/expresscart/source-identity.js";
+import { registerGeneratedJava } from "./runtime/java-artifact-registry.js";
 
 const root = resolve(process.cwd(), "..");
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -21,6 +22,64 @@ async function writeUnique(relativePath: string, content: string): Promise<void>
   await writeFile(await resolveContainedOutputPath(root, relativePath), content, { flag: "wx" });
 }
 
+interface ModelRunBudget { apiRequestsAllowed: number; runCostCeilingUsd: number; perCallCostCeilingUsd: number; }
+async function readModelRunBudget(runId: string): Promise<ModelRunBudget> {
+  const path = await resolveContainedExistingPath(root, `${evidenceRoot}/${runId}/model-run-budget.json`);
+  const value = JSON.parse(await readFile(path, "utf8")) as Partial<ModelRunBudget>;
+  if (!Number.isInteger(value.apiRequestsAllowed) || value.apiRequestsAllowed! < 1 || !Number.isFinite(value.runCostCeilingUsd) ||
+      !Number.isFinite(value.perCallCostCeilingUsd) || value.perCallCostCeilingUsd! * value.apiRequestsAllowed! > value.runCostCeilingUsd! + 1e-9) {
+    throw new Error("T01-C model run budget ledger is invalid");
+  }
+  return value as ModelRunBudget;
+}
+
+async function reserveModelCall(runId: string, stage: "gherkin" | "java"): Promise<{ callNumber: number; budget: ModelRunBudget }> {
+  const budget = await readModelRunBudget(runId);
+  const directory = `${evidenceRoot}/${runId}/model-calls`;
+  const absoluteDirectory = await ensureContainedDirectory(root, directory);
+  const reservations = (await readdir(absoluteDirectory)).filter((name) => /^call-\d{2}-reserved\.json$/.test(name)).sort();
+  if (reservations.length >= budget.apiRequestsAllowed) throw new Error("MODEL_RUN_BUDGET_EXHAUSTED");
+  const callNumber = reservations.length + 1;
+  await writeUnique(`${directory}/call-${String(callNumber).padStart(2, "0")}-reserved.json`, JSON.stringify({ runId, callNumber, stage,
+    apiRequestsAllowed: budget.apiRequestsAllowed, runCostCeilingUsd: budget.runCostCeilingUsd,
+    reservedMaxCostUsd: budget.perCallCostCeilingUsd, retriesAllowed: 0, reservedAt: new Date().toISOString(),
+    note: "Reservation is append-only and fail-closed across process restart; failed reservations are not replayed." }, null, 2));
+  return { callNumber, budget };
+}
+
+async function recordModelCall(runId: string, callNumber: number, status: string, telemetry: unknown, error?: unknown): Promise<void> {
+  const directory = `${evidenceRoot}/${runId}/model-calls`;
+  await writeUnique(`${directory}/call-${String(callNumber).padStart(2, "0")}-result.json`, JSON.stringify({ runId, callNumber, status, telemetry,
+    ...(error === undefined ? {} : { error: sanitizeToolOutput(error instanceof Error ? error.message : String(error)) }), completedAt: new Date().toISOString() }, null, 2));
+}
+
+function executionReference(result: ToolResult, invocationId: string, appState: AgentWorkflowState) {
+  const runIds = [...new Set(result.evidence.map((reference) => reference.runId))];
+  if (runIds.length > 1) throw new Error(`${result.tool} produced evidence from multiple stage runs`);
+  const stageRunId = runIds[0];
+  return { invocationId, ...(stageRunId ? { stageRunId } : {}), outcome: result.outcome,
+    sourceCommit: appState.sourceCommit, sourceVersion: appState.sourceVersion, evidence: result.evidence };
+}
+
+async function approvedJavaContext(candidate: NonNullable<AgentWorkflowState["candidate"]>): Promise<string[]> {
+  const context: string[] = [];
+  const basePath = "experiments/expresscart/bewt-suite/src/test/java/tests/BaseTest.java";
+  const base = await readFile(await resolveContainedExistingPath(root, basePath), "utf8");
+  const baseContract = base.split(/\r?\n/).filter((line) => /public\s+WebDriver\s+driver|public\s+String\s+appUrl|void\s+setupNativeBrowser\s*\(/.test(line)).join("\n");
+  context.push(`Approved existing BaseTest declarations (${basePath}):\n${baseContract}`);
+  if (candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js")) {
+    const routePath = "experiments/expresscart/source/routes/customer.js";
+    const route = await readFile(await resolveContainedExistingPath(root, routePath), "utf8");
+    const start = route.indexOf("// reset password form");
+    const end = route.indexOf("// reset password action", start + 1);
+    if (start < 0 || end < 0) throw new Error("approved candidate source context no longer matches the pinned reset route");
+    context.push(`Pinned UI route behavior (${routePath}):\n${route.slice(start, end).trim()}`);
+    const viewPath = "experiments/expresscart/source/views/reset.hbs";
+    context.push(`Pinned reset page selectors (${viewPath}):\n${(await readFile(await resolveContainedExistingPath(root, viewPath), "utf8")).slice(0, 1_000)}`);
+  }
+  return context;
+}
+
 async function main(args: string[]): Promise<void> {
   const [command, ...rest] = args;
   if (!command || !["start", "review", "status"].includes(command)) throw new Error("Usage: npm run agent:t01c -- <start|review|status> [args]");
@@ -30,6 +89,7 @@ async function main(args: string[]): Promise<void> {
   const adapter = new ExpressCartExperimentAdapter(root, manifest);
   const candidateId = newCandidateId();
   let provider: GeminiGenerationProvider | undefined;
+  let javaProvider: GeminiJavaGenerationProvider | undefined;
   let runIdForEvidence = "pending-run";
   let sourceContext: string[] = [];
   const checkpointDir = await ensureContainedDirectory(root, ".local-state/t01c-checkpoints");
@@ -68,17 +128,19 @@ async function main(args: string[]): Promise<void> {
         return [gap];
       },
       proposeCandidate: async (baseline, gaps, revision, reviewContext) => {
-        if (reviewContext?.previousCandidate) throw new Error("the one-request T01-C model budget does not permit automatic revision generation");
         if (!provider) throw new Error("T01-C model provider was not explicitly authorized for start");
-        const request = { baseline, gaps, candidateId, revision, sourceContext };
+        const requestCandidateId = reviewContext?.previousCandidate?.candidateId ?? candidateId;
+        const request = { baseline, gaps, candidateId: requestCandidateId, revision, sourceContext };
         const directory = `${evidenceRoot}/${runIdForEvidence}`;
         await ensureContainedDirectory(root, directory);
-        const budgetPath = `${evidenceRoot}/one-live-model-request.json`;
-        await writeUnique(budgetPath, JSON.stringify({ runId: runIdForEvidence, model: provider.model, apiRequestsAllowed: 1, retries: 0, timeoutMs: 60_000,
-          maxPromptCharacters: 8_000, maxOutputTokens: 2_000, estimatedCostCeilingUsd: 0.02, pricingBasis: "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character" }, null, 2));
+        const reservation = await reserveModelCall(runIdForEvidence, "gherkin");
         let output: GenerationOutput;
-        try { output = await provider.generate(request); }
+        try {
+          output = await provider.generate(request);
+          await recordModelCall(runIdForEvidence, reservation.callNumber, "PASS", provider.lastTelemetry);
+        }
         catch (error) {
+          await recordModelCall(runIdForEvidence, reservation.callNumber, provider.lastTelemetry.status, provider.lastTelemetry, error);
           await writeUnique(`${directory}/model-generation-failure.json`, JSON.stringify({ runId: runIdForEvidence, status: provider.lastTelemetry.status,
             telemetry: provider.lastTelemetry, error: sanitizeToolOutput(error instanceof Error ? error.message : "model request failed") }, null, 2));
           throw error;
@@ -91,30 +153,94 @@ async function main(args: string[]): Promise<void> {
         return candidate;
       },
       trustedReviewerId,
-      prepareJava: async () => { throw new Error("POST_ACCEPT_JAVA_GENERATION_NOT_IMPLEMENTED: historical Java reuse is disabled for T01-C candidates"); },
-      validate: async () => { throw new Error("T01-C generated-Java validation has not started"); },
+      prepareJava: async (candidate, workflow) => {
+        if (!javaProvider) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED_FOR_POST_ACCEPT_JAVA");
+        const context = await approvedJavaContext(candidate);
+        const reservation = await reserveModelCall(workflow.runId, "java");
+        let output;
+        try {
+          output = await javaProvider.generateJava(candidate, workflow, context);
+          await recordModelCall(workflow.runId, reservation.callNumber, "PASS", javaProvider.lastTelemetry);
+        } catch (error) {
+          await recordModelCall(workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
+          throw error;
+        }
+        const registered = await registerGeneratedJava(root, workflow, candidate, output);
+        const directory = `${evidenceRoot}/${workflow.runId}`;
+        await ensureContainedDirectory(root, directory);
+        await writeUnique(`${directory}/java-generation.json`, JSON.stringify({ runId: workflow.runId, candidateId: candidate.candidateId,
+          revision: candidate.revision, sourceCommit: candidate.sourceCommit, sourceVersion: candidate.sourceVersion,
+          provider: javaProvider.name, model: javaProvider.model, modelTelemetry: javaProvider.lastTelemetry,
+          artifact: registered.registration, contextSourcePaths: candidate.sourceReferences.map((reference) => reference.artifactPath),
+          generatedSourcePath: registered.artifact.path, generatedSourceSha256: registered.artifact.sha256,
+          immutableFirstGeneration: true, historicalArtifactReused: false }, null, 2));
+        return { path: registered.artifact.path, testClass: registered.artifact.testClass, sha256: registered.artifact.sha256!, origin: "GENERATED" };
+      },
+      validate: async (candidate, artifact, repairAttempts, workflow) => {
+        const invocationId = workflow.validationInvocationId ?? workflow.runId;
+        const generatedArtifact: GeneratedJavaArtifact = { kind: "generated_java", path: artifact.path, testClass: artifact.testClass,
+          sha256: artifact.sha256, origin: artifact.origin, candidateId: candidate.candidateId, revision: candidate.revision };
+        const compile = await adapter.compileGenerated(candidate, generatedArtifact, workflow);
+        let fixture: ToolResult = { tool: "prepare-fixture", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
+        let e2e: ToolResult = { tool: "run-selenium-test", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
+        let cleanup: ToolResult = { tool: "cleanup-experiment", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
+        if (compile.outcome === "PASS") {
+          fixture = await adapter.prepareFixture(candidate, manifest.fixtureReset.experimentKey, workflow);
+          if (fixture.outcome === "PASS") e2e = await adapter.runGeneratedSelenium(candidate, generatedArtifact, workflow);
+          cleanup = await adapter.cleanup(candidate, manifest.fixtureReset.experimentKey, workflow);
+        }
+        const decision = (suffix: string) => ({ decisionId: `${workflow.runId}-${suffix}-${randomUUID()}`, appId: candidate.appId,
+          candidateId: candidate.candidateId, candidateRevision: candidate.revision, decision: "UNVERIFIED" as const,
+          reviewerId: "not-reviewed", decidedAt: new Date().toISOString(),
+          rationale: "No research oracle or novelty acceptance decision was made by the T01-C execution agent.", evidence: [] });
+        const resultPath = `${evidenceRoot}/${workflow.runId}/validation-result.json`;
+        const parsed = parseValidationResult({ appId: candidate.appId, candidateId: candidate.candidateId, candidateRevision: candidate.revision,
+          invocationId, sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion,
+          compile: executionReference(compile, invocationId, workflow), fixture: executionReference(fixture, invocationId, workflow),
+          e2e: executionReference(e2e, invocationId, workflow), cleanup: executionReference(cleanup, invocationId, workflow),
+          oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts,
+          evidence: [{ repositoryCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion, runId: invocationId, artifactPath: resultPath }],
+          researchAcceptance: { status: "NOT_REVIEWED" } });
+        await ensureContainedDirectory(root, `${evidenceRoot}/${workflow.runId}`);
+        await writeUnique(resultPath, JSON.stringify(parsed, null, 2));
+        return parsed;
+      },
       recordEvidence: async (state) => {
         const directory = `${evidenceRoot}/${state.workflow.runId}`;
         await ensureContainedDirectory(root, directory);
         const path = `${directory}/workflow-final.json`;
         await writeUnique(path, JSON.stringify({ runId: state.workflow.runId, status: state.workflow.status, candidate: state.workflow.candidate,
           reviewDecisions: state.workflow.reviewDecisions, artifacts: state.workflow.artifacts, terminalError: state.terminalError,
-          liveModelTelemetry: provider?.lastTelemetry ?? { status: "NOT_RUN", calls: 0 } }, null, 2));
+          liveModelTelemetry: { gherkin: provider?.lastTelemetry ?? { status: "NOT_RUN", calls: 0 }, java: javaProvider?.lastTelemetry ?? { status: "NOT_RUN", calls: 0 } } }, null, 2));
         return path;
       },
     };
     const app = buildWorkflow(services, saver);
     if (command === "start") {
-      if (rest[1] !== "--live-authorized") throw new Error("A one-run live model action requires the explicit --live-authorized flag; no request was sent.");
-      provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000 });
+      if (!rest.includes("--live-authorized")) throw new Error("A live model action requires the explicit --live-authorized flag; no request was sent.");
+      const maxCallsArg = rest.find((argument) => argument.startsWith("--max-api-requests="));
+      const maxCostArg = rest.find((argument) => argument.startsWith("--max-cost-usd="));
+      const maxApiRequests = maxCallsArg ? Number(maxCallsArg.slice("--max-api-requests=".length)) : 1;
+      const runCostCeilingUsd = maxCostArg ? Number(maxCostArg.slice("--max-cost-usd=".length)) : 0.02;
+      const perCallCostCeilingUsd = runCostCeilingUsd / maxApiRequests;
+      if (!Number.isInteger(maxApiRequests) || maxApiRequests < 1 || maxApiRequests > 4 || !Number.isFinite(runCostCeilingUsd) || runCostCeilingUsd <= 0 ||
+          perCallCostCeilingUsd > 0.02 || perCallCostCeilingUsd < 0.001) throw new Error("T01-C run budget must allow 1..4 calls with a verified per-call ceiling no greater than USD 0.02");
       const runId = `t01c-${randomUUID()}`;
       runIdForEvidence = runId;
+      await ensureContainedDirectory(root, `${evidenceRoot}/${runId}`);
+      await writeUnique(`${evidenceRoot}/${runId}/model-run-budget.json`, JSON.stringify({ runId, model: "gemini-3.1-flash-lite", apiRequestsAllowed: maxApiRequests,
+        runCostCeilingUsd, perCallCostCeilingUsd, retriesAllowed: 0, timeoutMs: 60_000, maxPromptCharacters: 8_000,
+        gherkinMaxOutputTokens: 2_000, javaMaxOutputTokens: 4_000,
+        pricingBasis: "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character",
+        authorizationFlagPresent: true, exhaustedCallsRemainConsumed: true }, null, 2));
+      provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: perCallCostCeilingUsd });
       const initial: AgentWorkflowState = { appId: manifest.appId, sourceCommit, sourceVersion, runId, currentRole: "coverage_analysis", status: "STARTED", reviewDecisions: [], appliedDecisionIds: [], artifacts: [], repairAttempts: 0 };
       const result = await app.invoke({ workflow: initial }, { configurable: { thread_id: runId } }) as RuntimeState;
       if (result.workflow.status !== "AWAITING_HUMAN_REVIEW" || !result.workflow.candidate || !result.workflow.checkpoint) throw new Error(`LangGraph did not pause at human review: ${result.workflow.status}; ${result.terminalError?.message ?? "no detail"}`);
       const packet = { runId, threadId: runId, checkpointId: result.workflow.checkpoint.checkpointId, appId: result.workflow.appId, candidate: result.workflow.candidate,
         sourceCommit, sourceVersion, model: provider.model, modelTelemetry: provider.lastTelemetry, decisionOptions: ["ACCEPT", "REVISE", "REJECT"],
-        note: "ACCEPT is implementation authorization only. Research novelty/oracle review remains separate. Java generation is disabled until the post-ACCEPT generator is implemented." };
+        modelBudgetPath: `${evidenceRoot}/${runId}/model-run-budget.json`,
+        note: "ACCEPT is implementation authorization only. A separate --live-authorized flag and remaining run budget are required before Java generation. Research novelty/oracle review remains separate." };
       await writeUnique(`${evidenceRoot}/${runId}/human-review-request.json`, JSON.stringify(packet, null, 2));
       process.stdout.write(`${JSON.stringify(packet, null, 2)}\n`);
       return;
@@ -126,11 +252,21 @@ async function main(args: string[]): Promise<void> {
     const state = snapshot.values as RuntimeState;
     if (!state?.workflow) throw new Error("T01-C LangGraph state was not found");
     if (command === "status") { process.stdout.write(`${JSON.stringify({ threadId, workflow: state.workflow, terminalError: state.terminalError }, null, 2)}\n`); return; }
-    const [decision, ...reasonParts] = rest.slice(1);
-    const rationale = reasonParts.join(" ").trim();
-    if (!decision || !["ACCEPT", "REVISE", "REJECT"].includes(decision) || rationale.length < 5) throw new Error('Usage: npm run agent:t01c -- review <thread-id> <ACCEPT|REVISE|REJECT> "<rationale>"');
-    if (decision === "ACCEPT") throw new Error("POST_ACCEPT_JAVA_GENERATION_NOT_IMPLEMENTED; ACCEPT cannot continue until T01-C Java generation is available.");
-    const review = resumeReview(state, threadId, state.workflow.checkpoint?.checkpointId ?? "", decision as "REVISE" | "REJECT", sanitizeToolOutput(rationale));
+    const [decision, ...rawReasonParts] = rest.slice(1);
+    const liveAuthorized = rawReasonParts.includes("--live-authorized");
+    const rationale = rawReasonParts.filter((part) => part !== "--live-authorized").join(" ").trim();
+    if (!decision || !["ACCEPT", "REVISE", "REJECT"].includes(decision) || rationale.length < 5) throw new Error('Usage: npm run agent:t01c -- review <thread-id> <ACCEPT|REVISE|REJECT> "<rationale>" [--live-authorized]');
+    if ((decision === "ACCEPT" || decision === "REVISE") && !liveAuthorized) throw new Error(`${decision} requires an explicit --live-authorized flag for post-review model use; no decision was submitted.`);
+    if (decision === "ACCEPT" || decision === "REVISE") {
+      runIdForEvidence = state.workflow.runId;
+      const budget = await readModelRunBudget(runIdForEvidence);
+      if (decision === "ACCEPT") javaProvider = new GeminiJavaGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });
+      else {
+        provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });
+        if (state.workflow.candidate) sourceContext = await approvedJavaContext(state.workflow.candidate);
+      }
+    }
+    const review = resumeReview(state, threadId, state.workflow.checkpoint?.checkpointId ?? "", decision as "ACCEPT" | "REVISE" | "REJECT", sanitizeToolOutput(rationale));
     const result = await app.invoke(review, config) as RuntimeState;
     process.stdout.write(`${JSON.stringify({ runId: result.workflow.runId, status: result.workflow.status, reviewDecisions: result.workflow.reviewDecisions, terminalError: result.terminalError }, null, 2)}\n`);
   } finally { saver.db.close(); }
