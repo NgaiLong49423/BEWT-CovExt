@@ -1,0 +1,8 @@
+docker compose ls --all (filtered)
+NAME                              STATUS              CONFIG FILES
+bewt-covext-expresscart-b31302f   running(2)          D:\Github-Projects\BEWT-CovExt\experiments\expresscart\compose.yaml
+Omitted 7 unrelated Docker row(s).
+docker ps with project labels (filtered)
+bewt-covext-expresscart-b31302f-app-1 bewt-covext-expresscart-b31302f
+bewt-covext-expresscart-b31302f-mongo-1 bewt-covext-expresscart-b31302f
+Omitted 0 unrelated Docker row(s).

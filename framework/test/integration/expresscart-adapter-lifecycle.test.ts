@@ -1,9 +1,10 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, mkdtemp, rm, symlink } from "node:fs/promises";
 import { randomUUID, createHash } from "node:crypto";
-import { resolve } from "node:path";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { tmpdir } from "node:os";
 import { ExpressCartExperimentAdapter } from "../../../adapters/expresscart/experiment.js";
 import { parseExpressCartManifest } from "../../../adapters/expresscart/experiment.js";
 import { runFixedProcess } from "../../src/runtime/process.js";
@@ -65,4 +66,37 @@ test("actual ExpressCart adapter isolates validation invocations and repair evid
   assert.equal(failedCleanup.outcome, "BLOCKED", "cleanup command failure must remain BLOCKED, never PASS");
   const recoveredCleanup = await restartedAdapter.cleanup(candidate, manifest.fixtureReset.experimentKey, recoveryState);
   assert.equal(recoveredCleanup.outcome, "PASS", "new adapter instance must recover and clean only the verified invocation project");
+});
+
+test("collectEvidence discovers nested files without mixing invocations or following links", async () => {
+  const root = await mkdtemp(join(tmpdir(), "bewt-evidence-discovery-"));
+  const manifest = parseExpressCartManifest(await readFile(resolve(fileURLToPath(new URL("../../../", import.meta.url)), "config/apps/expresscart.json"), "utf8"));
+  const adapter = new ExpressCartExperimentAdapter(root, manifest);
+  const outside = await mkdtemp(join(tmpdir(), "bewt-evidence-outside-"));
+  const run = "evidence-run";
+  const base = join(root, "docs/tasks/T01-B/evidence", run);
+  try {
+    await mkdir(join(base, "invocations", "inv-one", "junit"), { recursive: true });
+    await mkdir(join(base, "invocations", "inv-two"), { recursive: true });
+    await writeFile(join(base, "invocations", "inv-one", "compile.log"), "compile one");
+    await writeFile(join(base, "invocations", "inv-one", "junit", "result.json"), "{}");
+    await writeFile(join(base, "invocations", "inv-two", "e2e.log"), "e2e two");
+    await writeFile(join(outside, "outside.json"), "{}");
+    await symlink(outside, join(base, "invocations", "inv-link"), "junction");
+    const first = await adapter.collectEvidence(run, "inv-one");
+    assert.equal(first.length, 2);
+    assert.ok(first.every((reference) => reference.runId === "inv-one"));
+    assert.ok(first.every((reference) => reference.artifactPath.includes("/inv-one/")));
+    const all = await adapter.collectEvidence(run);
+    assert.equal(all.length, 3);
+    assert.ok(all.some((reference) => reference.runId === "inv-two"));
+    assert.ok(all.every((reference) => !reference.artifactPath.includes("outside.json")));
+    await mkdir(join(base, "invocations", "inv-empty"));
+    assert.deepEqual(await adapter.collectEvidence(run, "inv-empty"), []);
+    await assert.rejects(adapter.collectEvidence(run, "../outside"), /invalid invocation ID/);
+    await assert.rejects(adapter.collectEvidence("../outside"), /unsafe|relative|path/i);
+  } finally {
+    await rm(root, { recursive: true, force: true });
+    await rm(outside, { recursive: true, force: true });
+  }
 });

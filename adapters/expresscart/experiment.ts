@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { lstat, readFile, writeFile, readdir, stat } from "node:fs/promises";
+import { lstat, readFile, writeFile, readdir, stat, mkdir } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { homedir, userInfo } from "node:os";
 import { parseApplicationManifest, parseBaselineInventory, parseCandidateScenario, parseToolResult, parseValidationResult, type AgentWorkflowState, type ApplicationManifest, type ApplicationAdapter, type BaselineInventory, type CandidateScenario, type EvidenceReference, type GeneratedJavaArtifact, type ToolName, type ToolResult, type ValidationResult } from "../../framework/src/contracts.js";
@@ -52,10 +52,12 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   readonly manifest: ApplicationManifest;
   private readonly runs = new Map<string, ActiveRun>();
   private readonly processRunner: typeof runFixedProcess;
+  private readonly afterFixture: ((state: AgentWorkflowState) => Promise<void>) | undefined;
 
-  constructor(readonly repositoryRoot: string, manifestInput: unknown, options: { processRunner?: typeof runFixedProcess } = {}) {
+  constructor(readonly repositoryRoot: string, manifestInput: unknown, options: { processRunner?: typeof runFixedProcess; afterFixture?: (state: AgentWorkflowState) => Promise<void> } = {}) {
     this.manifest = parseApplicationManifest(manifestInput);
     this.processRunner = options.processRunner ?? runFixedProcess;
+    this.afterFixture = options.afterFixture;
     if (this.manifest.appId !== "expresscart" || this.manifest.source.commit !== SOURCE_COMMIT || this.manifest.source.packageVersion !== SOURCE_VERSION) throw new Error("ExpressCart adapter received an unexpected source pin");
   }
 
@@ -230,18 +232,28 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       } catch { return outcomeResult("cleanup-experiment", "BLOCKED", "Persisted ownership could not be verified; cleanup refused and blocked evidence could not be written.", message); }
     }
     try {
+      let priorCleanupExists = false;
       try {
         await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/cleanup.json`);
-        return outcomeResult("cleanup-experiment", "NOT_RUN", "This invocation already has immutable cleanup evidence; replay cleanup was refused.");
+        priorCleanupExists = true;
       } catch { /* first cleanup attempt for this invocation */ }
       if (!run.composePath) return outcomeResult("cleanup-experiment", "NOT_RUN", "Source/image preflight stopped before an owned Compose project was created.");
-      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; candidateId?: string; candidateRevision?: number };
-      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== run.project || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${evidenceDirectory(state)}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.candidateId !== candidate.candidateId || owner.candidateRevision !== candidate.revision || !owner.composeSha256 || owner.composeSha256 !== sha256(await readFile(run.composePath))) throw new Error("invocation ownership or Compose integrity mismatch; cleanup is refused");
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; ownedResourcesOnly?: boolean };
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== run.project || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${evidenceDirectory(state)}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== candidate.candidateId || owner.candidateRevision !== candidate.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256 || owner.composeSha256 !== sha256(await readFile(run.composePath))) throw new Error("invocation ownership or Compose integrity mismatch; cleanup is refused");
+      if (priorCleanupExists) {
+        try {
+          await this.assertNoOwnedResources(run);
+          return outcomeResult("cleanup-experiment", "NOT_RUN", "Prior cleanup evidence is immutable and this invocation has no owned resources; no cleanup side effect was needed.");
+        } catch (error) {
+          if (!(error instanceof Error) || !/owned (?:containers|Docker volumes|Docker networks) remain after cleanup/.test(error.message)) throw error;
+        }
+      }
       await this.assertOwnedResources(run);
       const down = await this.compose(run, ["down", "--volumes", "--remove-orphans"]);
       if (down.exitCode !== 0) throw new Error("run-scoped Compose cleanup returned a non-zero exit code");
       await this.assertNoOwnedResources(run);
-      const evidence = await this.writeRunEvidence(state, "cleanup.json", JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: "PASS", volumesRemoved: true, scope: "only resources carrying the exact Compose project label" }, null, 2));
+      const cleanupEvidenceName = priorCleanupExists ? `cleanup-reconciliation-${uuid()}.json` : "cleanup.json";
+      const evidence = await this.writeRunEvidence(state, cleanupEvidenceName, JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: "PASS", volumesRemoved: true, reconciledAfterPriorCleanup: priorCleanupExists, scope: "only resources carrying the exact Compose project label" }, null, 2));
       return outcomeResult("cleanup-experiment", "PASS", "Invocation-scoped Compose resources removed after ownership verification.", "", 0, [this.evidenceRef(`${invocation}-cleanup`, evidence)]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "cleanup failed";
@@ -250,11 +262,38 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     }
   }
 
-  async collectEvidence(runId: string): Promise<EvidenceReference[]> {
-    const directory = await resolveContainedExistingPath(this.repositoryRoot, `docs/tasks/T01-B/evidence/${runId}`);
-    const files = await readdir(directory, { withFileTypes: true });
-    return files.filter((entry) => entry.isFile() && /\.(json|log)$/.test(entry.name))
-      .map((entry) => this.evidenceRef(runId, `docs/tasks/T01-B/evidence/${runId}/${entry.name}`));
+  async collectEvidence(runId: string, onlyInvocationId?: string): Promise<EvidenceReference[]> {
+    if (onlyInvocationId !== undefined && !/^[A-Za-z0-9][A-Za-z0-9._-]{0,119}$/.test(onlyInvocationId)) throw new Error("invalid invocation ID");
+    const runDirectory = `docs/tasks/T01-B/evidence/${runId}`;
+    const directory = await resolveContainedExistingPath(this.repositoryRoot, runDirectory);
+    const references: EvidenceReference[] = [];
+    const visit = async (relativeDirectory: string, referenceRunId: string, recurseDirectories = true): Promise<void> => {
+      const absoluteDirectory = await resolveContainedExistingPath(this.repositoryRoot, relativeDirectory);
+      for (const entry of await readdir(absoluteDirectory, { withFileTypes: true })) {
+        if (entry.isSymbolicLink()) continue;
+        const relativePath = `${relativeDirectory}/${entry.name}`;
+        if (entry.isDirectory() && recurseDirectories) {
+          await visit(relativePath, referenceRunId);
+        } else if (entry.isFile() && /\.(json|log)$/.test(entry.name)) {
+          await resolveContainedExistingPath(this.repositoryRoot, relativePath);
+          references.push(this.evidenceRef(referenceRunId, relativePath));
+        }
+      }
+    };
+    const invocationRoot = `${runDirectory}/invocations`;
+    try {
+      const invocationsPath = await resolveContainedExistingPath(this.repositoryRoot, invocationRoot);
+      for (const entry of await readdir(invocationsPath, { withFileTypes: true })) {
+        if (!entry.isDirectory() || entry.isSymbolicLink() || (onlyInvocationId !== undefined && entry.name !== onlyInvocationId)) continue;
+        await visit(`${invocationRoot}/${entry.name}`, entry.name);
+      }
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      if (onlyInvocationId !== undefined) return [];
+    }
+    if (onlyInvocationId === undefined) await visit(runDirectory, runId, false);
+    else if (references.length === 0) return [];
+    return references;
   }
 
   createDispatcher(state: AgentWorkflowState): FixedToolDispatcher {
@@ -297,10 +336,17 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   }
 
   async validate(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, repairAttempts: number, state: AgentWorkflowState): Promise<ValidationResult> {
-    const invocationId = `inv-${sha256(`${state.runId}:${repairAttempts}:${artifact.sha256}`).slice(0, 24)}`;
+    const allocation = await this.allocateInvocation(candidate, artifact, repairAttempts, state);
+    const invocationId = allocation.invocationId;
     const invocationState = { ...state, validationInvocationId: invocationId };
     const dispatcher = this.createDispatcher(invocationState);
     const refs = new Map<Stage, ValidationResult[Stage]>();
+    if (allocation.blocked) {
+      const evidence = await this.writeRunEvidence(invocationState, "recovery-blocked.json", JSON.stringify({ outcome: "BLOCKED", reason: allocation.blocked, priorInvocationsRetained: true, noNewFixtureStarted: true }, null, 2));
+      refs.set("cleanup", { invocationId, stageRunId: `${invocationId}-cleanup`, outcome: "BLOCKED", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [this.evidenceRef(`${invocationId}-cleanup`, evidence)] });
+      for (const stage of STAGE_NAMES) if (!refs.has(stage)) refs.set(stage, { invocationId, outcome: "NOT_RUN", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [] });
+      return this.buildValidationResult(candidate, invocationId, repairAttempts, refs);
+    }
     const record = async (stage: Stage, tool: ToolName, request: Record<string, unknown>): Promise<ToolResult> => {
       const stageRunId = `${invocationId}-${stage}`;
       let result: ToolResult;
@@ -329,14 +375,63 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     if (compile.outcome === "PASS") {
       fixture = await record("fixture", "prepare-fixture", { tool: "prepare-fixture", ...common, experimentKey: this.manifest.fixtureReset.experimentKey });
       if (fixture.outcome === "PASS") {
+        await this.afterFixture?.(invocationState);
         e2e = await record("e2e", "run-selenium-test", { tool: "run-selenium-test", ...common, projectPath: this.manifest.baseSuitePath, generatedArtifactPath: artifact.path, testClass: artifact.testClass });
       }
     }
     let cleanup: ToolResult = outcomeResult("cleanup-experiment", "NOT_RUN");
     if (fixture.outcome !== "NOT_RUN" || this.runs.has(invocationId)) cleanup = await record("cleanup", "cleanup-experiment", { tool: "cleanup-experiment", ...common, experimentKey: this.manifest.fixtureReset.experimentKey });
     for (const stage of STAGE_NAMES) if (!refs.has(stage)) refs.set(stage, { invocationId, outcome: "NOT_RUN", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [] });
+    return this.buildValidationResult(candidate, invocationId, repairAttempts, refs);
+  }
+
+  private buildValidationResult(candidate: CandidateScenario, invocationId: string, repairAttempts: number, refs: Map<Stage, ValidationResult[Stage]>): ValidationResult {
     const decision = (kind: "oracle" | "novelty") => ({ decisionId: `${invocationId}-${kind}`, appId: "expresscart" as const, candidateId: candidate.candidateId, candidateRevision: candidate.revision, decision: "UNVERIFIED" as const, reviewerId: trustedReviewerId(), decidedAt: new Date().toISOString(), rationale: `T01-B ${kind} review remains independent and was not recorded by the implementation approval.`, evidence: [] });
     return parseValidationResult({ appId: "expresscart", candidateId: candidate.candidateId, candidateRevision: candidate.revision, invocationId, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, compile: refs.get("compile"), fixture: refs.get("fixture"), e2e: refs.get("e2e"), cleanup: refs.get("cleanup"), oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts, evidence: [], researchAcceptance: { status: "NOT_REVIEWED" } });
+  }
+
+  private async allocateInvocation(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, repairAttempts: number, state: AgentWorkflowState): Promise<{ invocationId: string; blocked?: string }> {
+    const base = `inv-${sha256(`${state.runId}:${repairAttempts}:${artifact.sha256}`).slice(0, 24)}`;
+    const root = `docs/tasks/T01-B/evidence/${state.runId}/invocations`;
+    await ensureContainedDirectory(this.repositoryRoot, root);
+    const entries = await readdir(await resolveContainedExistingPath(this.repositoryRoot, root), { withFileTypes: true });
+    const matchingEntries = entries.filter((entry) => entry.name === base || entry.name.startsWith(`${base}-`));
+    const existing = matchingEntries.filter((entry) => entry.isDirectory() && !entry.isSymbolicLink()).map((entry) => entry.name).sort();
+    const blockedByInvalidEntry = matchingEntries.find((entry) => entry.isSymbolicLink() || !entry.isDirectory());
+    if (blockedByInvalidEntry) return this.reserveInvocation(root, base, 1, `prior invocation path ${blockedByInvalidEntry.name} is not a real directory; no resources were adopted or removed`);
+    let maxSequence = 0;
+    for (const priorId of existing) {
+      const match = /-(\d{4,})$/.exec(priorId);
+      if (match) maxSequence = Math.max(maxSequence, Number(match[1]));
+      const priorState = { ...state, validationInvocationId: priorId };
+      const ownerRelative = `${evidenceDirectory(priorState)}/owner.json`;
+      let ownerPresent = false;
+      try { await resolveContainedExistingPath(this.repositoryRoot, ownerRelative); ownerPresent = true; }
+      catch (error) {
+        if ((error as NodeJS.ErrnoException).code !== "ENOENT") return this.reserveInvocation(root, base, maxSequence + 1, `prior invocation ${priorId} ownership metadata cannot be safely read: ${error instanceof Error ? error.message : "unknown path error"}`);
+      }
+      if (!ownerPresent) continue; // Compose startup occurs only after owner.json is durably written.
+      const recovered = await this.recoverRun(priorState, priorId);
+      if (!recovered) return this.reserveInvocation(root, base, maxSequence + 1, `prior invocation ${priorId} owner/source/candidate/Compose integrity could not be verified`);
+      const cleanup = await this.cleanup(candidate, this.manifest.fixtureReset.experimentKey, priorState);
+      if (cleanup.outcome === "BLOCKED" || cleanup.outcome === "FAIL") return this.reserveInvocation(root, base, maxSequence + 1, `prior invocation ${priorId} could not be safely reconciled: ${cleanup.stderr || cleanup.stdout || cleanup.outcome}`);
+    }
+    return this.reserveInvocation(root, base, maxSequence + 1);
+  }
+
+  private async reserveInvocation(root: string, base: string, firstSequence: number, blocked?: string): Promise<{ invocationId: string; blocked?: string }> {
+    for (let sequence = firstSequence; sequence < firstSequence + 10_000; sequence++) {
+      const invocation = `${base}-${String(sequence).padStart(4, "0")}`;
+      const path = resolve(this.repositoryRoot, root, invocation);
+      try {
+        await mkdir(path);
+        return { invocationId: invocation, ...(blocked ? { blocked } : {}) };
+      } catch (error) {
+        if ((error as NodeJS.ErrnoException).code === "EEXIST") continue;
+        throw error;
+      }
+    }
+    throw new Error("could not reserve a unique validation invocation evidence directory");
   }
 
   private async getOrCreateRun(workflowRunId: string, invocation: string): Promise<ActiveRun> {
@@ -352,8 +447,8 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   private async recoverRun(state: AgentWorkflowState, invocation: string): Promise<ActiveRun | undefined> {
     const base = evidenceDirectory(state);
     try {
-      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; candidateId?: string; candidateRevision?: number };
-      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${base}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.candidateId !== state.candidate?.candidateId || owner.candidateRevision !== state.candidate?.revision || !owner.composeSha256) return undefined;
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; ownedResourcesOnly?: boolean };
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${base}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== state.candidate?.candidateId || owner.candidateRevision !== state.candidate?.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256) return undefined;
       const composePath = await resolveContainedExistingPath(this.repositoryRoot, owner.composeFile);
       if (sha256(await readFile(composePath)) !== owner.composeSha256) return undefined;
       const run: ActiveRun = { workflowRunId: state.runId, invocationId: invocation, project: owner.project, composePath, composeSha256: owner.composeSha256, evidence: [] };
@@ -452,10 +547,12 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
 
   private async assertNoOwnedResources(run: ActiveRun): Promise<void> {
     const containers = await this.compose(run, ["ps", "-aq"]);
-    if (containers.exitCode !== 0 || containers.stdout.split(/\s+/).some(Boolean)) throw new Error("run-scoped containers remain after Compose cleanup");
+    if (containers.exitCode !== 0) throw new Error("could not verify run-scoped containers after Compose cleanup");
+    if (containers.stdout.split(/\s+/).some(Boolean)) throw new Error("owned containers remain after cleanup");
     for (const kind of ["volume", "network"] as const) {
       const result = await runFixedProcess("docker", [kind, "ls", "-q", "--filter", `label=com.docker.compose.project=${run.project}`], { cwd: this.repositoryRoot, timeoutMs: 20_000 });
-      if (result.exitCode !== 0 || result.stdout.split(/\s+/).some(Boolean)) throw new Error(`run-scoped Docker ${kind}s remain or could not be verified after cleanup`);
+      if (result.exitCode !== 0) throw new Error(`could not verify run-scoped Docker ${kind}s after cleanup`);
+      if (result.stdout.split(/\s+/).some(Boolean)) throw new Error(`owned Docker ${kind}s remain after cleanup`);
     }
   }
 

@@ -202,7 +202,7 @@ export interface ApplicationAdapter {
   prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult>;
   compile(candidate: CandidateScenario): Promise<ToolResult>;
   runSelenium(candidate: CandidateScenario, generatedArtifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult>;
-  collectEvidence(runId: string): Promise<EvidenceReference[]>;
+  collectEvidence(runId: string, invocationId?: string): Promise<EvidenceReference[]>;
   cleanup(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult>;
 }
 

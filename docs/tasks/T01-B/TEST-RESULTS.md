@@ -2,11 +2,13 @@
 
 | Check | Result | Evidence |
 |---|---:|---|
-| Framework `npm ci` | PASS, exit 0; install summary and notices are in the latest log | [`verification-final-20261107/npm-ci.log`](evidence/verification-final-20261107/npm-ci.log) |
-| Framework `npm run build` | PASS, exit 0 | [`verification-final-20261107/framework-build.log`](evidence/verification-final-20261107/framework-build.log) |
-| Framework unit tests | PASS, 21/21 | [`verification-final-20261107/framework-unit.log`](evidence/verification-final-20261107/framework-unit.log) |
-| Framework integration tests | PASS, 13/13 (including restart, replay, dispatcher/path boundaries and comment-only Gherkin revision) | [`verification-final-20261107/framework-integration.log`](evidence/verification-final-20261107/framework-integration.log) |
-| Legacy ExpressCart Agent tests | PASS, 5/5 | [`verification-final-20261107/expresscart-agent-unit.log`](evidence/verification-final-20261107/expresscart-agent-unit.log) |
+| Framework `npm ci` | PASS, 71 packages; 0 vulnerabilities; install-script allowlist notices for `better-sqlite3` and `esbuild` | [`verification-crash-recovery-20261108/01-framework-npm-ci.log`](evidence/verification-crash-recovery-20261108/01-framework-npm-ci.log) |
+| Framework build | PASS | [`verification-crash-recovery-20261108/02-framework-build.log`](evidence/verification-crash-recovery-20261108/02-framework-build.log) |
+| Framework unit tests | PASS, 21/21 | [`verification-crash-recovery-20261108/03-framework-unit-tests.log`](evidence/verification-crash-recovery-20261108/03-framework-unit-tests.log) |
+| Framework integration tests | PASS, 15 passed, 0 failed, 1 opt-in crash test skipped in the regular suite | [`verification-crash-recovery-20261108/04-framework-integration-tests.log`](evidence/verification-crash-recovery-20261108/04-framework-integration-tests.log) |
+| Dedicated process-kill / SQLite replay + current-code actual E2E | PASS, 1/1; first fixture invocation reconciled, second invocation compile/fixture/Selenium/JUnit/cleanup PASS | [`verification-crash-recovery-20261108/07-crash-replay.log`](evidence/verification-crash-recovery-20261108/07-crash-replay.log) and [`t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/replay-summary.json`](evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/replay-summary.json) |
+| ExpressCart Agent `npm ci` | PASS, 34 packages; 0 vulnerabilities | [`verification-crash-recovery-20261108/05-expresscart-agent-npm-ci.log`](evidence/verification-crash-recovery-20261108/05-expresscart-agent-npm-ci.log) |
+| Legacy ExpressCart Agent tests | PASS, 5/5 | [`verification-crash-recovery-20261108/06-expresscart-agent-tests.log`](evidence/verification-crash-recovery-20261108/06-expresscart-agent-tests.log) |
 | ExpressCart Maven compile in runtime | PASS | [`t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/compile.log`](evidence/t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/compile.log) |
 | EC-C04 fixture preflight | PASS; unique unregistered fixture absent before E2E | [`t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/fixture-preflight.json`](evidence/t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/fixture-preflight.json) |
 | EC-C04 Selenium/JUnit E2E | PASS, one test | [`t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/junit/TEST-tests.ForgottenPasswordTest.xml`](evidence/t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/junit/TEST-tests.ForgottenPasswordTest.xml) |
@@ -14,3 +16,7 @@
 | Gemini live invocation | NOT_RUN, 0 calls; no generated model artifact is claimed | [`t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/validation-result.json`](evidence/t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/validation-result.json) |
 
 The earlier Chrome mismatch attempts remain in their own run directories with BLOCKED/FAIL evidence and were not overwritten. No historical Sprint 01–05 artifacts were changed. Full CLI stdout has not been committed where it would duplicate structured evidence; the authoritative run JSON, sanitized console output, fixture record, JUnit output and cleanup record are linked above.
+
+Crash-recovery smoke run: `t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f`. The stopped invocation was `inv-8e0d86a181fadbfc4fd4c4c8-0001`; replay allocated `inv-8e0d86a181fadbfc4fd4c4c8-0002`. It used the reviewed EC-C04 **REUSED** artifact, source commit `b31302f4e99c3293bd742c6d076a721e168118b0`, source version `1.1.19`. Evidence includes `process-termination.json`, per-invocation `source-identity.json`, `fixture-preflight.json`, `compile.log`, `e2e.log`, `junit/TEST-tests.ForgottenPasswordTest.xml`, `selenium-classification.json`, `cleanup.json`, `docker-before-state.log`, `docker-after-state.log` and `replay-summary.json`. JUnit records one test, zero failures/errors; browser and driver were both `156.0.8078.80`. The original project was `running(2)` before and after, while both exact run-owned Compose project IDs were absent after cleanup. Docker evidence rows for unrelated projects were omitted.
+
+This process-kill recovery test is separate from graceful checkpoint restart and adapter-instance reconstruction. It does not simulate OS reboot, power loss or Docker daemon failure. Selenium emitted a CDP implementation warning for Chrome 156 although JUnit passed. The `npm ci` logs contain install-script policy notices for `better-sqlite3` and `esbuild`; build and runtime tests passed in this environment.

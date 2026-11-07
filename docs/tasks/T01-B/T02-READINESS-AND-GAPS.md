@@ -9,7 +9,9 @@ T01-B is ready for independent review, but this document does not authorize T02.
 - Current-run ACCEPT gate, append-only REVISE history, new checkpoint per revision, replay/thread/checkpoint protections.
 - Fixed dispatcher, path traversal/junction checks, candidate/class/artifact binding, exact source/app pins, bounded repair logic.
 - One real EC-C04 compile + isolated fixture + Selenium/JUnit PASS + owned cleanup PASS, using reused Java artifact.
-- Framework build, 21 unit tests, 13 integration tests, and five legacy ExpressCart Agent unit tests PASS.
+- Dedicated Node process kill after real fixture preflight, SQLite checkpoint replay in a new process, safe cleanup of the prior invocation, and a fresh actual E2E PASS. The stopped invocation and replay invocation have distinct IDs and append-only evidence.
+- Nested evidence discovery is invocation-scoped, rejects traversal, skips symlink/junction entries and does not mix invocation references.
+- Framework build, 21 unit tests, 15 regular integration tests, the separate crash/replay integration test (1/1), and five legacy ExpressCart Agent unit tests PASS.
 
 ## Required before research validation and T02
 
@@ -23,6 +25,6 @@ T01-B is ready for independent review, but this document does not authorize T02.
 
 ## Risks and follow-up
 
-Earlier runs exposed driver/browser mismatch. The final adapter selects a driver only when its version matches an installed browser version manifest; final run JUnit proves Chrome 156 and driver 156 executed. Add deterministic tests around installed-browser manifest selection before broadening adapters. The current OS-principal hash is a local CLI identity boundary, not enterprise authentication. Symlink checks passed but concurrent filesystem replacement/race behavior was not stress-tested.
+Earlier runs exposed driver/browser mismatch. The final adapter selects a driver only when its version matches an installed browser version manifest; crash-replay JUnit proves Chrome 156 and driver 156 executed. Selenium still emitted a CDP implementation warning for Chrome 156 although the JUnit case passed. Add deterministic tests around installed-browser manifest selection before broadening adapters. The current OS-principal hash is a local CLI identity boundary, not enterprise authentication. Symlink checks passed but concurrent filesystem replacement/race behavior was not stress-tested. Recovery was tested for an OS process termination only, not host reboot, power loss, Docker daemon crash or filesystem corruption. `npm ci` also reports install-script policy notices for `better-sqlite3` and `esbuild`; clean-machine install reproducibility remains to be independently confirmed.
 
 Do not label this reused-artifact E2E as proof of Gemini generation or a `VALIDATED` benchmark case. Wait for Team Lead/ChatGPT review before starting T02.

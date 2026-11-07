@@ -1,0 +1,8 @@
+{
+  "outcome": "PASS",
+  "classification": "E2E_PASS",
+  "mavenExitCode": 0,
+  "junitReport": "TEST-tests.ForgottenPasswordTest.xml",
+  "browserVersion": "156.0.8078.80",
+  "driverVersion": "156.0.8078.80"
+}
