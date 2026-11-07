@@ -250,7 +250,7 @@
     "currentTaskId": "T01-C",
     "currentTaskStatus": "BLOCKED_BY_AUTO_REVIEW",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
-    "currentTaskPrUrl": null,
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",

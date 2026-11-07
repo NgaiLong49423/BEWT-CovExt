@@ -26,6 +26,8 @@ No Docker, ExpressCart source, BEWT original source, or historical Sprint eviden
 
 ## Evidence and handoff
 
+- Branch: `feature/t01c-model-backed-generation`
+- Draft PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4
 - `evidence/verification/framework-build.txt`
 - `evidence/verification/framework-unit-summary.json`
 - `evidence/verification/expresscart-agent-unit-summary.json`
