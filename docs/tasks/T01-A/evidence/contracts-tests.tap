@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: valid application manifest accepts a pinned app-neutral schema
+ok 1 - valid application manifest accepts a pinned app-neutral schema
+  ---
+  duration_ms: 1.4382
+  type: 'test'
+  ...
+# Subtest: shared application adapter contract is implementable without app-specific framework types
+ok 2 - shared application adapter contract is implementable without app-specific framework types
+  ---
+  duration_ms: 0.8521
+  type: 'test'
+  ...
+# Subtest: invalid manifest rejects unknown app, short source pin, missing Docker image, unsafe paths, and unknown fields
+ok 3 - invalid manifest rejects unknown app, short source pin, missing Docker image, unsafe paths, and unknown fields
+  ---
+  duration_ms: 0.2232
+  type: 'test'
+  ...
+# Subtest: baseline inventory preserves declared count separately from observed scenario count
+ok 4 - baseline inventory preserves declared count separately from observed scenario count
+  ---
+  duration_ms: 0.2939
+  type: 'test'
+  ...
+# Subtest: coverage gaps, candidate scenarios, and evidence references require provenance
+ok 5 - coverage gaps, candidate scenarios, and evidence references require provenance
+  ---
+  duration_ms: 0.2956
+  type: 'test'
+  ...
+# Subtest: state transitions follow the explicit flow and reject skipped or research-only states
+ok 6 - state transitions follow the explicit flow and reject skipped or research-only states
+  ---
+  duration_ms: 0.5578
+  type: 'test'
+  ...
+# Subtest: human approval is bound to app/candidate/revision and required before Java generation
+ok 7 - human approval is bound to app/candidate/revision and required before Java generation
+  ---
+  duration_ms: 0.7205
+  type: 'test'
+  ...
+# Subtest: revision and rejection decisions cannot pass the Java generation gate
+ok 8 - revision and rejection decisions cannot pass the Java generation gate
+  ---
+  duration_ms: 0.3801
+  type: 'test'
+  ...
+# Subtest: decision IDs are single-use and checkpoint resume is bound to its thread/checkpoint/status
+ok 9 - decision IDs are single-use and checkpoint resume is bound to its thread/checkpoint/status
+  ---
+  duration_ms: 0.5987
+  type: 'test'
+  ...
+# Subtest: tool schema rejects unknown commands and traversal before authorization
+ok 10 - tool schema rejects unknown commands and traversal before authorization
+  ---
+  duration_ms: 0.3326
+  type: 'test'
+  ...
+# Subtest: tool allowlist, exact source/app pin, approval, root, and experiment ownership are enforced
+ok 11 - tool allowlist, exact source/app pin, approval, root, and experiment ownership are enforced
+  ---
+  duration_ms: 0.9147
+  type: 'test'
+  ...
+# Subtest: repair attempts are bounded at two in state and validation results
+ok 12 - repair attempts are bounded at two in state and validation results
+  ---
+  duration_ms: 0.487
+  type: 'test'
+  ...
+# Subtest: VALIDATED requires complete results, three passing repeats, review, and pinned evidence
+ok 13 - VALIDATED requires complete results, three passing repeats, review, and pinned evidence
+  ---
+  duration_ms: 0.2061
+  type: 'test'
+  ...
+# Subtest: tool results permit empty output while redacting credentials and personal email
+ok 14 - tool results permit empty output while redacting credentials and personal email
+  ---
+  duration_ms: 0.1996
+  type: 'test'
+  ...
+# Subtest: missing configuration and inconsistent state/candidate data fail closed
+ok 15 - missing configuration and inconsistent state/candidate data fail closed
+  ---
+  duration_ms: 0.2144
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 119.8441

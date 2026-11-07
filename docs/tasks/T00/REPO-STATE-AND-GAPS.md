@@ -50,4 +50,4 @@ Primary paths: `docs/research-results/sprint-01/SPRINT-01-RESULTS.md`; `docs/res
 | Coverage matrices, proposals, reviewer decisions for all apps | No complete eight-app matrices found | T04 after source inventories; retain actual candidate/reviewer denominators |
 | 40 new Gherkin and Java/Selenium candidates | ExpressCart pilot only; no seven-app implementations | T05 generation/implementation after per-app review and approved oracle/fixture |
 | Validated cases under 3 clean-state reruns | Contract-compliant validated count is null; 2 pilot candidates have repeat evidence but not full program acceptance | Case-level provenance, oracle/novelty review, fixture/reset, first run and 3/3 reruns |
-| RQ1–RQ4 and D1–D8 across eight apps | Partial ExpressCart-only work; RQ2 not evaluated | T06 dataset/metrics with denominators and evidence; T07 synthesis after review |\n
+| RQ1–RQ4 and D1–D8 across eight apps | Partial ExpressCart-only work; RQ2 not evaluated | T06 dataset/metrics with denominators and evidence; T07 synthesis after review |

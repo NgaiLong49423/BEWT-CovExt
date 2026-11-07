@@ -2,13 +2,13 @@
   "schemaVersion": "1.0.0",
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
-  "statusType": "INITIAL_REMOTE_OBSERVATION_NOT_ACCEPTANCE",
+  "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
   "snapshotDate": "2026-11-07",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "44bd7c4d7de683afbf1b14ac65c0b43db5950d8c",
-    "note": "Refresh on every task; do not conflate observed main with a reviewed task commit."
+    "observedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
+    "note": "origin/main after merge of T00 PR #1, refreshed for T01-A; do not conflate observed main with a reviewed task commit."
   },
   "targets": {
     "applications": 8,
@@ -20,10 +20,15 @@
     "fourRoleReusableGraph": "NOT_VERIFIED",
     "checkpointResume": "NOT_VERIFIED",
     "toolAllowlist": "NOT_VERIFIED",
+    "contracts": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
+    "humanReviewContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
+    "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "sources": [
       "experiments/expresscart/agent/",
+      "framework/src/",
+      "framework/test/",
       "docs/research-results/sprint-03/"
     ]
   },
@@ -215,9 +220,12 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "lastApprovedTaskId": null,
-    "lastTaskPrUrl": null,
-    "lastReviewedHeadSha": null,
+    "currentTaskId": "T01-A",
+    "currentTaskStatus": "READY_FOR_REVIEW",
+    "currentTaskPrUrl": null,
+    "lastApprovedTaskId": "T00",
+    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/1",
+    "lastReviewedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
     "agentCannotSelfApprove": true
   },
   "evidenceRoots": [
