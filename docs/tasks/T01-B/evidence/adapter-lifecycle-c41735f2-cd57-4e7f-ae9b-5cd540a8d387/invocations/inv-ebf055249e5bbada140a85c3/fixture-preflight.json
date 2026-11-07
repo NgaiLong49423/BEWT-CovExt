@@ -1,0 +1,11 @@
+{
+  "runId": "adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387",
+  "project": "bewt-t01b-44d599bc8cef10b34005",
+  "appUrl": "http://127.0.0.1:64086",
+  "mongoCustomerMatchCountBefore": 0,
+  "emailSha256": "570f5550c5156bf67d122eac421781a5266b7fc6f8b8589ef8fef1c58053253c",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "emailStored": false,
+  "invocationId": "inv-ebf055249e5bbada140a85c3"
+}

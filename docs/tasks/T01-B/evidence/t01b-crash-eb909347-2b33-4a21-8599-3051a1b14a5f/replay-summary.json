@@ -1,0 +1,21 @@
+{
+  "runId": "t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f",
+  "crashInvocationId": "inv-8e0d86a181fadbfc4fd4c4c8-0001",
+  "completedInvocationId": "inv-8e0d86a181fadbfc4fd4c4c8-0002",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "artifactOrigin": "REUSED",
+  "workflowStatus": "EXECUTION_COMPLETED",
+  "outcomes": {
+    "compile": "PASS",
+    "fixture": "PASS",
+    "e2e": "PASS",
+    "cleanup": "PASS"
+  },
+  "junit": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/invocations/inv-8e0d86a181fadbfc4fd4c4c8-0002/junit/TEST-tests.ForgottenPasswordTest.xml",
+  "terminalEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/validation-result.json",
+  "model": {
+    "provider": "Gemini",
+    "status": "NOT_RUN",
+    "calls": 0
+  }
+}

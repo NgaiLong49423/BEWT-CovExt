@@ -1,0 +1,9 @@
+{
+  "runId": "adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387-restart",
+  "invocationId": "inv-recovery-70894f67-b3cc-43c8-8138-3ccd109f42fc",
+  "project": "bewt-t01b-3a4d7ee993c76f54a05d",
+  "outcome": "CLEANUP_BLOCKED",
+  "error": "run-scoped Compose cleanup returned a non-zero exit code",
+  "noGlobalCleanup": true,
+  "recovery": "Verify owner.json and Compose labels manually; remove only the exact invocation project after ownership is established."
+}

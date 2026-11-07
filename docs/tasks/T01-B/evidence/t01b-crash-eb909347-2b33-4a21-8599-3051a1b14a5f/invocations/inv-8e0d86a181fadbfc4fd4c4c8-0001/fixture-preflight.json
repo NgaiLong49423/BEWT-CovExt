@@ -1,0 +1,11 @@
+{
+  "runId": "t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f",
+  "project": "bewt-t01b-9026120cbb17fd2b7eb4",
+  "appUrl": "http://127.0.0.1:64685",
+  "mongoCustomerMatchCountBefore": 0,
+  "emailSha256": "1cf7e265448c7d53cac5cad8987f73f62447b59887c698fcee4aadadadaef04c",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "emailStored": false,
+  "invocationId": "inv-8e0d86a181fadbfc4fd4c4c8-0001"
+}

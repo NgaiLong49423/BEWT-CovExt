@@ -1,0 +1,310 @@
+{
+  "runId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "workflowStatus": "VALIDATING",
+  "candidateId": "EC-C04",
+  "candidateRevision": 1,
+  "reviewDecisions": [
+    {
+      "decisionId": "eb883af1-7c4d-4056-8d8b-205454d9a285",
+      "runId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+      "threadId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+      "checkpointId": "8126d20b-28d4-488c-a311-2da76b315041",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "appId": "expresscart",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decision": "ACCEPT",
+      "decidedAt": "2026-11-07T16:30:13.874Z",
+      "rationale": "Accepted for implementation after reviewing the exact generic-response candidate and its pinned run context."
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "generated_java",
+      "path": "experiments/expresscart/bewt-suite/src/test/java/tests/ForgottenPasswordTest.java",
+      "candidateId": "EC-C04",
+      "revision": 1,
+      "testClass": "tests.ForgottenPasswordTest",
+      "origin": "REUSED",
+      "sha256": "931f410f43dbca59cd7d341ea3822c70124dd8ad2b00ea3377c45dfb9c7a7b80"
+    }
+  ],
+  "validation": {
+    "appId": "expresscart",
+    "candidateId": "EC-C04",
+    "candidateRevision": 1,
+    "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "sourceVersion": "1.1.19",
+    "compile": {
+      "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+      "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-compile",
+      "outcome": "PASS",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-compile",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/compile.log"
+        }
+      ]
+    },
+    "fixture": {
+      "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+      "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-fixture",
+      "outcome": "PASS",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-fixture",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/fixture-preflight.json"
+        }
+      ]
+    },
+    "e2e": {
+      "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+      "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+      "outcome": "BLOCKED",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/selenium-console.log"
+        },
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/junit/TEST-tests.ForgottenPasswordTest.xml"
+        },
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/junit/tests.ForgottenPasswordTest.txt"
+        },
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/webdriver-pin.json"
+        },
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/selenium-classification.json"
+        }
+      ]
+    },
+    "cleanup": {
+      "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+      "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-cleanup",
+      "outcome": "PASS",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-cleanup",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/cleanup.json"
+        }
+      ]
+    },
+    "oracleDecision": {
+      "decisionId": "inv-31f2f112-711b-4328-af59-0084134a648e-oracle",
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "decision": "UNVERIFIED",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decidedAt": "2026-11-07T16:30:34.315Z",
+      "rationale": "T01-B oracle review remains independent and was not recorded by the implementation approval.",
+      "evidence": []
+    },
+    "noveltyDecision": {
+      "decisionId": "inv-31f2f112-711b-4328-af59-0084134a648e-novelty",
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "decision": "UNVERIFIED",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decidedAt": "2026-11-07T16:30:34.315Z",
+      "rationale": "T01-B novelty review remains independent and was not recorded by the implementation approval.",
+      "evidence": []
+    },
+    "repeats": [],
+    "repairAttempts": 0,
+    "evidence": [],
+    "researchAcceptance": {
+      "status": "NOT_REVIEWED"
+    },
+    "technicalEligibility": "UNVERIFIED"
+  },
+  "validationHistory": [
+    {
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "compile": {
+        "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+        "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-compile",
+        "outcome": "PASS",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-compile",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/compile.log"
+          }
+        ]
+      },
+      "fixture": {
+        "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+        "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-fixture",
+        "outcome": "PASS",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-fixture",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/fixture-preflight.json"
+          }
+        ]
+      },
+      "e2e": {
+        "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+        "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+        "outcome": "BLOCKED",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/selenium-console.log"
+          },
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/junit/TEST-tests.ForgottenPasswordTest.xml"
+          },
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/junit/tests.ForgottenPasswordTest.txt"
+          },
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/webdriver-pin.json"
+          },
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-e2e",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/selenium-classification.json"
+          }
+        ]
+      },
+      "cleanup": {
+        "invocationId": "inv-31f2f112-711b-4328-af59-0084134a648e",
+        "stageRunId": "inv-31f2f112-711b-4328-af59-0084134a648e-cleanup",
+        "outcome": "PASS",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-31f2f112-711b-4328-af59-0084134a648e-cleanup",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f/cleanup.json"
+          }
+        ]
+      },
+      "oracleDecision": {
+        "decisionId": "inv-31f2f112-711b-4328-af59-0084134a648e-oracle",
+        "appId": "expresscart",
+        "candidateId": "EC-C04",
+        "candidateRevision": 1,
+        "decision": "UNVERIFIED",
+        "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+        "decidedAt": "2026-11-07T16:30:34.315Z",
+        "rationale": "T01-B oracle review remains independent and was not recorded by the implementation approval.",
+        "evidence": []
+      },
+      "noveltyDecision": {
+        "decisionId": "inv-31f2f112-711b-4328-af59-0084134a648e-novelty",
+        "appId": "expresscart",
+        "candidateId": "EC-C04",
+        "candidateRevision": 1,
+        "decision": "UNVERIFIED",
+        "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+        "decidedAt": "2026-11-07T16:30:34.315Z",
+        "rationale": "T01-B novelty review remains independent and was not recorded by the implementation approval.",
+        "evidence": []
+      },
+      "repeats": [],
+      "repairAttempts": 0,
+      "evidence": [],
+      "researchAcceptance": {
+        "status": "NOT_REVIEWED"
+      },
+      "technicalEligibility": "UNVERIFIED"
+    }
+  ],
+  "model": {
+    "provider": "Gemini",
+    "status": "NOT_RUN",
+    "calls": 0,
+    "reason": "No real Gemini invocation was authorized for this T01-B run; candidate Gherkin and the Java suite are reused historical artifacts."
+  },
+  "roleResults": {
+    "coverage_analysis": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:28:56.119Z",
+      "finishedAt": "2026-11-07T16:28:56.125Z",
+      "summary": "Collected 31 scenarios and 1 grounded gaps."
+    },
+    "gherkin_generation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:28:56.129Z",
+      "finishedAt": "2026-11-07T16:28:56.133Z",
+      "summary": "Candidate EC-C04 revision 1 is ready for review."
+    },
+    "selenium_implementation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:30:13.879Z",
+      "finishedAt": "2026-11-07T16:30:13.885Z",
+      "summary": "REUSED Java artifact registered: tests.ForgottenPasswordTest."
+    },
+    "validation_repair": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:30:13.887Z",
+      "finishedAt": "2026-11-07T16:30:34.317Z",
+      "summary": "Validation inv-31f2f112-711b-4328-af59-0084134a648e: UNVERIFIED."
+    }
+  }
+}

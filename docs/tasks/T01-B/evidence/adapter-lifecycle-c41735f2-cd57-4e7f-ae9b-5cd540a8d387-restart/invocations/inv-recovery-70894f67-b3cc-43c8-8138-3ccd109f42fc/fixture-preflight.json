@@ -1,0 +1,11 @@
+{
+  "runId": "adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387-restart",
+  "project": "bewt-t01b-3a4d7ee993c76f54a05d",
+  "appUrl": "http://127.0.0.1:64094",
+  "mongoCustomerMatchCountBefore": 0,
+  "emailSha256": "39f1db0ad78bb097f94db672630aaf05d94c59b16b175f1870ab5e7283285e96",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "emailStored": false,
+  "invocationId": "inv-recovery-70894f67-b3cc-43c8-8138-3ccd109f42fc"
+}

@@ -1,0 +1,7 @@
+{
+  "runId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+  "project": "bewt-t01b-t01be673523be845",
+  "outcome": "PASS",
+  "volumesRemoved": true,
+  "scope": "only resources carrying the exact Compose project label"
+}

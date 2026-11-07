@@ -1,0 +1,26 @@
+
+> test:integration
+> tsx --test test/integration/*.test.ts
+
+✔ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (19.1686ms)
+✔ dispatcher requires a fixed implementation for every declared tool (0.6524ms)
+✔ actual ExpressCart adapter isolates validation invocations and repair evidence (38406.9591ms)
+✔ comment-only revision metadata preserves approved scenario semantics (3.4229ms)
+✔ ExpressCart local image identity is tied to measured source, package and Dockerfile inputs (317.8067ms)
+✔ source-built image IDs must match host-observed IDs and are not registry digests (3.3322ms)
+✔ build-context hashing rejects symlinks and is stable for sorted repository-relative inputs (197.7367ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (2.368ms)
+✔ real-path resolver rejects traversal and junction/symlink components (17.5313ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (101.5545ms)
+✔ REJECT terminates before Java preparation (20.5353ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (24.788ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (50.8403ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3162.8807ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 38848.529

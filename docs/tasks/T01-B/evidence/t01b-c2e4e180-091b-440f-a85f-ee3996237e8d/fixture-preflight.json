@@ -1,0 +1,10 @@
+{
+  "runId": "t01b-c2e4e180-091b-440f-a85f-ee3996237e8d",
+  "project": "bewt-t01b-t01bc2e4e180091b",
+  "appUrl": "http://127.0.0.1:65211",
+  "mongoCustomerMatchCountBefore": 0,
+  "emailSha256": "9e47ef2d0488d5c283e0b8feeb7fe7969b095fa3dbc843226f50830cb6f613c5",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "emailStored": false
+}

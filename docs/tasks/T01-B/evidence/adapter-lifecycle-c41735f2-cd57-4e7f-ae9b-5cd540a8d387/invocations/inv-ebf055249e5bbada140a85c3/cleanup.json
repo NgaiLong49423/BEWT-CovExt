@@ -1,0 +1,8 @@
+{
+  "runId": "adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387",
+  "invocationId": "inv-ebf055249e5bbada140a85c3",
+  "project": "bewt-t01b-44d599bc8cef10b34005",
+  "outcome": "PASS",
+  "volumesRemoved": true,
+  "scope": "only resources carrying the exact Compose project label"
+}

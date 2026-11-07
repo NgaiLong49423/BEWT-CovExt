@@ -1,0 +1,37 @@
+{
+  "runId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+  "threadId": "t01b-e673523b-e845-4fe4-8d32-7c8d766ec70f",
+  "checkpointId": "8126d20b-28d4-488c-a311-2da76b315041",
+  "candidateId": "EC-C04",
+  "candidateRevision": 1,
+  "appId": "expresscart",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "reviewStatus": "PROPOSED",
+  "gherkinOrigin": "REUSED_HISTORICAL_CANDIDATE",
+  "gherkin": "Feature: Customer forgotten-password request\r\n\r\n  Scenario: Return the generic response for an unregistered email\r\n    Given an email address is not present in the customer collection\r\n    When the visitor opens the forgotten-password form\r\n    And submits that email address\r\n    Then the page shows a success notification\r\n    And the notification says \"If your account exists, a password reset has been sent to your email\"",
+  "preconditions": [
+    "A fresh unregistered email must be confirmed absent from the isolated Mongo customers collection before the browser flow."
+  ],
+  "oracle": [
+    "The forgotten-password form displays the exact generic response for an unregistered email."
+  ],
+  "noveltyRationale": "Reuses the historically reviewed EC-C04 candidate as the T01-B implementation target. Current novelty approval remains UNVERIFIED and is not inferred from the historical implementation decision.",
+  "currentRunNoveltyDecision": "UNVERIFIED",
+  "historicalApprovalNotReused": true,
+  "roleResults": {
+    "coverage_analysis": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:28:56.119Z",
+      "finishedAt": "2026-11-07T16:28:56.125Z",
+      "summary": "Collected 31 scenarios and 1 grounded gaps."
+    },
+    "gherkin_generation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:28:56.129Z",
+      "finishedAt": "2026-11-07T16:28:56.133Z",
+      "summary": "Candidate EC-C04 revision 1 is ready for review."
+    }
+  },
+  "reviewerIdentitySource": "OS user principal SHA-256 pseudonym; no caller-provided reviewerId accepted"
+}

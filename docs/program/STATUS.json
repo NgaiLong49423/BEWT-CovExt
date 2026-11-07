@@ -3,12 +3,12 @@
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
   "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
-  "snapshotDate": "2026-11-07",
+  "snapshotDate": "2026-11-08",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
-    "note": "origin/main after merge of T00 PR #1, refreshed for T01-A; do not conflate observed main with a reviewed task commit."
+    "observedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
+    "note": "Verified by git fetch origin main on 2026-11-08; this is the T01-B PR base, not the reviewed PR head."
   },
   "targets": {
     "applications": 8,
@@ -17,9 +17,9 @@
     "originalBusinessCaseEntriesInProposal": 258
   },
   "framework": {
-    "fourRoleReusableGraph": "NOT_VERIFIED",
-    "checkpointResume": "NOT_VERIFIED",
-    "toolAllowlist": "NOT_VERIFIED",
+    "fourRoleReusableGraph": "RUNTIME_EXECUTED_TESTED",
+    "checkpointResume": "PROCESS_RESTART_TESTED",
+    "toolAllowlist": "IMPLEMENTED_TESTED_RUNTIME_EXECUTED",
     "contracts": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "humanReviewContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
@@ -32,7 +32,29 @@
       "framework/src/",
       "framework/test/",
       "docs/research-results/sprint-03/"
-    ]
+    ],
+    "t01bRuntime": {
+      "status": "READY_FOR_REVIEW",
+      "successfulRun": "t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f",
+      "priorSuccessfulRun": "t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf",
+      "compile": "PASS",
+      "fixture": "PASS",
+      "e2e": "PASS",
+      "cleanup": "PASS",
+      "technicalEligibility": "UNVERIFIED",
+      "repeatInvocations": 0,
+      "requiredRepeatInvocations": 3,
+      "oracleDecision": "UNVERIFIED",
+      "noveltyDecision": "UNVERIFIED",
+      "researchAcceptance": "NOT_REVIEWED",
+      "geminiCalls": 0,
+      "javaArtifactOrigin": "REUSED",
+      "crashRecovery": "PROCESS_TERMINATION_AND_SQLITE_REPLAY_TESTED",
+      "crashInvocation": "inv-8e0d86a181fadbfc4fd4c4c8-0001",
+      "replayInvocation": "inv-8e0d86a181fadbfc4fd4c4c8-0002",
+      "crashRecoveryEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/",
+      "note": "Current-code crash/replay smoke completed one REUSED-artifact EC-C04 E2E PASS after safe cleanup of the interrupted invocation. It is not VALIDATED and not G2/D1 acceptance. Repeat invocations remain zero; oracle and novelty remain UNVERIFIED. Process termination was tested; host/OS reboot, power loss, Docker daemon crash and concurrent recovery were not. Gemini calls: zero."
+    }
   },
   "apps": [
     {
@@ -100,7 +122,9 @@
       ],
       "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
       "observedUpstreamVersion": "1.1.19",
-      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program."
+      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program.",
+      "t01bExecution": "CURRENT_CODE_CRASH_REPLAY_ONE_E2E_PASS_REUSED_ARTIFACT_NOT_VALIDATED",
+      "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/"
     },
     {
       "app": "joomla",
@@ -209,7 +233,7 @@
     "RQ3": "PARTIAL_EXPRESSCART_ONLY",
     "RQ4": "PARTIAL_MODEL_AND_REPAIR_TELEMETRY_ONLY",
     "validatedNewCases": null,
-    "notes": "2 final E2E PASS are not automatically VALIDATED new benchmark cases."
+    "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
   "deliverables": {
     "D1": "NOT_ACCEPTED",
@@ -222,12 +246,13 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "currentTaskId": "T01-A",
+    "currentTaskId": "T01-B",
     "currentTaskStatus": "READY_FOR_REVIEW",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
-    "lastApprovedTaskId": "T00",
-    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/1",
-    "lastReviewedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/3",
+    "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
+    "lastApprovedTaskId": "T01-A",
+    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
+    "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
     "agentCannotSelfApprove": true
   },
   "evidenceRoots": [
@@ -236,7 +261,8 @@
     "docs/research-results/sprint-03/",
     "docs/research-results/sprint-04/",
     "docs/research-results/sprint-05/",
-    "docs/research-results/final/"
+    "docs/research-results/final/",
+    "docs/tasks/T01-B/evidence/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
 }

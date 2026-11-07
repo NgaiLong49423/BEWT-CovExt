@@ -1,0 +1,12 @@
+{
+  "workflowRunId": "adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387",
+  "invocationId": "inv-ebf055249e5bbada140a85c3",
+  "project": "bewt-t01b-44d599bc8cef10b34005",
+  "composeFile": "docs/tasks/T01-B/evidence/adapter-lifecycle-c41735f2-cd57-4e7f-ae9b-5cd540a8d387/invocations/inv-ebf055249e5bbada140a85c3/compose.json",
+  "composeSha256": "cbc48432239da76e4ec5bd5bb25ce67be00afdce0a652fd4f4fc350fe9bbe931",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "candidateId": "EC-C04",
+  "candidateRevision": 1,
+  "ownedResourcesOnly": true
+}

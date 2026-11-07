@@ -1,0 +1,61 @@
+{
+  "runId": "t01b-08ed746f-a703-4ba5-be89-83c2aaa348e3",
+  "status": "FAILED",
+  "terminalError": {
+    "category": "JAVA_IMPLEMENTATION_FAILED",
+    "message": "EC-C04 Gherkin differs from the reviewed implementation source; a new Java artifact is required"
+  },
+  "reviewDecisions": [
+    {
+      "decisionId": "17471d1a-929c-4e4b-b437-d71aa1db0de8",
+      "runId": "t01b-08ed746f-a703-4ba5-be89-83c2aaa348e3",
+      "threadId": "t01b-08ed746f-a703-4ba5-be89-83c2aaa348e3",
+      "checkpointId": "0bee63a6-4513-4c94-b970-2ded436ee849",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "appId": "expresscart",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decision": "REVISE",
+      "decidedAt": "2026-11-07T16:25:05.581Z",
+      "rationale": "Please clarify the expected response oracle and the browser setup used by the Selenium scenario."
+    },
+    {
+      "decisionId": "c0b7b9c8-be09-4932-8ef9-4d9c29c8dce9",
+      "runId": "t01b-08ed746f-a703-4ba5-be89-83c2aaa348e3",
+      "threadId": "t01b-08ed746f-a703-4ba5-be89-83c2aaa348e3",
+      "checkpointId": "0e67f0bf-7629-4c1f-9a90-7f17a57b94d4",
+      "candidateId": "EC-C04",
+      "candidateRevision": 2,
+      "appId": "expresscart",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decision": "ACCEPT",
+      "decidedAt": "2026-11-07T16:25:59.752Z",
+      "rationale": "Accepted for implementation; exact generic-response oracle is retained and the current Selenium setup will be recorded."
+    }
+  ],
+  "artifacts": [],
+  "roleResults": {
+    "coverage_analysis": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:24:36.653Z",
+      "finishedAt": "2026-11-07T16:24:36.657Z",
+      "summary": "Collected 31 scenarios and 1 grounded gaps."
+    },
+    "gherkin_generation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:25:05.587Z",
+      "finishedAt": "2026-11-07T16:25:05.591Z",
+      "summary": "Candidate EC-C04 revision 2 is ready for review."
+    },
+    "selenium_implementation": {
+      "outcome": "FAIL",
+      "startedAt": "2026-11-07T16:25:59.757Z",
+      "finishedAt": "2026-11-07T16:25:59.759Z",
+      "summary": "EC-C04 Gherkin differs from the reviewed implementation source; a new Java artifact is required",
+      "errorCategory": "JAVA_IMPLEMENTATION_FAILED"
+    }
+  },
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "javaGenerationStarted": false
+}

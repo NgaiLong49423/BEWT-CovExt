@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "packageVersion": "1.1.19",
+  "packageJsonGitBlob": "ecdb41069f18e077c1f5aefe20e7182e79e5d236",
+  "packageLockGitBlob": "04a21b2e5843f2e4d3bff4b303a0fb9909529c8e",
+  "buildContextSha256": "3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a",
+  "dockerfileSha256": "17f5c4bc9f6b8751fc8e842e37f633ea398cbc1a0c6e865ceab27040fcc668e6",
+  "fileCount": 197
+}

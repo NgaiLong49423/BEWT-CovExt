@@ -1,0 +1,12 @@
+{
+  "workflowRunId": "t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f",
+  "invocationId": "inv-8e0d86a181fadbfc4fd4c4c8-0002",
+  "project": "bewt-t01b-1f485e7a09c9328a27e2",
+  "composeFile": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/invocations/inv-8e0d86a181fadbfc4fd4c4c8-0002/compose.json",
+  "composeSha256": "cbc48432239da76e4ec5bd5bb25ce67be00afdce0a652fd4f4fc350fe9bbe931",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "candidateId": "EC-C04",
+  "candidateRevision": 1,
+  "ownedResourcesOnly": true
+}
