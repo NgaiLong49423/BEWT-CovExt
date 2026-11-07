@@ -27,7 +27,7 @@ export interface ApplicationManifest {
   benchmarkBaseVersion: string;
   source: { repository: string; commit: string; packageVersion?: string };
   baseSuitePath: string;
-  runtime: { kind: "docker" | "external"; version: string; image?: string; imageDigest?: string };
+  runtime: DockerRuntime | SourceBuiltRuntime | ExternalRuntime;
   fixtureReset: {
     experimentKey: string;
     prepareTool: "prepare-fixture";
@@ -36,6 +36,35 @@ export interface ApplicationManifest {
     destructive: boolean;
   };
   allowedTools: ToolName[];
+}
+
+export interface DockerRuntime {
+  kind: "docker";
+  version: string;
+  image: string;
+  imageDigest: string;
+}
+
+/** Pins a locally built image by its source inputs without mislabeling its image ID as a registry digest. */
+export interface SourceBuiltRuntime {
+  kind: "source-built";
+  version: string;
+  image: string;
+  sourceCommit: string;
+  buildContextPath: string;
+  buildContextDigestAlgorithm: "path-nul-sha256-newline-v1";
+  buildContextSha256: string;
+  dockerfilePath: string;
+  dockerfileSha256: string;
+  observedImageId: string;
+  auxiliaryImages?: Array<{ image: string; observedImageId: string }>;
+}
+
+export interface ExternalRuntime {
+  kind: "external";
+  version: string;
+  image?: string;
+  imageDigest?: string;
 }
 
 export interface BaselineCase {
@@ -112,6 +141,8 @@ export interface WorkflowArtifact {
   candidateId?: string;
   revision?: number;
   testClass?: string;
+  origin?: "GENERATED" | "REUSED" | "REPAIRED";
+  sha256?: string;
 }
 
 export interface GeneratedJavaArtifact extends WorkflowArtifact {
@@ -167,11 +198,11 @@ export interface ToolResult {
 export interface ApplicationAdapter {
   readonly manifest: ApplicationManifest;
   readBaseline(): Promise<BaselineInventory>;
-  prepareFixture(candidate: CandidateScenario, experimentKey: string): Promise<ToolResult>;
+  prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult>;
   compile(candidate: CandidateScenario): Promise<ToolResult>;
-  runSelenium(candidate: CandidateScenario, generatedArtifact: GeneratedJavaArtifact): Promise<ToolResult>;
+  runSelenium(candidate: CandidateScenario, generatedArtifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult>;
   collectEvidence(runId: string): Promise<EvidenceReference[]>;
-  cleanup(candidate: CandidateScenario, experimentKey: string): Promise<ToolResult>;
+  cleanup(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult>;
 }
 
 export interface ExecutionReference {
@@ -270,6 +301,12 @@ function sha(value: unknown, label: string): string {
   return parsed.toLowerCase();
 }
 
+function sha256(value: unknown, label: string): string {
+  const parsed = text(value, label, 64);
+  if (!/^[a-f0-9]{64}$/i.test(parsed)) throw new ContractError(`${label} must be a full 64-character SHA-256 hex digest`);
+  return parsed.toLowerCase();
+}
+
 function isoDate(value: unknown, label: string): string {
   const parsed = text(value, label, 40);
   if (!/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d(?:\.\d+)?(?:Z|[+-]\d\d:\d\d)$/.test(parsed) || Number.isNaN(Date.parse(parsed))) {
@@ -303,9 +340,41 @@ export function parseApplicationManifest(input: unknown): ApplicationManifest {
   const runtime = record(value.runtime, "ApplicationManifest.runtime");
   const fixture = record(value.fixtureReset, "ApplicationManifest.fixtureReset");
   assertKeys(source, ["repository", "commit", "packageVersion"], "source");
-  assertKeys(runtime, ["kind", "version", "image", "imageDigest"], "runtime");
   assertKeys(fixture, ["experimentKey", "prepareTool", "cleanupTool", "resetStrategy", "destructive"], "fixtureReset");
-  const kind = member(runtime.kind, ["docker", "external"] as const, "runtime.kind");
+  const kind = member(runtime.kind, ["docker", "source-built", "external"] as const, "runtime.kind");
+  assertKeys(runtime, kind === "source-built"
+    ? ["kind", "version", "image", "sourceCommit", "buildContextPath", "buildContextDigestAlgorithm", "buildContextSha256", "dockerfilePath", "dockerfileSha256", "observedImageId", "auxiliaryImages"]
+    : ["kind", "version", "image", "imageDigest"], "runtime");
+  const parsedRuntime: ApplicationManifest["runtime"] = kind === "source-built" ? {
+    kind,
+    version: text(runtime.version, "runtime.version", 120),
+    image: text(runtime.image, "runtime.image", 300),
+    sourceCommit: sha(runtime.sourceCommit, "runtime.sourceCommit"),
+    buildContextPath: assertSafeRelativePath(runtime.buildContextPath, "runtime.buildContextPath"),
+    buildContextDigestAlgorithm: member(runtime.buildContextDigestAlgorithm, ["path-nul-sha256-newline-v1"] as const, "runtime.buildContextDigestAlgorithm"),
+    buildContextSha256: sha256(runtime.buildContextSha256, "runtime.buildContextSha256"),
+    dockerfilePath: assertSafeRelativePath(runtime.dockerfilePath, "runtime.dockerfilePath"),
+    dockerfileSha256: sha256(runtime.dockerfileSha256, "runtime.dockerfileSha256"),
+    observedImageId: `sha256:${sha256(typeof runtime.observedImageId === "string" ? runtime.observedImageId.replace(/^sha256:/, "") : runtime.observedImageId, "runtime.observedImageId")}`,
+    ...(runtime.auxiliaryImages === undefined ? {} : { auxiliaryImages: list(runtime.auxiliaryImages, "runtime.auxiliaryImages", (item, index) => {
+      const image = record(item, `runtime.auxiliaryImages[${index}]`);
+      assertKeys(image, ["image", "observedImageId"], `runtime.auxiliaryImages[${index}]`);
+      const rawImageId = typeof image.observedImageId === "string" ? image.observedImageId.replace(/^sha256:/, "") : image.observedImageId;
+      return { image: text(image.image, `runtime.auxiliaryImages[${index}].image`, 300), observedImageId: `sha256:${sha256(rawImageId, `runtime.auxiliaryImages[${index}].observedImageId`)}` };
+    }, 0, 20) }),
+  } : kind === "docker" ? {
+    kind,
+    version: text(runtime.version, "runtime.version", 120),
+    image: text(runtime.image, "runtime.image", 300),
+    imageDigest: typeof runtime.imageDigest === "string" && /^sha256:[a-f0-9]{64}$/i.test(runtime.imageDigest)
+      ? runtime.imageDigest
+      : (() => { throw new ContractError("Docker runtime requires an image and a pinned sha256 digest"); })(),
+  } : {
+    kind,
+    version: text(runtime.version, "runtime.version", 120),
+    ...(runtime.image === undefined ? {} : { image: text(runtime.image, "runtime.image", 300) }),
+    ...(runtime.imageDigest === undefined ? {} : { imageDigest: text(runtime.imageDigest, "runtime.imageDigest", 300) }),
+  };
   const manifest: ApplicationManifest = {
     schemaVersion: member(value.schemaVersion, ["1.0.0"] as const, "schemaVersion"),
     appId: member(value.appId, APP_IDS, "appId"),
@@ -316,12 +385,7 @@ export function parseApplicationManifest(input: unknown): ApplicationManifest {
       ...(source.packageVersion === undefined ? {} : { packageVersion: text(source.packageVersion, "source.packageVersion", 120) }),
     },
     baseSuitePath: assertSafeRelativePath(value.baseSuitePath, "baseSuitePath"),
-    runtime: {
-      kind,
-      version: text(runtime.version, "runtime.version", 120),
-      ...(runtime.image === undefined ? {} : { image: text(runtime.image, "runtime.image", 300) }),
-      ...(runtime.imageDigest === undefined ? {} : { imageDigest: text(runtime.imageDigest, "runtime.imageDigest", 300) }),
-    },
+    runtime: parsedRuntime,
     fixtureReset: {
       experimentKey: text(fixture.experimentKey, "fixtureReset.experimentKey", 100),
       prepareTool: member(fixture.prepareTool, ["prepare-fixture"] as const, "fixtureReset.prepareTool"),
@@ -332,8 +396,11 @@ export function parseApplicationManifest(input: unknown): ApplicationManifest {
     allowedTools: list(value.allowedTools, "allowedTools", (tool) => member(tool, TOOL_NAMES, "allowedTools item"), 1, TOOL_NAMES.length),
   };
   if (new Set(manifest.allowedTools).size !== manifest.allowedTools.length) throw new ContractError("allowedTools must not contain duplicates");
-  if (kind === "docker" && (!manifest.runtime.image || !manifest.runtime.imageDigest || !/^sha256:[a-f0-9]{64}$/i.test(manifest.runtime.imageDigest))) {
+  if (manifest.runtime.kind === "docker" && (!manifest.runtime.image || !manifest.runtime.imageDigest || !/^sha256:[a-f0-9]{64}$/i.test(manifest.runtime.imageDigest))) {
     throw new ContractError("Docker runtime requires an image and a pinned sha256 digest");
+  }
+  if (manifest.runtime.kind === "source-built" && manifest.runtime.sourceCommit !== manifest.source.commit) {
+    throw new ContractError("source-built runtime commit must match the application source pin");
   }
   if (!manifest.allowedTools.includes(manifest.fixtureReset.prepareTool) || !manifest.allowedTools.includes(manifest.fixtureReset.cleanupTool)) {
     throw new ContractError("fixture prepare/cleanup tools must be in the app allowlist");
@@ -444,20 +511,25 @@ export function parseWorkflowState(input: unknown): AgentWorkflowState {
     ...(checkpoint ? { checkpoint } : {}),
     artifacts: list(value.artifacts, "artifacts", (item) => {
       const artifact = record(item, "artifact");
-      assertKeys(artifact, ["kind", "path", "candidateId", "revision", "testClass"], "artifact");
+      assertKeys(artifact, ["kind", "path", "candidateId", "revision", "testClass", "origin", "sha256"], "artifact");
       const revision = artifact.revision;
       if (revision !== undefined && (!Number.isInteger(revision) || (revision as number) < 1)) throw new ContractError("artifact revision must be a positive integer");
       const kind = member(artifact.kind, ["baseline", "candidate", "generated_java", "validation", "log"] as const, "artifact.kind");
       const candidateId = artifact.candidateId === undefined ? undefined : text(artifact.candidateId, "artifact.candidateId", 120);
       const testClass = artifact.testClass === undefined ? undefined : javaClassName(artifact.testClass, "artifact.testClass");
+      const origin = artifact.origin === undefined ? undefined : member(artifact.origin, ["GENERATED", "REUSED", "REPAIRED"] as const, "artifact.origin");
+      const artifactSha = artifact.sha256 === undefined ? undefined : sha256(artifact.sha256, "artifact.sha256");
       if (kind === "generated_java" && (!candidateId || revision === undefined || !testClass)) throw new ContractError("generated Java artifact requires candidate ID, revision, and test class binding");
       if (kind !== "generated_java" && testClass !== undefined) throw new ContractError("testClass is only valid for generated Java artifacts");
+      if (kind !== "generated_java" && (origin !== undefined || artifactSha !== undefined)) throw new ContractError("artifact origin and SHA-256 are only valid for generated Java artifacts");
       return {
         kind,
         path: assertSafeRelativePath(artifact.path),
         ...(candidateId === undefined ? {} : { candidateId }),
         ...(revision === undefined ? {} : { revision: revision as number }),
         ...(testClass === undefined ? {} : { testClass }),
+        ...(origin === undefined ? {} : { origin }),
+        ...(artifactSha === undefined ? {} : { sha256: artifactSha }),
       };
     }, 0, 1_000),
     repairAttempts: value.repairAttempts as number,
@@ -505,6 +577,10 @@ export function sanitizeToolOutput(output: string): string {
     .replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi, "[REDACTED_EMAIL]")
     .replace(/\b(?:AIza[\w-]{20,}|gh[pousr]_[A-Za-z0-9]{20,})\b/g, "[REDACTED_TOKEN]")
     .replace(/\b(Bearer\s+)[A-Za-z0-9._~+/-]+=*/gi, "$1[REDACTED]")
+    .replace(/Host info:\s*host:\s*'[^']*',\s*ip:\s*'[^']*'/gi, "Host info: host: '[REDACTED_HOST]', ip: '[REDACTED_IP]'")
+    .replace(/\b(?:DESKTOP|LAPTOP)-[A-Z0-9-]+\b/gi, "[REDACTED_HOST]")
+    .replace(/\b(?:10\.(?:\d{1,3}\.){2}\d{1,3}|192\.168\.(?:\d{1,3}\.)\d{1,3}|172\.(?:1[6-9]|2\d|3[01])\.(?:\d{1,3}\.)\d{1,3})\b/g, "[REDACTED_PRIVATE_IP]")
+    .replace(/[A-Z]:\\Users\\[^\\\s"'<>]+(?:\\[^\\\s"'<>]+)*/gi, "[REDACTED_USER_PATH]")
     .replace(/\b(password|passwd|token|secret|api[_-]?key)\b(?:\s*[:=]\s*|\s+(?:is\s+)?)(?:"[^"]*"|'[^']*'|[^\s,;]+)/gi, "$1=[REDACTED]");
 }
 

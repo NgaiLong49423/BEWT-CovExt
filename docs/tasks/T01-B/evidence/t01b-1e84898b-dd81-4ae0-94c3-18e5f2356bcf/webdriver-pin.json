@@ -1,0 +1,8 @@
+{
+  "browserVersion": "156.0.8078.80",
+  "driverVersion": "156.0.8078.80",
+  "driverSha256": "95ae04aebd7daf845dce58d42139f0acbf1a5172fd480db328ea70bdc6301790",
+  "browserPathSha256": "b98a42e7e75a66429bf21f48d54033a6083eaf101bd296b5fe5a63134c2b6565",
+  "origin": "existing installed Chrome and cached ChromeDriver",
+  "driverPathPersisted": false
+}

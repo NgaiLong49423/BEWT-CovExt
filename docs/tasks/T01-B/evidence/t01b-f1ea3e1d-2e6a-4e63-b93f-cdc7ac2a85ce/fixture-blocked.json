@@ -1,0 +1,8 @@
+{
+  "runId": "t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce",
+  "project": "bewt-t01b-t01bf1ea3e1d2e6a",
+  "outcome": "BLOCKED",
+  "error": "Docker image inspection unavailable: permission denied while trying to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine\n",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19"
+}

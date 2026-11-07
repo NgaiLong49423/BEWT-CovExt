@@ -1,0 +1,48 @@
+{
+  "runId": "t01b-c70f61b1-c399-49fe-bf57-095569f5d52d",
+  "status": "FAILED",
+  "terminalError": {
+    "category": "JAVA_IMPLEMENTATION_FAILED",
+    "message": "EC-C04 Gherkin differs from the reviewed implementation source; a new Java artifact is required"
+  },
+  "reviewDecisions": [
+    {
+      "decisionId": "63050c77-5259-4ffc-b3dd-d7e3448726a5",
+      "runId": "t01b-c70f61b1-c399-49fe-bf57-095569f5d52d",
+      "threadId": "t01b-c70f61b1-c399-49fe-bf57-095569f5d52d",
+      "checkpointId": "d2cf5f71-7460-4cd6-8b7a-4efbdc9f41f4",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "appId": "expresscart",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decision": "ACCEPT",
+      "decidedAt": "2026-11-07T16:07:35.892Z",
+      "rationale": "Accepted for implementation only; novelty and research acceptance remain unverified."
+    }
+  ],
+  "artifacts": [],
+  "roleResults": {
+    "coverage_analysis": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:06:31.108Z",
+      "finishedAt": "2026-11-07T16:06:31.112Z",
+      "summary": "Collected 31 scenarios and 1 grounded gaps."
+    },
+    "gherkin_generation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:06:31.115Z",
+      "finishedAt": "2026-11-07T16:06:31.118Z",
+      "summary": "Candidate EC-C04 revision 1 is ready for review."
+    },
+    "selenium_implementation": {
+      "outcome": "FAIL",
+      "startedAt": "2026-11-07T16:07:35.897Z",
+      "finishedAt": "2026-11-07T16:07:35.900Z",
+      "summary": "EC-C04 Gherkin differs from the reviewed implementation source; a new Java artifact is required",
+      "errorCategory": "JAVA_IMPLEMENTATION_FAILED"
+    }
+  },
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "javaGenerationStarted": false
+}

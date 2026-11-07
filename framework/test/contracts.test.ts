@@ -158,6 +158,25 @@ test("invalid manifest rejects unknown app, short source pin, missing Docker ima
   assert.throws(() => parseApplicationManifest({ ...manifest, allowedTools: ["read-baseline-inventory"] }), /fixture prepare\/cleanup tools must be in the app allowlist/);
 });
 
+test("locally built image identity is pinned by source inputs without posing as a registry digest", () => {
+  const sourceBuilt = {
+    ...manifest,
+    runtime: {
+      kind: "source-built", version: "node-14.21.3-bullseye-slim", image: "bewt-covext/expresscart:local",
+      sourceCommit: sha, buildContextPath: "experiments/expresscart/source", buildContextDigestAlgorithm: "path-nul-sha256-newline-v1", buildContextSha256: "a".repeat(64),
+      dockerfilePath: "experiments/expresscart/source/Dockerfile.experiment", dockerfileSha256: "b".repeat(64),
+      observedImageId: "c".repeat(64),
+    },
+  };
+  const parsed = parseApplicationManifest(sourceBuilt);
+  assert.equal(parsed.runtime.kind, "source-built");
+  assert.equal(parsed.runtime.observedImageId, `sha256:${"c".repeat(64)}`);
+  assert.throws(() => parseApplicationManifest({ ...sourceBuilt, runtime: { ...sourceBuilt.runtime, sourceCommit: "1111111111111111111111111111111111111111" } }), /must match the application source pin/);
+  assert.throws(() => parseApplicationManifest({ ...sourceBuilt, runtime: { ...sourceBuilt.runtime, buildContextSha256: "short" } }), /full 64-character SHA-256/);
+  assert.throws(() => parseApplicationManifest({ ...sourceBuilt, runtime: { ...sourceBuilt.runtime, buildContextDigestAlgorithm: "unspecified" } }), /not supported/);
+  assert.throws(() => parseApplicationManifest({ ...sourceBuilt, runtime: { ...sourceBuilt.runtime, imageDigest: `sha256:${"d".repeat(64)}` } }), /unsupported fields/);
+});
+
 test("baseline inventory preserves declared count separately from observed scenario count", () => {
   const inventory = parseBaselineInventory({
     appId: "expresscart", sourceCommit: sha, sourceVersion: "1.1.19", collectedAt: "2026-11-07T12:00:00Z",
@@ -409,10 +428,13 @@ test("validation rejects missing, duplicate, stale, mismatched or unpinned run a
   assert.throws(() => parseValidationResult(validationResult({ noveltyDecision: recordedDecision("APPROVED", "oracle-approved") })), /decision IDs must be distinct/);
 });
 
-test("tool results permit empty output while redacting credentials and personal email", () => {
+test("tool results permit empty output and redact credentials, private host data, paths and email", () => {
   assert.deepEqual(parseToolResult({ tool: "compile-maven-project", outcome: "PASS", stdout: "", stderr: "", evidence: [] }).stdout, "");
-  const sanitized = sanitizeToolOutput("user person@example.test password=hunter2 token is value123 Bearer abcdefghijklmnop API_KEY=secret-value");
-  assert.doesNotMatch(sanitized, /person@example\.test|hunter2|value123|abcdefghijklmnop|secret-value/);
+  const sanitized = sanitizeToolOutput("user person@example.test password=hunter2 token is value123 Bearer abcdefghijklmnop API_KEY=secret-value Host info: host: 'HOST-EXAMPLE', ip: '192.0.2.104' path=C:\\Users\\TestUser\\.cache\\selenium");
+  assert.doesNotMatch(sanitized, /person@example\.test|hunter2|value123|abcdefghijklmnop|secret-value|HOST-EXAMPLE|192\.168\.2\.104|C:\\Users\\TestUser/);
+  assert.match(sanitized, /REDACTED_HOST/);
+  assert.match(sanitized, /REDACTED_IP/);
+  assert.match(sanitized, /REDACTED_USER_PATH/);
   assert.throws(() => parseToolResult({ tool: "compile-maven-project", outcome: "PASS", stdout: "ok", stderr: "", evidence: [], command: "rm" }), /unsupported fields/);
 });
 

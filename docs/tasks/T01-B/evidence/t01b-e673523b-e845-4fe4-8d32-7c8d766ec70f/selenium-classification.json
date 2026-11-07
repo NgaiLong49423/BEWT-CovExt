@@ -1,0 +1,8 @@
+{
+  "outcome": "BLOCKED",
+  "classification": "BROWSER_SESSION_SETUP_BLOCKED",
+  "mavenExitCode": 1,
+  "junitReport": "TEST-tests.ForgottenPasswordTest.xml",
+  "browserVersion": "127.0.6533.119",
+  "driverVersion": "127.0.6533.119"
+}

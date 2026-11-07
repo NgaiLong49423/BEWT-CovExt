@@ -17,9 +17,9 @@
     "originalBusinessCaseEntriesInProposal": 258
   },
   "framework": {
-    "fourRoleReusableGraph": "NOT_VERIFIED",
-    "checkpointResume": "NOT_VERIFIED",
-    "toolAllowlist": "NOT_VERIFIED",
+    "fourRoleReusableGraph": "RUNTIME_EXECUTED_TESTED",
+    "checkpointResume": "PROCESS_RESTART_TESTED",
+    "toolAllowlist": "IMPLEMENTED_TESTED_RUNTIME_EXECUTED",
     "contracts": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "humanReviewContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
@@ -32,7 +32,24 @@
       "framework/src/",
       "framework/test/",
       "docs/research-results/sprint-03/"
-    ]
+    ],
+    "t01bRuntime": {
+      "status": "READY_FOR_REVIEW",
+      "successfulRun": "t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf",
+      "compile": "PASS",
+      "fixture": "PASS",
+      "e2e": "PASS",
+      "cleanup": "PASS",
+      "technicalEligibility": "UNVERIFIED",
+      "repeatInvocations": 0,
+      "requiredRepeatInvocations": 3,
+      "oracleDecision": "UNVERIFIED",
+      "noveltyDecision": "UNVERIFIED",
+      "researchAcceptance": "NOT_REVIEWED",
+      "geminiCalls": 0,
+      "javaArtifactOrigin": "REUSED",
+      "note": "One runtime E2E PASS is not VALIDATED and does not accept G2/D1."
+    }
   },
   "apps": [
     {
@@ -100,7 +117,9 @@
       ],
       "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
       "observedUpstreamVersion": "1.1.19",
-      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program."
+      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program.",
+      "t01bExecution": "ONE_E2E_PASS_REUSED_ARTIFACT_NOT_VALIDATED",
+      "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf/"
     },
     {
       "app": "joomla",
@@ -209,7 +228,7 @@
     "RQ3": "PARTIAL_EXPRESSCART_ONLY",
     "RQ4": "PARTIAL_MODEL_AND_REPAIR_TELEMETRY_ONLY",
     "validatedNewCases": null,
-    "notes": "2 final E2E PASS are not automatically VALIDATED new benchmark cases."
+    "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
   "deliverables": {
     "D1": "NOT_ACCEPTED",
@@ -222,12 +241,12 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "currentTaskId": "T01-A",
+    "currentTaskId": "T01-B",
     "currentTaskStatus": "READY_FOR_REVIEW",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
-    "lastApprovedTaskId": "T00",
-    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/1",
-    "lastReviewedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
+    "currentTaskPrUrl": null,
+    "lastApprovedTaskId": "T01-A",
+    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
+    "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
     "agentCannotSelfApprove": true
   },
   "evidenceRoots": [
@@ -236,7 +255,8 @@
     "docs/research-results/sprint-03/",
     "docs/research-results/sprint-04/",
     "docs/research-results/sprint-05/",
-    "docs/research-results/final/"
+    "docs/research-results/final/",
+    "docs/tasks/T01-B/evidence/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
 }

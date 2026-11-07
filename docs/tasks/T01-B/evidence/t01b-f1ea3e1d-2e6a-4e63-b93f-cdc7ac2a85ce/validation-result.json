@@ -1,0 +1,230 @@
+{
+  "runId": "t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "workflowStatus": "VALIDATING",
+  "candidateId": "EC-C04",
+  "candidateRevision": 1,
+  "reviewDecisions": [
+    {
+      "decisionId": "329be256-507d-4a01-9287-827c69c9edc2",
+      "runId": "t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce",
+      "threadId": "t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce",
+      "checkpointId": "5a8cfdf2-f982-4e14-814d-c6aa6c1e9175",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "appId": "expresscart",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decision": "ACCEPT",
+      "decidedAt": "2026-11-07T16:09:15.412Z",
+      "rationale": "Accepted for implementation."
+    }
+  ],
+  "artifacts": [
+    {
+      "kind": "generated_java",
+      "path": "experiments/expresscart/bewt-suite/src/test/java/tests/ForgottenPasswordTest.java",
+      "candidateId": "EC-C04",
+      "revision": 1,
+      "testClass": "tests.ForgottenPasswordTest",
+      "origin": "REUSED",
+      "sha256": "931f410f43dbca59cd7d341ea3822c70124dd8ad2b00ea3377c45dfb9c7a7b80"
+    }
+  ],
+  "validation": {
+    "appId": "expresscart",
+    "candidateId": "EC-C04",
+    "candidateRevision": 1,
+    "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "sourceVersion": "1.1.19",
+    "compile": {
+      "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+      "stageRunId": "inv-6c310579-abba-4837-900a-2c27b482924f-compile",
+      "outcome": "PASS",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-6c310579-abba-4837-900a-2c27b482924f-compile",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce/compile.log"
+        }
+      ]
+    },
+    "fixture": {
+      "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+      "stageRunId": "inv-6c310579-abba-4837-900a-2c27b482924f-fixture",
+      "outcome": "BLOCKED",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "inv-6c310579-abba-4837-900a-2c27b482924f-fixture",
+          "artifactPath": "docs/tasks/T01-B/evidence/t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce/fixture-blocked.json"
+        }
+      ]
+    },
+    "e2e": {
+      "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+      "outcome": "NOT_RUN",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": []
+    },
+    "cleanup": {
+      "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+      "outcome": "NOT_RUN",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "evidence": []
+    },
+    "oracleDecision": {
+      "decisionId": "inv-6c310579-abba-4837-900a-2c27b482924f-oracle",
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "decision": "UNVERIFIED",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decidedAt": "2026-11-07T16:09:19.893Z",
+      "rationale": "T01-B oracle review remains independent and was not recorded by the implementation approval.",
+      "evidence": []
+    },
+    "noveltyDecision": {
+      "decisionId": "inv-6c310579-abba-4837-900a-2c27b482924f-novelty",
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "decision": "UNVERIFIED",
+      "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+      "decidedAt": "2026-11-07T16:09:19.893Z",
+      "rationale": "T01-B novelty review remains independent and was not recorded by the implementation approval.",
+      "evidence": []
+    },
+    "repeats": [],
+    "repairAttempts": 0,
+    "evidence": [],
+    "researchAcceptance": {
+      "status": "NOT_REVIEWED"
+    },
+    "technicalEligibility": "UNVERIFIED"
+  },
+  "validationHistory": [
+    {
+      "appId": "expresscart",
+      "candidateId": "EC-C04",
+      "candidateRevision": 1,
+      "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "compile": {
+        "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+        "stageRunId": "inv-6c310579-abba-4837-900a-2c27b482924f-compile",
+        "outcome": "PASS",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-6c310579-abba-4837-900a-2c27b482924f-compile",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce/compile.log"
+          }
+        ]
+      },
+      "fixture": {
+        "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+        "stageRunId": "inv-6c310579-abba-4837-900a-2c27b482924f-fixture",
+        "outcome": "BLOCKED",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "inv-6c310579-abba-4837-900a-2c27b482924f-fixture",
+            "artifactPath": "docs/tasks/T01-B/evidence/t01b-f1ea3e1d-2e6a-4e63-b93f-cdc7ac2a85ce/fixture-blocked.json"
+          }
+        ]
+      },
+      "e2e": {
+        "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+        "outcome": "NOT_RUN",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": []
+      },
+      "cleanup": {
+        "invocationId": "inv-6c310579-abba-4837-900a-2c27b482924f",
+        "outcome": "NOT_RUN",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "evidence": []
+      },
+      "oracleDecision": {
+        "decisionId": "inv-6c310579-abba-4837-900a-2c27b482924f-oracle",
+        "appId": "expresscart",
+        "candidateId": "EC-C04",
+        "candidateRevision": 1,
+        "decision": "UNVERIFIED",
+        "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+        "decidedAt": "2026-11-07T16:09:19.893Z",
+        "rationale": "T01-B oracle review remains independent and was not recorded by the implementation approval.",
+        "evidence": []
+      },
+      "noveltyDecision": {
+        "decisionId": "inv-6c310579-abba-4837-900a-2c27b482924f-novelty",
+        "appId": "expresscart",
+        "candidateId": "EC-C04",
+        "candidateRevision": 1,
+        "decision": "UNVERIFIED",
+        "reviewerId": "os-sha256:56018fe135c84cb3af995473a79669e46d0a02b12b8b3141aba2d2ad19d66f70",
+        "decidedAt": "2026-11-07T16:09:19.893Z",
+        "rationale": "T01-B novelty review remains independent and was not recorded by the implementation approval.",
+        "evidence": []
+      },
+      "repeats": [],
+      "repairAttempts": 0,
+      "evidence": [],
+      "researchAcceptance": {
+        "status": "NOT_REVIEWED"
+      },
+      "technicalEligibility": "UNVERIFIED"
+    }
+  ],
+  "model": {
+    "provider": "Gemini",
+    "status": "NOT_RUN",
+    "calls": 0,
+    "reason": "No real Gemini invocation was authorized for this T01-B run; candidate Gherkin and the Java suite are reused historical artifacts."
+  },
+  "roleResults": {
+    "coverage_analysis": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:08:47.517Z",
+      "finishedAt": "2026-11-07T16:08:47.521Z",
+      "summary": "Collected 31 scenarios and 1 grounded gaps."
+    },
+    "gherkin_generation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:08:47.524Z",
+      "finishedAt": "2026-11-07T16:08:47.528Z",
+      "summary": "Candidate EC-C04 revision 1 is ready for review."
+    },
+    "selenium_implementation": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:09:15.418Z",
+      "finishedAt": "2026-11-07T16:09:15.422Z",
+      "summary": "REUSED Java artifact registered: tests.ForgottenPasswordTest."
+    },
+    "validation_repair": {
+      "outcome": "PASS",
+      "startedAt": "2026-11-07T16:09:15.424Z",
+      "finishedAt": "2026-11-07T16:09:19.894Z",
+      "summary": "Validation inv-6c310579-abba-4837-900a-2c27b482924f: UNVERIFIED."
+    }
+  }
+}
