@@ -1,0 +1,236 @@
+{
+  "schemaVersion": "1.0.0",
+  "program": "BEWT-CovExt",
+  "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
+  "statusType": "T02_PROPOSED_STATUS_SNAPSHOT",
+  "snapshotDate": "2026-11-08",
+  "notes": "Proposed status update authored by T02 parallel benchmark audit. Kept isolated in docs/tasks/T02/ to prevent conflict with T01-C.",
+  "targets": {
+    "applications": 8,
+    "newCasesPerApp": 5,
+    "newCasesTotal": 40,
+    "originalBusinessCaseEntriesInProposal": 258,
+    "actualObservedGherkinFeatureFiles": 257,
+    "actualObservedBaseTestSuiteClasses": 257
+  },
+  "framework": {
+    "status": "MERGED_TO_MAIN_VIA_PR_3",
+    "mergedSha": "7e27950fefab0eefc37cf326e3c54c3e8006bfb6",
+    "fourRoleReusableGraph": "IMPLEMENTED_EXPRESSCART_SLICE",
+    "checkpointResume": "IMPLEMENTED_LOCAL_TESTED",
+    "toolAllowlist": "IMPLEMENTED_LOCAL_TESTED",
+    "sources": [
+      "framework/src/",
+      "framework/test/",
+      "adapters/expresscart/",
+      "config/apps/expresscart.json"
+    ]
+  },
+  "apps": [
+    {
+      "app": "bludit",
+      "proposalBaseLabel": "2.3.4",
+      "proposalOriginalCases": 23,
+      "verifiedGherkinFiles": 23,
+      "verifiedTestSuiteClasses": 24,
+      "verifiedBusinessCases": 23,
+      "syntaxQuirk": "Omits Scenario: keyword across all 23 feature files; implicit scenario syntax",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "bludit-2.3.4 TestSuite contains 24 classes (1 Installer + 23 business tests). Gherkin folder is named bludit-3.13.1 but matches 2.3.4 tests. BaseTest hardcodes 192.168.1.141.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "claroline",
+      "proposalBaseLabel": "1.11.10",
+      "proposalOriginalCases": 40,
+      "verifiedGherkinFiles": 40,
+      "verifiedTestSuiteClasses": 40,
+      "verifiedBusinessCases": 40,
+      "syntaxQuirk": "Standard Gherkin; Java test classes prefixed with Claroline_",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "Exact 40:40:40 alignment. Pre-seeded database in olianasd/claroline-strongpsw image. BaseTest hardcodes Windows chromedriver path.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "expresscart",
+      "proposalBaseLabel": "1.19",
+      "proposalOriginalCases": 31,
+      "verifiedGherkinFiles": 31,
+      "verifiedTestSuiteClasses": 31,
+      "verifiedBusinessCases": 31,
+      "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "observedUpstreamVersion": "1.1.19",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "FEASIBILITY_VERIFIED_AWAITING_PROGRAM_GATE",
+        "G1": "NOT_VERIFIED",
+        "G2": "IMPLEMENTED_T01B",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 4,
+      "finalE2ePassCandidates": 2,
+      "auditFindings": "Exact 31:31:31 alignment. Proven source build with isolated MongoDB container. SUT on port 3000.",
+      "evidence": [
+        "docs/research-results/sprint-01/SPRINT-01-RESULTS.md",
+        "docs/tasks/T01-B/TASK-REPORT.md",
+        "docs/tasks/T02/BASELINE-INVENTORY.md"
+      ]
+    },
+    {
+      "app": "joomla",
+      "proposalBaseLabel": "3.10.11",
+      "proposalOriginalCases": 35,
+      "verifiedGherkinFiles": 35,
+      "verifiedTestSuiteClasses": 35,
+      "verifiedBusinessCases": 35,
+      "syntaxQuirk": "Bare test class names without Test suffix",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "Exact 35:35:35 alignment. Requires Docker Compose (joomla:3.10.11 + mysql:5.6) and Installer + RemoveMessages JUnit setup.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "kanboard",
+      "proposalBaseLabel": "1.2.15",
+      "proposalOriginalCases": 30,
+      "verifiedGherkinFiles": 30,
+      "verifiedTestSuiteClasses": 30,
+      "verifiedBusinessCases": 30,
+      "syntaxQuirk": "Bare test class names without Test suffix",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "Exact 30:30:30 alignment. Minimal complexity: single container kanboard/kanboard:v1.2.15 with embedded SQLite.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "mantisbt",
+      "proposalBaseLabel": "1.2.0",
+      "proposalOriginalCases": 37,
+      "verifiedGherkinFiles": 38,
+      "verifiedTestSuiteClasses": 37,
+      "verifiedBusinessCases": 37,
+      "syntaxQuirk": "Bare test class names (1.2.0); 0_Login.feature unexecuted in TestSuite",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "Gherkin has 38 files; TestSuite has 37 classes (Login in setup). Proposal counted 37. BaseTest hardcodes 192.168.1.141.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "mediawiki",
+      "proposalBaseLabel": "1.40.0",
+      "proposalOriginalCases": 27,
+      "verifiedGherkinFiles": 27,
+      "verifiedTestSuiteClasses": 27,
+      "verifiedBusinessCases": 27,
+      "syntaxQuirk": "Standard Gherkin and *Test.java classes",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "Exact 27:27:27 alignment. Requires Docker Compose (mediawiki + database), Installer test, and copying LocalSettings.php into container. 2 named volumes.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    },
+    {
+      "app": "prestashop",
+      "proposalBaseLabel": "1.6.1.23",
+      "proposalOriginalCases": 35,
+      "verifiedGherkinFiles": 33,
+      "verifiedTestSuiteClasses": 35,
+      "verifiedBusinessCases": 35,
+      "syntaxQuirk": "2 Java test classes (AddEmptyTag, AddLanguageIsoCodeValidity) lack .feature files",
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "auditFindings": "TestSuite has 35 classes, but Gherkin folder has only 33 files. Proposal counted 35 from Java test count. Requires Installer test + rm/mv exec commands.",
+      "evidence": [
+        "docs/tasks/T02/BASELINE-INVENTORY.md",
+        "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
+        "docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md"
+      ]
+    }
+  ],
+  "deliverables": {
+    "D1": "IMPLEMENTED_T01B_MERGED",
+    "D2": "PROPOSED_BASELINE_AUDIT_COMPLETED",
+    "D3": "NOT_ACCEPTED",
+    "D4": "NOT_ACCEPTED",
+    "D5": "NOT_ACCEPTED",
+    "D6": "NOT_ACCEPTED",
+    "D7": "NOT_ACCEPTED",
+    "D8": "NOT_ACCEPTED"
+  },
+  "taskReview": {
+    "currentTaskId": "T02",
+    "currentTaskStatus": "READY_FOR_REVIEW",
+    "currentTaskBranch": "feature/t02-benchmark-audit",
+    "lastApprovedTaskId": "T01-B",
+    "agentCannotSelfApprove": true
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "bludit",
+  "benchmarkBaseVersion": "2.3.4",
+  "source": {
+    "repository": "https://github.com/bludit/bludit",
+    "commit": "4b711e6b36ff5ea47683b54ce06180fc4ef27fa1",
+    "packageVersion": "2.3.4"
+  },
+  "baseSuitePath": "bewt-original/bludit/baseline/bludit-2.3.4",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-7.x-apache-flatfile",
+    "image": "bludit/docker:2.3.4",
+    "imageDigest": "NOT_PULLED_STATIC_AUDIT"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-bludit",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Single container deployment (bludit/docker:2.3.4). Initial setup runs tests.Installer JUnit test to complete install wizard with password e2eW3Bt3s71nGB3nchM4rK. Flat-file storage, no external DB container. Reset stops and removes the container.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

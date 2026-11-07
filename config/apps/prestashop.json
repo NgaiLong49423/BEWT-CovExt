@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "prestashop",
+  "benchmarkBaseVersion": "1.6.1.23",
+  "source": {
+    "repository": "https://github.com/PrestaShop/PrestaShop",
+    "commit": "8bc2b9e67cfc0a2b5e24b422a578980b18f6797a",
+    "packageVersion": "1.6.1.23"
+  },
+  "baseSuitePath": "bewt-original/prestashop/baseline/prestashop-1.6.1.23",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-5.6-apache-prestashop-1.6.1.23-mysql-5.7",
+    "image": "prestashop/prestashop:1.6.1.23",
+    "imageDigest": "NOT_PULLED_STATIC_AUDIT"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-prestashop",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Two-container custom network deployment (prestashop-net: some-prestashop + some-mysql). Setup executes tests.Installer JUnit test, followed by container exec commands to delete install/ and rename admin to administrator. Reset stops and removes both containers.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}
