@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { candidateFromGeneration, FakeGenerationProvider, GeminiGenerationProvider, newCandidateId, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, newCandidateId, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -19,6 +19,12 @@ test("fake provider creates a schema-valid proposed candidate with source pins",
 
 test("Gemini provider refuses construction without explicit live-model authorization", () => {
   assert.throws(() => new GeminiGenerationProvider("gemini-test", { authorized: false, apiKey: "test-only" }), /LIVE_MODEL_AUTHORIZATION_REQUIRED/);
+});
+
+test("model error classifier does not mistake generateContent for rate limiting", () => {
+  assert.equal(classifyModelError(new Error("400 Bad Request API_KEY_INVALID")), "AUTHORIZATION");
+  assert.equal(classifyModelError(new Error("429 RESOURCE_EXHAUSTED")), "RATE_LIMIT");
+  assert.equal(classifyModelError(new Error("network failure calling generateContent")), "PROVIDER_ERROR");
 });
 
 test("generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution", () => {

@@ -1,0 +1,22 @@
+{
+  "runId": "t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+  "provider": "Gemini",
+  "model": "gemini-3.1-flash-lite",
+  "apiRequests": 1,
+  "retries": 0,
+  "promptCharacters": 7412,
+  "maxOutputTokens": 2000,
+  "estimatedMaxCostUsd": 0.010412,
+  "actualCostUsd": null,
+  "actualCostStatus": "UNKNOWN_NO_USAGE_METADATA",
+  "providerOutcome": "FAIL",
+  "providerError": "API_KEY_INVALID (HTTP 400)",
+  "candidateGenerated": false,
+  "humanReviewCheckpointReached": false,
+  "javaGenerated": false,
+  "mavenRun": false,
+  "seleniumRun": false,
+  "sourceEvidence": "source-coverage-analysis.json",
+  "modelFailureEvidence": "model-generation-failure.json",
+  "note": "The single user-authorized request reached Google and was rejected for invalid API key. No retry or second request was made."
+}

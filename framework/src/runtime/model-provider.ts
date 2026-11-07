@@ -18,11 +18,11 @@ export interface GenerationRequest { baseline: BaselineInventory; gaps: Coverage
 export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
 
-function classifyModelError(error: unknown): string {
+export function classifyModelError(error: unknown): string {
   const message = error instanceof Error ? error.message.toLowerCase() : "unknown";
-  if (message.includes("timeout")) return "TIMEOUT";
-  if (message.includes("429") || message.includes("rate") || message.includes("quota")) return "RATE_LIMIT";
-  if (message.includes("401") || message.includes("403") || message.includes("unauthorized")) return "AUTHORIZATION";
+  if (/\btimeout\b|timed out/.test(message)) return "TIMEOUT";
+  if (/api_key_invalid|invalid api key|\b401\b|\b403\b|unauthorized|permission denied/.test(message)) return "AUTHORIZATION";
+  if (/\b429\b|rate[\s_-]+limit|quota|resource_exhausted/.test(message)) return "RATE_LIMIT";
   if (message.includes("validation") || message.includes("schema")) return "OUTPUT_SCHEMA";
   return "PROVIDER_ERROR";
 }

@@ -1,0 +1,11 @@
+{
+  "runId": "t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+  "originalEvidence": "model-generation-failure.json",
+  "originalRecordedCategory": "RATE_LIMIT",
+  "correctedCategory": "AUTHORIZATION",
+  "reason": "The original classifier matched the substring 'rate' inside 'generateContent'. The HTTP 400 response contains API_KEY_INVALID and is an authorization/credential failure, not rate limiting.",
+  "classifierSource": "framework/src/runtime/model-provider.ts:classifyModelError",
+  "regressionTest": "framework/test/model-provider.test.ts — model error classifier does not mistake generateContent for rate limiting",
+  "preserveOriginalEvidence": true,
+  "billingStatus": "UNKNOWN_NO_USAGE_METADATA"
+}

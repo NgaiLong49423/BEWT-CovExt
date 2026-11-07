@@ -1,0 +1,35 @@
+{
+  "runId": "t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+  "appId": "expresscart",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "baselineObservedScenarios": 31,
+  "sourceIdentity": {
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "packageVersion": "1.1.19",
+    "packageJsonGitBlob": "ecdb41069f18e077c1f5aefe20e7182e79e5d236",
+    "packageLockGitBlob": "04a21b2e5843f2e4d3bff4b303a0fb9909529c8e",
+    "buildContextSha256": "3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a",
+    "dockerfileSha256": "17f5c4bc9f6b8751fc8e842e37f633ea398cbc1a0c6e865ceab27040fcc668e6",
+    "fileCount": 197
+  },
+  "sourceClaims": [
+    {
+      "behaviorId": "customer.password.reset.invalid-or-expired-token",
+      "disposition": "CANDIDATE_GAP",
+      "sourceReferences": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "t01c-source-t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+          "artifactPath": "experiments/expresscart/source/routes/customer.js"
+        }
+      ],
+      "rationale": "Pinned source evidence supports this behavior (The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.); no exact behavior-ID mapping exists in the supplied baseline inventory. This is only a candidate gap, not a novelty decision."
+    }
+  ],
+  "sourceArtifactSha256": "74c7ecfdf38e6ad9038ae0f2cc8f89969331f4420bfa491348c5e8b2f6d26abe",
+  "historicProposalSet": "docs/research-results/sprint-02/CANDIDATE-REVIEW.md; EC-C01..EC-C05 topics",
+  "historicApprovalReused": false,
+  "researchNovelty": "UNVERIFIED"
+}

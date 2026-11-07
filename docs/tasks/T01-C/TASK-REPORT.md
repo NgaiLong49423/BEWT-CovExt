@@ -2,23 +2,23 @@
 
 ## Status
 
-**BLOCKED_PENDING_PAYLOAD_AUTHORIZATION_AND_JAVA_GENERATION — implementation is not complete.** User authorized one bounded Gemini run, but automatic review rejected the specific external payload transmission. No model call or candidate was produced. Java artifact generation/registration and end-to-end validation also remain incomplete. This report does not claim G2, D1, G3, or VALIDATED.
+**BLOCKED_INVALID_GEMINI_CREDENTIALS_AND_INCOMPLETE_IMPLEMENTATION — implementation is not complete.** The initial launch was rejected by automatic review. After the user explicitly authorized the pinned source/baseline/research payload, one bounded Gemini request was sent and returned HTTP 400 `API_KEY_INVALID`. No retry, candidate or review checkpoint resulted. Java artifact generation/registration and end-to-end validation also remain incomplete. This report does not claim G2, D1, G3, or VALIDATED.
 
 ## Completed in this worktree
 
-- Added a shared generation-provider contract for structured Gherkin plus Java output, an explicitly synthetic offline provider, and a Gemini provider that requires explicit `authorized: true` before construction. See `framework/src/runtime/model-provider.ts`.
+- Added a structured Gherkin provider contract, Java output schema/static guard (not a Java generation provider), an explicitly synthetic offline provider, and a Gemini Gherkin provider requiring explicit `authorized: true` before construction. See `framework/src/runtime/model-provider.ts`.
 - Added a source-claim analyzer prototype that compares explicit behavior IDs with baseline tags and historic proposal IDs, emitting `INSUFFICIENT_EVIDENCE` for duplicate or incorrectly pinned claims. It is not yet wired to repository inventory collection.
 - Added a static generated-Java contract requiring declared class binding, suite `BaseTest`, and JUnit `@Test`, and rejecting direct process spawning. This is not a Java compile or artifact-isolation proof.
 - Added in-memory Gemini call/attempt/latency/status telemetry and bounded error categories; token usage and durable telemetry persistence remain incomplete.
 - Added tests for offline output pins/PROPOSED status and fail-closed live-model authorization in `framework/test/model-provider.test.ts`.
-- Framework build passed; framework unit tests passed 27/27; framework integration tests passed 16 with 1 skipped; ExpressCart Agent unit tests passed 5/5. Offline LangGraph integration reaches a fresh review checkpoint and confirms no Java side effect before acceptance. See `evidence/verification/`.
+- Initial offline verification is retained in `evidence/verification/`; latest results are listed below. The offline LangGraph integration reaches a fresh review checkpoint and confirms no Java side effect before acceptance.
 
 ## Remaining blockers
 
 - The existing CLI still uses a historical EC-C04 feature and hardcoded one-candidate coverage description. `adapters/expresscart/experiment.ts` still binds execution to `tests.ForgottenPasswordTest` and returns a reused artifact. New provider is not wired into the LangGraph CLI, and generated Java is not registered or executed by the adapter.
 - The analyzer prototype is not wired to actual Gherkin, Base test, application source, and historic proposal readers; no new candidate or Java artifact has been generated.
 - Integration suite: 16 PASS, 1 SKIP; the skipped test is retained as a skip and is not counted as passing.
-- Live model: user authorized one bounded run, but automatic review rejected the launch because the specific source/baseline/research payload transmission to Google was not explicitly covered. The command did not start; request count is zero. Evidence: `evidence/verification/live-model-authorization.json`.
+- Live model: the first launch was blocked before process start, then the user explicitly authorized the source/baseline/research payload. One Gemini request was attempted; the provider returned HTTP 400 `API_KEY_INVALID`. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`.
 
 ## Scope and safety
 
@@ -36,11 +36,12 @@ No Docker, ExpressCart source, BEWT original source, or historical Sprint eviden
 ## Latest verification refresh (2026-11-08)
 
 - `framework` build: PASS (`evidence/verification/rerun-20261108/framework-build.txt`).
-- `framework` unit suite: PASS, 27/27 (`evidence/verification/rerun-20261108/framework-unit.txt`).
+- `framework` unit suite before the error-classifier regression fix: PASS, 27/27 (`evidence/verification/rerun-20261108/framework-unit.txt`).
 - ExpressCart Agent unit suite: PASS, 5/5 (`evidence/verification/rerun-20261108/expresscart-agent-unit.txt`).
 - Full framework integration suite: FAIL in this managed sandbox, 12 passed / 4 failed / 1 skipped (`evidence/verification/rerun-20261108/framework-integration.txt`). Three tests could not create symlinks due Windows sandbox `EPERM`; the actual adapter lifecycle test returned BLOCKED where its test expects PASS. The crash/replay Docker+Selenium test remains skipped. These outcomes must not be summarized as a passing integration suite.
-- `git ls-remote` could not resolve `github.com` in the current sandbox. The PR was not updated by this turn; local HEAD remains the previously published commit until network access is restored.
+- Follow-up build and unit suite after the error-classifier fix: PASS, 28/28 (`evidence/verification/after-live-20261108/`).
+- The status/report update was pushed to the existing branch and PR #4. The integration-generated T01-B evidence directories were not staged.
 
-The Gemini API request remains unstarted. The one-run authorization was acknowledged, but the security review rejected the specific source, baseline and research payload transmission before process launch. No candidate or Java artifact was produced. Offline testing cannot satisfy the live-generation, post-ACCEPT Java, Maven or Selenium requirements.
+The single authorized Gemini API request was attempted and rejected by the provider as `API_KEY_INVALID`; telemetry/correction evidence is under `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`. The run consumed the one-request budget and was not retried. A follow-up static audit found that the error classifier mislabeled the response `RATE_LIMIT` because it matched the substring in `generateContent`; the classifier now uses bounded error patterns, and a regression test covers invalid keys, 429s and `generateContent` provider errors. The original run evidence remains unchanged; the correction is a separate append-only record. No candidate, checkpoint or Java artifact was produced. Live acceptance, post-ACCEPT Java generation, Maven and Selenium requirements remain unmet.
 
-Team Lead review is required before any live model call or continuation into T02. This is a progress report; it does not self-accept a program gate.
+The one-request budget is consumed; no retry is authorized by the current run approval. A new credential must be configured locally, then a new run requires a separately bounded authorization. Team Lead review is required before T02. This is a progress report; it does not self-accept a program gate.
