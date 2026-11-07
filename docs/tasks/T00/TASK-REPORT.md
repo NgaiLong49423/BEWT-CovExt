@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Import governance, audit the current implementation against proposal v2.0, create a gap report and next-task plan. No application or Docker changes. Task review is proposed `READY_FOR_REVIEW`; Team Lead acceptance is pending.
 - Base branch + base SHA: `main` / `44bd7c4d7de683afbf1b14ac65c0b43db5950d8c`.
 - Working branch: `docs/t00-program-contract`.
-- Head commit (full 40-char SHA): pending commit.
-- PR: pending creation; target `main`.
-- Push status: pending.
+- T00 content commit (full 40-char SHA): `1e7c163c828d528b50221ba21ea664fcd5feaac4` (PR head advances for this handoff update).
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/1 (OPEN, target `main`).
+- Push status: `PUSHED`; remote branch SHA matched the content commit. Final PR head SHA is reported in the delivery message.
 - Runtime/commit/version tested: static source/evidence audit only; ExpressCart evidence refers to source commit `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19`; no runtime started in T00.
 - Status proposed by Agent: `READY_FOR_REVIEW` after commit/push/PR checks; this is not a gate acceptance.
 
@@ -41,7 +41,11 @@ Governance files came from the seven individual files in `C:\Users\Lenovo\Downlo
 | Relative Markdown link/path check across the 10 task files | no unresolved relative links | PASS | command output |
 | Secret-pattern scan of staged scope | no key/token/private-key patterns found | PASS | `rg` scan output (no matches) |
 | `git diff --cached --check`, staged names/stat/full diff | whitespace check clean; exactly the ten listed Task T00 files staged and reviewed | PASS | command output; 10 paths, 687 insertions |
-| Commit, push, PR and remote SHA | not yet run | NOT_RUN | pending |
+| `git commit -m "docs(t00): bootstrap full BEWT-CovExt program contract"` | created T00 content commit `1e7c163c828d528b50221ba21ea664fcd5feaac4` | PASS | commit output |
+| `git push -u origin docs/t00-program-contract` + `git ls-remote origin refs/heads/docs/t00-program-contract` | remote SHA matched local content commit | PASS | command output |
+| `gh pr create --base main --head docs/t00-program-contract ...`; `gh pr view 1` | opened https://github.com/NgaiLong49423/BEWT-CovExt/pull/1; PR head matched pushed SHA at creation | PASS | PR #1 metadata |
+| `gh pr diff 1 --name-only`; `gh pr view 1 --json files` | remote PR contains exactly the ten Task T00 paths | PASS | command output |
+| Final report metadata commit/push and final remote HEAD check | not yet run | NOT_RUN | this commit |
 
 No tests were run because T00 changes documentation only. No Docker or application runtime was started.
 
@@ -74,4 +78,4 @@ No tests were run because T00 changes documentation only. No Docker or applicati
 
 - Team Lead decisions: approve/revise T01 as next task; decide provisioning/version-lock strategy for ignored `bewt-original/`; settle Java compiler compatibility handling; confirm reviewer availability. Full scope remains eight apps/40 target cases plus full evaluation.
 - Suggested next task: T01 framework extraction design and one reviewed ExpressCart vertical slice; do not begin the work before review of this T00 result.
-- PR diff URL and changed paths: pending push and PR creation.\n
+- PR diff URL: https://github.com/NgaiLong49423/BEWT-CovExt/pull/1. The remote diff contains exactly the ten Task T00 paths in Section 1; final head SHA is in the delivery message.
