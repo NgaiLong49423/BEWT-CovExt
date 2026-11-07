@@ -27,7 +27,7 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
-    "modelGenerationProvider": "PROTOTYPE_WIRED_TO_T01C_LANGGRAPH_TESTED_LIVE_CALL_BLOCKED_JAVA_GENERATION_INCOMPLETE",
+    "modelGenerationProvider": "GHERKIN_PROVIDER_AND_OFFLINE_LANGGRAPH_TEST_IMPLEMENTED_LIVE_CALL_BLOCKED_JAVA_GENERATION_UNIMPLEMENTED",
     "sources": [
       "experiments/expresscart/agent/",
       "framework/src/",
@@ -248,7 +248,7 @@
   },
   "taskReview": {
     "currentTaskId": "T01-C",
-    "currentTaskStatus": "BLOCKED_BY_AUTO_REVIEW",
+    "currentTaskStatus": "BLOCKED_INCOMPLETE_AUTO_REVIEW_AND_RUNTIME_VERIFICATION",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",

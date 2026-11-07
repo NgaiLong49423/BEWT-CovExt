@@ -33,4 +33,14 @@ No Docker, ExpressCart source, BEWT original source, or historical Sprint eviden
 - `evidence/verification/expresscart-agent-unit-summary.json`
 - `evidence/verification/live-model-authorization.json`
 
+## Latest verification refresh (2026-11-08)
+
+- `framework` build: PASS (`evidence/verification/rerun-20261108/framework-build.txt`).
+- `framework` unit suite: PASS, 27/27 (`evidence/verification/rerun-20261108/framework-unit.txt`).
+- ExpressCart Agent unit suite: PASS, 5/5 (`evidence/verification/rerun-20261108/expresscart-agent-unit.txt`).
+- Full framework integration suite: FAIL in this managed sandbox, 12 passed / 4 failed / 1 skipped (`evidence/verification/rerun-20261108/framework-integration.txt`). Three tests could not create symlinks due Windows sandbox `EPERM`; the actual adapter lifecycle test returned BLOCKED where its test expects PASS. The crash/replay Docker+Selenium test remains skipped. These outcomes must not be summarized as a passing integration suite.
+- `git ls-remote` could not resolve `github.com` in the current sandbox. The PR was not updated by this turn; local HEAD remains the previously published commit until network access is restored.
+
+The Gemini API request remains unstarted. The one-run authorization was acknowledged, but the security review rejected the specific source, baseline and research payload transmission before process launch. No candidate or Java artifact was produced. Offline testing cannot satisfy the live-generation, post-ACCEPT Java, Maven or Selenium requirements.
+
 Team Lead review is required before any live model call or continuation into T02. This is a progress report; it does not self-accept a program gate.
