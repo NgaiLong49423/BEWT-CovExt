@@ -1,0 +1,13 @@
+docker compose ls --all
+NAME                              STATUS              CONFIG FILES
+bewt-covext-expresscart-b31302f   running(2)          D:\Github-Projects\BEWT-CovExt\experiments\expresscart\compose.yaml
+mamxanh-ai-e2e                    exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml,D:\Semester 5\SWP391\vegetarian-support-system\.agents\outputs\ai-chatbot-agent-test-scenarios\evidence\agent-acceptance-compose.yml,D:\Semester 5\SWP391\vegetarian-support-system\app\mamxanh-backend\target\agent-acceptance-compose.yml
+mamxanh-ci205                     exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml,C:\Users\Lenovo\AppData\Local\Temp\tmpz5cigo.tmp,C:\Users\Lenovo\AppData\Local\Temp\tmpta0wmq.tmp
+mamxanh-dev                       exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml
+mamxanh-g3                        exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml,D:\Semester 5\SWP391\vegetarian-support-system\app\mamxanh-backend\target\g3\compose-evaluation.yaml
+mamxanh-kb-integration            exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml,D:\Semester 5\SWP391\vegetarian-support-system\app\mamxanh-backend\target\knowledge-compose.override.yaml
+mamxanh-pr205                     exited(4)           D:\Semester 5\SWP391\vegetarian-support-system\docker-compose.yml,C:\Users\Lenovo\AppData\Local\Temp\tmpcuc1bf.tmp,C:\Users\Lenovo\AppData\Local\Temp\tmpcfxhko.tmp
+mamxanh-pr85-review               exited(5)           C:\Users\Lenovo\AppData\Local\Temp\pr85-review-77158ef6\docker-compose.yml,C:\Users\Lenovo\AppData\Local\Temp\pr85-compose-port-override.yaml
+docker ps with Compose project labels
+bewt-covext-expresscart-b31302f-app-1 bewt-covext-expresscart-b31302f
+bewt-covext-expresscart-b31302f-mongo-1 bewt-covext-expresscart-b31302f

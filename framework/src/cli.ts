@@ -64,7 +64,7 @@ async function main(args: string[]): Promise<void> {
         await ensureContainedDirectory(repositoryRoot, directory);
         const resultPath = `${directory}/validation-result.json`;
         const data = { runId: state.workflow.runId, sourceCommit: state.workflow.sourceCommit, sourceVersion: state.workflow.sourceVersion,
-          workflowStatus: state.workflow.status, candidateId: state.workflow.candidate?.candidateId, candidateRevision: state.workflow.candidate?.revision,
+          snapshotKind: "terminal-finalization", workflowStatus: state.workflow.status, candidateId: state.workflow.candidate?.candidateId, candidateRevision: state.workflow.candidate?.revision,
           reviewDecisions: state.workflow.reviewDecisions, artifacts: state.workflow.artifacts,
           validation: state.validation, validationHistory: state.validationHistory,
           model: { provider: "Gemini", status: process.env.GEMINI_API_KEY ? "NOT_RUN" : "MODEL_RUN_BLOCKED", calls: 0, reason: "No real Gemini invocation was authorized for this T01-B run; candidate Gherkin and the Java suite are reused historical artifacts." },

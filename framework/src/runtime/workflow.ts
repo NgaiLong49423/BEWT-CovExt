@@ -189,8 +189,8 @@ export function buildWorkflow(services: RuntimeServices, checkpointer: SqliteSav
       const startedAt = now();
       try {
         if (!state.validation) throw new Error("no validation record to persist");
-        const evidencePath = await services.recordEvidence(state);
         const workflow = state.workflow.status === "VALIDATING" ? transitionWorkflow(state.workflow, "EXECUTION_COMPLETED") : state.workflow;
+        const evidencePath = await services.recordEvidence({ ...state, workflow });
         const previous = state.roleResults?.validation_repair;
         return { workflow, evidencePath, roleResults: { ...state.roleResults, validation_repair: result(startedAt, `${previous?.summary ?? "Validation completed."} Evidence recorded at ${evidencePath}.`, previous?.outcome ?? "PASS", previous?.errorCategory) } };
       } catch (error) {

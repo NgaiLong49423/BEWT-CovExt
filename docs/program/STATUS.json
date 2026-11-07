@@ -3,12 +3,12 @@
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
   "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
-  "snapshotDate": "2026-11-07",
+  "snapshotDate": "2026-11-08",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",
-    "note": "origin/main after merge of T00 PR #1, refreshed for T01-A; do not conflate observed main with a reviewed task commit."
+    "observedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
+    "note": "Verified by git fetch origin main on 2026-11-08; this is the T01-B PR base, not the reviewed PR head."
   },
   "targets": {
     "applications": 8,
@@ -48,7 +48,7 @@
       "researchAcceptance": "NOT_REVIEWED",
       "geminiCalls": 0,
       "javaArtifactOrigin": "REUSED",
-      "note": "One runtime E2E PASS is not VALIDATED and does not accept G2/D1."
+      "note": "Original run remains one REUSED-artifact E2E PASS, not VALIDATED and not G2/D1 acceptance. Review-fix adapter integration produced two isolated compile/fixture/cleanup passes while policy rejected unregistered Selenium artifacts; restart recovery and injected cleanup failure are covered by new tests."
     }
   },
   "apps": [
@@ -244,6 +244,7 @@
     "currentTaskId": "T01-B",
     "currentTaskStatus": "READY_FOR_REVIEW",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/3",
+    "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",

@@ -47,6 +47,7 @@ test("durable graph records REVISE then a fresh review checkpoint then ACCEPT", 
   const folder = await mkdtemp(join(tmpdir(), "bewt-t01b-graph-"));
   const saver = openSqliteCheckpointer(join(folder, "checkpoints.sqlite"));
   const generated: number[] = [];
+  let evidenceStatus: AgentWorkflowState["status"] | undefined;
   let proposalRevision = 0;
   const services: RuntimeServices = {
     readBaseline: async () => baseline,
@@ -55,7 +56,7 @@ test("durable graph records REVISE then a fresh review checkpoint then ACCEPT", 
     trustedReviewerId: () => "test-os-operator",
     prepareJava: async (item) => { generated.push(item.revision); return { path: `experiments/generated/${item.revision}.java`, testClass: "tests.ForgottenPasswordTest", sha256: "a".repeat(64), origin: "GENERATED" }; },
     validate: async (item, _artifact, attempts) => validation(item, `validation-${attempts}`, attempts),
-    recordEvidence: async () => "docs/tasks/T01-B/evidence/integration/run.json",
+    recordEvidence: async (state) => { evidenceStatus = state.workflow.status; return "docs/tasks/T01-B/evidence/integration/run.json"; },
   };
   const app = buildWorkflow(services, saver);
   const config = { configurable: { thread_id: "t01b-integration" } };
@@ -71,6 +72,7 @@ test("durable graph records REVISE then a fresh review checkpoint then ACCEPT", 
     assert.ok(firstCheckpoint && secondCheckpoint && firstCheckpoint !== secondCheckpoint);
     result = await app.invoke(resumeReview(result, "t01b-integration", secondCheckpoint!, "ACCEPT", "Revision 2 approved for implementation."), config);
     assert.equal(result.workflow.status, "EXECUTION_COMPLETED");
+    assert.equal(evidenceStatus, "EXECUTION_COMPLETED", "terminal evidence callback receives the terminal workflow snapshot");
     assert.equal(result.workflow.reviewDecisions.length, 2);
     assert.deepEqual(result.workflow.reviewDecisions.map((decision: { decision: string; candidateRevision: number }) => [decision.decision, decision.candidateRevision]), [["REVISE", 1], ["ACCEPT", 2]]);
     assert.deepEqual(generated, [2]);

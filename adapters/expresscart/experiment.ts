@@ -21,7 +21,9 @@ const CLASS_BY_CANDIDATE: Readonly<Record<string, string>> = { "EC-C04": "tests.
 const STAGE_NAMES = ["compile", "fixture", "e2e", "cleanup"] as const;
 
 type Stage = (typeof STAGE_NAMES)[number];
-interface ActiveRun { project: string; composePath: string; baseUrl?: string; fixtureEmail?: string; evidence: string[]; }
+interface ActiveRun { workflowRunId: string; invocationId: string; project: string; composePath: string; composeSha256?: string; baseUrl?: string; fixtureEmail?: string; evidence: string[]; }
+function invocationId(state: AgentWorkflowState): string { return state.validationInvocationId ?? state.runId; }
+function evidenceDirectory(state: AgentWorkflowState): string { return `docs/tasks/T01-B/evidence/${state.runId}/invocations/${invocationId(state)}`; }
 
 function sha256(value: string | Buffer): string { return createHash("sha256").update(value).digest("hex"); }
 function uuid(): string { return randomUUID(); }
@@ -42,17 +44,18 @@ function sanitizeJUnitEvidence(value: string): string {
       ? `${prefix}[REDACTED]${suffix}` : whole);
 }
 function safeProjectName(runId: string): string {
-  const suffix = runId.toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 16);
-  if (!suffix) throw new Error("run ID cannot produce a safe Compose project name");
+  const suffix = sha256(runId).slice(0, 20);
   return `bewt-t01b-${suffix}`;
 }
 
 export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   readonly manifest: ApplicationManifest;
   private readonly runs = new Map<string, ActiveRun>();
+  private readonly processRunner: typeof runFixedProcess;
 
-  constructor(readonly repositoryRoot: string, manifestInput: unknown) {
+  constructor(readonly repositoryRoot: string, manifestInput: unknown, options: { processRunner?: typeof runFixedProcess } = {}) {
     this.manifest = parseApplicationManifest(manifestInput);
+    this.processRunner = options.processRunner ?? runFixedProcess;
     if (this.manifest.appId !== "expresscart" || this.manifest.source.commit !== SOURCE_COMMIT || this.manifest.source.packageVersion !== SOURCE_VERSION) throw new Error("ExpressCart adapter received an unexpected source pin");
   }
 
@@ -110,21 +113,23 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   async prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult> {
     if (experimentKey !== this.manifest.fixtureReset.experimentKey) throw new Error("experiment ownership key mismatch");
     if (candidate.candidateId !== "EC-C04") throw new Error("this ExpressCart fixture adapter only implements the reviewed EC-C04 precondition");
-    const run = await this.getOrCreateRun(state.runId);
+    const invocation = invocationId(state);
+    const run = await this.getOrCreateRun(state.runId, invocation);
     try {
-      await this.writeRunEvidence(state.runId, "source-identity.json", JSON.stringify(await verifyExpressCartSourceInputs(this.repositoryRoot, this.manifest), null, 2));
+      await this.writeRunEvidence(state, "source-identity.json", JSON.stringify(await verifyExpressCartSourceInputs(this.repositoryRoot, this.manifest), null, 2));
       await verifyObservedImageIds(this.manifest, async (image) => {
         const inspected = await runFixedProcess("docker", ["image", "inspect", "--format", "{{.Id}}", image], { cwd: this.repositoryRoot, timeoutMs: 20_000 });
         if (inspected.exitCode !== 0) throw new Error(`Docker image inspection unavailable: ${sanitizeToolOutput(inspected.stderr).slice(-500)}`);
         return inspected.stdout.trim();
       });
-      const runDir = `docs/tasks/T01-B/evidence/${state.runId}`;
+      const runDir = evidenceDirectory(state);
       const composeRelative = `${runDir}/compose.json`;
       const composePath = await resolveContainedOutputPath(this.repositoryRoot, composeRelative);
       const compose = this.composeDefinition();
       await writeFile(composePath, JSON.stringify(compose, null, 2), { flag: "wx" });
       run.composePath = composePath;
-      await this.writeRunEvidence(state.runId, "owner.json", JSON.stringify({ runId: state.runId, project: run.project, composeFile: composeRelative, sourceCommit: SOURCE_COMMIT, ownedResourcesOnly: true }, null, 2));
+      run.composeSha256 = sha256(await readFile(composePath));
+      await this.writeRunEvidence(state, "owner.json", JSON.stringify({ workflowRunId: state.runId, invocationId: invocation, project: run.project, composeFile: composeRelative, composeSha256: run.composeSha256, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, candidateId: candidate.candidateId, candidateRevision: candidate.revision, ownedResourcesOnly: true }, null, 2));
       const config = await this.compose(run, ["config", "--format", "json"]);
       if (config.exitCode !== 0 || !this.validateComposeConfig(config.stdout, run.project)) throw new Error("isolated Compose configuration did not match the run project and service set");
       const started = await this.compose(run, ["up", "-d", "--pull", "never", "--no-build"]);
@@ -140,34 +145,35 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       if (preflight.exitCode !== 0 || preflight.stdout.trim().split(/\s+/).at(-1) !== "0") throw new Error("fresh EC-C04 fixture address absence could not be verified in the run-scoped Mongo database");
       run.fixtureEmail = email;
       const fixture = { runId: state.runId, project: run.project, appUrl: run.baseUrl, mongoCustomerMatchCountBefore: 0, emailSha256: sha256(email), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, emailStored: false };
-      const evidence = await this.writeRunEvidence(state.runId, "fixture-preflight.json", JSON.stringify(fixture, null, 2));
-      return outcomeResult("prepare-fixture", "PASS", "App readiness and exact email-absence preflight passed.", "", 0, [this.evidenceRef(state.runId, evidence)]);
+      const evidence = await this.writeRunEvidence(state, "fixture-preflight.json", JSON.stringify({ ...fixture, invocationId: invocation }, null, 2));
+      return outcomeResult("prepare-fixture", "PASS", "App readiness and exact email-absence preflight passed.", "", 0, [this.evidenceRef(invocation, evidence)]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "fixture setup failed";
-      const evidence = await this.writeRunEvidence(state.runId, "fixture-blocked.json", JSON.stringify({ runId: state.runId, project: run.project, outcome: isBlocked(error) ? "BLOCKED" : "FAIL", error: sanitizeToolOutput(message), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION }, null, 2));
-      return outcomeResult("prepare-fixture", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(state.runId, evidence)]);
+      const evidence = await this.writeRunEvidence(state, "fixture-blocked.json", JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: isBlocked(error) ? "BLOCKED" : "FAIL", error: sanitizeToolOutput(message), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION }, null, 2));
+      return outcomeResult("prepare-fixture", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(invocation, evidence)]);
     }
   }
 
   async runSelenium(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult> {
-    const run = this.runs.get(state.runId);
+    const invocation = invocationId(state);
+    const run = this.runs.get(invocation);
     if (!run?.baseUrl || !run.fixtureEmail) return outcomeResult("run-selenium-test", "BLOCKED", "", "EC-C04 app/fixture preflight has not passed.");
     if (candidate.candidateId !== artifact.candidateId || candidate.revision !== artifact.revision || CLASS_BY_CANDIDATE[candidate.candidateId] !== artifact.testClass) return outcomeResult("run-selenium-test", "FAIL", "", "test class is not bound to the approved candidate revision");
     try {
-      const directory = await ensureContainedDirectory(this.repositoryRoot, `docs/tasks/T01-B/evidence/${state.runId}/selenium`);
-      const junitDirectory = await ensureContainedDirectory(this.repositoryRoot, `docs/tasks/T01-B/evidence/${state.runId}/junit`);
-      const mavenBuildDirectory = await ensureContainedDirectory(this.repositoryRoot, `.local-state/t01b-maven/${state.runId}`);
+      const directory = await ensureContainedDirectory(this.repositoryRoot, `${evidenceDirectory(state)}/selenium`);
+      const junitDirectory = await ensureContainedDirectory(this.repositoryRoot, `${evidenceDirectory(state)}/junit`);
+      const mavenBuildDirectory = await ensureContainedDirectory(this.repositoryRoot, `.local-state/t01b-maven/${state.runId}/${invocation}`);
       const driver = await this.findCompatibleChromeDriver();
-      const driverEvidence = await this.writeRunEvidence(state.runId, "webdriver-pin.json", JSON.stringify({ browserVersion: driver.version, driverVersion: driver.version, driverSha256: driver.sha256, browserPathSha256: sha256(driver.browserPath), origin: "existing installed Chrome and cached ChromeDriver", driverPathPersisted: false }, null, 2));
+      const driverEvidence = await this.writeRunEvidence(state, "webdriver-pin.json", JSON.stringify({ browserVersion: driver.version, driverVersion: driver.version, driverSha256: driver.sha256, browserPathSha256: sha256(driver.browserPath), origin: "existing installed Chrome and cached ChromeDriver", driverPathPersisted: false }, null, 2));
       const reportDirectories = [
-        `.local-state/t01b-maven/${state.runId}/surefire-reports`,
+        `.local-state/t01b-maven/${state.runId}/${invocation}/surefire-reports`,
         "experiments/expresscart/bewt-suite/target/surefire-reports",
       ];
       const startedAt = Date.now();
       const result = await runFixedMaven(resolve(this.repositoryRoot, this.manifest.baseSuitePath), "test", artifact.testClass, {
         baseUrl: run.baseUrl, evidenceDirectory: directory, mavenBuildDirectory, unregisteredEmail: run.fixtureEmail, chromeDriverPath: driver.path, chromeBinaryPath: driver.browserPath,
       });
-      const logsRelative = await this.writeRunEvidence(state.runId, "selenium-console.log", sanitizeToolOutput(`${result.stdout}\n${result.stderr}`));
+      const logsRelative = await this.writeRunEvidence(state, "selenium-console.log", sanitizeToolOutput(`${result.stdout}\n${result.stderr}`));
       const junitFiles: string[] = [];
       for (const relativeReportDir of reportDirectories) {
         let reportsPath: string;
@@ -185,7 +191,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       }
       const junitRefs: EvidenceReference[] = [];
       for (const name of junitFiles) {
-        junitRefs.push(this.evidenceRef(`${state.runId}-e2e`, `docs/tasks/T01-B/evidence/${state.runId}/junit/${name}`));
+        junitRefs.push(this.evidenceRef(`${invocation}-e2e`, `${evidenceDirectory(state)}/junit/${name}`));
       }
       const logsRef = this.evidenceRef(`${state.runId}-e2e`, logsRelative);
       const reportXml = junitFiles.find((name) => name === `TEST-${artifact.testClass}.xml`);
@@ -197,33 +203,50 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       const classification = outcome === "PASS" ? "E2E_PASS"
         : outcome === "BLOCKED" ? "BROWSER_SESSION_SETUP_BLOCKED"
           : outcome === "FAIL" ? "SELENIUM_ASSERTION_OR_TEST_FAILURE" : "JUNIT_REPORT_MISSING";
-      const classificationPath = await this.writeRunEvidence(state.runId, "selenium-classification.json", JSON.stringify({ outcome, classification, mavenExitCode: result.exitCode, junitReport: reportXml ?? null, browserVersion: driver.version, driverVersion: driver.version }, null, 2));
-      const additionalRefs = [this.evidenceRef(`${state.runId}-e2e`, driverEvidence), this.evidenceRef(`${state.runId}-e2e`, classificationPath)];
+      const classificationPath = await this.writeRunEvidence(state, "selenium-classification.json", JSON.stringify({ outcome, classification, mavenExitCode: result.exitCode, junitReport: reportXml ?? null, browserVersion: driver.version, driverVersion: driver.version }, null, 2));
+      const additionalRefs = [this.evidenceRef(`${invocation}-e2e`, driverEvidence), this.evidenceRef(`${invocation}-e2e`, classificationPath)];
       return outcomeResult("run-selenium-test", outcome, sanitizeToolOutput(result.stdout), sanitizeToolOutput(result.stderr), result.exitCode, [logsRef, ...junitRefs, ...additionalRefs]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "Selenium execution failed";
-      const relativeEvidence = await this.writeRunEvidence(state.runId, "selenium-error.json", JSON.stringify({ outcome: isBlocked(error) ? "BLOCKED" : "FAIL", error: sanitizeToolOutput(message), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION }, null, 2));
-      return outcomeResult("run-selenium-test", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(`${state.runId}-e2e`, relativeEvidence)]);
+      const relativeEvidence = await this.writeRunEvidence(state, "selenium-error.json", JSON.stringify({ outcome: isBlocked(error) ? "BLOCKED" : "FAIL", error: sanitizeToolOutput(message), sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION }, null, 2));
+      return outcomeResult("run-selenium-test", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(`${invocation}-e2e`, relativeEvidence)]);
     }
   }
 
   async cleanup(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult> {
     if (experimentKey !== this.manifest.fixtureReset.experimentKey) throw new Error("cleanup ownership key mismatch");
-    const run = this.runs.get(state.runId);
-    if (!run) return outcomeResult("cleanup-experiment", "NOT_RUN", "No run-scoped Compose resources were created.");
+    const invocation = invocationId(state);
+    let run = this.runs.get(invocation);
+    if (!run) run = await this.recoverRun(state, invocation);
+    if (!run) {
+      const base = evidenceDirectory(state);
+      let ownerExists = false;
+      try { await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`); ownerExists = true; } catch { /* no owner record */ }
+      if (!ownerExists) return outcomeResult("cleanup-experiment", "NOT_RUN", "No invocation ownership record exists; no Compose cleanup was attempted.");
+      const message = "persisted owner metadata failed invocation, source, candidate, or Compose integrity checks; cleanup was refused";
+      try {
+        const evidence = await this.writeRunEvidence(state, `cleanup-blocked-${uuid()}.json`, JSON.stringify({ runId: state.runId, invocationId: invocation, outcome: "CLEANUP_BLOCKED", error: message, noGlobalCleanup: true, recovery: "Inspect owner.json and Compose labels manually; do not remove resources until ownership is independently established." }, null, 2));
+        return outcomeResult("cleanup-experiment", "BLOCKED", "Persisted ownership could not be verified; cleanup refused.", message, undefined, [this.evidenceRef(`${invocation}-cleanup`, evidence)]);
+      } catch { return outcomeResult("cleanup-experiment", "BLOCKED", "Persisted ownership could not be verified; cleanup refused and blocked evidence could not be written.", message); }
+    }
     try {
+      try {
+        await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/cleanup.json`);
+        return outcomeResult("cleanup-experiment", "NOT_RUN", "This invocation already has immutable cleanup evidence; replay cleanup was refused.");
+      } catch { /* first cleanup attempt for this invocation */ }
       if (!run.composePath) return outcomeResult("cleanup-experiment", "NOT_RUN", "Source/image preflight stopped before an owned Compose project was created.");
-      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `docs/tasks/T01-B/evidence/${state.runId}/owner.json`), "utf8")) as { runId?: string; project?: string };
-      if (owner.runId !== state.runId || owner.project !== run.project) throw new Error("run ownership record mismatch; cleanup is refused");
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; candidateId?: string; candidateRevision?: number };
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== run.project || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${evidenceDirectory(state)}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.candidateId !== candidate.candidateId || owner.candidateRevision !== candidate.revision || !owner.composeSha256 || owner.composeSha256 !== sha256(await readFile(run.composePath))) throw new Error("invocation ownership or Compose integrity mismatch; cleanup is refused");
       await this.assertOwnedResources(run);
       const down = await this.compose(run, ["down", "--volumes", "--remove-orphans"]);
       if (down.exitCode !== 0) throw new Error("run-scoped Compose cleanup returned a non-zero exit code");
-      const evidence = await this.writeRunEvidence(state.runId, "cleanup.json", JSON.stringify({ runId: state.runId, project: run.project, outcome: "PASS", volumesRemoved: true, scope: "only resources carrying the exact Compose project label" }, null, 2));
-      return outcomeResult("cleanup-experiment", "PASS", "Run-scoped Compose resources removed after ownership verification.", "", 0, [this.evidenceRef(`${state.runId}-cleanup`, evidence)]);
+      await this.assertNoOwnedResources(run);
+      const evidence = await this.writeRunEvidence(state, "cleanup.json", JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: "PASS", volumesRemoved: true, scope: "only resources carrying the exact Compose project label" }, null, 2));
+      return outcomeResult("cleanup-experiment", "PASS", "Invocation-scoped Compose resources removed after ownership verification.", "", 0, [this.evidenceRef(`${invocation}-cleanup`, evidence)]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "cleanup failed";
-      const evidence = await this.writeRunEvidence(state.runId, "cleanup-blocked.json", JSON.stringify({ runId: state.runId, project: run.project, outcome: "BLOCKED", error: sanitizeToolOutput(message), noGlobalCleanup: true }, null, 2));
-      return outcomeResult("cleanup-experiment", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message), undefined, [this.evidenceRef(`${state.runId}-cleanup`, evidence)]);
+      const evidence = await this.writeRunEvidence(state, `cleanup-blocked-${uuid()}.json`, JSON.stringify({ runId: state.runId, invocationId: invocation, project: run.project, outcome: "CLEANUP_BLOCKED", error: sanitizeToolOutput(message), noGlobalCleanup: true, recovery: "Verify owner.json and Compose labels manually; remove only the exact invocation project after ownership is established." }, null, 2));
+      return outcomeResult("cleanup-experiment", "BLOCKED", "Cleanup ownership or execution could not be verified; manual scoped recovery is required.", sanitizeToolOutput(message), undefined, [this.evidenceRef(`${invocation}-cleanup`, evidence)]);
     }
   }
 
@@ -274,16 +297,21 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   }
 
   async validate(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, repairAttempts: number, state: AgentWorkflowState): Promise<ValidationResult> {
-    const invocationId = `inv-${uuid()}`;
-    const dispatcher = this.createDispatcher(state);
+    const invocationId = `inv-${sha256(`${state.runId}:${repairAttempts}:${artifact.sha256}`).slice(0, 24)}`;
+    const invocationState = { ...state, validationInvocationId: invocationId };
+    const dispatcher = this.createDispatcher(invocationState);
     const refs = new Map<Stage, ValidationResult[Stage]>();
     const record = async (stage: Stage, tool: ToolName, request: Record<string, unknown>): Promise<ToolResult> => {
       const stageRunId = `${invocationId}-${stage}`;
-      const result = await dispatcher.dispatch(request);
-      const logPath = result.outcome === "NOT_RUN" ? undefined : await this.writeRunEvidence(state.runId, `${stage}.log`, sanitizeToolOutput(`${result.stdout}\n${result.stderr}`));
+      let result: ToolResult;
+      try { result = await dispatcher.dispatch(request); }
+      catch (error) { result = outcomeResult(tool, tool === "cleanup-experiment" ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(error instanceof Error ? error.message : "tool dispatch failed")); }
+      let logPath: string | undefined;
+      try { if (result.outcome !== "NOT_RUN") logPath = await this.writeRunEvidence(invocationState, `${stage}.log`, sanitizeToolOutput(`${result.stdout}\n${result.stderr}`)); }
+      catch (error) { result = outcomeResult(tool, tool === "cleanup-experiment" ? "BLOCKED" : "FAIL", result.stdout, sanitizeToolOutput(`stage evidence write failed: ${error instanceof Error ? error.message : "unknown error"}`), result.exitCode, result.evidence); }
       const evidence = result.outcome === "NOT_RUN" ? [] : result.evidence.length
         ? result.evidence.map((reference) => ({ ...reference, runId: stageRunId }))
-        : [this.evidenceRef(stageRunId, logPath!)];
+        : logPath ? [this.evidenceRef(stageRunId, logPath)] : result.evidence;
       refs.set(stage, {
         invocationId,
         ...(result.outcome === "NOT_RUN" ? {} : { stageRunId }),
@@ -305,20 +333,33 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       }
     }
     let cleanup: ToolResult = outcomeResult("cleanup-experiment", "NOT_RUN");
-    if (fixture.outcome !== "NOT_RUN") cleanup = await record("cleanup", "cleanup-experiment", { tool: "cleanup-experiment", ...common, experimentKey: this.manifest.fixtureReset.experimentKey });
+    if (fixture.outcome !== "NOT_RUN" || this.runs.has(invocationId)) cleanup = await record("cleanup", "cleanup-experiment", { tool: "cleanup-experiment", ...common, experimentKey: this.manifest.fixtureReset.experimentKey });
     for (const stage of STAGE_NAMES) if (!refs.has(stage)) refs.set(stage, { invocationId, outcome: "NOT_RUN", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [] });
     const decision = (kind: "oracle" | "novelty") => ({ decisionId: `${invocationId}-${kind}`, appId: "expresscart" as const, candidateId: candidate.candidateId, candidateRevision: candidate.revision, decision: "UNVERIFIED" as const, reviewerId: trustedReviewerId(), decidedAt: new Date().toISOString(), rationale: `T01-B ${kind} review remains independent and was not recorded by the implementation approval.`, evidence: [] });
     return parseValidationResult({ appId: "expresscart", candidateId: candidate.candidateId, candidateRevision: candidate.revision, invocationId, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, compile: refs.get("compile"), fixture: refs.get("fixture"), e2e: refs.get("e2e"), cleanup: refs.get("cleanup"), oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts, evidence: [], researchAcceptance: { status: "NOT_REVIEWED" } });
   }
 
-  private async getOrCreateRun(runId: string): Promise<ActiveRun> {
-    const existing = this.runs.get(runId);
+  private async getOrCreateRun(workflowRunId: string, invocation: string): Promise<ActiveRun> {
+    const existing = this.runs.get(invocation);
     if (existing) return existing;
-    const project = safeProjectName(runId);
-    const run = { project, composePath: "", evidence: [] };
-    await ensureContainedDirectory(this.repositoryRoot, `docs/tasks/T01-B/evidence/${runId}`);
-    this.runs.set(runId, run);
+    const project = safeProjectName(`${workflowRunId}-${invocation}`);
+    const run = { workflowRunId, invocationId: invocation, project, composePath: "", evidence: [] };
+    await ensureContainedDirectory(this.repositoryRoot, `docs/tasks/T01-B/evidence/${workflowRunId}/invocations/${invocation}`);
+    this.runs.set(invocation, run);
     return run;
+  }
+
+  private async recoverRun(state: AgentWorkflowState, invocation: string): Promise<ActiveRun | undefined> {
+    const base = evidenceDirectory(state);
+    try {
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; candidateId?: string; candidateRevision?: number };
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${base}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.candidateId !== state.candidate?.candidateId || owner.candidateRevision !== state.candidate?.revision || !owner.composeSha256) return undefined;
+      const composePath = await resolveContainedExistingPath(this.repositoryRoot, owner.composeFile);
+      if (sha256(await readFile(composePath)) !== owner.composeSha256) return undefined;
+      const run: ActiveRun = { workflowRunId: state.runId, invocationId: invocation, project: owner.project, composePath, composeSha256: owner.composeSha256, evidence: [] };
+      this.runs.set(invocation, run);
+      return run;
+    } catch { return undefined; }
   }
 
   private composeDefinition(): Record<string, unknown> {
@@ -342,7 +383,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   }
 
   private async compose(run: ActiveRun, args: string[]) {
-    return await runFixedProcess("docker", ["compose", "-p", run.project, "-f", run.composePath, ...args], { cwd: this.repositoryRoot, timeoutMs: 90_000 });
+    return await this.processRunner("docker", ["compose", "-p", run.project, "-f", run.composePath, ...args], { cwd: this.repositoryRoot, timeoutMs: 90_000 });
   }
 
   private async waitUntilReady(baseUrl: string): Promise<void> {
@@ -409,9 +450,18 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     }
   }
 
-  private async writeRunEvidence(runId: string, name: string, content: string): Promise<string> {
-    const relativePath = `docs/tasks/T01-B/evidence/${runId}/${name}`;
-    await ensureContainedDirectory(this.repositoryRoot, `docs/tasks/T01-B/evidence/${runId}`);
+  private async assertNoOwnedResources(run: ActiveRun): Promise<void> {
+    const containers = await this.compose(run, ["ps", "-aq"]);
+    if (containers.exitCode !== 0 || containers.stdout.split(/\s+/).some(Boolean)) throw new Error("run-scoped containers remain after Compose cleanup");
+    for (const kind of ["volume", "network"] as const) {
+      const result = await runFixedProcess("docker", [kind, "ls", "-q", "--filter", `label=com.docker.compose.project=${run.project}`], { cwd: this.repositoryRoot, timeoutMs: 20_000 });
+      if (result.exitCode !== 0 || result.stdout.split(/\s+/).some(Boolean)) throw new Error(`run-scoped Docker ${kind}s remain or could not be verified after cleanup`);
+    }
+  }
+
+  private async writeRunEvidence(state: AgentWorkflowState, name: string, content: string): Promise<string> {
+    const relativePath = `${evidenceDirectory(state)}/${name}`;
+    await ensureContainedDirectory(this.repositoryRoot, evidenceDirectory(state));
     const path = await resolveContainedOutputPath(this.repositoryRoot, relativePath);
     await writeFile(path, content, { flag: "wx" });
     return relativePath;

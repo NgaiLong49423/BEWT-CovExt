@@ -157,6 +157,7 @@ export interface AgentWorkflowState {
   sourceCommit: string;
   sourceVersion: string;
   runId: string;
+  validationInvocationId?: string;
   currentRole: AgentRole;
   status: WorkflowStatus;
   candidate?: CandidateScenario;
@@ -491,7 +492,7 @@ export function parseHumanReviewDecision(input: unknown): HumanReviewDecision {
 
 export function parseWorkflowState(input: unknown): AgentWorkflowState {
   const value = record(input, "AgentWorkflowState");
-  assertKeys(value, ["appId", "sourceCommit", "sourceVersion", "runId", "currentRole", "status", "candidate", "reviewDecisions", "appliedDecisionIds", "checkpoint", "artifacts", "repairAttempts", "lastError"], "AgentWorkflowState");
+  assertKeys(value, ["appId", "sourceCommit", "sourceVersion", "runId", "validationInvocationId", "currentRole", "status", "candidate", "reviewDecisions", "appliedDecisionIds", "checkpoint", "artifacts", "repairAttempts", "lastError"], "AgentWorkflowState");
   const candidate = value.candidate === undefined ? undefined : parseCandidateScenario(value.candidate);
   const checkpointValue = value.checkpoint === undefined ? undefined : record(value.checkpoint, "checkpoint");
   if (checkpointValue) assertKeys(checkpointValue, ["threadId", "checkpointId", "pausedAt", "resumeStatus"], "checkpoint");
@@ -504,6 +505,7 @@ export function parseWorkflowState(input: unknown): AgentWorkflowState {
   const state: AgentWorkflowState = {
     appId: member(value.appId, APP_IDS, "appId"), sourceCommit: sha(value.sourceCommit, "sourceCommit"),
     sourceVersion: text(value.sourceVersion, "sourceVersion", 120), runId: text(value.runId, "runId", 120),
+    ...(value.validationInvocationId === undefined ? {} : { validationInvocationId: text(value.validationInvocationId, "validationInvocationId", 120) }),
     currentRole: member(value.currentRole, AGENT_ROLES, "currentRole"), status: member(value.status, WORKFLOW_STATUSES, "status"),
     ...(candidate ? { candidate } : {}),
     reviewDecisions: list(value.reviewDecisions, "reviewDecisions", (decision) => parseHumanReviewDecision(decision), 0, 100),
