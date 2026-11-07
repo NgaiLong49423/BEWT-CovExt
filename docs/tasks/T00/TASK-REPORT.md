@@ -45,7 +45,7 @@ Governance files came from the seven individual files in `C:\Users\Lenovo\Downlo
 | `git push -u origin docs/t00-program-contract` + `git ls-remote origin refs/heads/docs/t00-program-contract` | remote SHA matched local content commit | PASS | command output |
 | `gh pr create --base main --head docs/t00-program-contract ...`; `gh pr view 1` | opened https://github.com/NgaiLong49423/BEWT-CovExt/pull/1; PR head matched pushed SHA at creation | PASS | PR #1 metadata |
 | `gh pr diff 1 --name-only`; `gh pr view 1 --json files` | remote PR contains exactly the ten Task T00 paths | PASS | command output |
-| Final report metadata commit/push and final remote HEAD check | not yet run | NOT_RUN | this commit |
+| Final report metadata commit/push and final remote HEAD check | completed; `git rev-parse HEAD`, `git ls-remote origin refs/heads/docs/t00-program-contract`, and PR head OID agree | PASS | commit output and PR #1 metadata; final full SHA in handoff |
 
 No tests were run because T00 changes documentation only. No Docker or application runtime was started.
 
