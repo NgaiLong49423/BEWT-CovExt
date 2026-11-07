@@ -3,7 +3,7 @@
 - **Task scope / acceptance gate:** Static benchmark audit of 8 applications, baseline inventory verification, Gherkin/Java test count mismatch classification, upstream provenance analysis, environment readiness review, and G0 rollout planning.
 - **Base branch + base SHA:** `origin/main` at `7e27950b44473cf4d6a5d7d5222bc8dac9b3a266` (following merge of PR #3 / T01-B).
 - **Working branch:** `feature/t02-benchmark-audit`.
-- **Head commit (full 40-char SHA):** `a04ed8276b8d41ae76abb4477ae72a1f82cc6a13`
+- **Head commit (full 40-char SHA):** `2d27a846afcbbbc1d94fdfc3907f58696cef3379` (review fixes commit).
 - **PR:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5
 - **Push status:** PUSHED (tracking `origin/feature/t02-benchmark-audit`).
 - **Runtime/commit/version audited:** Static audit against `bewt-original/` pinned at `0501249ff3e9a5ea83a06155cd2971dc36197056` (`https://github.com/OlianasD/BEWT.git`).
