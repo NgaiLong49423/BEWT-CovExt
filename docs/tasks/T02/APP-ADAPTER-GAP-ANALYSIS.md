@@ -95,13 +95,13 @@ flowchart TD
 
 | Application | Manifest State | Baseline Reader Complexity | Fixture Preparation Workflow | Teardown Complexity | Estimated Adapter Code Delta vs ExpressCart |
 |---|---|---|---|---|---|
-| **Kanboard** | Draft Created (`kanboard.json`) | Standard (30 cases, exact 1:1 map) | Trivial: `docker run` single container, SQLite | Trivial: `docker stop; docker rm` | **Small** (~100 LOC) |
-| **Claroline** | Draft Created (`claroline.json`) | Standard (40 cases, prefix `Claroline_`) | Trivial: `docker run` single container, pre-seeded DB | Trivial: `docker stop; docker rm` | **Small** (~120 LOC) |
-| **Bludit** | Draft Created (`bludit.json`) | Medium: Handle implicit Gherkin syntax | Low: `docker run` + `mvn -Dtest=Installer test` | Trivial: `docker stop; docker rm` | **Medium** (~150 LOC) |
-| **MantisBT** | Draft Created (`mantisbt.json`) | Low: Skip standalone check for `0_Login` | Trivial: `docker run` single container, pre-seeded DB | Trivial: `docker stop; docker rm` | **Small** (~120 LOC) |
-| **Joomla** | Draft Created (`joomla.json`) | Standard (35 cases, bare class names) | Medium: Compose up + run `Installer` & `RemoveMessages` | Low: Compose down | **Medium** (~160 LOC) |
-| **MediaWiki** | Draft Created (`mediawiki.json`) | Standard (27 cases) | High: Compose up + run `Installer` + `docker cp LocalSettings.php` | Medium: Volume cleanup | **High** (~220 LOC) |
-| **PrestaShop** | Draft Created (`prestashop.json`) | Medium: Handle 2 missing `.feature` files | High: Network create + 2 containers + `Installer` + container `rm/mv` | Medium: 2-container cleanup | **High** (~250 LOC) |
+| **Kanboard** | Draft Created (`docs/tasks/T02/manifests/kanboard.draft.json`) | Standard (30 cases, exact 1:1 map) | Trivial: `docker run` single container, SQLite | Trivial: `docker stop; docker rm` | **Small** (~100 LOC) |
+| **Claroline** | Draft Created (`docs/tasks/T02/manifests/claroline.draft.json`) | Standard (40 cases, prefix `Claroline_`) | Trivial: `docker run` single container, pre-seeded DB | Trivial: `docker stop; docker rm` | **Small** (~120 LOC) |
+| **Bludit** | Draft Created (`docs/tasks/T02/manifests/bludit.draft.json`) | Medium: Handle implicit Gherkin syntax | Low: `docker run` + `mvn -Dtest=Installer test` on working copy | Trivial: `docker stop; docker rm` | **Medium** (~150 LOC) |
+| **MantisBT** | Draft Created (`docs/tasks/T02/manifests/mantisbt.draft.json`) | Low: Skip standalone check for `0_Login` | Trivial: `docker run` single container, pre-seeded DB | Trivial: `docker stop; docker rm` | **Small** (~120 LOC) |
+| **Joomla** | Draft Created (`docs/tasks/T02/manifests/joomla.draft.json`) | Standard (35 cases, bare class names) | Medium: Compose up + run `Installer` & `RemoveMessages` on working copy | Low: Compose down | **Medium** (~160 LOC) |
+| **MediaWiki** | Draft Created (`docs/tasks/T02/manifests/mediawiki.draft.json`) | Standard (27 cases) | High: Compose up + run `Installer` on working copy + `docker cp LocalSettings.php` | Medium: Volume cleanup | **High** (~220 LOC) |
+| **PrestaShop** | Draft Created (`docs/tasks/T02/manifests/prestashop.draft.json`) | Medium: Handle 2 missing `.feature` files | High: Network create + 2 containers + `Installer` on working copy + container `rm/mv` | Medium: 2-container cleanup | **High** (~250 LOC) |
 
 ---
 

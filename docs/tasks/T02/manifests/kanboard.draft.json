@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
   "appId": "kanboard",
   "benchmarkBaseVersion": "1.2.15",
   "source": {
     "repository": "https://github.com/kanboard/kanboard",
-    "commit": "07530664e1eb5a80fae0078b5ce538ef21d58eb0",
-    "packageVersion": "v1.2.15"
+    "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+    "packageVersion": "v1.2.15",
+    "note": "Commit 00a8b2d7 verified from tag v1.2.15 on GitHub upstream. BEWT baseline references kanboard/kanboard:v1.2.15."
   },
   "baseSuitePath": "bewt-original/kanboard/baseline/kanboard-1.2.15",
   "runtime": {
@@ -18,7 +20,7 @@
     "experimentKey": "bewt-covext-kanboard",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Single container deployment (kanboard/kanboard:v1.2.15). Pre-configured internal SQLite database. Ready out-of-the-box, no post-install steps. Reset stops and removes the container, destroying all SQLite data.",
+    "resetStrategy": "Single container deployment with labels (owner=bewt-covext). Pre-configured internal SQLite database. Ready out-of-the-box, no post-install steps. Reset stops and removes the container, destroying all SQLite data.",
     "destructive": true
   },
   "allowedTools": [

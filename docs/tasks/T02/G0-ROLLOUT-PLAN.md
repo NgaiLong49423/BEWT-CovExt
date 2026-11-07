@@ -3,6 +3,7 @@
 > **Program:** BEWT-CovExt  
 > **Task:** T02 — Benchmark Audit (Parallel Worktree)  
 > **Scope Document:** `De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx` (v2.0, 20/10/2026)  
+> **Base Commit of main:** `7e27950b44473cf4d6a5d7d5222bc8dac9b3a266` (following merge of PR #3 / T01-B)  
 > **Target Gate:** G0 (Environment Readiness & Baseline Verification)  
 > **Audit Date:** 2026-11-08  
 > **Execution Phase:** Pre-implementation Plan for Task T03
@@ -31,8 +32,8 @@ To maximize velocity and de-risk the program, rollout is ordered from the lowest
 flowchart LR
     EC["ExpressCart<br/>(Feasibility Proven)"] --> KB["Rank 1: Kanboard<br/>(Single container, SQLite)"]
     KB --> BL["Rank 2: Bludit<br/>(Single container, Flat-file)"]
-    BL --> CL["Rank 3: Claroline<br/>(Single container, Bundled DB)"]
-    CL --> MB["Rank 4: MantisBT 1.2.0<br/>(Single container, Bundled DB)"]
+    CL["Rank 3: Claroline<br/>(Single container, Bundled DB)"] --> MB["Rank 4: MantisBT 1.2.0<br/>(Single container, Bundled DB)"]
+    BL --> CL
     MB --> JM["Rank 5: Joomla 3.10.11<br/>(Compose: App + MySQL)"]
     JM --> MW["Rank 6: MediaWiki 1.40.0<br/>(Compose + Installer + Volumes)"]
     MW --> PS["Rank 7: PrestaShop 1.6.1.23<br/>(Custom Net + Exec Rm/Mv)"]
@@ -50,103 +51,160 @@ flowchart LR
 
 ---
 
-## 3. Step-by-Step Rollout Specifications for T03
+## 3. Strict Safety & Isolation Rules for Task T03
+
+To prevent accidental data loss, resource collisions, or unintended host modification:
+
+1. **Unique Namespacing:** Never use generic or common container names (e.g., `some-mysql`, `some-prestashop`, `kanboard`, `bludit`, or `prestashop-net`). All containers, networks, and volumes must use the prefix:
+   `bewt-covext-<app>-<runId>` (e.g., `bewt-covext-kanboard-t03-01`).
+2. **Mandatory Ownership Labels:** All created Docker resources must carry explicit labels:
+   ```bash
+   --label "owner=bewt-covext" \
+   --label "project=bewt-covext" \
+   --label "app=<app>" \
+   --label "task=t03-g0" \
+   --label "runId=<runId>"
+   ```
+3. **Port Availability Pre-check:** Before launching any container, execute a host port check to confirm the port is not bound by an existing service:
+   ```powershell
+   Test-NetConnection -ComputerName localhost -Port <port> -InformationLevel Quiet
+   ```
+   If the port is occupied, abort with `PORT_CONFLICT_BLOCKED`.
+4. **Credential Security:** Database root and user passwords must be passed via environment variables (e.g. `${EXPERIMENT_DB_ROOT_PASSWORD}`), never hardcoded as plaintext in scripts or committed logs.
+5. **Mount & Volume Inspection:** Before declaring a clean reset, execute:
+   ```powershell
+   docker inspect <container> --format '{{json .Mounts}}'
+   ```
+   Confirm all anonymous and named volumes are recorded and explicitly removed during cleanup.
+6. **Zero Global Pruning:** Never execute global prune commands (`docker system prune`, `docker volume prune`, `docker network prune`). Cleanup commands must target strictly by verified container ID or labels:
+   ```powershell
+   docker ps -q --filter "label=owner=bewt-covext" --filter "label=runId=<runId>" | ForEach-Object { docker stop $_; docker rm -v $_ }
+   ```
+7. **Container Filesystem Modification Guard:** Container exec commands (e.g., PrestaShop's directory cleanup) must target only the specifically verified container ID carrying the experiment label.
+8. **Working Copy for BaseTest URL Fix:** Because `BaseTest.java` in `bewt-original/` hardcodes `192.168.1.141` as a string literal and does NOT read `-Dapp.url`, Task T03 must instantiate a working copy (e.g. `experiments/<app>/bewt-suite`), where `BaseTest.java` is parameterized to read `System.getProperty("app.url")`. `bewt-original/` remains strictly read-only.
+9. **Image Pull Verification:** Do not claim an image tag exists on Docker Hub or runs until `docker pull` succeeds and records the sha256 registry digest.
+
+---
+
+## 4. Step-by-Step Rollout Specifications for T03
 
 ### Phase 1: Kanboard 1.2.15 (Rank 1 — Estimated Time: 0.5 Day)
-1. **Container Start:** `docker run -d --name kanboard-test -p 8080:80 kanboard/kanboard:v1.2.15`
-2. **Readiness Probe:** `curl -s -I http://localhost:8080 | grep "HTTP/1.1 200 OK"`
-3. **Base Test Target:** `AddNewProject.java` or `AddNewTask.java`.
-4. **Command:** `mvn -Dtest=AddNewProject test` inside `bewt-original/kanboard/baseline/kanboard-1.2.15`.
-5. **Teardown & Verification:** `docker stop kanboard-test; docker rm kanboard-test`. Verify no lingering volumes.
+1. **Port Check:** Confirm port 8080 is available.
+2. **Container Start:**
+   ```powershell
+   docker run -d --name bewt-covext-kanboard-g0 \
+     --label "owner=bewt-covext" --label "app=kanboard" --label "task=t03-g0" \
+     -p 8080:80 kanboard/kanboard:v1.2.15
+   ```
+3. **Readiness Probe:** `curl -s -I http://localhost:8080 | grep "HTTP/1.1 200 OK"`
+4. **Base Test Target:** `AddNewProject.java` on working copy `experiments/kanboard/bewt-suite`.
+5. **Teardown & Verification:** `docker stop bewt-covext-kanboard-g0; docker rm -v bewt-covext-kanboard-g0`.
 
 ---
 
 ### Phase 2: Bludit 2.3.4 (Rank 2 — Estimated Time: 0.5 Day)
-1. **Container Start:** `docker run -d --name bludit-test -p 8080:80 bludit/docker:2.3.4`
-2. **URL Override:** Pass `-Dapp.url=http://localhost:8080/admin` to Maven to bypass the hardcoded `192.168.1.141`.
-3. **Initialization:** Run `mvn -Dtest=Installer test` inside `bewt-original/bludit/baseline/bludit-2.3.4`.
-4. **Base Test Target:** `AddContentTest.java`.
-5. **Teardown & Verification:** `docker stop bludit-test; docker rm bludit-test`.
+1. **Port Check:** Confirm port 8080 is available.
+2. **Container Start:**
+   ```powershell
+   docker run -d --name bewt-covext-bludit-g0 \
+     --label "owner=bewt-covext" --label "app=bludit" --label "task=t03-g0" \
+     -p 8080:80 bludit/docker:2.3.4
+   ```
+3. **Working Copy Setup:** Copy `bewt-original/bludit/baseline/bludit-2.3.4` to `experiments/bludit/bewt-suite`, patch `BaseTest.java` to read `System.getProperty("app.url", "http://localhost:8080/admin")`.
+4. **Initialization:** Run `mvn -Dtest=Installer test` inside `experiments/bludit/bewt-suite`.
+5. **Base Test Target:** `AddContentTest.java`.
+6. **Teardown & Verification:** `docker stop bewt-covext-bludit-g0; docker rm -v bewt-covext-bludit-g0`.
 
 ---
 
 ### Phase 3: Claroline 1.11.10 (Rank 3 — Estimated Time: 0.5 Day)
-1. **Container Start:**
+1. **Port Check:** Confirm port 3000 is available.
+2. **Container Start:**
    ```powershell
-   docker run -it --workdir=/home/claroline --name=claroline-test -p 3000:80 -d --entrypoint ./run-services-docker.sh olianasd/claroline-strongpsw bash
+   docker run -it -d --name bewt-covext-claroline-g0 \
+     --label "owner=bewt-covext" --label "app=claroline" --label "task=t03-g0" \
+     --workdir=/home/claroline -p 3000:80 \
+     --entrypoint ./run-services-docker.sh olianasd/claroline-strongpsw bash
    ```
-2. **Readiness Probe:** Check `http://localhost:3000/claroline11110/claroline/index.php`.
-3. **Base Test Target:** `Claroline_AddUserTest.java`.
-4. **Teardown & Verification:** `docker stop claroline-test; docker rm claroline-test`.
+3. **Readiness Probe:** Check `http://localhost:3000/claroline11110/claroline/index.php`.
+4. **Base Test Target:** `Claroline_AddUserTest.java` on working copy `experiments/claroline/bewt-suite`.
+5. **Teardown & Verification:** `docker stop bewt-covext-claroline-g0; docker rm -v bewt-covext-claroline-g0`.
 
 ---
 
 ### Phase 4: MantisBT 1.2.0 (Rank 4 — Estimated Time: 0.5 Day)
-1. **Container Start:**
+1. **Port Check:** Confirm port 3000 is available.
+2. **Container Start:**
    ```powershell
-   docker run -it --workdir=/home --name=mantisbt-test -p 3000:80 -d --entrypoint ./run-services-docker.sh olianasd/mantisbt-strongpsw:1.2.0 bash
+   docker run -it -d --name bewt-covext-mantisbt-g0 \
+     --label "owner=bewt-covext" --label "app=mantisbt" --label "task=t03-g0" \
+     --workdir=/home -p 3000:80 \
+     --entrypoint ./run-services-docker.sh olianasd/mantisbt-strongpsw:1.2.0 bash
    ```
-2. **URL Override:** Pass `-Dapp.url=http://localhost:3000/mantisbt` to bypass hardcoded `192.168.1.141`.
-3. **Base Test Target:** `AddUser.java`.
-4. **Teardown & Verification:** `docker stop mantisbt-test; docker rm mantisbt-test`.
+3. **Working Copy Setup:** Copy to `experiments/mantisbt/bewt-suite`, patch `BaseTest.java` to read `System.getProperty("app.url", "http://localhost:3000/mantisbt")`.
+4. **Base Test Target:** `AddUser.java`.
+5. **Teardown & Verification:** `docker stop bewt-covext-mantisbt-g0; docker rm -v bewt-covext-mantisbt-g0`.
 
 ---
 
 ### Phase 5: Joomla 3.10.11 (Rank 5 — Estimated Time: 1.0 Day)
-1. **Compose Launch:** `docker compose -f bewt-original/joomla/baseline/joomla-3.10.11/docker-compose.yml -p bewt-joomla up -d`
-2. **Readiness Probe:** Wait for MySQL container health (port 3306) and HTTP 200 on `http://localhost:8080`.
-3. **Initialization:**
+1. **Port Check:** Confirm port 8080 is available.
+2. **Compose Launch:** Use project name `bewt-covext-joomla-g0`:
    ```powershell
-   mvn -Dtest=Installer test
-   mvn -Dtest=RemoveMessages test
+   docker compose -f bewt-original/joomla/baseline/joomla-3.10.11/docker-compose.yml -p bewt-covext-joomla-g0 up -d
    ```
-4. **Base Test Target:** `AdminLoginTest.java` or `AddNewArticle.java`.
-5. **Teardown & Verification:** `docker compose -p bewt-joomla down --volumes`.
+3. **Readiness Probe:** Wait for MySQL health and HTTP 200 on `http://localhost:8080`.
+4. **Initialization:** Run `mvn -Dtest=Installer test` and `mvn -Dtest=RemoveMessages test` on working copy.
+5. **Base Test Target:** `AdminLoginTest.java` or `AddNewArticle.java`.
+6. **Teardown & Verification:** `docker compose -p bewt-covext-joomla-g0 down --volumes`.
 
 ---
 
 ### Phase 6: MediaWiki 1.40.0 (Rank 6 — Estimated Time: 1.0 Day)
-1. **Compose Launch:** `docker compose -f bewt-original/mediawiki/baseline/mediawiki-1.40.0/docker-compose.yml -p bewt-mediawiki up -d`
-2. **Initialization:** Run `mvn -Dtest=Installer test`.
-3. **Config Provisioning:**
+1. **Port Check:** Confirm port 8080 is available.
+2. **Compose Launch:** Use project name `bewt-covext-mediawiki-g0`:
    ```powershell
-   docker cp LocalSettings.php bewt-mediawiki-mediawiki-1:/var/www/html/LocalSettings.php
+   docker compose -f bewt-original/mediawiki/baseline/mediawiki-1.40.0/docker-compose.yml -p bewt-covext-mediawiki-g0 up -d
    ```
-4. **Base Test Target:** `CreateUserTest.java` or `CreatePageTest.java`.
-5. **Teardown & Verification:**
+3. **Initialization:** Run `mvn -Dtest=Installer test` on working copy.
+4. **Config Provisioning:**
    ```powershell
-   docker compose -p bewt-mediawiki down --volumes --remove-orphans
+   docker cp LocalSettings.php bewt-covext-mediawiki-g0-mediawiki-1:/var/www/html/LocalSettings.php
    ```
-   Verify removal of named volumes `bewt-mediawiki_images` and `bewt-mediawiki_db`.
+5. **Base Test Target:** `CreateUserTest.java` on working copy.
+6. **Teardown & Verification:**
+   ```powershell
+   docker compose -p bewt-covext-mediawiki-g0 down --volumes --remove-orphans
+   ```
 
 ---
 
 ### Phase 7: PrestaShop 1.6.1.23 (Rank 7 — Estimated Time: 1.0 Day)
-1. **Network & Container Launch:**
+1. **Port Check:** Confirm port 8080 is available.
+2. **Network & Container Launch:**
    ```powershell
-   docker network create prestashop-g0-net
-   docker run --name prestashop-g0-mysql --network prestashop-g0-net -e MYSQL_ROOT_PASSWORD=admin -p 3307:3306 -d mysql:5.7
-   docker run --name prestashop-g0-app --network prestashop-g0-net -e DB_SERVER=prestashop-g0-mysql -p 8080:80 -d prestashop/prestashop:1.6.1.23
+   docker network create bewt-covext-prestashop-g0-net --label "owner=bewt-covext"
+   docker run -d --name bewt-covext-prestashop-g0-mysql \
+     --network bewt-covext-prestashop-g0-net \
+     --label "owner=bewt-covext" \
+     -e MYSQL_ROOT_PASSWORD=${EXPERIMENT_DB_ROOT_PASSWORD} \
+     -p 3307:3306 mysql:5.7
+   docker run -d --name bewt-covext-prestashop-g0-app \
+     --network bewt-covext-prestashop-g0-net \
+     --label "owner=bewt-covext" \
+     -e DB_SERVER=bewt-covext-prestashop-g0-mysql \
+     -p 8080:80 prestashop/prestashop:1.6.1.23
    ```
-2. **URL Override:** Pass `-Dapp.url=http://localhost:8080/administrator/` to bypass `192.168.1.141`.
-3. **Initialization:** Run `mvn -Dtest=Installer test`.
-4. **Post-install Adjustments:**
+3. **Working Copy Setup:** Copy to `experiments/prestashop/bewt-suite`, patch `BaseTest.java` to read `System.getProperty("app.url", "http://localhost:8080/administrator/")`.
+4. **Initialization:** Run `mvn -Dtest=Installer test` on working copy.
+5. **Post-install Adjustments (Guarded to Owned Container):**
    ```powershell
-   docker exec prestashop-g0-app bash -c "rm -rf install && mv admin administrator"
+   docker exec bewt-covext-prestashop-g0-app bash -c "rm -rf install && mv admin administrator"
    ```
-5. **Base Test Target:** `AddNewProduct.java`.
-6. **Teardown & Verification:**
+6. **Base Test Target:** `AddNewProduct.java`.
+7. **Teardown & Verification:**
    ```powershell
-   docker stop prestashop-g0-app prestashop-g0-mysql
-   docker rm prestashop-g0-app prestashop-g0-mysql
-   docker network rm prestashop-g0-net
+   docker stop bewt-covext-prestashop-g0-app bewt-covext-prestashop-g0-mysql
+   docker rm -v bewt-covext-prestashop-g0-app bewt-covext-prestashop-g0-mysql
+   docker network rm bewt-covext-prestashop-g0-net
    ```
-
----
-
-## 4. Workstation Safeguards & Execution Invariants
-
-1. **Strictly Sequential Execution:** Never run two SUT containers simultaneously. Ensure previous containers and networks are completely destroyed before starting the next phase.
-2. **Ownership Labels:** Every container, network, and volume created must include the label `owner=bewt-covext` and `task=t03-g0`.
-3. **Zero Resource Leaks:** The cleanup script must assert that `docker ps -a` and `docker volume ls` contain zero residual items tagged with the experiment prefix.
-4. **Evidence Preservation:** Every smoke run must archive the raw Surefire XML (`TEST-*.xml`), terminal build log, and a screenshot of the running web UI into `docs/tasks/T03/evidence/<app>/`.

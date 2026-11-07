@@ -9,13 +9,15 @@
     "applications": 8,
     "newCasesPerApp": 5,
     "newCasesTotal": 40,
-    "originalBusinessCaseEntriesInProposal": 258,
-    "actualObservedGherkinFeatureFiles": 257,
-    "actualObservedBaseTestSuiteClasses": 257
+    "publishedBusinessCasesInProposalTable2": 258,
+    "observedGherkinFeatureFiles": 257,
+    "observedBaseJavaBusinessTestClasses": 257,
+    "standardParseableScenarios": 234,
+    "rq2BehavioralCoverageDenominator": "TBD_IN_T04_FROM_BEHAVIORAL_INVENTORY"
   },
   "framework": {
     "status": "MERGED_TO_MAIN_VIA_PR_3",
-    "mergedSha": "7e27950fefab0eefc37cf326e3c54c3e8006bfb6",
+    "mergedSha": "7e27950b44473cf4d6a5d7d5222bc8dac9b3a266",
     "fourRoleReusableGraph": "IMPLEMENTED_EXPRESSCART_SLICE",
     "checkpointResume": "IMPLEMENTED_LOCAL_TESTED",
     "toolAllowlist": "IMPLEMENTED_LOCAL_TESTED",
@@ -31,10 +33,12 @@
       "app": "bludit",
       "proposalBaseLabel": "2.3.4",
       "proposalOriginalCases": 23,
+      "verifiedUpstreamCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
       "verifiedGherkinFiles": 23,
       "verifiedTestSuiteClasses": 24,
       "verifiedBusinessCases": 23,
-      "syntaxQuirk": "Omits Scenario: keyword across all 23 feature files; implicit scenario syntax",
+      "standardParseableScenarios": 0,
+      "syntaxQuirk": "Omits Scenario: keyword across all 23 feature files; implicit scenario syntax requiring custom parser tolerance",
       "targetNewCases": 5,
       "gates": {
         "G0": "NOT_VERIFIED",
@@ -43,7 +47,8 @@
         "G3": "NOT_VERIFIED",
         "G4": "NOT_VERIFIED"
       },
-      "auditFindings": "bludit-2.3.4 TestSuite contains 24 classes (1 Installer + 23 business tests). Gherkin folder is named bludit-3.13.1 but matches 2.3.4 tests. BaseTest hardcodes 192.168.1.141.",
+      "auditFindings": "bludit-2.3.4 TestSuite contains 24 classes (1 Installer + 23 business tests). Gherkin folder is named bludit-3.13.1 but matches 2.3.4 tests. BaseTest hardcodes 192.168.1.141 without reading System property.",
+      "draftManifestPath": "docs/tasks/T02/manifests/bludit.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -54,9 +59,11 @@
       "app": "claroline",
       "proposalBaseLabel": "1.11.10",
       "proposalOriginalCases": 40,
+      "verifiedUpstreamCommit": "NOT_VERIFIED",
       "verifiedGherkinFiles": 40,
       "verifiedTestSuiteClasses": 40,
       "verifiedBusinessCases": 40,
+      "standardParseableScenarios": 40,
       "syntaxQuirk": "Standard Gherkin; Java test classes prefixed with Claroline_",
       "targetNewCases": 5,
       "gates": {
@@ -67,6 +74,7 @@
         "G4": "NOT_VERIFIED"
       },
       "auditFindings": "Exact 40:40:40 alignment. Pre-seeded database in olianasd/claroline-strongpsw image. BaseTest hardcodes Windows chromedriver path.",
+      "draftManifestPath": "docs/tasks/T02/manifests/claroline.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -77,11 +85,12 @@
       "app": "expresscart",
       "proposalBaseLabel": "1.19",
       "proposalOriginalCases": 31,
+      "verifiedUpstreamCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "observedUpstreamVersion": "1.1.19",
       "verifiedGherkinFiles": 31,
       "verifiedTestSuiteClasses": 31,
       "verifiedBusinessCases": 31,
-      "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
-      "observedUpstreamVersion": "1.1.19",
+      "standardParseableScenarios": 31,
       "targetNewCases": 5,
       "gates": {
         "G0": "FEASIBILITY_VERIFIED_AWAITING_PROGRAM_GATE",
@@ -94,6 +103,7 @@
       "acceptedForImplementationCount": 4,
       "finalE2ePassCandidates": 2,
       "auditFindings": "Exact 31:31:31 alignment. Proven source build with isolated MongoDB container. SUT on port 3000.",
+      "runtimeManifestPath": "config/apps/expresscart.json",
       "evidence": [
         "docs/research-results/sprint-01/SPRINT-01-RESULTS.md",
         "docs/tasks/T01-B/TASK-REPORT.md",
@@ -104,9 +114,11 @@
       "app": "joomla",
       "proposalBaseLabel": "3.10.11",
       "proposalOriginalCases": 35,
+      "verifiedUpstreamCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
       "verifiedGherkinFiles": 35,
       "verifiedTestSuiteClasses": 35,
       "verifiedBusinessCases": 35,
+      "standardParseableScenarios": 35,
       "syntaxQuirk": "Bare test class names without Test suffix",
       "targetNewCases": 5,
       "gates": {
@@ -116,7 +128,8 @@
         "G3": "NOT_VERIFIED",
         "G4": "NOT_VERIFIED"
       },
-      "auditFindings": "Exact 35:35:35 alignment. Requires Docker Compose (joomla:3.10.11 + mysql:5.6) and Installer + RemoveMessages JUnit setup.",
+      "auditFindings": "Exact 35:35:35 alignment. Requires Docker Compose (joomla:3.10.11 + mysql:5.6) and Installer + RemoveMessages JUnit setup on working copy.",
+      "draftManifestPath": "docs/tasks/T02/manifests/joomla.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -127,9 +140,11 @@
       "app": "kanboard",
       "proposalBaseLabel": "1.2.15",
       "proposalOriginalCases": 30,
+      "verifiedUpstreamCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
       "verifiedGherkinFiles": 30,
       "verifiedTestSuiteClasses": 30,
       "verifiedBusinessCases": 30,
+      "standardParseableScenarios": 30,
       "syntaxQuirk": "Bare test class names without Test suffix",
       "targetNewCases": 5,
       "gates": {
@@ -140,6 +155,7 @@
         "G4": "NOT_VERIFIED"
       },
       "auditFindings": "Exact 30:30:30 alignment. Minimal complexity: single container kanboard/kanboard:v1.2.15 with embedded SQLite.",
+      "draftManifestPath": "docs/tasks/T02/manifests/kanboard.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -150,9 +166,11 @@
       "app": "mantisbt",
       "proposalBaseLabel": "1.2.0",
       "proposalOriginalCases": 37,
+      "verifiedUpstreamCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
       "verifiedGherkinFiles": 38,
       "verifiedTestSuiteClasses": 37,
       "verifiedBusinessCases": 37,
+      "standardParseableScenarios": 38,
       "syntaxQuirk": "Bare test class names (1.2.0); 0_Login.feature unexecuted in TestSuite",
       "targetNewCases": 5,
       "gates": {
@@ -162,7 +180,8 @@
         "G3": "NOT_VERIFIED",
         "G4": "NOT_VERIFIED"
       },
-      "auditFindings": "Gherkin has 38 files; TestSuite has 37 classes (Login in setup). Proposal counted 37. BaseTest hardcodes 192.168.1.141.",
+      "auditFindings": "Gherkin has 38 files; TestSuite has 37 classes (Login in setup). Proposal counted 37. BaseTest hardcodes 192.168.1.141 without reading System property.",
+      "draftManifestPath": "docs/tasks/T02/manifests/mantisbt.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -173,9 +192,11 @@
       "app": "mediawiki",
       "proposalBaseLabel": "1.40.0",
       "proposalOriginalCases": 27,
+      "verifiedUpstreamCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
       "verifiedGherkinFiles": 27,
       "verifiedTestSuiteClasses": 27,
       "verifiedBusinessCases": 27,
+      "standardParseableScenarios": 27,
       "syntaxQuirk": "Standard Gherkin and *Test.java classes",
       "targetNewCases": 5,
       "gates": {
@@ -185,7 +206,8 @@
         "G3": "NOT_VERIFIED",
         "G4": "NOT_VERIFIED"
       },
-      "auditFindings": "Exact 27:27:27 alignment. Requires Docker Compose (mediawiki + database), Installer test, and copying LocalSettings.php into container. 2 named volumes.",
+      "auditFindings": "Exact 27:27:27 alignment. Requires Docker Compose (mediawiki + database), Installer test on working copy, and copying LocalSettings.php into container. 2 named volumes.",
+      "draftManifestPath": "docs/tasks/T02/manifests/mediawiki.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -196,9 +218,11 @@
       "app": "prestashop",
       "proposalBaseLabel": "1.6.1.23",
       "proposalOriginalCases": 35,
+      "verifiedUpstreamCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
       "verifiedGherkinFiles": 33,
       "verifiedTestSuiteClasses": 35,
       "verifiedBusinessCases": 35,
+      "standardParseableScenarios": 33,
       "syntaxQuirk": "2 Java test classes (AddEmptyTag, AddLanguageIsoCodeValidity) lack .feature files",
       "targetNewCases": 5,
       "gates": {
@@ -208,7 +232,8 @@
         "G3": "NOT_VERIFIED",
         "G4": "NOT_VERIFIED"
       },
-      "auditFindings": "TestSuite has 35 classes, but Gherkin folder has only 33 files. Proposal counted 35 from Java test count. Requires Installer test + rm/mv exec commands.",
+      "auditFindings": "TestSuite has 35 classes, but Gherkin folder has only 33 files. Proposal counted 35 from Java test count. Requires Installer test on working copy + rm/mv exec commands.",
+      "draftManifestPath": "docs/tasks/T02/manifests/prestashop.draft.json",
       "evidence": [
         "docs/tasks/T02/BASELINE-INVENTORY.md",
         "docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md",
@@ -231,6 +256,7 @@
     "currentTaskStatus": "READY_FOR_REVIEW",
     "currentTaskBranch": "feature/t02-benchmark-audit",
     "lastApprovedTaskId": "T01-B",
+    "lastApprovedMainSha": "7e27950b44473cf4d6a5d7d5222bc8dac9b3a266",
     "agentCannotSelfApprove": true
   }
 }

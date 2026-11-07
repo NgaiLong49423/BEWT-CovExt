@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
   "appId": "mediawiki",
   "benchmarkBaseVersion": "1.40.0",
   "source": {
     "repository": "https://github.com/wikimedia/mediawiki",
-    "commit": "4b71234a5d8c5f0a812c7be1e458da7a192a5de3",
-    "packageVersion": "1.40.0"
+    "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+    "packageVersion": "1.40.0",
+    "note": "Commit 468dd69d verified from tag 1.40.0 on GitHub upstream. BEWT baseline references mediawiki:1.40.0."
   },
   "baseSuitePath": "bewt-original/mediawiki/baseline/mediawiki-1.40.0",
   "runtime": {
@@ -18,7 +20,7 @@
     "experimentKey": "bewt-covext-mediawiki",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Two-container Docker Compose deployment (mediawiki:1.40.0 + database). Setup executes mediawiki.Installer JUnit test to generate LocalSettings.php and copies it into container. Reset stops/removes containers and removes named volumes mediawiki-1400_images and mediawiki-1400_db.",
+    "resetStrategy": "Two-container Docker Compose deployment with labels. Setup executes mediawiki.Installer JUnit test to generate LocalSettings.php and copies it into container. Reset stops/removes containers and removes named volumes.",
     "destructive": true
   },
   "allowedTools": [

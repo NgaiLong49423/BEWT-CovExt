@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
   "appId": "joomla",
   "benchmarkBaseVersion": "3.10.11",
   "source": {
     "repository": "https://github.com/joomla/joomla-cms",
-    "commit": "a90623a3d6d5ef6643c7ea9fc5757d5ee82012d9",
-    "packageVersion": "3.10.11"
+    "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+    "packageVersion": "3.10.11",
+    "note": "Commit 01deee0a verified from tag 3.10.11 on GitHub upstream. BEWT baseline references joomla:3.10.11 + mysql:5.6."
   },
   "baseSuitePath": "bewt-original/joomla/baseline/joomla-3.10.11",
   "runtime": {
@@ -18,7 +20,7 @@
     "experimentKey": "bewt-covext-joomla",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Two-container Docker Compose deployment (joomla:3.10.11 + mysql:5.6). Automated setup via base.Installer and RemoveMessages JUnit tests. Ephemeral MySQL database. Reset stops and removes containers without persistent volume residue.",
+    "resetStrategy": "Two-container Docker Compose deployment with labels. Automated setup via base.Installer and RemoveMessages JUnit tests on working copy. Ephemeral MySQL database. Reset stops and removes containers without persistent volume residue.",
     "destructive": true
   },
   "allowedTools": [

@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
   "appId": "bludit",
   "benchmarkBaseVersion": "2.3.4",
   "source": {
     "repository": "https://github.com/bludit/bludit",
-    "commit": "4b711e6b36ff5ea47683b54ce06180fc4ef27fa1",
-    "packageVersion": "2.3.4"
+    "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+    "packageVersion": "2.3.4",
+    "note": "Source commit 44de235a verified from tag 2.3.4 on GitHub upstream. BEWT baseline references bludit/docker:2.3.4."
   },
   "baseSuitePath": "bewt-original/bludit/baseline/bludit-2.3.4",
   "runtime": {
@@ -18,7 +20,7 @@
     "experimentKey": "bewt-covext-bludit",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Single container deployment (bludit/docker:2.3.4). Initial setup runs tests.Installer JUnit test to complete install wizard with password e2eW3Bt3s71nGB3nchM4rK. Flat-file storage, no external DB container. Reset stops and removes the container.",
+    "resetStrategy": "Single container deployment with labels (owner=bewt-covext). Initial setup executes tests.Installer JUnit test against working copy. Flat-file storage, no external DB container. Reset stops and removes the container.",
     "destructive": true
   },
   "allowedTools": [

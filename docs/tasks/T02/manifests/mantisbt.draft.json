@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
   "appId": "mantisbt",
   "benchmarkBaseVersion": "1.2.0",
   "source": {
     "repository": "https://github.com/mantisbt/mantisbt",
-    "commit": "c0ee154e19b5b5fc03dfb36b5278dfaaae55d28b",
-    "packageVersion": "1.2.0"
+    "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+    "packageVersion": "1.2.0",
+    "note": "Commit d06bf60f verified from tag release-1.2.0 on GitHub upstream. BEWT baseline references olianasd/mantisbt-strongpsw:1.2.0."
   },
   "baseSuitePath": "bewt-original/mantisbt/baseline/mantisbt-1.2.0",
   "runtime": {
@@ -18,7 +20,7 @@
     "experimentKey": "bewt-covext-mantisbt",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Single container deployment with bundled MySQL (olianasd/mantisbt-strongpsw:1.2.0). Pre-populated database, admin password e2eW3Bt3s71nGB3nchM4rK. No installer wizard needed. Reset stops and removes the container.",
+    "resetStrategy": "Single container deployment with labels and bundled MySQL (olianasd/mantisbt-strongpsw:1.2.0). Pre-populated database. Reset stops and removes the container.",
     "destructive": true
   },
   "allowedTools": [
