@@ -1,0 +1,48 @@
+name: bewt-covext-expresscart-b31302f
+
+services:
+  app:
+    build:
+      context: ./source
+      dockerfile: Dockerfile.experiment
+    image: bewt-covext/expresscart:1.1.19-b31302f
+    environment:
+      NODE_ENV: production
+      PORT: "1111"
+      NODE_PATH: /var/expressCart
+      databaseConnectionString: mongodb://mongo:27017/expresscart_experiment
+    ports:
+      - "127.0.0.1:3111:1111"
+    volumes:
+      - app-config:/var/expressCart/config
+      - app-uploads:/var/expressCart/public/uploads
+    depends_on:
+      mongo:
+        condition: service_healthy
+    networks:
+      - experiment
+    restart: unless-stopped
+
+  mongo:
+    image: mongo:4.4.29
+    command: ["mongod", "--bind_ip_all"]
+    volumes:
+      - mongo-data:/data/db
+      - mongo-config:/data/configdb
+    healthcheck:
+      test: ["CMD", "mongo", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    networks:
+      - experiment
+    restart: unless-stopped
+
+volumes:
+  mongo-data:
+  mongo-config:
+  app-config:
+  app-uploads:
+
+networks:
+  experiment:

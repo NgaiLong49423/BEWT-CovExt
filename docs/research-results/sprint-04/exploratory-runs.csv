@@ -1,0 +1,5 @@
+candidate_id,run_id,result,reason_excluded_from_official_metrics,evidence_path
+EC-C04,initial,PASS,Email absence was not checked against Mongo before the invocation,e2e/EC-C04/exploratory/initial
+EC-C04,repeat-1,PASS,Email absence was not checked against Mongo before the invocation,e2e/EC-C04/exploratory/repeat-1
+EC-C04,repeat-2,PASS,Email absence was not checked against Mongo before the invocation,e2e/EC-C04/exploratory/repeat-2
+EC-C04,repeat-3,PASS,Email absence was not checked against Mongo before the invocation,e2e/EC-C04/exploratory/repeat-3

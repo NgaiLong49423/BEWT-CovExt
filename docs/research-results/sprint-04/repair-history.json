@@ -1,0 +1,72 @@
+{
+  "policy": "Maximum two test-code repair iterations per candidate; expected behavior was not weakened.",
+  "repairs": [
+    {
+      "candidateId": "EC-C02",
+      "repairIteration": 1,
+      "afterRun": "attempt-1",
+      "category": "selector",
+      "change": "Changed the confirmation locator from .bootbox-accept to upstream native modal button #buttonConfirm.",
+      "evidence": [
+        "attempt-1/TEST-tests.EmptyCartTest.xml",
+        "attempt-1/testEmptyCartContainingProduct.png",
+        "../../../experiments/expresscart/source/views/partials/confirmModal.hbs"
+      ],
+      "outcome": "The UI action completed; next run reached the Cart empty behavior assertion, which failed against runtime-rendered markup."
+    },
+    {
+      "candidateId": "EC-C01",
+      "repairIteration": 1,
+      "afterRun": "attempt-1",
+      "category": "test-precondition-diagnostics",
+      "change": "Kept the payment route expectation and added URL/cart-count details to a missing-total precondition failure.",
+      "evidence": "attempt-2/TEST-tests.RemoveDiscountCodeTest.xml",
+      "outcome": "Confirmed /checkout/payment and cartCount=1 while the expected visible total locator was not selected."
+    },
+    {
+      "candidateId": "EC-C01",
+      "repairIteration": 2,
+      "afterRun": "attempt-2",
+      "category": "selector",
+      "change": "Selects the visible total element among duplicate total-cart-amount IDs; no expected amount or assertion was changed.",
+      "evidence": "attempt-3/TEST-tests.RemoveDiscountCodeTest.xml",
+      "outcome": "Reached coupon application; discount-amount did not become visible. Pinned ExpressCart client handler shows success notification but does not refresh the cart summary after apply. Classified as an application UI behavior failure."
+    },
+    {
+      "candidateId": "EC-C05",
+      "repairIteration": 1,
+      "afterRun": "attempt-1",
+      "category": "test-data-and-teardown",
+      "change": "Waits for Summernote's backing #pageContent value to equal the exact unique content before saving. Replaced nonexistent Bootstrap/Bootbox cleanup selectors with handling for ExpressCart's native confirm dialog, then waits for the exact page row to disappear.",
+      "evidence": [
+        "attempt-1/TEST-tests.CreateStaticPageTest.xml",
+        "attempt-1/screenshots/testCreateAndViewEnabledStaticPage.png",
+        "attempt-2/TEST-tests.CreateStaticPageTest.xml"
+      ],
+      "outcome": "Test and cleanup passed; Mongo page count was 0 after the run."
+    }
+  ],
+  "fixtureAdaptationsBeforeFirstRun": [
+    {
+      "candidateId": "EC-C01",
+      "change": "Created the cart in the same test browser via Home.addToCart(1), and added UI teardown to clear the cart even when an assertion fails.",
+      "reason": "The accepted Gherkin requires a product in the cart; generated code had no initial cart fixture."
+    }
+  ],
+  "fixtureAdaptationsBeforeOfficialEcC04Runs": [
+    {
+      "candidateId": "EC-C04",
+      "change": "Test consumes TEST_UNREGISTERED_EMAIL from the process environment; prepare-unregistered-email.ps1 creates a full UUID address and verifies exact count=0 in the experiment customers collection before each test invocation.",
+      "reason": "Earlier exploratory runs generated random addresses but did not save exact database absence evidence. Their results remain preserved and are excluded from official Sprint 04 metrics."
+    }
+  ],
+  "cleanupRecovery": {
+    "attempt1OrphanPageName": "Page 01f0e4c9",
+    "ownershipEvidence": "Baseline page count was 0; this exact unique page was the only document in the experiment pages collection after attempt-1.",
+    "action": "Deleted through the admin UI using StaticPageFixtureCleanupTest; no direct DB deletion.",
+    "result": "PASS",
+    "evidence": "fixtures/cleanup-orphan-page/TEST-tests.StaticPageFixtureCleanupTest.xml"
+  },
+  "expectedBehaviorChanged": false,
+  "officialSprint03GeneratedJavaChanged": false
+}

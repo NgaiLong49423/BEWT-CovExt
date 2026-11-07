@@ -1,0 +1,5 @@
+candidate_id,java_class,invocations,first_attempt,behavior_assertions_reached,behavior_pass_invocations,behavior_fail_invocations,blocked_before_oracle,repair_iterations,repeat_runs,repeat_passes,final_candidate_result
+EC-C02,EmptyCartTest,2,SELECTOR_ERROR,1,0,1,1,1,0,0,APPLICATION_UI_FAILURE
+EC-C04,ForgottenPasswordTest,4,PASS,4,4,0,0,0,3,3,PASS_STABLE
+EC-C01,RemoveDiscountCodeTest,3,PRECONDITION_BLOCKED,1,0,1,2,0,0,APPLICATION_UI_FAILURE
+EC-C05,CreateStaticPageTest,5,CONTENT_ASSERTION_AND_CLEANUP_FAIL,5,4,1,0,1,3,3,PASS_STABLE_AFTER_REPAIR

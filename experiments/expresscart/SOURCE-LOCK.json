@@ -1,0 +1,11 @@
+{
+  "repository": "https://github.com/mrvautin/expressCart",
+  "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "packageVersion": "1.1.19",
+  "packageJsonBlob": "ecdb41069f18e077c1f5aefe20e7182e79e5d236",
+  "packageLockBlob": "04a21b2e5843f2e4d3bff4b303a0fb9909529c8e",
+  "experimentDockerfile": "source/Dockerfile.experiment",
+  "nodeImage": "node:14.21.3-bullseye-slim",
+  "mongoImage": "mongo:4.4.29",
+  "imageDigests": "NOT_VERIFIED - Docker daemon unavailable"
+}

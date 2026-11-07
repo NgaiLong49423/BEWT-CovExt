@@ -1,0 +1,30 @@
+{
+  "status": "DECIDED",
+  "reviewer": "Team Lead",
+  "decisionRecordedAt": "2026-11-02T14:59:36+07:00",
+  "acceptedIds": [
+    "EC-C01",
+    "EC-C02",
+    "EC-C04",
+    "EC-C05"
+  ],
+  "rejectedIds": [],
+  "reviseIds": [
+    "EC-C03"
+  ],
+  "technicalRecommendations": {
+    "EC-C01": "PROPOSE_ACCEPT",
+    "EC-C02": "PROPOSE_ACCEPT",
+    "EC-C03": "REVISE",
+    "EC-C04": "PROPOSE_ACCEPT",
+    "EC-C05": "PROPOSE_ACCEPT"
+  },
+  "rationale": {
+    "EC-C01": "ACCEPT bản revised để triển khai kiểm thử; không đồng nghĩa E2E PASS hoặc novelty đã được xác nhận thực nghiệm.",
+    "EC-C02": "ACCEPT bản revised để triển khai kiểm thử; không đồng nghĩa E2E PASS hoặc novelty đã được xác nhận thực nghiệm.",
+    "EC-C03": "REVISE: hoàn thiện điều kiện setup/cleanup và xác minh hành vi trạng thái publish; chưa chấp nhận.",
+    "EC-C04": "ACCEPT bản revised để triển khai kiểm thử; không đồng nghĩa E2E PASS hoặc novelty đã được xác nhận thực nghiệm.",
+    "EC-C05": "ACCEPT bản revised để triển khai kiểm thử; không đồng nghĩa E2E PASS hoặc novelty đã được xác nhận thực nghiệm."
+  },
+  "note": "Decision transcribed from Team Lead instruction in this Codex conversation; no identity beyond Team Lead and no signature asserted."
+}

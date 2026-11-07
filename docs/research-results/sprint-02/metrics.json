@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-02",
+  "status": "AWAITING_TEAM_LEAD",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "version": "1.1.19"
+  },
+  "candidateSet": {
+    "sprint01RunId": "2026-11-02T07-06-24-329Z-b9a90ab1",
+    "generated": 5,
+    "originalSyntaxValid": 5,
+    "technicalReviewsCompleted": 5,
+    "technicalRecommendations": {
+      "PROPOSE_ACCEPT": 4,
+      "REVISE": 1,
+      "REJECT": 0,
+      "BLOCKED": 0
+    },
+    "revisedFiles": 5,
+    "revisedSyntaxValid": 5,
+    "humanReviewed": 0,
+    "humanAccepted": 0,
+    "humanRejected": 0,
+    "humanDecisionsPending": true,
+    "novelBehaviorVsBEWTBaseline": "PROVISIONAL: no equivalent behavior found in 31 baseline scenarios after technical revisions; awaiting human confirmation",
+    "humanVerifiedNovelBehaviors": 0
+  },
+  "evidence": {
+    "technicalReview": "docs/research-results/sprint-02/CANDIDATE-REVIEW.md",
+    "humanDecisionRecord": "docs/research-results/sprint-02/human-review-decisions.json",
+    "revisedGherkinValidation": "docs/research-results/sprint-02/evidence/gherkin-validation.json",
+    "readOnlyLiveChecks": "docs/research-results/sprint-02/evidence/live-ui-readonly.json"
+  },
+  "selenium": {
+    "javaTestsGenerated": 0,
+    "javaTestsCompiled": 0,
+    "candidateE2ERuns": 0,
+    "candidatePass": 0,
+    "candidateFail": 0,
+    "candidateBlocked": 0,
+    "repairAttempts": 0,
+    "reruns": 0,
+    "compileSuccessRate": null,
+    "e2eSuccessRate": null,
+    "executionTime": "NOT_RUN"
+  },
+  "applicationReview": {
+    "businessWritesDuringReview": 0,
+    "storefrontHttp": 200,
+    "forgottenPasswordFormHttp": 200,
+    "adminPageEditorHttp": 200,
+    "adminProductListHttp": 200,
+    "unknownPageSlugHttp": 404,
+    "seededProducts": 8,
+    "publishedProducts": 8,
+    "activeDiscounts": 2,
+    "customers": 2,
+    "staticPages": 0
+  },
+  "gemini": {
+    "callsInSprint02": 0,
+    "tokenUsage": "NOT_APPLICABLE",
+    "cost": "NOT_APPLICABLE"
+  }
+}

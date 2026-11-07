@@ -1,0 +1,8 @@
+{
+  "collection": "customers",
+  "result": "PASS",
+  "exactEmailMatchCountBeforeTest": 0,
+  "capturedAt": "2026-11-02T22:14:21.1976320+07:00",
+  "email": "absent_1608d5ef3c4e4ae199585145fb720e96@example.com",
+  "composeProject": "bewt-covext-expresscart-b31302f"
+}

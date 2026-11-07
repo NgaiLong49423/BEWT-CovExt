@@ -1,0 +1,132 @@
+[
+  {
+    "candidate": {
+      "id": "EC-C01",
+      "title": "Remove applied discount code during checkout",
+      "rationale": "Existing tests cover adding, deleting, and applying discount codes during checkout, but never verify removing an applied discount code from an active checkout session via the discount removal route.",
+      "feature": "Checkout Discount Management",
+      "scenario": "Customer removes an active discount code from the checkout order summary",
+      "steps": [
+        "Add an available product to the cart and proceed to the checkout payment step",
+        "Enter a valid discount code into the discount field and apply it to the cart",
+        "Verify that the discount is applied to the order subtotal",
+        "Click the remove discount button next to the applied discount label"
+      ],
+      "expectedBehavior": "The applied discount is removed, the cart total recalculates back to the original order amount, and the discount code input is displayed again.",
+      "sourceEvidence": [
+        "/checkout/removediscountcode",
+        "/checkout/payment",
+        "tests/UseDiscountCodeAmountTest.java"
+      ]
+    },
+    "gherkin": "Feature: Checkout Discount Management\n  # Existing tests cover adding, deleting, and applying discount codes during checkout, but never verify removing an applied discount code from an active checkout session via the discount removal route.\n  Scenario: Customer removes an active discount code from the checkout order summary\n    Given Add an available product to the cart and proceed to the checkout payment step\n    When Enter a valid discount code into the discount field and apply it to the cart\n    When Verify that the discount is applied to the order subtotal\n    Then Click the remove discount button next to the applied discount label\n    # Expected behavior: The applied discount is removed, the cart total recalculates back to the original order amount, and the discount code input is displayed again.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C02",
+      "title": "Clear all items from active cart via empty cart action",
+      "rationale": "The baseline test suite validates adding products to the cart, but lacks coverage for resetting cart state by emptying the cart directly from the cart view.",
+      "feature": "Shopping Cart Management",
+      "scenario": "Customer empties all items currently stored in the shopping cart",
+      "steps": [
+        "Navigate to the storefront catalog and add an item to the shopping cart",
+        "Open the cart summary modal or cart view",
+        "Click the empty cart button",
+        "Confirm the action when prompted"
+      ],
+      "expectedBehavior": "The cart contents are cleared, the cart item badge updates to show zero items, and an empty cart confirmation is displayed.",
+      "sourceEvidence": [
+        "/emptycart",
+        "/product/emptycart",
+        "tests/AddNewProdToCartTest.java"
+      ]
+    },
+    "gherkin": "Feature: Shopping Cart Management\n  # The baseline test suite validates adding products to the cart, but lacks coverage for resetting cart state by emptying the cart directly from the cart view.\n  Scenario: Customer empties all items currently stored in the shopping cart\n    Given Navigate to the storefront catalog and add an item to the shopping cart\n    When Open the cart summary modal or cart view\n    When Click the empty cart button\n    Then Confirm the action when prompted\n    # Expected behavior: The cart contents are cleared, the cart item badge updates to show zero items, and an empty cart confirmation is displayed.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C03",
+      "title": "Toggle product publication status to hide from storefront search",
+      "rationale": "Baseline tests create, search, and delete products, but do not test toggling the published status switch in admin and verifying that unpublished products are omitted from storefront search results.",
+      "feature": "Product Visibility Management",
+      "scenario": "Admin toggles a product to unpublished and verifies exclusion from public search",
+      "steps": [
+        "Log in to the administration panel at /admin and open the product list",
+        "Toggle the published state switch of an existing product to unpublished",
+        "Navigate to the public storefront home page",
+        "Submit a search for the title of the unpublished product"
+      ],
+      "expectedBehavior": "The administrative list reflects the unpublished toggle state and the storefront search results do not return the unpublished product.",
+      "sourceEvidence": [
+        "/admin/product/publishedState",
+        "/search/:param/:param",
+        "tests/SearchProductTest.java"
+      ]
+    },
+    "gherkin": "Feature: Product Visibility Management\n  # Baseline tests create, search, and delete products, but do not test toggling the published status switch in admin and verifying that unpublished products are omitted from storefront search results.\n  Scenario: Admin toggles a product to unpublished and verifies exclusion from public search\n    Given Log in to the administration panel at /admin and open the product list\n    When Toggle the published state switch of an existing product to unpublished\n    When Navigate to the public storefront home page\n    Then Submit a search for the title of the unpublished product\n    # Expected behavior: The administrative list reflects the unpublished toggle state and the storefront search results do not return the unpublished product.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C04",
+      "title": "Customer forgotten password request handling",
+      "rationale": "Existing tests focus on user and customer login failures, but do not exercise the customer password reset request route and customer-facing response messaging.",
+      "feature": "Customer Authentication",
+      "scenario": "Customer submits a password reset request via forgotten password form",
+      "steps": [
+        "Navigate to the customer login screen at /customer/login",
+        "Click the link to navigate to /customer/forgotten",
+        "Enter an email address into the forgotten password email input field",
+        "Click the submit button to request a reset link"
+      ],
+      "expectedBehavior": "The application processes the submission and renders a clear notification message regarding the password reset request outcome.",
+      "sourceEvidence": [
+        "/customer/forgotten",
+        "/customer/forgotten_action",
+        "tests/LoginUserTest.java"
+      ]
+    },
+    "gherkin": "Feature: Customer Authentication\n  # Existing tests focus on user and customer login failures, but do not exercise the customer password reset request route and customer-facing response messaging.\n  Scenario: Customer submits a password reset request via forgotten password form\n    Given Navigate to the customer login screen at /customer/login\n    When Click the link to navigate to /customer/forgotten\n    When Enter an email address into the forgotten password email input field\n    Then Click the submit button to request a reset link\n    # Expected behavior: The application processes the submission and renders a clear notification message regarding the password reset request outcome.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C05",
+      "title": "Admin custom static page creation and storefront access",
+      "rationale": "The baseline covers administrative navigation menu additions, but omits testing creation and rendering of custom standalone content pages via the static pages admin and page routes.",
+      "feature": "Static Content Management",
+      "scenario": "Admin creates a new static content page and views it on the storefront",
+      "steps": [
+        "Log in to the administrative dashboard at /admin and navigate to /admin/settings/pages/new",
+        "Fill in the page title, permalink URL slug, and page body content",
+        "Click the save button to persist the page settings",
+        "Navigate directly to the storefront page route using the assigned permalink"
+      ],
+      "expectedBehavior": "The page is saved without validation errors and the storefront renders the title and body content at the expected page route.",
+      "sourceEvidence": [
+        "/admin/settings/pages/new",
+        "/admin/settings/page",
+        "/page/:param"
+      ]
+    },
+    "gherkin": "Feature: Static Content Management\n  # The baseline covers administrative navigation menu additions, but omits testing creation and rendering of custom standalone content pages via the static pages admin and page routes.\n  Scenario: Admin creates a new static content page and views it on the storefront\n    Given Log in to the administrative dashboard at /admin and navigate to /admin/settings/pages/new\n    When Fill in the page title, permalink URL slug, and page body content\n    When Click the save button to persist the page settings\n    Then Navigate directly to the storefront page route using the assigned permalink\n    # Expected behavior: The page is saved without validation errors and the storefront renders the title and body content at the expected page route.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  }
+]

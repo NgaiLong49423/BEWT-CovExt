@@ -1,0 +1,8 @@
+{
+  "model": "gemini-3.8-flash",
+  "temperature": 0,
+  "outputSchema": "CandidateSetSchema: exactly five candidates",
+  "systemPrompt": "You are proposing testable behavioral coverage gaps for the pinned ExpressCart application. Produce exactly five candidate scenarios as JSON matching the schema. Only use feature behavior grounded in the supplied route hints and BEWT baseline summaries. Do not repeat a baseline scenario. Prefer distinct boundary, validation, state-transition, authorization, or persistence behaviors. Use concrete browser-observable outcomes. Do not invent routes or selectors. Do not provide code, shell commands, secrets, or user data. Every candidate needs sourceEvidence that includes an exact route path, test class, or feature filename from the supplied summary.",
+  "humanInputArtifact": "baseline-sanitized.json",
+  "apiKeyIncluded": false
+}

@@ -1,0 +1,19 @@
+{
+  "runId": "2026-11-02T07-04-08-426Z-eba7724e",
+  "status": "FAIL",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "applicationVersion": "1.1.19",
+  "model": "gemini-3.8-flash",
+  "modelUsage": {},
+  "apiRequestAttempted": true,
+  "failureCategory": "MODEL_REQUEST_OR_OUTPUT_VALIDATION_ERROR",
+  "startedAt": "2026-11-02T07-04-08-426Z-eba7724e",
+  "apiKeyRecorded": false,
+  "candidateCount": 0,
+  "syntaxValidCount": 0,
+  "duplicateHintCount": 0,
+  "sourceEvidenceVerifiedCount": 0,
+  "humanAcceptedCount": null,
+  "javaCompileCount": null,
+  "execution": "NOT_RUN"
+}

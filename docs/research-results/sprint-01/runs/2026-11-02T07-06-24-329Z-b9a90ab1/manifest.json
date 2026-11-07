@@ -1,0 +1,26 @@
+{
+  "runId": "2026-11-02T07-06-24-329Z-b9a90ab1",
+  "status": "AWAITING_HUMAN_REVIEW",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "applicationVersion": "1.1.19",
+  "model": "gemini-3.8-flash",
+  "modelUsage": {
+    "input_tokens": 6210,
+    "output_tokens": 1189,
+    "total_tokens": 9246,
+    "input_token_details": {
+      "cache_read": 4338
+    }
+  },
+  "apiRequestAttempted": true,
+  "failureCategory": null,
+  "startedAt": "2026-11-02T07-06-24-329Z-b9a90ab1",
+  "apiKeyRecorded": false,
+  "candidateCount": 5,
+  "syntaxValidCount": 5,
+  "duplicateHintCount": 0,
+  "sourceEvidenceVerifiedCount": 5,
+  "humanAcceptedCount": null,
+  "javaCompileCount": null,
+  "execution": "NOT_RUN"
+}

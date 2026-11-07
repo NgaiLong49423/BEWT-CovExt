@@ -1,0 +1,7 @@
+{
+  "status": "NOT_AVAILABLE",
+  "instruction": "A human reviewer must inspect candidates, baseline distinctness, evidence, and expected behavior. Record reviewer identity and rationale before generating Selenium code.",
+  "acceptedIds": [],
+  "reviewer": null,
+  "rationale": null
+}

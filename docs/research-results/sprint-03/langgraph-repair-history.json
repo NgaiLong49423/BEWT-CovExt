@@ -1,0 +1,23 @@
+{
+  "executedInsideLangGraph": true,
+  "maxIterationsPerCandidate": 2,
+  "iteration1": {
+    "candidates": [
+      "EC-C04",
+      "EC-C05"
+    ],
+    "reason": "Actual Maven compile errors: BaseTest/admin login API mismatch",
+    "result": "Maven test-compile passed."
+  },
+  "iteration2": {
+    "candidates": [
+      "EC-C02",
+      "EC-C01",
+      "EC-C05"
+    ],
+    "reason": "Source/Gherkin fidelity review",
+    "result": "Maven final test-compile PASS; first runnable E2E on all four candidates BLOCKED by unavailable app or missing test fixture."
+  },
+  "model": "gemini-3.8-flash",
+  "secretsRecorded": false
+}

@@ -1,0 +1,159 @@
+{
+  "date": "2026-11-02",
+  "status": "PARTIAL_BLOCKED",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "applicationVersion": "1.1.19",
+    "dockerDaemon": "UNAVAILABLE",
+    "appReadiness": "BLOCKED_CONNECTION_REFUSED"
+  },
+  "candidateMetrics": {
+    "originalCandidatesGenerated": 5,
+    "humanAccepted": 4,
+    "humanRevised": 1,
+    "humanRejected": 0,
+    "humanRevisionCount": 1,
+    "sourceBackedBehaviorAccepted": 4,
+    "sourceBackedBehaviorPendingReview": 1,
+    "noveltyEmpiricallyVerified": 0,
+    "applicationBehaviorE2eVerified": 0
+  },
+  "officialLangGraphPipeline": {
+    "acceptedCandidates": 4,
+    "generatedJavaClasses": 4,
+    "generationSuccess": 4,
+    "candidateOrder": [
+      "EC-C02",
+      "EC-C04",
+      "EC-C01",
+      "EC-C05"
+    ],
+    "generationNode": "LangGraph.generate_java -> Gemini structured output",
+    "preRepairCompile": "FAIL",
+    "compilerErrorClasses": [
+      "EC-C04",
+      "EC-C05"
+    ],
+    "moduleCompileWasPerCandidate": false,
+    "repairIterationsAllowed": 2,
+    "repairIterationsByCandidate": {
+      "EC-C02": 1,
+      "EC-C04": 1,
+      "EC-C01": 1,
+      "EC-C05": 2
+    },
+    "repairCallsTotal": 5,
+    "finalCompile": "PASS",
+    "finalCompileSourceFiles": 38,
+    "finalCompileLog": "compilation-langgraph-final.log",
+    "firstCompileModulePass": false,
+    "firstAttemptCandidateCompileCountPass": 0,
+    "firstAttemptCandidateCompileCountNotPass": 4,
+    "firstCompileRateInterpretation": "Maven compiles the suite as one module; 0 of 4 accepted test classes produced a successful module build on the first attempt.",
+    "finalCompileSuccessCandidateCount": 4,
+    "finalCompileFailureCandidateCount": 0
+  },
+  "supersededPreLangGraphAttempt": {
+    "reason": "Initial implementation called Gemini outside the LangGraph node; all artifacts are retained as audit history and are not the official final source.",
+    "javaClassesGenerated": 4,
+    "successfulStructuredResponses": 12,
+    "e2eRuns": 11,
+    "includedInOfficialCandidatePassMetrics": false
+  },
+  "agentBuild": {
+    "typescriptBuild": "PASS",
+    "command": "npm run build",
+    "log": "agent-build.log"
+  },
+  "e2e": {
+    "preRepairE2e": "NOT_RUN: first Maven compile failed",
+    "firstRunnableAttemptCandidates": 4,
+    "firstRunnableAttemptPass": 0,
+    "finalE2eAfterRepairsCandidates": 4,
+    "finalE2eAfterRepairsPass": 0,
+    "finalJUnitFailures": 2,
+    "finalJUnitErrors": 2,
+    "results": {
+      "EC-C02": {
+        "result": "BLOCKED",
+        "category": "ENVIRONMENT_APP_CONNECTION_REFUSED",
+        "tests": 1,
+        "failures": 0,
+        "errors": 1
+      },
+      "EC-C04": {
+        "result": "BLOCKED",
+        "category": "ENVIRONMENT_APP_CONNECTION_REFUSED",
+        "tests": 1,
+        "failures": 0,
+        "errors": 1
+      },
+      "EC-C01": {
+        "result": "BLOCKED",
+        "category": "TEST_DATA_DISCOUNT_CODE_NOT_CONFIGURED",
+        "tests": 1,
+        "failures": 1,
+        "errors": 0
+      },
+      "EC-C05": {
+        "result": "BLOCKED",
+        "category": "ENVIRONMENT_ADMIN_CREDENTIALS_NOT_CONFIGURED",
+        "tests": 1,
+        "failures": 1,
+        "errors": 0
+      }
+    },
+    "repeatedRunSuccessCandidates": 0,
+    "repeatabilityRuns": 0,
+    "dataResetVerified": false,
+    "firstRunnableAttemptNotPassed": 4
+  },
+  "modelUsage": {
+    "provider": "Gemini via LangChain and LangGraph",
+    "model": "gemini-3.8-flash",
+    "officialLangGraphSuccessfulResponses": 9,
+    "supersededPreLangGraphSuccessfulResponses": 12,
+    "allSuccessfulResponses": 21,
+    "inputTokensReportedSum": 53971,
+    "outputTokensReportedSum": 26997,
+    "providerTotalTokensReportedSum": 151747,
+    "cost": "NOT_CALCULATED",
+    "apiKeyRecorded": false,
+    "officialLangGraphUsage": {
+      "responses": 9,
+      "inputTokens": 25180,
+      "outputTokens": 10500,
+      "providerTotalTokens": 66750
+    },
+    "supersededUsage": {
+      "responses": 12,
+      "inputTokens": 28791,
+      "outputTokens": 16497,
+      "providerTotalTokens": 84997
+    }
+  },
+  "generationProviderFailures": [
+    "Initial sandbox network fetch failed with no response or token metadata.",
+    "One initial provider response rejected an unsupported JSON Schema const field; the schema was corrected before successful generation."
+  ],
+  "failureCategories": {
+    "officialFirstModuleCompile": "GENERATION_API_MISMATCH",
+    "finalE2eAppUnavailable": 2,
+    "finalE2eTestFixtureMissing": 1,
+    "finalE2eAdminCredentialsMissing": 1,
+    "applicationBehaviorFailuresVerified": 0
+  },
+  "evidence": {
+    "humanDecision": "../sprint-02/human-review-decisions.json",
+    "officialGeneration": "generation/langgraph-run/",
+    "supersededGenerationHistory": "generation/",
+    "firstCompile": "compilation-langgraph-first-attempt.log",
+    "compileAfterRepair1": "compilation-langgraph-after-repair1.log",
+    "finalCompile": "compilation-langgraph-final.log",
+    "e2e": "e2e/langgraph-final/",
+    "repairHistory": "langgraph-repair-history.json",
+    "ecC03Review": "EC-C03-review.md",
+    "ecC03Validation": "ec-c03-validation.json"
+  }
+}

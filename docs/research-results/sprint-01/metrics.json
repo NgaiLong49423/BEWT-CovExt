@@ -1,0 +1,76 @@
+{
+  "date": "2026-11-02",
+  "overallStatus": "PARTIAL",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "version": "1.1.19"
+  },
+  "runtime": {
+    "dockerComposeProject": "bewt-covext-expresscart-b31302f",
+    "httpStatus": 200,
+    "mongoPing": 1,
+    "appNode": "14.21.3",
+    "mongo": "4.4.29",
+    "appImageId": "sha256:3a6d68270a12e255f10bfe83de7a77ed4c47502499ebf1c7c661a0085123f06a",
+    "mongoImageId": "sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0",
+    "java": "21.0.12",
+    "maven": "3.9.16",
+    "selenium": "4.35.0",
+    "chrome": "156.0.8078.76",
+    "chromeDriver": "156.0.8078.80"
+  },
+  "baseline": {
+    "suiteTests": 31,
+    "gherkinFeatures": 31,
+    "mavenTestCompile": "PASS",
+    "chromeDriverCompatibility": { "status": "PASS", "tests": 1 },
+    "addUserTest": {
+      "beforeReset": { "status": "PASS", "tests": 1, "failures": 0, "errors": 0 },
+      "afterReset": { "status": "PASS", "tests": 1, "failures": 0, "errors": 0 }
+    },
+    "reset": "PASS",
+    "assertionChanged": false,
+    "initialFailureCategory": "INVALID_PASSWORD",
+    "testFixtureAdaptation": "Updated only the experiment owner password hash using the copied test fixture; no value recorded"
+  },
+  "agent": {
+    "framework": "LangGraph JS",
+    "agentNode": "24.19.0",
+    "npm": "11.17.0",
+    "unitTests": { "passed": 5, "failed": 0 },
+    "baselineTestsSummarized": 31,
+    "baselineFeaturesSummarized": 31,
+    "routeHints": 105,
+    "model": "gemini-3.8-flash",
+    "requestAttempts": 4,
+    "successfulCandidateRuns": 2,
+    "latestRunId": "2026-11-02T07-06-24-329Z-b9a90ab1",
+    "latestRunStatus": "AWAITING_HUMAN_REVIEW",
+    "candidatesGeneratedInLatestRun": 5,
+    "gherkinSyntaxValid": 5,
+    "evidenceReferenceMatches": 5,
+    "lexicalDuplicateHints": 0,
+    "humanAccepted": null,
+    "distinctNewBehaviorVerified": null,
+    "javaTestsGenerated": 0,
+    "javaTestsCompiled": 0,
+    "generatedTestsExecuted": 0,
+    "latestUsageRaw": {
+      "input_tokens": 6210,
+      "output_tokens": 1189,
+      "total_tokens": 9246,
+      "input_token_details": { "cache_read": 4338 }
+    },
+    "usageConsistency": "CONFLICT: provider total_tokens differs from input_tokens + output_tokens",
+    "cost": "NOT_REPORTED"
+  },
+  "evidence": {
+    "runtimeManifest": "experiments/expresscart/evidence/runtime-manifest.json",
+    "ownershipAndPreReset": "experiments/expresscart/evidence/pre-reset-ownership-and-data.json",
+    "postResetOwnership": "experiments/expresscart/evidence/post-reset-ownership.json",
+    "seedCountsAfterReset": "experiments/expresscart/evidence/post-reset-clean-seed-counts.json",
+    "postResetSmokeLog": "experiments/expresscart/evidence/addusertest-post-reset-run2.log",
+    "agentRun": "docs/research-results/sprint-01/runs/2026-11-02T07-06-24-329Z-b9a90ab1/manifest.json"
+  }
+}

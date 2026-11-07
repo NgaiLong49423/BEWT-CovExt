@@ -1,0 +1,32 @@
+{
+  "files": 5,
+  "valid": 5,
+  "invalid": 0,
+  "results": [
+    {
+      "file": "EC-C01-discount-removal.feature",
+      "status": "PASS",
+      "scenarios": 1
+    },
+    {
+      "file": "EC-C02-empty-cart.feature",
+      "status": "PASS",
+      "scenarios": 1
+    },
+    {
+      "file": "EC-C03-publication-state.feature",
+      "status": "PASS",
+      "scenarios": 1
+    },
+    {
+      "file": "EC-C04-forgotten-password.feature",
+      "status": "PASS",
+      "scenarios": 1
+    },
+    {
+      "file": "EC-C05-static-page.feature",
+      "status": "PASS",
+      "scenarios": 1
+    }
+  ]
+}

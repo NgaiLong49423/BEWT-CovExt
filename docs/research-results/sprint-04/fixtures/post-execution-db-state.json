@@ -1,0 +1,10 @@
+{
+	"users" : 3,
+	"customers" : 2,
+	"publishedProducts" : 8,
+	"activeDiscounts" : 2,
+	"staticPages" : 0,
+	"orders" : 0,
+	"sessions" : 4,
+	"sessionsWithCart" : 0
+}

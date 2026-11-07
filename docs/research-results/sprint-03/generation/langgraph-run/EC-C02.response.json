@@ -1,0 +1,26 @@
+{
+  "className": "EmptyCartTest",
+  "packageName": "tests",
+  "source": "package tests;\n\nimport org.junit.Assert;\nimport org.junit.Test;\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebElement;\nimport org.openqa.selenium.support.ui.ExpectedConditions;\nimport org.openqa.selenium.support.ui.WebDriverWait;\nimport po.Home;\nimport po.TopNavBar;\n\nimport java.time.Duration;\nimport java.util.List;\n\npublic class EmptyCartTest extends BaseTest {\n\n    @Test\n    public void testEmptyCartContainingProduct() {\n        goToHome();\n\n        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));\n\n        By firstProductLocator = By.xpath(\"//*[@id='container']/div/div[1]/div/div[1]/div/p/a\");\n        List<WebElement> seedProducts = driver.findElements(firstProductLocator);\n        Assert.assertFalse(\"Precondition failed: Published seed product link is missing at \" + firstProductLocator,\n                seedProducts.isEmpty());\n\n        Home home = new Home(driver);\n        home.addToCart(1);\n\n        TopNavBar topNavBar = new TopNavBar(driver);\n        topNavBar.openCart();\n\n        WebElement cartCount = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(\"cart-count\")));\n        Assert.assertEquals(\"Expected cart item count to be 1\", \"1\", cartCount.getText().trim());\n\n        WebElement emptyCartBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id(\"empty-cart\")));\n        emptyCartBtn.click();\n\n        WebElement confirmBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(\".bootbox-accept\")));\n        Assert.assertTrue(\"Confirmation modal accept button should be displayed\", confirmBtn.isDisplayed());\n        confirmBtn.click();\n\n        WebElement cartEmptyMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(\"cart-empty\")));\n        Assert.assertTrue(\"Cart empty element should be displayed\", cartEmptyMsg.isDisplayed());\n        Assert.assertTrue(\"Expected 'Cart empty' text in message\", cartEmptyMsg.getText().contains(\"Cart empty\"));\n\n        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.id(\"cart-count\"), \"0\"));\n        Assert.assertEquals(\"Expected cart item count to be 0\", \"0\", driver.findElement(By.id(\"cart-count\")).getText().trim());\n\n        WebElement notifyMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(\"notify_message\")));\n        Assert.assertEquals(\"Success notification message mismatch\", \"Cart successfully emptied\", notifyMessage.getText().trim());\n\n        boolean emptyCartHidden = wait.until(ExpectedConditions.invisibilityOfElementLocated(By.id(\"empty-cart\")));\n        Assert.assertTrue(\"Expected empty cart button (#empty-cart) to be hidden after clearing\", emptyCartHidden);\n    }\n}\n",
+  "generationNotes": [
+    "Used BaseTest.goToHome() to initialize the session and navigate to the application home page.",
+    "Verified the presence of the seed product link at //*[@id='container']/div/div[1]/div/div[1]/div/p/a before invoking Home.addToCart(1).",
+    "Used TopNavBar.openCart() to transition to the /checkout/cart view.",
+    "Targeted specified selectors: #cart-count, #empty-cart, .bootbox-accept, #cart-empty, and #notify_message.",
+    "Asserted exact visible success message 'Cart successfully emptied' and verified invisibility of #empty-cart."
+  ],
+  "assumptions": [
+    "The Home and TopNavBar page object classes in package po provide constructors accepting a WebDriver instance.",
+    "A fresh browser session initialized via BaseTest begins with an empty shopping cart.",
+    "The shopping cart state is fully cleared by the test execution, requiring no additional database or UI tear-down."
+  ],
+  "model": "gemini-3.8-flash",
+  "usageMetadata": {
+    "input_tokens": 647,
+    "output_tokens": 989,
+    "total_tokens": 7505
+  },
+  "apiKeyRecorded": false,
+  "candidateId": "EC-C02",
+  "gherkinPath": "docs/research-results/sprint-02/revised/EC-C02-empty-cart.feature"
+}

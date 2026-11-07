@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-11-02T22:03:18+07:00",
+  "status": "VERIFIED_WITH_EXPERIMENT_OWNED_FIXTURES",
+  "EC-C02": {
+    "publishedProductsAvailable": 8,
+    "browserSession": "new ChromeDriver session per invocation",
+    "initialCartCountAssertion": "PASS",
+    "productAddedThrough": "storefront UI",
+    "cleanup": "empty-cart UI action; final database session scan found zero sessions with a non-empty cart"
+  },
+  "EC-C04": {
+    "forgottenPasswordFormHttp": 200,
+    "email": "full UUID per official invocation, checked for exact absence in experiment customers before browser launch; TEST_UNREGISTERED_EMAIL supplied through process environment; no database fixture inserted",
+    "exploratoryRunsExcluded": 4,
+    "browserSession": "new per invocation"
+  },
+  "EC-C01": {
+    "publishedProductsAvailable": 8,
+    "activeDiscountsAvailable": 2,
+    "activeDiscountTypesAndValues": ["amount:10", "percent:10"],
+    "couponCode": "provided dynamically as test.discount.code from experiment database; literal appears in raw Surefire system properties because Maven records test properties; it is seeded demo data, not a credential, and is not repeated in summary tables",
+    "cart": "created through storefront UI in the same browser session",
+    "cleanup": "UI empty-cart teardown ran; final database session scan found zero sessions with a non-empty cart"
+  },
+  "EC-C05": {
+    "credentials": "ADMIN_EMAIL and ADMIN_PASSWORD read from ignored experiments/expresscart/.env; values omitted",
+    "account": "exactly one experiment owner account matched; password was randomized for experiment and stored in ignored .env; login verified by Selenium test",
+    "slug": "UUID suffix generated per invocation",
+    "cleanup": "admin UI @After teardown; page count returned to zero after the initial pass and each repeat",
+    "cleanupRecovery": "one prior orphan page from attempt-1 was removed through Selenium UI using its exact unique page name; cleanup helper PASS"
+  },
+  "postExecutionDatabase": {
+    "users": 3,
+    "customers": 2,
+    "publishedProducts": 8,
+    "activeDiscounts": 2,
+    "staticPages": 0,
+    "orders": 0,
+    "sessions": 4,
+    "sessionsWithCart": 0
+  },
+  "fullDockerVolumeReset": "NOT_RUN; no reset required for the verified per-test session/page cleanup"
+}

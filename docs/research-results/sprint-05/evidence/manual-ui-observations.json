@@ -1,0 +1,40 @@
+{
+  "capturedDate": "2026-11-03",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "packageVersion": "1.1.19",
+    "baseUrl": "http://127.0.0.1:3111",
+    "method": "manual browser UI interaction; DOM inspected read-only"
+  },
+  "EC-C02": {
+    "fixture": "one published product added through storefront UI in a fresh browser session",
+    "steps": ["add product", "open cart", "Empty cart", "confirm"],
+    "immediate": {
+      "cartBadge": "0",
+      "cartEmptyElementPresent": true,
+      "cartEmptyText": "",
+      "notification": "Cart successfully emptied",
+      "interpretation": "Server/cart state cleared; AJAX replacement left the empty-state container without its intended inner message."
+    },
+    "afterAutomaticReload": {
+      "cartBadge": "0",
+      "cartEmptyText": "Cart empty",
+      "interpretation": "Server-rendered cart state contains the expected message after notification-triggered reload."
+    },
+    "finalCleanup": {"cartBadge": "0", "cartEmptyText": "Cart empty"}
+  },
+  "EC-C01": {
+    "fixture": "one published product added through storefront UI; active seeded amount discount supplied through the UI",
+    "currency": "GBP",
+    "observations": [
+      {"stage": "before apply", "total": "£138.00", "discountElement": null},
+      {"stage": "immediately after apply", "notification": "Discount code applied", "total": "£138.00", "discountElement": null},
+      {"stage": "after automatic reload", "total": "£128.00", "discount": "£10.00", "discountFieldRetained": true},
+      {"stage": "immediately after remove", "notification": "Discount code removed", "total": "£128.00", "discount": "£10.00", "discountFieldRetained": true},
+      {"stage": "after automatic reload", "total": "£138.00", "discountElement": null, "discountFieldEmpty": true}
+    ],
+    "interpretation": "The application persisted/recalculated discount state and rendered the expected totals after its delayed reload. UI feedback and totals are temporarily stale before reload."
+  },
+  "sideEffects": "Only disposable browser-session cart/discount state was created and then removed through the ExpressCart UI. No DB, volume, container, or other project resource was reset."
+}

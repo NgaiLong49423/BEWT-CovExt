@@ -1,0 +1,13 @@
+{
+  "status": "GENERATED",
+  "execution": "LangGraph.generate_java -> Gemini structured output",
+  "model": "gemini-3.8-flash",
+  "completed": [
+    "EC-C02",
+    "EC-C04",
+    "EC-C01",
+    "EC-C05"
+  ],
+  "remaining": [],
+  "secretsRecorded": false
+}

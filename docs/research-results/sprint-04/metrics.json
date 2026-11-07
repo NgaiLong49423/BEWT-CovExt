@@ -1,0 +1,166 @@
+{
+  "sprint": "04",
+  "status": "PARTIAL",
+  "capturedAt": "2026-11-02T22:03:18+07:00",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "packageVersion": "1.1.19",
+    "composeProject": "bewt-covext-expresscart-b31302f"
+  },
+  "generation": {
+    "javaGenerationRerun": false,
+    "previousSprint03LangGraphGenerationReused": true,
+    "acceptedCandidates": 4,
+    "generatedClassesReused": 4,
+    "sourceRewrittenInOfficialGenerationDirectory": false,
+    "modelCalls": 0,
+    "modelTokenUsage": "NOT_APPLICABLE_SPRINT_04"
+  },
+  "compilation": {
+    "finalModuleTestCompile": "PASS",
+    "finalModuleTestCompileSourceFiles": 39,
+    "finalCompileLog": "compile-final.log",
+    "lastCompilationDuringE2e": "PASS",
+    "lastCompilationSourceFiles": 39,
+    "lastCompilationEvidence": "e2e/EC-C05/attempt-2/console.log",
+    "candidateClassesCompiled": 4,
+    "candidateSpecificFirstCompileRate": "NOT_MEASURED_SEPARATELY_MAVEN_COMPILES_MODULE"
+  },
+  "candidateMetrics": {
+    "candidateInvocations": 14,
+    "allChronologicalCandidateInvocationsIncludingSupersededFixtureRuns": 18,
+    "supersededExploratoryRuns": 4,
+    "supersededExploratoryRunReason": "Earlier EC-C04 runs used UUID-derived emails without a recorded exact database absence preflight; all evidence is retained under e2e/EC-C04/exploratory/.",
+    "candidateMethodsInvoked": 14,
+    "behavioralAssertionsReached": 11,
+    "blockedBeforeBehaviorOracleInvocations": 3,
+    "behavioralPassInvocations": 8,
+    "behavioralFailInvocations": 3,
+    "candidateMethodsWithFinalPass": 2,
+    "firstAttemptCandidatePasses": 1,
+    "postRepairFinalPassCandidates": 1,
+    "postRepairFinalPassCandidateIds": ["EC-C05"],
+    "finalPassCandidateIds": ["EC-C04", "EC-C05"],
+    "repairIterationsByCandidate": {
+      "EC-C02": 1,
+      "EC-C04": 0,
+      "EC-C01": 2,
+      "EC-C05": 1
+    },
+    "totalRepairIterations": 4,
+    "repeatRuns": 6,
+    "repeatPasses": 6,
+    "repeatedCandidateIdsStable": ["EC-C04", "EC-C05"],
+    "flakyCandidates": [],
+    "surefireInvocationCount": 14,
+    "candidateInvocationsWithoutSurefireXml": 0,
+    "missingSurefireXml": [],
+    "surefireTestcaseRecords": 15,
+    "note": "EC-C05 attempt-1 produced two Surefire failure records for one test invocation: its content assertion and teardown both failed."
+  },
+  "byCandidate": [
+    {
+      "candidateId": "EC-C02",
+      "class": "EmptyCartTest",
+      "invocations": 2,
+      "firstAttempt": "ERROR_SELECTOR_BOOTBOX_ACCEPT_NOT_PRESENT",
+      "repairs": 1,
+      "finalRun": "BEHAVIORAL_FAIL_EMPTY_CART_MESSAGE_NOT_RENDERED",
+      "behaviorOracleReachedOnFinalRun": true,
+      "repeatRuns": 0,
+      "repeatPasses": 0
+    },
+    {
+      "candidateId": "EC-C04",
+      "class": "ForgottenPasswordTest",
+      "invocations": 4,
+      "firstAttempt": "PASS",
+      "repairs": 0,
+      "finalRun": "PASS",
+      "behaviorOracleReachedOnFinalRun": true,
+      "repeatRuns": 3,
+      "repeatPasses": 3
+    },
+    {
+      "candidateId": "EC-C01",
+      "class": "RemoveDiscountCodeTest",
+      "invocations": 3,
+      "firstAttempt": "BLOCKED_PRECONDITION_HIDDEN_OR_MISSING_CHECKOUT_TOTAL",
+      "repairs": 2,
+      "finalRun": "BEHAVIORAL_FAIL_DISCOUNT_AMOUNT_NOT_RENDERED_AFTER_APPLY",
+      "behaviorOracleReachedOnFinalRun": true,
+      "repeatRuns": 0,
+      "repeatPasses": 0
+    },
+    {
+      "candidateId": "EC-C05",
+      "class": "CreateStaticPageTest",
+      "invocations": 5,
+      "firstAttempt": "BEHAVIORAL_FAIL_CONTENT_MISMATCH_AND_CLEANUP_FAIL",
+      "repairs": 1,
+      "finalRun": "PASS",
+      "behaviorOracleReachedOnFinalRun": true,
+      "repeatRuns": 3,
+      "repeatPasses": 3,
+      "cleanupVerified": true
+    }
+  ],
+  "failureCategories": {
+    "environment": 0,
+    "testSelectorOrFixtureSetupObservedAndRepaired": 4,
+    "applicationBehavioralFailuresRemaining": 2,
+    "testCleanupFailureObservedAndRepaired": 1,
+    "generationFailures": 0,
+    "compilationFailures": 0
+  },
+  "dataAndReset": {
+    "dockerVolumeReset": "NOT_RUN_NOT_REQUIRED_FOR_PER_TEST_ISOLATION",
+    "freshBrowserSessionPerInvocation": true,
+    "postExecutionStaticPages": 0,
+    "postExecutionSessionsWithCart": 0,
+    "postExecutionSessions": 4,
+    "postExecutionCustomers": 2,
+    "postExecutionPublishedProducts": 8,
+    "postExecutionActiveDiscounts": 2,
+    "postExecutionOrders": 0,
+    "resetToFullSeedFingerprint": "NOT_RUN"
+  },
+  "bewtOriginal": {
+    "taskWrites": 0,
+    "finalGitStatus": "DIRTY",
+    "statusEntries": 50,
+    "modifiedTrackedBuildOrGradleArtifacts": 34,
+    "untrackedBuildOrGradleArtifacts": 16,
+    "sourceOrTestFilesChanged": 0,
+    "provenance": "NOT_VERIFIED; observed artifact timestamps predate Sprint 04; no cleanup performed"
+  },
+  "runtime": {
+    "dockerEngine": "29.8.0",
+    "context": "desktop-linux",
+    "httpReadiness": 200,
+    "mongoPing": 1,
+    "node": "14.21.3",
+    "mongo": "4.4.29",
+    "java": "21.0.12",
+    "maven": "3.9.16",
+    "selenium": "4.35.0",
+    "chrome": "156.0.8078.76",
+    "chromeDriver": "156.0.8078.80",
+    "cdpWarning": true
+  },
+  "evidence": {
+    "runtimeManifest": "runtime/runtime-manifest.json",
+    "runtimeRecoveryLog": "runtime/runtime-recovery.log",
+    "fixturePreparation": "fixtures/fixture-preparation.json",
+    "unregisteredEmailFixtureScript": "../../../experiments/expresscart/tools/prepare-unregistered-email.ps1",
+    "postExecutionDbState": "fixtures/post-execution-db-state.json",
+    "repairHistory": "repair-history.json",
+    "runMetrics": "run-metrics.csv",
+    "exploratoryRunMetrics": "exploratory-runs.csv",
+    "surefireIndex": "surefire-index.json",
+    "researchReadyTables": "research-ready-result-tables.md",
+    "finalReport": "SPRINT-04-RESULTS.md",
+    "ecC03Review": "review/EC-C03-teardown-contract.md"
+  }
+}

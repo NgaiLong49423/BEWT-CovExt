@@ -1,0 +1,41 @@
+{
+  "project": "bewt-covext-expresscart-b31302f",
+  "appContainerId": "961afe633e3dd5afec518a4159f29e8eb859f8f357b8ff2be347f97569f3b556",
+  "appProjectLabel": "bewt-covext-expresscart-b31302f",
+  "mongoContainerId": "7c40d3775d493e6b90d511076cf2f935f16d0dadfc8ff72cf1188e63b59edf72",
+  "mongoProjectLabel": "bewt-covext-expresscart-b31302f",
+  "volumes": [
+    {
+      "name": "bewt-covext-expresscart-b31302f_app-config",
+      "id": "bewt-covext-expresscart-b31302f_app-config",
+      "composeProject": "bewt-covext-expresscart-b31302f",
+      "composeVolume": "app-config",
+      "destination": "/var/expressCart/config"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_app-uploads",
+      "id": "bewt-covext-expresscart-b31302f_app-uploads",
+      "composeProject": "bewt-covext-expresscart-b31302f",
+      "composeVolume": "app-uploads",
+      "destination": "/var/expressCart/public/uploads"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_mongo-config",
+      "id": "bewt-covext-expresscart-b31302f_mongo-config",
+      "composeProject": "bewt-covext-expresscart-b31302f",
+      "composeVolume": "mongo-config",
+      "destination": "/data/configdb"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_mongo-data",
+      "id": "bewt-covext-expresscart-b31302f_mongo-data",
+      "composeProject": "bewt-covext-expresscart-b31302f",
+      "composeVolume": "mongo-data",
+      "destination": "/data/db"
+    }
+  ],
+  "networkNames": [
+    "bewt-covext-expresscart-b31302f_experiment"
+  ],
+  "mongoDbCounts": "{ \"users\" : 3, \"products\" : 8, \"orders\" : 0, \"sessions\" : 6 }"
+}

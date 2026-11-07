@@ -1,0 +1,42 @@
+{
+  "project": "bewt-covext-expresscart-b31302f",
+  "appContainerId": "fc1a22c477b4cb5c234f1f8b92377986fda9e0c1fc893a1c455fd418b67d7a64",
+  "mongoContainerId": "b5faed5a4fd383ad8cc2df655aeb9938138657fce74a48c5352968bf39675e5a",
+  "networkName": "bewt-covext-expresscart-b31302f_experiment",
+  "networkId": "c2a5ceacc08617862b8f97e47c2bc96ccdb941d84d0d250a6cae6d24a5cd47ce",
+  "networkProjectLabel": "bewt-covext-expresscart-b31302f",
+  "volumes": [
+    {
+      "name": "bewt-covext-expresscart-b31302f_app-config",
+      "project": "bewt-covext-expresscart-b31302f",
+      "logicalName": "app-config"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_app-uploads",
+      "project": "bewt-covext-expresscart-b31302f",
+      "logicalName": "app-uploads"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_mongo-config",
+      "project": "bewt-covext-expresscart-b31302f",
+      "logicalName": "mongo-config"
+    },
+    {
+      "name": "bewt-covext-expresscart-b31302f_mongo-data",
+      "project": "bewt-covext-expresscart-b31302f",
+      "logicalName": "mongo-data"
+    }
+  ],
+  "appPublishedPorts": {
+    "1111/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3111"
+      }
+    ]
+  },
+  "mongoPublishedPorts": {
+    "27017/tcp": null
+  },
+  "ownership": "PASS"
+}

@@ -1,0 +1,38 @@
+{
+  "officialGenerationDirectoryTouchedBySprint04": false,
+  "generatedClassSha256Comparison": [
+    {
+      "candidateId": "EC-C02",
+      "officialGeneratedSha256": "479EC18D20D2941BF6EE145E94D54601F77B5C147A050A3FF15123F927BA522B",
+      "experimentCopySha256": "DB18016D416EA335EE0D81B338A9F0DD0538C4A1301F1A2C53675003DFBBFCA4",
+      "byteIdentical": false
+    },
+    {
+      "candidateId": "EC-C04",
+      "officialGeneratedSha256": "A897D9CAB4864B4D600A0CA5C4D35D4196E7F898FA61B7AC33C14F54739DD9C3",
+      "experimentCopySha256": "74B27D34FE450123B55615D6B441AD84564474377EC6FC656624D86BFD2A75D3",
+      "byteIdentical": false
+    },
+    {
+      "candidateId": "EC-C01",
+      "officialGeneratedSha256": "A967559723DB3533A147B8261E992D3089A89281404928C3B66C5ED6A5EFDFBB",
+      "experimentCopySha256": "AB77A309F2CB0B40D62898335EB7224BFB2F20C5C602F1BD7F73A3ECCB08850B",
+      "byteIdentical": false
+    },
+    {
+      "candidateId": "EC-C05",
+      "officialGeneratedSha256": "CA004DA2780E86C5B0E38EFAE6C154F70522263982D448371A8F6A8E5BFD9774",
+      "experimentCopySha256": "374CFABF1F6D65FCFADDF789770CD563511E63B1704B1757DB66CBB6D06387BA",
+      "byteIdentical": false
+    }
+  ],
+  "bewtOriginalTaskWrites": 0,
+  "bewtOriginalFinalStatus": "DIRTY",
+  "bewtOriginalStatusEntries": 50,
+  "bewtOriginalModifiedTracked": 34,
+  "bewtOriginalUntracked": 16,
+  "bewtOriginalSourceOrTestStatusEntries": 0,
+  "sampleDirtyArtifactLastWrite": "2026-11-02T13:32:44+07:00",
+  "dirtyArtifactProvenance": "NOT_VERIFIED; sample timestamps predate Sprint 04 runtime inspection, no initial snapshot",
+  "evidence": "The 50 observed nested Git status entries are confined to .gradle and build paths; no source or test paths are listed."
+}

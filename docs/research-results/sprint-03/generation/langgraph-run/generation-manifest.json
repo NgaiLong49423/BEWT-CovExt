@@ -1,0 +1,14 @@
+{
+  "status": "GENERATED",
+  "execution": "LangGraph.generate_java -> Gemini structured output",
+  "candidateIds": [
+    "EC-C02",
+    "EC-C04",
+    "EC-C01",
+    "EC-C05"
+  ],
+  "sourceDirectory": "../../../../experiments/expresscart/bewt-suite/src/test/java/tests",
+  "generatedAt": "2026-11-02T08:33:35.883Z",
+  "model": "gemini-3.8-flash",
+  "apiKeyRecorded": false
+}

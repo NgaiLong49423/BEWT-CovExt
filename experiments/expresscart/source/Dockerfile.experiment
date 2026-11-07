@@ -1,0 +1,18 @@
+FROM node:14.21.3-bullseye-slim
+
+WORKDIR /var/expressCart
+
+COPY package.json package-lock.json ./
+RUN npm ci --only=production --no-audit --no-fund
+
+COPY . .
+RUN mkdir -p /var/expressCart/data /var/expressCart/public/uploads \
+    && chown -R node:node /var/expressCart
+
+ENV NODE_ENV=production \
+    PORT=1111 \
+    NODE_PATH=/var/expressCart
+
+USER node
+EXPOSE 1111
+CMD ["npm", "start"]

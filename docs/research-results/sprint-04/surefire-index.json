@@ -1,0 +1,128 @@
+[
+  {
+    "evidencePath": "e2e/EC-C01/attempt-1/TEST-tests.RemoveDiscountCodeTest.xml",
+    "suite": "tests.RemoveDiscountCodeTest",
+    "testcaseRecords": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 39.33
+  },
+  {
+    "evidencePath": "e2e/EC-C01/attempt-2/TEST-tests.RemoveDiscountCodeTest.xml",
+    "suite": "tests.RemoveDiscountCodeTest",
+    "testcaseRecords": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 37.221
+  },
+  {
+    "evidencePath": "e2e/EC-C01/attempt-3/TEST-tests.RemoveDiscountCodeTest.xml",
+    "suite": "tests.RemoveDiscountCodeTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0,
+    "durationSeconds": 46.633
+  },
+  {
+    "evidencePath": "e2e/EC-C02/attempt-1/TEST-tests.EmptyCartTest.xml",
+    "suite": "tests.EmptyCartTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0,
+    "durationSeconds": 66.756
+  },
+  {
+    "evidencePath": "e2e/EC-C02/attempt-2/TEST-tests.EmptyCartTest.xml",
+    "suite": "tests.EmptyCartTest",
+    "testcaseRecords": 1,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 36.693
+  },
+  {
+    "evidencePath": "e2e/EC-C04/validated-initial/TEST-tests.ForgottenPasswordTest.xml",
+    "suite": "tests.ForgottenPasswordTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 2.66
+  },
+  {
+    "evidencePath": "e2e/EC-C04/validated-repeat-1/TEST-tests.ForgottenPasswordTest.xml",
+    "suite": "tests.ForgottenPasswordTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 2.045
+  },
+  {
+    "evidencePath": "e2e/EC-C04/validated-repeat-2/TEST-tests.ForgottenPasswordTest.xml",
+    "suite": "tests.ForgottenPasswordTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 2.735
+  },
+  {
+    "evidencePath": "e2e/EC-C04/validated-repeat-3/TEST-tests.ForgottenPasswordTest.xml",
+    "suite": "tests.ForgottenPasswordTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 2.847
+  },
+  {
+    "evidencePath": "e2e/EC-C05/attempt-1/TEST-tests.CreateStaticPageTest.xml",
+    "suite": "tests.CreateStaticPageTest",
+    "testcaseRecords": 2,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 5.871
+  },
+  {
+    "evidencePath": "e2e/EC-C05/attempt-2/TEST-tests.CreateStaticPageTest.xml",
+    "suite": "tests.CreateStaticPageTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 70.676
+  },
+  {
+    "evidencePath": "e2e/EC-C05/repeat-1/TEST-tests.CreateStaticPageTest.xml",
+    "suite": "tests.CreateStaticPageTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 69.032
+  },
+  {
+    "evidencePath": "e2e/EC-C05/repeat-2/TEST-tests.CreateStaticPageTest.xml",
+    "suite": "tests.CreateStaticPageTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 68.847
+  },
+  {
+    "evidencePath": "e2e/EC-C05/repeat-3/TEST-tests.CreateStaticPageTest.xml",
+    "suite": "tests.CreateStaticPageTest",
+    "testcaseRecords": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "durationSeconds": 72.406
+  }
+]

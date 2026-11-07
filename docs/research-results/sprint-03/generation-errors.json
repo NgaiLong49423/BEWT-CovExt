@@ -1,0 +1,15 @@
+{
+  "failedAttempts": [
+    {
+      "stage": "generation",
+      "category": "MODEL_NETWORK_UNAVAILABLE",
+      "detail": "Initial sandbox Gemini request failed at fetch with no model response or token usage."
+    },
+    {
+      "stage": "generation",
+      "category": "MODEL_OUTPUT_SCHEMA_REJECTED",
+      "detail": "Gemini returned HTTP 400 because the provider schema rejected a JSON Schema const field. The output schema was adjusted to provider-compatible string validation and generation then completed."
+    }
+  ],
+  "secretsRecorded": false
+}

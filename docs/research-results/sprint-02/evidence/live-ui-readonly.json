@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-02",
+  "application": "http://127.0.0.1:3111",
+  "businessDataChanged": false,
+  "operations": {
+    "storefrontGet": 200,
+    "storefrontSearchUiPresent": true,
+    "forgottenPasswordGet": 200,
+    "forgottenPasswordFormPresent": true,
+    "temporaryFixtureLoginAccepted": true,
+    "adminStaticPageEditorGet": 200,
+    "adminStaticPageEditorControlsPresent": true,
+    "adminProductListGet": 200,
+    "adminPublishedCheckboxPresent": true,
+    "logoutGet": 200,
+    "unknownStaticSlugGet": 404
+  },
+  "readOnlyDatabaseCounts": {
+    "products": 8,
+    "publishedProducts": 8,
+    "activeDiscounts": 2,
+    "customers": 2,
+    "staticPages": 0
+  },
+  "limitations": [
+    "No candidate form was submitted.",
+    "No candidate Selenium flow was executed.",
+    "Protected admin pages were fetched after a temporary fixture login; only GET requests were made after login, followed by logout."
+  ],
+  "secretsRecorded": false
+}

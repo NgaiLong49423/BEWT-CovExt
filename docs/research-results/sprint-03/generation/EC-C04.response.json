@@ -1,0 +1,23 @@
+{
+  "className": "ForgottenPasswordTest",
+  "packageName": "tests",
+  "source": "package tests;\n\nimport org.junit.Assert;\nimport org.junit.Test;\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebElement;\nimport org.openqa.selenium.support.ui.ExpectedConditions;\nimport org.openqa.selenium.support.ui.WebDriverWait;\n\nimport java.time.Duration;\nimport java.util.UUID;\n\npublic class ForgottenPasswordTest extends BaseTest {\n\n    @Test\n    public void testForgottenPasswordGenericResponseForUnregisteredEmail() {\n        // Given an email address is not present in the customer collection\n        String nonExistentEmail = \"nonexistent_\" + UUID.randomUUID().toString().substring(0, 8) + \"@example.com\";\n\n        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));\n\n        // When the visitor opens the forgotten-password form\n        driver.get(appUrl + \"/forgot-password\");\n\n        // Fallback check: if /forgot-password redirected or customer login page navigation is required\n        if (driver.findElements(By.cssSelector(\"input[type='email'], input[name='email']\")).isEmpty()) {\n            driver.get(appUrl + \"/customer/login\");\n            WebElement forgotPasswordLink = wait.until(ExpectedConditions.elementToBeClickable(\n                    By.cssSelector(\"a[href*='forgot-password'], a[href*='forgot'], a[href*='reset']\")));\n            forgotPasswordLink.click();\n        }\n\n        WebElement emailInput = wait.until(ExpectedConditions.visibilityOfElementLocated(\n                By.cssSelector(\"input[type='email'], input[name='email']\")));\n\n        // And submits that email address\n        emailInput.clear();\n        emailInput.sendKeys(nonExistentEmail);\n\n        WebElement submitButton = wait.until(ExpectedConditions.elementToBeClickable(\n                By.cssSelector(\"button[type='submit'], input[type='submit']\")));\n        submitButton.click();\n\n        // Then the page shows a success notification\n        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(\n                By.cssSelector(\".alert-success, .notification-success, .toast-success, [role='alert'], .alert\")));\n\n        Assert.assertTrue(\"Success notification should be visible on the page\", notification.isDisplayed());\n\n        // And the notification says \\\"If your account exists, a password reset has been sent to your email\\\"\n        String expectedMessage = \"If your account exists, a password reset has been sent to your email\";\n        String actualMessage = notification.getText().trim();\n\n        Assert.assertTrue(\n                \"Expected notification text to contain: '\" + expectedMessage + \"', but got: '\" + actualMessage + \"'\",\n                actualMessage.contains(expectedMessage)\n        );\n    }\n}\n",
+  "generationNotes": [
+    "Generated automated Selenium test for Gherkin scenario EC-C04.",
+    "Uses UUID-based unregistered email to ensure it does not match existing customers.",
+    "Uses explicit WebDriverWait with Duration.ofSeconds(10) compliant with Selenium 4.",
+    "Asserts the visibility of the notification and the specific generic message required by the specification."
+  ],
+  "assumptions": [
+    "Assumes the forgotten-password form is accessible at /forgot-password or reachable via a link on /customer/login.",
+    "Assumes standard input[type='email'] and submit button elements exist on the forgotten password view.",
+    "Assumes successful password reset request produces an alert or notification element containing the specified text."
+  ],
+  "model": "gemini-3.8-flash",
+  "usageMetadata": {
+    "input_tokens": 723,
+    "output_tokens": 889,
+    "total_tokens": 1612
+  },
+  "apiKeyRecorded": false
+}

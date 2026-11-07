@@ -1,0 +1,137 @@
+[
+  {
+    "candidate": {
+      "id": "EC-C01",
+      "title": "Empty shopping cart removes all items and displays empty state",
+      "rationale": "Baseline suite tests adding a product to the cart in AddNewProdToCartTest, but never tests clearing the cart or the resulting empty cart state presentation.",
+      "feature": "Shopping Cart Management",
+      "scenario": "Customer empties shopping cart containing products",
+      "steps": [
+        "Given the user is on the home page",
+        "When the user clicks the product link and adds the product to the cart",
+        "And clicks the cart link to view the cart contents",
+        "And clicks the empty cart button",
+        "Then the cart table is cleared and an empty cart message is displayed"
+      ],
+      "expectedBehavior": "The cart is cleared, item counter drops to zero, and the page displays an empty cart notification with no products listed.",
+      "sourceEvidence": [
+        "/emptycart",
+        "tests/AddNewProdToCartTest.java",
+        "07_AddNewProdToCartTest.feature"
+      ]
+    },
+    "gherkin": "Feature: Shopping Cart Management\n  # Baseline suite tests adding a product to the cart in AddNewProdToCartTest, but never tests clearing the cart or the resulting empty cart state presentation.\n  Scenario: Customer empties shopping cart containing products\n    Given the user is on the home page\n    When the user clicks the product link and adds the product to the cart\n    And clicks the cart link to view the cart contents\n    And clicks the empty cart button\n    Then the cart table is cleared and an empty cart message is displayed\n    # Expected behavior: The cart is cleared, item counter drops to zero, and the page displays an empty cart notification with no products listed.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C02",
+      "title": "Remove applied discount code during checkout",
+      "rationale": "The baseline suite validates applying valid and deleted discount codes during checkout, but omits verifying the behavior of removing an already applied discount code.",
+      "feature": "Checkout Discount Management",
+      "scenario": "Customer removes an active discount code from the checkout order summary",
+      "steps": [
+        "Given the user is on the checkout payment page with items in the cart",
+        "When the user enters a valid discount code and clicks the apply button",
+        "And observes the discounted order total",
+        "And clicks the remove discount code button",
+        "Then the discount deduction is removed and the total reverts to original balance"
+      ],
+      "expectedBehavior": "The discount code is detached from the checkout session and the total amount recalculates back to the non-discounted sum.",
+      "sourceEvidence": [
+        "/checkout/removediscountcode",
+        "tests/UseDiscountCodeAmountTest.java",
+        "15_UseDiscountCodeAmountTest.feature"
+      ]
+    },
+    "gherkin": "Feature: Checkout Discount Management\n  # The baseline suite validates applying valid and deleted discount codes during checkout, but omits verifying the behavior of removing an already applied discount code.\n  Scenario: Customer removes an active discount code from the checkout order summary\n    Given the user is on the checkout payment page with items in the cart\n    When the user enters a valid discount code and clicks the apply button\n    And observes the discounted order total\n    And clicks the remove discount code button\n    Then the discount deduction is removed and the total reverts to original balance\n    # Expected behavior: The discount code is detached from the checkout session and the total amount recalculates back to the non-discounted sum.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C03",
+      "title": "Toggle product published status to draft",
+      "rationale": "Baseline suite covers creating and deleting products, but does not cover toggling published status or verifying unpublishing behavior via the administrative product catalog.",
+      "feature": "Admin Product Catalog Management",
+      "scenario": "Admin switches an existing published product to draft status",
+      "steps": [
+        "Given the user is on the administrative login page (/admin)",
+        "When the user signs in with administrator credentials",
+        "And clicks the products navigation link",
+        "And clicks the published toggle for a listed product",
+        "Then the status badge updates to show unpublished draft status"
+      ],
+      "expectedBehavior": "The product publishedState updates via the administrative toggle and reflects draft status in the product catalog table.",
+      "sourceEvidence": [
+        "/admin/product/publishedState",
+        "tests/AddProductTest.java",
+        "05_AddProductTest.feature"
+      ]
+    },
+    "gherkin": "Feature: Admin Product Catalog Management\n  # Baseline suite covers creating and deleting products, but does not cover toggling published status or verifying unpublishing behavior via the administrative product catalog.\n  Scenario: Admin switches an existing published product to draft status\n    Given the user is on the administrative login page (/admin)\n    When the user signs in with administrator credentials\n    And clicks the products navigation link\n    And clicks the published toggle for a listed product\n    Then the status badge updates to show unpublished draft status\n    # Expected behavior: The product publishedState updates via the administrative toggle and reflects draft status in the product catalog table.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C04",
+      "title": "Request password reset for unregistered customer email",
+      "rationale": "Baseline suite tests login and customer user creation but lacks coverage for customer account recovery failure paths via forgotten password routes.",
+      "feature": "Customer Authentication and Recovery",
+      "scenario": "Visitor requests password reset instructions with an unregistered email",
+      "steps": [
+        "Given the user navigates to the customer forgotten password page (/customer/forgotten)",
+        "When the user enters an unassociated email address in the email field",
+        "And clicks the reset password submission button",
+        "Then an alert message notifies the user that the email account does not exist"
+      ],
+      "expectedBehavior": "The system rejects password reset initiation for the unregistered account and presents an error banner without creating a reset token.",
+      "sourceEvidence": [
+        "/customer/forgotten_action",
+        "customer/forgotten",
+        "customer/login"
+      ]
+    },
+    "gherkin": "Feature: Customer Authentication and Recovery\n  # Baseline suite tests login and customer user creation but lacks coverage for customer account recovery failure paths via forgotten password routes.\n  Scenario: Visitor requests password reset instructions with an unregistered email\n    Given the user navigates to the customer forgotten password page (/customer/forgotten)\n    When the user enters an unassociated email address in the email field\n    And clicks the reset password submission button\n    Then an alert message notifies the user that the email account does not exist\n    # Expected behavior: The system rejects password reset initiation for the unregistered account and presents an error banner without creating a reset token.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  },
+  {
+    "candidate": {
+      "id": "EC-C05",
+      "title": "Create and publish custom static page in admin settings",
+      "rationale": "Baseline includes menu creation but omits static content page creation and retrieval through the dedicated page administration and public route endpoints.",
+      "feature": "Admin Content Page Management",
+      "scenario": "Admin creates a new static content page and checks public page availability",
+      "steps": [
+        "Given the user is logged into the administrative dashboard (/admin)",
+        "When the user navigates to the pages management section (/admin/settings/pages)",
+        "And clicks the new page button to open page editor (/admin/settings/pages/new)",
+        "And enters page title and content, then clicks save page",
+        "And visits the generated public page URL (/page/:param)",
+        "Then the page title and body content are rendered on the storefront"
+      ],
+      "expectedBehavior": "The custom page is persisted in the database and renders successfully at the configured public page URL.",
+      "sourceEvidence": [
+        "/admin/settings/pages/new",
+        "admin/settings/pages",
+        "page/:param"
+      ]
+    },
+    "gherkin": "Feature: Admin Content Page Management\n  # Baseline includes menu creation but omits static content page creation and retrieval through the dedicated page administration and public route endpoints.\n  Scenario: Admin creates a new static content page and checks public page availability\n    Given the user is logged into the administrative dashboard (/admin)\n    When the user navigates to the pages management section (/admin/settings/pages)\n    And clicks the new page button to open page editor (/admin/settings/pages/new)\n    And enters page title and content, then clicks save page\n    And visits the generated public page URL (/page/:param)\n    Then the page title and body content are rendered on the storefront\n    # Expected behavior: The custom page is persisted in the database and renders successfully at the configured public page URL.",
+    "syntaxValid": true,
+    "syntaxError": "",
+    "duplicateHint": false,
+    "sourceEvidenceVerified": true
+  }
+]

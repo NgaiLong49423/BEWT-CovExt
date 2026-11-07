@@ -1,0 +1,1095 @@
+{
+  "source": "Pinned ExpressCart checkout and copied BEWT suite",
+  "tests": [
+    {
+      "file": "tests/AddDiscountCodeAmountTest.java",
+      "methods": [
+        "testExpressCartAddDiscountCodeAmount"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setCode",
+        "setValue",
+        "setStart",
+        "setEnd"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddDiscountCodePercentTest.java",
+      "methods": [
+        "testExpressCartAddDiscountCodePercent"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setCode",
+        "setType",
+        "setValue",
+        "setStart",
+        "setEnd"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddEmptyDiscountCodeTest.java",
+      "methods": [
+        "testExpressCartAddEmptyDiscountCode"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddEmptyProductTest.java",
+      "methods": [
+        "testExpressCartAddEmptyProduct"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddEmptyReviewTest.java",
+      "methods": [
+        "testExpressCartAddEmptyReview"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddEmptyUserTest.java",
+      "methods": [
+        "testExpressCartEmptyUser"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "newUser"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddExistingUserFailsTest.java",
+      "methods": [
+        "testExpressCartExistingUserFails"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "newUser",
+        "setUsername",
+        "setConfirmPassword",
+        "addUser"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddMenuTest.java",
+      "methods": [
+        "testExpressCartAddMenu"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setName",
+        "setLink"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddNewProdToCartTest.java",
+      "methods": [
+        "testExpressCartAddNewProdToCart"
+      ],
+      "locatorHints": [],
+      "actionHints": [],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddProductTagTest.java",
+      "methods": [
+        "testExpressCartAddProductTag"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setTag"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddProductTest.java",
+      "methods": [
+        "testExpressCartAddProduct"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setTitle",
+        "setPrice",
+        "setDescr"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddReviewTest.java",
+      "methods": [
+        "testExpressCartAddReview"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "setTitle",
+        "setDescr",
+        "setRating"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/AddUserTest.java",
+      "methods": [
+        "testExpressCartNewUser"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "newUser",
+        "setUsername",
+        "setConfirmPassword",
+        "addUser",
+        "users",
+        "logout"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeletedDiscountCodeFailsAmountTest.java",
+      "methods": [
+        "testExpressCartDeletedDiscountCodeFailsAmount"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "checkout",
+        "setDiscountCode"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeletedDiscountCodeFailsPercentTest.java",
+      "methods": [
+        "testExpressCartDeletedDiscountCodeFailsPercent"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "checkout",
+        "setDiscountCode"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteDiscountCodeAmountTest.java",
+      "methods": [
+        "testExpressCartAddDiscountCodeAmount"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteDiscountCodePercentTest.java",
+      "methods": [
+        "testExpressCartAddDiscountCodePercent"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteProductTagTest.java",
+      "methods": [
+        "testExpressCartDeleteProductTag"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteProductTest.java",
+      "methods": [
+        "testExpressCartDeleteProduct"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteReviewTest.java",
+      "methods": [
+        "testExpressCartDeleteReview"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/DeleteUserTest.java",
+      "methods": [
+        "testExpressCartDeleteUser"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "users"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/LoginDeletedUserFailsTest.java",
+      "methods": [
+        "testExpressCartLoginUser"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/LoginUserTest.java",
+      "methods": [
+        "testExpressCartLoginUser"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "logout"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/OpenMenuTest.java",
+      "methods": [
+        "testExpressCartOpenMenu"
+      ],
+      "locatorHints": [],
+      "actionHints": [],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/SearchDeletedProductFailsTest.java",
+      "methods": [
+        "testExpressCartSearchDeletedProductFails"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setSearchText"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/SearchDeletedProductTagFailsTest.java",
+      "methods": [
+        "testExpressCartSearchDeletedProductTagFails"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setSearchText"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/SearchProductTagTest.java",
+      "methods": [
+        "testExpressCartSearchProductTag"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setSearchText"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/SearchProductTest.java",
+      "methods": [
+        "testExpressCartSearchProduct"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setSearchText"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/SeeReviewTest.java",
+      "methods": [
+        "testExpressCartSeeReview"
+      ],
+      "locatorHints": [],
+      "actionHints": [],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/UseDiscountCodeAmountTest.java",
+      "methods": [
+        "testExpressCartUseDiscountCodeAmount"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "checkout",
+        "setDiscountCode"
+      ],
+      "hasAssertions": true
+    },
+    {
+      "file": "tests/UseDiscountCodePercentTest.java",
+      "methods": [
+        "testExpressCartUseDiscountCodePercent"
+      ],
+      "locatorHints": [],
+      "actionHints": [
+        "setEmail",
+        "setPassword",
+        "checkout",
+        "setDiscountCode"
+      ],
+      "hasAssertions": true
+    }
+  ],
+  "features": [
+    {
+      "file": "01_AddUserTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a user to the system"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> icon to the right of the link <literal>",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "Then <literal> is shown in the third row of the table",
+        "Given the previous assertion passed",
+        "Then the user clicks the <literal> link"
+      ]
+    },
+    {
+      "file": "02_AddEmptyUserTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to add a empty user to the system and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> icon to the right of the link <literal>",
+        "And clicks the <literal> button",
+        "Then all the fields are highlighted in red",
+        "Given the previous assertion passed",
+        "Then the user clicks the <literal> link"
+      ]
+    },
+    {
+      "file": "03_LoginUserTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Logins as the newly added user"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown on the page",
+        "Given the previous assertion passed",
+        "Then the user clicks the <literal> link"
+      ]
+    },
+    {
+      "file": "04_AddExistingUserFailsTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to add a user with the same data of an already existing user and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> icon to the right of the link <literal>",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in a red alert at the bottom of the table",
+        "Given the previous assertion passed",
+        "Then the user clicks the <literal> link"
+      ]
+    },
+    {
+      "file": "05_AddProductTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a product to the system"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> icon to the right of the link <literal>",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "Then <literal> is shown in the first row of the table"
+      ]
+    },
+    {
+      "file": "06_AddEmptyProductTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to add an empty product to the system and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> icon to the right of the link <literal>",
+        "And clicks the <literal> button",
+        "Then the fileds <literal> and <literal> are highlighted in red"
+      ]
+    },
+    {
+      "file": "07_AddNewProdToCartTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a product to the cart"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "Then <literal> is shown in the red square to the right of the <literal> link",
+        "When the user clicks on the <literal> link",
+        "Then <literal> is shown in the <literal>"
+      ]
+    },
+    {
+      "file": "08_SearchProductTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Searches a product in the store"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown to the right of <literal>",
+        "And <literal> is the only product shown in the results"
+      ]
+    },
+    {
+      "file": "09_AddReviewTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a review to a product"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks on <literal>",
+        "Then <literal> is shown on the page",
+        "And <literal> is shown on the page",
+        "And <literal> is shown on the page"
+      ]
+    },
+    {
+      "file": "10_AddEmptyReviewTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to add an empty review to a product and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in a red bar to the bottom of the screen"
+      ]
+    },
+    {
+      "file": "11_SeeReviewTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Checks the review to a product"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks the <literal> link",
+        "And clicks on <literal>",
+        "Then <literal> is shown on the page",
+        "And <literal> is shown on the page",
+        "And <literal> is shown on the page"
+      ]
+    },
+    {
+      "file": "12_AddDiscountCodeAmountTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a discount code (by amount) to the system"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in the last row of the table"
+      ]
+    },
+    {
+      "file": "13_AddDiscountCodePercentTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a discount code (by percent) to the system"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And selects <literal> in the <literal> dropdown select",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in the last row of the table"
+      ]
+    },
+    {
+      "file": "14_AddEmptyDiscountCodeTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to add an empty discount code and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "Then the fields <literal> and <literal> are highlighted in red"
+      ]
+    },
+    {
+      "file": "15_UseDiscountCodeAmountTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Buys a product using a discound code (by amount)"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And waits for at least 6 seconds",
+        "Then <literal> is displayed on the page"
+      ]
+    },
+    {
+      "file": "16_UseDiscountCodePercentTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Buys a product using a discound code (by percent)"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And waits for at least 6 seconds",
+        "Then <literal> is displayed on the page"
+      ]
+    },
+    {
+      "file": "17_AddProductTagTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a tag to a product"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> link",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in the <literal> field"
+      ]
+    },
+    {
+      "file": "18_SearchProductTagTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Searches a product using its tag"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is the only product shown in the results"
+      ]
+    },
+    {
+      "file": "19_AddMenuTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Adds a menu"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And enters <literal> in the first empty field",
+        "And enters <literal> in the second empty field",
+        "And clicks the green <literal> button",
+        "Then <literal> appears in a green box at the bottom of the screen"
+      ]
+    },
+    {
+      "file": "20_OpenMenuTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Searches a product using its tag"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks the <literal> link",
+        "And clicks the <literal> button",
+        "Then <literal> is shown to the right of <literal>",
+        "And <literal> is the only product shown in the page"
+      ]
+    },
+    {
+      "file": "21_DeleteDiscountCodeAmountTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a discount code (by amount)"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button in the row of <literal>",
+        "And confirms the JavaScript alert",
+        "And clicks the <literal> link",
+        "Then <literal> is not shown on the page"
+      ]
+    },
+    {
+      "file": "22_DeleteDiscountCodePercentTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a discount code (by percent)"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button in the row of <literal>",
+        "And confirms the JavaScript alert",
+        "And clicks the <literal> link",
+        "Then <literal> is not shown on the page"
+      ]
+    },
+    {
+      "file": "23_DeletedDiscountCodeFailsAmountTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to buy a product using a deleted discound code (by amount) and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in a red box to the bottom of the page"
+      ]
+    },
+    {
+      "file": "24_DeletedDiscountCodeFailsPercentTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to buy a product using a deleted discound code (by percent) and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user clicks on the account icon",
+        "And enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And goes to the home page of the site",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And clicks the <literal> button",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in a red box to the bottom of the page"
+      ]
+    },
+    {
+      "file": "25_DeleteUserTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a user"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the red trash bin icon in the row of <literal>",
+        "And accepts the JavaScript alert",
+        "And clicks on the <literal> link",
+        "Then <literal> is not shown on the page"
+      ]
+    },
+    {
+      "file": "26_LoginDeletedUserFailsTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Tries to login as a deleted user and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in a red box to the bottom of the page"
+      ]
+    },
+    {
+      "file": "27_DeleteReviewTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a review"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the red trash bin icon in the row of <literal>",
+        "And accepts the JavaScript alert",
+        "And clicks on the <literal> link",
+        "Then <literal> is not shown on the page"
+      ]
+    },
+    {
+      "file": "28_DeleteProductTagTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a product tag"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the <literal> link",
+        "And clicks the <literal> to the righg of <literal>",
+        "And clicks the <literal> button",
+        "Then <literal> is not shown in the page"
+      ]
+    },
+    {
+      "file": "29_SearchDeletedProductTagFailsTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Searches a product using a deleted tag and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in red on the page"
+      ]
+    },
+    {
+      "file": "30_DeleteProductTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Deletes a product"
+      ],
+      "stepKeywords": [
+        "Given the user is on the administrative home page (/admin)",
+        "When the user enters <literal> in the <literal> field",
+        "And enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "And clicks the <literal> link",
+        "And clicks the red trash bin icon in the row of <literal>",
+        "And accepts the JavaScript alert",
+        "And clicks on the <literal> link",
+        "Then <literal> is not shown on the page"
+      ]
+    },
+    {
+      "file": "31_SearchDeletedProductFailsTest.feature",
+      "feature": "Unlabelled feature",
+      "scenarios": [
+        "Searches for a delete dproduct and fails"
+      ],
+      "stepKeywords": [
+        "Given the user is on the home page ",
+        "When the user enters <literal> in the <literal> field",
+        "And clicks the <literal> button",
+        "Then <literal> is shown in red on the page"
+      ]
+    }
+  ],
+  "routeHints": [
+    "/:param",
+    "/admin",
+    "/admin/createApiKey",
+    "/admin/csrf",
+    "/admin/customer",
+    "/admin/customer/lookup",
+    "/admin/customer/update",
+    "/admin/customer/view/:param",
+    "/admin/customers",
+    "/admin/customers/filter/:param",
+    "/admin/dashboard",
+    "/admin/file/upload",
+    "/admin/file/url",
+    "/admin/login",
+    "/admin/login_action",
+    "/admin/logout",
+    "/admin/order/create",
+    "/admin/order/delete/:param",
+    "/admin/order/updateorder",
+    "/admin/order/view/:param",
+    "/admin/orders/:param",
+    "/admin/orders/bystatus/:param",
+    "/admin/orders/filter/:param",
+    "/admin/product/addvariant",
+    "/admin/product/delete",
+    "/admin/product/deleteimage",
+    "/admin/product/edit/:param",
+    "/admin/product/editvariant",
+    "/admin/product/insert",
+    "/admin/product/new",
+    "/admin/product/publishedState",
+    "/admin/product/removevariant",
+    "/admin/product/setasmainimage",
+    "/admin/product/update",
+    "/admin/products/:param",
+    "/admin/products/filter/:param",
+    "/admin/review/delete",
+    "/admin/reviews/:param",
+    "/admin/reviews/filter/:param",
+    "/admin/searchall",
+    "/admin/settings",
+    "/admin/settings/discount/create",
+    "/admin/settings/discount/delete",
+    "/admin/settings/discount/edit/:param",
+    "/admin/settings/discount/new",
+    "/admin/settings/discount/update",
+    "/admin/settings/discounts",
+    "/admin/settings/menu",
+    "/admin/settings/menu/delete",
+    "/admin/settings/menu/new",
+    "/admin/settings/menu/saveOrder",
+    "/admin/settings/menu/update",
+    "/admin/settings/page",
+    "/admin/settings/page/delete",
+    "/admin/settings/pages",
+    "/admin/settings/pages/edit/:param",
+    "/admin/settings/pages/new",
+    "/admin/settings/update",
+    "/admin/setup",
+    "/admin/setup_action",
+    "/admin/testEmail",
+    "/admin/transaction/:param",
+    "/admin/transactions/:param",
+    "/admin/transactions/filter/:param",
+    "/admin/user/delete",
+    "/admin/user/edit/:param",
+    "/admin/user/insert",
+    "/admin/user/new",
+    "/admin/user/update",
+    "/admin/users",
+    "/admin/validatePermalink",
+    "/blockonomics_payment",
+    "/cart/retrieve",
+    "/category/:param/:param",
+    "/checkout/adddiscountcode",
+    "/checkout/cart",
+    "/checkout/cartdata",
+    "/checkout/information",
+    "/checkout/payment",
+    "/checkout/removediscountcode",
+    "/checkout/shipping",
+    "/customer/account",
+    "/customer/check",
+    "/customer/create",
+    "/customer/forgotten",
+    "/customer/forgotten_action",
+    "/customer/login",
+    "/customer/login_action",
+    "/customer/logout",
+    "/customer/reset/:param",
+    "/customer/save",
+    "/customer/update",
+    "/emptycart",
+    "/googleproducts.xml",
+    "/lang/:param",
+    "/page/:param",
+    "/payment/:param",
+    "/product/:param",
+    "/product/addreview",
+    "/product/addtocart",
+    "/product/emptycart",
+    "/product/removefromcart",
+    "/product/updatecart",
+    "/search/:param/:param",
+    "/sitemap.xml"
+  ],
+  "excluded": [
+    "configuration files",
+    "environment files",
+    "input literals",
+    "credentials",
+    "database contents",
+    "logs"
+  ]
+}

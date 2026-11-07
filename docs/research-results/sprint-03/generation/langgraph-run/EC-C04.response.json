@@ -1,0 +1,25 @@
+{
+  "className": "ForgottenPasswordTest",
+  "packageName": "tests",
+  "source": "package tests;\n\nimport org.junit.Assert;\nimport org.junit.Test;\nimport org.openqa.selenium.By;\nimport org.openqa.selenium.WebElement;\nimport org.openqa.selenium.support.ui.ExpectedConditions;\nimport org.openqa.selenium.support.ui.WebDriverWait;\n\nimport java.time.Duration;\nimport java.util.UUID;\n\npublic class ForgottenPasswordTest extends BaseTest {\n\n    @Test\n    public void returnGenericResponseForUnregisteredEmail() {\n        String nonExistentEmail = \"absent_\" + UUID.randomUUID().toString().substring(0, 8) + \"@example.com\";\n        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));\n\n        driver.get(baseUrl + \"/customer/forgotten\");\n\n        WebElement form = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(\"customerForgotten\")));\n        WebElement emailInput = form.findElement(By.id(\"email\"));\n        emailInput.clear();\n        emailInput.sendKeys(nonExistentEmail);\n\n        WebElement submitButton = form.findElement(By.cssSelector(\"button[type='submit'], input[type='submit'], button\"));\n        submitButton.click();\n\n        WebElement notifyMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(\"notify_message\")));\n        Assert.assertTrue(\"Success notification should be visible\", notifyMessage.isDisplayed());\n\n        String expectedNotificationText = \"If your account exists, a password reset has been sent to your email\";\n        String actualNotificationText = notifyMessage.getText().trim();\n        Assert.assertEquals(\"Notification text mismatch\", expectedNotificationText, actualNotificationText);\n    }\n}\n",
+  "generationNotes": [
+    "Implemented ForgottenPasswordTest extending BaseTest using JUnit 4 and Selenium 4.35.0.",
+    "Followed exact route /customer/forgotten and selectors #customerForgotten, #email, and #notify_message.",
+    "Generated a unique unregistered email address per test run to prevent any collision.",
+    "Verified submit action via browser UI clicking the button inside #customerForgotten."
+  ],
+  "assumptions": [
+    "BaseTest provides a protected 'driver' (WebDriver) and protected 'baseUrl' (String).",
+    "Submitting an unregistered email creates no DB records or persistent artifacts, so no post-test cleanup is necessary.",
+    "The notification element #notify_message becomes visible after form submission and contains the exact generic message."
+  ],
+  "model": "gemini-3.8-flash",
+  "usageMetadata": {
+    "input_tokens": 535,
+    "output_tokens": 625,
+    "total_tokens": 1357
+  },
+  "apiKeyRecorded": false,
+  "candidateId": "EC-C04",
+  "gherkinPath": "docs/research-results/sprint-02/revised/EC-C04-forgotten-password.feature"
+}

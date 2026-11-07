@@ -1,0 +1,43 @@
+# Sprint 02 — Technical Review of ExpressCart Candidates
+
+**Review state:** TECHNICAL_REVIEW_COMPLETE / AWAITING_TEAM_LEAD  
+**Application source:** `mrvautin/expressCart` `b31302f4e99c3293bd742c6d076a721e168118b0` (`1.1.19`)  
+**Review scope:** five candidates from Sprint 01 run `2026-11-02T07-06-24-329Z-b9a90ab1`; 31 original BEWT Gherkin scenarios and copied test summaries.
+
+This is a technical recommendation, not human approval. `human-review-decisions.json` remains pending; no candidate is recorded as accepted. No application form was submitted and no business data was changed during review. Public pages were fetched with GET; a temporary test-fixture admin session was used only to GET the protected page editor/product list and was logged out.
+
+## Evidence and live read-only observations
+
+| Observation | Result |
+|---|---|
+| Storefront GET `/` | HTTP 200; storefront/search UI present |
+| Customer GET `/customer/forgotten` | HTTP 200; `#customerForgotten` and email input present |
+| Admin GET `/admin/settings/pages/new` | HTTP 200 after fixture login; `#settingsPageEditor` and `#pageSlug` present |
+| Admin GET `/admin/products` | HTTP 200 after fixture login; `.publishedState` control present |
+| Admin logout | HTTP 200 |
+| Random unknown static-page slug | HTTP 404 |
+| Seeded data counts | 8 products (8 published), 2 active discounts, 2 customers, 0 static pages |
+
+Machine-readable read-only observation: [live-ui-readonly.json](evidence/live-ui-readonly.json). The login used the copied test fixture; no credential is included in the artifact. The protected admin pages were inspected but their controls were not clicked.
+
+The baseline comparison covered all 31 BEWT ExpressCart scenarios. Relevant existing cases are `07_AddNewProdToCartTest`, `12`–`16` discount cases, `05_AddProductTest`, `08_SearchProductTest`, `03_LoginUserTest`, `26_LoginDeletedUserFailsTest`, and `19_AddMenuTest`. None checks discount removal, emptying a cart, a publication-state transition, the customer forgotten-password flow, or static-page administration/rendering. ExpressCart's own AVA API tests include static-page create/update/delete in `source/test/specs/pages.js`; they are outside the 31 BEWT Selenium scenarios and do not test the page through the browser UI.
+
+## Review matrix
+
+| ID | Original scenario | Revised scenario | Behavioral validity | Novelty vs 31 BEWT cases | Testability / data and cleanup | Evidence | Technical recommendation | Reason |
+|---|---|---|---|---|---|---|---|---|
+| EC-C01 | Remove an applied discount code during checkout | [Revised feature](revised/EC-C01-discount-removal.feature) | Source-backed behavior; dynamic E2E **NOT_RUN** | No equivalent removal behavior found; apply/use/delete cases exist | One cart item, active seeded discount, payment step (requires a cart, not a completed customer profile). Capture pre-discount total; empty the test cart afterward. | `routes/index.js:261,389-405`; `expressCart.js:210-222`; payment template `checkout-payment.hbs:43-50`; live seed has 2 active discounts. | **PROPOSE_ACCEPT** (technical proposal only) | The route deletes `req.session.discountCode` and recalculates totals. The original “Verify…” step was not an observable Then; revised assertions compare the captured undiscounted total, discount row, and input value. |
+| EC-C02 | Clear all items from active cart via empty-cart action | [Revised feature](revised/EC-C02-empty-cart.feature) | Source-backed behavior; dynamic E2E **NOT_RUN** | Baseline adds an item but does not empty the cart | Fresh browser session plus one published seed product. The behavior under test empties that session's cart; no business record cleanup is needed. | `expressCart.js:501-515,795-805`; `routes/index.js:690-692`; `lib/cart.js:75-102`; `checkout-cart.hbs:6-8`; live seed has 8 published products. | **PROPOSE_ACCEPT** (technical proposal only) | UI has a confirmation modal. The server clears cart-related session values and the saved cart; the rendered state says “Cart empty”, with zero items and hidden cart buttons. Revised Then steps state those observable results. |
+| EC-C03 | Toggle publication off and verify it disappears from storefront search | [Revised feature](revised/EC-C03-publication-state.feature) | **CONFLICT** for the original search-exclusion oracle; revised admin-state behavior is source-backed, E2E **NOT_RUN** | No publication toggle/state-persistence test found; baseline separately adds, searches, and deletes products | Use an initially published product; toggle off and assert persisted checkbox state after reload. Restore it to published in cleanup (or reseed the experiment DB). | `routes/product.js:401-409`; `views/products.hbs:29`; `admin.js:489-500`; search route `routes/index.js:938-957`; product index includes all products (`lib/indexing.js`). | **REVISE** | The search route filters only by indexed product IDs; `paginateProducts` adds no `productPublished` predicate, and the product index contains all products. The original claim that unpublishing removes search results is contradicted by the pinned implementation. The revised scenario tests the supported admin state transition without asserting that behavior. |
+| EC-C04 | Customer submits a password reset request and receives an unspecified outcome | [Revised feature](revised/EC-C04-forgotten-password.feature) | Source-backed behavior; dynamic E2E **NOT_RUN** | No forgotten-password case found; baseline login tests cover different flows | Submit a unique email absent from the two seeded customers. The absent-customer branch does not update customer data or send mail; no business-data cleanup is needed. | `routes/customer.js:505-537`; `views/forgotten.hbs:2-7`; `expressCart.js:131-151`; live form GET returned 200. | **PROPOSE_ACCEPT** (technical proposal only) | The route deliberately returns HTTP 200 with the same generic text used for existing accounts. The test must assert that exact generic success notification; it must not expect “account not found”. This tests the unknown-account flow without contacting an existing customer or sending email. |
+| EC-C05 | Admin creates a static page and views it at a permalink | [Revised feature](revised/EC-C05-static-page.feature) | Source-backed route/UI behavior; dynamic E2E **NOT_RUN** | No BEWT static-page test found; `AddMenuTest` is a different feature | Unique slug/name/content; page collection is empty. `pageContent` is a Summernote editor, so Selenium must target its editable body. Delete the created page in `finally` via page list/delete confirmation. | `routes/admin.js:290-407`; `admin.js:589-627`; `views/settings-page.hbs:4-25,35-39`; `views/settings-pages.hbs:4-28`; `routes/index.js:1124-1188`; `views/themes/Cloth/page.hbs:1-6`; AVA API case `test/specs/pages.js`. | **PROPOSE_ACCEPT** (technical proposal only) | Admin UI creates a page with `pageName`, `pageSlug`, `pageEnabled`, and `pageContent`; the storefront catch-all renders enabled slugs. The revised feature names the actual `pageSlug` field and asserts document title and visible body. Cleanup is explicit. |
+
+For EC-C05, the public catch-all route queries enabled pages with `pageEnabled: 'true'`. The admin UI submits its checked state through jQuery form encoding, which sends the string value used by that query. Keep the Selenium flow on the actual UI; a JSON API shortcut that submits boolean `true` would not exercise the same stored value/public route behavior. Because `pageContent` is enhanced by Summernote, Selenium must target the visible editable region rather than assuming the original textarea is interactable.
+
+**Status vocabulary:** `VERIFIED_IN_SOURCE` means the pinned source implements the stated route/control; it does not mean Selenium has executed it. `NOT_RUN` means no browser action/test was executed for that candidate. `CONFLICT` marks an expectation contradicted by source behavior. The technical recommendations above are not `humanAccepted` decisions.
+
+## Revised Gherkin and next gate
+
+All five originals remain unchanged in Sprint 01. The revised files above contain concrete Given/When/Then steps and observable Then assertions. Each feature is syntax-checked with the Cucumber parser; parser success does not prove a test has executable Selenium steps or passed an E2E run.
+
+The single Team Lead decision is recorded in [human-review-decisions.json](human-review-decisions.json). Candidate recommendations are EC-C01 **PROPOSE_ACCEPT**, EC-C02 **PROPOSE_ACCEPT**, EC-C03 **REVISE**, EC-C04 **PROPOSE_ACCEPT**, EC-C05 **PROPOSE_ACCEPT**. No Java generation or app-state test should start until the reviewer records which IDs are accepted, rejected, or need another revision.
