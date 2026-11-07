@@ -68,4 +68,4 @@ See `TEST-RESULTS.md` and `evidence/`. TypeScript build passed and 15/15 focused
 - Approve checkpoint backend, particularly durable production storage versus test-only `MemorySaver`.
 - Decide Java compatibility as recorded in `JAVA-COMPATIBILITY-DECISION.md`.
 - Review T01-B scope in `T01-B-IMPLEMENTATION-PLAN.md`. Do not start T01-B or T02 before this PR is reviewed.
-- Final PR head SHA: pending remote verification.
+- Remote verification snapshot: branch and PR head matched `b96e28abe7414da274a4150028d8e8eeb8439c99` before this final report metadata update; the final head after it is verified in the task handoff.
