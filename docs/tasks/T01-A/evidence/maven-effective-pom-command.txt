@@ -1,0 +1,5 @@
+Command: mvn -f experiments/expresscart/bewt-suite/pom.xml help:effective-pom -Doutput=<temporary-file> -q
+Maven: Apache Maven 3.9.16
+Java: 21.0.12
+POM: experiments/expresscart/bewt-suite/pom.xml
+Observation: effective plugin source/target is 1.8 in plugin configuration and default-compile/default-testCompile.

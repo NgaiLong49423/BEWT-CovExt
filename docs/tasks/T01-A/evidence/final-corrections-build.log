@@ -1,0 +1,11 @@
+Working directory: D:\Github-Projects\BEWT-CovExt\framework
+Command: npm run build
+Node: v24.19.0
+NPM: 11.17.0
+
+
+> build
+> tsc -p tsconfig.json
+
+
+Exit code: 0

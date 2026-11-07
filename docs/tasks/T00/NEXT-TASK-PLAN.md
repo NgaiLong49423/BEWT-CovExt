@@ -29,4 +29,4 @@ This plan preserves the proposal's full scope: eight BEWT applications, five new
 1. Approve T01 as the next task and review the proposed four-role contracts, checkpoint semantics, tool allowlist, and repair bound before implementation.
 2. Confirm how the ignored `bewt-original/` benchmark will be provisioned and version-locked for repeatable audits without adding it to the public outer repository.
 3. Decide whether the Java 21 property / compiler plugin `1.8` discrepancy should be corrected in T01 or handled as a separately scoped compatibility decision; require parity evidence.
-4. Confirm the human-review arrangement and whether a second reviewer is available where feasible, as described by the acceptance matrix.\n
+4. Confirm the human-review arrangement and whether a second reviewer is available where feasible, as described by the acceptance matrix.

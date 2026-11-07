@@ -1,0 +1,7 @@
+Command: npm run build (working directory: framework/)
+Node: v24.19.0
+Exit code: 0
+
+
+> build
+> tsc -p tsconfig.json

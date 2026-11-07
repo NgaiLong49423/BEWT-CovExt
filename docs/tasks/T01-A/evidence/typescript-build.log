@@ -1,0 +1,4 @@
+Command: node experiments/expresscart/agent/node_modules/typescript/bin/tsc -p framework/tsconfig.json
+Node: v24.19.0
+TypeScript: Version 7.0.2
+Exit code: 0
