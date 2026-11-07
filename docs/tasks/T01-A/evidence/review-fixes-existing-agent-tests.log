@@ -1,0 +1,21 @@
+Command: npm test (working directory: experiments/expresscart/agent/)
+Node: v24.19.0
+Exit code: 0
+
+
+> bewt-covext-expresscart-agent-mvp@0.1.0 test
+> tsx --test test/*.test.ts
+
+✔ candidate schema and Gherkin parser accept a valid scenario (12.2749ms)
+✔ candidate set rejects a non-five output (1.3864ms)
+✔ duplicate IDs are rejected (0.8519ms)
+✔ multi-line content is rejected to prevent feature-file injection (0.5537ms)
+✔ baseline collector redacts emails, quoted literals, and password phrases (0.4128ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 822.563

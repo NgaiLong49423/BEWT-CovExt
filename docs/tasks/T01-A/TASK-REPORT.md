@@ -3,10 +3,10 @@
 - Task scope / acceptance gate: implement app-neutral TypeScript contracts and tested pure policies; document architecture, checkpoint/tool security and T01-B handoff. No LangGraph runtime workflow. Proposed status: `READY_FOR_REVIEW`; Team Lead decision pending.
 - Base branch + base SHA: `main` / `a5d8c5f0a812c7be1e458da7a192a5de31821898` (T00 PR #1 merge commit).
 - Working branch: `feature/t01a-framework-contract`.
-- Implementation commit (full SHA): `6586476a8eb9d0b22cb942dccbed22b070a891b5`.
+- Initial implementation commit (full SHA): `6586476a8eb9d0b22cb942dccbed22b070a891b5`.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/2 (open, awaiting review).
-- Push status: branch push succeeded; remote verification pending.
-- Runtime/commit/version tested: Node `v24.19.0`, existing TypeScript/tsx toolchain, LangGraph `1.6.0` declaration inspection, Maven `3.9.16` / Java `21.0.12` effective-POM query. No app runtime, Gemini call, Docker, or Maven build run.
+- Push status: initial branch push succeeded; this report records the T01-A review-fix update for the same PR #2.
+- Runtime/commit/version tested: Node `v24.19.0`; framework-local TypeScript `7.0.2`, tsx `4.23.15`, @types/node `26.6.6`; LangGraph `1.6.0` declaration inspection; Maven `3.9.16` / Java `21.0.12` effective-POM query. No app runtime, Gemini call, Docker, or Maven build run.
 - Status proposed by Agent: `READY_FOR_REVIEW`; no G2 or D1 acceptance claimed.
 
 ## 1. What changed
@@ -14,10 +14,10 @@
 | File path (repo-relative) | Change | Why |
 |---|---|---|
 | `framework/package.json` | Added ESM package boundary without new runtime dependencies | Keep shared contracts outside the ExpressCart pilot. |
-| `framework/tsconfig.json` | Added strict no-emit type-check configuration | Type-check shared source/tests with the existing toolchain. |
+| `framework/tsconfig.json` | Added strict no-emit type-check configuration | Type-check shared source/tests against framework-local Node types. |
 | `framework/src/contracts.ts` | Added runtime contracts/parsers for app manifests, inventories, gaps, candidates, review decisions, workflow state, tool requests/results, evidence and validation | Preserve source pins, provenance and app-neutral boundaries. |
 | `framework/src/policy.ts` | Added transition, checkpoint reference, revision, review gate, repair limit and tool authorization policies | Make critical decisions executable and testable before runtime wiring. |
-| `framework/test/contracts.test.ts` | Added 15 Node unit tests | Cover schemas, adapter contract, gates, replay/session binding, allowlist/path/ownership, repair limits, evidence and sanitization. |
+| `framework/test/contracts.test.ts` | Initially added 15 tests; expanded to 18 after review | Cover contracts, approval history, artifact binding, validation provenance, repair limits and sanitization. |
 | `docs/tasks/T01-A/ARCHITECTURE-CONTRACT.md` | Documented roles and architecture boundary | Make the contract reviewable. |
 | `docs/tasks/T01-A/EXISTING-CODE-REUSE-MATRIX.md` | Classified current code using all five required categories | Map reuse/adaptation and missing capabilities to actual symbols/files. |
 | `docs/tasks/T01-A/STATE-AND-CHECKPOINT-DESIGN.md` | Documented transitions and LangGraph checkpoint design/limits | Distinguish design from tested crash recovery. |
@@ -36,7 +36,7 @@
 
 ## 2. Actual verification
 
-See `TEST-RESULTS.md` and `evidence/`. TypeScript build passed and 15/15 focused unit tests passed. Effective Maven POM reports compiler plugin source/target 1.8 for both main and test compilation. No Maven build was run; the POM was not changed.
+The initial T01-A baseline passed its TypeScript build and 15/15 focused tests. Current review-fix verification, including the complete 18-test framework suite and five existing ExpressCart Agent tests, is recorded in `TEST-RESULTS.md` and the new `evidence/review-fixes-*` files. The effective Maven POM reports compiler plugin source/target 1.8 for both main and test compilation. No Maven build was run; the POM was not changed.
 
 ## 3. Research impact
 
@@ -69,3 +69,18 @@ See `TEST-RESULTS.md` and `evidence/`. TypeScript build passed and 15/15 focused
 - Decide Java compatibility as recorded in `JAVA-COMPATIBILITY-DECISION.md`.
 - Review T01-B scope in `T01-B-IMPLEMENTATION-PLAN.md`. Do not start T01-B or T02 before this PR is reviewed.
 - Remote verification snapshot: branch and PR head matched `b96e28abe7414da274a4150028d8e8eeb8439c99` before this final report metadata update; the final head after it is verified in the task handoff.
+
+## 7. T01-A review fixes (REQUEST CHANGES)
+
+Review was against HEAD `7072ec772b7bec68cb4c92b0d50e6b712bf53b6b`. The fixes stay on `feature/t01a-framework-contract` and update PR #2; they do not start T01-B.
+
+| Root cause | Corrected behavior | Verification |
+|---|---|---|
+| `parseWorkflowState` rejected historical decisions for older revisions; `reviseCandidate` cleared decision history and retained the old checkpoint. | Preserve append-only decisions/applied IDs, accept only ledger entries for this run/app/candidate and revisions up to current; clear checkpoint during revision; require a fresh checkpoint and prevent an earlier revision's checkpoint from being reused; only current revision ACCEPT authorizes Java generation. | Tests execute two REVISE rounds then ACCEPT, assert all three decisions survive, reject stale revision/checkpoint/replay, and reject generation using an older revision. |
+| `parseValidationResult` trusted `noveltyAndOracleApproved`, flat PASS values and three PASS strings without provenance. | Replace with stage `ExecutionReference`s, revision-bound reviewer decision records, distinct run IDs, source pins, per-stage evidence paths, three distinct rerun records, and per-rerun fixture-reset and cleanup evidence. Derive `technicalEligibility` separately from `researchAcceptance`, including `UNVERIFIED`; remove caller-settable `researchStatus: VALIDATED`. | Tests reject missing, duplicate, stale, wrong-source/run, mismatched-decision and missing reset/cleanup evidence; accept only a structured research approval when technical/oracle/novelty criteria are eligible. |
+| Selenium tool request accepted a free-form class string not tied to generated output. | Validate fully qualified Java class syntax; require request class/path to match a host-registered generated artifact bound to the approved candidate ID/revision. Compile/Selenium project path must equal manifest `baseSuitePath`; no shell command or Maven selector is accepted. | Tests cover invalid class strings, unregistered classes/paths, mismatched artifact/project/revisions and request revision mismatch. |
+| Framework typecheck/tests reached into ExpressCart's `node_modules`. | Add framework-local scripts and pinned dev dependencies matching the existing agent versions, a lockfile, and framework-local type roots. | `npm ci`, `npm run build`, and `npm test` from `framework/`; all prior ExpressCart Agent unit tests also pass. |
+
+Additional review-fix files: `framework/package-lock.json`; evidence in `docs/tasks/T01-A/evidence/review-fixes-npm-ci.log`, `review-fixes-build.log`, `review-fixes-tests.log`, and `review-fixes-existing-agent-tests.log`. Original T01-A evidence files were not overwritten.
+
+Runtime limits remain: reviewer authentication, evidence file/content verification, class-to-source correspondence, filesystem realpath/symlink containment, actual dispatcher, LangGraph durable checkpoint/resume, Docker ownership and E2E were not executed. These are explicit T01-B acceptance blockers. No `bewt-original/`, pilot source, Sprint 01–05 evidence or Docker resources were changed; G2 and D1 remain unaccepted.

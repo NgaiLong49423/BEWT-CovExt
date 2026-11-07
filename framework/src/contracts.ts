@@ -12,7 +12,6 @@ export const WORKFLOW_STATUSES = [
   "VALIDATING", "REPAIRING", "EXECUTION_COMPLETED", "BLOCKED", "FAILED",
 ] as const;
 export type WorkflowStatus = (typeof WORKFLOW_STATUSES)[number];
-export type ResearchStatus = "NOT_EVALUATED" | "VALIDATED";
 export type Outcome = "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE";
 
 export interface EvidenceReference {
@@ -112,6 +111,14 @@ export interface WorkflowArtifact {
   path: string;
   candidateId?: string;
   revision?: number;
+  testClass?: string;
+}
+
+export interface GeneratedJavaArtifact extends WorkflowArtifact {
+  kind: "generated_java";
+  candidateId: string;
+  revision: number;
+  testClass: string;
 }
 
 export interface AgentWorkflowState {
@@ -142,7 +149,7 @@ export type ToolRequest =
   | { tool: "read-approved-manifest"; appId: AppId; sourceCommit: string; manifestPath: string }
   | { tool: "generate-source-artifact"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; outputPath: string }
   | { tool: "compile-maven-project"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; projectPath: string }
-  | { tool: "run-selenium-test"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; projectPath: string; testClass: string }
+  | { tool: "run-selenium-test"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; projectPath: string; generatedArtifactPath: string; testClass: string }
   | { tool: "prepare-fixture"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; experimentKey: string }
   | { tool: "collect-test-evidence"; appId: AppId; sourceCommit: string; runId: string; artifactPath: string }
   | { tool: "cleanup-experiment"; appId: AppId; sourceCommit: string; candidateId: string; revision: number; experimentKey: string };
@@ -162,10 +169,47 @@ export interface ApplicationAdapter {
   readBaseline(): Promise<BaselineInventory>;
   prepareFixture(candidate: CandidateScenario, experimentKey: string): Promise<ToolResult>;
   compile(candidate: CandidateScenario): Promise<ToolResult>;
-  runSelenium(candidate: CandidateScenario, testClass: string): Promise<ToolResult>;
+  runSelenium(candidate: CandidateScenario, generatedArtifact: GeneratedJavaArtifact): Promise<ToolResult>;
   collectEvidence(runId: string): Promise<EvidenceReference[]>;
   cleanup(candidate: CandidateScenario, experimentKey: string): Promise<ToolResult>;
 }
+
+export interface ExecutionReference {
+  runId: string;
+  outcome: Outcome;
+  sourceCommit: string;
+  sourceVersion: string;
+  evidence: EvidenceReference[];
+}
+
+export interface RepeatValidationRecord {
+  runId: string;
+  sourceCommit: string;
+  sourceVersion: string;
+  compile: ExecutionReference;
+  fixture: ExecutionReference;
+  e2e: ExecutionReference;
+  cleanup: ExecutionReference;
+}
+
+export interface RecordedDecision {
+  decisionId: string;
+  appId: AppId;
+  candidateId: string;
+  candidateRevision: number;
+  decision: "APPROVED" | "REJECTED" | "UNVERIFIED";
+  reviewerId: string;
+  decidedAt: string;
+  rationale: string;
+  evidence: EvidenceReference[];
+}
+
+export interface ResearchAcceptance {
+  status: "NOT_REVIEWED" | "ACCEPTED" | "REJECTED" | "UNVERIFIED";
+  decision?: RecordedDecision;
+}
+
+export type TechnicalEligibility = "ELIGIBLE" | "INELIGIBLE" | "UNVERIFIED";
 
 export interface ValidationResult {
   appId: AppId;
@@ -173,16 +217,17 @@ export interface ValidationResult {
   candidateRevision: number;
   sourceCommit: string;
   sourceVersion: string;
-  compile: Outcome;
-  fixture: Outcome;
-  e2e: Outcome;
-  oracle: Outcome;
-  cleanup: Outcome;
-  repeats: Outcome[];
+  compile: ExecutionReference;
+  fixture: ExecutionReference;
+  e2e: ExecutionReference;
+  cleanup: ExecutionReference;
+  oracleDecision: RecordedDecision;
+  noveltyDecision: RecordedDecision;
+  repeats: RepeatValidationRecord[];
   repairAttempts: number;
-  noveltyAndOracleApproved: boolean;
   evidence: EvidenceReference[];
-  researchStatus: ResearchStatus;
+  technicalEligibility: TechnicalEligibility;
+  researchAcceptance: ResearchAcceptance;
 }
 
 export class ContractError extends Error {
@@ -397,14 +442,20 @@ export function parseWorkflowState(input: unknown): AgentWorkflowState {
     ...(checkpoint ? { checkpoint } : {}),
     artifacts: list(value.artifacts, "artifacts", (item) => {
       const artifact = record(item, "artifact");
-      assertKeys(artifact, ["kind", "path", "candidateId", "revision"], "artifact");
+      assertKeys(artifact, ["kind", "path", "candidateId", "revision", "testClass"], "artifact");
       const revision = artifact.revision;
       if (revision !== undefined && (!Number.isInteger(revision) || (revision as number) < 1)) throw new ContractError("artifact revision must be a positive integer");
+      const kind = member(artifact.kind, ["baseline", "candidate", "generated_java", "validation", "log"] as const, "artifact.kind");
+      const candidateId = artifact.candidateId === undefined ? undefined : text(artifact.candidateId, "artifact.candidateId", 120);
+      const testClass = artifact.testClass === undefined ? undefined : javaClassName(artifact.testClass, "artifact.testClass");
+      if (kind === "generated_java" && (!candidateId || revision === undefined || !testClass)) throw new ContractError("generated Java artifact requires candidate ID, revision, and test class binding");
+      if (kind !== "generated_java" && testClass !== undefined) throw new ContractError("testClass is only valid for generated Java artifacts");
       return {
-        kind: member(artifact.kind, ["baseline", "candidate", "generated_java", "validation", "log"] as const, "artifact.kind"),
+        kind,
         path: assertSafeRelativePath(artifact.path),
-        ...(artifact.candidateId === undefined ? {} : { candidateId: text(artifact.candidateId, "artifact.candidateId", 120) }),
+        ...(candidateId === undefined ? {} : { candidateId }),
         ...(revision === undefined ? {} : { revision: revision as number }),
+        ...(testClass === undefined ? {} : { testClass }),
       };
     }, 0, 1_000),
     repairAttempts: value.repairAttempts as number,
@@ -417,12 +468,13 @@ export function parseWorkflowState(input: unknown): AgentWorkflowState {
   if (!Number.isInteger(state.repairAttempts) || state.repairAttempts < 0 || state.repairAttempts > 2) throw new ContractError("repairAttempts must be an integer from 0 to 2");
   if (new Set(state.appliedDecisionIds).size !== state.appliedDecisionIds.length) throw new ContractError("appliedDecisionIds must be unique");
   if (new Set(state.reviewDecisions.map((decision) => decision.decisionId)).size !== state.reviewDecisions.length) throw new ContractError("review decision IDs must be unique");
+  if (new Set(state.reviewDecisions.map((decision) => decision.candidateRevision)).size !== state.reviewDecisions.length) throw new ContractError("each candidate revision may have only one review decision");
   if (state.appliedDecisionIds.some((id) => !state.reviewDecisions.some((decision) => decision.decisionId === id))) throw new ContractError("applied decisions must exist in the review decision ledger");
   if (state.candidate && (state.candidate.appId !== state.appId || state.candidate.sourceCommit !== state.sourceCommit || state.candidate.sourceVersion !== state.sourceVersion)) {
     throw new ContractError("workflow candidate app/source pin does not match workflow state");
   }
-  if (state.reviewDecisions.some((decision) => decision.appId !== state.appId || decision.candidateId !== state.candidate?.candidateId || decision.candidateRevision !== state.candidate.revision)) {
-    throw new ContractError("workflow review decisions must refer to the active app, candidate, and revision");
+  if (state.reviewDecisions.some((decision) => decision.appId !== state.appId || decision.runId !== state.runId || decision.candidateId !== state.candidate?.candidateId || decision.candidateRevision > (state.candidate?.revision ?? 0))) {
+    throw new ContractError("workflow review history must refer to this run, app, candidate, and an existing revision");
   }
   if (state.status === "BLOCKED" && !state.checkpoint) throw new ContractError("BLOCKED workflow requires a resumable checkpoint reference");
   if (state.status === "BLOCKED" && !state.lastError) throw new ContractError("BLOCKED workflow requires a recorded error context");
@@ -430,12 +482,19 @@ export function parseWorkflowState(input: unknown): AgentWorkflowState {
   if (["AWAITING_HUMAN_REVIEW", "ACCEPTED_FOR_IMPLEMENTATION", "REVISION_REQUIRED", "REJECTED"].includes(state.status) && !state.candidate) {
     throw new ContractError(`${state.status} requires an active candidate`);
   }
+  if (state.status === "AWAITING_HUMAN_REVIEW" && state.checkpoint && state.reviewDecisions.some((decision) => decision.checkpointId === state.checkpoint?.checkpointId)) {
+    throw new ContractError("active human-review checkpoint must be unused by prior decisions");
+  }
   if (["ACCEPTED_FOR_IMPLEMENTATION", "JAVA_GENERATED", "VALIDATING", "REPAIRING", "EXECUTION_COMPLETED"].includes(state.status)) {
     const approved = state.candidate?.reviewStatus === "ACCEPTED_FOR_IMPLEMENTATION" && state.reviewDecisions.some((decision) => decision.decision === "ACCEPT" && decision.runId === state.runId && decision.candidateId === state.candidate?.candidateId && decision.candidateRevision === state.candidate.revision && state.appliedDecisionIds.includes(decision.decisionId));
     if (!approved) throw new ContractError(`${state.status} requires an applied human approval for the active candidate revision`);
   }
-  if (state.status === "REJECTED" && state.candidate?.reviewStatus !== "REJECTED") throw new ContractError("REJECTED workflow requires a rejected candidate decision");
-  if (state.status === "REVISION_REQUIRED" && state.candidate?.reviewStatus !== "REVISION_REQUIRED") throw new ContractError("REVISION_REQUIRED workflow requires a revision decision");
+  if (state.status === "REJECTED" && (state.candidate?.reviewStatus !== "REJECTED" || !state.reviewDecisions.some((decision) => decision.decision === "REJECT" && decision.candidateRevision === state.candidate?.revision && state.appliedDecisionIds.includes(decision.decisionId)))) {
+    throw new ContractError("REJECTED workflow requires an applied reject decision for the active revision");
+  }
+  if (state.status === "REVISION_REQUIRED" && (state.candidate?.reviewStatus !== "REVISION_REQUIRED" || !state.reviewDecisions.some((decision) => decision.decision === "REVISE" && decision.candidateRevision === state.candidate?.revision && state.appliedDecisionIds.includes(decision.decisionId)))) {
+    throw new ContractError("REVISION_REQUIRED workflow requires an applied revise decision for the active revision");
+  }
   return state;
 }
 
@@ -456,7 +515,7 @@ export function parseToolRequest(input: unknown): ToolRequest {
     "read-approved-manifest": ["tool", "appId", "sourceCommit", "manifestPath"],
     "generate-source-artifact": ["tool", "appId", "sourceCommit", "candidateId", "revision", "outputPath"],
     "compile-maven-project": ["tool", "appId", "sourceCommit", "candidateId", "revision", "projectPath"],
-    "run-selenium-test": ["tool", "appId", "sourceCommit", "candidateId", "revision", "projectPath", "testClass"],
+    "run-selenium-test": ["tool", "appId", "sourceCommit", "candidateId", "revision", "projectPath", "generatedArtifactPath", "testClass"],
     "prepare-fixture": ["tool", "appId", "sourceCommit", "candidateId", "revision", "experimentKey"],
     "collect-test-evidence": ["tool", "appId", "sourceCommit", "runId", "artifactPath"],
     "cleanup-experiment": ["tool", "appId", "sourceCommit", "candidateId", "revision", "experimentKey"],
@@ -473,7 +532,8 @@ export function parseToolRequest(input: unknown): ToolRequest {
     case "compile-maven-project": return { tool, appId, sourceCommit, ...candidate(), projectPath: assertSafeRelativePath(value.projectPath, "projectPath") };
     case "run-selenium-test": return {
       tool, appId, sourceCommit, ...candidate(), projectPath: assertSafeRelativePath(value.projectPath, "projectPath"),
-      testClass: text(value.testClass, "testClass", 200),
+      generatedArtifactPath: assertSafeRelativePath(value.generatedArtifactPath, "generatedArtifactPath"),
+      testClass: javaClassName(value.testClass, "testClass"),
     };
     case "prepare-fixture": return { tool, appId, sourceCommit, ...candidate(), experimentKey: text(value.experimentKey, "experimentKey", 100) };
     case "collect-test-evidence": return { tool, appId, sourceCommit, runId: text(value.runId, "runId", 120), artifactPath: assertSafeRelativePath(value.artifactPath, "artifactPath") };
@@ -497,28 +557,127 @@ export function parseToolResult(input: unknown): ToolResult {
 
 export function parseValidationResult(input: unknown): ValidationResult {
   const value = record(input, "ValidationResult");
-  assertKeys(value, ["appId", "candidateId", "candidateRevision", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "oracle", "cleanup", "repeats", "repairAttempts", "noveltyAndOracleApproved", "evidence", "researchStatus"], "ValidationResult");
-  const repeats = list(value.repeats, "repeats", (outcome) => member(outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "repeat outcome"), 0, 3);
+  assertKeys(value, ["appId", "candidateId", "candidateRevision", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup", "oracleDecision", "noveltyDecision", "repeats", "repairAttempts", "evidence", "technicalEligibility", "researchAcceptance"], "ValidationResult");
+  const declaredEligibility = value.technicalEligibility === undefined ? undefined : member(value.technicalEligibility, ["ELIGIBLE", "INELIGIBLE", "UNVERIFIED"] as const, "technicalEligibility");
+  const appId = member(value.appId, APP_IDS, "appId");
+  const candidateId = text(value.candidateId, "candidateId", 120);
+  const candidateRevision = positiveInteger(value.candidateRevision, "candidateRevision");
+  const sourceCommit = sha(value.sourceCommit, "sourceCommit");
+  const sourceVersion = text(value.sourceVersion, "sourceVersion", 120);
+  const compile = parseExecutionReference(value.compile, "compile");
+  const fixture = parseExecutionReference(value.fixture, "fixture");
+  const e2e = parseExecutionReference(value.e2e, "e2e");
+  const cleanup = parseExecutionReference(value.cleanup, "cleanup");
+  const oracleDecision = parseRecordedDecision(value.oracleDecision, "oracleDecision");
+  const noveltyDecision = parseRecordedDecision(value.noveltyDecision, "noveltyDecision");
+  for (const decision of [oracleDecision, noveltyDecision]) assertDecisionTarget(decision, appId, candidateId, candidateRevision, "validation decision");
+  const repeats = list(value.repeats, "repeats", (item, index) => {
+    const repeat = record(item, `repeats[${index}]`);
+    assertKeys(repeat, ["runId", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup"], `repeats[${index}]`);
+    return {
+      runId: text(repeat.runId, `repeats[${index}].runId`, 120),
+      sourceCommit: sha(repeat.sourceCommit, `repeats[${index}].sourceCommit`),
+      sourceVersion: text(repeat.sourceVersion, `repeats[${index}].sourceVersion`, 120),
+      compile: parseExecutionReference(repeat.compile, `repeats[${index}].compile`),
+      fixture: parseExecutionReference(repeat.fixture, `repeats[${index}].fixture`),
+      e2e: parseExecutionReference(repeat.e2e, `repeats[${index}].e2e`),
+      cleanup: parseExecutionReference(repeat.cleanup, `repeats[${index}].cleanup`),
+    };
+  }, 3, 3);
   const attempts = value.repairAttempts;
   if (!Number.isInteger(attempts) || (attempts as number) < 0 || (attempts as number) > 2) throw new ContractError("repairAttempts must be an integer from 0 to 2");
-  if (typeof value.noveltyAndOracleApproved !== "boolean") throw new ContractError("noveltyAndOracleApproved must be boolean");
-  const evidence = list(value.evidence, "evidence", parseEvidenceReference, 0, 1_000);
-  const result: ValidationResult = {
-    appId: member(value.appId, APP_IDS, "appId"), candidateId: text(value.candidateId, "candidateId", 120),
-    candidateRevision: positiveInteger(value.candidateRevision, "candidateRevision"), sourceCommit: sha(value.sourceCommit, "sourceCommit"),
-    sourceVersion: text(value.sourceVersion, "sourceVersion", 120),
-    compile: member(value.compile, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "compile"),
-    fixture: member(value.fixture, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "fixture"),
-    e2e: member(value.e2e, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "e2e"),
-    oracle: member(value.oracle, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "oracle"),
-    cleanup: member(value.cleanup, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "cleanup"),
-    repeats, repairAttempts: attempts as number, noveltyAndOracleApproved: value.noveltyAndOracleApproved,
-    evidence, researchStatus: member(value.researchStatus, ["NOT_EVALUATED", "VALIDATED"] as const, "researchStatus"),
+  const evidence = list(value.evidence, "evidence", parseEvidenceReference, 1, 1_000);
+  const acceptanceInput = record(value.researchAcceptance, "researchAcceptance");
+  assertKeys(acceptanceInput, ["status", "decision"], "researchAcceptance");
+  const acceptanceStatus = member(acceptanceInput.status, ["NOT_REVIEWED", "ACCEPTED", "REJECTED", "UNVERIFIED"] as const, "researchAcceptance.status");
+  const acceptance: ResearchAcceptance = {
+    status: acceptanceStatus,
+    ...(acceptanceInput.decision === undefined ? {} : { decision: parseRecordedDecision(acceptanceInput.decision, "researchAcceptance.decision") }),
   };
-  const canValidate = result.noveltyAndOracleApproved && result.compile === "PASS" && result.fixture === "PASS" && result.e2e === "PASS" && result.oracle === "PASS" && result.cleanup === "PASS" && result.repeats.length === 3 && result.repeats.every((outcome) => outcome === "PASS") && result.evidence.length > 0 && result.evidence.every((ref) => ref.repositoryCommit === result.sourceCommit && ref.sourceVersion === result.sourceVersion);
-  if (result.researchStatus === "VALIDATED" && !canValidate) throw new ContractError("VALIDATED requires approved novelty/oracle, passing compile/fixture/E2E/oracle/cleanup, 3/3 repeats, and pinned evidence");
-  if (canValidate && result.researchStatus !== "VALIDATED") throw new ContractError("Complete validation evidence must be classified VALIDATED");
+  if (acceptance.decision) assertDecisionTarget(acceptance.decision, appId, candidateId, candidateRevision, "research acceptance decision");
+  const resultBase = { appId, candidateId, candidateRevision, sourceCommit, sourceVersion, compile, fixture, e2e, cleanup, oracleDecision, noveltyDecision, repeats, repairAttempts: attempts as number, evidence, researchAcceptance: acceptance };
+  assertExecutionPin(compile, sourceCommit, sourceVersion, "compile");
+  assertExecutionPin(fixture, sourceCommit, sourceVersion, "fixture");
+  assertExecutionPin(e2e, sourceCommit, sourceVersion, "e2e");
+  assertExecutionPin(cleanup, sourceCommit, sourceVersion, "cleanup");
+  const runIds = [compile.runId, fixture.runId, e2e.runId, cleanup.runId, ...repeats.map((repeat) => repeat.runId)];
+  if (new Set(runIds).size !== runIds.length) throw new ContractError("validation and rerun run IDs must be distinct");
+  for (const [index, repeat] of repeats.entries()) {
+    if (repeat.sourceCommit !== sourceCommit || repeat.sourceVersion !== sourceVersion) throw new ContractError(`repeats[${index}] source pin does not match validation result`);
+    for (const stage of ["compile", "fixture", "e2e", "cleanup"] as const) {
+      const reference = repeat[stage];
+      assertExecutionPin(reference, sourceCommit, sourceVersion, `repeats[${index}].${stage}`);
+      if (reference.runId !== repeat.runId) throw new ContractError(`repeats[${index}].${stage} run ID does not match its rerun record`);
+    }
+    if (repeat.cleanup.evidence.length === 0) throw new ContractError(`repeats[${index}] requires reset/cleanup evidence`);
+  }
+  const allReferences = [compile, fixture, e2e, cleanup, ...repeats.flatMap((repeat) => [repeat.compile, repeat.fixture, repeat.e2e, repeat.cleanup])];
+  const decisionIds = [oracleDecision.decisionId, noveltyDecision.decisionId, ...(acceptance.decision ? [acceptance.decision.decisionId] : [])];
+  if (new Set(decisionIds).size !== decisionIds.length) throw new ContractError("validation decision IDs must be distinct");
+  const allEvidence = [...evidence, ...allReferences.flatMap((reference) => reference.evidence), ...oracleDecision.evidence, ...noveltyDecision.evidence, ...(acceptance.decision?.evidence ?? [])];
+  const evidenceKeys = allEvidence.map((item) => `${item.runId}:${item.artifactPath}`);
+  if (new Set(evidenceKeys).size !== evidenceKeys.length) throw new ContractError("validation evidence references must not be duplicated");
+  for (const reference of allEvidence) {
+    if (reference.repositoryCommit !== sourceCommit || reference.sourceVersion !== sourceVersion) throw new ContractError("validation evidence source pin does not match result");
+  }
+  const executionOutcomes = allReferences.map((reference) => reference.outcome);
+  const technicalEligibility: TechnicalEligibility = executionOutcomes.some((outcome) => outcome === "FAIL")
+    ? "INELIGIBLE"
+    : executionOutcomes.every((outcome) => outcome === "PASS") && repeats.length === 3
+      ? "ELIGIBLE"
+      : "UNVERIFIED";
+  if (declaredEligibility !== undefined && declaredEligibility !== technicalEligibility) throw new ContractError("declared technicalEligibility does not match the execution records");
+  if (acceptance.status === "ACCEPTED") {
+    if (!acceptance.decision || acceptance.decision.decision !== "APPROVED" || acceptance.decision.evidence.length === 0) throw new ContractError("ACCEPTED research status requires a recorded approval decision and evidence");
+    if (technicalEligibility !== "ELIGIBLE" || oracleDecision.decision !== "APPROVED" || noveltyDecision.decision !== "APPROVED") throw new ContractError("research acceptance requires technical eligibility and approved oracle/novelty decisions");
+  } else if (acceptance.status === "REJECTED") {
+    if (acceptance.decision?.decision !== "REJECTED") throw new ContractError("REJECTED research status requires a recorded rejection decision");
+  } else if (acceptance.decision?.decision === "APPROVED" || acceptance.decision?.decision === "REJECTED") {
+    throw new ContractError("acceptance decision and researchAcceptance status must agree");
+  }
+  const result: ValidationResult = { ...resultBase, technicalEligibility };
   return result;
+}
+
+function parseExecutionReference(input: unknown, label: string): ExecutionReference {
+  const value = record(input, label);
+  assertKeys(value, ["runId", "outcome", "sourceCommit", "sourceVersion", "evidence"], label);
+  return {
+    runId: text(value.runId, `${label}.runId`, 120),
+    outcome: member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, `${label}.outcome`),
+    sourceCommit: sha(value.sourceCommit, `${label}.sourceCommit`),
+    sourceVersion: text(value.sourceVersion, `${label}.sourceVersion`, 120),
+    evidence: list(value.evidence, `${label}.evidence`, parseEvidenceReference, 1, 1_000),
+  };
+}
+
+function parseRecordedDecision(input: unknown, label: string): RecordedDecision {
+  const value = record(input, label);
+  assertKeys(value, ["decisionId", "appId", "candidateId", "candidateRevision", "decision", "reviewerId", "decidedAt", "rationale", "evidence"], label);
+  return {
+    decisionId: text(value.decisionId, `${label}.decisionId`, 120),
+    appId: member(value.appId, APP_IDS, `${label}.appId`),
+    candidateId: text(value.candidateId, `${label}.candidateId`, 120),
+    candidateRevision: positiveInteger(value.candidateRevision, `${label}.candidateRevision`),
+    decision: member(value.decision, ["APPROVED", "REJECTED", "UNVERIFIED"] as const, `${label}.decision`),
+    reviewerId: text(value.reviewerId, `${label}.reviewerId`, 120),
+    decidedAt: isoDate(value.decidedAt, `${label}.decidedAt`),
+    rationale: text(value.rationale, `${label}.rationale`, 2_000),
+    evidence: list(value.evidence, `${label}.evidence`, parseEvidenceReference, value.decision === "UNVERIFIED" ? 0 : 1, 1_000),
+  };
+}
+
+function assertDecisionTarget(decision: RecordedDecision, appId: AppId, candidateId: string, revision: number, label: string): void {
+  if (decision.appId !== appId || decision.candidateId !== candidateId || decision.candidateRevision !== revision) {
+    throw new ContractError(`${label} must reference the validation app, candidate, and revision`);
+  }
+}
+
+function assertExecutionPin(reference: ExecutionReference, sourceCommit: string, sourceVersion: string, label: string): void {
+  if (reference.sourceCommit !== sourceCommit || reference.sourceVersion !== sourceVersion) throw new ContractError(`${label} source pin does not match validation result`);
+  if (reference.evidence.some((item) => item.runId !== reference.runId || item.repositoryCommit !== sourceCommit || item.sourceVersion !== sourceVersion)) {
+    throw new ContractError(`${label} evidence does not match its run and source pin`);
+  }
 }
 
 function positiveInteger(value: unknown, label: string): number {
@@ -529,4 +688,12 @@ function positiveInteger(value: unknown, label: string): number {
 function outputText(value: unknown, label: string): string {
   if (typeof value !== "string" || value.length > 100_000) throw new ContractError(`${label} must be a string no longer than 100000 characters`);
   return value;
+}
+
+function javaClassName(value: unknown, label: string): string {
+  const parsed = text(value, label, 200);
+  if (!/^[A-Za-z_$][A-Za-z0-9_$]*(?:\.[A-Za-z_$][A-Za-z0-9_$]*)+$/.test(parsed)) {
+    throw new ContractError(`${label} must be a fully qualified Java class name`);
+  }
+  return parsed;
 }

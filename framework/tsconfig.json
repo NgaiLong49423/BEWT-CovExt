@@ -9,7 +9,7 @@
     "noEmit": true,
     "skipLibCheck": true,
     "types": ["node"],
-    "typeRoots": ["../experiments/expresscart/agent/node_modules/@types"]
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/**/*.ts", "test/**/*.ts"]
 }

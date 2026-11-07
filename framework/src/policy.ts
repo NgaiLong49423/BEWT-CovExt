@@ -33,13 +33,14 @@ const transitions: Record<WorkflowStatus, readonly WorkflowStatus[]> = {
   FAILED: [],
 };
 
-function transitionWorkflowInternal(stateInput: AgentWorkflowState, next: WorkflowStatus, allowRepairStart: boolean, allowReviewDecision: boolean): AgentWorkflowState {
+function transitionWorkflowInternal(stateInput: AgentWorkflowState, next: WorkflowStatus, allowRepairStart: boolean, allowReviewDecision: boolean, allowCandidateRevision: boolean): AgentWorkflowState {
   const state = parseWorkflowState(stateInput);
   if (!(WORKFLOW_STATUSES as readonly string[]).includes(next)) throw new ContractError("unsupported workflow status; research statuses are not workflow statuses");
   if (next === "BLOCKED") throw new ContractError("use blockWorkflow to attach a resumable checkpoint and failure context");
   if (next === "FAILED") throw new ContractError("use failWorkflow to preserve failure context");
   if (state.status === "VALIDATING" && next === "REPAIRING" && !allowRepairStart) throw new ContractError("use startRepair to enforce the two-repair limit");
   if (state.status === "AWAITING_HUMAN_REVIEW" && ["ACCEPTED_FOR_IMPLEMENTATION", "REVISION_REQUIRED", "REJECTED"].includes(next) && !allowReviewDecision) throw new ContractError("review decisions must be submitted through submitReviewDecision");
+  if (state.status === "REVISION_REQUIRED" && next === "CANDIDATES_GENERATED" && !allowCandidateRevision) throw new ContractError("revised candidate must be submitted through reviseCandidate");
   if (state.status === "BLOCKED") {
     if (!state.checkpoint || state.checkpoint.resumeStatus !== next) throw new ContractError("blocked workflow can resume only at its recorded checkpoint status");
   } else if (!transitions[state.status].includes(next)) {
@@ -50,14 +51,14 @@ function transitionWorkflowInternal(stateInput: AgentWorkflowState, next: Workfl
 }
 
 export function transitionWorkflow(stateInput: AgentWorkflowState, next: WorkflowStatus): AgentWorkflowState {
-  return transitionWorkflowInternal(stateInput, next, false, false);
+  return transitionWorkflowInternal(stateInput, next, false, false, false);
 }
 
 export function startRepair(stateInput: AgentWorkflowState): AgentWorkflowState {
   const state = parseWorkflowState(stateInput);
   if (state.status !== "VALIDATING") throw new ContractError("repair may start only from VALIDATING");
   if (state.repairAttempts >= 2) throw new ContractError("maximum of two repair attempts has been reached");
-  const repairing = transitionWorkflowInternal(state, "REPAIRING", true, false);
+  const repairing = transitionWorkflowInternal(state, "REPAIRING", true, false, false);
   return parseWorkflowState({ ...repairing, repairAttempts: state.repairAttempts + 1 });
 }
 
@@ -87,20 +88,24 @@ export function reviseCandidate(stateInput: AgentWorkflowState, candidateInput: 
   if (state.status !== "REVISION_REQUIRED" || !state.candidate) throw new ContractError("candidate can only be revised after a reviewer requested revision");
   if (candidate.appId !== state.appId || candidate.sourceCommit !== state.sourceCommit || candidate.sourceVersion !== state.sourceVersion) throw new ContractError("revised candidate source/app pin does not match workflow");
   if (candidate.candidateId !== state.candidate.candidateId || candidate.revision !== state.candidate.revision + 1 || candidate.reviewStatus !== "PROPOSED") throw new ContractError("revised candidate must preserve ID and increment revision exactly once");
-  const regenerated = transitionWorkflow(state, "CANDIDATES_GENERATED");
-  return parseWorkflowState({ ...regenerated, candidate, reviewDecisions: [], appliedDecisionIds: [] });
+  const regenerated = transitionWorkflowInternal(state, "CANDIDATES_GENERATED", false, false, true);
+  return parseWorkflowState({ ...regenerated, candidate, checkpoint: undefined });
 }
 
 export function pauseAtHumanReview(stateInput: AgentWorkflowState, checkpoint: { threadId: string; checkpointId: string; pausedAt: string }): AgentWorkflowState {
   const state = parseWorkflowState(stateInput);
   if (state.status !== "AWAITING_HUMAN_REVIEW") throw new ContractError("human checkpoint can only be recorded while awaiting review");
   if (state.checkpoint) throw new ContractError("workflow is already paused at a checkpoint");
+  if (state.reviewDecisions.some((decision) => decision.checkpointId === checkpoint.checkpointId)) throw new ContractError("checkpoint ID must be new for each candidate revision review");
   return parseWorkflowState({ ...state, checkpoint: { ...checkpoint, resumeStatus: "AWAITING_HUMAN_REVIEW" } });
 }
 
 export function submitReviewDecision(stateInput: AgentWorkflowState, decisionInput: HumanReviewDecision): AgentWorkflowState {
   const state = parseWorkflowState(stateInput);
   const decision = parseHumanReviewDecision(decisionInput);
+  if (state.appliedDecisionIds.includes(decision.decisionId) || state.reviewDecisions.some((item) => item.decisionId === decision.decisionId)) {
+    throw new ContractError("review decision has already been applied");
+  }
   const candidate = state.candidate;
   if (state.status !== "AWAITING_HUMAN_REVIEW" || !state.checkpoint) throw new ContractError("review submission requires a paused human-review checkpoint");
   if (!candidate) throw new ContractError("review submission requires an active candidate");
@@ -110,16 +115,14 @@ export function submitReviewDecision(stateInput: AgentWorkflowState, decisionInp
   if (decision.appId !== state.appId || decision.candidateId !== candidate.candidateId || decision.candidateRevision !== candidate.revision) {
     throw new ContractError("review decision does not match this app, candidate, and revision");
   }
-  if (state.appliedDecisionIds.includes(decision.decisionId) || state.reviewDecisions.some((item) => item.decisionId === decision.decisionId)) {
-    throw new ContractError("review decision has already been applied");
-  }
   const reviewStatus = decision.decision === "ACCEPT" ? "ACCEPTED_FOR_IMPLEMENTATION" : decision.decision === "REVISE" ? "REVISION_REQUIRED" : "REJECTED";
+  const { checkpoint: _consumedCheckpoint, ...stateWithoutCheckpoint } = state;
   return transitionWorkflowInternal({
-    ...state,
+    ...stateWithoutCheckpoint,
     candidate: { ...candidate, reviewStatus },
     reviewDecisions: [...state.reviewDecisions, decision],
     appliedDecisionIds: [...state.appliedDecisionIds, decision.decisionId],
-  }, reviewStatus, false, true);
+  }, reviewStatus, false, true, false);
 }
 
 export function assertCanGenerateJava(stateInput: AgentWorkflowState, candidateInput: CandidateScenario): void {
@@ -163,6 +166,9 @@ export function authorizeToolRequest(requestInput: ToolRequest, contextInput: To
   if (manifest.appId !== state.appId || request.appId !== manifest.appId) throw new ContractError("tool app ID does not match approved manifest and workflow");
   if (manifest.source.commit !== request.sourceCommit || state.sourceCommit !== request.sourceCommit) throw new ContractError("tool source commit does not match manifest/workflow pin");
   if (!manifest.allowedTools.includes(request.tool)) throw new ContractError(`tool ${request.tool} is not allowlisted for this app`);
+  if ((request.tool === "compile-maven-project" || request.tool === "run-selenium-test") && request.projectPath !== manifest.baseSuitePath) {
+    throw new ContractError(`${request.tool} project path must match the approved manifest Base suite`);
+  }
   const paths = requestPaths(request);
   for (const path of paths) {
     if (!allowedRoots.some((root) => path === root || path.startsWith(`${root}/`))) throw new ContractError(`tool path is outside approved roots: ${path}`);
@@ -176,6 +182,14 @@ export function authorizeToolRequest(requestInput: ToolRequest, contextInput: To
     }
     if (request.tool === "validate-gherkin" && !["CANDIDATES_GENERATED", "AWAITING_HUMAN_REVIEW"].includes(state.status)) throw new ContractError("Gherkin validation requires generated candidates");
     if (request.tool === "generate-source-artifact") assertCanGenerateJava(state, candidate);
+    if (request.tool === "run-selenium-test") {
+      const generatedArtifact = state.artifacts.find((artifact) => artifact.kind === "generated_java"
+        && artifact.path === request.generatedArtifactPath
+        && artifact.candidateId === candidate.candidateId
+        && artifact.revision === candidate.revision
+        && artifact.testClass === request.testClass);
+      if (!generatedArtifact) throw new ContractError("Selenium test class and artifact must be registered for the approved candidate revision");
+    }
     if (["compile-maven-project", "run-selenium-test", "prepare-fixture", "cleanup-experiment"].includes(request.tool)) {
       assertHumanApprovedCandidate(state, candidate);
       const allowedStatuses: Record<"compile-maven-project" | "run-selenium-test" | "prepare-fixture" | "cleanup-experiment", WorkflowStatus[]> = {
@@ -196,6 +210,7 @@ function requestPaths(request: ToolRequest): string[] {
   if ("inventoryPath" in request) return [request.inventoryPath];
   if ("manifestPath" in request) return [request.manifestPath];
   if ("artifactPath" in request) return [request.artifactPath];
+  if ("generatedArtifactPath" in request) return [request.projectPath, request.generatedArtifactPath];
   if ("outputPath" in request) return [request.outputPath];
   if ("projectPath" in request) return [request.projectPath];
   return [];

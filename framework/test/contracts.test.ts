@@ -58,11 +58,46 @@ function atReview(candidateOverride = candidate): AgentWorkflowState {
   return pauseAtHumanReview(review, { threadId: "thread-001", checkpointId: "checkpoint-001", pausedAt: "2026-11-07T12:00:00Z" });
 }
 
-function review(decision: HumanReviewDecision["decision"], id = `decision-${decision.toLowerCase()}`, target = candidate): HumanReviewDecision {
+function review(decision: HumanReviewDecision["decision"], id = `decision-${decision.toLowerCase()}`, target = candidate, threadId = "thread-001", checkpointId = "checkpoint-001"): HumanReviewDecision {
   return {
-    decisionId: id, runId: "run-001", threadId: "thread-001", checkpointId: "checkpoint-001",
+    decisionId: id, runId: "run-001", threadId, checkpointId,
     candidateId: target.candidateId, candidateRevision: target.revision, appId: target.appId,
     reviewerId: "reviewer-01", decision, decidedAt: "2026-11-07T12:01:00Z", rationale: `Reviewed candidate revision ${target.revision}.`,
+  };
+}
+
+function execution(runId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS", artifactName = "result.json") {
+  return {
+    runId, outcome, sourceCommit: sha, sourceVersion: "1.1.19",
+    evidence: [{ ...evidence, runId, artifactPath: `docs/evidence/${runId}/${artifactName}` }],
+  };
+}
+
+function repeat(runId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS") {
+  return {
+    runId, sourceCommit: sha, sourceVersion: "1.1.19",
+    compile: execution(runId, outcome, "compile.xml"), fixture: execution(runId, outcome, "fixture.json"),
+    e2e: execution(runId, outcome, "e2e.json"), cleanup: execution(runId, outcome, "cleanup.json"),
+  };
+}
+
+function recordedDecision(decision: "APPROVED" | "REJECTED" | "UNVERIFIED", decisionId: string, withEvidence = decision !== "UNVERIFIED") {
+  return {
+    decisionId, appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1,
+    decision, reviewerId: "reviewer-01", decidedAt: "2026-11-07T12:10:00Z", rationale: `${decision} with recorded evidence.`,
+    evidence: withEvidence ? [{ ...evidence, runId: `review-${decisionId}`, artifactPath: `docs/evidence/reviews/${decisionId}.json` }] : [],
+  };
+}
+
+function validationResult(overrides: Record<string, unknown> = {}) {
+  return {
+    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, sourceCommit: sha, sourceVersion: "1.1.19",
+    compile: execution("run-compile"), fixture: execution("run-fixture"), e2e: execution("run-e2e"), cleanup: execution("run-cleanup"),
+    oracleDecision: recordedDecision("APPROVED", "oracle-approved"), noveltyDecision: recordedDecision("APPROVED", "novelty-approved"),
+    repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-3")], repairAttempts: 1,
+    evidence: [{ ...evidence, runId: "run-validation", artifactPath: "docs/evidence/run-validation/index.json" }],
+    researchAcceptance: { status: "NOT_REVIEWED" },
+    ...overrides,
   };
 }
 
@@ -148,15 +183,51 @@ test("human approval is bound to app/candidate/revision and required before Java
   assert.throws(() => submitReviewDecision(paused, { ...review("ACCEPT", "wrong-run"), runId: "run-other" }), /run\/thread\/checkpoint/);
   assert.throws(() => submitReviewDecision(paused, { ...review("ACCEPT", "wrong-thread"), threadId: "thread-other" }), /run\/thread\/checkpoint/);
   assert.throws(() => submitReviewDecision(paused, { ...review("ACCEPT", "wrong-checkpoint"), checkpointId: "checkpoint-other" }), /run\/thread\/checkpoint/);
-  assert.throws(() => submitReviewDecision(approved, review("ACCEPT")), /paused human-review checkpoint/);
+  assert.throws(() => submitReviewDecision(approved, review("ACCEPT")), /already been applied/);
 });
 
-test("revision and rejection decisions cannot pass the Java generation gate", () => {
-  const revised = submitReviewDecision(atReview(), review("REVISE"));
-  assert.equal(revised.status, "REVISION_REQUIRED");
-  const nextCandidate = { ...candidate, revision: 2, reviewStatus: "PROPOSED" as const, gherkin: `${candidate.gherkin}\n    And a second check is visible` };
-  assert.equal(reviseCandidate(revised, nextCandidate).status, "CANDIDATES_GENERATED");
-  assert.throws(() => reviseCandidate(revised, { ...nextCandidate, revision: 3 }), /increment revision exactly once/);
+test("revision review accepts only the fresh checkpoint decision and current approved revision", () => {
+  const firstReview = atReview();
+  const reviseFirst = submitReviewDecision(firstReview, review("REVISE", "revise-1"));
+  assert.throws(() => transitionWorkflow(reviseFirst, "CANDIDATES_GENERATED"), /must be submitted through reviseCandidate/);
+  const secondCandidate = { ...candidate, revision: 2, reviewStatus: "PROPOSED" as const, gherkin: `${candidate.gherkin}\n    And a second check is visible` };
+  const secondGenerated = reviseCandidate(reviseFirst, secondCandidate);
+  const secondAwaiting = transitionWorkflow(secondGenerated, "AWAITING_HUMAN_REVIEW");
+  assert.deepEqual(secondGenerated.reviewDecisions.map((item) => item.decisionId), ["revise-1"]);
+  assert.deepEqual(secondGenerated.appliedDecisionIds, ["revise-1"]);
+  assert.throws(() => parseWorkflowState({ ...secondAwaiting, checkpoint: firstReview.checkpoint }), /must be unused by prior decisions/);
+  assert.throws(() => pauseAtHumanReview(secondAwaiting, { threadId: "thread-001", checkpointId: "checkpoint-001", pausedAt: "2026-11-07T12:02:00Z" }), /must be new/);
+  const secondPaused = pauseAtHumanReview(secondAwaiting, { threadId: "thread-001", checkpointId: "checkpoint-002", pausedAt: "2026-11-07T12:02:00Z" });
+  assert.throws(() => submitReviewDecision(secondPaused, review("ACCEPT", "stale-accept", candidate, "thread-001", "checkpoint-002")), /does not match this app, candidate, and revision/);
+  assert.throws(() => submitReviewDecision(secondPaused, review("ACCEPT", "stale-checkpoint", secondCandidate)), /run\/thread\/checkpoint/);
+  const acceptedSecond = submitReviewDecision(secondPaused, review("ACCEPT", "accept-2", secondCandidate, "thread-001", "checkpoint-002"));
+  assert.deepEqual(acceptedSecond.reviewDecisions.map((item) => item.decisionId), ["revise-1", "accept-2"]);
+  assert.deepEqual(acceptedSecond.appliedDecisionIds, ["revise-1", "accept-2"]);
+  assert.throws(() => parseWorkflowState({ ...acceptedSecond, reviewDecisions: [...acceptedSecond.reviewDecisions, review("REVISE", "duplicate-revision", secondCandidate, "thread-001", "checkpoint-002")] }), /only one review decision/);
+  const acceptedCandidate = { ...secondCandidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" as const };
+  assert.doesNotThrow(() => assertCanGenerateJava(acceptedSecond, acceptedCandidate));
+  assert.throws(() => assertCanGenerateJava(acceptedSecond, { ...candidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" }), /exact human-approved candidate revision/);
+  const { checkpoint: _secondCheckpoint, ...secondPausedWithoutCheckpoint } = secondPaused;
+  const replayState = { ...secondPausedWithoutCheckpoint, candidate: acceptedSecond.candidate!, reviewDecisions: acceptedSecond.reviewDecisions, appliedDecisionIds: acceptedSecond.appliedDecisionIds };
+  assert.throws(() => submitReviewDecision(replayState, review("ACCEPT", "accept-2", secondCandidate, "thread-001", "checkpoint-002")), /already been applied/);
+});
+
+test("multiple revise decisions remain append-only across revisions before final acceptance", () => {
+  const rev1State = atReview();
+  const rev1Decision = review("REVISE", "revise-r1");
+  const rev2State = reviseCandidate(submitReviewDecision(rev1State, rev1Decision), { ...candidate, revision: 2, reviewStatus: "PROPOSED" });
+  const rev2Awaiting = transitionWorkflow(rev2State, "AWAITING_HUMAN_REVIEW");
+  const rev2Paused = pauseAtHumanReview(rev2Awaiting, { threadId: "thread-001", checkpointId: "checkpoint-002", pausedAt: "2026-11-07T12:02:00Z" });
+  const rev2Decision = review("REVISE", "revise-r2", { ...candidate, revision: 2 }, "thread-001", "checkpoint-002");
+  const rev3State = reviseCandidate(submitReviewDecision(rev2Paused, rev2Decision), { ...candidate, revision: 3, reviewStatus: "PROPOSED" });
+  assert.deepEqual(rev3State.reviewDecisions.map((item) => item.candidateRevision), [1, 2]);
+  assert.deepEqual(rev3State.appliedDecisionIds, ["revise-r1", "revise-r2"]);
+  assert.equal(rev3State.checkpoint, undefined);
+  const rev3Paused = pauseAtHumanReview(transitionWorkflow(rev3State, "AWAITING_HUMAN_REVIEW"), { threadId: "thread-001", checkpointId: "checkpoint-003", pausedAt: "2026-11-07T12:03:00Z" });
+  const accepted = submitReviewDecision(rev3Paused, review("ACCEPT", "accept-r3", { ...candidate, revision: 3 }, "thread-001", "checkpoint-003"));
+  assert.deepEqual(accepted.reviewDecisions.map((item) => `${item.decision}:${item.candidateRevision}`), ["REVISE:1", "REVISE:2", "ACCEPT:3"]);
+  assert.equal(accepted.appliedDecisionIds.length, 3);
+  assert.doesNotThrow(() => assertCanGenerateJava(accepted, { ...candidate, revision: 3, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" }));
   const rejected = submitReviewDecision(atReview(), review("REJECT"));
   assert.equal(rejected.status, "REJECTED");
   assert.throws(() => assertCanGenerateJava(rejected, { ...candidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" }), /Java generation requires/);
@@ -164,11 +235,12 @@ test("revision and rejection decisions cannot pass the Java generation gate", ()
 
 test("decision IDs are single-use and checkpoint resume is bound to its thread/checkpoint/status", () => {
   const accepted = submitReviewDecision(atReview(), review("ACCEPT"));
-  assert.throws(() => submitReviewDecision(accepted, review("ACCEPT")), /paused human-review checkpoint/);
+  assert.throws(() => submitReviewDecision(accepted, review("ACCEPT")), /already been applied/);
   const replayBase = atReview();
   const replayDecision = review("ACCEPT", "single-use");
   const applied = submitReviewDecision(replayBase, replayDecision);
-  assert.throws(() => submitReviewDecision({ ...replayBase, reviewDecisions: applied.reviewDecisions, appliedDecisionIds: applied.appliedDecisionIds }, replayDecision), /already been applied/);
+  const { checkpoint: _replayCheckpoint, ...replayBaseWithoutCheckpoint } = replayBase;
+  assert.throws(() => submitReviewDecision({ ...replayBaseWithoutCheckpoint, reviewDecisions: applied.reviewDecisions, appliedDecisionIds: applied.appliedDecisionIds }, replayDecision), /already been applied/);
   const blocked = blockWorkflow(initialState(), { category: "MISSING_CONFIG", message: "model key is missing" }, { threadId: "thread-001", checkpointId: "checkpoint-002", pausedAt: "2026-11-07T12:02:00Z" });
   assert.throws(() => transitionWorkflow(blocked, "BASELINE_COLLECTED"), /recorded checkpoint status/);
   assert.equal(transitionWorkflow(blocked, "STARTED").status, "STARTED");
@@ -185,6 +257,27 @@ test("tool schema rejects unknown commands and traversal before authorization", 
   assert.throws(() => parseToolRequest({ ...request, command: "docker system prune" }), /unsupported fields/);
   assert.throws(() => parseToolRequest({ ...request, projectPath: "experiments/expresscart/../../other" }), /normalized repository-relative/);
   assert.throws(() => parseToolRequest({ tool: "exec-shell", appId: "expresscart", sourceCommit: sha }), /not supported/);
+  const selenium = { tool: "run-selenium-test", appId: "expresscart", sourceCommit: sha, candidateId: candidate.candidateId, revision: 1, projectPath: "experiments/expresscart/bewt-suite", generatedArtifactPath: "experiments/expresscart/bewt-suite/src/test/java/tests/CheckoutTest.java", testClass: "tests.CheckoutTest" } as const;
+  assert.deepEqual(parseToolRequest(selenium), selenium);
+  assert.throws(() => parseToolRequest({ ...selenium, testClass: "../../CheckoutTest; rm -rf" }), /fully qualified Java class name/);
+  assert.throws(() => parseToolRequest({ ...selenium, command: "mvn -Dtest=* test" }), /unsupported fields/);
+});
+
+test("Selenium execution is bound to the registered generated artifact, class and active revision", () => {
+  const accepted = submitReviewDecision(atReview(), review("ACCEPT"));
+  const generated = transitionWorkflow(accepted, "JAVA_GENERATED");
+  const artifact = { kind: "generated_java" as const, path: "experiments/expresscart/bewt-suite/src/test/java/tests/CheckoutTest.java", candidateId: candidate.candidateId, revision: 1, testClass: "tests.CheckoutTest" };
+  const validating = transitionWorkflow({ ...generated, artifacts: [artifact] }, "VALIDATING");
+  const request = { tool: "run-selenium-test", appId: "expresscart", sourceCommit: sha, candidateId: candidate.candidateId, revision: 1, projectPath: "experiments/expresscart/bewt-suite", generatedArtifactPath: artifact.path, testClass: artifact.testClass } as const;
+  const context = { manifest, state: validating, candidate: { ...candidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" as const }, allowedRoots: ["experiments/expresscart"] };
+  assert.deepEqual(authorizeToolRequest(request, context), request);
+  assert.throws(() => authorizeToolRequest({ ...request, projectPath: "experiments/expresscart/source" }, context), /must match the approved manifest Base suite/);
+  assert.throws(() => authorizeToolRequest({ ...request, testClass: "tests.OtherTest" }, context), /registered for the approved candidate revision/);
+  assert.throws(() => authorizeToolRequest({ ...request, generatedArtifactPath: "experiments/expresscart/bewt-suite/src/test/java/tests/OtherTest.java" }, context), /registered for the approved candidate revision/);
+  assert.throws(() => authorizeToolRequest({ ...request, revision: 2 }, context), /candidate\/revision does not match/);
+  const wrongArtifactRevision = { ...artifact, revision: 2 };
+  const wrongRevisionState = transitionWorkflow({ ...generated, artifacts: [wrongArtifactRevision] }, "VALIDATING");
+  assert.throws(() => authorizeToolRequest(request, { ...context, state: wrongRevisionState }), /registered for the approved candidate revision/);
 });
 
 test("tool allowlist, exact source/app pin, approval, root, and experiment ownership are enforced", () => {
@@ -194,6 +287,7 @@ test("tool allowlist, exact source/app pin, approval, root, and experiment owner
   const approvedCandidate = { ...candidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" as const };
   const request = { tool: "compile-maven-project", appId: "expresscart", sourceCommit: sha, candidateId: candidate.candidateId, revision: 1, projectPath: "experiments/expresscart/bewt-suite" } as const;
   assert.deepEqual(authorizeToolRequest(request, { manifest, state: validatingState, candidate: approvedCandidate, allowedRoots: ["experiments/expresscart"] }), request);
+  assert.throws(() => authorizeToolRequest({ ...request, projectPath: "experiments/expresscart/source" }, { manifest, state: validatingState, candidate: approvedCandidate, allowedRoots: ["experiments/expresscart"] }), /must match the approved manifest Base suite/);
   assert.throws(() => authorizeToolRequest(request, { manifest: { ...manifest, allowedTools: ["read-baseline-inventory", "prepare-fixture", "cleanup-experiment"] }, state: validatingState, candidate: approvedCandidate, allowedRoots: ["experiments/expresscart"] }), /not allowlisted/);
   assert.throws(() => authorizeToolRequest(request, { manifest, state: validatingState, candidate: approvedCandidate, allowedRoots: ["framework"] }), /outside approved roots/);
   assert.throws(() => authorizeToolRequest({ ...request, sourceCommit: "1111111111111111111111111111111111111111" }, { manifest, state: validatingState, candidate: approvedCandidate, allowedRoots: ["experiments/expresscart"] }), /source commit does not match/);
@@ -213,9 +307,8 @@ test("tool allowlist, exact source/app pin, approval, root, and experiment owner
 
 test("repair attempts are bounded at two in state and validation results", () => {
   assert.throws(() => parseWorkflowState(initialState({ repairAttempts: 3 })), /0 to 2/);
-  const base = { appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, sourceCommit: sha, sourceVersion: "1.1.19", compile: "FAIL", fixture: "NOT_RUN", e2e: "NOT_RUN", oracle: "NOT_RUN", cleanup: "NOT_RUN", repeats: [], repairAttempts: 3, noveltyAndOracleApproved: false, evidence: [], researchStatus: "NOT_EVALUATED" };
+  const base = validationResult({ repairAttempts: 3 });
   assert.throws(() => parseValidationResult(base), /0 to 2/);
-  assert.throws(() => parseValidationResult({ ...base, repairAttempts: 2, researchStatus: "VALIDATED" }), /VALIDATED requires/);
   const awaiting = atReview();
   const accepted = submitReviewDecision(awaiting, review("ACCEPT"));
   const java = transitionWorkflow(accepted, "JAVA_GENERATED");
@@ -227,17 +320,40 @@ test("repair attempts are bounded at two in state and validation results", () =>
   assert.throws(() => startRepair(transitionWorkflow(second, "VALIDATING")), /maximum of two/);
 });
 
-test("VALIDATED requires complete results, three passing repeats, review, and pinned evidence", () => {
-  const valid = {
-    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, sourceCommit: sha, sourceVersion: "1.1.19",
-    compile: "PASS", fixture: "PASS", e2e: "PASS", oracle: "PASS", cleanup: "PASS", repeats: ["PASS", "PASS", "PASS"],
-    repairAttempts: 1, noveltyAndOracleApproved: true, evidence: [evidence], researchStatus: "VALIDATED",
-  } as const;
-  assert.equal(parseValidationResult(valid).researchStatus, "VALIDATED");
-  assert.throws(() => parseValidationResult({ ...valid, repeats: ["PASS", "PASS", "FAIL"] }), /VALIDATED requires/);
-  assert.throws(() => parseValidationResult({ ...valid, evidence: [{ ...evidence, sourceVersion: "wrong" }] }), /VALIDATED requires/);
-  assert.throws(() => parseValidationResult({ ...valid, cleanup: "BLOCKED" }), /VALIDATED requires/);
-  assert.equal(parseValidationResult({ ...valid, researchStatus: "NOT_EVALUATED", noveltyAndOracleApproved: false }).researchStatus, "NOT_EVALUATED");
+test("validation eligibility is computed from pinned run records and research acceptance stays separate", () => {
+  const valid = validationResult();
+  const parsed = parseValidationResult(valid);
+  assert.equal(parsed.technicalEligibility, "ELIGIBLE");
+  assert.equal(parsed.researchAcceptance.status, "NOT_REVIEWED");
+  assert.deepEqual(parseValidationResult(parsed), parsed);
+  assert.throws(() => parseValidationResult({ ...valid, technicalEligibility: "INELIGIBLE" }), /does not match the execution records/);
+  assert.equal(parseValidationResult(validationResult({ e2e: execution("run-e2e", "NOT_RUN") })).technicalEligibility, "UNVERIFIED");
+  assert.equal(parseValidationResult(validationResult({ e2e: execution("run-e2e", "FAIL") })).technicalEligibility, "INELIGIBLE");
+
+  const accepted = validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") } });
+  assert.equal(parseValidationResult(accepted).researchAcceptance.status, "ACCEPTED");
+  assert.equal(parseValidationResult(validationResult({ researchAcceptance: { status: "REJECTED", decision: recordedDecision("REJECTED", "research-rejected") } })).researchAcceptance.status, "REJECTED");
+  assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED" } })), /requires a recorded approval/);
+  assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") }, noveltyDecision: recordedDecision("UNVERIFIED", "novelty-unknown", false) })), /approved oracle\/novelty/);
+  assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") }, e2e: execution("run-e2e", "FAIL") })), /requires technical eligibility/);
+  assert.throws(() => parseValidationResult(validationResult({ oracleDecision: { ...recordedDecision("APPROVED", "oracle-wrong-revision"), candidateRevision: 2 } })), /reference the validation app, candidate, and revision/);
+  assert.throws(() => parseValidationResult({ ...valid, noveltyAndOracleApproved: true, researchStatus: "VALIDATED", repeats: ["PASS", "PASS", "PASS"] }), /unsupported fields/);
+  assert.equal(parseValidationResult(validationResult({ researchAcceptance: { status: "UNVERIFIED", decision: recordedDecision("UNVERIFIED", "research-unknown", false) } })).researchAcceptance.status, "UNVERIFIED");
+});
+
+test("validation rejects missing, duplicate, stale, mismatched or unpinned run and cleanup evidence", () => {
+  const valid = validationResult() as ReturnType<typeof validationResult> & { repeats: ReturnType<typeof repeat>[]; compile: ReturnType<typeof execution> };
+  assert.throws(() => parseValidationResult({ ...valid, compile: undefined }), /compile must be an object/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [valid.repeats[0], valid.repeats[0], valid.repeats[2]] }), /run IDs must be distinct/);
+  assert.throws(() => parseValidationResult({ ...valid, evidence: [valid.evidence[0], valid.evidence[0]] }), /must not be duplicated/);
+  assert.throws(() => parseValidationResult({ ...valid, e2e: { ...execution("run-e2e"), sourceCommit: "1111111111111111111111111111111111111111" } }), /source pin does not match/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: execution("other-run") }] }), /run ID does not match its rerun record/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: { ...execution("rerun-3"), evidence: [] } }] }), /1\.\.1000 items/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), fixture: { ...execution("rerun-3"), evidence: [] } }] }), /1\.\.1000 items/);
+  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...evidence, runId: "wrong-run" }] } }), /evidence does not match its run/);
+  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...valid.compile.evidence[0], sourceVersion: "wrong-version" }] } }), /evidence does not match its run and source pin/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-2")] }), /run IDs must be distinct/);
+  assert.throws(() => parseValidationResult(validationResult({ noveltyDecision: recordedDecision("APPROVED", "oracle-approved") })), /decision IDs must be distinct/);
 });
 
 test("tool results permit empty output while redacting credentials and personal email", () => {
@@ -251,4 +367,5 @@ test("missing configuration and inconsistent state/candidate data fail closed", 
   assert.throws(() => parseApplicationManifest({ ...manifest, allowedTools: [] }), /1\.\.9 items/);
   assert.throws(() => parseWorkflowState({ ...initialState(), candidate: { ...candidate, appId: "joomla" } }), /does not match workflow state/);
   assert.throws(() => parseWorkflowState({ ...initialState(), lastError: { category: "x", message: "" } }), /non-empty string/);
+  assert.throws(() => parseWorkflowState({ ...initialState(), status: "REVISION_REQUIRED", candidate: { ...candidate, reviewStatus: "REVISION_REQUIRED" } }), /requires an applied revise decision/);
 });

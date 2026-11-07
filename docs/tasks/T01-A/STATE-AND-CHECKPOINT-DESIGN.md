@@ -9,12 +9,12 @@ STARTED → BASELINE_COLLECTED → CANDIDATES_GENERATED → AWAITING_HUMAN_REVIE
   ├─ ACCEPTED_FOR_IMPLEMENTATION → JAVA_GENERATED → VALIDATING
   │  ├─ EXECUTION_COMPLETED
   │  └─ REPAIRING → VALIDATING (at most 2 repairs)
-  ├─ REVISION_REQUIRED → CANDIDATES_GENERATED (same ID, revision + 1)
+  ├─ REVISION_REQUIRED → CANDIDATES_GENERATED (same ID, revision + 1; preserve review ledger)
   └─ REJECTED (terminal)
 Non-terminal states may become BLOCKED or FAILED when an error is recorded.
 ```
 
-`VALIDATED` is absent from the workflow enum. It exists only as a `ValidationResult.researchStatus`, whose parser requires the full research acceptance evidence.
+`VALIDATED` is not a workflow status or an agent-settable boolean. `parseValidationResult` derives `technicalEligibility` from pinned compile/fixture/E2E/cleanup run records and distinct rerun records. Research acceptance is a separate `researchAcceptance` decision with a reviewer reference and evidence. An accepted record is still only a validated data contract; the T01-B runtime must authenticate the reviewer and independently verify referenced evidence before a research gate can accept it.
 
 ## Pause, checkpoint and resume
 
@@ -23,10 +23,11 @@ Non-terminal states may become BLOCKED or FAILED when an error is recorded.
 - T01-B should interrupt in the human-review node before Java generation, compile with `graph.compile({ checkpointer })`, and persist a server-generated `thread_id` mapped to the immutable run ID. Use a production-persistent saver for crash recovery; `MemorySaver` is process-local and suitable only for tests.
 - On resume, load the saved graph state by exact thread/checkpoint, then validate run ID, app ID, source commit, candidate ID and revision. Each `HumanReviewDecision` carries run/thread/checkpoint identity and an applied decision ID so a stale or replayed decision is rejected.
 - Verify the selected checkpoint is still awaiting the same review before applying the decision. Accept, revise and reject lead to distinct states; Java generation requires the exact accepted candidate and applied decision.
-- Keep events/decisions append-only. Nodes may execute again around an interrupt, so side-effecting nodes need idempotency keys and evidence records.
+- `reviewDecisions` and `appliedDecisionIds` are append-only across revisions. `submitReviewDecision` consumes the active checkpoint pointer while the decision keeps its run/thread/checkpoint identity. `reviseCandidate` preserves both ledgers and clears the prior checkpoint. Before a new review, `pauseAtHumanReview` requires a checkpoint ID unused by any prior decision; the parser also rejects an active review checkpoint already present in history. Java generation requires an applied ACCEPT for the exact active candidate revision, so an earlier revision's approval cannot authorize the revised candidate.
+- Nodes may execute again around an interrupt, so side-effecting nodes need idempotency keys and evidence records.
 
 ## Failure and recovery limits
 
 - `blockWorkflow` records an error and the exact resumable status. A blocked task can resume only to that recorded status; blocked/failed states without error context are invalid.
 - A checkpoint ID is a reference, not proof of durable storage. No graph, saver, `interrupt`, resume, crash or recovery path runs in T01-A; crash recovery remains `NOT_TESTED`.
-- Reviewer ID authentication belongs to the trusted review service in T01-B. A non-empty `reviewerId` is not authentication.
+- Reviewer ID authentication and evidence-path content verification belong to the trusted review service in T01-B. A non-empty `reviewerId` and a syntactically valid evidence reference are not proof of identity or artifact contents.
