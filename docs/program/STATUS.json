@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "1.0.0",
+  "program": "BEWT-CovExt",
+  "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
+  "statusType": "INITIAL_REMOTE_OBSERVATION_NOT_ACCEPTANCE",
+  "snapshotDate": "2026-11-07",
+  "remote": {
+    "repository": "NgaiLong49423/BEWT-CovExt",
+    "branch": "main",
+    "observedHeadSha": "44bd7c4d7de683afbf1b14ac65c0b43db5950d8c",
+    "note": "Refresh on every task; do not conflate observed main with a reviewed task commit."
+  },
+  "targets": {
+    "applications": 8,
+    "newCasesPerApp": 5,
+    "newCasesTotal": 40,
+    "originalBusinessCaseEntriesInProposal": 258
+  },
+  "framework": {
+    "fourRoleReusableGraph": "NOT_VERIFIED",
+    "checkpointResume": "NOT_VERIFIED",
+    "toolAllowlist": "NOT_VERIFIED",
+    "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "sources": [
+      "experiments/expresscart/agent/",
+      "docs/research-results/sprint-03/"
+    ]
+  },
+  "apps": [
+    {
+      "app": "bludit",
+      "proposalBaseLabel": "2.3.4",
+      "proposalOriginalCases": 23,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "claroline",
+      "proposalBaseLabel": "1.11.10",
+      "proposalOriginalCases": 40,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "expresscart",
+      "proposalBaseLabel": "1.19",
+      "proposalOriginalCases": 31,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 4,
+      "finalE2ePassCandidates": 2,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "docs/research-results/sprint-01/SPRINT-01-RESULTS.md",
+        "docs/research-results/sprint-04/SPRINT-04-RESULTS.md",
+        "docs/research-results/sprint-05/SPRINT-05-RESULTS.md"
+      ],
+      "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "observedUpstreamVersion": "1.1.19",
+      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program."
+    },
+    {
+      "app": "joomla",
+      "proposalBaseLabel": "3.10.11",
+      "proposalOriginalCases": 35,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "kanboard",
+      "proposalBaseLabel": "1.2.15",
+      "proposalOriginalCases": 30,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "mantisbt",
+      "proposalBaseLabel": "1.2.0",
+      "proposalOriginalCases": 37,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "mediawiki",
+      "proposalBaseLabel": "1.40.0",
+      "proposalOriginalCases": 27,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    },
+    {
+      "app": "prestashop",
+      "proposalBaseLabel": "1.6.1.23",
+      "proposalOriginalCases": 35,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "NOT_VERIFIED",
+        "G1": "NOT_VERIFIED",
+        "G2": "NOT_VERIFIED",
+        "G3": "NOT_VERIFIED",
+        "G4": "NOT_VERIFIED"
+      },
+      "candidateCount": null,
+      "acceptedForImplementationCount": null,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": false,
+      "lastAcceptedTask": null,
+      "evidence": []
+    }
+  ],
+  "research": {
+    "RQ1": "PARTIAL_EXPRESSCART_ONLY",
+    "RQ2": "NOT_EVALUATED",
+    "RQ3": "PARTIAL_EXPRESSCART_ONLY",
+    "RQ4": "PARTIAL_MODEL_AND_REPAIR_TELEMETRY_ONLY",
+    "validatedNewCases": null,
+    "notes": "2 final E2E PASS are not automatically VALIDATED new benchmark cases."
+  },
+  "deliverables": {
+    "D1": "NOT_ACCEPTED",
+    "D2": "NOT_ACCEPTED",
+    "D3": "NOT_ACCEPTED",
+    "D4": "NOT_ACCEPTED",
+    "D5": "NOT_ACCEPTED",
+    "D6": "NOT_ACCEPTED",
+    "D7": "NOT_ACCEPTED",
+    "D8": "NOT_ACCEPTED"
+  },
+  "taskReview": {
+    "lastApprovedTaskId": null,
+    "lastTaskPrUrl": null,
+    "lastReviewedHeadSha": null,
+    "agentCannotSelfApprove": true
+  },
+  "evidenceRoots": [
+    "docs/research-results/sprint-01/",
+    "docs/research-results/sprint-02/",
+    "docs/research-results/sprint-03/",
+    "docs/research-results/sprint-04/",
+    "docs/research-results/sprint-05/",
+    "docs/research-results/final/"
+  ],
+  "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
+}
