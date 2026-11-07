@@ -222,7 +222,7 @@
   "taskReview": {
     "currentTaskId": "T01-A",
     "currentTaskStatus": "READY_FOR_REVIEW",
-    "currentTaskPrUrl": null,
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastApprovedTaskId": "T00",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/1",
     "lastReviewedHeadSha": "a5d8c5f0a812c7be1e458da7a192a5de31821898",

@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: implement app-neutral TypeScript contracts and tested pure policies; document architecture, checkpoint/tool security and T01-B handoff. No LangGraph runtime workflow. Proposed status: `READY_FOR_REVIEW`; Team Lead decision pending.
 - Base branch + base SHA: `main` / `a5d8c5f0a812c7be1e458da7a192a5de31821898` (T00 PR #1 merge commit).
 - Working branch: `feature/t01a-framework-contract`.
-- Head commit (full SHA): pending final commit.
-- PR: pending creation to `main`.
-- Push status: pending.
+- Implementation commit (full SHA): `6586476a8eb9d0b22cb942dccbed22b070a891b5`.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/2 (open, awaiting review).
+- Push status: branch push succeeded; remote verification pending.
 - Runtime/commit/version tested: Node `v24.19.0`, existing TypeScript/tsx toolchain, LangGraph `1.6.0` declaration inspection, Maven `3.9.16` / Java `21.0.12` effective-POM query. No app runtime, Gemini call, Docker, or Maven build run.
 - Status proposed by Agent: `READY_FOR_REVIEW`; no G2 or D1 acceptance claimed.
 
@@ -52,7 +52,7 @@ See `TEST-RESULTS.md` and `evidence/`. TypeScript build passed and 15/15 focused
 - Sprint 01–05 raw evidence touched: NO.
 - ExpressCart pilot source, tests and manifests: unchanged.
 - POM: unchanged.
-- Secret scan and staged diff review: pending publication checklist.
+- Secret scan and staged diff review: PASS; only Task T01-A paths plus the two T00 EOF corrections were staged. The unrelated untracked `experiments/expresscart/bewt-suite/docs/` directory was preserved and excluded.
 
 ## 5. Evidence and limitations
 
@@ -68,4 +68,4 @@ See `TEST-RESULTS.md` and `evidence/`. TypeScript build passed and 15/15 focused
 - Approve checkpoint backend, particularly durable production storage versus test-only `MemorySaver`.
 - Decide Java compatibility as recorded in `JAVA-COMPATIBILITY-DECISION.md`.
 - Review T01-B scope in `T01-B-IMPLEMENTATION-PLAN.md`. Do not start T01-B or T02 before this PR is reviewed.
-- PR URL and final SHA: pending publication.
+- Final PR head SHA: pending remote verification.
