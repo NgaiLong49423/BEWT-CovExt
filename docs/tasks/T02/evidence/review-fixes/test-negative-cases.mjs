@@ -103,7 +103,7 @@ console.log('\n--- NegTest 4: Runner script process exit code behavior on simula
   fs.writeFileSync(tempScriptPath, tempScriptContent, 'utf8');
 
   try {
-    const proc = spawnSync('node', ['--experimental-strip-types', tempScriptPath], { encoding: 'utf8' });
+    const proc = spawnSync(process.execPath, ['--experimental-strip-types', tempScriptPath], { encoding: 'utf8' });
     const exitedWithError = proc.status === 1;
     const errorLogged = (proc.stderr + proc.stdout).includes('Verification FAILED: 1 test(s) failed');
     const successNotLogged = !proc.stdout.includes('All required verification checks completed successfully!');
