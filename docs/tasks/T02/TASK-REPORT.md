@@ -3,7 +3,7 @@
 - **Task scope / acceptance gate:** Static benchmark audit of 8 applications, baseline inventory verification, Gherkin/Java test count mismatch classification, upstream provenance analysis, environment readiness review, and G0 rollout planning.
 - **Base branch + base SHA:** `origin/main` at `7e27950b44473cf4d6a5d7d5222bc8dac9b3a266` (following merge of PR #3 / T01-B).
 - **Working branch:** `feature/t02-benchmark-audit`.
-- **Head commit (full 40-char SHA):** `2d27a846afcbbbc1d94fdfc3907f58696cef3379` (review fixes commit).
+- **Head commit (full 40-char SHA):** `14430850d7ed799af4d16fea07db8a6ac0b21313`.
 - **PR:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5
 - **Push status:** PUSHED (tracking `origin/feature/t02-benchmark-audit`).
 - **Runtime/commit/version audited:** Static audit against `bewt-original/` pinned at `0501249ff3e9a5ea83a06155cd2971dc36197056` (`https://github.com/OlianasD/BEWT.git`).
@@ -11,38 +11,42 @@
 
 ---
 
-## 1. What changed (Including Review Fixes)
+## 1. What changed (Including Final Review Corrections)
 
 | File path (repo-relative) | Change | Why |
 |---|---|---|
-| `docs/tasks/T02/BASELINE-INVENTORY.md` | Updated | Separated three independent metrics: (1) 258 published literature cases, (2) 257 physical `.feature` files & 257 business test classes, and (3) 234 standard parseable scenarios (Bludit 23 files lack `Scenario:`). Confirmed RQ2 denominator is NOT 257 files, but must be derived from Task T04 behavioral inventory. Fixed base SHA. |
-| `docs/tasks/T02/UPSTREAM-AND-VERSION-MATRIX.md` | Updated | Verified canonical upstream commit SHAs dereferenced from Git tags via `git ls-remote`. Marked Claroline as `NOT_VERIFIED` (legacy tarball). Added explicit distinction between source release tags and image provenance. Fixed base SHA. |
-| `docs/tasks/T02/ENVIRONMENT-REQUIREMENTS.md` | Updated | Clarified that `-Dapp.url` has zero effect on `bewt-original/` because `BaseTest.java` hardcoded `192.168.1.141` without reading system properties; documented Task T03 working copy requirement. Fixed base SHA. |
-| `docs/tasks/T02/APP-ADAPTER-GAP-ANALYSIS.md` | Updated | Updated draft manifest references to `docs/tasks/T02/manifests/*.draft.json`. Reusability analysis confirmed. |
-| `docs/tasks/T02/G0-ROLLOUT-PLAN.md` | Updated | Added strict operational safety rules for T03: unique namespacing (`bewt-covext-<app>-<runId>`), mandatory ownership labels, host port availability checks, parameterized credentials, mount inspection, zero global prunes, guarded container exec commands, and image pull requirements. Fixed base SHA. |
-| `docs/tasks/T02/PROPOSED-STATUS-UPDATE.json` | Updated | Standalone status update reflecting verified upstream commit pins, metric separation, and draft manifest paths. Fixed base SHA. |
-| `docs/tasks/T02/manifests/*.draft.json` (7 files) | Moved & Updated | Draft manifests relocated from `config/apps/` to dedicated `docs/tasks/T02/manifests/` folder. Added `manifestType: "DRAFT_STATIC_AUDIT_NOT_PRODUCTION"` and verified upstream source pins. |
-| `config/apps/` | Cleaned | Removed the 7 draft manifests from `config/apps/` so that `config/apps/` contains ONLY `expresscart.json` (the production runtime manifest). |
-| `docs/tasks/T02/evidence/review-fixes/*` | Created | Automated verification script (`verify-review-fixes.mjs`), test TAP log (`review-fixes-tests.tap`), and JSON summary verifying base SHA, upstream pins, runtime schema blocking, and config isolation. |
-| `docs/tasks/T02/TASK-REPORT.md` | Updated | Recorded review fixes, verification test results, and final handoff metadata. |
+| `docs/tasks/T02/evidence/review-fixes/verify-review-fixes.mjs` | Updated | Hardened test runner: Enforces non-zero exit code on failure, suppresses success message when checks fail, strictly differentiates `PASS`, `FAIL`, `NOT_VERIFIED`, and `BLOCKED`. Guarantees Claroline network/auth errors are flagged as `BLOCKED` and never misinterpreted as proof of tag absence. |
+| `docs/tasks/T02/evidence/review-fixes/test-negative-cases.mjs` | Created | Automated negative test suite: Simulates invalid upstream SHA, network failures on remote query, invalid runtime manifests, process exit code propagation, and draft manifest runtime blocking (5 negative tests, all passing). |
+| `docs/tasks/T02/G0-ROLLOUT-PLAN.md` | Updated | Synchronized all examples with `bewt-covext-<app>-$runId` naming and complete ownership labels. Fixed Windows PowerShell syntax (backtick continuation, `$env:...`), parameterized passwords, enforced ownership check preconditions prior to cleanup, required mount inspection for clean data reset, guarded Docker Compose teardowns, and added pseudocode marked `[T03_IMPLEMENTATION_REQUIRED]` for complex setup steps. |
+| `docs/tasks/T02/BASELINE-INVENTORY.md` | Updated | Clarified Gherkin metrics: Replaced unverified "standard parseable scenarios" with observable structural metric "234 `.feature` files with explicit `Scenario:` headers" (each containing 1 explicit scenario), noted Bludit's 23 files omit keyword, preserved 258 literature cases and 257 physical files as separate metrics, and reaffirmed RQ2 denominator is deferred to Task T04. |
+| `docs/tasks/T02/PROPOSED-STATUS-UPDATE.json` | Updated | Synchronized metric field names to `filesWithExplicitScenarioHeaders` across global targets and all 8 application records. |
+| `docs/tasks/T02/evidence/review-fixes/*` | Updated & Generated | Real execution evidence files: `review-fixes-tests.tap` (31 tests), `review-fixes-validation.json`, `negative-tests.tap` (5 tests), `negative-tests-validation.json`. |
+| `docs/tasks/T02/TASK-REPORT.md` | Updated | Recorded final review corrections, verified all repo-relative file links, updated evidence tables, and aligned handoff metadata. |
 
 ---
 
 ## 2. Actual verification
 
-All review fixes and baseline findings were verified with automated scripts and native TypeScript execution against `framework/src/contracts.ts`:
+All review fixes and baseline findings were verified with automated test suites and native TypeScript execution against `framework/src/contracts.ts`:
 
-| Exact command | Exit code | PASS/FAIL/BLOCKED/NOT_RUN | Evidence path |
-|---|---:|---|---|
-| `git cat-file -t 7e27950b44473cf4d6a5d7d5222bc8dac9b3a266` | 0 | PASS | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (Base SHA confirmed) |
-| `git ls-remote` upstream tag/commit dereference across 7 repos | 0 | PASS (6 verified, 1 NOT_VERIFIED) | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (Matched 6 canonical commits, Claroline confirmed no tag) |
-| `parseApplicationManifest('config/apps/expresscart.json')` | 0 | PASS | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (ExpressCart runtime manifest valid) |
-| JSON syntax validation on 7 draft manifests | 0 | JSON_SYNTAX_PASS | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (All 7 valid JSON) |
-| Draft structure check on 7 draft manifests | 0 | DRAFT_STRUCTURE_PASS | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (All required draft fields present) |
-| `parseApplicationManifest` on 7 draft manifests | 0 (caught) | RUNTIME_SCHEMA_BLOCKED | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (Correctly blocked from runtime execution) |
-| Directory check on `config/apps/` | 0 | PASS | `docs/tasks/T02/evidence/review-fixes/review-fixes-validation.log` (Only `expresscart.json` present) |
-| Review fixes automated test suite (31 tests) | 0 | PASS (31/31 passing or expected block) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` |
-| Secret scan on git diff | 0 | PASS | Zero secrets, credentials, or `.env` files present |
+| Test / Command | Exit code | Status | Evidence path |
+|---|---:|:---:|---|
+| Base Commit SHA Verification (`git cat-file -t 7e27950b...`) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (line 3) |
+| Upstream Git Tag / Commit Dereference (6 apps) | 0 | **PASS** (6/6) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 4-9) |
+| Claroline Absence Verification (`git ls-remote` returns exit 0, empty) | 0 | **NOT_VERIFIED** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (line 10) |
+| ExpressCart Runtime Manifest (`parseApplicationManifest`) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (line 11) |
+| 7 Draft Manifests JSON Syntax Check | 0 | **PASS** (7/7) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 12, 15, 18, 21, 24, 27, 30) |
+| 7 Draft Manifests Metadata Structure Check | 0 | **PASS** (7/7) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 13, 16, 19, 22, 25, 28, 31) |
+| 7 Draft Manifests Runtime Validator Blocking (`ContractError`) | 0 (caught) | **BLOCKED** (7/7 Expected) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 14, 17, 20, 23, 26, 29, 32) |
+| Config Isolation (`config/apps/` contains ONLY `expresscart.json`) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (line 33) |
+| **Full Positive Verification Suite (31 checks)** | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` |
+| Negative Test 1: Invalid Upstream SHA Detection | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 3) |
+| Negative Test 2: Network Error Handling (Blocked, not absent) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 4) |
+| Negative Test 3: Malformed Runtime Manifest Rejection | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 5) |
+| Negative Test 4: Process Exit Code 1 on Failure | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 6) |
+| Negative Test 5: Draft Manifest Rejection by Runtime | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 7) |
+| **Full Negative Verification Suite (5 tests)** | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` |
+| Secret scan on git diff | 0 | **PASS** | Zero secrets, credentials, or `.env` files present |
 
 ---
 
@@ -59,16 +63,16 @@ All review fixes and baseline findings were verified with automated scripts and 
 | **MediaWiki** | `https://github.com/wikimedia/mediawiki` | `1.40.0` | `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` | **VERIFIED** |
 | **PrestaShop** | `https://github.com/PrestaShop/PrestaShop` | `1.6.1.23` | `475d65fbda93403cd1afde0db09764c5295e952c` | **VERIFIED** |
 
-*(Note: Commit dereference distinguishes annotated tag objects from the peeled commit `^{commit}`. A verified release commit does NOT automatically prove a Docker Hub image was built from that commit).*
+*(Note: Commit dereference distinguishes annotated tag objects from the peeled commit `^{commit}`. A verified release commit does NOT automatically prove a Docker Hub image was built from that commit. Claroline tag query returns exit 0 with empty output, confirming tag absence on GitHub).*
 
 ---
 
 ## 4. Research Metrics Disambiguation
 
 To preserve rigorous academic fidelity:
-1. **Literature Metric:** **258 business cases** from Table 2 of Olianas et al. (2026) remains preserved as the benchmark's historical claim.
+1. **Literature Metric:** **258 business cases** from Table 2 of Olianas et al. (2026) remains preserved as the benchmark's historical published claim.
 2. **Physical Repository Inventory:** **257 Gherkin `.feature` files** and **257 business test classes** in Base suites (258 if counting Bludit's `Installer.class`). Mismatches explained: MantisBT has `0_Login.feature` unexecuted in TestSuite (+1), and PrestaShop lacks `.feature` files for 2 Java tests (`AddEmptyTag`, `AddLanguageIsoCodeValidity`) (-2).
-3. **Parseable Scenarios:** **234 standard scenarios** conform to strict Gherkin grammar; Bludit's 23 feature files lack the `Scenario:` keyword and require normalization.
+3. **Observable Gherkin Structure:** **234 `.feature` files contain explicit `Scenario:` headers** (each file containing exactly 1 explicit scenario block). Bludit's 23 feature files completely omit the `Scenario:` keyword (containing only `Feature:` followed directly by steps). Off-the-shelf parser validation of these 234 files will be conducted in Task T04.
 4. **RQ2 Behavioral Coverage Gain:** The denominator for RQ2 will NOT be assumed as 257 or 258; it will be established in Task T04 from an explicit pre-expansion behavioral inventory.
 
 ---
@@ -76,7 +80,7 @@ To preserve rigorous academic fidelity:
 ## 5. Safety & Integrity Invariants
 
 - **`bewt-original/` touched?** **NO.** Strictly read-only research baseline (`git status --porcelain` verified).
-- **Docker / DB resources touched?** **NONE.** Zero Docker containers, images, volumes, or networks created or touched in this review fix.
+- **Docker / DB resources touched?** **NONE.** Zero Docker commands executed during T02.
 - **Parallel isolation with T01-C:** 100% maintained. Zero edits to `framework/`, `adapters/expresscart/`, `docs/program/STATUS.json`, or `IMPLEMENTATION-ROADMAP.md`.
 - **Manifest directory hygiene:** `config/apps/` contains ONLY `expresscart.json`. All 7 draft manifests reside exclusively in `docs/tasks/T02/manifests/*.draft.json`.
 
@@ -87,7 +91,7 @@ To preserve rigorous academic fidelity:
 - **Decisions requested from Team Lead:**
   1. Approve the verified upstream commit pins (6 verified on GitHub, Claroline marked `NOT_VERIFIED`).
   2. Approve the manifest separation strategy: draft manifests kept in `docs/tasks/T02/manifests/` until promoted upon runtime verification in T03.
-  3. Approve the research metric disambiguation (258 literature cases vs 257 repository files vs 234 standard scenarios; RQ2 denominator deferred to T04).
-  4. Approve the strict safety runbook for Task T03 (namespacing, ownership labels, port checks, working copy for URL parameterization).
+  3. Approve the research metric disambiguation (258 literature cases vs 257 repository files vs 234 files with explicit scenario headers; RQ2 denominator deferred to T04).
+  4. Approve the strict safety runbook for Task T03 (namespacing, ownership labels, PowerShell syntax, clean data reset verification, working copy for URL parameterization).
 - **Suggested next task:** Task T03 (G0 Runtime Rollout starting with Kanboard, Bludit, Claroline).
 - **PR URL:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5

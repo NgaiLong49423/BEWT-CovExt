@@ -1,0 +1,40 @@
+{
+  "timestamp": "2026-11-07T19:54:08.379Z",
+  "summary": {
+    "total": 5,
+    "passed": 5,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "NEG_WRONG_SHA",
+      "name": "Verify mismatch is caught when upstream SHA does not match expected",
+      "passed": true,
+      "details": "Correctly rejected invalid commit 0000000000000000000000000000000000000000"
+    },
+    {
+      "id": "NEG_NETWORK_ERROR_HANDLING",
+      "name": "Network/DNS error must result in BLOCKED, not false NOT_VERIFIED or PASS",
+      "passed": true,
+      "details": "Correctly categorized network error as BLOCKED"
+    },
+    {
+      "id": "NEG_INVALID_RUNTIME_MANIFEST",
+      "name": "Runtime validator must reject manifest missing imageDigest",
+      "passed": true,
+      "details": "Correctly rejected: source contains unsupported fields: kind, repositoryUrl"
+    },
+    {
+      "id": "NEG_PROCESS_EXIT_CODE",
+      "name": "Runner process exits with code 1 and suppresses success message on failure",
+      "passed": true,
+      "details": "Process exit code: 1"
+    },
+    {
+      "id": "NEG_DRAFT_MANIFEST_BLOCK",
+      "name": "Draft manifest with dummy digest and extra fields is blocked from runtime execution",
+      "passed": true,
+      "details": "Blocked with: ApplicationManifest contains unsupported fields: manifestType"
+    }
+  ]
+}

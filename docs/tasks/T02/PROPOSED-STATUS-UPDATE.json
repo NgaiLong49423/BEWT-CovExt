@@ -12,7 +12,7 @@
     "publishedBusinessCasesInProposalTable2": 258,
     "observedGherkinFeatureFiles": 257,
     "observedBaseJavaBusinessTestClasses": 257,
-    "standardParseableScenarios": 234,
+    "filesWithExplicitScenarioHeaders": 234,
     "rq2BehavioralCoverageDenominator": "TBD_IN_T04_FROM_BEHAVIORAL_INVENTORY"
   },
   "framework": {
@@ -37,7 +37,7 @@
       "verifiedGherkinFiles": 23,
       "verifiedTestSuiteClasses": 24,
       "verifiedBusinessCases": 23,
-      "standardParseableScenarios": 0,
+      "filesWithExplicitScenarioHeaders": 0,
       "syntaxQuirk": "Omits Scenario: keyword across all 23 feature files; implicit scenario syntax requiring custom parser tolerance",
       "targetNewCases": 5,
       "gates": {
@@ -63,7 +63,7 @@
       "verifiedGherkinFiles": 40,
       "verifiedTestSuiteClasses": 40,
       "verifiedBusinessCases": 40,
-      "standardParseableScenarios": 40,
+      "filesWithExplicitScenarioHeaders": 40,
       "syntaxQuirk": "Standard Gherkin; Java test classes prefixed with Claroline_",
       "targetNewCases": 5,
       "gates": {
@@ -90,7 +90,7 @@
       "verifiedGherkinFiles": 31,
       "verifiedTestSuiteClasses": 31,
       "verifiedBusinessCases": 31,
-      "standardParseableScenarios": 31,
+      "filesWithExplicitScenarioHeaders": 31,
       "targetNewCases": 5,
       "gates": {
         "G0": "FEASIBILITY_VERIFIED_AWAITING_PROGRAM_GATE",
@@ -118,7 +118,7 @@
       "verifiedGherkinFiles": 35,
       "verifiedTestSuiteClasses": 35,
       "verifiedBusinessCases": 35,
-      "standardParseableScenarios": 35,
+      "filesWithExplicitScenarioHeaders": 35,
       "syntaxQuirk": "Bare test class names without Test suffix",
       "targetNewCases": 5,
       "gates": {
@@ -144,7 +144,7 @@
       "verifiedGherkinFiles": 30,
       "verifiedTestSuiteClasses": 30,
       "verifiedBusinessCases": 30,
-      "standardParseableScenarios": 30,
+      "filesWithExplicitScenarioHeaders": 30,
       "syntaxQuirk": "Bare test class names without Test suffix",
       "targetNewCases": 5,
       "gates": {
@@ -170,7 +170,7 @@
       "verifiedGherkinFiles": 38,
       "verifiedTestSuiteClasses": 37,
       "verifiedBusinessCases": 37,
-      "standardParseableScenarios": 38,
+      "filesWithExplicitScenarioHeaders": 38,
       "syntaxQuirk": "Bare test class names (1.2.0); 0_Login.feature unexecuted in TestSuite",
       "targetNewCases": 5,
       "gates": {
@@ -196,7 +196,7 @@
       "verifiedGherkinFiles": 27,
       "verifiedTestSuiteClasses": 27,
       "verifiedBusinessCases": 27,
-      "standardParseableScenarios": 27,
+      "filesWithExplicitScenarioHeaders": 27,
       "syntaxQuirk": "Standard Gherkin and *Test.java classes",
       "targetNewCases": 5,
       "gates": {
@@ -222,7 +222,7 @@
       "verifiedGherkinFiles": 33,
       "verifiedTestSuiteClasses": 35,
       "verifiedBusinessCases": 35,
-      "standardParseableScenarios": 33,
+      "filesWithExplicitScenarioHeaders": 33,
       "syntaxQuirk": "2 Java test classes (AddEmptyTag, AddLanguageIsoCodeValidity) lack .feature files",
       "targetNewCases": 5,
       "gates": {

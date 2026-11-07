@@ -27,8 +27,8 @@ flowchart TD
         JavaClasses["Observed Base Java Test Classes: 257<br/>(258 with Bludit Installer.class)"]
     end
 
-    subgraph BehaviorMetric["3. Behavioral Coverage Metric"]
-        ParsedScenarios["Standard Parseable Scenarios: 234<br/>(Bludit's 23 files lack 'Scenario:' keyword)"]
+    subgraph BehaviorMetric["3. Observable Gherkin Structure & RQ2 Metric"]
+        ParsedScenarios["Files with Explicit Scenario Headers: 234<br/>(23 Bludit files omit 'Scenario:' keyword)"]
         RQ2Denominator["RQ2 Behavioral Denominator: TBD in T04<br/>(Must come from verified behavioral inventory)"]
     end
 
@@ -42,8 +42,8 @@ flowchart TD
 2. **Metric B — Physical Repository File Counts:**
    - **257 Gherkin `.feature` files** across the 8 applications in `bewt-original/`.
    - **257 business test classes** in Base `TestSuite.java` (258 if including Bludit's initial `Installer.class`).
-3. **Metric C — Behavioral Scenarios for Coverage Measurement:**
-   - **234 standard parseable scenarios**: The 23 Bludit `.feature` files completely omit the standard `Scenario:` keyword, rendering them invalid under standard Cucumber/Gherkin parsers without custom normalization.
+3. **Metric C — Observable Gherkin Structure & RQ2 Behavioral Denominator:**
+   - **234 `.feature` files with explicit `Scenario:` headers**: Exactly 234 out of the 257 physical `.feature` files contain an explicit `Scenario:` header (with each of these 234 files containing exactly 1 explicit scenario block). The remaining 23 files (all belonging to Bludit) completely omit the `Scenario:` keyword, having `Feature:` followed directly by `Given/When/Then` steps. Note that whether these 234 files parse without errors in an off-the-shelf parser requires empirical validation in Task T04; therefore, they are strictly reported here by their observable structural characteristic (`.feature files with explicit Scenario: headers`), not as certified parser-valid scenarios.
    - **Methodological Invariant:** The denominator for RQ2 Behavioral Coverage Gain **MUST NOT** be blindly assumed as 257 files or 258 entries. Behavioral coverage gain measures new behaviors against a structured pre-expansion behavioral inventory (taxonomized in Task T04), not raw line or file counts.
 
 ---
@@ -60,7 +60,7 @@ flowchart TD
 | **MantisBT** | `1.2.0` | `mantisbt-1.2.0`, `mantisbt-2.25.4` | 37 | 38 | 38 | 20 (in `po`, `utils`) | Bare class name (1.2.0); `*Test.java` (2.25.4) | `d06bf60f5ed9f96029bb830a005d4819a4f87b45` |
 | **MediaWiki** | `1.40.0` | `mediawiki-1.40.0` | 27 | 27 | 27 | 16 (in `po`) | `*Test.java` | `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` |
 | **PrestaShop** | `1.6.1.23` | `prestashop-1.6.1.23`, `prestashop-1.7.8.5` | 35 | 33 | 33 | 33 (in `po`, `utils`) | Bare class name (no `Test` suffix) | `475d65fbda93403cd1afde0db09764c5295e952c` |
-| **TOTAL** | — | **12 Baseline Suites** | **258** (with Bludit Installer) / **257** (business) | **257** | **234** (standard) + **23** (implicit) | **194** Page Objects across Base | Varied across 3 naming conventions | 7 Verified, 1 Unverified |
+| **TOTAL** | — | **12 Baseline Suites** | **258** (with Bludit Installer) / **257** (business) | **257** | **234** (with explicit `Scenario:`) + **23** (omit keyword) | **194** Page Objects across Base | Varied across 3 naming conventions | 7 Verified, 1 Unverified |
 
 ---
 
@@ -174,7 +174,7 @@ flowchart TD
 | Total Target Applications | 8 | 8 | All 8 present in repository |
 | Total Baseline Suites | 12 (8 Base + 4 Base+) | 12 (8 Base + 4 Base+) | All 12 present in repository |
 | Gherkin `.feature` Files | 258 | **257** | MantisBT has +1 (`0_Login`), PrestaShop has -2 |
-| Standard Parseable Scenarios | 258 | **234** | Bludit's 23 files lack `Scenario:` keyword; require normalization |
+| Files with Explicit `Scenario:` Headers | 258 | **234** | 234 files have explicit `Scenario:` headers; 23 Bludit files omit keyword |
 | Base Business Test Classes | 258 | **257** (258 with Bludit Installer) | Bludit Installer is setup, not a business test |
 | Base Page Object Classes | Not reported in Table 2 | **194** classes across 8 Base suites | High asset reuse for AI Selenium generation |
 | RQ2 Coverage Denominator | N/A | **To be established in T04** | Must derive from verified pre-expansion behavioral taxonomy |

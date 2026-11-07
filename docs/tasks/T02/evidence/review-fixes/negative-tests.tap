@@ -1,0 +1,7 @@
+TAP version 13
+1..5
+ok 1 - NEG_WRONG_SHA: Verify mismatch is caught when upstream SHA does not match expected — Correctly rejected invalid commit 0000000000000000000000000000000000000000
+ok 2 - NEG_NETWORK_ERROR_HANDLING: Network/DNS error must result in BLOCKED, not false NOT_VERIFIED or PASS — Correctly categorized network error as BLOCKED
+ok 3 - NEG_INVALID_RUNTIME_MANIFEST: Runtime validator must reject manifest missing imageDigest — Correctly rejected: source contains unsupported fields: kind, repositoryUrl
+ok 4 - NEG_PROCESS_EXIT_CODE: Runner process exits with code 1 and suppresses success message on failure — Process exit code: 1
+ok 5 - NEG_DRAFT_MANIFEST_BLOCK: Draft manifest with dummy digest and extra fields is blocked from runtime execution — Blocked with: ApplicationManifest contains unsupported fields: manifestType
