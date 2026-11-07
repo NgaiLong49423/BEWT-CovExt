@@ -1,5 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
-import { readFile, readdir, writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
 import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult } from "./contracts.js";
@@ -11,6 +11,7 @@ import { buildWorkflow, openSqliteCheckpointer, resumeReview, type RuntimeServic
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./runtime/safe-path.js";
 import { verifyExpressCartSourceInputs } from "../../adapters/expresscart/source-identity.js";
 import { registerGeneratedJava } from "./runtime/java-artifact-registry.js";
+import { readModelRunBudget, recordModelCall, reserveModelCall } from "./runtime/model-call-ledger.js";
 
 const root = resolve(process.cwd(), "..");
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -27,37 +28,6 @@ async function readCoverageReviewData(runId: string): Promise<{ analysis: unknow
   const value = JSON.parse(await readFile(path, "utf8")) as Record<string, unknown>;
   if (!Array.isArray(value.coverageAnalysis) || !Array.isArray(value.candidateGaps)) throw new Error("coverage review evidence is incomplete");
   return { analysis: value.coverageAnalysis, gaps: value.candidateGaps.map(parseCoverageGap) };
-}
-
-interface ModelRunBudget { apiRequestsAllowed: number; runCostCeilingUsd: number; perCallCostCeilingUsd: number; }
-async function readModelRunBudget(runId: string): Promise<ModelRunBudget> {
-  const path = await resolveContainedExistingPath(root, `${evidenceRoot}/${runId}/model-run-budget.json`);
-  const value = JSON.parse(await readFile(path, "utf8")) as Partial<ModelRunBudget>;
-  if (!Number.isInteger(value.apiRequestsAllowed) || value.apiRequestsAllowed! < 1 || !Number.isFinite(value.runCostCeilingUsd) ||
-      !Number.isFinite(value.perCallCostCeilingUsd) || value.perCallCostCeilingUsd! * value.apiRequestsAllowed! > value.runCostCeilingUsd! + 1e-9) {
-    throw new Error("T01-C model run budget ledger is invalid");
-  }
-  return value as ModelRunBudget;
-}
-
-async function reserveModelCall(runId: string, stage: "gherkin" | "java"): Promise<{ callNumber: number; budget: ModelRunBudget }> {
-  const budget = await readModelRunBudget(runId);
-  const directory = `${evidenceRoot}/${runId}/model-calls`;
-  const absoluteDirectory = await ensureContainedDirectory(root, directory);
-  const reservations = (await readdir(absoluteDirectory)).filter((name) => /^call-\d{2}-reserved\.json$/.test(name)).sort();
-  if (reservations.length >= budget.apiRequestsAllowed) throw new Error("MODEL_RUN_BUDGET_EXHAUSTED");
-  const callNumber = reservations.length + 1;
-  await writeUnique(`${directory}/call-${String(callNumber).padStart(2, "0")}-reserved.json`, JSON.stringify({ runId, callNumber, stage,
-    apiRequestsAllowed: budget.apiRequestsAllowed, runCostCeilingUsd: budget.runCostCeilingUsd,
-    reservedMaxCostUsd: budget.perCallCostCeilingUsd, retriesAllowed: 0, reservedAt: new Date().toISOString(),
-    note: "Reservation is append-only and fail-closed across process restart; failed reservations are not replayed." }, null, 2));
-  return { callNumber, budget };
-}
-
-async function recordModelCall(runId: string, callNumber: number, status: string, telemetry: unknown, error?: unknown): Promise<void> {
-  const directory = `${evidenceRoot}/${runId}/model-calls`;
-  await writeUnique(`${directory}/call-${String(callNumber).padStart(2, "0")}-result.json`, JSON.stringify({ runId, callNumber, status, telemetry,
-    ...(error === undefined ? {} : { error: sanitizeToolOutput(error instanceof Error ? error.message : String(error)) }), completedAt: new Date().toISOString() }, null, 2));
 }
 
 function executionReference(result: ToolResult, invocationId: string, appState: AgentWorkflowState) {
@@ -149,14 +119,14 @@ async function main(args: string[]): Promise<void> {
         const request = { baseline, gaps, candidateId: requestCandidateId, revision, sourceContext };
         const directory = `${evidenceRoot}/${runIdForEvidence}`;
         await ensureContainedDirectory(root, directory);
-        const reservation = await reserveModelCall(runIdForEvidence, "gherkin");
+        const reservation = await reserveModelCall(root, evidenceRoot, runIdForEvidence, "gherkin");
         let output: GenerationOutput;
         try {
           output = await provider.generate(request);
-          await recordModelCall(runIdForEvidence, reservation.callNumber, "PASS", provider.lastTelemetry);
+          await recordModelCall(root, evidenceRoot, runIdForEvidence, reservation.callNumber, "PASS", provider.lastTelemetry);
         }
         catch (error) {
-          await recordModelCall(runIdForEvidence, reservation.callNumber, provider.lastTelemetry.status, provider.lastTelemetry, error);
+          await recordModelCall(root, evidenceRoot, runIdForEvidence, reservation.callNumber, provider.lastTelemetry.status, provider.lastTelemetry, error);
           await writeUnique(`${directory}/model-generation-failure.json`, JSON.stringify({ runId: runIdForEvidence, status: provider.lastTelemetry.status,
             telemetry: provider.lastTelemetry, error: sanitizeToolOutput(error instanceof Error ? error.message : "model request failed") }, null, 2));
           throw error;
@@ -172,13 +142,13 @@ async function main(args: string[]): Promise<void> {
       prepareJava: async (candidate, workflow) => {
         if (!javaProvider) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED_FOR_POST_ACCEPT_JAVA");
         const context = await approvedJavaContext(candidate);
-        const reservation = await reserveModelCall(workflow.runId, "java");
+        const reservation = await reserveModelCall(root, evidenceRoot, workflow.runId, "java");
         let output;
         try {
           output = await javaProvider.generateJava(candidate, workflow, context);
-          await recordModelCall(workflow.runId, reservation.callNumber, "PASS", javaProvider.lastTelemetry);
+          await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, "PASS", javaProvider.lastTelemetry);
         } catch (error) {
-          await recordModelCall(workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
+          await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
           throw error;
         }
         const registered = await registerGeneratedJava(root, workflow, candidate, output);
@@ -277,7 +247,7 @@ async function main(args: string[]): Promise<void> {
     if ((decision === "ACCEPT" || decision === "REVISE") && !liveAuthorized) throw new Error(`${decision} requires an explicit --live-authorized flag for post-review model use; no decision was submitted.`);
     if (decision === "ACCEPT" || decision === "REVISE") {
       runIdForEvidence = state.workflow.runId;
-      const budget = await readModelRunBudget(runIdForEvidence);
+      const budget = await readModelRunBudget(root, evidenceRoot, runIdForEvidence);
       if (decision === "ACCEPT") javaProvider = new GeminiJavaGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });
       else {
         provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });

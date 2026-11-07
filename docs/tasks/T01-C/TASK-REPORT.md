@@ -12,7 +12,7 @@
 - Generated class identity and immutable registration are implemented in `framework/src/runtime/java-class.ts` and `framework/src/runtime/java-artifact-registry.ts`. Registration is tied to current accepted candidate/revision/source and uses exclusive creation.
 - The generated-test harness (`adapters/expresscart/generated-test-harness.ts`) copies the Maven manifest, existing `PageObject` base, source-grounded `CustomerPasswordResetPage`, approved `BaseTest`, and exact registered generated class into an isolated workspace. Adapter compile and Selenium methods are in `adapters/expresscart/experiment.ts`.
 - Validation distinctions and provenance are represented by `parseValidationResult` in `framework/src/contracts.ts`; technical eligibility is separate from oracle/novelty and research acceptance.
-- The model run ledger is append-only and fail-closed across retries/restarts; the CLI requires explicit live authorization flags. No model API was called in this continuation.
+- The model run ledger in `framework/src/runtime/model-call-ledger.ts` is append-only and fail-closed across retries/restarts; unit tests verify exhausted budgets remain consumed after restart. The CLI requires explicit live authorization flags. No model API was called in this continuation.
 
 ## Root cause and live request
 
@@ -20,9 +20,9 @@ The initial live attempt was rejected before invocation by automatic review. The
 
 ## Verification and limits
 
-- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 33/33. Latest build/unit logs: `evidence/verification/rerun-20261108-final-audit-3/`.
-- ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final-audit-3/expresscart-agent-unit.txt`).
-- Focused offline T01-C and shared workflow integration: PASS, 7/7, covering pause-before-effects, fake Java after test approval, actual Maven compile, REVISE/new checkpoint/ACCEPT, REJECT, replay protection, two repairs, and process restart. Log: `evidence/verification/rerun-20261108-final-audit-3/t01c-workflow-integration.txt`; latest Maven compile: `evidence/t01c-offline-approved-7c20bd27-28ee-409e-896b-b21f0f787c68/isolated-maven-compile.json`.
+- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 35/35. Latest build/unit logs: `evidence/verification/rerun-20261108-final-audit-4/`.
+- ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt`).
+- Focused offline T01-C and shared workflow integration: PASS, 7/7, covering pause-before-effects, fake Java after test approval, actual Maven compile, REVISE/new checkpoint/ACCEPT, REJECT, replay protection, two repairs, and process restart. Log: `evidence/verification/rerun-20261108-final-audit-4/t01c-workflow-integration.txt`; latest Maven compile: `evidence/t01c-offline-approved-e95ab9ae-40bc-4ff6-8d4e-cb895614e362/isolated-maven-compile.json`.
 - Full framework integration suite last captured 12 PASS / 4 FAIL / 1 SKIP: three symlink tests hit sandbox `EPERM`; ExpressCart lifecycle was BLOCKED on unavailable Docker/runtime; crash/replay remained skipped. Evidence: `evidence/verification/rerun-20261108/framework-integration.txt`.
 
 
