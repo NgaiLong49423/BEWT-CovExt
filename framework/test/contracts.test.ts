@@ -66,18 +66,21 @@ function review(decision: HumanReviewDecision["decision"], id = `decision-${deci
   };
 }
 
-function execution(runId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS", artifactName = "result.json") {
+function execution(stageRunId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS", artifactName = "result.json", invocationId = "validation-001") {
+  const notExecuted = outcome === "NOT_RUN" || (outcome === "BLOCKED" && stageRunId.length === 0);
   return {
-    runId, outcome, sourceCommit: sha, sourceVersion: "1.1.19",
-    evidence: [{ ...evidence, runId, artifactPath: `docs/evidence/${runId}/${artifactName}` }],
+    invocationId, ...(notExecuted ? {} : { stageRunId }), outcome, sourceCommit: sha, sourceVersion: "1.1.19",
+    evidence: notExecuted ? [] : [{ ...evidence, runId: stageRunId, artifactPath: `docs/evidence/${stageRunId}/${artifactName}` }],
   };
 }
 
-function repeat(runId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS") {
+function repeat(invocationId: string, outcome: "PASS" | "FAIL" | "BLOCKED" | "NOT_RUN" | "INCONCLUSIVE" = "PASS") {
   return {
-    runId, sourceCommit: sha, sourceVersion: "1.1.19",
-    compile: execution(runId, outcome, "compile.xml"), fixture: execution(runId, outcome, "fixture.json"),
-    e2e: execution(runId, outcome, "e2e.json"), cleanup: execution(runId, outcome, "cleanup.json"),
+    invocationId, sourceCommit: sha, sourceVersion: "1.1.19",
+    compile: execution(`${invocationId}-compile`, outcome, "compile.xml", invocationId),
+    fixture: execution(`${invocationId}-fixture`, outcome, "fixture.json", invocationId),
+    e2e: execution(`${invocationId}-e2e`, outcome, "e2e.json", invocationId),
+    cleanup: execution(`${invocationId}-cleanup`, outcome, "cleanup.json", invocationId),
   };
 }
 
@@ -91,7 +94,7 @@ function recordedDecision(decision: "APPROVED" | "REJECTED" | "UNVERIFIED", deci
 
 function validationResult(overrides: Record<string, unknown> = {}) {
   return {
-    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, sourceCommit: sha, sourceVersion: "1.1.19",
+    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, invocationId: "validation-001", sourceCommit: sha, sourceVersion: "1.1.19",
     compile: execution("run-compile"), fixture: execution("run-fixture"), e2e: execution("run-e2e"), cleanup: execution("run-cleanup"),
     oracleDecision: recordedDecision("APPROVED", "oracle-approved"), noveltyDecision: recordedDecision("APPROVED", "novelty-approved"),
     repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-3")], repairAttempts: 1,
@@ -99,6 +102,21 @@ function validationResult(overrides: Record<string, unknown> = {}) {
     researchAcceptance: { status: "NOT_REVIEWED" },
     ...overrides,
   };
+}
+
+function partialValidationResult(overrides: Record<string, unknown> = {}) {
+  const invocationId = "partial-validation-001";
+  return validationResult({
+    invocationId,
+    compile: execution("", "NOT_RUN", "compile.xml", invocationId),
+    fixture: execution("", "BLOCKED", "fixture.json", invocationId),
+    e2e: execution("", "NOT_RUN", "e2e.json", invocationId),
+    cleanup: execution("", "NOT_RUN", "cleanup.json", invocationId),
+    oracleDecision: recordedDecision("UNVERIFIED", "partial-oracle", false),
+    noveltyDecision: recordedDecision("UNVERIFIED", "partial-novelty", false),
+    repeats: [], evidence: [],
+    ...overrides,
+  });
 }
 
 test("valid application manifest accepts a pinned app-neutral schema", () => {
@@ -329,6 +347,8 @@ test("validation eligibility is computed from pinned run records and research ac
   assert.throws(() => parseValidationResult({ ...valid, technicalEligibility: "INELIGIBLE" }), /does not match the execution records/);
   assert.equal(parseValidationResult(validationResult({ e2e: execution("run-e2e", "NOT_RUN") })).technicalEligibility, "UNVERIFIED");
   assert.equal(parseValidationResult(validationResult({ e2e: execution("run-e2e", "FAIL") })).technicalEligibility, "INELIGIBLE");
+  assert.equal(parseValidationResult(validationResult({ repeats: [repeat("rerun-only-one")] })).technicalEligibility, "UNVERIFIED");
+  assert.equal(parseValidationResult(validationResult({ repeats: [repeat("rerun-two-1"), repeat("rerun-two-2")] })).technicalEligibility, "UNVERIFIED");
 
   const accepted = validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") } });
   assert.equal(parseValidationResult(accepted).researchAcceptance.status, "ACCEPTED");
@@ -336,23 +356,56 @@ test("validation eligibility is computed from pinned run records and research ac
   assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED" } })), /requires a recorded approval/);
   assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") }, noveltyDecision: recordedDecision("UNVERIFIED", "novelty-unknown", false) })), /approved oracle\/novelty/);
   assert.throws(() => parseValidationResult(validationResult({ researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "research-accepted") }, e2e: execution("run-e2e", "FAIL") })), /requires technical eligibility/);
+  assert.throws(() => parseValidationResult(partialValidationResult({
+    e2e: execution("e2e-failed", "FAIL", "e2e.json", "partial-validation-001"),
+    oracleDecision: recordedDecision("APPROVED", "partial-oracle-approved"),
+    noveltyDecision: recordedDecision("APPROVED", "partial-novelty-approved"),
+    researchAcceptance: { status: "ACCEPTED", decision: recordedDecision("APPROVED", "partial-research-approved") },
+  })), /requires technical eligibility/);
   assert.throws(() => parseValidationResult(validationResult({ oracleDecision: { ...recordedDecision("APPROVED", "oracle-wrong-revision"), candidateRevision: 2 } })), /reference the validation app, candidate, and revision/);
   assert.throws(() => parseValidationResult({ ...valid, noveltyAndOracleApproved: true, researchStatus: "VALIDATED", repeats: ["PASS", "PASS", "PASS"] }), /unsupported fields/);
   assert.equal(parseValidationResult(validationResult({ researchAcceptance: { status: "UNVERIFIED", decision: recordedDecision("UNVERIFIED", "research-unknown", false) } })).researchAcceptance.status, "UNVERIFIED");
 });
 
+test("partial validation records NOT_RUN and BLOCKED without inventing stage run IDs or evidence", () => {
+  const parsed = parseValidationResult(partialValidationResult());
+  assert.equal(parsed.technicalEligibility, "UNVERIFIED");
+  assert.equal(parsed.repeats.length, 0);
+  for (const stage of [parsed.compile, parsed.fixture, parsed.e2e, parsed.cleanup]) {
+    assert.equal(stage.stageRunId, undefined);
+    assert.deepEqual(stage.evidence, []);
+  }
+  assert.equal(parsed.compile.outcome, "NOT_RUN");
+  assert.equal(parsed.fixture.outcome, "BLOCKED");
+  assert.equal(parseValidationResult(partialValidationResult({ compile: execution("compile-failed", "FAIL", "compile.log", "partial-validation-001") })).technicalEligibility, "INELIGIBLE");
+  assert.equal(parseValidationResult(partialValidationResult({ e2e: execution("e2e-failed", "FAIL", "e2e.json", "partial-validation-001") })).technicalEligibility, "INELIGIBLE");
+  assert.equal(parseValidationResult(partialValidationResult({ e2e: execution("e2e-inconclusive", "INCONCLUSIVE", "e2e.json", "partial-validation-001") })).technicalEligibility, "UNVERIFIED");
+  assert.throws(() => parseValidationResult(partialValidationResult({ compile: { ...execution("", "NOT_RUN", "compile.xml", "partial-validation-001"), evidence: [evidence] } })), /NOT_RUN stage must not invent/);
+});
+
+test("validation stage records share invocation identity and repeat invocations stay distinct", () => {
+  const parsed = parseValidationResult(validationResult());
+  assert.deepEqual([parsed.compile, parsed.fixture, parsed.e2e, parsed.cleanup].map((stage) => stage.invocationId), [parsed.invocationId, parsed.invocationId, parsed.invocationId, parsed.invocationId]);
+  assert.equal(new Set(parsed.repeats.map((repeatRecord) => repeatRecord.invocationId)).size, 3);
+  assert.equal(new Set(parsed.repeats.map((repeatRecord) => repeatRecord.e2e.stageRunId)).size, 3);
+  assert.equal(parsed.technicalEligibility, "ELIGIBLE");
+  const firstRepeat = parsed.repeats[0]!;
+  const wrongStageLink = { ...parsed, repeats: [{ ...firstRepeat, fixture: { ...firstRepeat.fixture, invocationId: "different-invocation" } }, ...parsed.repeats.slice(1)] };
+  assert.throws(() => parseValidationResult(wrongStageLink), /stage invocation ID does not match/);
+});
+
 test("validation rejects missing, duplicate, stale, mismatched or unpinned run and cleanup evidence", () => {
   const valid = validationResult() as ReturnType<typeof validationResult> & { repeats: ReturnType<typeof repeat>[]; compile: ReturnType<typeof execution> };
   assert.throws(() => parseValidationResult({ ...valid, compile: undefined }), /compile must be an object/);
-  assert.throws(() => parseValidationResult({ ...valid, repeats: [valid.repeats[0], valid.repeats[0], valid.repeats[2]] }), /run IDs must be distinct/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [valid.repeats[0], valid.repeats[0], valid.repeats[2]] }), /invocation IDs must be distinct/);
   assert.throws(() => parseValidationResult({ ...valid, evidence: [valid.evidence[0], valid.evidence[0]] }), /must not be duplicated/);
   assert.throws(() => parseValidationResult({ ...valid, e2e: { ...execution("run-e2e"), sourceCommit: "1111111111111111111111111111111111111111" } }), /source pin does not match/);
-  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: execution("other-run") }] }), /run ID does not match its rerun record/);
-  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: { ...execution("rerun-3"), evidence: [] } }] }), /1\.\.1000 items/);
-  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), fixture: { ...execution("rerun-3"), evidence: [] } }] }), /1\.\.1000 items/);
-  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...evidence, runId: "wrong-run" }] } }), /evidence does not match its run/);
-  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...valid.compile.evidence[0], sourceVersion: "wrong-version" }] } }), /evidence does not match its run and source pin/);
-  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-2")] }), /run IDs must be distinct/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: execution("other-run", "PASS", "cleanup.json", "wrong-invocation") }] }), /stage invocation ID does not match/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), cleanup: { ...execution("rerun-3"), evidence: [] } }] }), /requires a stage run ID and evidence/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), { ...repeat("rerun-3"), fixture: { ...execution("rerun-3"), evidence: [] } }] }), /requires a stage run ID and evidence/);
+  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...evidence, runId: "wrong-run" }] } }), /evidence does not match its stage run/);
+  assert.throws(() => parseValidationResult({ ...valid, compile: { ...valid.compile, evidence: [{ ...valid.compile.evidence[0], sourceVersion: "wrong-version" }] } }), /evidence does not match its stage run and source pin/);
+  assert.throws(() => parseValidationResult({ ...valid, repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-2")] }), /invocation IDs must be distinct/);
   assert.throws(() => parseValidationResult(validationResult({ noveltyDecision: recordedDecision("APPROVED", "oracle-approved") })), /decision IDs must be distinct/);
 });
 

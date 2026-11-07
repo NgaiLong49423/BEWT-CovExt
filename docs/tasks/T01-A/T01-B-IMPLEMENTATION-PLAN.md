@@ -12,7 +12,7 @@ Implement one reusable LangGraph workflow instance for one ExpressCart candidate
 4. Implement interrupt/resume at the human decision gate. Verify run/thread/checkpoint/candidate/revision binding and idempotent decision consumption.
 5. Wrap existing ExpressCart collectors, Maven suite, fixture and evidence paths as one app adapter; preserve legacy pilot entrypoints until parity is shown.
 6. Select one already approved candidate only after reviewer/source/oracle decisions are checked; preserve first Java source immutably.
-7. Run bounded validation with at most two repairs, classify setup/compile/E2E/oracle/cleanup separately, capture source-pinned run/evidence records, and repeat only when each reset/cleanup is recorded and ownership is verified. Compute technical eligibility separately from a research acceptance decision; never set `VALIDATED` from raw PASS strings.
+7. Run bounded validation with at most two repairs, classify setup/compile/E2E/oracle/cleanup separately, capture source-pinned records grouped by invocation ID with stage run IDs only for executed stages, and repeat only when each reset/cleanup is recorded and ownership is verified. Preserve explicit NOT_RUN/BLOCKED/FAIL/INCONCLUSIVE outcomes; do not synthesize evidence for skipped stages. Only three distinct complete PASS repeat invocations and passing primary stages qualify as technically eligible. Compute technical eligibility separately from a research acceptance decision; never set `VALIDATED` from raw PASS strings.
 8. Compare with historical ExpressCart pilot without rewriting Sprint 01–05 artifacts.
 
 ## Exit evidence and risks

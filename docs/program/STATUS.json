@@ -24,6 +24,7 @@
     "humanReviewContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "reviewFixes": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
+    "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "sources": [

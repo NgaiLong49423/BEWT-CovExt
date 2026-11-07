@@ -12,7 +12,7 @@ The original tests cover valid/invalid manifests and inventories, source/evidenc
 
 These checks exercise contracts and pure policy. They do **not** verify a LangGraph pause/resume, durable checkpoint store, actual dispatcher, reviewer authentication, Docker ownership or full E2E. No Maven build was run and no POM changed.
 
-## Review-fix verification (new, current)
+## Earlier review-fix verification (historical)
 
 Run from the independent framework package after `npm ci`:
 
@@ -20,11 +20,23 @@ Run from the independent framework package after `npm ci`:
 |---|---|---|---|
 | Dependency install | `npm ci` in `framework/` | PASS; locked packages installed; npm noted its install-script allowlist warning for optional `esbuild` | `evidence/review-fixes-npm-ci.log` |
 | TypeScript typecheck | `npm run build` in `framework/` | PASS | `evidence/review-fixes-build.log` |
-| Complete framework unit suite | `npm test` in `framework/` | PASS; 18 passed, 0 failed | `evidence/review-fixes-tests.log` |
+| Complete framework unit suite | `npm test` in `framework/` | PASS; 18 passed, 0 failed at that review-fix checkpoint | `evidence/review-fixes-tests.log` |
 | Existing ExpressCart Agent unit suite | `npm test` in `experiments/expresscart/agent/` | PASS; 5 passed, 0 failed | `evidence/review-fixes-existing-agent-tests.log` |
 
 New/expanded coverage exercises two REVISE rounds followed by ACCEPT, append-only ledger retention, old checkpoint rejection, stale revision and replay rejection; structured run/decision/evidence validation, duplicate/missing/mismatched records, distinct rerun IDs and per-rerun fixture-reset plus cleanup evidence; Java class syntax and candidate/artifact/class/revision binding; and exact manifest Base suite path enforcement. The previous ExpressCart Agent unit suite also passes.
 
-The package now declares pinned tooling in `framework/package.json`, commits `framework/package-lock.json`, resolves Node types from its own `node_modules`, and exposes `build`/`test` scripts. These checks ran from that package after `npm ci`, without reaching into ExpressCart's `node_modules`.
+The package declares pinned tooling in `framework/package.json`, commits `framework/package-lock.json`, resolves Node types from its own `node_modules`, and exposes `build`/`test` scripts. These checks ran from that package after `npm ci`, without reaching into ExpressCart's `node_modules`.
+
+## Final ValidationResult correction verification
+
+| Check | Command | Result | Evidence |
+|---|---|---|---|
+| Dependency install (sandbox attempt) | `npm ci` in `framework/` | BLOCKED by sandbox DNS `ENOTFOUND registry.npmjs.org`; the package directory was then reinstalled successfully outside the sandbox | `evidence/final-corrections-npm-ci.log` |
+| Dependency install (retry) | `npm ci` in `framework/` | PASS; 7 locked packages, 0 vulnerabilities; npm reported its optional `esbuild` install-script allowlist warning | `evidence/final-corrections-npm-ci-retry.log` |
+| TypeScript typecheck | `npm run build` in `framework/` | PASS | `evidence/final-corrections-build.log` |
+| Complete framework unit suite | `npm test` in `framework/` | PASS; 20 passed, 0 failed | `evidence/final-corrections-tests.log` |
+| Existing ExpressCart Agent suite | `npm test` in `experiments/expresscart/agent/` | PASS; 5 passed, 0 failed | `evidence/final-corrections-existing-agent-tests.log` |
+
+The framework suite retains and passes the prior 18 tests and adds two focused tests for partial outcomes and invocation linkage. The validation eligibility test also checks zero, one, two, and three repeats, E2E FAIL without synthetic repeats, rejection of research acceptance over technical ineligibility, source pins/evidence on the eligible three-repeat case, and duplicate invocation rejection. Runtime authenticity, filesystem realpath/symlink checks, actual E2E execution, and cleanup behavior remain unverified and are T01-B work.
 
 These remain contract/policy checks. No reviewer identity, referenced evidence contents, Java source/class correspondence, filesystem realpath/symlink boundary, LangGraph checkpoint persistence, Gemini, Docker or full E2E was verified. Those are T01-B runtime acceptance blockers.

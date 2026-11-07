@@ -175,7 +175,8 @@ export interface ApplicationAdapter {
 }
 
 export interface ExecutionReference {
-  runId: string;
+  invocationId: string;
+  stageRunId?: string;
   outcome: Outcome;
   sourceCommit: string;
   sourceVersion: string;
@@ -183,7 +184,7 @@ export interface ExecutionReference {
 }
 
 export interface RepeatValidationRecord {
-  runId: string;
+  invocationId: string;
   sourceCommit: string;
   sourceVersion: string;
   compile: ExecutionReference;
@@ -215,6 +216,7 @@ export interface ValidationResult {
   appId: AppId;
   candidateId: string;
   candidateRevision: number;
+  invocationId: string;
   sourceCommit: string;
   sourceVersion: string;
   compile: ExecutionReference;
@@ -557,11 +559,12 @@ export function parseToolResult(input: unknown): ToolResult {
 
 export function parseValidationResult(input: unknown): ValidationResult {
   const value = record(input, "ValidationResult");
-  assertKeys(value, ["appId", "candidateId", "candidateRevision", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup", "oracleDecision", "noveltyDecision", "repeats", "repairAttempts", "evidence", "technicalEligibility", "researchAcceptance"], "ValidationResult");
+  assertKeys(value, ["appId", "candidateId", "candidateRevision", "invocationId", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup", "oracleDecision", "noveltyDecision", "repeats", "repairAttempts", "evidence", "technicalEligibility", "researchAcceptance"], "ValidationResult");
   const declaredEligibility = value.technicalEligibility === undefined ? undefined : member(value.technicalEligibility, ["ELIGIBLE", "INELIGIBLE", "UNVERIFIED"] as const, "technicalEligibility");
   const appId = member(value.appId, APP_IDS, "appId");
   const candidateId = text(value.candidateId, "candidateId", 120);
   const candidateRevision = positiveInteger(value.candidateRevision, "candidateRevision");
+  const invocationId = text(value.invocationId, "invocationId", 120);
   const sourceCommit = sha(value.sourceCommit, "sourceCommit");
   const sourceVersion = text(value.sourceVersion, "sourceVersion", 120);
   const compile = parseExecutionReference(value.compile, "compile");
@@ -573,9 +576,9 @@ export function parseValidationResult(input: unknown): ValidationResult {
   for (const decision of [oracleDecision, noveltyDecision]) assertDecisionTarget(decision, appId, candidateId, candidateRevision, "validation decision");
   const repeats = list(value.repeats, "repeats", (item, index) => {
     const repeat = record(item, `repeats[${index}]`);
-    assertKeys(repeat, ["runId", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup"], `repeats[${index}]`);
+    assertKeys(repeat, ["invocationId", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup"], `repeats[${index}]`);
     return {
-      runId: text(repeat.runId, `repeats[${index}].runId`, 120),
+      invocationId: text(repeat.invocationId, `repeats[${index}].invocationId`, 120),
       sourceCommit: sha(repeat.sourceCommit, `repeats[${index}].sourceCommit`),
       sourceVersion: text(repeat.sourceVersion, `repeats[${index}].sourceVersion`, 120),
       compile: parseExecutionReference(repeat.compile, `repeats[${index}].compile`),
@@ -583,10 +586,10 @@ export function parseValidationResult(input: unknown): ValidationResult {
       e2e: parseExecutionReference(repeat.e2e, `repeats[${index}].e2e`),
       cleanup: parseExecutionReference(repeat.cleanup, `repeats[${index}].cleanup`),
     };
-  }, 3, 3);
+  }, 0, 3);
   const attempts = value.repairAttempts;
   if (!Number.isInteger(attempts) || (attempts as number) < 0 || (attempts as number) > 2) throw new ContractError("repairAttempts must be an integer from 0 to 2");
-  const evidence = list(value.evidence, "evidence", parseEvidenceReference, 1, 1_000);
+  const evidence = list(value.evidence, "evidence", parseEvidenceReference, 0, 1_000);
   const acceptanceInput = record(value.researchAcceptance, "researchAcceptance");
   assertKeys(acceptanceInput, ["status", "decision"], "researchAcceptance");
   const acceptanceStatus = member(acceptanceInput.status, ["NOT_REVIEWED", "ACCEPTED", "REJECTED", "UNVERIFIED"] as const, "researchAcceptance.status");
@@ -595,21 +598,18 @@ export function parseValidationResult(input: unknown): ValidationResult {
     ...(acceptanceInput.decision === undefined ? {} : { decision: parseRecordedDecision(acceptanceInput.decision, "researchAcceptance.decision") }),
   };
   if (acceptance.decision) assertDecisionTarget(acceptance.decision, appId, candidateId, candidateRevision, "research acceptance decision");
-  const resultBase = { appId, candidateId, candidateRevision, sourceCommit, sourceVersion, compile, fixture, e2e, cleanup, oracleDecision, noveltyDecision, repeats, repairAttempts: attempts as number, evidence, researchAcceptance: acceptance };
-  assertExecutionPin(compile, sourceCommit, sourceVersion, "compile");
-  assertExecutionPin(fixture, sourceCommit, sourceVersion, "fixture");
-  assertExecutionPin(e2e, sourceCommit, sourceVersion, "e2e");
-  assertExecutionPin(cleanup, sourceCommit, sourceVersion, "cleanup");
-  const runIds = [compile.runId, fixture.runId, e2e.runId, cleanup.runId, ...repeats.map((repeat) => repeat.runId)];
-  if (new Set(runIds).size !== runIds.length) throw new ContractError("validation and rerun run IDs must be distinct");
+  const resultBase = { appId, candidateId, candidateRevision, invocationId, sourceCommit, sourceVersion, compile, fixture, e2e, cleanup, oracleDecision, noveltyDecision, repeats, repairAttempts: attempts as number, evidence, researchAcceptance: acceptance };
+  for (const [stage, reference] of [["compile", compile], ["fixture", fixture], ["e2e", e2e], ["cleanup", cleanup]] as const) {
+    assertExecutionPin(reference, invocationId, sourceCommit, sourceVersion, stage);
+  }
+  const invocationIds = [invocationId, ...repeats.map((repeat) => repeat.invocationId)];
+  if (new Set(invocationIds).size !== invocationIds.length) throw new ContractError("validation and repeat invocation IDs must be distinct");
   for (const [index, repeat] of repeats.entries()) {
     if (repeat.sourceCommit !== sourceCommit || repeat.sourceVersion !== sourceVersion) throw new ContractError(`repeats[${index}] source pin does not match validation result`);
     for (const stage of ["compile", "fixture", "e2e", "cleanup"] as const) {
       const reference = repeat[stage];
-      assertExecutionPin(reference, sourceCommit, sourceVersion, `repeats[${index}].${stage}`);
-      if (reference.runId !== repeat.runId) throw new ContractError(`repeats[${index}].${stage} run ID does not match its rerun record`);
+      assertExecutionPin(reference, repeat.invocationId, sourceCommit, sourceVersion, `repeats[${index}].${stage}`);
     }
-    if (repeat.cleanup.evidence.length === 0) throw new ContractError(`repeats[${index}] requires reset/cleanup evidence`);
   }
   const allReferences = [compile, fixture, e2e, cleanup, ...repeats.flatMap((repeat) => [repeat.compile, repeat.fixture, repeat.e2e, repeat.cleanup])];
   const decisionIds = [oracleDecision.decisionId, noveltyDecision.decisionId, ...(acceptance.decision ? [acceptance.decision.decisionId] : [])];
@@ -641,13 +641,23 @@ export function parseValidationResult(input: unknown): ValidationResult {
 
 function parseExecutionReference(input: unknown, label: string): ExecutionReference {
   const value = record(input, label);
-  assertKeys(value, ["runId", "outcome", "sourceCommit", "sourceVersion", "evidence"], label);
+  assertKeys(value, ["invocationId", "stageRunId", "outcome", "sourceCommit", "sourceVersion", "evidence"], label);
+  const outcome = member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, `${label}.outcome`);
+  const stageRunId = value.stageRunId === undefined ? undefined : text(value.stageRunId, `${label}.stageRunId`, 120);
+  const evidence = list(value.evidence, `${label}.evidence`, parseEvidenceReference, 0, 1_000);
+  if (outcome === "NOT_RUN" && (stageRunId !== undefined || evidence.length > 0)) throw new ContractError(`${label} NOT_RUN stage must not invent a stage run or evidence`);
+  if (outcome === "BLOCKED" && stageRunId === undefined && evidence.length > 0) throw new ContractError(`${label} blocked stage without a run cannot reference execution evidence`);
+  if (outcome !== "NOT_RUN" && outcome !== "BLOCKED" && (stageRunId === undefined || evidence.length === 0)) {
+    throw new ContractError(`${label} ${outcome} stage requires a stage run ID and evidence`);
+  }
+  if (stageRunId !== undefined && evidence.length === 0) throw new ContractError(`${label} stage run ID requires evidence`);
   return {
-    runId: text(value.runId, `${label}.runId`, 120),
-    outcome: member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, `${label}.outcome`),
+    invocationId: text(value.invocationId, `${label}.invocationId`, 120),
+    ...(stageRunId === undefined ? {} : { stageRunId }),
+    outcome,
     sourceCommit: sha(value.sourceCommit, `${label}.sourceCommit`),
     sourceVersion: text(value.sourceVersion, `${label}.sourceVersion`, 120),
-    evidence: list(value.evidence, `${label}.evidence`, parseEvidenceReference, 1, 1_000),
+    evidence,
   };
 }
 
@@ -673,10 +683,11 @@ function assertDecisionTarget(decision: RecordedDecision, appId: AppId, candidat
   }
 }
 
-function assertExecutionPin(reference: ExecutionReference, sourceCommit: string, sourceVersion: string, label: string): void {
+function assertExecutionPin(reference: ExecutionReference, invocationId: string, sourceCommit: string, sourceVersion: string, label: string): void {
+  if (reference.invocationId !== invocationId) throw new ContractError(`${label} stage invocation ID does not match its validation invocation`);
   if (reference.sourceCommit !== sourceCommit || reference.sourceVersion !== sourceVersion) throw new ContractError(`${label} source pin does not match validation result`);
-  if (reference.evidence.some((item) => item.runId !== reference.runId || item.repositoryCommit !== sourceCommit || item.sourceVersion !== sourceVersion)) {
-    throw new ContractError(`${label} evidence does not match its run and source pin`);
+  if (reference.evidence.some((item) => item.runId !== reference.stageRunId || item.repositoryCommit !== sourceCommit || item.sourceVersion !== sourceVersion)) {
+    throw new ContractError(`${label} evidence does not match its stage run and source pin`);
   }
 }
 

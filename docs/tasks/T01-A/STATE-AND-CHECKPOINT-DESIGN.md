@@ -14,7 +14,7 @@ STARTED → BASELINE_COLLECTED → CANDIDATES_GENERATED → AWAITING_HUMAN_REVIE
 Non-terminal states may become BLOCKED or FAILED when an error is recorded.
 ```
 
-`VALIDATED` is not a workflow status or an agent-settable boolean. `parseValidationResult` derives `technicalEligibility` from pinned compile/fixture/E2E/cleanup run records and distinct rerun records. Research acceptance is a separate `researchAcceptance` decision with a reviewer reference and evidence. An accepted record is still only a validated data contract; the T01-B runtime must authenticate the reviewer and independently verify referenced evidence before a research gate can accept it.
+`VALIDATED` is not a workflow status or an agent-settable boolean. `parseValidationResult` derives `technicalEligibility` from source-pinned compile/fixture/E2E/cleanup stage records grouped under invocation IDs. It permits partial records: `NOT_RUN` has no stage run or execution evidence; `BLOCKED` may represent a pre-execution block; FAIL and INCONCLUSIVE remain distinct. Repeat records are zero to three distinct invocations, not individual stage runs. Only three complete PASS repeats and all primary PASS stages derive `ELIGIBLE`; partial/inconclusive records are `UNVERIFIED`, while a recorded FAIL is `INELIGIBLE`. Research acceptance is a separate `researchAcceptance` decision with a reviewer reference and evidence, and cannot override technical eligibility. An accepted record is still only a validated data contract; the T01-B runtime must authenticate the reviewer and independently verify referenced evidence before a research gate can accept it.
 
 ## Pause, checkpoint and resume
 
