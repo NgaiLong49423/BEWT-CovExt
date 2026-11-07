@@ -3,9 +3,9 @@
 - **Task scope / acceptance gate:** Static benchmark audit of 8 applications, baseline inventory verification, Gherkin/Java test count mismatch classification, upstream provenance analysis, environment readiness review, and G0 rollout planning.
 - **Base branch + base SHA:** `origin/main` at `7e27950fefab0eefc37cf326e3c54c3e8006bfb6` (following merge of PR #3 / T01-B).
 - **Working branch:** `feature/t02-benchmark-audit`.
-- **Head commit (full 40-char SHA):** `a9ec8c8538f14e211dea3d4936d100e896ad57a7` (amended with handoff report upon PR creation).
-- **PR:** `https://github.com/NgaiLong49423/BEWT-CovExt/pull/<NUMBER>` (to be opened upon push).
-- **Push status:** PENDING_COMMIT_AND_PUSH.
+- **Head commit (full 40-char SHA):** `4ab8198c3051c1324f5e0df01f21b09866b60982`
+- **PR:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5
+- **Push status:** PUSHED (tracking `origin/feature/t02-benchmark-audit`)
 - **Runtime/commit/version audited:** Static audit against `bewt-original/` pinned at `0501249ff3e9a5ea83a06155cd2971dc36197056` (`https://github.com/OlianasD/BEWT.git`).
 - **Status proposed by Agent:** `READY_FOR_REVIEW`.
 
@@ -97,4 +97,4 @@
   2. Approve the G0 rollout complexity ranking: begin runtime execution in T03 starting with Kanboard (Rank 1), Bludit (Rank 2), and Claroline (Rank 3).
   3. Approve the URL parameterization strategy (`-Dapp.url=...`) to safely override the hardcoded `192.168.1.141` LAN IP addresses in Bludit, MantisBT, and PrestaShop.
 - **Suggested next task:** Task T03 (G0 Runtime Rollout & Smoke Verification for Kanboard, Bludit, and Claroline).
-- **PR URL:** `https://github.com/NgaiLong49423/BEWT-CovExt/pull/<NUMBER>` (to be supplied upon creation).
+- **PR URL:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5
