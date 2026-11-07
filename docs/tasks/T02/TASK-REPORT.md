@@ -3,7 +3,7 @@
 - **Task scope / acceptance gate:** Static benchmark audit of 8 applications, baseline inventory verification, Gherkin/Java test count mismatch classification, upstream provenance analysis, environment readiness review, and G0 rollout planning.
 - **Base branch + base SHA:** `origin/main` at `7e27950b44473cf4d6a5d7d5222bc8dac9b3a266` (following merge of PR #3 / T01-B).
 - **Working branch:** `feature/t02-benchmark-audit`.
-- **Head commit (full 40-char SHA):** `14430850d7ed799af4d16fea07db8a6ac0b21313`.
+- **Reviewed starting HEAD (full SHA):** `d967e75db74d537881b9f543fe38617e1c1025bd`.
 - **PR:** https://github.com/NgaiLong49423/BEWT-CovExt/pull/5
 - **Push status:** PUSHED (tracking `origin/feature/t02-benchmark-audit`).
 - **Runtime/commit/version audited:** Static audit against `bewt-original/` pinned at `0501249ff3e9a5ea83a06155cd2971dc36197056` (`https://github.com/OlianasD/BEWT.git`).
@@ -16,11 +16,12 @@
 | File path (repo-relative) | Change | Why |
 |---|---|---|
 | `docs/tasks/T02/evidence/review-fixes/verify-review-fixes.mjs` | Updated | Hardened test runner: Enforces non-zero exit code on failure, suppresses success message when checks fail, strictly differentiates `PASS`, `FAIL`, `NOT_VERIFIED`, and `BLOCKED`. Guarantees Claroline network/auth errors are flagged as `BLOCKED` and never misinterpreted as proof of tag absence. |
-| `docs/tasks/T02/evidence/review-fixes/test-negative-cases.mjs` | Created | Automated negative test suite: Simulates invalid upstream SHA, network failures on remote query, invalid runtime manifests, process exit code propagation, and draft manifest runtime blocking (5 negative tests, all passing). |
-| `docs/tasks/T02/G0-ROLLOUT-PLAN.md` | Updated | Synchronized all examples with `bewt-covext-<app>-$runId` naming and complete ownership labels. Fixed Windows PowerShell syntax (backtick continuation, `$env:...`), parameterized passwords, enforced ownership check preconditions prior to cleanup, required mount inspection for clean data reset, guarded Docker Compose teardowns, and added pseudocode marked `[T03_IMPLEMENTATION_REQUIRED]` for complex setup steps. |
+| `docs/tasks/T02/evidence/review-fixes/test-negative-cases.mjs` | Corrected | Negative tests start from a parser-valid Docker manifest; independently assert missing digest, malformed digest, and draft marker errors. Wrong-SHA and injected network-error cases invoke `runVerification()` and assert its `FAIL` / `BLOCKED` outcomes. Process exit propagation remains covered. |
+| `docs/tasks/T02/evidence/review-fixes/verify-review-fixes.mjs` | Updated | Added an injectable command executor for deterministic `runVerification()` tests; production default still executes Git using argument arrays. |
+| `docs/tasks/T02/G0-ROLLOUT-PLAN.md` | Updated | Preserved the existing naming, labels, PowerShell syntax, credentials, and reset safeguards. Replaced Joomla and MediaWiki direct Compose cleanup with `T03_IMPLEMENTATION_REQUIRED` pseudocode verifying full container labels/run ID, Compose project and file identity, mount/volume ownership, and post-teardown state. Project names and `docker compose ls` are not ownership proof. |
 | `docs/tasks/T02/BASELINE-INVENTORY.md` | Updated | Clarified Gherkin metrics: Replaced unverified "standard parseable scenarios" with observable structural metric "234 `.feature` files with explicit `Scenario:` headers" (each containing 1 explicit scenario), noted Bludit's 23 files omit keyword, preserved 258 literature cases and 257 physical files as separate metrics, and reaffirmed RQ2 denominator is deferred to Task T04. |
 | `docs/tasks/T02/PROPOSED-STATUS-UPDATE.json` | Updated | Synchronized metric field names to `filesWithExplicitScenarioHeaders` across global targets and all 8 application records. |
-| `docs/tasks/T02/evidence/review-fixes/*` | Updated & Generated | Real execution evidence files: `review-fixes-tests.tap` (31 tests), `review-fixes-validation.json`, `negative-tests.tap` (5 tests), `negative-tests-validation.json`. |
+| `docs/tasks/T02/evidence/review-fixes/*` | Updated & Generated | Execution evidence files: `review-fixes-tests.tap` (31 tests), `review-fixes-validation.json`, `negative-tests.tap` (6 tests), `negative-tests-validation.json`. |
 | `docs/tasks/T02/TASK-REPORT.md` | Updated | Recorded final review corrections, verified all repo-relative file links, updated evidence tables, and aligned handoff metadata. |
 
 ---
@@ -39,13 +40,14 @@ All review fixes and baseline findings were verified with automated test suites 
 | 7 Draft Manifests Metadata Structure Check | 0 | **PASS** (7/7) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 13, 16, 19, 22, 25, 28, 31) |
 | 7 Draft Manifests Runtime Validator Blocking (`ContractError`) | 0 (caught) | **BLOCKED** (7/7 Expected) | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (lines 14, 17, 20, 23, 26, 29, 32) |
 | Config Isolation (`config/apps/` contains ONLY `expresscart.json`) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` (line 33) |
-| **Full Positive Verification Suite (31 checks)** | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` |
-| Negative Test 1: Invalid Upstream SHA Detection | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 3) |
-| Negative Test 2: Network Error Handling (Blocked, not absent) | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 4) |
-| Negative Test 3: Malformed Runtime Manifest Rejection | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 5) |
-| Negative Test 4: Process Exit Code 1 on Failure | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 6) |
-| Negative Test 5: Draft Manifest Rejection by Runtime | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 7) |
-| **Full Negative Verification Suite (5 tests)** | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` |
+| `node --experimental-strip-types docs/tasks/T02/evidence/review-fixes/verify-review-fixes.mjs` — Positive Verification Suite (31 checks) | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/review-fixes-tests.tap` |
+| Negative Test: Wrong upstream SHA through `runVerification()` returns `FAIL` | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 3) |
+| Negative Test: Injected network failure through `runVerification()` returns `BLOCKED` | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 4) |
+| Negative Test: Parser-valid Docker manifest with only `imageDigest` removed fails for digest requirement | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 5) |
+| Negative Test: Malformed Docker image digest fails for digest requirement | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 6) |
+| Negative Test: Parser-valid Docker manifest with only draft marker added fails for unsupported marker | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 7) |
+| Negative Test: Runner process exit code 1 on failure | 0 | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` (line 8) |
+| `node --experimental-strip-types docs/tasks/T02/evidence/review-fixes/test-negative-cases.mjs` — Negative Verification Suite (6 tests) | **0** | **PASS** | `docs/tasks/T02/evidence/review-fixes/negative-tests.tap` |
 | Secret scan on git diff | 0 | **PASS** | Zero secrets, credentials, or `.env` files present |
 
 ---
@@ -81,6 +83,7 @@ To preserve rigorous academic fidelity:
 
 - **`bewt-original/` touched?** **NO.** Strictly read-only research baseline (`git status --porcelain` verified).
 - **Docker / DB resources touched?** **NONE.** Zero Docker commands executed during T02.
+- **Previously accepted baseline findings changed?** **NO.** Existing inventory counts, application pins, metrics caveats, and research conclusions are preserved.
 - **Parallel isolation with T01-C:** 100% maintained. Zero edits to `framework/`, `adapters/expresscart/`, `docs/program/STATUS.json`, or `IMPLEMENTATION-ROADMAP.md`.
 - **Manifest directory hygiene:** `config/apps/` contains ONLY `expresscart.json`. All 7 draft manifests reside exclusively in `docs/tasks/T02/manifests/*.draft.json`.
 

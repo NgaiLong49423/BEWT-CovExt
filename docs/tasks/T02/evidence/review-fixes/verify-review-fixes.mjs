@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { parseApplicationManifest } from '../../../../../framework/src/contracts.ts';
 
 const cwd = process.cwd();
 
 export function runVerification(options = {}) {
+  const commandExecutor = options.commandExecutor || ((file, args, commandOptions) => execFileSync(file, args, commandOptions));
   const isDirectRun = options.silent !== true;
   if (isDirectRun) {
     console.log('Running T02 Review Fixes Verification from:', cwd);
@@ -33,7 +34,7 @@ export function runVerification(options = {}) {
   const correctSha = options.overrideBaseSha || '7e27950b44473cf4d6a5d7d5222bc8dac9b3a266';
 
   try {
-    const commitCheck = execSync(`git cat-file -t ${correctSha}`, { encoding: 'utf8' }).trim();
+    const commitCheck = commandExecutor('git', ['cat-file', '-t', correctSha], { encoding: 'utf8' }).trim();
     if (commitCheck === 'commit') {
       recordTest('BASE_SHA_EXISTS', 'Verify correct base commit exists in git history', 'PASS', `Type: ${commitCheck}`);
     } else {
@@ -58,7 +59,7 @@ export function runVerification(options = {}) {
   for (const p of upstreamPins) {
     if (p.expectedCommit === 'NOT_VERIFIED') {
       try {
-        const out = execSync(`git ls-remote ${p.repo} ${p.tag}*`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+        const out = commandExecutor('git', ['ls-remote', p.repo, `${p.tag}*`], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
         if (!out) {
           recordTest(`PROVENANCE_${p.app.toUpperCase()}`, `Verify ${p.app} tag has no Git tag upstream`, 'NOT_VERIFIED', 'Remote query succeeded (exit 0) and returned empty output — confirmed no Git tag on GitHub upstream');
         } else {
@@ -71,7 +72,7 @@ export function runVerification(options = {}) {
     } else {
       try {
         const queryRef = p.isPeeled ? `${p.tag}*` : p.tag;
-        const out = execSync(`git ls-remote ${p.repo} ${queryRef}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+        const out = commandExecutor('git', ['ls-remote', p.repo, queryRef], { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
         const targetLine = p.isPeeled ? `${p.tag}^{}` : p.tag;
         const match = out.split('\n').find(line => line.includes(targetLine));
         if (match && match.startsWith(p.expectedCommit)) {
@@ -191,7 +192,7 @@ export function runVerification(options = {}) {
 
   // 6. Enforce non-zero exit code on failure and suppress success message
   if (hasErrors) {
-    process.exitCode = 1;
+    if (options.applyProcessExitCode !== false) process.exitCode = 1;
     if (isDirectRun) {
       console.error(`\n[ERROR] Verification FAILED: ${failCount} test(s) failed, ${blockedCount} unexpected block(s). Exit code set to 1.`);
     }

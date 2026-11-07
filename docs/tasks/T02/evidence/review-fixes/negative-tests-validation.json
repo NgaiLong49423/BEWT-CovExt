@@ -1,40 +1,46 @@
 {
-  "timestamp": "2026-11-07T20:09:05.167Z",
+  "timestamp": "2026-11-07T20:20:37.122Z",
   "summary": {
-    "total": 5,
-    "passed": 5,
+    "total": 6,
+    "passed": 6,
     "failed": 0
   },
   "results": [
     {
       "id": "NEG_WRONG_SHA",
-      "name": "Verify mismatch is caught when upstream SHA does not match expected",
+      "name": "runVerification reports FAIL when upstream commit differs from the pinned SHA",
       "passed": true,
-      "details": "Correctly rejected invalid commit 0000000000000000000000000000000000000000"
+      "details": "Mismatch in ls-remote output. Expected commit 0000000000000000000000000000000000000000, got: 44de235a5eedda9b80d9f0babd9fd5cb8c6943bd refs/tags/2.3.4"
     },
     {
       "id": "NEG_NETWORK_ERROR_HANDLING",
-      "name": "Network/DNS error must result in BLOCKED, not false NOT_VERIFIED or PASS",
+      "name": "runVerification classifies injected network failure as BLOCKED",
       "passed": true,
-      "details": "Correctly categorized network error as BLOCKED"
+      "details": "Remote query failed: simulated DNS lookup failed. Network/DNS/permission error cannot prove tag absence."
     },
     {
-      "id": "NEG_INVALID_RUNTIME_MANIFEST",
-      "name": "Runtime validator must reject manifest missing imageDigest",
+      "id": "NEG_MISSING_IMAGE_DIGEST",
+      "name": "Docker manifest with only imageDigest removed fails on the digest requirement",
       "passed": true,
-      "details": "Correctly rejected: source contains unsupported fields: kind, repositoryUrl"
+      "details": "Docker runtime requires an image and a pinned sha256 digest"
+    },
+    {
+      "id": "NEG_INVALID_IMAGE_DIGEST",
+      "name": "Docker manifest with malformed imageDigest fails on the digest requirement",
+      "passed": true,
+      "details": "Docker runtime requires an image and a pinned sha256 digest"
+    },
+    {
+      "id": "NEG_DRAFT_MARKER",
+      "name": "Valid Docker manifest with only the draft marker added is rejected for that marker",
+      "passed": true,
+      "details": "ApplicationManifest contains unsupported fields: manifestType"
     },
     {
       "id": "NEG_PROCESS_EXIT_CODE",
       "name": "Runner process exits with code 1 and suppresses success message on failure",
       "passed": true,
       "details": "Process exit code: 1"
-    },
-    {
-      "id": "NEG_DRAFT_MANIFEST_BLOCK",
-      "name": "Draft manifest with dummy digest and extra fields is blocked from runtime execution",
-      "passed": true,
-      "details": "Blocked with: ApplicationManifest contains unsupported fields: manifestType"
     }
   ]
 }

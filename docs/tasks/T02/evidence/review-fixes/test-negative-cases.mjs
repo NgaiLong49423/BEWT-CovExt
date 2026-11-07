@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { execSync, spawnSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { parseApplicationManifest } from '../../../../../framework/src/contracts.ts';
 import { runVerification } from './verify-review-fixes.mjs';
 
@@ -16,86 +16,89 @@ function recordNegTest(id, name, passed, details = '') {
   console.log(`[${status}] ${id}: ${name}${details ? ' — ' + details : ''}`);
 }
 
-// --- Negative Test 1: Simulated Wrong Upstream Commit SHA ---
-console.log('\n--- NegTest 1: Wrong Upstream SHA detection ---');
+// Build every digest case from a manifest accepted by the production parser.
+const validDockerManifest = JSON.parse(fs.readFileSync('docs/tasks/T02/manifests/joomla.draft.json', 'utf8'));
+delete validDockerManifest.manifestType;
+delete validDockerManifest.source.note;
+validDockerManifest.runtime.imageDigest = `sha256:${'a'.repeat(64)}`;
+parseApplicationManifest(validDockerManifest);
+
+// --- Negative Test 1: Wrong upstream SHA through runVerification() ---
+console.log('\n--- NegTest 1: Wrong upstream SHA detection through runner ---');
 {
-  const simulatedExpectedCommit = '0000000000000000000000000000000000000000';
-  const tag = 'refs/tags/2.3.4';
-  const repo = 'https://github.com/bludit/bludit';
-  try {
-    const out = execSync(`git ls-remote ${repo} ${tag}`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
-    const match = out.split('\n').find(line => line.includes(tag));
-    const isMatched = match && match.startsWith(simulatedExpectedCommit);
-    if (!isMatched) {
-      recordNegTest('NEG_WRONG_SHA', 'Verify mismatch is caught when upstream SHA does not match expected', true, `Correctly rejected invalid commit ${simulatedExpectedCommit}`);
-    } else {
-      recordNegTest('NEG_WRONG_SHA', 'Verify mismatch is caught when upstream SHA does not match expected', false, 'Failed: Invalid commit was unexpectedly accepted');
-    }
-  } catch (e) {
-    recordNegTest('NEG_WRONG_SHA', 'Verify mismatch is caught when upstream SHA does not match expected', false, e.message);
-  }
+  const expected = '0000000000000000000000000000000000000000';
+  const actual = '44de235a5eedda9b80d9f0babd9fd5cb8c6943bd';
+  const result = runVerification({
+    overrideUpstreamPins: [{ app: 'bludit', repo: 'https://github.com/bludit/bludit', tag: 'refs/tags/2.3.4', expectedCommit: expected, isPeeled: false }],
+    commandExecutor: (file, args, options) => file === 'git' && args[0] === 'ls-remote'
+      ? `${actual} refs/tags/2.3.4\n`
+      : execFileSync(file, args, options),
+    writeEvidence: false,
+    silent: true,
+    applyProcessExitCode: false,
+  });
+  const outcome = result.results.find(item => item.id === 'PROVENANCE_BLUDIT');
+  recordNegTest('NEG_WRONG_SHA', 'runVerification reports FAIL when upstream commit differs from the pinned SHA', outcome?.status === 'FAIL', outcome?.details || 'Runner produced no Bludit provenance result');
 }
 
-// --- Negative Test 2: Simulated Network / DNS Error on Claroline remote query ---
+// --- Negative Test 2: Inject a network error into runVerification() ---
 console.log('\n--- NegTest 2: Network error must NOT be interpreted as tag absence ---');
 {
-  const unreachableRepo = 'https://invalid-nonexistent-domain-bewt-test.org/Claroline';
-  let recordedStatus = null;
-  let recordedDetails = '';
-
-  try {
-    const out = execSync(`git ls-remote ${unreachableRepo} refs/tags/1.11.10*`, { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }).trim();
-    if (!out) {
-      recordedStatus = 'NOT_VERIFIED';
-    } else {
-      recordedStatus = 'FAIL';
-    }
-  } catch (e) {
-    recordedStatus = 'BLOCKED';
-    recordedDetails = `Remote query failed: ${e.message}. Network error cannot prove tag absence.`;
-  }
-
-  if (recordedStatus === 'BLOCKED') {
-    recordNegTest('NEG_NETWORK_ERROR_HANDLING', 'Network/DNS error must result in BLOCKED, not false NOT_VERIFIED or PASS', true, 'Correctly categorized network error as BLOCKED');
-  } else {
-    recordNegTest('NEG_NETWORK_ERROR_HANDLING', 'Network/DNS error must result in BLOCKED, not false NOT_VERIFIED or PASS', false, `Failed: Network error was incorrectly marked as ${recordedStatus}`);
-  }
+  const result = runVerification({
+    overrideUpstreamPins: [{ app: 'claroline', repo: 'https://github.com/claroline/Claroline', tag: 'refs/tags/1.11.10', expectedCommit: 'NOT_VERIFIED', isPeeled: false }],
+    commandExecutor: (file, args, options) => {
+      if (file === 'git' && args[0] === 'ls-remote') throw Object.assign(new Error('simulated DNS lookup failed'), { code: 'ENOTFOUND' });
+      return execFileSync(file, args, options);
+    },
+    writeEvidence: false,
+    silent: true,
+    applyProcessExitCode: false,
+  });
+  const outcome = result.results.find(item => item.id === 'PROVENANCE_CLAROLINE');
+  recordNegTest('NEG_NETWORK_ERROR_HANDLING', 'runVerification classifies injected network failure as BLOCKED', outcome?.status === 'BLOCKED', outcome?.details || 'Runner produced no Claroline provenance result');
 }
 
-// --- Negative Test 3: Simulated Invalid Runtime Manifest (Missing imageDigest) ---
-console.log('\n--- NegTest 3: Runtime validator must reject invalid runtime manifest ---');
+// --- Negative Test 3: Missing imageDigest is the only mutation ---
+console.log('\n--- NegTest 3: Valid Docker manifest fails specifically for missing image digest ---');
 {
-  const invalidManifest = {
-    schemaVersion: '1.0.0',
-    appId: 'bad-app',
-    benchmarkBaseVersion: '1.0.0',
-    source: { kind: 'git', repositoryUrl: 'https://github.com/example/repo', commit: 'b31302f4e99c3293bd742c6d076a721e168118b0' },
-    runtime: { kind: 'docker-compose', composeFile: 'docker-compose.yml', service: 'app', port: 8080, healthCheckUrl: 'http://localhost:8080' },
-    fixtureReset: { kind: 'custom', command: 'echo reset' },
-    allowedTools: ['file:read'],
-  };
-
-  let rejected = false;
-  try {
-    parseApplicationManifest(invalidManifest);
-  } catch (e) {
-    rejected = true;
-    recordNegTest('NEG_INVALID_RUNTIME_MANIFEST', 'Runtime validator must reject manifest missing imageDigest', true, `Correctly rejected: ${e.message}`);
-  }
-
-  if (!rejected) {
-    recordNegTest('NEG_INVALID_RUNTIME_MANIFEST', 'Runtime validator must reject manifest missing imageDigest', false, 'Failed: Invalid manifest was accepted by validator');
-  }
+  const invalidManifest = structuredClone(validDockerManifest);
+  delete invalidManifest.runtime.imageDigest;
+  let errorMessage = '';
+  try { parseApplicationManifest(invalidManifest); } catch (error) { errorMessage = error.message; }
+  const expectedMessage = 'Docker runtime requires an image and a pinned sha256 digest';
+  recordNegTest('NEG_MISSING_IMAGE_DIGEST', 'Docker manifest with only imageDigest removed fails on the digest requirement', errorMessage === expectedMessage, errorMessage || 'Manifest unexpectedly passed validation');
 }
 
-// --- Negative Test 4: Runner script process exit code behavior on simulated failure ---
-console.log('\n--- NegTest 4: Runner script process exit code behavior on simulated failure ---');
+// --- Negative Test 4: Invalid digest value is checked independently ---
+console.log('\n--- NegTest 4: Invalid Docker image digest is rejected specifically ---');
+{
+  const invalidManifest = structuredClone(validDockerManifest);
+  invalidManifest.runtime.imageDigest = 'NOT_PULLED_STATIC_AUDIT';
+  let errorMessage = '';
+  try { parseApplicationManifest(invalidManifest); } catch (error) { errorMessage = error.message; }
+  const expectedMessage = 'Docker runtime requires an image and a pinned sha256 digest';
+  recordNegTest('NEG_INVALID_IMAGE_DIGEST', 'Docker manifest with malformed imageDigest fails on the digest requirement', errorMessage === expectedMessage, errorMessage || 'Manifest unexpectedly passed validation');
+}
+
+// --- Negative Test 5: Draft marker is independently rejected ---
+console.log('\n--- NegTest 5: Draft marker is rejected independently of image digest ---');
+{
+  const markedDraft = { ...structuredClone(validDockerManifest), manifestType: 'DRAFT_STATIC_AUDIT_NOT_PRODUCTION' };
+  let errorMessage = '';
+  try { parseApplicationManifest(markedDraft); } catch (error) { errorMessage = error.message; }
+  const expectedMessage = 'ApplicationManifest contains unsupported fields: manifestType';
+  recordNegTest('NEG_DRAFT_MARKER', 'Valid Docker manifest with only the draft marker added is rejected for that marker', errorMessage === expectedMessage, errorMessage || 'Draft marker unexpectedly passed validation');
+}
+
+// --- Negative Test 6: Runner script process exit code behavior on simulated failure ---
+console.log('\n--- NegTest 6: Runner script process exit code behavior on simulated failure ---');
 {
   const tempScriptPath = 'docs/tasks/T02/evidence/review-fixes/_temp_fail_runner.mjs';
   const tempScriptContent = `
     import { runVerification } from './verify-review-fixes.mjs';
     runVerification({
       overrideBaseSha: '0000000000000000000000000000000000000000',
+      overrideUpstreamPins: [],
       writeEvidence: false,
       silent: false
     });
@@ -117,33 +120,6 @@ console.log('\n--- NegTest 4: Runner script process exit code behavior on simula
     if (fs.existsSync(tempScriptPath)) {
       fs.unlinkSync(tempScriptPath);
     }
-  }
-}
-
-// --- Negative Test 5: Draft Manifest with extra fields or dummy digest must be BLOCKED by runtime validator ---
-console.log('\n--- NegTest 5: Draft manifest with non-sha256 digest is strictly blocked ---');
-{
-  const draftManifest = {
-    schemaVersion: '1.0.0',
-    manifestType: 'DRAFT_STATIC_AUDIT_NOT_PRODUCTION',
-    appId: 'bludit',
-    benchmarkBaseVersion: '2.3.4',
-    source: { kind: 'git', repositoryUrl: 'https://github.com/bludit/bludit', commit: '44de235a5eedda9b80d9f0babd9fd5cb8c6943bd' },
-    runtime: { kind: 'source-built', dockerfile: 'Dockerfile', imageDigest: 'NOT_PULLED_STATIC_AUDIT', port: 8080, healthCheckUrl: 'http://localhost:8080' },
-    fixtureReset: { kind: 'custom', command: 'echo reset' },
-    allowedTools: ['file:read'],
-  };
-
-  let blocked = false;
-  try {
-    parseApplicationManifest(draftManifest);
-  } catch (e) {
-    blocked = true;
-    recordNegTest('NEG_DRAFT_MANIFEST_BLOCK', 'Draft manifest with dummy digest and extra fields is blocked from runtime execution', true, `Blocked with: ${e.message}`);
-  }
-
-  if (!blocked) {
-    recordNegTest('NEG_DRAFT_MANIFEST_BLOCK', 'Draft manifest with dummy digest and extra fields is blocked from runtime execution', false, 'Failed: Draft manifest bypassed runtime validation');
   }
 }
 

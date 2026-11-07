@@ -47,8 +47,8 @@ flowchart LR
 | **2** | **Bludit** | **2/5 (Low)** | Single container | Flat-file JSON | JUnit `Installer` test | Verified container stop + volume removal | Hardcoded LAN IP in BaseTest |
 | **3** | **Claroline** | **2/5 (Low)** | Single container | Bundled MySQL | None (pre-configured) | Verified container stop + volume removal | Legacy PHP 5.6, Port 3000 |
 | **4** | **MantisBT 1.2.0** | **2/5 (Low)** | Single container | Bundled MySQL | None (pre-configured) | Verified container stop + volume removal | Hardcoded LAN IP, Port 3000 |
-| **5** | **Joomla 3.10.11** | **3/5 (Medium)** | 2 containers (Compose) | MySQL 5.6 | JUnit `Installer` + `RemoveMessages` | Compose project down --volumes | Port 8080, MySQL startup latency |
-| **6** | **MediaWiki 1.40.0** | **4/5 (High)** | 2 containers (Compose) | MariaDB | JUnit `Installer` + LocalSettings.php copy | Compose project down --volumes | Volume data leaks, manual config copy |
+| **5** | **Joomla 3.10.11** | **3/5 (Medium)** | 2 containers (Compose) | MySQL 5.6 | JUnit `Installer` + `RemoveMessages` | T03 ownership-verified Compose teardown; remove only verified run-owned volumes | Port 8080, MySQL startup latency |
+| **6** | **MediaWiki 1.40.0** | **4/5 (High)** | 2 containers (Compose) | MariaDB | JUnit `Installer` + LocalSettings.php copy | T03 ownership-verified Compose teardown; remove only verified run-owned volumes | Volume data leaks, manual config copy |
 | **7** | **PrestaShop 1.6.1.23**| **5/5 (Highest)**| 2 containers (Network) | MySQL 5.7 | JUnit `Installer` + guarded exec rm/mv | Verified container + volume + net removal | Deprecated image, complex post-exec |
 
 ---
@@ -100,15 +100,12 @@ To prevent accidental data loss, resource collisions, or unintended host modific
      $verifiedContainers | ForEach-Object { docker stop $_; docker rm -v $_ }
    }
    ```
-9. **Docker Compose Ownership Guard:** Before tearing down Compose projects, check project name and ownership:
-   ```powershell
-   $composeProject = docker compose ls -q --filter "name=bewt-covext-<app>-$runId"
-   if ($composeProject -eq "bewt-covext-<app>-$runId") {
-     docker compose -p "bewt-covext-<app>-$runId" down --volumes --remove-orphans
-   } else {
-     Write-Warning "Teardown skipped: Compose project bewt-covext-<app>-$runId not verified."
-   }
-   ```
+9. **Docker Compose Ownership Guard:** `docker compose ls` output and a Compose project name are discovery hints only; neither is ownership proof. Joomla and MediaWiki teardown is intentionally specified as pseudocode until implemented and reviewed in T03. Apply the same ownership checks to any Compose-backed experiment:
+   - Capture the immutable `runId`, expected Compose project, normalized absolute Compose file path, and its SHA-256 before startup. The Compose file must define explicit `project=bewt-covext`, `managed-by=bewt-covext-agent`, `app`, `task=t03-g0`, `runId`, and `compose-file-sha256` labels on each created service and volume.
+   - Enumerate candidate resources by Docker labels, then inspect every container's full labels. Require the expected Compose project label, custom ownership labels, exact run ID, expected app/task, expected Compose service allowlist, Compose config-files/working-directory labels matching the recorded file path, and a freshly calculated file SHA-256 matching the recorded digest and custom label. A name match or `com.docker.compose.project` alone is insufficient.
+   - Inspect each container's mounts before teardown. Resolve every named/anonymous volume and bind mount to its owner. Remove only volumes carrying the matching Compose project and custom run ID labels and explicitly recorded in the run inventory. Block cleanup for external volumes, host bind mounts, missing/mismatched labels, unknown containers, or any ambiguous ownership; do not use `down --volumes` or `--remove-orphans` as a shortcut.
+   - Only after all resources pass those checks may T03 invoke Compose using the same verified file and project, without deleting volumes implicitly. Remove separately only the exact verified run-owned volumes/networks that the run created.
+   - After teardown, inspect by the full ownership-label set and assert that no run-owned containers, networks, or volumes remain; verify mount paths are absent or in their recorded clean state. Compare pre/post inventories to confirm unrelated resources were untouched, and retain command output plus before/after resource IDs as evidence. Any mismatch is `BLOCKED` and requires human review.
 10. **Working Copy for BaseTest URL Fix:** Because `BaseTest.java` in `bewt-original/` hardcodes `192.168.1.141` as a string literal and does NOT read `-Dapp.url`, Task T03 must instantiate an isolated working copy (e.g. `experiments/<app>/bewt-suite`), where `BaseTest.java` is parameterized to read `System.getProperty("app.url")`. `bewt-original/` remains strictly read-only.
 11. **Image Pull Verification:** Do not claim an image tag exists on Docker Hub or runs until `docker pull` succeeds and records the sha256 registry digest.
 
@@ -244,19 +241,22 @@ In the specifications below, `$runId = "t03-01"` represents the unique run ident
 1. **Port Check:** Confirm port 8080 is available.
 2. **Compose Launch:** Use unique project name `bewt-covext-joomla-$runId`:
    ```powershell
-   $runId = "t03-01"
-   docker compose -f bewt-original/joomla/baseline/joomla-3.10.11/docker-compose.yml -p "bewt-covext-joomla-$runId" up -d
+   T03_IMPLEMENTATION_REQUIRED — PSEUDOCODE ONLY; do not execute in T02.
+   1. Create an experiment-owned Compose working copy from the pinned read-only source file; do not edit `bewt-original/`.
+   2. Add exact project/manager/app/task/runId/compose-file-sha256 labels to both services and every owned named volume. Record source file commit/hash and working-copy absolute path/hash before startup.
+   3. Launch only with the recorded working copy and unique project: docker compose -f <verified-joomla-compose-copy> -p "bewt-covext-joomla-$runId" up -d
    ```
 3. **Readiness Probe:** Wait for MySQL healthcheck and HTTP 200 on `http://localhost:8080`.
 4. **Initialization:** Run `mvn -Dtest=Installer test` and `mvn -Dtest=RemoveMessages test` on working copy.
 5. **Base Test Target:** `AdminLoginTest.java` or `AddNewArticle.java`.
 6. **Teardown & Clean Reset Verification:**
    ```powershell
-   $runId = "t03-01"
-   $projectCheck = docker compose ls -q --filter "name=^bewt-covext-joomla-$runId$"
-   if ($projectCheck) {
-     docker compose -p "bewt-covext-joomla-$runId" down --volumes --remove-orphans
-   }
+   T03_IMPLEMENTATION_REQUIRED — PSEUDOCODE ONLY; do not execute in T02.
+   1. Load the recorded Joomla runId, expected project, normalized Compose file path and SHA-256.
+   2. Enumerate containers by labels; inspect every candidate and require exact custom project/manager/app/task/runId/compose-file-sha256 labels, the expected com.docker.compose.project, expected service names (web and database), and Compose config-files/working-directory identity matching the recorded file path. Recalculate the Compose file SHA-256 and compare it with the recorded digest and labels. A project-name lookup or `docker compose ls` result alone does not establish ownership.
+   3. Inspect every .Mounts entry. Resolve and inspect each volume; require both matching Compose project labels and explicit `runId`/app ownership labels from the launch inventory. Classify bind/external/unlabeled/mismatched mounts as BLOCKED and stop before teardown.
+   4. If every container, network and removable volume exactly matches the run inventory, invoke Compose with the same verified file and project, without `--volumes` or `--remove-orphans`; then remove only exact volume/network IDs independently verified as created by this run.
+   5. Inspect again and assert zero resources with the full run ownership labels, record remaining mounts/volume inventory, and compare host resource IDs against the pre-run snapshot to show unrelated resources are unchanged. Missing or conflicting proof is BLOCKED and requires human review.
    ```
 
 ---
@@ -265,8 +265,10 @@ In the specifications below, `$runId = "t03-01"` represents the unique run ident
 1. **Port Check:** Confirm port 8080 is available.
 2. **Compose Launch:** Use unique project name `bewt-covext-mediawiki-$runId`:
    ```powershell
-   $runId = "t03-01"
-   docker compose -f bewt-original/mediawiki/baseline/mediawiki-1.40.0/docker-compose.yml -p "bewt-covext-mediawiki-$runId" up -d
+   T03_IMPLEMENTATION_REQUIRED — PSEUDOCODE ONLY; do not execute in T02.
+   1. Create an experiment-owned Compose working copy from the pinned read-only source file; do not edit `bewt-original/`.
+   2. Add exact project/manager/app/task/runId/compose-file-sha256 labels to both services and every owned named volume. Record source file commit/hash and working-copy absolute path/hash before startup.
+   3. Launch only with the recorded working copy and unique project: docker compose -f <verified-mediawiki-compose-copy> -p "bewt-covext-mediawiki-$runId" up -d
    ```
 3. **Initialization:** Run `mvn -Dtest=Installer test` on working copy.
 4. **Config Provisioning Specification [T03_IMPLEMENTATION_REQUIRED]:**
@@ -281,11 +283,12 @@ In the specifications below, `$runId = "t03-01"` represents the unique run ident
 5. **Base Test Target:** `CreateUserTest.java` on working copy.
 6. **Teardown & Clean Reset Verification:**
    ```powershell
-   $runId = "t03-01"
-   $projectCheck = docker compose ls -q --filter "name=^bewt-covext-mediawiki-$runId$"
-   if ($projectCheck) {
-     docker compose -p "bewt-covext-mediawiki-$runId" down --volumes --remove-orphans
-   }
+   T03_IMPLEMENTATION_REQUIRED — PSEUDOCODE ONLY; do not execute in T02.
+   1. Load the recorded MediaWiki runId, expected project, normalized Compose file path and SHA-256.
+   2. Enumerate containers by labels; inspect every candidate and require exact custom project/manager/app/task/runId/compose-file-sha256 labels, the expected com.docker.compose.project, expected service names (MediaWiki and database), and Compose config-files/working-directory identity matching the recorded file path. Recalculate the Compose file SHA-256 and compare it with the recorded digest and labels. A project-name lookup or `docker compose ls` result alone does not establish ownership.
+   3. Inspect every .Mounts entry, including the MediaWiki data/config mounts. Resolve each volume and require matching Compose project plus explicit runId/app ownership labels and a matching pre-run inventory record. Treat bind mounts, external volumes, or missing/mismatched ownership as BLOCKED; never remove them.
+   4. If all resources exactly match the run inventory, invoke Compose with the same verified file and project, without `--volumes` or `--remove-orphans`; remove separately only exact volume/network IDs proven to belong to this run.
+   5. Inspect again and assert zero resources with the full run ownership labels; verify the generated LocalSettings.php/config mount state and data volumes are absent or clean as specified. Compare pre/post resource IDs to confirm unrelated Docker resources remain unchanged, and retain teardown evidence. Missing or conflicting proof is BLOCKED and requires human review.
    ```
 
 ---
