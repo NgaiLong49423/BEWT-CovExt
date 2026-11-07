@@ -21,7 +21,7 @@ The initial live attempt was rejected before invocation by automatic review. The
 
 - `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 31/31. Logs: `evidence/verification/rerun-20261108-final/`.
 - ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final/expresscart-agent-unit.txt`).
-- `test/integration/t01c-offline-approved-java-pipeline.test.ts`: PASS, 1/1; actual Maven `test-compile` PASS in a temporary isolated workspace. Test log: `evidence/verification/rerun-20261108-final/t01c-offline-pipeline.txt`; compile detail: `evidence/t01c-offline-approved-2156c0a6-fe0b-456a-be0a-b6df2b2a25eb/isolated-maven-compile.json`.
+- `test/integration/t01c-offline-approved-java-pipeline.test.ts`: PASS, 1/1; actual Maven `test-compile` PASS in a temporary isolated workspace. Test log: `evidence/verification/rerun-20261108-final/t01c-offline-pipeline.txt`; latest compile detail: `evidence/t01c-offline-approved-5b8cef71-c34e-45c0-a7fe-403fbe46a406/isolated-maven-compile.json`.
 - Full framework integration suite last captured 12 PASS / 4 FAIL / 1 SKIP: three symlink tests hit sandbox `EPERM`; ExpressCart lifecycle was BLOCKED on unavailable Docker/runtime; crash/replay remained skipped. Evidence: `evidence/verification/rerun-20261108/framework-integration.txt`.
 - ExpressCart Agent unit tests: previously captured 5/5 PASS at `evidence/verification/rerun-20261108/expresscart-agent-unit.txt`.
 
