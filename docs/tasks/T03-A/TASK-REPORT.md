@@ -32,7 +32,7 @@ Commit provenance:
 | Kanboard helper tests | PASS, 11 tests | [TEST-RESULTS.md](TEST-RESULTS.md) |
 | Runtime manifest validation | PASS; pinned Kanboard source and image digest retained | [config/apps/kanboard.json](../../../config/apps/kanboard.json) |
 | Cleanup fault-injection tests | PASS, 9 tests | [cleanup test source](../../../experiments/kanboard/tools/test/cleanup-kanboard-g0.test.mjs) |
-| T02 runtime manifest isolation | PASS, multiple valid manifests; drafts rejected | [T02 isolation test](../../T02/evidence/review-fixes/verify-config-apps.test.mjs), [run evidence](evidence/review-corrections/t02-runtime-isolation.json) |
+| T02 runtime manifest isolation | PASS, multiple valid manifests; drafts rejected | [T02 isolation test](../T02/evidence/review-fixes/verify-config-apps.test.mjs), [run evidence](evidence/review-corrections/t02-runtime-isolation.json) |
 | Maven Java test compilation | PASS | [TEST-RESULTS.md](TEST-RESULTS.md) |
 | Two independent Selenium clean starts | PASS; original run logs retained | [G0-RUNTIME-RESULTS.md](G0-RUNTIME-RESULTS.md), [Maven run metadata](MAVEN-RUN-METADATA.md) |
 | Teardown and no-residual evidence | Historical run evidence retained; current cleanup logic fault-tested | [RESET-AND-CLEANUP-RESULTS.md](RESET-AND-CLEANUP-RESULTS.md) |
