@@ -1,0 +1,32 @@
+
+> test:integration
+> tsx --test test/integration/*.test.ts
+
+✔ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (20.6933ms)
+✔ dispatcher requires a fixed implementation for every declared tool (0.5259ms)
+✔ actual ExpressCart adapter isolates validation invocations and repair evidence (37844.5922ms)
+✔ collectEvidence discovers nested files without mixing invocations or following links (41.2801ms)
+﹣ SqliteSaver replay after OS process termination reconciles fixture and runs a fresh actual E2E (0.7756ms) # SKIP
+✔ comment-only revision metadata preserves approved scenario semantics (6.3216ms)
+✔ ExpressCart local image identity is tied to measured source, package and Dockerfile inputs (315.7684ms)
+✔ source-built image IDs must match host-observed IDs and are not registry digests (3.8833ms)
+✔ build-context hashing rejects symlinks and is stable for sorted repository-relative inputs (219.2503ms)
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (93.5369ms)
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (5679.7062ms)
+✔ offline production-shaped repair loop preserves the first Java artifact and records two real isolated Maven attempts (9298.5112ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (3.1092ms)
+✔ real-path resolver rejects traversal and junction/symlink components (25.564ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (129.3897ms)
+✔ REJECT terminates before Java preparation (35.8691ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (39.9109ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (61.0673ms)
+✔ application-behavior E2E failure is recorded without repairing generated Java (31.2004ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3790.9486ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 39149.8885

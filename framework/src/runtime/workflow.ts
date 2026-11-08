@@ -47,7 +47,7 @@ export interface RuntimeServices {
   trustedReviewerId(): string;
   prepareJava(candidate: CandidateScenario, workflow: AgentWorkflowState): Promise<RuntimeArtifact>;
   validate(candidate: CandidateScenario, artifact: RuntimeArtifact, repairAttempts: number, workflow: AgentWorkflowState): Promise<ValidationResult>;
-  repairJava?(candidate: CandidateScenario, firstArtifact: RuntimeArtifact, currentArtifact: RuntimeArtifact, validation: ValidationResult, attempt: number): Promise<RuntimeArtifact>;
+  repairJava?(candidate: CandidateScenario, firstArtifact: RuntimeArtifact, currentArtifact: RuntimeArtifact, validation: ValidationResult, attempt: number, workflow: AgentWorkflowState): Promise<RuntimeArtifact>;
   recordEvidence(state: RuntimeState): Promise<string>;
 }
 
@@ -71,7 +71,8 @@ function result(startedAt: string, summary: string, outcome: RoleRunResult["outc
   return { outcome, startedAt, finishedAt: now(), summary, ...(errorCategory ? { errorCategory } : {}) };
 }
 function isRepairable(validation: ValidationResult): boolean {
-  return validation.compile.outcome === "FAIL" || validation.e2e.outcome === "FAIL";
+  return (validation.compile.outcome === "FAIL" && validation.compile.failureClassification === "GENERATED_TEST_DEFECT") ||
+    (validation.e2e.outcome === "FAIL" && validation.e2e.failureClassification === "GENERATED_TEST_DEFECT");
 }
 
 export function buildWorkflow(services: RuntimeServices, checkpointer: SqliteSaver) {
@@ -175,7 +176,7 @@ export function buildWorkflow(services: RuntimeServices, checkpointer: SqliteSav
         if (!services.repairJava || !state.workflow.candidate || !state.generatedArtifact || !state.validation) throw new Error("repair provider or prior validation evidence missing");
         const first = state.firstGeneratedArtifact;
         if (!first) throw new Error("first immutable source artifact missing");
-        const repaired = await services.repairJava(state.workflow.candidate, first, state.generatedArtifact, state.validation, state.workflow.repairAttempts);
+        const repaired = await services.repairJava(state.workflow.candidate, first, state.generatedArtifact, state.validation, state.workflow.repairAttempts, state.workflow);
         if (repaired.origin !== "REPAIRED" || repaired.sha256 === first.sha256 || repaired.path === first.path) throw new Error("repair must create a new immutable artifact with a distinct path and hash");
         const workflow = transitionWorkflow(state.workflow, "VALIDATING");
         const registered = parseWorkflowState({ ...workflow, artifacts: [...workflow.artifacts, { kind: "generated_java", path: repaired.path, testClass: repaired.testClass, candidateId: workflow.candidate!.candidateId, revision: workflow.candidate!.revision, origin: "REPAIRED", sha256: repaired.sha256 }] });

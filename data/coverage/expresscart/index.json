@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "datasets": [
+    {
+      "path": "data/coverage/expresscart/historical-candidate-behavior-index.json",
+      "purpose": "Source-linked index of the five historical Sprint 01–05 ExpressCart candidate behaviors for conservative overlap review."
+    }
+  ]
+}

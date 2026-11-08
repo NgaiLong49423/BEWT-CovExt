@@ -1,0 +1,19 @@
+{
+  "runId": "t01c-offline-approved-23a0681e-cb66-4fc9-94f3-a783a2905f0a",
+  "candidateId": "CAND-37ba4412-5afc-4dc8-9964-47eed1c421e1",
+  "revision": 1,
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "invocationId": "offline-validation-01",
+  "workspaceOwner": ".local-state/t01c-maven/5dfaf193eed60fb10356/168e559916f147836228/workspace-owner.json",
+  "generatedJavaOrigin": "Fake test double (synthetic only)",
+  "compileOutcome": "PASS",
+  "exitCode": 0,
+  "durationMs": 4568,
+  "stdout": "[INFO] Scanning for projects...\r\n[INFO] \r\n[INFO] -------------------< visual-repair:expresscart-1.19 >-------------------\r\n[INFO] Building expresscart-1.19 0.0.1-SNAPSHOT\r\n[INFO]   from pom.xml\r\n[INFO] --------------------------------[ jar ]---------------------------------\r\n[INFO] \r\n[INFO] --- resources:3.4.0:resources (default-resources) @ expresscart-1.19 ---\r\n[INFO] skip non existing resourceDirectory [REDACTED_USER_PATH]\r\n[INFO] \r\n[INFO] --- compiler:3.7.0:compile (default-compile) @ expresscart-1.19 ---\r\n[INFO] Changes detected - recompiling the module!\r\n[INFO] Compiling 2 source files to [REDACTED_USER_PATH]\r\n[INFO] \r\n[INFO] --- resources:3.4.0:testResources (default-testResources) @ expresscart-1.19 ---\r\n[INFO] skip non existing resourceDirectory [REDACTED_USER_PATH]\r\n[INFO] \r\n[INFO] --- compiler:3.7.0:testCompile (default-testCompile) @ expresscart-1.19 ---\r\n[INFO] Changes detected - recompiling the module!\r\n[INFO] Compiling 2 source files to [REDACTED_USER_PATH]\r\n[INFO] [REDACTED_USER_PATH]: [REDACTED_USER_PATH] uses or overrides a deprecated API.\r\n[INFO] [REDACTED_USER_PATH]: Recompile with -Xlint:deprecation for details.\r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] BUILD SUCCESS\r\n[INFO] ------------------------------------------------------------------------\r\n[INFO] Total time:  2.942 s\r\n[INFO] Finished at: 2026-11-08T17:07:30+07:00\r\n[INFO] ------------------------------------------------------------------------\r\n",
+  "stderr": "",
+  "fixture": "NOT_RUN",
+  "e2e": "NOT_RUN",
+  "cleanup": "NOT_RUN",
+  "researchAcceptance": "NOT_REVIEWED"
+}

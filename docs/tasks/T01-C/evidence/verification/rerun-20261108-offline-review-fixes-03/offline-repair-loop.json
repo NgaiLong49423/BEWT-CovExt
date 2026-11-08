@@ -1,0 +1,61 @@
+{
+  "classification": "SYNTHETIC_OFFLINE_TEST_ONLY",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "candidateId": "CAND-973116c6-f1e7-4896-a638-ff7b74f93469",
+  "revision": 1,
+  "workflowRunId": "t01c-offline-repair-4f605f72-0b82-459e-86aa-a07e1d4aa2c0",
+  "generationCalls": 1,
+  "repairCalls": 1,
+  "repairAttempts": 1,
+  "invocations": [
+    {
+      "invocationId": "inv-59d616d2-0933-4b1e-ac94-0e0508a3834b",
+      "artifact": {
+        "path": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+        "sha256": "d7f595a5648348764371c5178a65a3d047f296ea1bc61194d39354c17d3fe815",
+        "origin": "GENERATED"
+      },
+      "compile": "FAIL",
+      "compileFailureClassification": "GENERATED_TEST_DEFECT",
+      "fixture": "NOT_RUN",
+      "e2e": "NOT_RUN",
+      "cleanup": "NOT_RUN",
+      "evidencePaths": [
+        "offline-repair-loop.json",
+        "offline-generation-repair-integration.txt"
+      ],
+      "attempt": 1
+    },
+    {
+      "invocationId": "inv-ce939c6a-a530-4f55-899a-3ee5bf8f95b7",
+      "artifact": {
+        "path": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/repair-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+        "sha256": "bb3d450a455cf58a89f90771e6ba52428a856c13ded3c78c8e5e5c30ed4ac5b4",
+        "origin": "REPAIRED"
+      },
+      "compile": "PASS",
+      "fixture": "NOT_RUN",
+      "e2e": "NOT_RUN",
+      "cleanup": "NOT_RUN",
+      "evidencePaths": [
+        "offline-repair-loop.json",
+        "offline-generation-repair-integration.txt"
+      ],
+      "attempt": 2
+    }
+  ],
+  "firstGenerated": {
+    "path": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+    "sha256": "d7f595a5648348764371c5178a65a3d047f296ea1bc61194d39354c17d3fe815"
+  },
+  "repaired": {
+    "path": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/repair-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+    "sha256": "bb3d450a455cf58a89f90771e6ba52428a856c13ded3c78c8e5e5c30ed4ac5b4",
+    "origin": "REPAIRED",
+    "parentArtifactPath": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+    "firstGeneratedArtifactPath": "extension/expresscart/selenium/305a372c4563de652fd58a625193dfd1/revision-1/T01C_305a372c4563de652fd58a625193dfd1_R1.java",
+    "assertionsPreserved": true
+  },
+  "limitation": "Maven test-compile only; fixture, Selenium, and cleanup are NOT_RUN in this offline fake-provider test."
+}

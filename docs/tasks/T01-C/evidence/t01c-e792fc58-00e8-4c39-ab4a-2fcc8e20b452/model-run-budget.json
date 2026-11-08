@@ -1,0 +1,15 @@
+{
+  "runId": "t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452",
+  "model": "gemini-3.1-flash-lite",
+  "apiRequestsAllowed": 1,
+  "runCostCeilingUsd": 0.02,
+  "perCallCostCeilingUsd": 0.02,
+  "retriesAllowed": 0,
+  "timeoutMs": 60000,
+  "maxPromptCharacters": 8000,
+  "gherkinMaxOutputTokens": 2000,
+  "javaMaxOutputTokens": 4000,
+  "pricingBasis": "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character",
+  "authorizationFlagPresent": true,
+  "exhaustedCallsRemainConsumed": true
+}

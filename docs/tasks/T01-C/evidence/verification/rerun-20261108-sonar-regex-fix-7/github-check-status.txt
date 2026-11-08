@@ -1,0 +1,11 @@
+Observed at: 2026-11-08 17:10:01 +07:00
+Local HEAD: 3b3fb29b15d1563de049ca05fdeea88d939d97e7
+SonarCloud check run: 128698920966, status=completed, conclusion=success, head SHA=3b3fb29b15d1563de049ca05fdeea88d939d97e7
+PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4, state=OPEN, draft=True, head=3b3fb29b15d1563de049ca05fdeea88d939d97e7
+Quality Gate: Quality Gate passed
+SonarCloud new issues: 0 (check summary)
+SonarCloud open issues for PR: 0
+Security hotspots on new code: 0
+Coverage on new code: 0.0% (SonarCloud metric; no coverage report uploaded)
+Duplication on new code: 1.8%
+Conclusion: typescript:S8786 is no longer reported on this analyzed SHA; no research acceptance gate is implied.

@@ -1,0 +1,90 @@
+
+> test:integration
+> tsx --test test/integration/*.test.ts
+
+✖ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (27.8968ms)
+✔ dispatcher requires a fixed implementation for every declared tool (2.0537ms)
+✖ actual ExpressCart adapter isolates validation invocations and repair evidence (8110.3032ms)
+✖ collectEvidence discovers nested files without mixing invocations or following links (22.9947ms)
+﹣ SqliteSaver replay after OS process termination reconciles fixture and runs a fresh actual E2E (0.6984ms) # SKIP
+✔ comment-only revision metadata preserves approved scenario semantics (5.5586ms)
+✔ ExpressCart local image identity is tied to measured source, package and Dockerfile inputs (316.897ms)
+✔ source-built image IDs must match host-observed IDs and are not registry digests (3.9272ms)
+✔ build-context hashing rejects symlinks and is stable for sorted repository-relative inputs (207.992ms)
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (74.9196ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (3.4298ms)
+✖ real-path resolver rejects traversal and junction/symlink components (35.9513ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (102.778ms)
+✔ REJECT terminates before Java preparation (30.2199ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (36.1585ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (54.1897ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3709.4252ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 12
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 8893.229
+
+✖ failing tests:
+
+test at test\integration\dispatcher.test.ts:23:1
+✖ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (27.8968ms)
+  Error: EPERM: operation not permitted, symlink '<LOCAL_PATH>' -> '<LOCAL_PATH>'
+      at async symlink (node:internal/fs/promises:1059:10)
+      at async TestContext.<anonymous> (<LOCAL_PATH>
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-t01b-dispatcher-outside-iOT1Jr',
+    dest: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-t01b-dispatcher-anbfJy\\config'
+  }
+
+test at test\integration\expresscart-adapter-lifecycle.test.ts:17:1
+✖ actual ExpressCart adapter isolates validation invocations and repair evidence (8110.3032ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  'BLOCKED' !== 'PASS'
+
+      at TestContext.<anonymous> (<LOCAL_PATH>
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'BLOCKED',
+    expected: 'PASS',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test\integration\expresscart-adapter-lifecycle.test.ts:71:1
+✖ collectEvidence discovers nested files without mixing invocations or following links (22.9947ms)
+  Error: EPERM: operation not permitted, symlink '<LOCAL_PATH>' -> '<LOCAL_PATH>'
+      at async symlink (node:internal/fs/promises:1059:10)
+      at async TestContext.<anonymous> (<LOCAL_PATH>
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-evidence-outside-9fzF0r',
+    dest: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-evidence-discovery-qN21sm\\docs\\tasks\\T01-B\\evidence\\evidence-run\\invocations\\inv-link'
+  }
+
+test at test\integration\tool-boundaries.test.ts:22:1
+✖ real-path resolver rejects traversal and junction/symlink components (35.9513ms)
+  Error: EPERM: operation not permitted, symlink '<LOCAL_PATH>' -> '<LOCAL_PATH>'
+      at async symlink (node:internal/fs/promises:1059:10)
+      at async TestContext.<anonymous> (<LOCAL_PATH>
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-t01b-outside-n1QEwJ',
+    dest: 'C:\\Users\\Lenovo\\AppData\\Local\\Packages\\openai.codex_2p2nqsd0c76g0\\AC\\#!sandbox.{3a0108c5-ff5f-429e-8e51-98bbe477ba4f}\\Temp\\bewt-t01b-path-sNXSAa\\linked'
+  }

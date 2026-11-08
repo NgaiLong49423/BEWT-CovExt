@@ -24,16 +24,18 @@ const baseline: BaselineInventory = {
   appId: "expresscart", sourceCommit: commit, sourceVersion: "1.1.19", collectedAt: "2026-11-07T00:00:00Z",
   cases: [], observedScenarioCount: 0,
 };
-function validation(candidateRecord: CandidateScenario, invocationId: string, repairAttempts = 0, outcomes: Partial<Record<"compile" | "fixture" | "e2e" | "cleanup", Outcome>> = {}): ValidationResult {
+type FailureClassification = "GENERATED_TEST_DEFECT" | "APPLICATION_BEHAVIOR" | "ENVIRONMENT_OR_HARNESS" | "UNCLASSIFIED";
+function validation(candidateRecord: CandidateScenario, invocationId: string, repairAttempts = 0, outcomes: Partial<Record<"compile" | "fixture" | "e2e" | "cleanup", Outcome>> = {}, failures: Partial<Record<"compile" | "e2e", FailureClassification>> = {}): ValidationResult {
   const stage = (name: "compile" | "fixture" | "e2e" | "cleanup") => {
     const outcome = outcomes[name] ?? "PASS";
     if (outcome === "NOT_RUN") return { invocationId, outcome, sourceCommit: commit, sourceVersion: "1.1.19", evidence: [] };
     const stageRunId = `${invocationId}-${name}`;
-    return { invocationId, stageRunId, outcome, sourceCommit: commit, sourceVersion: "1.1.19", evidence: [{ repositoryCommit: commit, sourceVersion: "1.1.19", runId: stageRunId, artifactPath: `docs/tasks/T01-B/evidence/${invocationId}/${name}.log` }] };
+    return { invocationId, stageRunId, outcome, ...(failures[name as "compile" | "e2e"] ? { failureClassification: failures[name as "compile" | "e2e"] } : {}), sourceCommit: commit, sourceVersion: "1.1.19", evidence: [{ repositoryCommit: commit, sourceVersion: "1.1.19", runId: stageRunId, artifactPath: `docs/tasks/T01-B/evidence/${invocationId}/${name}.log` }] };
   };
   return {
     appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision,
-    invocationId, sourceCommit: commit, sourceVersion: "1.1.19", compile: stage("compile"), fixture: stage("fixture"), e2e: stage("e2e"), cleanup: stage("cleanup"),
+    invocationId, artifact: { path: `extension/expresscart/selenium/${candidateRecord.candidateId}/revision-${candidateRecord.revision}/Test.java`, sha256: "b".repeat(64), origin: repairAttempts ? "REPAIRED" : "GENERATED" },
+    sourceCommit: commit, sourceVersion: "1.1.19", compile: stage("compile"), fixture: stage("fixture"), e2e: stage("e2e"), cleanup: stage("cleanup"),
     oracleDecision: { decisionId: `${invocationId}-oracle`, appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision, decision: "UNVERIFIED", reviewerId: "test", decidedAt: "2026-11-07T00:00:00Z", rationale: "Integration stub does not verify an independent oracle.", evidence: [] },
     noveltyDecision: { decisionId: `${invocationId}-novelty`, appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision, decision: "UNVERIFIED", reviewerId: "test", decidedAt: "2026-11-07T00:00:00Z", rationale: "Integration stub does not make a novelty decision.", evidence: [] },
     repeats: [], repairAttempts, evidence: [], technicalEligibility: Object.values(outcomes).includes("FAIL") ? "INELIGIBLE" : "UNVERIFIED", researchAcceptance: { status: "NOT_REVIEWED" },
@@ -150,7 +152,7 @@ test("repair loop records two distinct artifacts and never repairs the first sou
     validate: async (item, _artifact, attempts) => {
       validationCalls++;
       return attempts < 2
-        ? validation(item, `repair-validation-${attempts}`, attempts, { compile: "FAIL", fixture: "PASS", e2e: "NOT_RUN", cleanup: "PASS" })
+        ? validation(item, `repair-validation-${attempts}`, attempts, { compile: "FAIL", fixture: "PASS", e2e: "NOT_RUN", cleanup: "PASS" }, { compile: "GENERATED_TEST_DEFECT" })
         : validation(item, `repair-validation-${attempts}`, attempts);
     },
     repairJava: async (_candidate, original, current, _result, attempt) => {
@@ -171,6 +173,33 @@ test("repair loop records two distinct artifacts and never repairs the first sou
     assert.equal(state.workflow.artifacts.filter((artifact: { kind: string }) => artifact.kind === "generated_java").length, 3);
     assert.equal(state.validation?.repairAttempts, 2);
     assert.equal(state.validation?.technicalEligibility, "UNVERIFIED");
+  } finally { saver.db.close(); await rm(folder, { recursive: true, force: true }); }
+});
+
+test("application-behavior E2E failure is recorded without repairing generated Java", async () => {
+  const folder = await mkdtemp(join(tmpdir(), "bewt-t01c-application-failure-"));
+  const saver = openSqliteCheckpointer(join(folder, "checkpoints.sqlite"));
+  let repairCalls = 0;
+  let evidenceRecorded = false;
+  const services: RuntimeServices = {
+    readBaseline: async () => baseline,
+    analyzeCoverage: async () => [{ gapId: "gap-app-failure", appId: "expresscart", sourceCommit: commit, sourceVersion: "1.1.19", behavior: "pinned behavior", rationale: "source-backed", sourceReferences: [candidate(1).sourceReferences[0]!] }],
+    proposeCandidate: async (_baseline, _gaps, revision) => candidate(revision),
+    trustedReviewerId: () => "test-os-operator",
+    prepareJava: async () => ({ path: "experiments/generated/application-failure.java", testClass: "tests.GeneratedTest", sha256: "c".repeat(64), origin: "GENERATED" }),
+    validate: async (item, _artifact, attempts) => validation(item, `application-failure-${attempts}`, attempts, { e2e: "FAIL" }, { e2e: "APPLICATION_BEHAVIOR" }),
+    repairJava: async () => { repairCalls++; throw new Error("application failure must not trigger repair"); },
+    recordEvidence: async () => { evidenceRecorded = true; return "docs/tasks/T01-C/evidence/application-failure.json"; },
+  };
+  try {
+    const app = buildWorkflow(services, saver);
+    const config = { configurable: { thread_id: "t01c-application-failure" } };
+    let state = await app.invoke({ workflow: { ...initialState(), runId: "t01c-application-failure" } }, config);
+    state = await app.invoke(resumeReview(state, "t01c-application-failure", state.workflow.checkpoint!.checkpointId, "ACCEPT", "Synthetic policy test approval."), config);
+    assert.equal(state.workflow.status, "EXECUTION_COMPLETED");
+    assert.equal(state.validation?.e2e.failureClassification, "APPLICATION_BEHAVIOR");
+    assert.equal(repairCalls, 0);
+    assert.equal(evidenceRecorded, true);
   } finally { saver.db.close(); await rm(folder, { recursive: true, force: true }); }
 });
 

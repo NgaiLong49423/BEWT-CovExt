@@ -1,0 +1,5 @@
+
+> agent:t01c
+> tsx src/t01c-cli.ts start expresscart --live-authorized --max-api-requests=1 --max-cost-usd=0.02
+
+T01-C agent failed closed: LangGraph did not pause at human review: FAILED; MODEL_CALL_FAILED:AUTHORIZATION:[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{"@type":"type.googleapis.com/google.rpc.ErrorInfo","reason":"API_KEY_INVALID","domain":"g

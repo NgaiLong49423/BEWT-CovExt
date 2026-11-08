@@ -1,0 +1,10 @@
+{
+  "command": "npm run test:integration",
+  "package": "framework",
+  "tests": 17,
+  "passed": 16,
+  "failed": 0,
+  "skipped": 1,
+  "log": "docs/tasks/T01-C/evidence/verification/framework-integration.txt",
+  "newOfflineLangGraphCase": "offline generation enters the shared LangGraph review checkpoint without Java side effects"
+}

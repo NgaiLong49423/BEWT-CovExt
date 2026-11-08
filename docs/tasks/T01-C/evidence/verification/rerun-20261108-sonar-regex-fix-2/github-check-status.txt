@@ -1,0 +1,10 @@
+Observed at: 2026-11-08 17:00:24 +07:00
+Local/remote branch HEAD: 8d4cafa9559e3015f7f7e380ee7979f6fcfbc20c
+PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4 (OPEN, draft)
+GitHub check: SonarCloud Code Analysis, completed success; check run 128696744920; head SHA 8d4cafa9559e3015f7f7e380ee7979f6fcfbc20c
+SonarCloud Quality Gate: PASS; reported 1 new issue
+Issue: typescript:S8786 in framework/src/runtime/model-provider.ts at line 72 (package declaration regex)
+SonarCloud compute queue at observation: empty; task submitted 2026-11-08T16:59:47+07:00 completed SUCCESS
+Local sonar-scanner: unavailable
+SONAR_TOKEN value: not read; presence check: not set
+Interpretation: analysis covered SHA 8d4cafa and still reported S8786; the current manual parser correction is later local work and requires a fresh PR analysis.

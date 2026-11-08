@@ -7,8 +7,20 @@
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
-    "note": "Verified by git fetch origin main on 2026-11-08; this is the T01-B PR base, not the reviewed PR head."
+    "observedHeadSha": "708724fee47e5136d628c479a5a0f90ab0ea15d7",
+    "note": "Verified by git fetch origin and GitHub PR API on 2026-11-08; main includes merged PR #5/T02 and PR #6/T03-A."
+  },
+  "repositoryMilestones": {
+    "T02": {
+      "pullRequest": 5,
+      "status": "MERGED",
+      "mergeSha": "d7693ea291b8b88a7f999a131daba3522fcf505d"
+    },
+    "T03-A": {
+      "pullRequest": 6,
+      "status": "MERGED",
+      "headSha": "d8ed06f8dbc194695aea3927136e14ef9591e0dd"
+    }
   },
   "targets": {
     "applications": 8,
@@ -25,8 +37,56 @@
     "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "reviewFixes": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
-    "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "boundedRepair": "PRODUCTION_CLI_REPAIR_IMPLEMENTED_OFFLINE_FAKE_PROVIDER_MAVEN_COMPILE_TESTED_LIVE_GEMINI_REPAIR_UNVERIFIED",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_FIVE_AUTHORIZED_LIVE_GHERKIN_INVOCATIONS_FAILED_NO_CANDIDATE",
+    "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
+    "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
+    "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
+    "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
+    "t01cEvidence": [
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",
+      "docs/tasks/T01-C/evidence/verification/main-integration-20261108-01/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-02/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-6/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-78fb846d-0234-4a4f-bfdd-17f3d8843cc0/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-7/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-expresscart-agent/",
+      "docs/tasks/T01-C/evidence/t01c-41392a3d-d991-433b-84c9-97ad1af1ec86/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-live-call-05/cli-output.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-7/github-check-status.txt",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-23a0681e-cb66-4fc9-94f3-a783a2905f0a/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-4/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-74984694-5c1e-4a65-8675-fac7b86a50fc/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-2/github-check-status.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-2/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-66ed529a-a8d5-44e1-b06a-f9194199bdb8/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-650597c8-05b9-454c-9079-692665b4ec77/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json",
+      "data/coverage/expresscart/historical-candidate-behavior-index.json",
+      "framework/test/historical-behavior-index.test.ts",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt",
+      "docs/tasks/T01-C/COVERAGE-AND-CANDIDATE-RESULTS.md",
+      "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json",
+      "docs/tasks/T01-C/evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-live-call-04/cli-output.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-no-application-repair/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-full-verification-01/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-prompt-budget/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-request-evidence/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-no-application-repair/",
+      "docs/tasks/T01-C/evidence/t01c-4bd373f5-66a7-4e83-b812-303f2518e4e9/",
+      "docs/tasks/T01-C/evidence/t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f/",
+      "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes-03/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-duplication-fix-02/"
+    ],
     "sources": [
       "experiments/expresscart/agent/",
       "framework/src/",
@@ -246,10 +306,11 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "currentTaskId": "T01-B",
-    "currentTaskStatus": "READY_FOR_REVIEW",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/3",
-    "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
+    "currentTaskId": "T01-C",
+    "currentTaskStatus": "OFFLINE_ACCEPTED_LIVE_BLOCKED",
+    "currentTaskBranch": "feature/t01c-model-backed-generation",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
+    "reviewedTaskHeadSha": "7094978d88dccd67e857b4dfa97a9f310b3b0fec",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
@@ -262,7 +323,8 @@
     "docs/research-results/sprint-04/",
     "docs/research-results/sprint-05/",
     "docs/research-results/final/",
-    "docs/tasks/T01-B/evidence/"
+    "docs/tasks/T01-B/evidence/",
+    "docs/tasks/T01-C/evidence/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
 }

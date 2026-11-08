@@ -1,0 +1,9 @@
+{
+  "command": "npm test",
+  "package": "framework",
+  "tests": 27,
+  "passed": 27,
+  "failed": 0,
+  "skipped": 0,
+  "log": "docs/tasks/T01-C/evidence/verification/framework-unit.txt"
+}

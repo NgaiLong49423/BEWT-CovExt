@@ -1,0 +1,10 @@
+✔ Maven argument builder exposes only fixed compile and approved-test forms (1.764ms)
+✔ real-path resolver rejects traversal and junction/symlink components (16.9345ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 196.2626

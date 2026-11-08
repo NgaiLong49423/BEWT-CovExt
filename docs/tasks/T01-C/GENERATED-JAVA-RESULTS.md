@@ -1,0 +1,34 @@
+# Generated Java Results
+
+## Result
+
+### Final offline review correction — executable assertion preservation (2026-11-08)
+
+`framework/src/runtime/model-provider.ts` uses the shared Java token scan to identify assertion invocations only inside annotated JUnit test-method bodies. It ignores Java comments and quoted literals, rejects generated tests without such an assertion, and checks repair output against the previous source before returning it. `framework/src/runtime/java-artifact-registry.ts` repeats the repair check against the immutable first-generated artifact before registration. Assertion tokens and non-locator literal arguments are preserved; a string literal directly supplied to Selenium `By.id`, `By.name`, `By.className`, `By.tagName`, `By.linkText`, `By.partialLinkText`, `By.cssSelector`, or `By.xpath` may change to support a locator correction.
+
+This static check cannot establish oracle semantic correctness, library method resolution, or that a test actually observes the behavior named by the oracle. It does not replace Java compilation, Selenium execution, or independent review. Regression coverage for deletion, line/block comments, string-literal decoys, a missing assertion, valid locator repair, oracle-expression change, and both bounded repair artifact hashes is in `framework/test/java-artifact-registry.test.ts`; final logs are in `evidence/verification/rerun-20261108-assertion-preservation-03/`.
+
+### Review-fix update (2026-11-08)
+
+The production CLI now supplies bounded `repairJava` through `RuntimeServices`; `framework/src/t01c-cli.ts` accepts only compile/E2E failures classified `GENERATED_TEST_DEFECT`, caps attempts at 2, persists model responses before artifact registration, and rejects a replay when a call reservation exists without a recoverable response. `framework/src/runtime/java-artifact-registry.ts` writes repairs as separate `repair-1` / `repair-2` immutable artifacts with parent and first-generated hashes, verifies the registration chain, and lexically compares executable assertions in JUnit test methods against the immutable first generation. Comments, strings, char literals, and text blocks cannot satisfy the assertion contract. `adapters/expresscart/generated-test-harness.ts` uses the same verified registration path for generated and repaired artifacts. The fake-provider integration deliberately injects an unresolved Java API to make Maven fail, then repairs the source and obtains a second isolated `test-compile` PASS.
+
+Evidence: `evidence/verification/rerun-20261108-offline-review-fixes-03/offline-repair-loop.json` and `offline-generation-repair-integration.txt`. It records two distinct validation invocation IDs, separate GENERATED/REPAIRED paths and hashes, first compile `FAIL / GENERATED_TEST_DEFECT`, repaired compile `PASS`, and fixture/E2E/cleanup `NOT_RUN`. This is a controlled synthetic provider exercise, not model-generated success. The test does not authorize or perform Gemini requests.
+
+The T01-C code now has a candidate-bound Java generation contract, an explicitly synthetic Java provider for offline verification, an opt-in Gemini Java provider, an immutable generated-artifact registry, and an isolated ExpressCart Maven harness. These are implementation capabilities; they do not establish a live model-generated study artifact or research acceptance.
+
+`framework/src/runtime/java-class.ts` derives the class identity from candidate ID/revision. `framework/src/runtime/java-artifact-registry.ts` validates current ACCEPT, candidate/revision/source binding, package `tests`, `BaseTest`/JUnit shape, source-specific Page Object use and artifact hash, and writes artifact/registration with exclusive-create semantics. `framework/src/runtime/model-provider.ts` contains `FakeJavaGenerationProvider` and the explicit-authorized `GeminiJavaGenerationProvider`. `adapters/expresscart/generated-test-harness.ts` stages the POM, existing `PageObject` base, source-grounded `CustomerPasswordResetPage`, `BaseTest`, and exact registered class into an isolated workspace; `adapters/expresscart/experiment.ts` exposes generated compile and Selenium operations.
+
+The latest offline approved-pipeline integration test used a test-only ACCEPT and fake Java output, then ran Maven `test-compile` in a temporary isolated workspace including the approved page-object files. Evidence: `evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json`. This establishes offline harness compilation only. The temporary artifact was not a Gemini output and was not retained as a study candidate.
+
+Five explicitly authorized Gemini requests were attempted for Gherkin generation and returned no content: four returned HTTP 400 `API_KEY_INVALID`; one passed preflight but failed at fetch (`PROVIDER_ERROR`). None was retried. No live candidate or review checkpoint exists. No Java Gemini call, live fixture, Selenium run, cleanup validation, or research acceptance has occurred. The fifth one-call authorization is consumed; any later externally transmitted model run requires fresh authorization and a Google-valid local credential.
+
+## Verification
+
+- `framework/test/java-artifact-registry.test.ts`: immutable registration, candidate/revision binding and approval policy.
+- `framework/test/expresscart-generated-harness.test.ts`: isolated workspace contents and selector binding.
+- `framework/test/integration/t01c-offline-approved-java-pipeline.test.ts`: offline graph-to-compile path, plus NOT_RUN/research-not-reviewed states.
+- Latest observed framework unit run: 38/38 PASS; build PASS. Focused workflow/offline integration: 6/6 PASS; the earlier broader focused suite was 7/7 PASS, including actual Maven `test-compile` PASS. Logs: `evidence/verification/rerun-20261108-request-evidence/` and `evidence/verification/rerun-20261108-final-audit-5/`; latest compile evidence: `evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json`.
+
+- Review-fix verification: framework `npm ci`, build, and unit tests PASS (42/42); complete integration PASS (19 PASS / 0 FAIL / 1 opt-in crash-recovery SKIP); ExpressCart Agent unit tests PASS (5/5). Logs: `evidence/verification/rerun-20261108-offline-review-fixes/` and `evidence/verification/rerun-20261108-offline-review-fixes-03/`. The focused fake-provider generation/repair test is included in integration and preserves its structured synthetic run record at `evidence/verification/rerun-20261108-offline-review-fixes-03/offline-repair-loop.json`.
+
+The latest full framework integration suite passed outside the sandbox (19 pass / 0 fail / 1 opt-in crash-recovery skip). It includes run-scoped Docker fixture/cleanup checks and filesystem-only symlink checks. This does not prove Selenium operation for a Gemini-generated candidate; the adapter test intentionally refuses to run its unregistered test artifact.

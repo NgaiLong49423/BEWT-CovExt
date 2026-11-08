@@ -1,0 +1,16 @@
+{
+  "runId": "t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+  "status": "FAIL",
+  "telemetry": {
+    "provider": "Gemini",
+    "model": "gemini-3.1-flash-lite",
+    "calls": 1,
+    "attempts": 1,
+    "elapsedMs": 235,
+    "status": "FAIL",
+    "errorCategory": "RATE_LIMIT",
+    "promptCharacters": 7412,
+    "estimatedMaxCostUsd": 0.010412
+  },
+  "error": "MODEL_CALL_FAILED:RATE_LIMIT:[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\",\"reason\":\"API_KEY_INVALID\",\"domain\":\"g"
+}

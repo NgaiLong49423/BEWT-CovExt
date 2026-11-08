@@ -1,0 +1,9 @@
+{
+  "command": "npm test",
+  "package": "experiments/expresscart/agent",
+  "tests": 5,
+  "passed": 5,
+  "failed": 0,
+  "skipped": 0,
+  "log": "docs/tasks/T01-C/evidence/verification/expresscart-agent-unit.txt"
+}

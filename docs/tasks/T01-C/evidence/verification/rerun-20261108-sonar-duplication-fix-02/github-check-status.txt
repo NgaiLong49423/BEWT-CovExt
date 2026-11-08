@@ -1,0 +1,11 @@
+PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4
+Head SHA: 6779e636bf981011f47e7985a78f6aee2389b0b5
+Check: SonarCloud Code Analysis
+Conclusion: success
+Quality Gate: passed
+New issues: 0
+Accepted issues: 0
+Security hotspots: 0
+Duplication on new code: 1.0% (threshold 3%)
+Coverage on new code: 0.0% (coverage report not uploaded)
+Source: GitHub check diagnostics for the exact head SHA; details at https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=4

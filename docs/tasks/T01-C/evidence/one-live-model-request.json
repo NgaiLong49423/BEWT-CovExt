@@ -1,0 +1,11 @@
+{
+  "runId": "t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df",
+  "model": "gemini-3.1-flash-lite",
+  "apiRequestsAllowed": 1,
+  "retries": 0,
+  "timeoutMs": 60000,
+  "maxPromptCharacters": 8000,
+  "maxOutputTokens": 2000,
+  "estimatedCostCeilingUsd": 0.02,
+  "pricingBasis": "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character"
+}

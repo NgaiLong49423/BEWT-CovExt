@@ -94,7 +94,7 @@ function recordedDecision(decision: "APPROVED" | "REJECTED" | "UNVERIFIED", deci
 
 function validationResult(overrides: Record<string, unknown> = {}) {
   return {
-    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, invocationId: "validation-001", sourceCommit: sha, sourceVersion: "1.1.19",
+    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, invocationId: "validation-001", artifact: { path: "extension/expresscart/selenium/ec-c91/revision-1/Test.java", sha256: "a".repeat(64), origin: "GENERATED" }, sourceCommit: sha, sourceVersion: "1.1.19",
     compile: execution("run-compile"), fixture: execution("run-fixture"), e2e: execution("run-e2e"), cleanup: execution("run-cleanup"),
     oracleDecision: recordedDecision("APPROVED", "oracle-approved"), noveltyDecision: recordedDecision("APPROVED", "novelty-approved"),
     repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-3")], repairAttempts: 1,
@@ -265,6 +265,7 @@ test("multiple revise decisions remain append-only across revisions before final
   assert.deepEqual(accepted.reviewDecisions.map((item) => `${item.decision}:${item.candidateRevision}`), ["REVISE:1", "REVISE:2", "ACCEPT:3"]);
   assert.equal(accepted.appliedDecisionIds.length, 3);
   assert.doesNotThrow(() => assertCanGenerateJava(accepted, { ...candidate, revision: 3, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" }));
+  assert.throws(() => assertCanGenerateJava(accepted, { ...candidate, revision: 3, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION", gherkin: `${candidate.gherkin}\n    And an unreviewed step` }), /exact human-approved candidate revision/);
   const rejected = submitReviewDecision(atReview(), review("REJECT"));
   assert.equal(rejected.status, "REJECTED");
   assert.throws(() => assertCanGenerateJava(rejected, { ...candidate, reviewStatus: "ACCEPTED_FOR_IMPLEMENTATION" }), /Java generation requires/);
@@ -430,11 +431,12 @@ test("validation rejects missing, duplicate, stale, mismatched or unpinned run a
 
 test("tool results permit empty output and redact credentials, private host data, paths and email", () => {
   assert.deepEqual(parseToolResult({ tool: "compile-maven-project", outcome: "PASS", stdout: "", stderr: "", evidence: [] }).stdout, "");
-  const sanitized = sanitizeToolOutput("user person@example.test password=hunter2 token is value123 Bearer abcdefghijklmnop API_KEY=secret-value Host info: host: 'HOST-EXAMPLE', ip: '192.0.2.104' path=C:\\Users\\TestUser\\.cache\\selenium");
-  assert.doesNotMatch(sanitized, /person@example\.test|hunter2|value123|abcdefghijklmnop|secret-value|HOST-EXAMPLE|192\.168\.2\.104|C:\\Users\\TestUser/);
+  const sanitized = sanitizeToolOutput("user person@example.test password=hunter2 token is value123 Bearer abcdefghijklmnop API_KEY=secret-value Host info: host: 'HOST-EXAMPLE', ip: '192.0.2.104' path=C:\\Users\\TestUser\\.cache\\selenium Maven=/C:/Users/Lenovo/AppData/Local/temp/Generated.java: message");
+  assert.doesNotMatch(sanitized, /person@example\.test|hunter2|value123|abcdefghijklmnop|secret-value|HOST-EXAMPLE|192\.168\.2\.104|C:\\Users\\TestUser|Lenovo|AppData/);
   assert.match(sanitized, /REDACTED_HOST/);
   assert.match(sanitized, /REDACTED_IP/);
   assert.match(sanitized, /REDACTED_USER_PATH/);
+  assert.match(sanitized, /REDACTED_(?:ABSOLUTE|USER)_PATH/);
   assert.throws(() => parseToolResult({ tool: "compile-maven-project", outcome: "PASS", stdout: "ok", stderr: "", evidence: [], command: "rm" }), /unsupported fields/);
 });
 

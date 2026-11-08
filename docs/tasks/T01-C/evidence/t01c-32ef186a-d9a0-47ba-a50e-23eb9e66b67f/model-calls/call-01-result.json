@@ -1,0 +1,18 @@
+{
+  "runId": "t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f",
+  "callNumber": 1,
+  "status": "BLOCKED",
+  "telemetry": {
+    "provider": "Gemini",
+    "model": "gemini-3.1-flash-lite",
+    "calls": 0,
+    "attempts": 0,
+    "elapsedMs": 0,
+    "status": "BLOCKED",
+    "errorCategory": "INPUT_BUDGET",
+    "promptCharacters": 9851,
+    "estimatedMaxCostUsd": 0.012851
+  },
+  "error": "MODEL_INPUT_BUDGET_EXCEEDED",
+  "completedAt": "2026-11-08T08:43:33.687Z"
+}

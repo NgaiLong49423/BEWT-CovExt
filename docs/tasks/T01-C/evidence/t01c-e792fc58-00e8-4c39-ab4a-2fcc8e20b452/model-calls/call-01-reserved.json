@@ -1,0 +1,11 @@
+{
+  "runId": "t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452",
+  "callNumber": 1,
+  "stage": "gherkin",
+  "apiRequestsAllowed": 1,
+  "runCostCeilingUsd": 0.02,
+  "reservedMaxCostUsd": 0.02,
+  "retriesAllowed": 0,
+  "reservedAt": "2026-11-08T09:42:27.444Z",
+  "note": "Reservation is append-only and fail-closed across process restart; failed reservations are not replayed."
+}

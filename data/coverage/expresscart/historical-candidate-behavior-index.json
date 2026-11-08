@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "candidates": [
+    {
+      "candidateId": "EC-C01",
+      "behaviorId": "cart.discount.remove",
+      "behavior": "Remove an applied discount code and verify the cart total returns to its original amount and the discount UI is cleared.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C01-discount-removal.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/DEFECT-VALIDATION.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C02",
+      "behaviorId": "cart.empty",
+      "behavior": "Empty a populated cart and verify the cart count and visible empty-cart state.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C02-empty-cart.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/DEFECT-VALIDATION.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C03",
+      "behaviorId": "product.publication.admin-state",
+      "behavior": "Change a product's publication state in the admin UI and verify the unchecked state persists after reload; the original public-search exclusion claim was revised because source contradicted it.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C03-publication-state.feature",
+        "docs/research-results/sprint-02/CANDIDATE-REVIEW.md",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/review/EC-C03-publication-state-review.feature",
+        "docs/research-results/sprint-04/review/EC-C03-teardown-contract.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C04",
+      "behaviorId": "customer.password.forgotten-request",
+      "behavior": "Submit a forgotten-password request for an unregistered email and verify the same generic success response rather than an account-not-found message.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C04-forgotten-password.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/RESEARCH-METRICS-CONSOLIDATED.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C05",
+      "behaviorId": "admin.static-page.create-view",
+      "behavior": "Create and render an enabled static page through the admin UI, with a delete cleanup path.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C05-static-page.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/RESEARCH-METRICS-CONSOLIDATED.md"
+      ]
+    }
+  ]
+}

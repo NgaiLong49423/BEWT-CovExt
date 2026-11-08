@@ -1,0 +1,14 @@
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (10224.9312ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (195.32ms)
+✔ REJECT terminates before Java preparation (44.307ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (57.2959ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (83.1354ms)
+✔ SQLite checkpoint resumes after the first Node process exits (6853.8655ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15159.6376

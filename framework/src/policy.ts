@@ -132,11 +132,20 @@ export function assertCanGenerateJava(stateInput: AgentWorkflowState, candidateI
   assertHumanApprovedCandidate(state, candidate);
 }
 
+/** A repair is a new artifact only after an accepted implementation entered bounded REPAIRING state. */
+export function assertCanRepairJava(stateInput: AgentWorkflowState, candidateInput: CandidateScenario): void {
+  const state = parseWorkflowState(stateInput);
+  const candidate = parseCandidateScenario(candidateInput);
+  if (state.status !== "REPAIRING" || state.repairAttempts < 1 || state.repairAttempts > 2) throw new ContractError("Java repair requires a bounded REPAIRING workflow after human approval");
+  assertHumanApprovedCandidate(state, candidate);
+}
+
 export function assertHumanApprovedCandidate(stateInput: AgentWorkflowState, candidateInput: CandidateScenario): void {
   const state = parseWorkflowState(stateInput);
   const candidate = parseCandidateScenario(candidateInput);
   if (candidate.appId !== state.appId || candidate.sourceCommit !== state.sourceCommit || candidate.sourceVersion !== state.sourceVersion) throw new ContractError("candidate source/app pin does not match workflow");
-  if (candidate.candidateId !== state.candidate?.candidateId || candidate.revision !== state.candidate?.revision || candidate.reviewStatus !== "ACCEPTED_FOR_IMPLEMENTATION") throw new ContractError("only the exact human-approved candidate revision may be used");
+  if (candidate.candidateId !== state.candidate?.candidateId || candidate.revision !== state.candidate?.revision || candidate.reviewStatus !== "ACCEPTED_FOR_IMPLEMENTATION" ||
+      JSON.stringify(candidate) !== JSON.stringify(state.candidate)) throw new ContractError("only the exact human-approved candidate revision may be used");
   const acceptedDecision = state.reviewDecisions.find((decision) => decision.decision === "ACCEPT" && decision.runId === state.runId && decision.candidateId === candidate.candidateId && decision.candidateRevision === candidate.revision && state.appliedDecisionIds.includes(decision.decisionId));
   if (!acceptedDecision) throw new ContractError("human approval record is missing or not applied");
 }
