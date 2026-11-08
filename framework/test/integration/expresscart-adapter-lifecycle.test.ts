@@ -51,7 +51,9 @@ test("actual ExpressCart adapter isolates validation invocations and repair evid
   assert.ok(first.compile.evidence.every((ref) => !ref.artifactPath.includes(second.invocationId)));
   assert.ok(second.compile.evidence.every((ref) => !ref.artifactPath.includes(first.invocationId)));
 
-  const recoveryState = { ...state, runId: `${runId}-restart`, validationInvocationId: `inv-recovery-${randomUUID()}` };
+  // A process restart resumes the same workflow run and approval; only the
+  // execution invocation gets a fresh identity.
+  const recoveryState = { ...state, validationInvocationId: `inv-recovery-${randomUUID()}` };
   const prepared = await adapter.prepareFixture(candidate, manifest.fixtureReset.experimentKey, recoveryState);
   assert.equal(prepared.outcome, "PASS");
   const restartedAdapter = new ExpressCartExperimentAdapter(root, manifest);

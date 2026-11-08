@@ -1,0 +1,33 @@
+
+> test:integration
+> tsx --test test/integration/*.test.ts
+
+✔ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (20.099ms)
+✔ dispatcher requires a fixed implementation for every declared tool (0.481ms)
+✔ actual ExpressCart adapter isolates validation invocations and repair evidence (37156.726ms)
+✔ collectEvidence discovers nested files without mixing invocations or following links (32.0078ms)
+﹣ SqliteSaver replay after OS process termination reconciles fixture and runs a fresh actual E2E (0.707ms) # SKIP
+✔ comment-only revision metadata preserves approved scenario semantics (5.3369ms)
+✔ ExpressCart local image identity is tied to measured source, package and Dockerfile inputs (242.0362ms)
+✔ source-built image IDs must match host-observed IDs and are not registry digests (1.59ms)
+✔ build-context hashing rejects symlinks and is stable for sorted repository-relative inputs (192.4782ms)
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (125.6735ms)
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (5326.5632ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (2.7414ms)
+✔ real-path resolver rejects traversal and junction/symlink components (20.0904ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (144.3477ms)
+✔ REJECT terminates before Java preparation (26.9789ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (34.3147ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (45.2936ms)
+✔ application-behavior E2E failure is recorded without repairing generated Java (30.1236ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3744.0947ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 18
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 38297.0499
+
+EXIT_CODE=0
