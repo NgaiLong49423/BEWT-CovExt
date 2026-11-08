@@ -2,7 +2,7 @@
 
 - Reviewed submission HEAD: `687c94aec828c8f8f898c16bc809658ae2b70c50`.
 - Branch / PR: `feature/t03b1-bludit-g0` / [PR #7](https://github.com/NgaiLong49423/BEWT-CovExt/pull/7).
-- Correction implementation commit: `PENDING_COMMIT` (filled after commit).
+- Correction implementation commit: `9c1c2138a3e66ac397d13e12cc052b91b7fa4df2` (filled after commit).
 - Scope: only G0 runner evidence consistency, partial-startup cleanup, fault-injection coverage, and new Run C evidence. Historical Run A/B evidence and original test assertions were not edited.
 
 ## Corrections
