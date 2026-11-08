@@ -1,0 +1,21 @@
+﻿{
+    "runId":  "t03b1-a-20261108-r4",
+    "imageDigest":  "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+    "browserImageDigest":  "sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6",
+    "containers":  [
+                       {
+                           "name":  "bewt-covext-bludit-t03b1-a-20261108-r4",
+                           "id":  "565c07a2f432cc3722ad91475dff151e6d1887b88c2018cbe10fc7e60652a165",
+                           "imageRef":  "bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9"
+                       },
+                       {
+                           "name":  "bewt-covext-bludit-selenium-t03b1-a-20261108-r4",
+                           "id":  "6b25a564d688a9c68f593559935aae6ff9ecc900d6eba1f9ef5bc34d6bddecef",
+                           "imageRef":  "selenium/standalone-chrome:4.34.0@sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6"
+                       }
+                   ],
+    "network":  {
+                    "id":  "fe893d8a37d4e12275d8385089da5a765ff0d4c9049d6b543fd47ae316d61572",
+                    "name":  "bewt-covext-bludit-t03b1-a-20261108-r4-net"
+                }
+}

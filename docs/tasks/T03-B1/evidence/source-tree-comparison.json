@@ -1,0 +1,14 @@
+{
+  "sourceSuiteTree": "b9feb56ef7db714571d91ba7e17f35ac4ccb4614",
+  "bewtSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "changedOrMissing": [
+    {
+      "status": "MODIFIED",
+      "path": "src\\test\\java\\tests\\BaseTest.java"
+    }
+  ],
+  "extraFiles": [],
+  "comparedFiles": 52,
+  "generatedTargetExcluded": true,
+  "originalTargetWorkingTreeStatus": []
+}

@@ -1,0 +1,10 @@
+{
+  "finalRunsUseSameImageDigest": true,
+  "gridReady": true,
+  "browserName": "chrome",
+  "sourceEvidence": "Docker status response from pinned Selenium image container",
+  "seleniumVersion": "4.34.0 (revision 2a4c61c498)",
+  "image": "selenium/standalone-chrome:4.34.0",
+  "browserVersion": "138.0",
+  "imageDigest": "sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6"
+}

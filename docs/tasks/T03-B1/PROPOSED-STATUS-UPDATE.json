@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "T03-B1",
+  "application": "bludit",
+  "statusProposedByAgent": "READY_FOR_REVIEW",
+  "gateStatusProposed": {
+    "G0": "READY_FOR_REVIEW",
+    "G1": "NOT_VERIFIED",
+    "G2": "NOT_VERIFIED",
+    "G3": "NOT_VERIFIED",
+    "G4": "NOT_VERIFIED"
+  },
+  "source": {
+    "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "bluditCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+    "directRemoteRefCheck": "BLOCKED_DNS",
+    "containerObservedVersion": "2.3.4"
+  },
+  "runtime": {
+    "image": "bludit/docker:2.3.4",
+    "imageDigest": "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+    "independentRuns": 2,
+    "installerPasses": 2,
+    "businessBasePasses": 2,
+    "cleanupPasses": 2
+  },
+  "validatedNewCases": 0,
+  "accepted": false,
+  "notes": [
+    "G0 only; no G1-G4 work was performed.",
+    "The source/image content equivalence is not claimed.",
+    "Team Lead review is required; this proposal does not update docs/program/STATUS.json."
+  ],
+  "evidence": [
+    "docs/tasks/T03-B1/G0-RUNTIME-RESULTS.md",
+    "docs/tasks/T03-B1/RESET-AND-CLEANUP-RESULTS.md",
+    "docs/tasks/T03-B1/TEST-RESULTS.md"
+  ]
+}

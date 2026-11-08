@@ -1,0 +1,11 @@
+{
+  "maven": "Apache Maven 3.9.16",
+  "java": "Java 21.0.12",
+  "observedBrowser": "Chrome 138.0, Selenium 4.34.0 (container status preflight; same pinned image digest used by both final runs)",
+  "dockerServer": "29.8.0 linux",
+  "hostFreeMemoryKiB": 3953720,
+  "node": "v24.19.0",
+  "dockerMemoryBytes": 7157481472,
+  "seleniumImageDigest": "sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6",
+  "seleniumImage": "selenium/standalone-chrome:4.34.0"
+}

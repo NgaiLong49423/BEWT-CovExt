@@ -1,0 +1,54 @@
+package tests;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
+import java.util.concurrent.TimeUnit;
+import org.junit.After;
+import org.junit.Before;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+public class BaseTest {
+	
+	public WebDriver driver;
+	protected static final String password = System.getenv("BLUDIT_TEST_PASSWORD");
+	protected static final String username = "admin";
+	protected static final String app_url = System.getProperty("app.url", "http://127.0.0.1:8080/admin");
+	@Before
+	public void setUp() {
+		if (password == null || password.isBlank()) {
+			throw new IllegalStateException("BLUDIT_TEST_PASSWORD must be provided");
+		}
+		setupRemoteWebdriver();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		driver.manage().window().maximize();
+		driver.get(app_url);
+	}
+
+	public void setupNativeBrowser() {
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--disable-search-engine-choice-screen", "--headless=new", "--disable-gpu", "--screen-info={1920x1080}", "--lang=en");
+		driver = new ChromeDriver(options);
+	}
+
+	public void setupRemoteWebdriver() {
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.addArguments("--no-sandbox", "--headless=new", "--disable-gpu", "--screen-info={1920x1080}");
+		try {
+			String remoteUrl = System.getProperty("webdriver.remoteUrl", "http://127.0.0.1:4444/wd/hub");
+			driver = new RemoteWebDriver(new URL(remoteUrl), chromeOptions);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@After
+	public void tearDown() {
+		driver.quit();
+	}
+}
