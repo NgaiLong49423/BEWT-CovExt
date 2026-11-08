@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "bludit",
+  "benchmarkBaseVersion": "2.3.4",
+  "source": {"repository": "https://github.com/bludit/bludit", "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd", "packageVersion": "2.3.4"},
+  "baseSuitePath": "experiments/bludit/bewt-suite",
+  "runtime": {"kind": "docker", "version": "php-7.x-nginx-flatfile", "image": "bludit/docker:2.3.4", "imageDigest": "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9"},
+  "fixtureReset": {"experimentKey": "bewt-covext-bludit", "prepareTool": "prepare-fixture", "cleanupTool": "cleanup-experiment", "resetStrategy": "Use a fresh labeled container and isolated labeled network per run; publish HTTP only on loopback with a dynamic port. The image declares no volumes, so each new container gets a distinct writable layer. Remove only recorded resources whose full ownership labels, IDs, names, image digest, mounts, and endpoints match; independently verify no labeled resources remain.", "destructive": true},
+  "allowedTools": ["read-baseline-inventory", "validate-gherkin", "read-approved-manifest", "generate-source-artifact", "compile-maven-project", "run-selenium-test", "prepare-fixture", "collect-test-evidence", "cleanup-experiment"]
+}
+

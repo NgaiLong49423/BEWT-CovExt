@@ -13,7 +13,7 @@ const loadFrom = (dir) => (file) => JSON.parse(fs.readFileSync(path.join(dir, fi
 test('active config/apps isolation accepts multiple parser-valid runtime manifests', () => {
   const files = fs.readdirSync(appsDir).filter((file) => file.endsWith('.json'));
   const manifests = validateRuntimeManifestCollection(files, loadFrom(appsDir));
-  assert.deepEqual(manifests.map(({ manifest }) => manifest.appId).sort(), ['expresscart', 'kanboard']);
+  assert.deepEqual(manifests.map(({ manifest }) => manifest.appId).sort(), ['bludit', 'expresscart', 'kanboard']);
 });
 
 test('active config/apps isolation rejects draft manifests even beside valid runtime manifests', () => {

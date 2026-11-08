@@ -1,0 +1,15 @@
+{
+  "runId": "t03b1-c-20261109-r1",
+  "outcome": "PASS",
+  "recordedContainers": [
+    "17c46c44f2fb7071175c2cfb6e2f182c09dc6398bb86ee010b96146ffda2418d",
+    "2251cce58e64562662b00e33f2fcefced44da51ec79f428d41d7342bcc9c9880"
+  ],
+  "recordedNetwork": "e490eb697106a4b035d66b58dc748df40ffccc329b47fd61aaafe4c489219b93",
+  "residuals": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "protectedExistingResources": "PRESERVED"
+}

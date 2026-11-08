@@ -1,0 +1,15 @@
+{
+  "installer": {
+    "exitCode": 0,
+    "command": "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.Installer -Dapp.url=http://bewt-covext-bludit-t03b1-a-20261108-r4/admin -Dwebdriver.remoteUrl=http://127.0.0.1:55751/wd/hub -Dsurefire.reportsDirectory=<repo>/docs/tasks/T03-B1/evidence/t03b1-a-20261108-r4/surefire-raw test"
+  },
+  "evidenceLogs": [
+    "maven-installer.log",
+    "maven-business.log"
+  ],
+  "runId": "t03b1-a-20261108-r4",
+  "business": {
+    "exitCode": 0,
+    "command": "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.AddContentTest -Dapp.url=http://bewt-covext-bludit-t03b1-a-20261108-r4/admin -Dwebdriver.remoteUrl=http://127.0.0.1:55751/wd/hub -Dsurefire.reportsDirectory=<repo>/docs/tasks/T03-B1/evidence/t03b1-a-20261108-r4/surefire-raw test"
+  }
+}

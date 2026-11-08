@@ -1,0 +1,16 @@
+{
+  "nodeCleanupAndManifestSuite": {
+    "exitCode": 0,
+    "tests": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "mavenCleanTestCompile": {
+    "exitCode": 0,
+    "build": "SUCCESS",
+    "productionSources": 17,
+    "testSources": 26
+  },
+  "powershellRunnerParse": "PASS",
+  "nodeSyntax": "PASS"
+}

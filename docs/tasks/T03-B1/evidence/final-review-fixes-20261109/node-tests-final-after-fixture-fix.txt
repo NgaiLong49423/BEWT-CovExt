@@ -1,0 +1,25 @@
+✔ active Bludit runtime manifest parses and preserves verified source and registry digest (2.5139ms)
+✔ promotion rejects missing draft marker and unverified or malformed image digests (0.5723ms)
+✔ run IDs produce the complete Bludit ownership tuple (1.64ms)
+✔ partial startup cleanup safely handles 0 recorded container(s) (2.7788ms)
+✔ partial startup cleanup safely handles 1 recorded container(s) (0.7847ms)
+✔ partial startup cleanup safely handles 2 recorded container(s) (0.402ms)
+✔ fault injection: network initialization without a recorded ID blocks and never deletes an unverified network (0.2386ms)
+✔ fault injection: failed network initialization with a recorded network ID cleans the network-only partial run (0.2788ms)
+✔ fault injection: app container creation failure after network creation cleans the zero-container partial run (0.231ms)
+✔ fault injection: Selenium container creation failure cleans only the recorded app container (0.292ms)
+✔ fault injection: Selenium startup failure after create cleans both immediately recorded containers (0.3325ms)
+✔ only exact NOT_FOUND is idempotent; daemon, permission, transport and unknown inspect errors block without mutation (0.5898ms)
+✔ partial teardown and stale IDs block; cleanup never converts either into PASS (0.3247ms)
+✔ ownership label or endpoint mismatch blocks before any resource mutation (0.2661ms)
+✔ residual labeled resource prevents cleanup PASS (0.2842ms)
+✔ verified absence is idempotent for all recorded resources (0.2932ms)
+✔ blocked cleanup sets a nonzero process exit code (0.1442ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 126.0944

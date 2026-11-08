@@ -1,0 +1,8 @@
+{
+    "webdriverUrl":  "http://127.0.0.1:53065/wd/hub",
+    "browserHostPort":  "53065",
+    "appName":  "bewt-covext-bludit-t03b1-c-20261109-r3",
+    "appHostPort":  "53064",
+    "appUrl":  "http://bewt-covext-bludit-t03b1-c-20261109-r3/admin",
+    "browserName":  "bewt-covext-bludit-selenium-t03b1-c-20261109-r3"
+}

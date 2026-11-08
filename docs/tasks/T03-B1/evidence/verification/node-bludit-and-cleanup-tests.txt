@@ -1,0 +1,16 @@
+✔ active Bludit runtime manifest parses and preserves verified source and registry digest (1.2936ms)
+✔ promotion rejects missing draft marker and unverified or malformed image digests (0.6214ms)
+✔ run IDs produce the complete Bludit ownership tuple (1.3386ms)
+✔ only exact missing object errors count as NOT_FOUND; daemon, permission, transport and unknown failures block without mutation (2.0185ms)
+✔ idempotent cleanup passes only when recorded resources are genuinely absent (0.9563ms)
+✔ partial teardown blocks, stale IDs block before mutation, residual labeled resources block PASS (0.5892ms)
+✔ blocked cleanup sets process exit code nonzero (0.1701ms)
+✔ NOT_FOUND requires an exact Docker resource kind and target (0.1212ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 118.0029

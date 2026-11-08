@@ -1,0 +1,26 @@
+﻿{
+    "installerCommand":  "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.Installer -Dapp.url=\u003crun-local-url\u003e/admin -Dwebdriver.remoteUrl=\u003cloopback-selenium\u003e/wd/hub -Dsurefire.reportsDirectory=\u003cevidence\u003e/surefire-raw test",
+    "installerExitCode":  0,
+    "businessCommand":  "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.AddContentTest -Dapp.url=\u003crun-local-url\u003e/admin -Dwebdriver.remoteUrl=\u003cloopback-selenium\u003e/wd/hub -Dsurefire.reportsDirectory=\u003cevidence\u003e/surefire-raw test",
+    "businessExitCode":  0,
+    "summary":  {
+                    "tests":  0,
+                    "failures":  0,
+                    "errors":  0,
+                    "skipped":  0
+                },
+    "sentinelBefore":  {
+                           "checkedAt":  "2026-11-08T23:11:14.0151759+07:00",
+                           "pageSha256":  "D16F22A8BE7DC8A482D3DCAB1E3A0DBB4E69135B17EEE31AA629C815E8CA682F",
+                           "present":  [
+
+                                       ]
+                       },
+    "sentinelAfter":  {
+                          "checkedAt":  "2026-11-08T23:11:19.7260698+07:00",
+                          "pageSha256":  "3F840ADD5A0AF09FF395F61E965D372F2F61A176E27EAD94D0FA8465D48F8D96",
+                          "present":  [
+                                          "\t\t\t\t\t\u003ch2 class=\"title\"\u003eTest Content\u003c/h2\u003e"
+                                      ]
+                      }
+}

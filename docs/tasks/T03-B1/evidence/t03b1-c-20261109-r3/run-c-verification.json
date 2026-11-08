@@ -1,0 +1,54 @@
+{
+  "runId": "t03b1-c-20261109-r3",
+  "runnerExitCode": 0,
+  "outcome": "PASS",
+  "classes": [
+    {
+      "class": "tests.Installer",
+      "exitCode": 0,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sourceXmlSha256": "7A4D9A9AC873E55FBCC164B00BA53DDF26B5723236356E2E6A7A216974A6FFE2",
+      "sanitizedXml": "surefire-public/TEST-tests.Installer.sanitized.xml"
+    },
+    {
+      "class": "tests.AddContentTest",
+      "exitCode": 0,
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "sourceXmlSha256": "22E5EBE64D0DC01EC5B16AB10C38A85C9372C37143075CB8D6911AD1699F964F",
+      "sanitizedXml": "surefire-public/TEST-tests.AddContentTest.sanitized.xml"
+    }
+  ],
+  "sentinelBefore": {
+    "value": false,
+    "type": "Boolean"
+  },
+  "sentinelAfter": {
+    "value": true,
+    "type": "Boolean"
+  },
+  "cleanupOutcome": "PASS",
+  "residuals": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "preexistingDockerResourcesPreserved": true,
+  "removedPreexisting": {
+    "containers": [],
+    "networks": [],
+    "volumes": [],
+    "images": []
+  },
+  "addedAfterCleanup": {
+    "containers": [],
+    "networks": [],
+    "volumes": [],
+    "images": []
+  }
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "os": "linux",
+    "declaredVolumes": null,
+    "repoDigests": [
+      "bludit/docker@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9"
+    ],
+    "reference": "bludit/docker:2.3.4",
+    "architecture": "amd64",
+    "id": "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+    "exposedPorts": {
+      "80/tcp": {}
+    }
+  },
+  {
+    "os": "linux",
+    "declaredVolumes": null,
+    "repoDigests": [
+      "selenium/standalone-chrome@sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6"
+    ],
+    "reference": "selenium/standalone-chrome:4.34.0",
+    "architecture": "amd64",
+    "id": "sha256:bcb1d054f3c88ef618cd92a8124d894038fb5f670bf7d427f5e5bbb60882b6f6",
+    "exposedPorts": {
+      "4444/tcp": {},
+      "5900/tcp": {},
+      "9000/tcp": {}
+    }
+  }
+]

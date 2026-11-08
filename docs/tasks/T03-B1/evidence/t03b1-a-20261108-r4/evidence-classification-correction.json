@@ -1,0 +1,12 @@
+{
+  "runnerFailure": "Initial wrapper parsed the configured reports directory, but Surefire emitted XML under target/surefire-reports. Original Maven logs and raw XML from this same run ID match PASS; original XML hashes recorded before sanitization.",
+  "outcome": "RUNTIME_TESTS_PASS_EVIDENCE_COLLECTION_RECOVERED",
+  "businessExitCode": 0,
+  "summary": {
+    "errors": 0,
+    "failures": 0,
+    "skipped": 0,
+    "tests": 2
+  },
+  "installerExitCode": 0
+}
