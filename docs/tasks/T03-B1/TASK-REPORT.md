@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Bludit 2.3.4 G0 only.
 - Base branch + base SHA: `main` / `f1b22548fd37f577638856bcc9707c79cf288bc1`.
 - Working branch: `feature/t03b1-bludit-g0`.
-- Head commit (full SHA): `PENDING_COMMIT`.
-- PR: `PENDING_CREATION` — separate PR to `main`.
-- Push status: `PENDING`.
+- Initial implementation commit (full SHA): `f9521c34d473b04c729bdf0a051bc605a8d759e8`; this PR branch also contains the report metadata update.
+- PR: [#7](https://github.com/NgaiLong49423/BEWT-CovExt/pull/7) — separate PR to `main`.
+- Push status: `PUSHED`; verify the live PR head before review.
 - Runtime/commit/version tested: Bludit `2.3.4`, image `bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9`; BEWT source commit `0501249ff3e9a5ea83a06155cd2971dc36197056`.
 - Status proposed by Agent: `READY_FOR_REVIEW` for G0 only. No `ACCEPTED` or `VALIDATED` claim.
 
