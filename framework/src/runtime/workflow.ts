@@ -71,7 +71,8 @@ function result(startedAt: string, summary: string, outcome: RoleRunResult["outc
   return { outcome, startedAt, finishedAt: now(), summary, ...(errorCategory ? { errorCategory } : {}) };
 }
 function isRepairable(validation: ValidationResult): boolean {
-  return validation.compile.outcome === "FAIL" || validation.e2e.outcome === "FAIL";
+  return (validation.compile.outcome === "FAIL" && validation.compile.failureClassification === "GENERATED_TEST_DEFECT") ||
+    (validation.e2e.outcome === "FAIL" && validation.e2e.failureClassification === "GENERATED_TEST_DEFECT");
 }
 
 export function buildWorkflow(services: RuntimeServices, checkpointer: SqliteSaver) {

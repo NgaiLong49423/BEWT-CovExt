@@ -210,6 +210,7 @@ export interface ExecutionReference {
   invocationId: string;
   stageRunId?: string;
   outcome: Outcome;
+  failureClassification?: "GENERATED_TEST_DEFECT" | "APPLICATION_BEHAVIOR" | "ENVIRONMENT_OR_HARNESS" | "UNCLASSIFIED";
   sourceCommit: string;
   sourceVersion: string;
   evidence: EvidenceReference[];
@@ -722,8 +723,10 @@ export function parseValidationResult(input: unknown): ValidationResult {
 
 function parseExecutionReference(input: unknown, label: string): ExecutionReference {
   const value = record(input, label);
-  assertKeys(value, ["invocationId", "stageRunId", "outcome", "sourceCommit", "sourceVersion", "evidence"], label);
+  assertKeys(value, ["invocationId", "stageRunId", "outcome", "failureClassification", "sourceCommit", "sourceVersion", "evidence"], label);
   const outcome = member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, `${label}.outcome`);
+  const failureClassification = value.failureClassification === undefined ? undefined : member(value.failureClassification, ["GENERATED_TEST_DEFECT", "APPLICATION_BEHAVIOR", "ENVIRONMENT_OR_HARNESS", "UNCLASSIFIED"] as const, `${label}.failureClassification`);
+  if (failureClassification !== undefined && outcome !== "FAIL") throw new ContractError(`${label} failure classification is only valid for FAIL outcomes`);
   const stageRunId = value.stageRunId === undefined ? undefined : text(value.stageRunId, `${label}.stageRunId`, 120);
   const evidence = list(value.evidence, `${label}.evidence`, parseEvidenceReference, 0, 1_000);
   if (outcome === "NOT_RUN" && (stageRunId !== undefined || evidence.length > 0)) throw new ContractError(`${label} NOT_RUN stage must not invent a stage run or evidence`);
@@ -736,6 +739,7 @@ function parseExecutionReference(input: unknown, label: string): ExecutionRefere
     invocationId: text(value.invocationId, `${label}.invocationId`, 120),
     ...(stageRunId === undefined ? {} : { stageRunId }),
     outcome,
+    ...(failureClassification === undefined ? {} : { failureClassification }),
     sourceCommit: sha(value.sourceCommit, `${label}.sourceCommit`),
     sourceVersion: text(value.sourceVersion, `${label}.sourceVersion`, 120),
     evidence,

@@ -10,6 +10,8 @@
 | Framework build with sanitized request evidence | PASS | `evidence/verification/rerun-20261108-request-evidence/framework-build.txt` |
 | Framework unit tests with sanitized request evidence | PASS, 38/38 | `evidence/verification/rerun-20261108-request-evidence/framework-unit.txt` |
 | Focused workflow + offline Java pipeline with sanitized request evidence | PASS, 6/6 | `evidence/verification/rerun-20261108-request-evidence/t01c-workflow-integration.txt` |
+| No-application-repair workflow regression | PASS, included in focused integration 7/7 | `evidence/verification/rerun-20261108-no-application-repair/t01c-workflow-integration.txt` |
+| Framework build/unit and focused integration after repair classification | PASS / PASS, 38/38 / PASS, 7/7 | `evidence/verification/rerun-20261108-no-application-repair/` |
 | Final prompt compaction build/unit | PASS / PASS, 37/37 | `evidence/verification/rerun-20261108-final-prompt-budget/{framework-build.txt,framework-unit.txt}` |
 | Focused workflow + offline Java pipeline after final prompt compaction | PASS, 6/6 | `evidence/verification/rerun-20261108-final-prompt-budget/t01c-workflow-integration.txt` |
 | Targeted model-provider regression tests after final test-fixture cleanup | PASS, 7/7 | Command: `npx tsx --test test/model-provider.test.ts` (final source state) |
