@@ -1,0 +1,8 @@
+TAP version 13
+1..6
+ok 1 - NEG_WRONG_SHA: runVerification reports FAIL when upstream commit differs from the pinned SHA — Mismatch in ls-remote output. Expected commit 0000000000000000000000000000000000000000, got: 44de235a5eedda9b80d9f0babd9fd5cb8c6943bd refs/tags/2.3.4
+ok 2 - NEG_NETWORK_ERROR_HANDLING: runVerification classifies injected network failure as BLOCKED — Remote query failed: simulated DNS lookup failed. Network/DNS/permission error cannot prove tag absence.
+ok 3 - NEG_MISSING_IMAGE_DIGEST: Docker manifest with only imageDigest removed fails on the digest requirement — Docker runtime requires an image and a pinned sha256 digest
+ok 4 - NEG_INVALID_IMAGE_DIGEST: Docker manifest with malformed imageDigest fails on the digest requirement — Docker runtime requires an image and a pinned sha256 digest
+ok 5 - NEG_DRAFT_MARKER: Valid Docker manifest with only the draft marker added is rejected for that marker — ApplicationManifest contains unsupported fields: manifestType
+ok 6 - NEG_PROCESS_EXIT_CODE: Runner process exits with code 1 and suppresses success message on failure — Process exit code: 1

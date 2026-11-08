@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
+  "appId": "mediawiki",
+  "benchmarkBaseVersion": "1.40.0",
+  "source": {
+    "repository": "https://github.com/wikimedia/mediawiki",
+    "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+    "packageVersion": "1.40.0",
+    "note": "Commit 468dd69d verified from tag 1.40.0 on GitHub upstream. BEWT baseline references mediawiki:1.40.0."
+  },
+  "baseSuitePath": "bewt-original/mediawiki/baseline/mediawiki-1.40.0",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-8.x-apache-mariadb",
+    "image": "mediawiki:1.40.0",
+    "imageDigest": "NOT_PULLED_STATIC_AUDIT"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-mediawiki",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Two-container Docker Compose deployment with labels. Setup executes mediawiki.Installer JUnit test to generate LocalSettings.php and copies it into container. Reset stops/removes containers and removes named volumes.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

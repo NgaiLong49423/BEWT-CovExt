@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
+  "appId": "claroline",
+  "benchmarkBaseVersion": "1.11.10",
+  "source": {
+    "repository": "https://github.com/claroline/Claroline",
+    "commit": "NOT_VERIFIED",
+    "packageVersion": "1.11.10",
+    "note": "Legacy SourceForge release; no verified Git tag for 1.11.10 on GitHub. BEWT references olianasd/claroline-strongpsw."
+  },
+  "baseSuitePath": "bewt-original/claroline/baseline/claroline-1.11.10",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-5.6-apache-mysql-bundled",
+    "image": "olianasd/claroline-strongpsw",
+    "imageDigest": "NOT_PULLED_STATIC_AUDIT"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-claroline",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Single container deployment with labels (owner=bewt-covext). Pre-seeded database and services started by ./run-services-docker.sh. SUT exposed on port 3000. Reset stops and removes the container.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}
