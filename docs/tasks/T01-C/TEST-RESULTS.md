@@ -18,7 +18,8 @@ The synthetic Maven compilation uses a fake Java provider and does not count as 
 | Check | Result | Evidence |
 |---|---:|---|
 | SonarCloud Quality Gate on preceding commit `cfac8d322d73a6f6cd95e954fd328e62217eeace` | FAIL, 4.2% duplication (limit 3%) | PR #4 SonarCloud check; public duplication detail API identified repeated code in the registry loader, Gemini Java request path, and offline Maven setup. |
-| Source duplication refactor | IMPLEMENTED; awaiting SonarCloud analysis of the follow-up commit | `framework/src/runtime/java-artifact-registry.ts`, `framework/src/runtime/model-provider.ts`, `framework/test/integration/t01c-offline-approved-java-pipeline.test.ts`; fresh build/unit/integration logs at `evidence/verification/rerun-20261108-sonar-duplication-fix-02/` |
+| SonarCloud Quality Gate on `6779e636bf981011f47e7985a78f6aee2389b0b5` | PASS, 1.0% duplication, 0 new issues, 0 hotspots; coverage 0.0% | `evidence/verification/rerun-20261108-sonar-duplication-fix-02/github-check-status.txt` |
+| Source duplication refactor | IMPLEMENTED and verified on SonarCloud | `framework/src/runtime/java-artifact-registry.ts`, `framework/src/runtime/model-provider.ts`, `framework/test/integration/t01c-offline-approved-java-pipeline.test.ts`; build/unit/integration logs at `evidence/verification/rerun-20261108-sonar-duplication-fix-02/` |
 | Build, framework unit tests, and full integration after duplication refactor | PASS / 42/42 PASS / 19 PASS, 0 FAIL, 1 opt-in SKIP | `evidence/verification/rerun-20261108-sonar-duplication-fix-02/` |
 
 | Check | Result | Evidence |
