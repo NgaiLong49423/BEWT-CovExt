@@ -1,0 +1,15 @@
+{
+  "command": "git check-ignore -v -- <candidate-log-xml>",
+  "mavenLog": {
+    "exitCode": 0,
+    "output": [
+      ".gitignore:20:*.log\tdocs/tasks/T03-B1/evidence/t03b1-c-20261109-r1/maven-installer.log"
+    ],
+    "ignored": true
+  },
+  "sanitizedXml": {
+    "exitCode": 1,
+    "output": [],
+    "ignored": false
+  }
+}

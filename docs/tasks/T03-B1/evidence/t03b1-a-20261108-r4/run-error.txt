@@ -1,0 +1,8 @@
+﻿Maven/JUnit/sentinel acceptance failed
+At D:\Github-Projects\BEWT-CovExt-worktrees\t03b1-bludit-g0\experiments\bludit\tools\run-bludit-g0.ps1:28 char:176
++ ... $afterPresent){throw 'Maven/JUnit/sentinel acceptance failed'};Write- ...
++                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Maven/JUnit/sentinel acceptance failed:String) [], RuntimeException
+    + FullyQualifiedErrorId : Maven/JUnit/sentinel acceptance failed
+ 
+

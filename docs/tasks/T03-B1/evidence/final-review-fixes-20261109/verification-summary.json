@@ -1,0 +1,17 @@
+{
+  "nodeTestExit": 0,
+  "nodeTests": 16,
+  "nodePass": 16,
+  "nodeFail": 0,
+  "mavenCleanTestCompileExit": 0,
+  "mavenBuildSuccess": true,
+  "powershellRunnerParse": "PASS",
+  "nodeSyntaxFiles": [
+    "experiments/bludit/tools/cleanup-bludit-g0.mjs",
+    "experiments/bludit/tools/cleanup-run.mjs",
+    "experiments/bludit/tools/bludit-g0.mjs",
+    "experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs",
+    "experiments/bludit/tools/test/bludit-g0.test.mjs"
+  ],
+  "nodeSyntax": "PASS"
+}

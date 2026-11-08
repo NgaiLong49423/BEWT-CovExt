@@ -1,0 +1,1 @@
+﻿4:define('BLUDIT_VERSION',	'2.3.4');

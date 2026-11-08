@@ -1,0 +1,20 @@
+[
+  {
+    "errors": 0,
+    "sha256Original": "8834F734667F0510E57CD2D32CF76766BE3F5FF13598D435586B93BAAC07F438",
+    "skipped": 0,
+    "originalFile": "TEST-tests.Installer.xml",
+    "failures": 0,
+    "sanitizedFile": "TEST-tests.Installer.sanitized.xml",
+    "tests": 1
+  },
+  {
+    "errors": 0,
+    "sha256Original": "8310E2BF66C0672768DD3AF2ACD9C1E341AB627501D65867C3435492B32B5BFD",
+    "skipped": 0,
+    "originalFile": "TEST-tests.AddContentTest.xml",
+    "failures": 0,
+    "sanitizedFile": "TEST-tests.AddContentTest.sanitized.xml",
+    "tests": 1
+  }
+]

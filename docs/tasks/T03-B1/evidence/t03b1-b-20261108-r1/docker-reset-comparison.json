@@ -1,0 +1,11 @@
+{
+  "preExistingVolumesLost": [],
+  "volumesDeclaredByBluditImage": null,
+  "unrecordedContainersAdded": [],
+  "preExistingNetworksLost": [],
+  "preExistingImagesLost": [],
+  "runId": "t03b1-b-20261108-r1",
+  "recordedContainersAbsent": true,
+  "recordedNetworkAbsent": true,
+  "preExistingContainersLost": []
+}

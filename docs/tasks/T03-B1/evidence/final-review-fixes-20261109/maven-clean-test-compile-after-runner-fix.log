@@ -1,0 +1,31 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -----------------< e2etestsuitebenchmark:bludit-2.3.4 >-----------------
+[INFO] Building bludit-2.3.4 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ bludit-2.3.4 ---
+[INFO] Deleting D:\Github-Projects\BEWT-CovExt-worktrees\t03b1-bludit-g0\experiments\bludit\bewt-suite\target
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ bludit-2.3.4 ---
+[INFO] skip non existing resourceDirectory D:\Github-Projects\BEWT-CovExt-worktrees\t03b1-bludit-g0\experiments\bludit\bewt-suite\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ bludit-2.3.4 ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 17 source files with javac [debug target 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ bludit-2.3.4 ---
+[INFO] skip non existing resourceDirectory D:\Github-Projects\BEWT-CovExt-worktrees\t03b1-bludit-g0\experiments\bludit\bewt-suite\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ bludit-2.3.4 ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 26 source files with javac [debug target 21] to target\test-classes
+[INFO] /D:/Github-Projects/BEWT-CovExt-worktrees/t03b1-bludit-g0/experiments/bludit/bewt-suite/src/test/java/tests/BaseTest.java: D:\Github-Projects\BEWT-CovExt-worktrees\t03b1-bludit-g0\experiments\bludit\bewt-suite\src\test\java\tests\BaseTest.java uses or overrides a deprecated API.
+[INFO] /D:/Github-Projects/BEWT-CovExt-worktrees/t03b1-bludit-g0/experiments/bludit/bewt-suite/src/test/java/tests/BaseTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.768 s
+[INFO] Finished at: 2026-11-09T00:15:36+07:00
+[INFO] ------------------------------------------------------------------------

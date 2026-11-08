@@ -1,0 +1,42 @@
+diff --git "a/D:\\Github-Projects\\BEWT-CovExt\\bewt-original\\bludit\\baseline\\bludit-2.3.4\\src\\test\\java\\tests\\BaseTest.java" "b/experiments\\bludit\\bewt-suite\\src\\test\\java\\tests\\BaseTest.java"
+index ae9c722..de33fef 100644
+--- "a/D:\\Github-Projects\\BEWT-CovExt\\bewt-original\\bludit\\baseline\\bludit-2.3.4\\src\\test\\java\\tests\\BaseTest.java"
++++ "b/experiments\\bludit\\bewt-suite\\src\\test\\java\\tests\\BaseTest.java"
+@@ -15,12 +15,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
+ public class BaseTest {
+ 	
+ 	public WebDriver driver;
+-	protected static final String password = "[REDACTED_ORIGINAL_TEST_PASSWORD]";
++	protected static final String password = System.getenv("BLUDIT_TEST_PASSWORD");
+ 	protected static final String username = "admin";
+-	protected static final String app_url = "http://192.168.1.141:8080/admin";
++	protected static final String app_url = System.getProperty("app.url", "http://127.0.0.1:8080/admin");
+ 	@Before
+ 	public void setUp() {
+-		setupNativeBrowser();
++		if (password == null || password.isBlank()) {
++			throw new IllegalStateException("BLUDIT_TEST_PASSWORD must be provided");
++		}
++		setupRemoteWebdriver();
+ 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+ 		driver.manage().window().maximize();
+ 		driver.get(app_url);
+@@ -29,7 +32,6 @@ public class BaseTest {
+ 	public void setupNativeBrowser() {
+ 		ChromeOptions options = new ChromeOptions();
+ 		options.addArguments("--disable-search-engine-choice-screen", "--headless=new", "--disable-gpu", "--screen-info={1920x1080}", "--lang=en");
+-		options.setBrowserVersion("127");
+ 		driver = new ChromeDriver(options);
+ 	}
+ 
+@@ -37,7 +39,8 @@ public class BaseTest {
+ 		ChromeOptions chromeOptions = new ChromeOptions();
+ 		chromeOptions.addArguments("--no-sandbox", "--headless=new", "--disable-gpu", "--screen-info={1920x1080}");
+ 		try {
+-			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
++			String remoteUrl = System.getProperty("webdriver.remoteUrl", "http://127.0.0.1:4444/wd/hub");
++			driver = new RemoteWebDriver(new URL(remoteUrl), chromeOptions);
+ 		} catch (MalformedURLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+
