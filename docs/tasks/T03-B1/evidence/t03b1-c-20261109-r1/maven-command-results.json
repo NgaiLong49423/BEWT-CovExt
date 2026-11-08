@@ -1,0 +1,14 @@
+{
+    "runId":  "t03b1-c-20261109-r1",
+    "classes":  {
+                    "tests.Installer":  {
+                                            "class":  "tests.Installer",
+                                            "command":  "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.Installer -Dapp.url=http://bewt-covext-bludit-t03b1-c-20261109-r1/admin -Dwebdriver.remoteUrl=http://127.0.0.1:56435/wd/hub test",
+                                            "exitCode":  0,
+                                            "junitXmlPath":  "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.Installer.xml",
+                                            "junit":  null,
+                                            "evidence":  null,
+                                            "outcome":  "XML_PENDING"
+                                        }
+                }
+}

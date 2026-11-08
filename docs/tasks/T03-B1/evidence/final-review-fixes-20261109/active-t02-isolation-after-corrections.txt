@@ -1,0 +1,11 @@
+✔ active config/apps isolation accepts multiple parser-valid runtime manifests (4.1533ms)
+✔ active config/apps isolation rejects draft manifests even beside valid runtime manifests (1.2233ms)
+✔ active config/apps isolation rejects duplicate app IDs (0.3354ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 110.397

@@ -1,0 +1,10 @@
+{
+    "businessExitCode":  null,
+    "cleanupOutcome":  "PASS",
+    "installerExitCode":  0,
+    "reason":  "Method invocation failed because [System.Security.Cryptography.SHA256] does not contain a method named \u0027HashData\u0027.",
+    "runId":  "t03b1-c-20261109-r1",
+    "outcome":  "BLOCKED",
+    "sentinelBefore":  null,
+    "sentinelAfter":  null
+}

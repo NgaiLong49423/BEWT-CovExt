@@ -12,3 +12,15 @@
 The suite only selected the original `tests.Installer` and `tests.AddContentTest`. No AI-generated tests or G1–G4 work was performed. See [manifest](../../../config/apps/bludit.json) and [runtime results](G0-RUNTIME-RESULTS.md).
 
 
+
+## Final review correction verification
+
+| Check | Result | Evidence |
+|---|---|---|
+| Bludit cleanup and manifest suite, including network/app/Selenium partial-startup fault injection | PASS, 17/17, exit 0 | [Node output](evidence/final-review-fixes-20261109/node-tests-final-after-fixture-fix.txt) |
+| Active T02 isolation | PASS, 3/3, exit 0 | [Node output](evidence/final-review-fixes-20261109/active-t02-isolation-after-corrections.txt) |
+| Maven clean test-compile | PASS, exit 0 | [Maven output](evidence/final-review-fixes-20261109/maven-clean-test-compile-final.log) |
+| Current runner Run C r3 | PASS, runner exit 0; both classes each 1/1; boolean sentinel false→true; cleanup PASS | [Run C verification](evidence/t03b1-c-20261109-r3/run-c-verification.json) |
+| Initial Run C r1 attempt | BLOCKED in XML hash/sanitization; Installer itself 1/1 PASS and cleanup PASS | [Failure analysis](evidence/final-review-fixes-20261109/run-c-r1-failure-analysis.json) |
+
+Run A/B historical JUnit, Maven and reset evidence was preserved.

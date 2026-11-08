@@ -1,0 +1,40 @@
+{
+    "tests":  2,
+    "failures":  0,
+    "errors":  0,
+    "skipped":  0,
+    "installer":  {
+                      "suite":  "tests.Installer",
+                      "tests":  1,
+                      "failures":  0,
+                      "errors":  0,
+                      "skipped":  0,
+                      "testcaseCount":  1,
+                      "testcaseNames":  [
+                                            "install"
+                                        ],
+                      "testcaseClasses":  [
+                                              "tests.Installer"
+                                          ],
+                      "failureElements":  0,
+                      "errorElements":  0,
+                      "skippedElements":  0
+                  },
+    "business":  {
+                     "suite":  "tests.AddContentTest",
+                     "tests":  1,
+                     "failures":  0,
+                     "errors":  0,
+                     "skipped":  0,
+                     "testcaseCount":  1,
+                     "testcaseNames":  [
+                                           "addContentTest"
+                                       ],
+                     "testcaseClasses":  [
+                                             "tests.AddContentTest"
+                                         ],
+                     "failureElements":  0,
+                     "errorElements":  0,
+                     "skippedElements":  0
+                 }
+}

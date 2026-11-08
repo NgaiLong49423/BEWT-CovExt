@@ -1,0 +1,32 @@
+{
+    "runId":  "t03b1-c-20261109-r3",
+    "preexistingResourcesPreserved":  true,
+    "removedPreexisting":  {
+                               "containers":  [
+
+                                              ],
+                               "networks":  [
+
+                                            ],
+                               "volumes":  [
+
+                                           ],
+                               "images":  [
+
+                                          ]
+                           },
+    "addedResourcesAfterCleanup":  {
+                                       "containers":  [
+
+                                                      ],
+                                       "networks":  [
+
+                                                    ],
+                                       "volumes":  [
+
+                                                   ],
+                                       "images":  [
+
+                                                  ]
+                                   }
+}

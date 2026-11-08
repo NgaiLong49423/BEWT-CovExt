@@ -1,0 +1,10 @@
+{
+    "businessExitCode":  0,
+    "cleanupOutcome":  "PASS",
+    "installerExitCode":  0,
+    "reason":  null,
+    "runId":  "t03b1-c-20261109-r3",
+    "outcome":  "PASS",
+    "sentinelBefore":  false,
+    "sentinelAfter":  true
+}

@@ -24,12 +24,12 @@
 | Exact command | Exit code | Outcome | Evidence |
 |---|---:|---|---|
 | `mvn -B -f experiments/bludit/bewt-suite/pom.xml clean test-compile` | 0 | PASS; 17 production + 26 test source files compiled | [Maven compile log](evidence/verification/maven-clean-test-compile.log) |
-| `node --experimental-strip-types --test experiments/bludit/tools/test/bludit-g0.test.mjs experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs` | 0 | PASS; 8 tests | [Node results](evidence/verification/node-bludit-and-cleanup-tests.txt) |
+| `node --experimental-strip-types --test experiments/bludit/tools/test/bludit-g0.test.mjs experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs` | 0 | PASS; 17 tests after review corrections | [Final Node results](evidence/final-review-fixes-20261109/node-tests-final-after-fixture-fix.txt) |
 | `node --experimental-strip-types --test docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs` | 0 | PASS; 3 tests | [T02 isolation results](evidence/verification/active-t02-isolation-tests.txt) |
 | Run A: original `tests.Installer` then `tests.AddContentTest` | 0 / 0 | PASS; each 1 test, 0 failures/errors/skips; sentinel absent → present; cleanup PASS | [Run A evidence](evidence/t03b1-a-20261108-r4/) |
 | Run B: original `tests.Installer` then `tests.AddContentTest` | 0 / 0 | PASS; each 1 test, 0 failures/errors/skips; sentinel absent → present; cleanup PASS | [Run B evidence](evidence/t03b1-b-20261108-r1/) |
 
-Each Maven invocation and exit code is recorded in the run-specific `maven-command-results.json`; Maven stdout/stderr and sanitized JUnit XML are linked from the same run. Both runs used a separate app/browser/network set and fresh writable layer. `parseApplicationManifest()` validation is part of the eight-test suite.
+Each Maven invocation and exit code is recorded in the run-specific `maven-command-results.json`; Maven stdout/stderr and sanitized JUnit XML are linked from the same run. Both runs used a separate app/browser/network set and fresh writable layer. `parseApplicationManifest()` validation is part of the 17-test final suite.
 
 ## 3. Research impact
 
@@ -61,3 +61,7 @@ Each Maven invocation and exit code is recorded in the run-specific `maven-comma
 
 Please review the runtime manifest, source adaptation, fail-closed cleanup implementation/tests, Run A/B raw logs and sanitized JUnit, sentinel before/after, and Docker pre/post comparisons. No merge is requested by the agent; no T03-B2 work is included.
 
+
+## Final review corrections
+
+The final review findings were corrected and verified. See [FINAL-REVIEW-CORRECTIONS.md](FINAL-REVIEW-CORRECTIONS.md) for the immutable Run C attempt history, final r3 evidence, 17-case fault-injection results, Maven verification, and safety checks. Historical Run A/B outcome files were not modified.

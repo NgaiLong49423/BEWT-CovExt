@@ -10,3 +10,9 @@ Cleanup uses `experiments/bludit/tools/cleanup-bludit-g0.mjs`. Before any mutati
 - Fault-injection tests cover unknown/daemon/permission/transport inspection failure, verified NOT_FOUND idempotence, partial teardown, stale IDs, residual resources, and nonzero process exit.
 
 A preliminary run's resources disappeared before the cleanup invocation; the helper's exact NOT_FOUND handling subsequently verified idempotent absence. That attempt is not counted as either final clean-start run. Final Run A and B each completed their cleanup helper directly and have distinct run IDs.
+
+## Final review correction — Run C
+
+- The first final-review attempt (`t03b1-c-20261109-r1`) was BLOCKED by an unsupported PowerShell SHA API after Installer had passed; cleanup still passed. See the [failure analysis](evidence/final-review-fixes-20261109/run-c-r1-failure-analysis.json).
+- Final corrected Run C (`t03b1-c-20261109-r3`) completed both original tests and cleanup with zero residual containers, networks and volumes. The [reset comparison](evidence/t03b1-c-20261109-r3/docker-reset-comparison.json) records no pre-existing resource removals and no post-cleanup additions.
+- Cleanup supports network-only, app-only and app+Selenium partial records. Fault-injection checks confirm ExpressCart, Kanboard and unrelated resources are preserved; uncertain ownership remains BLOCKED and is never deleted.

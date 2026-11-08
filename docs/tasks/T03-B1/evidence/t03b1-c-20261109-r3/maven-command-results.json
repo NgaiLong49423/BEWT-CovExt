@@ -1,0 +1,63 @@
+{
+    "runId":  "t03b1-c-20261109-r3",
+    "classes":  {
+                    "tests.Installer":  {
+                                            "class":  "tests.Installer",
+                                            "command":  "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.Installer -Dapp.url=http://bewt-covext-bludit-t03b1-c-20261109-r3/admin -Dwebdriver.remoteUrl=http://127.0.0.1:53065/wd/hub test",
+                                            "exitCode":  0,
+                                            "junitXmlPath":  "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.Installer.xml",
+                                            "junit":  {
+                                                          "suite":  "tests.Installer",
+                                                          "tests":  1,
+                                                          "failures":  0,
+                                                          "errors":  0,
+                                                          "skipped":  0,
+                                                          "testcaseCount":  1,
+                                                          "testcaseNames":  [
+                                                                                "install"
+                                                                            ],
+                                                          "testcaseClasses":  [
+                                                                                  "tests.Installer"
+                                                                              ],
+                                                          "failureElements":  0,
+                                                          "errorElements":  0,
+                                                          "skippedElements":  0
+                                                      },
+                                            "evidence":  {
+                                                             "sourcePath":  "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.Installer.xml",
+                                                             "sourceSha256Original":  "7A4D9A9AC873E55FBCC164B00BA53DDF26B5723236356E2E6A7A216974A6FFE2",
+                                                             "sanitizedPath":  "surefire-public/TEST-tests.Installer.sanitized.xml"
+                                                         },
+                                            "outcome":  "PASS"
+                                        },
+                    "tests.AddContentTest":  {
+                                                 "class":  "tests.AddContentTest",
+                                                 "command":  "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.AddContentTest -Dapp.url=http://bewt-covext-bludit-t03b1-c-20261109-r3/admin -Dwebdriver.remoteUrl=http://127.0.0.1:53065/wd/hub test",
+                                                 "exitCode":  0,
+                                                 "junitXmlPath":  "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.AddContentTest.xml",
+                                                 "junit":  {
+                                                               "suite":  "tests.AddContentTest",
+                                                               "tests":  1,
+                                                               "failures":  0,
+                                                               "errors":  0,
+                                                               "skipped":  0,
+                                                               "testcaseCount":  1,
+                                                               "testcaseNames":  [
+                                                                                     "addContentTest"
+                                                                                 ],
+                                                               "testcaseClasses":  [
+                                                                                       "tests.AddContentTest"
+                                                                                   ],
+                                                               "failureElements":  0,
+                                                               "errorElements":  0,
+                                                               "skippedElements":  0
+                                                           },
+                                                 "evidence":  {
+                                                                  "sourcePath":  "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.AddContentTest.xml",
+                                                                  "sourceSha256Original":  "22E5EBE64D0DC01EC5B16AB10C38A85C9372C37143075CB8D6911AD1699F964F",
+                                                                  "sanitizedPath":  "surefire-public/TEST-tests.AddContentTest.sanitized.xml"
+                                                              },
+                                                 "outcome":  "PASS"
+                                             }
+                }
+}

@@ -1,0 +1,23 @@
+{
+  "runId": "t03b1-c-20261109-r1",
+  "overallOutcome": "BLOCKED",
+  "failedPhase": "Installer Surefire XML hashing/sanitization",
+  "runnerError": "Method invocation failed because [System.Security.Cryptography.SHA256] does not contain a method named 'HashData'.",
+  "installerMavenExitCode": 0,
+  "installerJUnit": {
+    "suite": "tests.Installer",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "sourceXmlPath": "experiments/bludit/bewt-suite/target/surefire-reports/TEST-tests.Installer.xml",
+  "sourceXmlSha256": "EBE33BCA5D83BA6864E87101AAC1131D67AE85264EAA4F1F2DCE2675360F4BD6",
+  "cleanupOutcome": "PASS",
+  "residuals": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "note": "Supplemental capture of actual Maven XML before the next clean build; original R1 evidence directory remains unchanged."
+}
