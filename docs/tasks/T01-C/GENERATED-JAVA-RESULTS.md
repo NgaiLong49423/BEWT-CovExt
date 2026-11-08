@@ -8,7 +8,7 @@ The T01-C code now has a candidate-bound Java generation contract, an explicitly
 
 The latest offline approved-pipeline integration test used a test-only ACCEPT and fake Java output, then ran Maven `test-compile` in a temporary isolated workspace including the approved page-object files. Evidence: `evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json`. This establishes offline harness compilation only. The temporary artifact was not a Gemini output and was not retained as a study candidate.
 
-Four explicitly authorized Gemini requests were attempted for Gherkin generation and returned no content: three returned HTTP 400 `API_KEY_INVALID`; one passed preflight but failed at fetch (`PROVIDER_ERROR`). None was retried. No live candidate or review checkpoint exists. No Java Gemini call, live fixture, Selenium run, cleanup validation, or research acceptance has occurred. The latest one-call authorization is consumed; any later externally transmitted model run requires fresh authorization and a valid local credential.
+Five explicitly authorized Gemini requests were attempted for Gherkin generation and returned no content: four returned HTTP 400 `API_KEY_INVALID`; one passed preflight but failed at fetch (`PROVIDER_ERROR`). None was retried. No live candidate or review checkpoint exists. No Java Gemini call, live fixture, Selenium run, cleanup validation, or research acceptance has occurred. The fifth one-call authorization is consumed; any later externally transmitted model run requires fresh authorization and a Google-valid local credential.
 
 ## Verification
 
