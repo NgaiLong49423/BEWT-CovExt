@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -59,6 +59,13 @@ test("generated Java contract binds the declared class, BaseTest, and JUnit and 
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new MongoClient(); } }" }), /bypass browser interaction/);
   assert.throws(() => validateGeneratedJavaContract(source, undefined, "CustomerPasswordResetPage"), /source-specific Page Object/);
   assert.doesNotThrow(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new CustomerPasswordResetPage(driver, appUrl); } }" }, undefined, "CustomerPasswordResetPage"));
+});
+
+test("generated Java parser bounds class identifiers and validates declaration without an interpolated regex", () => {
+  assert.throws(() => parseGeneratedJavaOutput({ javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() {} }", testClass: "A".repeat(129) }));
+  const source = { javaSource: `package tests; class ${"A".repeat(128)} extends BaseTest { @Test void behavior() {} }`, testClass: "A".repeat(128) };
+  assert.doesNotThrow(() => validateGeneratedJavaContract(source));
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class NotTheClass extends BaseTest { @Test void behavior() {} }" }), /declare the returned class/);
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {

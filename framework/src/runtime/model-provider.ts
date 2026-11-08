@@ -12,7 +12,7 @@ const ModelOutput = z.object({
   oracle: z.array(z.string().min(1)).min(1).max(20),
   noveltyRationale: z.string().min(20).max(2_000),
 }).strict();
-const JavaOutput = z.object({ javaSource: z.string().min(1).max(30_000), testClass: z.string().regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/) }).strict();
+const JavaOutput = z.object({ javaSource: z.string().min(1).max(30_000), testClass: z.string().min(1).max(128).regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/) }).strict();
 
 export type GenerationOutput = z.infer<typeof ModelOutput>;
 export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
@@ -55,7 +55,8 @@ export function buildSanitizedRequestEvidence(prompt: string): NonNullable<Model
 export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string): void {
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
   if (!/^\s*package\s+tests\s*;/m.test(output.javaSource)) throw new Error("generated Java must use the approved tests package");
-  if (!new RegExp(`\\bclass\\s+${output.testClass}\\b`).test(output.javaSource)) throw new Error("generated Java must declare the returned class name");
+  const identifiers = output.javaSource.match(/[A-Za-z_$][A-Za-z0-9_$]*/g) ?? [];
+  if (!identifiers.some((identifier, index) => identifier === "class" && identifiers[index + 1] === output.testClass)) throw new Error("generated Java must declare the returned class name");
   if (!/extends\s+BaseTest\b/.test(output.javaSource)) throw new Error("generated Java must extend the suite BaseTest");
   if (!/@Test\b/.test(output.javaSource)) throw new Error("generated Java must contain a JUnit test method");
   if (requiredPageObject && (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(requiredPageObject) || !new RegExp(`\\bnew\\s+${requiredPageObject}\\s*\\(`).test(output.javaSource))) throw new Error("generated Java must use the approved source-specific Page Object API");
