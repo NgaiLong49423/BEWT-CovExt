@@ -4,6 +4,7 @@
 - Reviewed base commit: `6e8033cf2f970857f5fa998641ba05c3e56f6f31`.
 - Working branch: `feature/t04a-kanboard-coverage-inventory`.
 - Pull request: https://github.com/NgaiLong49423/BEWT-CovExt/pull/8 (same PR; do not merge).
+- Static Inventory was accepted by the Team Lead at `87c56c6b1bee2c6b550fbb0ce3f002bd18027f18`; this integration follow-up is pending final review.
 - Source pins: BEWT `0501249ff3e9a5ea83a06155cd2971dc36197056`; Kanboard `00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b`.
 - Scope invariant: 30 baseline mappings, 6 behavior groups, 10 `PROPOSED` gaps, 5 shortlisted proposals. No G1/G2/D1 acceptance and T04-B remains NOT_STARTED.
 
@@ -31,8 +32,14 @@
 
 The new evidence directory records syntax, utility tests, source-to-Git-object integrity, source oracle comparisons, regeneration hashes, JSON/mapping consistency, redaction validation, secret scan, staged diff, and the SonarCloud result for the review-fix source commit. The focused suite covers both positive pinned-file reads and negative dirty source, wrong pin and symlink inputs; it directly compares KB-021, KB-022, KB-023 and KB-025 output against their pinned Gherkin and Java blobs.
 
-No BEWT source, historical Sprint 01-05 evidence, shared `docs/program/STATUS.json`, Docker configuration, runtime environment or candidate research outcome was changed. Gemini, Docker, Selenium and live application behavior were not run. The static oracle parser cannot establish semantic correctness beyond source/Java text comparison. SonarCloud passed for exact source commit `0940e3c17c996ca784a36dbc7fca33d6137986a1`; it does not accept G1 or any program gate. The final documentation-only follow-up commit must be checked separately if SonarCloud schedules a new analysis.
+## 5. Final main integration
 
-## 4. Review request
+`origin/main` at `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d` was merged with a normal merge into this branch at merge commit `24d6ce3a20d0df1eafd3020a6492cd3cb207731a`. There were no conflicts. The merge retains T04-A inventory and review artifacts while adding the merged T03-B1 Bludit manifest, source/test suite, tooling and evidence from PR #7. See [FINAL-MAIN-INTEGRATION.md](FINAL-MAIN-INTEGRATION.md) and its run-specific evidence directory.
+
+The integration checks passed for Kanboard helper tests (20/20), Bludit/T03-B1 tests (17/17), T02 manifest isolation (3/3), Node syntax (6 files), Bludit Maven `test-compile`, and T04-A utility tests (15 passed, 0 failed, 1 source-comparison test skipped because no fresh pinned BEWT clone was supplied). Docker, Selenium, Gemini and app runtime were not run. G1 remains NOT_ACCEPTED; the per-app G1 values in `STATUS.json` remain NOT_VERIFIED.
+
+No BEWT source, historical Sprint 01-05 evidence, Docker configuration, runtime environment or candidate research outcome was changed. `docs/program/STATUS.json` was updated only with the verified main SHA, merged T03-B1 milestone, and T04-A integration review status; no gate was upgraded. Gemini, Docker, Selenium and live application behavior were not run. The static oracle parser cannot establish semantic correctness beyond source/Java text comparison. SonarCloud passed for exact source commit `0940e3c17c996ca784a36dbc7fca33d6137986a1`; it does not accept G1 or any program gate. The current integrated PR HEAD is checked separately in its GitHub status run.
+
+## 6. Review request
 
 Please review the preserved validation oracles, provenance/integrity contract, KB-023/KB-026 interpretation fields, and KB-GAP-004 guards/recommendation. Decide the five shortlist candidate dispositions separately. Do not start T04-B until this review gate is accepted.

@@ -1,0 +1,32 @@
+{
+  "result": "PASS_WITH_ONE_EXPLICIT_SKIP",
+  "runAtLocalDate": "2026-11-09",
+  "checks": {
+    "t04aCoverageInventory": {
+      "pass": 15,
+      "fail": 0,
+      "skipped": 1,
+      "reason": "Fresh pinned BEWT clone was not supplied through BEWT_T04A_SOURCE_ROOT for source-to-output comparison."
+    },
+    "kanboardHelperAndCleanup": { "pass": 20, "fail": 0, "skipped": 0 },
+    "bluditT03B1HelperAndCleanup": { "pass": 17, "fail": 0, "skipped": 0 },
+    "t02ManifestIsolation": { "pass": 3, "fail": 0, "skipped": 0 },
+    "nodeSyntaxFiles": { "pass": 6, "fail": 0 },
+    "bluditMavenTestCompile": { "result": "PASS", "exitCode": 0 },
+    "jsonStatusAndDatasetConsistency": {
+      "result": "PASS",
+      "kanboardCases": 30,
+      "behaviorGroups": 6,
+      "proposedGaps": 10,
+      "bluditManifestPresent": true
+    }
+  },
+  "initialSandboxAttempt": {
+    "result": "BLOCKED_BY_SANDBOX",
+    "reason": "Windows EPERM prevented symlink setup and Git fixture config writes to sandbox temp; final rerun with workspace temp passed all runnable tests."
+  },
+  "docker": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "gemini": "NOT_RUN",
+  "sonarCloud": "VERIFY_ON_EXACT_PUSHED_PR_HEAD"
+}

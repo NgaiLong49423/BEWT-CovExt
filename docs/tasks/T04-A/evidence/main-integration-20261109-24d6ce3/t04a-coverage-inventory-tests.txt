@@ -1,0 +1,169 @@
+✔ verified source pins remain fixed to the reviewed inputs (0.8542ms)
+✖ safeJoin rejects traversal and symlinked path components (9.1243ms)
+✔ generator rejects a caller-supplied source pin that differs from the contract (0.8233ms)
+✔ the current repository HEAD is not mistaken for the pinned benchmark HEAD (86.7733ms)
+✖ pinned file integrity accepts unchanged committed bytes (203.2442ms)
+✖ pinned file integrity rejects dirty tracked source without changing the checkout (188.5943ms)
+✖ pinned file integrity rejects a wrong or missing commit hash (186.3083ms)
+✖ pinned file integrity rejects an incorrect expected Git blob hash (183.7397ms)
+✖ pinned file integrity rejects symlink inputs (178.6429ms)
+✔ inventory maps all baseline cases, assertions, Page Objects and tracked input integrity (5.3852ms)
+✔ candidate proposals remain pending and shortlist/source references stay consistent (2.664ms)
+﹣ public oracle text for KB-021, 022, 023 and 025 remains identical to pinned Gherkin and Java assertions (0.1312ms) # Set BEWT_T04A_SOURCE_ROOT to the fresh pinned source clone for source-to-output comparisons
+✔ password redaction applies only to form input and leaves error oracles untouched (2.0005ms)
+✔ email placeholders preserve one logical fixture across feature setup and Java equality assertion (1.4598ms)
+✔ KB-023 and KB-026 retain raw titles while documenting observed behavior separately (0.8989ms)
+✔ published dataset uses safe placeholders and preserves Java assertion syntax (1.872ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 9
+ℹ fail 6
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1164.2747
+
+✖ failing tests:
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:43:1
+✖ safeJoin rejects traversal and symlinked path components (9.1243ms)
+  AssertionError [ERR_ASSERTION]: Symlink test setup is unavailable: EPERM
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:55:14)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:73:1
+✖ pinned file integrity accepts unchanged committed bytes (203.2442ms)
+  AssertionError [ERR_ASSERTION]: error: could not write config file <sandbox-temp>/.git/config: Permission denied
+  fatal: could not set 'core.repositoryformatversion' to '0'
+
+
+  128 !== 0
+
+      at git (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:25:12)
+      at createPinnedTestRepo (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:28:3)
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:74:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:80:1
+✖ pinned file integrity rejects dirty tracked source without changing the checkout (188.5943ms)
+  AssertionError [ERR_ASSERTION]: error: could not write config file <sandbox-temp>/.git/config: Permission denied
+  fatal: could not set 'core.repositoryformatversion' to '0'
+
+
+  128 !== 0
+
+      at git (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:25:12)
+      at createPinnedTestRepo (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:28:3)
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:81:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:87:1
+✖ pinned file integrity rejects a wrong or missing commit hash (186.3083ms)
+  AssertionError [ERR_ASSERTION]: error: could not write config file <sandbox-temp>/.git/config: Permission denied
+  fatal: could not set 'core.repositoryformatversion' to '0'
+
+
+  128 !== 0
+
+      at git (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:25:12)
+      at createPinnedTestRepo (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:28:3)
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:88:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:92:1
+✖ pinned file integrity rejects an incorrect expected Git blob hash (183.7397ms)
+  AssertionError [ERR_ASSERTION]: error: could not write config file <sandbox-temp>/.git/config: Permission denied
+  fatal: could not set 'core.repositoryformatversion' to '0'
+
+
+  128 !== 0
+
+      at git (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:25:12)
+      at createPinnedTestRepo (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:28:3)
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:93:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at experiments\kanboard\tools\test\coverage-inventory.test.mjs:100:1
+✖ pinned file integrity rejects symlink inputs (178.6429ms)
+  AssertionError [ERR_ASSERTION]: error: could not write config file <sandbox-temp>/.git/config: Permission denied
+  fatal: could not set 'core.repositoryformatversion' to '0'
+
+
+  128 !== 0
+
+      at git (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:25:12)
+      at createPinnedTestRepo (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:28:3)
+      at TestContext.<anonymous> (file:///<workspace>/experiments/kanboard/tools/test/coverage-inventory.test.mjs:101:28)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 128,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
