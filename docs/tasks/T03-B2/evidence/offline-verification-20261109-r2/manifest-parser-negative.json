@@ -1,0 +1,9 @@
+{
+  "outcome": "PASS_EXPECTED_REJECTION",
+  "observedError": "ContractError: source.commit must be a full 40-character Git commit SHA",
+  "isolation": {
+    "officialRuntimeManifestPresent": false,
+    "draftCommit": "NOT_VERIFIED"
+  },
+  "frameworkFilesChanged": false
+}

@@ -1,0 +1,15 @@
+# G0 runtime results
+
+**Status: `PROVENANCE_BLOCKED` / runtime `NOT_RUN`.** After user authorization, host free memory recheck returned 1.64 GiB, below the runner's 4 GiB safety threshold. Per the preflight gate, no Claroline or Selenium service container was started. Therefore no HTTP/MySQL/Selenium readiness, AddUser execution, or clean-state run is claimed.
+
+The harness is prepared at `experiments/claroline/tools/run-claroline-g0.mjs`. Each invocation takes a never-before-used ID such as `t03b2-a-YYYYMMDD-r1` and creates a write-once directory under `docs/tasks/T03-B2/evidence/`. It rechecks free host memory before Docker operations. Running A/B requires a fresh user confirmation and at least 4 GiB free, then separate clean IDs. Source provenance remains a separate blocker even if runtime feasibility passes.
+
+| Check | Result |
+|---|---|
+| Claroline HTTP `/claroline11110/claroline/index.php` | `NOT_RUN` |
+| MySQL process/database and seed-state verification | `NOT_RUN` |
+| Selenium Grid/browser readiness | `NOT_RUN` |
+| `test.Claroline_AddUserTest` | `NOT_RUN` |
+| Independent clean-state Run A and B | `NOT_RUN` |
+| Official runtime manifest validation | `BLOCKED` by unverified Claroline source commit |
+| Proposed G0 | `PROVENANCE_BLOCKED`; not `G0_READY_FOR_REVIEW` |

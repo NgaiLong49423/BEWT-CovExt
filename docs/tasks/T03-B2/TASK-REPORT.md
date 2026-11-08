@@ -1,0 +1,67 @@
+# T03-B2 — Claroline 1.11.10 G0 Runtime Verification
+
+- Task scope / acceptance gate: Isolated Claroline G0 feasibility, source/image provenance, baseline compilation and safe runtime harness; no G1–G4.
+- Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
+- Working branch: `feature/t03b2-claroline-g0`.
+- Previous implementation commit: none; this task branch is new from the verified main SHA.
+- Head commit (full 40-char SHA): pending final commit.
+- PR: pending publication.
+- Push status: pending final commit and remote verification.
+- Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source commit not verified; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
+- Status proposed by Agent: `PARTIAL` / provenance `PROVENANCE_BLOCKED`; runtime `NOT_RUN` because the user-approved fresh RAM check measured 1.64 GiB free (<4 GiB preflight requirement).
+
+## 1. What changed
+
+| File path (repo-relative) | Change | Why |
+|---|---|---|
+| `experiments/claroline/bewt-suite/` | Isolated 75-file baseline suite; only `BaseTest.java` environment adaptation | Retain baseline oracle while supporting remote headless Selenium |
+| `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once cleanup wrapper, runtime harness | Reproducible and ownership-safe execution when preflight allows |
+| `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | Cleanup fault injection and Surefire/run identity/sanitization tests | Verify failure paths without touching Docker |
+| `docs/tasks/T03-B2/` | Provenance, image risk, preflight, adaptation, cleanup and partial result reports | Preserve auditable current state and limitations |
+| `docs/tasks/T03-B2/evidence/preflight-image-20261109/` | Image-only inspection and preflight resource evidence | Preserve actual read-only image inspection and stopped-container cleanup records |
+| `.gitignore` | Narrow allow rule for T03-B2 sanitized evidence `.log` files | Allow sanitized future Maven output while retaining general log ignore |
+
+No official `config/apps/claroline.json` was added: current parser requires a verified full source Git commit. The existing draft is not promoted.
+
+## 2. Actual verification
+
+| Exact command | Exit code | PASS/FAIL/BLOCKED/NOT_RUN | Evidence path |
+|---|---:|---|---|
+| Five Node `--check` commands | 0 | PASS | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/node-syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 17 passed, 0 failed | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/node-fault-tests.log` |
+| `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | 0 | PASS — 22 main + 42 test sources | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/maven-test-compile.log` |
+| In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r2/manifest-parser-negative.json`; `framework/src/contracts.ts` unchanged |
+| Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` |
+| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 1.89 GiB (<4 GiB) | `ENVIRONMENT-PREFLIGHT.md` |
+
+## 3. Research impact
+
+- Apps affected: Claroline feasibility setup only. The BEWT upstream test source is not an independently verified Claroline release archive.
+- Candidate statuses before → proposed after: Claroline remains draft/provenance-blocked; no candidate or research metric is promoted.
+- RQ1/RQ2/RQ3/RQ4 measurable changes: none; no runtime test data collected.
+- Gate status before → proposed after: no acceptance change; proposed Claroline status is `PROVENANCE_BLOCKED`, runtime `NOT_RUN`.
+- Dataset/metrics artifacts updated: none.
+- Denominator and sampling caveats: no runtime sample; compilation and fault-injection tests are not application outcome observations.
+
+## 4. Safety & integrity
+
+- `bewt-original/` touched? NO. Exact BEWT source was fetched to a temporary location and copied into the isolated working copy; original research source remains read-only.
+- Docker/project resources touched? One preflight-only Claroline container was created stopped with unique task labels and no mounts/network, inspected, removed, and confirmed absent by exact NOT_FOUND follow-up. App/Selenium service containers were NOT started. No other Docker resources were removed.
+- Final read-only T03-B2 ownership scan: zero containers, networks, or volumes; evidence is `docs/tasks/T03-B2/evidence/preflight-image-20261109/final-resource-scan.json`.
+- Existing unrelated local dirty files preserved? YES; this is a dedicated clean task worktree.
+- Secret scan / staged diff review result: pending final review; runner sanitizes local paths, fixture-like secret strings, Surefire properties and console output. No credentials are stored in the evidence.
+- Failed/blocked tasks: runtime A/B is BLOCKED by the measured RAM gate; parser-valid manifest is BLOCKED by missing verified source commit/archive bytes.
+
+## 5. Evidence and reproduction
+
+- Source/test paths: `experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java`, `experiments/claroline/tools/`, `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; [baseline source comparison](evidence/offline-verification-20261109-r3/baseline-source-comparison.json).
+- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/`; Maven compile log is under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
+- Fixture/database before/after and cleanup: no app database was started. Preflight-container cleanup evidence is retained with its initial blocked checker record and exact NOT_FOUND follow-up.
+- Reproducible commands: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; Maven `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile`; runtime requires a fresh never-used `t03b2-<letter>-YYYYMMDD-rN` ID and ≥4 GiB free memory.
+- Known limitations: SourceForge archive bytes/hash unavailable; no verified Claroline upstream commit; runtime and DB reset not evaluated; image is legacy and has unknown build provenance.
+
+## 6. Review request
+
+- Team Lead decisions: approve/decline the proposed archive-based source provenance contract separately; review whether to defer runtime until adequate host memory and archive/source provenance are available.
+- Suggested next task if accepted: resolve source provenance and rerun the isolated G0 runtime with two independent clean states, then request review; do not infer G0 acceptance from compilation.
+- GitHub PR diff URL and file paths: pending PR creation after commit/push.

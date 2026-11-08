@@ -1,0 +1,12 @@
+{
+  "task": "T03-B2",
+  "application": "Claroline",
+  "proposedStatus": "PROVENANCE_BLOCKED",
+  "runtimeStatus": "NOT_RUN",
+  "sourceVersion": "1.11.10 (not independently verified against source bytes)",
+  "sourceCommit": null,
+  "archiveSha256": null,
+  "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "reason": "No Claroline source commit or official archive bytes/hash verified; host free RAM is below the runtime safety threshold.",
+  "statusJsonChanged": false
+}

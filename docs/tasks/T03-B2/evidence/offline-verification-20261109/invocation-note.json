@@ -1,0 +1,5 @@
+{
+  "note": "Evidence capture command was initially invoked from repository root without -f, so Maven exited 1 because no root pom.xml exists. This is not the compile verification result. The successful compile was run from the suite directory; corrected evidence is recorded under offline-verification-20261109-r2.",
+  "originalExitCode": 1,
+  "classification": "INVOCATION_ERROR_NOT_BUILD_FAILURE"
+}

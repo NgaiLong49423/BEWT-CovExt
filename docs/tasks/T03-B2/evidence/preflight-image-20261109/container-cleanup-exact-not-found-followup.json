@@ -1,0 +1,8 @@
+{
+  "check": "docker inspect exact preflight container ID",
+  "exitCode": 1,
+  "combinedOutput": "[]\r\nerror: no such object: 201cf3b95e496bfa03724aa2f782d896d015df3668de4d3ab1490648165e9475",
+  "classifiedNotFound": true,
+  "initialCleanupAssertionFalseNegative": "First PowerShell verifier merged empty JSON stdout [] and exact Docker NOT_FOUND stderr into one stream and compared the combined string to stderr-only text; no resource deletion was retried.",
+  "containerRemovalExitCode": 0
+}
