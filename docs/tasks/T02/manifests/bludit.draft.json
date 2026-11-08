@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestType": "DRAFT_STATIC_AUDIT_NOT_PRODUCTION",
+  "appId": "bludit",
+  "benchmarkBaseVersion": "2.3.4",
+  "source": {
+    "repository": "https://github.com/bludit/bludit",
+    "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+    "packageVersion": "2.3.4",
+    "note": "Source commit 44de235a verified from tag 2.3.4 on GitHub upstream. BEWT baseline references bludit/docker:2.3.4."
+  },
+  "baseSuitePath": "bewt-original/bludit/baseline/bludit-2.3.4",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-7.x-apache-flatfile",
+    "image": "bludit/docker:2.3.4",
+    "imageDigest": "NOT_PULLED_STATIC_AUDIT"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-bludit",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Single container deployment with labels (owner=bewt-covext). Initial setup executes tests.Installer JUnit test against working copy. Flat-file storage, no external DB container. Reset stops and removes the container.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

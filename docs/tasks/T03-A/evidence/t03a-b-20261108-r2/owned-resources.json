@@ -1,0 +1,39 @@
+{
+  "runId": "t03a-b-20261108-r2",
+  "containerName": "bewt-covext-kanboard-t03a-b-20261108-r2",
+  "containerId": "c0a1aeaa9f230c3b7cd59c8fbce9c6a65c3a5a63c24b66964a7e1d66ebb61dd6",
+  "networkName": "bewt-covext-kanboard-t03a-b-20261108-r2-net",
+  "networkId": "75fcf4e0a284055f27b7a718f7181aec86798c8f53b712d4a75e9eb4ffa8bf15",
+  "volumeNames": [
+    "bewt-covext-kanboard-t03a-b-20261108-r2-ssl",
+    "bewt-covext-kanboard-t03a-b-20261108-r2-data",
+    "bewt-covext-kanboard-t03a-b-20261108-r2-plugins"
+  ],
+  "volumes": [
+    {
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-ssl"
+    },
+    {
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-data"
+    },
+    {
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-plugins"
+    }
+  ],
+  "imageRef": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "kanboard",
+    "task": "t03a-g0",
+    "runId": "t03a-b-20261108-r2"
+  },
+  "composeProject": null,
+  "composeFile": null,
+  "launchMode": "fixed Docker CLI command",
+  "memoryLimit": "768m",
+  "cpuLimit": "1.5",
+  "state": "created"
+}

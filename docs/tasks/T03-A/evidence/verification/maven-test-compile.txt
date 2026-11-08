@@ -1,0 +1,25 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< e2etestsuitebenchmark:kanboard-1.2.15 >----------------
+[INFO] Building kanboard-1.2.15 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ kanboard-1.2.15 ---
+[INFO] skip non existing resourceDirectory <T03A_WORKTREE>\experiments\kanboard\bewt-suite\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ kanboard-1.2.15 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ kanboard-1.2.15 ---
+[INFO] skip non existing resourceDirectory <T03A_WORKTREE>\experiments\kanboard\bewt-suite\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ kanboard-1.2.15 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.178 s
+[INFO] Finished at: 2026-11-08T16:19:45+07:00
+[INFO] ------------------------------------------------------------------------
+

@@ -1,0 +1,5 @@
+{
+  "command": "mvn.cmd -B clean test-compile",
+  "outputLog": "maven-test-compile.log",
+  "exitCode": 0
+}

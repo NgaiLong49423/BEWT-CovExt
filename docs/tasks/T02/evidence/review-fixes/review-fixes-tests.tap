@@ -1,0 +1,33 @@
+TAP version 13
+1..31
+ok 1 - BASE_SHA_EXISTS: Verify correct base commit exists in git history [PASS] — Type: commit
+ok 2 - PROVENANCE_BLUDIT: Verify upstream commit for bludit [PASS] — Matched dereferenced commit 44de235a5eedda9b80d9f0babd9fd5cb8c6943bd
+ok 3 - PROVENANCE_JOOMLA: Verify upstream commit for joomla [PASS] — Matched dereferenced commit 01deee0a7b8cf91fc503b2cc13359c6e43aac47f
+ok 4 - PROVENANCE_KANBOARD: Verify upstream commit for kanboard [PASS] — Matched dereferenced commit 00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b
+ok 5 - PROVENANCE_MANTISBT: Verify upstream commit for mantisbt [PASS] — Matched dereferenced commit d06bf60f5ed9f96029bb830a005d4819a4f87b45
+ok 6 - PROVENANCE_MEDIAWIKI: Verify upstream commit for mediawiki [PASS] — Matched dereferenced commit 468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4
+ok 7 - PROVENANCE_PRESTASHOP: Verify upstream commit for prestashop [PASS] — Matched dereferenced commit 475d65fbda93403cd1afde0db09764c5295e952c
+ok 8 - PROVENANCE_CLAROLINE: Verify claroline tag has no Git tag upstream [NOT_VERIFIED] # NOTE (Confirmed Unverified Upstream) — Remote query succeeded (exit 0) and returned empty output — confirmed no Git tag on GitHub upstream
+ok 9 - RUNTIME_MANIFEST_EXPRESSCART: parseApplicationManifest on config/apps/expresscart.json [PASS] — appId: expresscart, kind: source-built
+ok 10 - DRAFT_SYNTAX_bludit.draft.json: JSON Syntax valid for bludit.draft.json [PASS] — Valid JSON format
+ok 11 - DRAFT_STRUCT_bludit.draft.json: Draft structure valid for bludit.draft.json [PASS] — All required draft metadata fields present
+ok 12 - DRAFT_BLOCK_bludit.draft.json: Runtime validation correctly blocks draft bludit.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 13 - DRAFT_SYNTAX_claroline.draft.json: JSON Syntax valid for claroline.draft.json [PASS] — Valid JSON format
+ok 14 - DRAFT_STRUCT_claroline.draft.json: Draft structure valid for claroline.draft.json [PASS] — All required draft metadata fields present
+ok 15 - DRAFT_BLOCK_claroline.draft.json: Runtime validation correctly blocks draft claroline.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 16 - DRAFT_SYNTAX_joomla.draft.json: JSON Syntax valid for joomla.draft.json [PASS] — Valid JSON format
+ok 17 - DRAFT_STRUCT_joomla.draft.json: Draft structure valid for joomla.draft.json [PASS] — All required draft metadata fields present
+ok 18 - DRAFT_BLOCK_joomla.draft.json: Runtime validation correctly blocks draft joomla.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 19 - DRAFT_SYNTAX_kanboard.draft.json: JSON Syntax valid for kanboard.draft.json [PASS] — Valid JSON format
+ok 20 - DRAFT_STRUCT_kanboard.draft.json: Draft structure valid for kanboard.draft.json [PASS] — All required draft metadata fields present
+ok 21 - DRAFT_BLOCK_kanboard.draft.json: Runtime validation correctly blocks draft kanboard.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 22 - DRAFT_SYNTAX_mantisbt.draft.json: JSON Syntax valid for mantisbt.draft.json [PASS] — Valid JSON format
+ok 23 - DRAFT_STRUCT_mantisbt.draft.json: Draft structure valid for mantisbt.draft.json [PASS] — All required draft metadata fields present
+ok 24 - DRAFT_BLOCK_mantisbt.draft.json: Runtime validation correctly blocks draft mantisbt.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 25 - DRAFT_SYNTAX_mediawiki.draft.json: JSON Syntax valid for mediawiki.draft.json [PASS] — Valid JSON format
+ok 26 - DRAFT_STRUCT_mediawiki.draft.json: Draft structure valid for mediawiki.draft.json [PASS] — All required draft metadata fields present
+ok 27 - DRAFT_BLOCK_mediawiki.draft.json: Runtime validation correctly blocks draft mediawiki.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 28 - DRAFT_SYNTAX_prestashop.draft.json: JSON Syntax valid for prestashop.draft.json [PASS] — Valid JSON format
+ok 29 - DRAFT_STRUCT_prestashop.draft.json: Draft structure valid for prestashop.draft.json [PASS] — All required draft metadata fields present
+ok 30 - DRAFT_BLOCK_prestashop.draft.json: Runtime validation correctly blocks draft prestashop.draft.json [BLOCKED] # SKIP (Expected Runtime Schema Block) — parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType
+ok 31 - CONFIG_APPS_ISOLATION: config/apps contains ONLY expresscart.json [PASS] — Zero unverified draft manifests in config/apps

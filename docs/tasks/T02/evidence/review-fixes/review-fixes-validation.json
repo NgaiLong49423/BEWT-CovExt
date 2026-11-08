@@ -1,0 +1,230 @@
+{
+  "timestamp": "2026-11-07T20:20:43.873Z",
+  "summary": {
+    "total": 31,
+    "passed": 23,
+    "notVerified": 1,
+    "expectedBlocked": 7,
+    "unexpectedBlocked": 0,
+    "failed": 0
+  },
+  "results": [
+    {
+      "id": "BASE_SHA_EXISTS",
+      "name": "Verify correct base commit exists in git history",
+      "status": "PASS",
+      "details": "Type: commit",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_BLUDIT",
+      "name": "Verify upstream commit for bludit",
+      "status": "PASS",
+      "details": "Matched dereferenced commit 44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_JOOMLA",
+      "name": "Verify upstream commit for joomla",
+      "status": "PASS",
+      "details": "Matched dereferenced commit 01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_KANBOARD",
+      "name": "Verify upstream commit for kanboard",
+      "status": "PASS",
+      "details": "Matched dereferenced commit 00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_MANTISBT",
+      "name": "Verify upstream commit for mantisbt",
+      "status": "PASS",
+      "details": "Matched dereferenced commit d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_MEDIAWIKI",
+      "name": "Verify upstream commit for mediawiki",
+      "status": "PASS",
+      "details": "Matched dereferenced commit 468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_PRESTASHOP",
+      "name": "Verify upstream commit for prestashop",
+      "status": "PASS",
+      "details": "Matched dereferenced commit 475d65fbda93403cd1afde0db09764c5295e952c",
+      "expectedBlocked": false
+    },
+    {
+      "id": "PROVENANCE_CLAROLINE",
+      "name": "Verify claroline tag has no Git tag upstream",
+      "status": "NOT_VERIFIED",
+      "details": "Remote query succeeded (exit 0) and returned empty output — confirmed no Git tag on GitHub upstream",
+      "expectedBlocked": false
+    },
+    {
+      "id": "RUNTIME_MANIFEST_EXPRESSCART",
+      "name": "parseApplicationManifest on config/apps/expresscart.json",
+      "status": "PASS",
+      "details": "appId: expresscart, kind: source-built",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_SYNTAX_bludit.draft.json",
+      "name": "JSON Syntax valid for bludit.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_bludit.draft.json",
+      "name": "Draft structure valid for bludit.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_bludit.draft.json",
+      "name": "Runtime validation correctly blocks draft bludit.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_claroline.draft.json",
+      "name": "JSON Syntax valid for claroline.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_claroline.draft.json",
+      "name": "Draft structure valid for claroline.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_claroline.draft.json",
+      "name": "Runtime validation correctly blocks draft claroline.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_joomla.draft.json",
+      "name": "JSON Syntax valid for joomla.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_joomla.draft.json",
+      "name": "Draft structure valid for joomla.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_joomla.draft.json",
+      "name": "Runtime validation correctly blocks draft joomla.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_kanboard.draft.json",
+      "name": "JSON Syntax valid for kanboard.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_kanboard.draft.json",
+      "name": "Draft structure valid for kanboard.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_kanboard.draft.json",
+      "name": "Runtime validation correctly blocks draft kanboard.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_mantisbt.draft.json",
+      "name": "JSON Syntax valid for mantisbt.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_mantisbt.draft.json",
+      "name": "Draft structure valid for mantisbt.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_mantisbt.draft.json",
+      "name": "Runtime validation correctly blocks draft mantisbt.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_mediawiki.draft.json",
+      "name": "JSON Syntax valid for mediawiki.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_mediawiki.draft.json",
+      "name": "Draft structure valid for mediawiki.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_mediawiki.draft.json",
+      "name": "Runtime validation correctly blocks draft mediawiki.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "DRAFT_SYNTAX_prestashop.draft.json",
+      "name": "JSON Syntax valid for prestashop.draft.json",
+      "status": "PASS",
+      "details": "Valid JSON format",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_STRUCT_prestashop.draft.json",
+      "name": "Draft structure valid for prestashop.draft.json",
+      "status": "PASS",
+      "details": "All required draft metadata fields present",
+      "expectedBlocked": false
+    },
+    {
+      "id": "DRAFT_BLOCK_prestashop.draft.json",
+      "name": "Runtime validation correctly blocks draft prestashop.draft.json",
+      "status": "BLOCKED",
+      "details": "parseApplicationManifest correctly rejected: ApplicationManifest contains unsupported fields: manifestType",
+      "expectedBlocked": true
+    },
+    {
+      "id": "CONFIG_APPS_ISOLATION",
+      "name": "config/apps contains ONLY expresscart.json",
+      "status": "PASS",
+      "details": "Zero unverified draft manifests in config/apps",
+      "expectedBlocked": false
+    }
+  ]
+}

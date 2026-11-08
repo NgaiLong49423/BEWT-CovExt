@@ -1,0 +1,21 @@
+{
+  "dockerContext": "desktop-linux",
+  "dockerCliVersion": "29.8.0",
+  "dockerEngine": "UNAVAILABLE",
+  "dockerEngineReason": "Docker Desktop Linux engine named pipe absent; no server resource inventory queried.",
+  "dockerDesktopProcessesPresent": false,
+  "dockerServicePresent": false,
+  "javaVersion": "21.0.12",
+  "mavenVersion": "3.9.16",
+  "nodeVersion": "24.19.0",
+  "chromeBinaryPresent": true,
+  "chromeVersion": "NOT_VERIFIED",
+  "image": "kanboard/kanboard:v1.2.15",
+  "registryManifestQueryExit": 0,
+  "platforms": [
+    {
+      "platform": "linux/amd64",
+      "digest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"
+    }
+  ]
+}

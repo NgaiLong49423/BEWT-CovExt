@@ -1,0 +1,18 @@
+✔ draft-to-runtime promotion validates the Docker image digest and removes only draft-only fields (2.3019ms)
+✔ Docker container, volume, and network identity require the recorded IDs and ownership labels (0.4963ms)
+✔ cleanup refuses bind mounts and resources outside the run-owned volume inventory (0.3122ms)
+✔ Docker port publication requests a dynamic loopback binding and accepts only a valid assigned port (0.8175ms)
+✔ baseline URL is property-driven and preserves the original default URL (1.2206ms)
+✔ Maven selection targets only the original AddNewProject Base class and receives the allocated URL (0.2738ms)
+✔ JUnit parsing detects empty selection, PASS, skipped, assertion failure, browser setup, and application connection failure (0.6829ms)
+✔ Run B must start with distinct resources and no Run A data, after Run A cleanup PASS (0.2263ms)
+✔ cleanup plan is scoped to recorded resources, succeeds idempotently, and checks post-cleanup absence (0.2599ms)
+✔ resource comparison protects all pre-existing Docker resources (0.2873ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 169.1094
