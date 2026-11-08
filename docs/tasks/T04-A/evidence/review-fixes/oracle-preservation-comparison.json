@@ -1,0 +1,58 @@
+[
+  {
+    "caseId": "KB-021",
+    "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "featurePath": "kanboard/gherkin/21_AddLocalUser_DifferentPasswords.feature",
+    "featureLine": 16,
+    "sourceOracle": "Then \"Passwords don't match\" is shown below the \"Password\" field",
+    "exportedOracle": "Then \"Passwords don't match\" is shown below the \"Password\" field",
+    "oracleMatches": true,
+    "javaPath": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_DifferentPasswords.java",
+    "javaLine": 25,
+    "sourceAssertion": "assertEquals(\"Passwords don't match\", user.getPswError());",
+    "exportedAssertion": "assertEquals(\"Passwords don't match\", user.getPswError());",
+    "assertionMatches": true
+  },
+  {
+    "caseId": "KB-022",
+    "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "featurePath": "kanboard/gherkin/22_AddLocalUser_EmptyConfirmPassword.feature",
+    "featureLine": 15,
+    "sourceOracle": "Then \"The confirmation is required\" is shown below the \"Confirmation\" field",
+    "exportedOracle": "Then \"The confirmation is required\" is shown below the \"Confirmation\" field",
+    "oracleMatches": true,
+    "javaPath": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyConfirmPassword.java",
+    "javaLine": 24,
+    "sourceAssertion": "assertEquals(\"The confirmation is required\", user.getPswConfirmError());",
+    "exportedAssertion": "assertEquals(\"The confirmation is required\", user.getPswConfirmError());",
+    "assertionMatches": true
+  },
+  {
+    "caseId": "KB-023",
+    "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "featurePath": "kanboard/gherkin/23_AddLocalUser_EmptyPassword.feature",
+    "featureLine": 14,
+    "sourceOracle": "Then \"The password is required\" is shown below the \"Password\" field",
+    "exportedOracle": "Then \"The password is required\" is shown below the \"Password\" field",
+    "oracleMatches": true,
+    "javaPath": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyPassword.java",
+    "javaLine": 23,
+    "sourceAssertion": "assertEquals(\"The password is required\", user.getPswError());",
+    "exportedAssertion": "assertEquals(\"The password is required\", user.getPswError());",
+    "assertionMatches": true
+  },
+  {
+    "caseId": "KB-025",
+    "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "featurePath": "kanboard/gherkin/25_AddLocalUser_ShortPassword.feature",
+    "featureLine": 16,
+    "sourceOracle": "Then \"The minimum length is 6 characters\" is shown below the \"Password\" field",
+    "exportedOracle": "Then \"The minimum length is 6 characters\" is shown below the \"Password\" field",
+    "oracleMatches": true,
+    "javaPath": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_ShortPassword.java",
+    "javaLine": 25,
+    "sourceAssertion": "assertEquals(\"The minimum length is 6 characters\", user.getPswError());",
+    "exportedAssertion": "assertEquals(\"The minimum length is 6 characters\", user.getPswError());",
+    "assertionMatches": true
+  }
+]

@@ -7,7 +7,7 @@ Source comparison used all 30 cases at BEWT commit `0501249ff3e9a5ea83a06155cd29
 | KB-GAP-001 | Reopen a closed task | Baseline closes and searches closed tasks, no reopen assertion | Fixture permissions and repeatability |
 | KB-GAP-002 | Create and view a task comment | No comment creation/assertion | Stable rendered comment locator and cleanup |
 | KB-GAP-003 | Create a subtask | Only top-level task creation asserted | Child cleanup without disturbing parent |
-| KB-GAP-004 | Change an existing task assignee | No task assignment update assertion | Membership and role permission preconditions |
+| KB-GAP-004 | Change an existing task assignee | No task assignment update assertion | Stable pre-seeded project/task; active Manager/Member target in same project; actor role must permit task update and assignee change; unauthorized-role control. Engineering recommendation is recorded separately and is not a Team Lead decision. |
 | KB-GAP-005 | Set due date and use a date filter | Baseline search uses status filters only | Controlled clock, timezone and locale |
 | KB-GAP-006 | Move task between board columns | No task column movement assertion | Selenium drag/drop reliability |
 | KB-GAP-007 | Assign a category to an existing task | Categories are created but not assigned to tasks | Best stable user-visible oracle |

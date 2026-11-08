@@ -1,5 +1,4 @@
-# KB-GAP-001"ιέyψ§yΤ Reopen a Closed Task
-
+# KB-GAP-001 - Reopen a Closed Task
 Status: PROPOSED. Human decision: PENDING. Novelty: NOT_VERIFIED.
 
 Evidence: pinned task sidebar exposes Open for a closed task; TaskStatusController::open changes status; filter helpers include status:open. Baseline KB-018 closes task 3 and KB-027 searches closed tasks; no baseline test reopens it.

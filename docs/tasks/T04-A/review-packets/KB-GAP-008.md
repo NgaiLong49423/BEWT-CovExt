@@ -1,5 +1,4 @@
-# KB-GAP-008"ιέyψ§yΤ Edit an Existing Column
-
+# KB-GAP-008 - Edit an Existing Column
 Status: PROPOSED. Human decision: PENDING. Novelty: NOT_VERIFIED.
 
 Evidence: column edit form posts to ColumnController::update; controller validates and updates title/task limit/description. Baseline creates columns and tests empty-title validation, but does not edit an existing column.

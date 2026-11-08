@@ -140,22 +140,49 @@
           "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php#L136-L164"
         },
         {
+          "path": "app/Controller/TaskModificationController.php",
+          "line": "L81-L105",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php#L81-L105"
+        },
+        {
           "path": "app/Helper/TaskHelper.php",
           "line": "L115-L130",
           "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
           "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php#L115-L130"
+        },
+        {
+          "path": "app/Model/ProjectUserRoleModel.php",
+          "line": "L163-L197",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Model/ProjectUserRoleModel.php#L163-L197"
+        },
+        {
+          "path": "app/Helper/ProjectRoleHelper.php",
+          "line": "L186-L214",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/ProjectRoleHelper.php#L186-L214"
         }
       ],
       "baselineComparison": "Baseline task creation does not set or verify assignment.",
       "preconditions": [
-        "Existing task; target project member; actor may change assignee."
+        "Use a stable fixture: a pre-seeded project and existing task with recorded fixture IDs and reset procedure.",
+        "Actor is an active project member whose role permits both updating this task and changing its assignee; retain an unauthorized-role negative control.",
+        "Target is an active, assignable member of the same project (Manager/Member, not Viewer); verify the candidate is selected from that project's assignable-user list.",
+        "Keep target membership and actor permissions unchanged across reruns; do not rely on an unseeded or dynamically created user.",
+        "Treat server-side rejection of a forged non-member owner_id as NOT_VERIFIED until a focused test proves that permission boundary."
       ],
       "expectedObservableResult": "Modification form retains target assignee after save/reopen.",
       "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
       "feasibility": "MEDIUM",
       "risks": [
-        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified.",
+        "The inspected source builds the selectable list from active non-viewer project members and checks actor permissions; server-side enforcement of a forged non-member owner_id has not been established."
       ],
+      "technicalRecommendation": {
+        "recommendation": "KEEP_PROPOSED_WITH_ADDITIONAL_GUARDS",
+        "basis": "Add the stable fixture, target project membership, actor role, and unauthorized-role control above before human review. This is an engineering recommendation only, not a Team Lead candidate decision."
+      },
       "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
       "status": "PROPOSED",
       "reviewDecision": "PENDING"

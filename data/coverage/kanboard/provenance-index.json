@@ -1,221 +1,816 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "sourceCommits": {
     "bewt": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "bewtTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
     "upstream": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b"
   },
+  "sourceIntegrity": {
+    "result": "MATCH",
+    "bewt": {
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "filesVerified": 89,
+      "files": [
+        {
+          "path": "kanboard/gherkin/01_AddNewProject.feature",
+          "gitBlob": "3e3a361b2c8d354272f64d99bed3cd97383aaaec",
+          "sha256": "0e7d62fee2042ccd6792902e34ab97535fc1361c4a60fa24066c548fa570f32f"
+        },
+        {
+          "path": "kanboard/gherkin/02_AddEmptyProject.feature",
+          "gitBlob": "249d4fe50dbb207b0261a0ec0097a4cce088dea5",
+          "sha256": "18cf3ae7fadb3012a637085013f04343985aaa713208128704f8cd299d181a78"
+        },
+        {
+          "path": "kanboard/gherkin/03_AddNewTask.feature",
+          "gitBlob": "4b8d6589264efddf1467594c01cc5d16caf0c804",
+          "sha256": "055fe0b36fa2d4f3024458acb0b748515c549840be351f16c11b44f211b687b6"
+        },
+        {
+          "path": "kanboard/gherkin/04_AddEmptyTask.feature",
+          "gitBlob": "bfbd43ee814639ddd3f73bbf2744218400ad11df",
+          "sha256": "db1a84b64d124d8d5f6e887bccd95e9c71d9bad0eceaeb2dc90d10f307ba2155"
+        },
+        {
+          "path": "kanboard/gherkin/05_EditProject.feature",
+          "gitBlob": "e961b14fb838a7be402dfe22f4a9c1127015058e",
+          "sha256": "854fdbaf94dd69cd38745c6a1e0a20151a0a6066cd11e479f9a019542f308035"
+        },
+        {
+          "path": "kanboard/gherkin/06_AddNewColumn.feature",
+          "gitBlob": "d4e39562620d51edd8272260c805883e8e910aee",
+          "sha256": "7b14459f97fc0b6a7728ee5ab140eb470691571b2b9bd05eeba30d61c81ec2ac"
+        },
+        {
+          "path": "kanboard/gherkin/07_AddEmptyColumn.feature",
+          "gitBlob": "8311132420d8510b04c8c1940364af81c59b30cb",
+          "sha256": "2c37654cfe6805a70646de869ef87a9ad0af3b61d3de9dddd6551607de8bfe92"
+        },
+        {
+          "path": "kanboard/gherkin/08_AddNewSwimlane.feature",
+          "gitBlob": "30098b0d616c7ddda367d492f7c1c435cd1c6f96",
+          "sha256": "ec9e5f6f2f76d09e4e41be4460464fb89e7c946b636bd8420409a7802258e922"
+        },
+        {
+          "path": "kanboard/gherkin/09_AddEmptySwimlane.feature",
+          "gitBlob": "9247889d5a097e0083f2b2b0e768a19c633396ab",
+          "sha256": "24512d2bf3cdb261da925af43478c26acf5a56210102b8ec5e924907a117d7f5"
+        },
+        {
+          "path": "kanboard/gherkin/10_AddNewCategory.feature",
+          "gitBlob": "d29f724185c8a7e946d33602d3272b7e467cb287",
+          "sha256": "93bc4d1302bca4126ec951345b4992b1f8514da03ba5427bafa9b29aaddb74f9"
+        },
+        {
+          "path": "kanboard/gherkin/11_AddEmptyCategory.feature",
+          "gitBlob": "3d744e652306993bc481ea721bc7b9a50a14fc50",
+          "sha256": "a5367ddfd391b4889d02c6e593a36e5f9a242efbc465eb0e152b652da6c35fb2"
+        },
+        {
+          "path": "kanboard/gherkin/12_EditProfile.feature",
+          "gitBlob": "990e6197d48825de661de2437e3c148b72a60cfe",
+          "sha256": "674506388128040b3b60f259c7514a4efb5c3b2086b49bbec4ec8660545f0e4e"
+        },
+        {
+          "path": "kanboard/gherkin/13_AuthorizedUsers.feature",
+          "gitBlob": "7f5f4ccc93919cecd9f1bc4be0d5750cbed6035d",
+          "sha256": "dd5d7e5f46cef3385f0591246ac5146532fbbb4b4b95d055acd98a2f91b88197"
+        },
+        {
+          "path": "kanboard/gherkin/14_SetReferenceCurrency.feature",
+          "gitBlob": "fcf52053321c6193fadba7d24e31d431a470d907",
+          "sha256": "2f6fb427eaea1a2d904266ea4b9a24cd11bde61bf949dc598aba2aea01f71aaa"
+        },
+        {
+          "path": "kanboard/gherkin/15_ChangeLanguage.feature",
+          "gitBlob": "564b5d3524978bfe68064a34cac444b75dbc3924",
+          "sha256": "2dd6d2c52d764c6e0e5287b7576c7b8b1dc31de5ebbc4afe9e5bc52a1934a395"
+        },
+        {
+          "path": "kanboard/gherkin/16_AddNewPrivateProject.feature",
+          "gitBlob": "c0f0d4a1b571731d2e652c7b20418d5f43f20311",
+          "sha256": "d190ceeaf38e088840606a2e70ba47673c187d6cf17b966a4e7c9eb79b789ccc"
+        },
+        {
+          "path": "kanboard/gherkin/17_SearchInProject.feature",
+          "gitBlob": "18718ff3601e5236969c770d80c1460a6b5e086d",
+          "sha256": "89ca6dd67a3b5149ca70335004a8d27fe7d4002130a8b1b7833615cb922c3645"
+        },
+        {
+          "path": "kanboard/gherkin/18_ChangeTask.feature",
+          "gitBlob": "b07f0561ef504fe3a3622608f4334a04661a9921",
+          "sha256": "ffc11af2d74858046c1bb4fc4d95ed7323b1b7f012e2928a1d53e9ce50953e5b"
+        },
+        {
+          "path": "kanboard/gherkin/19_AddLocalUser.feature",
+          "gitBlob": "fe74457710e983e732b439549c6691c9735fbcc5",
+          "sha256": "dce33cd548f79bfcf20257630c5af9e130db7ae7ef641377eae2302e63cdaa47"
+        },
+        {
+          "path": "kanboard/gherkin/20_AddRemoteUser.feature",
+          "gitBlob": "9d5697adc528958cd839736a3421b85f89bcdcc9",
+          "sha256": "f1f084fb2d20b460fcd61093022d00444478d69415d75655bf53ba85a6d8aaf4"
+        },
+        {
+          "path": "kanboard/gherkin/21_AddLocalUser_DifferentPasswords.feature",
+          "gitBlob": "99de36d6e5847841311850590dc6889e51818e9c",
+          "sha256": "8de9ccdfefeb989a3c561714f6a38aae4939ad97b487866c339e22be37760509"
+        },
+        {
+          "path": "kanboard/gherkin/22_AddLocalUser_EmptyConfirmPassword.feature",
+          "gitBlob": "81ada935a763e9f05a209516fd2e536a603e3626",
+          "sha256": "84ecc68aa571151c416ebd65c9a73935b2b221d810176a25b117c3b7e8788b55"
+        },
+        {
+          "path": "kanboard/gherkin/23_AddLocalUser_EmptyPassword.feature",
+          "gitBlob": "1c09dd42dc480d8cd32020fb76d0fb391822c716",
+          "sha256": "8aa4e198617f53484e27fd394320203b7023d81c13077910cff209e10266ca41"
+        },
+        {
+          "path": "kanboard/gherkin/24_AddLocalUser_EmptyUsername.feature",
+          "gitBlob": "a7c2c9e53e8532a81cfdba821aa5712a2c3a432e",
+          "sha256": "3cc04140aca829efc7af9c960d947bf1693cad5e14d3ef5dbb8771875fd51342"
+        },
+        {
+          "path": "kanboard/gherkin/25_AddLocalUser_ShortPassword.feature",
+          "gitBlob": "120859b8fbfa0bb146ce54552de8df9aa642123f",
+          "sha256": "1c4a0fc6487e3b2535d6e5f725f91fcacc77a654985b898dfcbda05dc6a1d8b7"
+        },
+        {
+          "path": "kanboard/gherkin/26_RemoveUser.feature",
+          "gitBlob": "dbb6ff576a3b8460f3dc2179b82f84bafc64791b",
+          "sha256": "0fff52657d9aab8e828b56b601dd48f21302a3f51ea14a360e5d1a6f393e2850"
+        },
+        {
+          "path": "kanboard/gherkin/27_ClosedTasks.feature",
+          "gitBlob": "fac679c7c06057c5c4094adbb29f15990b83c282",
+          "sha256": "84be9067d7775cd06a71a5ebcac9bd63c26b4778e8ae9fe1e3996afb1599f384"
+        },
+        {
+          "path": "kanboard/gherkin/28_RemoveProject.feature",
+          "gitBlob": "1e4c67f4cf3b2006d759ff3309f045e16764a7db",
+          "sha256": "164a6f36848def311e0ead995fb258e90a9736b500261b77e629548ed97bf306"
+        },
+        {
+          "path": "kanboard/gherkin/29_ChangeBoardSettings.feature",
+          "gitBlob": "b7d47ec64491477bfa33cff273540dbd3f508395",
+          "sha256": "364bb02ec65498cafc7e8b810652dafe7f367b623379004582b18f93d5a4c499"
+        },
+        {
+          "path": "kanboard/gherkin/30_AddNewCurrencyRate.feature",
+          "gitBlob": "29a0fec9e19c7e09c792108c1bc069250ab95a7d",
+          "sha256": "2232fb1bc11e3bbc636ecf7f594895bbe5279423770c3f4c54cc1a59bdd646ed"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyCategory.java",
+          "gitBlob": "f9f194386929b2d697a4179da8b8710b6d94aa27",
+          "sha256": "5a647fb5c20fb4215fe43316eebb8503220ae1775cd082eb2df6b1f724daceb0"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyColumn.java",
+          "gitBlob": "ca2bbbe6a1ae266109a7eab8ff5e3e9b1b31c784",
+          "sha256": "722e2fe27476496772d072028966a5c308fed5f3d2a718fbbb64bed703daf1e2"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyProject.java",
+          "gitBlob": "665bef43de0881fb1885d4530826610461456e06",
+          "sha256": "dc72a754c33c21052186d83946eccef19e46ac6be8c455ebf36b4e27b32c7212"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptySwimlane.java",
+          "gitBlob": "c46a5b775cefd64dd7df66f957f29cc24ca854f8",
+          "sha256": "6a66b7529e36fe28d31949bf3b858ad02413f6eb2b20e7491d565c1745aec219"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyTask.java",
+          "gitBlob": "fad9b7472f9e814afa6b1e04d98e21299f1af05d",
+          "sha256": "63ac0cfd68e9943b506972705f33958bf8c28a63f63df0dd5e419e39b654a77f"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser.java",
+          "gitBlob": "4587523d05dfc965e6cfbb99cfc5763d2ee27353",
+          "sha256": "511a5eedb55bc27bb6414d3544c21344220ceb565943711cd6a8ed9f95aefbbf"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_DifferentPasswords.java",
+          "gitBlob": "3ba322059d9e2a8df78062c579a3db50ffb94095",
+          "sha256": "697f76fab761f6f8d338147e803a6fe49b392a5c09960d51c8cded46be5a7017"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyConfirmPassword.java",
+          "gitBlob": "7d548f74659b46b82c88d8537137e183cf24a85d",
+          "sha256": "092ab7a476827ad736e3e3ed9946b7baa3574ba54c5d9394708b28eb4f922509"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyPassword.java",
+          "gitBlob": "11b606087879fcade581b4cd10ff92448db5f7b7",
+          "sha256": "274cd07ddcaf14785de826fdc8ec4d42caf968eea8756ee7e389869f535d38ba"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyUsername.java",
+          "gitBlob": "2d86fe97b9704620d6c2155ea793796d6290ae7a",
+          "sha256": "df02abee8e30c279864dae0180098005a4ef43bc662c007a4055590ad7104830"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_ShortPassword.java",
+          "gitBlob": "927f273eae1cb51a1f36001316a998a1c98c6f7c",
+          "sha256": "a46beabbbf2d71b1bde5af0d0cc9a3ac873b7e854aa597065ec74a9ba27970e4"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewCategory.java",
+          "gitBlob": "a2c3c2429697b5e6afd0f3768dfc59b8305fd407",
+          "sha256": "f4e9ff6045c5afcafbf501f03df6515e65c073b1ae35c464de01d949dba7d15c"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewColumn.java",
+          "gitBlob": "8990b7e98ea6fc83510f25f3f4eae08129552fd8",
+          "sha256": "e9b86cbff481c65bd6cbd9ac059593af8ed84e42d91a254c725a37147d8be96d"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewCurrencyRate.java",
+          "gitBlob": "dc640061836976ab39be1ec92f8dc05da2365ef0",
+          "sha256": "d4a7c984f617781a4a04fd5965691b50fb8352c60522a2e5c79dcb79208e170e"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewPrivateProject.java",
+          "gitBlob": "98f5a89f79dc5c568de611375441a8d3755e70e4",
+          "sha256": "3ec704dd328f475d4f86d7dd517be0dcba1f912a88fef593963157eafe3e4467"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewProject.java",
+          "gitBlob": "d16740f5ed77af6322ce958b4e7af9a96d26b5be",
+          "sha256": "026ef30394dd9833869bbc900ecad93b428742f2f767c623233c59102d713ecd"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewSwimlane.java",
+          "gitBlob": "7e3f13c3b1d53bcfa4a759badd408be5d8c55957",
+          "sha256": "7f8b0e16fe4bef78d648bfc188669e637791ee2711454e0eccd8206c3e690589"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewTask.java",
+          "gitBlob": "a05371d9604304b5be31623260ebe1e55123033b",
+          "sha256": "cf280bc0bdae1b57167c93ffba54fbcb69f724941673266e6a3ea88959349732"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddRemoteUser.java",
+          "gitBlob": "8bf52d73b913d63adf0bda5c6926f27ed2b713c2",
+          "sha256": "e432179aa044c3734a716360beeb992f9be32523a1cb605b16d3206192d748b6"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AuthorizedUsers.java",
+          "gitBlob": "c39574faab6a24068e1ce92490c9904656c5ea14",
+          "sha256": "2a21c2d1db3cc09d50f7b8bbeca8ef6c91fadd113c7f78b2fa6e403c796ce02e"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/BaseTest.java",
+          "gitBlob": "18d68cc9f5b19c474f3dd5765aa45e00048d72eb",
+          "sha256": "05db5ec7a9a33838cbe9800dfec70b0a16844477e857f5a837395ec7fc44dc6a"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeBoardSettings.java",
+          "gitBlob": "96b259d32ea81b26e4b35dc91e2645aac15d5081",
+          "sha256": "49aef71f68f8b724ed0a1406fa699c44bcc32a2737a8cd72564cd17bc589601a"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeLanguage.java",
+          "gitBlob": "de7e1714f7aad88a751ce3672bd099a46407f01c",
+          "sha256": "5da9185f48150a012ed98c1fb974a09d9b76012e6278dc075e821abcd8928097"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeTask.java",
+          "gitBlob": "30898c42c4952988041ad456d22d3397a5cbcdaa",
+          "sha256": "e225372997d921e45d81e372df2fe1f2982b11dbff8d6d894ce67145b9a6b0fd"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ClosedTasks.java",
+          "gitBlob": "0a9cebcd23439c301474a5fdb49a1c77b6870ca0",
+          "sha256": "6cb01d043743a6813c0319225d4d1b45e214cf0b92042519674456933811bce9"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/EditProfile.java",
+          "gitBlob": "ea628294dc449de2933781f5a7e5f8a30efe28fa",
+          "sha256": "16a626ee9edf6c52a31dcada0ffe2731aff20a8398e9bfff53e9953113168c7a"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/EditProject.java",
+          "gitBlob": "bc075182f177c658f445da7aa947592001600c89",
+          "sha256": "e8bd86c5be3ed7508d95a0e1ac7a7e6e58f6f2b7673d0faf171cf43464e0948c"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/RemoveProject.java",
+          "gitBlob": "e7a00ba74bf993f3d522539e6c0933e6fc0c939a",
+          "sha256": "96500be9d97e897a99991b18566cfbb6367b1800aee85a9783a15b1c9c09f223"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/RemoveUser.java",
+          "gitBlob": "34438a73f05a0eac5fb05263401a1e66a4f4f3db",
+          "sha256": "cfd517d5ae970040e8462d44cd8ce224f87eca6b507747fcb1b67ea3a2f59a2d"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/SearchInProject.java",
+          "gitBlob": "3f45b63e2d0cf16d7b10fac09c66fb7433aed970",
+          "sha256": "ec20786e4cfd3001aa5e07a8844c257cb139339359dce194a2efbf22d3d5acba"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/SetReferenceCurrency.java",
+          "gitBlob": "782796262b40fb34f926da0af9c08ab537cb0256",
+          "sha256": "b5b62b46318843213b53a5e9ef6907466b13955d845c5087f3dfe379f225d30c"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/TestSuite.java",
+          "gitBlob": "565050ef9fd31ebda9e61e117d01de7b8bac6c46",
+          "sha256": "0f0b01a4d4069c0ab956f18bafce5f4a7565ec73d6f081252989ae3e4fcecee8"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/AddNewProjectPage.java",
+          "gitBlob": "9f4bcde7efad156888cdfe9b645fbca72c329bb9",
+          "sha256": "4431177c6aa6cb379b8027457a087b258aba983df9f0e544efd65dd95222f2f5"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ApplicationSettingsPage.java",
+          "gitBlob": "bd94db0e506151e1de2cc9b588ea9bbf5cd2c963",
+          "sha256": "48ba35e15229c0d67c92b4969e26eb1499d42af99634d0b3b444476c54492438"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/BoardSettingsPage.java",
+          "gitBlob": "f9ae32ed7172fe7a1747b942660438b97c4b1db4",
+          "sha256": "84ab4496231295c5cef19a55728d3d10a37e3633b23a449cd59cbceb6464dcf3"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/CategoriesPage.java",
+          "gitBlob": "dcec2b5f3288373f77b3215ee5fc276698e7f678",
+          "sha256": "50b8315c2948abc71f653fd60f783afce0aab4dfe105f168df8b5b1232ac2d71"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ColumnsPage.java",
+          "gitBlob": "e8dd86355891e4c08c7ef3bfdeb3da711c9eb6b3",
+          "sha256": "7cb83638ecd03dd374030a5797acffa76ab32c2146cbe2cbbf83c365e34e5e20"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/CurrencyRatesPage.java",
+          "gitBlob": "5b2d62a55721b84540555ebe6f421d92f725decb",
+          "sha256": "33439528a8d5a0c1b744eca824316f785b557b5c17802021a8d03d3f600ebdf3"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/EditProjectPage.java",
+          "gitBlob": "da50715aeead71237fa8eeb78b50273e754488b3",
+          "sha256": "fea90136bf0b6657539453b85fa05cfe0fc297b388b5b65cf89355f31ab05587"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/EditUserProfilePage.java",
+          "gitBlob": "a34d91d9a531868c67e24be8ef336a17f5f04d4f",
+          "sha256": "7f8ff9279c73b2fe06baff2329e75c3ee30dd10ad7337188babcc0e562ab1aa5"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/KanboardHomePage.java",
+          "gitBlob": "c19b1699b237766f8f2f8100a7d3c978e637381e",
+          "sha256": "61d420840c0b6a2f99bb7b9ec51caf337394b3621df4a3c219fdf85bde3bace0"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/LoginPage.java",
+          "gitBlob": "c7aec5f755d53e91d737cbc0e7af5136ca2bf327",
+          "sha256": "dacbdf1e04bfd1d706e1ef8e97c6ef2520e3f155c1d00e4087904012695b6cd7"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/NewUserPage.java",
+          "gitBlob": "343b02eeac5553e1b92b21bcfbc1136d3e39aa7b",
+          "sha256": "51ec2a4645337656ad0863c533a3e3da5e97cd191857306c63e72661605e67ed"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/PageObject.java",
+          "gitBlob": "47e2aa8dca1ef818ff29e8eb00ccef21753572d2",
+          "sha256": "4f6191101f37c19871b1883500fb8b89143a8ab5efa3ebce9f84c7884a21e234"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/PermissionsPage.java",
+          "gitBlob": "80cb939e03ed21451b908f18ab4a03e3a9094b54",
+          "sha256": "8eac5529e7539ea132be6c068a9b64b4cebe29324a7379ec91b4f5f24685a02d"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ProjectListPage.java",
+          "gitBlob": "eb8bc132ed8cac318d08516a600267550fe53cf3",
+          "sha256": "c1aeb45df011812e60129a4119780e45f87727b48e2a7eab1ce2e547635c7f31"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ProjectManagementPage.java",
+          "gitBlob": "7772c0eec4452b25c788cee60efbed3cc979f057",
+          "sha256": "f7000cc5989e591c16630fc05763ad133bbd6e39825595813ab5abee07d6a824"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ProjectPage.java",
+          "gitBlob": "ea33ebf8979c3b48ae447394e8239bc8bfac87bd",
+          "sha256": "2debb5aee31b8cb45ac7cb7a0e8e29bffb9c11b5dc6989b9eabd2d64c6ebe4ea"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ProjectSidebar.java",
+          "gitBlob": "96665f7a76aaa95d7372b07b2cb4899fda7c68c0",
+          "sha256": "d967b26596d15a07018e10fc54da743e9dcf548c421dad92d1af1a36527764e5"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/ProjectSummaryPage.java",
+          "gitBlob": "d39324c8bd66b1adde243945389770b6b5a7a2a9",
+          "sha256": "84cb78bb84d09f168f24eee999bbcc38fd5c2f10925d75eb1a907019f9140f3a"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/SearchResultsPage.java",
+          "gitBlob": "a2ae014186b2fdcde3e29029567c41be262cf823",
+          "sha256": "6b80676223b780d1df6ea72fc145cd749089b9019289381e92cc8733dcd50016"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/SettingsPage.java",
+          "gitBlob": "7c0f1aadbc75e00f18d20239efc84f25aec19722",
+          "sha256": "677ce4ffa7d5ecac6929e556ee816db6fadc2aad20361d646eea2705c5bf8ed7"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/SettingsSidebar.java",
+          "gitBlob": "6a908ce5c9798a8652998e4916a1df195e88cb68",
+          "sha256": "0f48da76e41136700cf5a5bfee9dfd8e44bc00e940e4eb6f1278c24a06020c75"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/SwimlanesPage.java",
+          "gitBlob": "4bcc6a77dafae9da17dd8614aa8058f47dc9b9af",
+          "sha256": "467534b5fa402fcd8e72540f538a7283340b22a4df8483336d8af8e5bb235231"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/TaskPage.java",
+          "gitBlob": "f39d88218a91e50034d0a0e62dea368a58a59b5a",
+          "sha256": "63c462f1adc271504a3a1a5b3f9adb5e818389c499e7cba2da1a73a91d6179e6"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/TaskSidebar.java",
+          "gitBlob": "95686c069d051242cbe85addc739ff44c5400f60",
+          "sha256": "486b0956538485b4518d46975668d9a326aa11f9116cae8ee2c7fe0e0866a2aa"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/TopNavBar.java",
+          "gitBlob": "05ae2dd49c849d36330cbf331298fb2fa753083f",
+          "sha256": "bd287be5fafe0e7d69ad3ad24aa686ec94ff8df45252210d331460c85fba65fb"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/UserSummaryPage.java",
+          "gitBlob": "b371401ab09d46e2ae0575977180c77752fa2e77",
+          "sha256": "89ec669d9c971e4495be06f05ee52e5414f6a0fc3c53facab1f48c787d117f10"
+        },
+        {
+          "path": "kanboard/baseline/kanboard-1.2.15/src/main/java/po/UsersManagementPage.java",
+          "gitBlob": "f8e17311316b7ede22234a8b7f3f5ca8f61a9c1a",
+          "sha256": "96beb589b05066f89517c37ce2a290ec626a38ea3b260ee3f7e6fce4b3193f82"
+        }
+      ]
+    },
+    "upstream": {
+      "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+      "filesVerified": 24,
+      "files": [
+        {
+          "path": "app/Template/task/sidebar.php",
+          "gitBlob": "265c6ef0e3cfe967a13593b1fef235c7c09ef578",
+          "sha256": "3ee86e19a97f2cb806a97bc76e48168d07e9722a0464c0c11f71b87d079969b7"
+        },
+        {
+          "path": "app/Template/task_comments/create.php",
+          "gitBlob": "05b0512001814facefe1e571f7032df4789b98ea",
+          "sha256": "cac16def5e15645f3c2c042914cfdfc9bb4c43f14670540a8f312aa333f14639"
+        },
+        {
+          "path": "app/Template/subtask/create.php",
+          "gitBlob": "1ed36d474a82520adbad3b5ff1c379105fb5a84c",
+          "sha256": "ba9bfc92f2237acffc885f335102a6a002292e0c6bea90a715611d0847b5ecdb"
+        },
+        {
+          "path": "app/Template/column/edit.php",
+          "gitBlob": "def0f29999fd468734cf7d06dec51861874a3746",
+          "sha256": "645c4d7615905c8214a00054a31dd684659c479425eae4ff8d227cfcd82126ab"
+        },
+        {
+          "path": "app/Template/swimlane/edit.php",
+          "gitBlob": "ebe6a3458df109667852b3a8fe12cd2771b77816",
+          "sha256": "627746e2ab209bd535738385d7e785256ed6220118a2d9362f231816317a2536"
+        },
+        {
+          "path": "app/Controller/TaskStatusController.php",
+          "gitBlob": "56d38400d0d1e339e950cae728c2f18d40e17b60",
+          "sha256": "d39522563f1b0f15751092c84293ab22212c73bf9e7a96d772d20aa16253e8c6"
+        },
+        {
+          "path": "app/Controller/TaskModificationController.php",
+          "gitBlob": "7164ce0cdec1a5922f6a7e7d4402ee09c0c9d5e4",
+          "sha256": "c5246d7310851828d9829cac28ba5f8676b3709e8575e481533b4254a8b8abc7"
+        },
+        {
+          "path": "app/Controller/ProjectPermissionController.php",
+          "gitBlob": "21f0ddb0f93d8732437fcd6c90f6b3503e56d051",
+          "sha256": "6df47c20fe6b1963bd14a86bc3cbd554fbcea9f622a23f67af115a854811aad6"
+        },
+        {
+          "path": "app/Model/ProjectUserRoleModel.php",
+          "gitBlob": "dc4add34b5fcb021cb5d190af122e578330612aa",
+          "sha256": "1a42ab03aa99c71340f2b83455891d90c8fd753dcb20b294cbc98b1f6b725bd3"
+        },
+        {
+          "path": "app/Helper/ProjectRoleHelper.php",
+          "gitBlob": "a9f0596ade8f63b896eb47318562d7784aef804a",
+          "sha256": "b117f44dd9c608e7be0d69805a6a9fe3b10ba316f2f45f8aa66ed87b3b8b629d"
+        },
+        {
+          "path": "app/Controller/CommentController.php",
+          "gitBlob": "a29491a31da110345744ebef1753f4f599297fbe",
+          "sha256": "5e84cb2c974810d85fa06f9dc3f446645caa3e6a46a06a23b16e58ecc27c3351"
+        },
+        {
+          "path": "app/Controller/SubtaskController.php",
+          "gitBlob": "d5db9b2ef3f739366390e7e622fb4174700e82fa",
+          "sha256": "5c5d8280fcbbcb85bfd710d3c962c22bc55967afd98b4ef17aa4b6821aed057b"
+        },
+        {
+          "path": "app/Controller/ColumnController.php",
+          "gitBlob": "8e4712d9793a04b6a25479f6b017e06465951f93",
+          "sha256": "1b3af43b10edf72517f933a023776367ea29ee75b9181468364dbfd36944edb7"
+        },
+        {
+          "path": "app/Controller/SwimlaneController.php",
+          "gitBlob": "9e07c1629fd018066bb59224fb04f0d3b799f62e",
+          "sha256": "9f2f1029e6e024af07e7d0a95f6fbbd5af60403f6a14401af4fc86db799b0d7e"
+        },
+        {
+          "path": "app/Template/app/filters_helper.php",
+          "gitBlob": "5515823d1e008b3aa69af0dcb3e0e9f62d8ad24c",
+          "sha256": "c02169955027781ed402246bc94cde889f46fb320b68363793e0b69bfd38797e"
+        },
+        {
+          "path": "app/Template/task_modification/show.php",
+          "gitBlob": "7adc4ca1d2d9dd69e62c14b5da7c13170c18d6e6",
+          "sha256": "cbb27942e72a95c437e2ad663b5246dd78b25ff5999ae14c738e751102a81176"
+        },
+        {
+          "path": "app/Template/task_creation/show.php",
+          "gitBlob": "579529a222e6309c566d9bd18ca3dc50a67a2c1a",
+          "sha256": "f583e4f9f548a29bc892980dfbb5367c232002e51edeb658817cabe4e33b2980"
+        },
+        {
+          "path": "app/Template/project_permission/users.php",
+          "gitBlob": "827497bfb0697b6f48fe211a356db884dfc7a895",
+          "sha256": "f76aa8809b226c9c259b5b405994f691a772049ba077301cc4a3e7bc6a96d0a5"
+        },
+        {
+          "path": "assets/js/components/project-select-role.js",
+          "gitBlob": "904d1dbd0251c55cf5d41e51fe6d34c081a0bd77",
+          "sha256": "a16b8c2dd2ce237ac086e644d0c0c099236576f5c041e9fdc85b930f0ed0e237"
+        },
+        {
+          "path": "app/Template/board/table_column.php",
+          "gitBlob": "b1c361b239d1065a2c2cf0be3525f6e7346a2cd5",
+          "sha256": "16c69002d367d055bea108ce01c3ccce7039567a6464d945330d12badbf74494"
+        },
+        {
+          "path": "app/Helper/TaskHelper.php",
+          "gitBlob": "17b572a0a8bdc1b455da8f38c82155847af21c31",
+          "sha256": "f2e0072f9a7380db7677b1d78b0cb1950a86a903feeabfd0b887fa524029c587"
+        },
+        {
+          "path": "app/Controller/BoardAjaxController.php",
+          "gitBlob": "32374394045d6a1871bc44e5ba99dc31ea8d4eb3",
+          "sha256": "26d2943fd0519f7afed7dc4d14fea776d315ad5c50a9ce9e07a0cca981fe72a3"
+        },
+        {
+          "path": "assets/js/src/BoardDragAndDrop.js",
+          "gitBlob": "93874277755c767fe01c6615c8411a083877191a",
+          "sha256": "aeafc969bc1db0636838e0a95229fa68bf01d7fdae45cc2895e278716a1af0eb"
+        },
+        {
+          "path": "app/Template/board/table_tasks.php",
+          "gitBlob": "f0defe21b12ef8c4dd06ee60aa0105dd20252d77",
+          "sha256": "23bc2ed04d3aac72cfc7e73e2bfd2eaef4e92c7c252a00aa5c249abbe54fc2dd"
+        }
+      ]
+    }
+  },
   "pageObjectCount": 27,
   "javaClassHashes": {
-    "AddNewProject": "105bac9e132572018a34d4514d60ccd8965a94ed6eb52bb69a796b05362a4de3",
-    "AddEmptyProject": "7e26f92c04cf07fb317e66b158908c6c36c073dc31c3ccb5b2ae4d3299b6451d",
-    "AddNewTask": "54af474669a998d9277ebca4ce970c84feca28b937c1551a760aca5cea163d1c",
-    "AddEmptyTask": "50adb7e92cfa2be25e5e96fb65453e590219042147298c1dd3145e62f7f50e18",
-    "EditProject": "c78ce03c53b34dbc530d3e2f04ec6fd1c8044bbe08033c2e8db8d4473f11e915",
-    "AddNewColumn": "66d70d019e6de4a111df372d192ecd816ec3508565013804adfed575d8dc9ee2",
-    "AddEmptyColumn": "4d8d5a7f14156dc451b6c2939cc9a33d24b337acdbd775bea66bcafcd9993311",
-    "AddNewSwimlane": "0376acd3936ffcee55efd9dc0803eb77e2b45ace69b65901e48874c213e876af",
-    "AddEmptySwimlane": "0504b730a4a9ab92807a1d37c9ccbef50d1073097eac2d0c9efe7a25b9fd7357",
-    "AddNewCategory": "c7ffaa7ab29568b0eb58d562fded9073cc95eb370a4de420519e182e036f9ba5",
-    "AddEmptyCategory": "30722a16f68634c97b7d39dfa1c3239282b0ac21c7f9d53f2c59c8b01a83774e",
-    "EditProfile": "969664bb914533c2c6c45c60958a0b22c3b0c068859d88f1cabd079c914a21c1",
-    "AuthorizedUsers": "3bba911aff07a2878995d4b0f1859523596168028c680dc58064b8a50f72efea",
-    "SetReferenceCurrency": "5b3be815bf7dfa4a0173742533f305ae71812c8615b9c178fa25ecf661544138",
-    "ChangeLanguage": "b3ab7c68669909ab62f580a8f274f03aed17e6202e791148f32eef906aaa0276",
-    "AddNewPrivateProject": "99c9e74ec888fc40b60121a13385d370b2d9a6622930b5910bd409a211b9ec3d",
-    "SearchInProject": "f0cf19308337cd1ef028a76f94fe78c18807439860c28761619b7866adf879dc",
-    "ChangeTask": "39f759fd680e64912c059c7b10e2bf42891bc96847b6bef47c8b2c021ad6529c",
-    "AddLocalUser": "48fc6f9cf43495d5ff0c0cd446fdd29c867b513a902399d51a8e92b8a1a6f066",
-    "AddRemoteUser": "ffc82fc4890d9ecd5ad848523391feeee294b5c4d1c74d063a9b00e4f9b31a05",
-    "AddLocalUser_DifferentPasswords": "82fd24456c29fa6ec8598538e3c6962a4dd17cdea3c2683da4bfbb2d1107c24c",
-    "AddLocalUser_EmptyConfirmPassword": "278b6d92a63c79e21642d0146c067418b1af518a72bc5086392d0acfcb99c97b",
-    "AddLocalUser_EmptyPassword": "0734cf2ae9bd0d7d657b5fc3cda787cb7d298b75036747db753c6f18288be368",
-    "AddLocalUser_EmptyUsername": "80d1521afce0d5236260002886f2bff29feb6a70185ef43b4b12fc6dca790a0e",
-    "AddLocalUser_ShortPassword": "a2affb388687fe34f8d12d2cd93362341924b187a88a5992da6e68ab11cf602d",
-    "RemoveUser": "e4ea8d3e2da55ac2ae31ac02ac632535556257c719092161e4d885d2dedff175",
-    "ClosedTasks": "73a87c56fca39a6c82460aea180e0b66615905c8c3dda775055c69609d1f176b",
-    "RemoveProject": "29a283562b59e1174b3d750e1557dc3bc0038ce534c7134694920098e8515325",
-    "ChangeBoardSettings": "be99f5fc0ec6b4c71f83666bd4f6dab85632e281ef3a14703924d804d648faa0",
-    "AddNewCurrencyRate": "7a9f8ca8b1a46dafdc7737391deb4c41c3074663517c2203f87004044e1d8c49"
+    "AddNewProject": "026ef30394dd9833869bbc900ecad93b428742f2f767c623233c59102d713ecd",
+    "AddEmptyProject": "dc72a754c33c21052186d83946eccef19e46ac6be8c455ebf36b4e27b32c7212",
+    "AddNewTask": "cf280bc0bdae1b57167c93ffba54fbcb69f724941673266e6a3ea88959349732",
+    "AddEmptyTask": "63ac0cfd68e9943b506972705f33958bf8c28a63f63df0dd5e419e39b654a77f",
+    "EditProject": "e8bd86c5be3ed7508d95a0e1ac7a7e6e58f6f2b7673d0faf171cf43464e0948c",
+    "AddNewColumn": "e9b86cbff481c65bd6cbd9ac059593af8ed84e42d91a254c725a37147d8be96d",
+    "AddEmptyColumn": "722e2fe27476496772d072028966a5c308fed5f3d2a718fbbb64bed703daf1e2",
+    "AddNewSwimlane": "7f8b0e16fe4bef78d648bfc188669e637791ee2711454e0eccd8206c3e690589",
+    "AddEmptySwimlane": "6a66b7529e36fe28d31949bf3b858ad02413f6eb2b20e7491d565c1745aec219",
+    "AddNewCategory": "f4e9ff6045c5afcafbf501f03df6515e65c073b1ae35c464de01d949dba7d15c",
+    "AddEmptyCategory": "5a647fb5c20fb4215fe43316eebb8503220ae1775cd082eb2df6b1f724daceb0",
+    "EditProfile": "16a626ee9edf6c52a31dcada0ffe2731aff20a8398e9bfff53e9953113168c7a",
+    "AuthorizedUsers": "2a21c2d1db3cc09d50f7b8bbeca8ef6c91fadd113c7f78b2fa6e403c796ce02e",
+    "SetReferenceCurrency": "b5b62b46318843213b53a5e9ef6907466b13955d845c5087f3dfe379f225d30c",
+    "ChangeLanguage": "5da9185f48150a012ed98c1fb974a09d9b76012e6278dc075e821abcd8928097",
+    "AddNewPrivateProject": "3ec704dd328f475d4f86d7dd517be0dcba1f912a88fef593963157eafe3e4467",
+    "SearchInProject": "ec20786e4cfd3001aa5e07a8844c257cb139339359dce194a2efbf22d3d5acba",
+    "ChangeTask": "e225372997d921e45d81e372df2fe1f2982b11dbff8d6d894ce67145b9a6b0fd",
+    "AddLocalUser": "511a5eedb55bc27bb6414d3544c21344220ceb565943711cd6a8ed9f95aefbbf",
+    "AddRemoteUser": "e432179aa044c3734a716360beeb992f9be32523a1cb605b16d3206192d748b6",
+    "AddLocalUser_DifferentPasswords": "697f76fab761f6f8d338147e803a6fe49b392a5c09960d51c8cded46be5a7017",
+    "AddLocalUser_EmptyConfirmPassword": "092ab7a476827ad736e3e3ed9946b7baa3574ba54c5d9394708b28eb4f922509",
+    "AddLocalUser_EmptyPassword": "274cd07ddcaf14785de826fdc8ec4d42caf968eea8756ee7e389869f535d38ba",
+    "AddLocalUser_EmptyUsername": "df02abee8e30c279864dae0180098005a4ef43bc662c007a4055590ad7104830",
+    "AddLocalUser_ShortPassword": "a46beabbbf2d71b1bde5af0d0cc9a3ac873b7e854aa597065ec74a9ba27970e4",
+    "RemoveUser": "cfd517d5ae970040e8462d44cd8ce224f87eca6b507747fcb1b67ea3a2f59a2d",
+    "ClosedTasks": "6cb01d043743a6813c0319225d4d1b45e214cf0b92042519674456933811bce9",
+    "RemoveProject": "96500be9d97e897a99991b18566cfbb6367b1800aee85a9783a15b1c9c09f223",
+    "ChangeBoardSettings": "49aef71f68f8b724ed0a1406fa699c44bcc32a2737a8cd72564cd17bc589601a",
+    "AddNewCurrencyRate": "d4a7c984f617781a4a04fd5965691b50fb8352c60522a2e5c79dcb79208e170e"
   },
   "pageObjectHashes": {
-    "AddNewProjectPage.java": "09f80ac2aa02de5b27c07533e3e44174db31a36321c087ef9f7d89823f86a865",
-    "ApplicationSettingsPage.java": "f26075673d3738c6bced3e07e74f75ddf7b92fbc02cc40369f6ec3a27bc756bb",
-    "BoardSettingsPage.java": "b2cca89614a3ffe08119d52336d9fc1180405fbc4b51f0756d355edc85eb018f",
-    "CategoriesPage.java": "8ffaff3885c9dac926ac52a024200259ff7349a7e8dd822484d6c752699dd959",
-    "ColumnsPage.java": "927531e418f60bcfd05c9a14177844f657e4b443be602b7bc3a3f99e4792827b",
-    "CurrencyRatesPage.java": "8ee0733fca9e156451fd309efa5c5b28812755d1d8516a248f4e2e7db89d8578",
-    "EditProjectPage.java": "0afbef81180ffad1973e7e7fda63a96d3d74af9cd8c865140f1b1ce6b56e697e",
-    "EditUserProfilePage.java": "b408f2c53301a75edf392094d4403cd7aec7cf394a1eeec8e7d2c36dca1cb877",
-    "KanboardHomePage.java": "19b757892882ef1395fa46b73428248bf3c3267d131cb6eeb246bf4f0824890e",
-    "LoginPage.java": "049a7d7af8db8b4478815126217fb351c42403ae4a6cad1f6e60eb1a844c5425",
-    "NewUserPage.java": "94113224ffbd5152a9f20491319df8acd2c02e3e8149c20424bfc34e9ca10456",
-    "PageObject.java": "1dab1fdc4ae72154bd5b6b772a983ac8ca9c388a238bd24b0dd4b93dde5a1395",
-    "PermissionsPage.java": "4acf3eda217b1c29dbe74022913a233cb1692dd5eda0f70b0951629872f70b75",
-    "ProjectListPage.java": "0f4ffb698e3a5dcb982b5702216ea0cf7948ccefdaed281f26d928ec3cf7ac5e",
-    "ProjectManagementPage.java": "271753268288fc9e2a0768d040ac163f280d2ff13cea7b795900ba99625bbabe",
-    "ProjectPage.java": "de640f2cac1ea9fd2b3b90571fc61b8889328b22bf32038ef995a1624690a093",
-    "ProjectSidebar.java": "ef66e09f9848edebed868f72883247361f4e3ded9d364c9655e8a7a346783091",
-    "ProjectSummaryPage.java": "cef1637a57c2b6dcc781c5459e4331fe74dc6136d4942a3a0e3fe685f57ab8d1",
-    "SearchResultsPage.java": "b64dae190f7d78ac354c89de28310d7fd53520b3e5abd2cb463ed6a1d3d8cfcf",
-    "SettingsPage.java": "a0937397cfe35256a3c258b1bff14972b862f0e5d954ee6997040aa1148ac892",
-    "SettingsSidebar.java": "eb111dd66f09bf11cf3275674a160992fb0ae9904d7ba53c804a48aa6a5116de",
-    "SwimlanesPage.java": "5b1099c900942dff5438330829909dbbd1eb872427b878f067d02da1048413a3",
-    "TaskPage.java": "657c8ad51dbcfd02f155fa8488f058e13e3d0a54d229802b727b2a43d9612fa7",
-    "TaskSidebar.java": "4f82b3f98ec0cc4f58983764f186b2f909f25bdafd09a349bfa53c2c4bdff812",
-    "TopNavBar.java": "863ac0179980a7dd104323c82833632199dd8641903295d0ed3da010f0ec8b12",
-    "UserSummaryPage.java": "25312648ec2ed5b6630ea1e3e2074254c1f45f9bba328e8dfa284be45e5aa38b",
-    "UsersManagementPage.java": "81428206ef75c0a3f20a1a453b9ba0c770cc3261a5a37aa2963c48ba9077d589"
+    "AddNewProjectPage.java": "4431177c6aa6cb379b8027457a087b258aba983df9f0e544efd65dd95222f2f5",
+    "ApplicationSettingsPage.java": "48ba35e15229c0d67c92b4969e26eb1499d42af99634d0b3b444476c54492438",
+    "BoardSettingsPage.java": "84ab4496231295c5cef19a55728d3d10a37e3633b23a449cd59cbceb6464dcf3",
+    "CategoriesPage.java": "50b8315c2948abc71f653fd60f783afce0aab4dfe105f168df8b5b1232ac2d71",
+    "ColumnsPage.java": "7cb83638ecd03dd374030a5797acffa76ab32c2146cbe2cbbf83c365e34e5e20",
+    "CurrencyRatesPage.java": "33439528a8d5a0c1b744eca824316f785b557b5c17802021a8d03d3f600ebdf3",
+    "EditProjectPage.java": "fea90136bf0b6657539453b85fa05cfe0fc297b388b5b65cf89355f31ab05587",
+    "EditUserProfilePage.java": "7f8ff9279c73b2fe06baff2329e75c3ee30dd10ad7337188babcc0e562ab1aa5",
+    "KanboardHomePage.java": "61d420840c0b6a2f99bb7b9ec51caf337394b3621df4a3c219fdf85bde3bace0",
+    "LoginPage.java": "dacbdf1e04bfd1d706e1ef8e97c6ef2520e3f155c1d00e4087904012695b6cd7",
+    "NewUserPage.java": "51ec2a4645337656ad0863c533a3e3da5e97cd191857306c63e72661605e67ed",
+    "PageObject.java": "4f6191101f37c19871b1883500fb8b89143a8ab5efa3ebce9f84c7884a21e234",
+    "PermissionsPage.java": "8eac5529e7539ea132be6c068a9b64b4cebe29324a7379ec91b4f5f24685a02d",
+    "ProjectListPage.java": "c1aeb45df011812e60129a4119780e45f87727b48e2a7eab1ce2e547635c7f31",
+    "ProjectManagementPage.java": "f7000cc5989e591c16630fc05763ad133bbd6e39825595813ab5abee07d6a824",
+    "ProjectPage.java": "2debb5aee31b8cb45ac7cb7a0e8e29bffb9c11b5dc6989b9eabd2d64c6ebe4ea",
+    "ProjectSidebar.java": "d967b26596d15a07018e10fc54da743e9dcf548c421dad92d1af1a36527764e5",
+    "ProjectSummaryPage.java": "84cb78bb84d09f168f24eee999bbcc38fd5c2f10925d75eb1a907019f9140f3a",
+    "SearchResultsPage.java": "6b80676223b780d1df6ea72fc145cd749089b9019289381e92cc8733dcd50016",
+    "SettingsPage.java": "677ce4ffa7d5ecac6929e556ee816db6fadc2aad20361d646eea2705c5bf8ed7",
+    "SettingsSidebar.java": "0f48da76e41136700cf5a5bfee9dfd8e44bc00e940e4eb6f1278c24a06020c75",
+    "SwimlanesPage.java": "467534b5fa402fcd8e72540f538a7283340b22a4df8483336d8af8e5bb235231",
+    "TaskPage.java": "63c462f1adc271504a3a1a5b3f9adb5e818389c499e7cba2da1a73a91d6179e6",
+    "TaskSidebar.java": "486b0956538485b4518d46975668d9a326aa11f9116cae8ee2c7fe0e0866a2aa",
+    "TopNavBar.java": "bd287be5fafe0e7d69ad3ad24aa686ec94ff8df45252210d331460c85fba65fb",
+    "UserSummaryPage.java": "89ec669d9c971e4495be06f05ee52e5414f6a0fc3c53facab1f48c787d117f10",
+    "UsersManagementPage.java": "96beb589b05066f89517c37ce2a290ec626a38ea3b260ee3f7e6fce4b3193f82"
   },
   "gherkinHashes": {
-    "01_AddNewProject.feature": "60eea61e9202336cec69fbf1dda7b290eeb2567ffdc88685b297eea7e0464218",
-    "02_AddEmptyProject.feature": "c9fc13a4ccff330d7c78fdd0c34cfca9909ce282c1c52de1049975ed493d35b0",
-    "03_AddNewTask.feature": "9a7b77a00a8c709ccfa5ff76332ae08ebb7a47130a8ab3a206064c180d81aa2f",
-    "04_AddEmptyTask.feature": "ecd8e090f0eeaa84baf3e8edcf8ae2d3210832196f3b9f515da5db84b9af937c",
-    "05_EditProject.feature": "f472fff7650a99057440b38eeeea8ccdde41e700799e198c77d61215ab18c270",
-    "06_AddNewColumn.feature": "05983247563a3905f59bad63b0df7f88f12fa335225663d5bb2fdb1061f688f4",
-    "07_AddEmptyColumn.feature": "271147ba4a991f9fa0c1deb7465c778d8a69fd2dc0d8c036b5e80314dc0badf0",
-    "08_AddNewSwimlane.feature": "0f60036fc61ea1880c11fffa8b403b39a087109078a97f6588ea6eb43f3e0a4e",
-    "09_AddEmptySwimlane.feature": "7ddade38877fecf7d03053399c56bf2869773ac5c387f8fad45a0075df51605b",
-    "10_AddNewCategory.feature": "d33492305f1abc5f930d73c2200c2b9753fa567f3ecd520181f010be73f7e573",
-    "11_AddEmptyCategory.feature": "6c9bc7bf5dd8e95e2d639193b9701025582bac58d66f25dff388c31bbcf4c826",
-    "12_EditProfile.feature": "d437bca02a77049de46777224f9b51f76e6950572d7d30dbf6976ac1ab8ed81e",
-    "13_AuthorizedUsers.feature": "d9c807cdc5b8d3bbc9ce8ca0785045f287ba35834b760d1a0baec1b727eeb4c4",
-    "14_SetReferenceCurrency.feature": "ed5dac099a2500b0a2d06bcd6462f0b32c3a56956f6e68d51c076f129d50be1b",
-    "15_ChangeLanguage.feature": "bf216831193945d0202a84a6f6e0490bf82ca5e02aff7c9d6bca087e5b1ea3ab",
-    "16_AddNewPrivateProject.feature": "adc3a04dc708ad48a04fc3bbc1c15e7a39b0b6b450f3313966282b33831f0279",
-    "17_SearchInProject.feature": "5b579349ac5e080a1bf6860cc78e5bac0463dd3d955304dc50759627bf4d0e40",
-    "18_ChangeTask.feature": "cd7dcaf4cfb532ef8f499bf004d1113c0379e31f41b351b20b840ae8f240e904",
-    "19_AddLocalUser.feature": "ba6f71480f245f88c3291a27c4fcfac15b4b245acd1dffe3476c721f16fa1d72",
-    "20_AddRemoteUser.feature": "9549784514c578d96ebcf8260cc6ca222cdbd91d773bfff2286633c87df49a25",
-    "21_AddLocalUser_DifferentPasswords.feature": "97badd670f48c33e1f35007e749040129551f8094e7ce4fc58282f4c7abb1118",
-    "22_AddLocalUser_EmptyConfirmPassword.feature": "a7b6580dc8848aedc1612d8f56849c06d8536d9a66d6d5e961479fd1966aba5f",
-    "23_AddLocalUser_EmptyPassword.feature": "d112919d652b648396478e760c37ccdcf1cd3b02cb367ba1062245e7127a97cf",
-    "24_AddLocalUser_EmptyUsername.feature": "04956c524d3bef71945a04f3e1fdb7a30bae401653e1073b0f42c5a3854b7b2d",
-    "25_AddLocalUser_ShortPassword.feature": "beb5907cb24cf58aa2dd3ed1ce03ff1b77887f9d075516a4f202dd1ef502b4f3",
-    "26_RemoveUser.feature": "16839a1e8cbd74dc819a58d77e228f775d59f601d7aa4cc244e20c406067eba9",
-    "27_ClosedTasks.feature": "f94948739e1bc2ba6ebab41f3c4298fb8d84d8e1d3285a0d40b1a88c42e7756e",
-    "28_RemoveProject.feature": "a286065a02c5841335f405c7d12ab8b5e0be19732011e621545c3f2f3ec04437",
-    "29_ChangeBoardSettings.feature": "451779f172ed09dcd03df97cd01a3a12254b2dcbdeeabf1bd39e159c7633653f",
-    "30_AddNewCurrencyRate.feature": "5786b0c6304a239a34a84ad40b0867f8e277067ec2be0583fcb22fa220ba5963"
+    "01_AddNewProject.feature": "0e7d62fee2042ccd6792902e34ab97535fc1361c4a60fa24066c548fa570f32f",
+    "02_AddEmptyProject.feature": "18cf3ae7fadb3012a637085013f04343985aaa713208128704f8cd299d181a78",
+    "03_AddNewTask.feature": "055fe0b36fa2d4f3024458acb0b748515c549840be351f16c11b44f211b687b6",
+    "04_AddEmptyTask.feature": "db1a84b64d124d8d5f6e887bccd95e9c71d9bad0eceaeb2dc90d10f307ba2155",
+    "05_EditProject.feature": "854fdbaf94dd69cd38745c6a1e0a20151a0a6066cd11e479f9a019542f308035",
+    "06_AddNewColumn.feature": "7b14459f97fc0b6a7728ee5ab140eb470691571b2b9bd05eeba30d61c81ec2ac",
+    "07_AddEmptyColumn.feature": "2c37654cfe6805a70646de869ef87a9ad0af3b61d3de9dddd6551607de8bfe92",
+    "08_AddNewSwimlane.feature": "ec9e5f6f2f76d09e4e41be4460464fb89e7c946b636bd8420409a7802258e922",
+    "09_AddEmptySwimlane.feature": "24512d2bf3cdb261da925af43478c26acf5a56210102b8ec5e924907a117d7f5",
+    "10_AddNewCategory.feature": "93bc4d1302bca4126ec951345b4992b1f8514da03ba5427bafa9b29aaddb74f9",
+    "11_AddEmptyCategory.feature": "a5367ddfd391b4889d02c6e593a36e5f9a242efbc465eb0e152b652da6c35fb2",
+    "12_EditProfile.feature": "674506388128040b3b60f259c7514a4efb5c3b2086b49bbec4ec8660545f0e4e",
+    "13_AuthorizedUsers.feature": "dd5d7e5f46cef3385f0591246ac5146532fbbb4b4b95d055acd98a2f91b88197",
+    "14_SetReferenceCurrency.feature": "2f6fb427eaea1a2d904266ea4b9a24cd11bde61bf949dc598aba2aea01f71aaa",
+    "15_ChangeLanguage.feature": "2dd6d2c52d764c6e0e5287b7576c7b8b1dc31de5ebbc4afe9e5bc52a1934a395",
+    "16_AddNewPrivateProject.feature": "d190ceeaf38e088840606a2e70ba47673c187d6cf17b966a4e7c9eb79b789ccc",
+    "17_SearchInProject.feature": "89ca6dd67a3b5149ca70335004a8d27fe7d4002130a8b1b7833615cb922c3645",
+    "18_ChangeTask.feature": "ffc11af2d74858046c1bb4fc4d95ed7323b1b7f012e2928a1d53e9ce50953e5b",
+    "19_AddLocalUser.feature": "dce33cd548f79bfcf20257630c5af9e130db7ae7ef641377eae2302e63cdaa47",
+    "20_AddRemoteUser.feature": "f1f084fb2d20b460fcd61093022d00444478d69415d75655bf53ba85a6d8aaf4",
+    "21_AddLocalUser_DifferentPasswords.feature": "8de9ccdfefeb989a3c561714f6a38aae4939ad97b487866c339e22be37760509",
+    "22_AddLocalUser_EmptyConfirmPassword.feature": "84ecc68aa571151c416ebd65c9a73935b2b221d810176a25b117c3b7e8788b55",
+    "23_AddLocalUser_EmptyPassword.feature": "8aa4e198617f53484e27fd394320203b7023d81c13077910cff209e10266ca41",
+    "24_AddLocalUser_EmptyUsername.feature": "3cc04140aca829efc7af9c960d947bf1693cad5e14d3ef5dbb8771875fd51342",
+    "25_AddLocalUser_ShortPassword.feature": "1c4a0fc6487e3b2535d6e5f725f91fcacc77a654985b898dfcbda05dc6a1d8b7",
+    "26_RemoveUser.feature": "0fff52657d9aab8e828b56b601dd48f21302a3f51ea14a360e5d1a6f393e2850",
+    "27_ClosedTasks.feature": "84be9067d7775cd06a71a5ebcac9bd63c26b4778e8ae9fe1e3996afb1599f384",
+    "28_RemoveProject.feature": "164a6f36848def311e0ead995fb258e90a9736b500261b77e629548ed97bf306",
+    "29_ChangeBoardSettings.feature": "364bb02ec65498cafc7e8b810652dafe7f367b623379004582b18f93d5a4c499",
+    "30_AddNewCurrencyRate.feature": "2232fb1bc11e3bbc636ecf7f594895bbe5279423770c3f4c54cc1a59bdd646ed"
   },
   "baselineSupportHashes": {
-    "testSuite": "0615ca70f10e136a5013eaa7261839dbff9609463788879a982e023df442fb87",
-    "baseTest": "72608a61f11146f187ed32f75c1b4d57662088c1310a912624e5ed9dca2c30b8"
+    "testSuite": "0f0b01a4d4069c0ab956f18bafce5f4a7565ec73d6f081252989ae3e4fcecee8",
+    "baseTest": "05db5ec7a9a33838cbe9800dfec70b0a16844477e857f5a837395ec7fc44dc6a"
   },
   "upstreamReferences": [
     {
       "path": "app/Template/task/sidebar.php",
-      "sha256": "7d233ec153adba8970daa69fc6520bed5e800dbee2440efb380f5ef479ee942d",
+      "sha256": "3ee86e19a97f2cb806a97bc76e48168d07e9722a0464c0c11f71b87d079969b7",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task/sidebar.php"
     },
     {
       "path": "app/Template/task_comments/create.php",
-      "sha256": "fb1a4add241aa77299b8fe3e4663cd372b3cb8ba29c89555ce10c4799ad774f9",
+      "sha256": "cac16def5e15645f3c2c042914cfdfc9bb4c43f14670540a8f312aa333f14639",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_comments/create.php"
     },
     {
       "path": "app/Template/subtask/create.php",
-      "sha256": "d17e3b285bf0ad613750bf10dda798b10a4381e9acf5544410f042c3dd73be32",
+      "sha256": "ba9bfc92f2237acffc885f335102a6a002292e0c6bea90a715611d0847b5ecdb",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/subtask/create.php"
     },
     {
       "path": "app/Template/column/edit.php",
-      "sha256": "146cd0280193b8329e82993579391deaaeb90d3ab257ce347847a20ce96a1601",
+      "sha256": "645c4d7615905c8214a00054a31dd684659c479425eae4ff8d227cfcd82126ab",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/column/edit.php"
     },
     {
       "path": "app/Template/swimlane/edit.php",
-      "sha256": "1b2c54c4814f87a6cacdd1d632170fb65b7c092e3e94aa98bf132411ae505448",
+      "sha256": "627746e2ab209bd535738385d7e785256ed6220118a2d9362f231816317a2536",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/swimlane/edit.php"
     },
     {
       "path": "app/Controller/TaskStatusController.php",
-      "sha256": "4c652c2bc0506f36203cb70fbef29a4b1f9d3d682e2bae4fdceb744d26089dea",
+      "sha256": "d39522563f1b0f15751092c84293ab22212c73bf9e7a96d772d20aa16253e8c6",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskStatusController.php"
     },
     {
       "path": "app/Controller/TaskModificationController.php",
-      "sha256": "8702cd1cf3246eae8c1e3b12229bbfadd52b6ff9ca68dcec33100ac3f187ed82",
+      "sha256": "c5246d7310851828d9829cac28ba5f8676b3709e8575e481533b4254a8b8abc7",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php"
     },
     {
       "path": "app/Controller/ProjectPermissionController.php",
-      "sha256": "00ad6423c7b5c70db16a923f8de660d6eba77cb929f8ba52f31564862070ebe0",
+      "sha256": "6df47c20fe6b1963bd14a86bc3cbd554fbcea9f622a23f67af115a854811aad6",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ProjectPermissionController.php"
     },
     {
+      "path": "app/Model/ProjectUserRoleModel.php",
+      "sha256": "1a42ab03aa99c71340f2b83455891d90c8fd753dcb20b294cbc98b1f6b725bd3",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Model/ProjectUserRoleModel.php"
+    },
+    {
+      "path": "app/Helper/ProjectRoleHelper.php",
+      "sha256": "b117f44dd9c608e7be0d69805a6a9fe3b10ba316f2f45f8aa66ed87b3b8b629d",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/ProjectRoleHelper.php"
+    },
+    {
       "path": "app/Controller/CommentController.php",
-      "sha256": "8359e35177185c55baf6e33968647a34ea460b15e0ef13e4441fe2e71499cd0a",
+      "sha256": "5e84cb2c974810d85fa06f9dc3f446645caa3e6a46a06a23b16e58ecc27c3351",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/CommentController.php"
     },
     {
       "path": "app/Controller/SubtaskController.php",
-      "sha256": "bd0c87523e6e3f027358b3f2207c10c2511a7fe3da917c128c9c5dfa154ccabe",
+      "sha256": "5c5d8280fcbbcb85bfd710d3c962c22bc55967afd98b4ef17aa4b6821aed057b",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SubtaskController.php"
     },
     {
       "path": "app/Controller/ColumnController.php",
-      "sha256": "8f3ff22caa799bd20e47835a19a0b8146a5a2fb2d9c8d9a7fc2e880741164a64",
+      "sha256": "1b3af43b10edf72517f933a023776367ea29ee75b9181468364dbfd36944edb7",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ColumnController.php"
     },
     {
       "path": "app/Controller/SwimlaneController.php",
-      "sha256": "5c720da29c0b8f0e3042778325229b5de3ecedc8a9bcecb17a018ca96daf2e15",
+      "sha256": "9f2f1029e6e024af07e7d0a95f6fbbd5af60403f6a14401af4fc86db799b0d7e",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SwimlaneController.php"
     },
     {
       "path": "app/Template/app/filters_helper.php",
-      "sha256": "7a93482abee9dc070a5d4c5f4b4225d07c0e4a617b540ae9d79b9f3fd1a43cd4",
+      "sha256": "c02169955027781ed402246bc94cde889f46fb320b68363793e0b69bfd38797e",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/app/filters_helper.php"
     },
     {
       "path": "app/Template/task_modification/show.php",
-      "sha256": "c982f1f43200e896924ef92f11b5c178ff24c49f0e5dfc1de0524ba28e88fa66",
+      "sha256": "cbb27942e72a95c437e2ad663b5246dd78b25ff5999ae14c738e751102a81176",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_modification/show.php"
     },
     {
       "path": "app/Template/task_creation/show.php",
-      "sha256": "df9872926719f28a1680b851e8a4606a9c977dd91324355601a65eee84036f06",
+      "sha256": "f583e4f9f548a29bc892980dfbb5367c232002e51edeb658817cabe4e33b2980",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_creation/show.php"
     },
     {
       "path": "app/Template/project_permission/users.php",
-      "sha256": "95a258dd4fa4dec169e66f71f25d69134bbed46832e4b0e5c42d564d48917b25",
+      "sha256": "f76aa8809b226c9c259b5b405994f691a772049ba077301cc4a3e7bc6a96d0a5",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/project_permission/users.php"
     },
     {
       "path": "assets/js/components/project-select-role.js",
-      "sha256": "74d51d1dac80facabe84385e4b4b3f4c052492614be971ae3e031cfcb9a45cec",
+      "sha256": "a16b8c2dd2ce237ac086e644d0c0c099236576f5c041e9fdc85b930f0ed0e237",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/components/project-select-role.js"
     },
     {
       "path": "app/Template/board/table_column.php",
-      "sha256": "db1476cb2cdcd15db3850675cb1de162ee74f0db6ec004091514c3c48f66aa9a",
+      "sha256": "16c69002d367d055bea108ce01c3ccce7039567a6464d945330d12badbf74494",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/board/table_column.php"
     },
     {
       "path": "app/Helper/TaskHelper.php",
-      "sha256": "07d89c4e333375437ca9b0ec4d715c19c85f5755e212eb73e544303ab2ee9e2e",
+      "sha256": "f2e0072f9a7380db7677b1d78b0cb1950a86a903feeabfd0b887fa524029c587",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php"
     },
     {
       "path": "app/Controller/BoardAjaxController.php",
-      "sha256": "ed1c11d47e6ae1f28c2c5d3d300a83066815c75fbc824207280a81aaaca731f2",
+      "sha256": "26d2943fd0519f7afed7dc4d14fea776d315ad5c50a9ce9e07a0cca981fe72a3",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/BoardAjaxController.php"
     },
     {
       "path": "assets/js/src/BoardDragAndDrop.js",
-      "sha256": "5648880b934342691f1e9dfab620a329998789edb7d2b90a21799c7b9fdf1f2c",
+      "sha256": "aeafc969bc1db0636838e0a95229fa68bf01d7fdae45cc2895e278716a1af0eb",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/src/BoardDragAndDrop.js"
     },
     {
       "path": "app/Template/board/table_tasks.php",
-      "sha256": "48cef73d7e7499e46362fa7dd4a1c9a26122731daaf539eda0bf5bcbec5af472",
+      "sha256": "23bc2ed04d3aac72cfc7e73e2bfd2eaef4e92c7c252a00aa5c249abbe54fc2dd",
       "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/board/table_tasks.php"
     }
   ],
-  "redaction": "Fixture email and password literals are omitted/redacted from published text; file SHA-256 and source paths/line numbers preserve traceability.",
+  "redaction": {
+    "schemaVersion": "1.0",
+    "policy": "Replace only password values entered into a form and quoted email fixture literals. Preserve expected messages, oracle steps, assertion predicates, and assertion syntax.",
+    "emailPlaceholderPolicy": "Each unique source email literal is consistently mapped within its case to a synthetic @example.invalid placeholder; logicalFixtureId records matching occurrences without storing the source literal.",
+    "inventoryField": "cases[].redactionSemantics and source assertion redactions"
+  },
   "workingCopyComparison": {
     "result": "MATCH",
     "businessJavaFilesCompared": 30,

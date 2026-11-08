@@ -1,5 +1,7 @@
-T04-A initial offline blocker check ºw^~)Þt SUPERSEDED by evidence/source-recovery/
+T04-A initial source lookup blocker: RESOLVED; this historical check is superseded by the verified source-recovery evidence.
 
-At this point the command was scoped to the outer repository D:/Github-Projects/BEWT-CovExt (remote NgaiLong49423/BEWT-CovExt), not the nested bewt-original repository. The resulting source commit lookup failure was not valid evidence of source absence. The initial fail-closed dataset was subsequently replaced only after cloning and verifying the correct repository OlianasD/BEWT at commit 0501249ff3e9a5ea83a06155cd2971dc36197056 and tree d38fcc0eae8073023c48bb46998741c8c19d4d06.
+Initial scope mistake: the lookup targeted the outer D:/Github-Projects/BEWT-CovExt repository (NgaiLong49423/BEWT-CovExt), while the pinned source commit belongs to the nested OlianasD/BEWT repository. The earlier lookup failure was not evidence that the pinned source was missing.
 
-Final authoritative source recovery and test results are under evidence/source-recovery/. Do not treat this initial blocker as current status.
+Recovery evidence: a fresh clone of OlianasD/BEWT was checked out at 0501249ff3e9a5ea83a06155cd2971dc36197056 with tree d38fcc0eae8073023c48bb46998741c8c19d4d06. T04-A review-fix validation now also reads each pinned input from Git objects and compares the source checkout with the pinned commit before emitting STATIC_VERIFIED.
+
+Current status: the initial blocker is resolved. See evidence/source-recovery/ for original recovery evidence and evidence/review-fixes/ for the current content-integrity checks. Do not report the superseded lookup failure as a current blocker.

@@ -1,5 +1,4 @@
-# KB-GAP-002"ιέyψ§yΤ Create and View a Task Comment
-
+# KB-GAP-002 - Create and View a Task Comment
 Status: PROPOSED. Human decision: PENDING. Novelty: NOT_VERIFIED.
 
 Evidence: task sidebar comment action; task_comments/create form; CommentController::save. Baseline contains no task comment creation/assertion.

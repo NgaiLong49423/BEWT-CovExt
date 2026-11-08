@@ -1,0 +1,5 @@
+Final staged scope reviewed: `data/coverage/kanboard/` changed inventory/provenance/mapping/readme and candidate metadata; `docs/tasks/T04-A/` documentation, review packets, resolved blocker note and review-fixes evidence; the Kanboard inventory generator and its focused tests.
+
+No shared `docs/program/STATUS.json`, BEWT source, Sprint 01-05 historical evidence, Docker file, unrelated application or T04-B artifact is staged.
+
+Checks: explicit path allowlist PASS; no file exceeds 1 MiB; secret scan PASS; `git diff --cached --check` PASS. The staged diff contains only Task T04-A work.

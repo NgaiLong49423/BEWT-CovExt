@@ -1,0 +1,33 @@
+{
+  "result": "PASS",
+  "caseCount": 30,
+  "baselineCounts": {
+    "gherkinFiles": 30,
+    "javaTestDirectoryFiles": 32,
+    "javaSuiteCases": 30,
+    "pageObjectClasses": 27,
+    "behaviorGroups": 6
+  },
+  "taxonomyGroups": 6,
+  "proposalCount": 10,
+  "proposedCount": 10,
+  "shortlistCount": 5,
+  "sourceFiles": {
+    "bewt": 89,
+    "upstream": 24
+  },
+  "unsafePasswordEntries": [],
+  "unsafeEmailFieldEntries": [],
+  "malformedEmailAssertions": [],
+  "publicOracleChecks": {
+    "KB021": "Then \"Passwords don't match\" is shown below the \"Password\" field",
+    "KB023": "Then \"The password is required\" is shown below the \"Password\" field",
+    "KB025": "Then \"The minimum length is 6 characters\" is shown below the \"Password\" field",
+    "KB022": "Then \"The confirmation is required\" is shown below the \"Confirmation\" field"
+  },
+  "unchangedTitles": {
+    "KB023": "Tries to add a local user with non matching passwords and fails",
+    "KB026": "Tries to add a local user with a password below 6 characters and fails"
+  },
+  "gate": "G1 NOT_ACCEPTED"
+}

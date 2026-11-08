@@ -1,0 +1,3 @@
+node --check generator: exit 0
+node --check tests: exit 0
+node --test focused suite: exit 0

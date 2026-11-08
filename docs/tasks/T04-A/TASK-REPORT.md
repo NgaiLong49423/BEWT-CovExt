@@ -1,29 +1,38 @@
-# T04-A Task Report
+# T04-A Review Fixes - Task Report
 
-## Outcome
+- Scope / gate: Focused corrections to Kanboard T04-A inventory and candidate review data; G1 remains NOT_ACCEPTED.
+- Reviewed base commit: `6e8033cf2f970857f5fa998641ba05c3e56f6f31`.
+- Working branch: `feature/t04a-kanboard-coverage-inventory`.
+- Pull request: https://github.com/NgaiLong49423/BEWT-CovExt/pull/8 (same PR; do not merge).
+- Source pins: BEWT `0501249ff3e9a5ea83a06155cd2971dc36197056`; Kanboard `00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b`.
+- Scope invariant: 30 baseline mappings, 6 behavior groups, 10 `PROPOSED` gaps, 5 shortlisted proposals. No G1/G2/D1 acceptance and T04-B remains NOT_STARTED.
 
-Static Kanboard behavioral inventory and G1 candidate preparation are complete. No Docker, Selenium, browser, Gemini, or application runtime was run. All candidate decisions remain pending human review; G1 is not accepted.
+## 1. Root causes and corrections
 
-## Verified source inputs
+| Review issue | Root cause | Correction |
+|---|---|---|
+| Oracle redaction corruption | The earlier line-wide rule redacted the first quoted string on any line mentioning a Password field, including `Then` validation messages. The email rule also replaced quoted literals without retaining Java string syntax or oracle context. | Redaction now targets only password/confirmation values in form-entry steps and email literals in email-field fixture entry or Java `setEmail`/`getEmail` lines. Expected UI messages, public oracles and assertion predicates remain unchanged. Java email literals remain quoted and get a case-scoped `logicalFixtureId`, safe placeholder and occurrence record linking setup and assertion. Inventory/provenance schema is 1.1 and records every transformation. |
+| Pinned input integrity | The prior generator trusted pinned HEAD/tree metadata while reading arbitrary current working-tree bytes. | The generator rejects symlinked inputs, checks each tracked input against the pinned commit, reads authoritative bytes through `git cat-file --batch`, verifies Git blob IDs, and records original-byte SHA-256 values. Dirty tracked inputs fail closed before `STATIC_VERIFIED`. |
+| SonarCloud annotations | The reviewed generator resolved Git through ambient `PATH`; used default array sorts; and used complex regexes for email literals and Java import parsing. | Git is invoked only through fixed system installation paths with shell disabled. Array ordering uses an explicit lexical comparator. Quoted literals are scanned linearly; imports are parsed from line prefixes rather than a broad import regex. New SonarCloud results are recorded separately after the pushed head is analyzed. |
+| KB-023 / KB-026 presentation | Raw feature titles were treated as behavior summaries despite conflicts with the Java assertions. | Raw titles are preserved. `behaviorInterpretation` and the mapping table separately state the observed required-password validation and user-deletion behavior, with source/Java assertion evidence. Category, taxonomy and denominator remain unchanged. |
+| KB-GAP-004 contract | The draft lacked explicit actor-role, target-membership, stable-fixture and permission-boundary controls. | Preconditions and source evidence now cover an active Manager/Member target in the same project, an actor permitted to update/change assignee, a stable pre-seeded fixture and an unauthorized-role negative control. The separate technical recommendation is not a Team Lead decision. Forged non-member `owner_id` rejection remains NOT_VERIFIED. |
+| Encoding | Four review packet headings and the earlier offline-check line contained replacement/corrupt characters. | Headings and blocker history are written as UTF-8. The prior source lookup blocker is preserved as RESOLVED and explicitly superseded by source-recovery evidence. |
 
-- BEWT repository: https://github.com/OlianasD/BEWT
-- BEWT commit: `0501249ff3e9a5ea83a06155cd2971dc36197056`
-- BEWT commit tree: `d38fcc0eae8073023c48bb46998741c8c19d4d06`
-- Kanboard upstream commit: `00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b`
-- 30 Gherkin features; 30 business test classes; 32 files including BaseTest and TestSuite; 30 suite entries; 27 Page Objects.
-- All 30 business tests map one-to-one to Gherkin basenames and TestSuite entries. Hash comparison against T03-A working copy: 30/30 Java business tests and 27/27 Page Objects matched.
-- Six behavior groups; 43 Java assertion lines; 17 distinct Page Objects imported by the business tests.
+## 2. Source and test changes
 
-Full mapping: [KANBOARD-BASELINE-MAPPING.md](KANBOARD-BASELINE-MAPPING.md). Structured data and provenance: [inventory.json](../../../data/coverage/kanboard/inventory.json), [gap-candidates.json](../../../data/coverage/kanboard/gap-candidates.json), [shortlist.json](../../../data/coverage/kanboard/shortlist.json), and [provenance-index.json](../../../data/coverage/kanboard/provenance-index.json).
+- Generator: [`experiments/kanboard/tools/coverage-inventory.mjs`](../../../experiments/kanboard/tools/coverage-inventory.mjs).
+- Focused tests: [`experiments/kanboard/tools/test/coverage-inventory.test.mjs`](../../../experiments/kanboard/tools/test/coverage-inventory.test.mjs).
+- Regenerated public data: `data/coverage/kanboard/{inventory.json,provenance-index.json,KANBOARD-BASELINE-MAPPING.md}`.
+- Candidate metadata: `data/coverage/kanboard/gap-candidates.json`; KB-GAP-004 review packet: `docs/tasks/T04-A/review-packets/KB-GAP-004.md`.
+- Related documentation: `data/coverage/kanboard/README.md`, `docs/tasks/T04-A/{TASK-REPORT.md,TEST-RESULTS.md,KANBOARD-BASELINE-MAPPING.md,CANDIDATE-SHORTLIST.md,COVERAGE-GAP-ANALYSIS.md,T04-B-READINESS.md}` and review packets 001/002/003/008.
+- New evidence only: `docs/tasks/T04-A/evidence/review-fixes/`.
 
-## Candidate preparation
+## 3. Verification and limits
 
-Ten source-backed proposals are recorded; five are prioritized for review. All are `PROPOSED`, not accepted. Novelty is not determined by missing titles/tags. No Kanboard-specific record was found in `docs/research-results/final/`; that absence does not prove semantic novelty or exclude overlap elsewhere. Two baseline feature titles conflict with their Java tests, and eleven source Gherkin steps contain the typo `clicks thre`; the mapping records these as review flags without altering source.
+The new evidence directory records syntax, unit/integration-style utility checks, source-to-Git-object integrity, source oracle comparisons, regeneration hashes, JSON/mapping consistency, redaction validation, secret scan, staged diff and SonarCloud results for the pushed commit. The focused suite covers both positive pinned-file reads and negative dirty source, wrong pin and symlink inputs; it directly compares KB-021, KB-022, KB-023 and KB-025 output against their pinned Gherkin and Java blobs.
 
-## Tooling and verification
+No BEWT source, historical Sprint 01-05 evidence, shared `docs/program/STATUS.json`, Docker configuration, runtime environment or candidate research outcome was changed. Gemini, Docker, Selenium and live application behavior were not run. The static oracle parser cannot establish semantic correctness beyond source/Java text comparison. A green Sonar check, if obtained, would only establish that check's result for the exact new commit; it would not accept G1 or any program gate.
 
-The deterministic generator verifies actual Git HEAD and the BEWT tree SHA, uses root-confined real paths, hashes source files, redacts credential/email literals from published Gherkin/Java assertion text, and emits JSON plus the complete mapping table. Utility tests: PASS 7/7. JSON parse, reproducibility, source hash parity, mapping consistency, diff check and secret scan are reported in [TEST-RESULTS.md](TEST-RESULTS.md) and [source-recovery evidence](evidence/source-recovery/SOURCE-RECOVERY-REPORT.md).
+## 4. Review request
 
-## Governance
-
-Shared `docs/program/STATUS.json` was not changed because T03-B is parallel work. Proposed state is in [PROPOSED-STATUS-UPDATE.json](PROPOSED-STATUS-UPDATE.json). No G1/G2/G3/G4 or D1-D8 gate is accepted. T04-B has not started.
+Please review the preserved validation oracles, provenance/integrity contract, KB-023/KB-026 interpretation fields, and KB-GAP-004 guards/recommendation. Decide the five shortlist candidate dispositions separately. Do not start T04-B until this review gate is accepted.

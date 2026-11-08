@@ -1,0 +1,64 @@
+{
+  "reviewedHead": "6e8033cf2f970857f5fa998641ba05c3e56f6f31",
+  "checkRunId": "128806595557",
+  "checkName": "SonarCloud Code Analysis",
+  "priorConclusion": "failure",
+  "qualityGate": {
+    "securityRatingNewCode": "B",
+    "securityRequired": "A",
+    "reliabilityRequired": "A",
+    "reliabilityRatingNewCode": "D"
+  },
+  "annotationCount": 6,
+  "newHeadScan": "PENDING_AFTER_PUSH",
+  "findings": [
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Make sure the PATH variable only contains fixed, unwriteable directories.",
+      "issue": "PATH executable resolution",
+      "line": 15,
+      "resolution": "Use a fixed trusted Git executable path; shell execution disabled."
+    },
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Make sure the PATH variable only contains fixed, unwriteable directories.",
+      "issue": "PATH executable resolution",
+      "line": 16,
+      "resolution": "Use a fixed trusted Git executable path; shell execution disabled."
+    },
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.",
+      "issue": "Super-linear regular expression",
+      "line": 23,
+      "resolution": "Replace broad email regex with a bounded quoted-literal scanner."
+    },
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.",
+      "issue": "Super-linear regular expression",
+      "line": 50,
+      "resolution": "Parse Java imports by line prefix and token checks."
+    },
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Provide a compare function to avoid sorting elements alphabetically.",
+      "issue": "Default array sort",
+      "line": 50,
+      "resolution": "Use explicit deterministic lexical comparator."
+    },
+    {
+      "state": "SOURCE_CORRECTION_PENDING_RESCAN",
+      "path": "experiments/kanboard/tools/coverage-inventory.mjs",
+      "message": "Provide a compare function to avoid sorting elements alphabetically.",
+      "issue": "Default array sort",
+      "line": 68,
+      "resolution": "Use explicit deterministic lexical comparator."
+    }
+  ]
+}

@@ -1,5 +1,4 @@
-# KB-GAP-003"ιέyψ§yΤ Create a Subtask
-
+# KB-GAP-003 - Create a Subtask
 Status: PROPOSED. Human decision: PENDING. Novelty: NOT_VERIFIED.
 
 Evidence: parent task sidebar action, subtask create form, SubtaskController::save. Baseline creates top-level tasks but never asserts a parent-child relationship.

@@ -10,4 +10,6 @@ Status: PROPOSED_FOR_HUMAN_REVIEW. No ACCEPT/REVISE/REJECT decisions have been c
 | 4 | KB-GAP-004 | Change an existing task assignee | Common workflow with source-backed permission boundary |
 | 5 | KB-GAP-008 | Edit an existing column | Complements baseline create/validation coverage with a direct UI path |
 
+KB-GAP-004 requires a stable pre-seeded project/task, an active Manager/Member target in the same project, an actor allowed to update the task and change assignees, and an unauthorized-role negative control. The engineering recommendation is `KEEP_PROPOSED_WITH_ADDITIONAL_GUARDS`; it is not a Team Lead decision. Server-side rejection of a forged non-member owner ID remains `NOT_VERIFIED`.
+
 Deferred candidates and reasons are recorded in [shortlist.json](../../../data/coverage/kanboard/shortlist.json). This prioritization considers source evidence, business value, UI oracle clarity, fixture cost, and repeatability risk. It does not establish novelty, feasibility, acceptance, or validation.

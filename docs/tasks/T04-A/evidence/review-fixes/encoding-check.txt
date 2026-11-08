@@ -1,0 +1,2 @@
+Strict UTF-8 decoding PASS for 49 files in changed T04-A/data/tool roots.
+Replacement-character U+FFFD scan PASS (zero matches).
