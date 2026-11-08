@@ -38,6 +38,7 @@
 | SonarCloud analysis for previous PR SHA | PASS, but `typescript:S8786` remained on SHA `8d4cafa9559e3015f7f7e380ee7979f6fcfbc20c` | Snapshot: `evidence/verification/rerun-20261108-sonar-regex-fix-2/github-check-status.txt`; corrected in the next commit |
 | SonarCloud analysis after deterministic scanner correction | PASS, 0 new issues, 0 hotspots; new-code coverage metric 0.0% | SHA `3b3fb29b15d1563de049ca05fdeea88d939d97e7`; `evidence/verification/rerun-20261108-sonar-regex-fix-7/github-check-status.txt` |
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-full-verification-01/expresscart-agent-unit.txt` |
+| ExpressCart Agent unit tests on final T01-C worktree | PASS, 5/5 | `evidence/verification/rerun-20261108-final-expresscart-agent/expresscart-agent-unit.txt` |
 | Full framework integration outside sandbox | PASS, 18 passed / 0 failed / 1 skipped | `evidence/verification/rerun-20261108-full-verification-01/framework-integration-outside-sandbox.txt` |
 | ExpressCart adapter lifecycle integration | PASS, 1/1, included in the full integration run | Same full integration log; standalone rerun at `evidence/verification/rerun-20261108-full-verification-01/adapter-lifecycle-outside-sandbox.txt` |
 | Latest bounded Gemini Gherkin call | BLOCKED, 1/1 attempt, `API_KEY_INVALID`; no retry or response | `evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/` and `evidence/verification/rerun-20261108-live-call-04/cli-output.txt` |
