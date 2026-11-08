@@ -6,6 +6,16 @@
 
 ## Implemented
 
+### Offline review corrections
+
+- `framework/src/t01c-cli.ts` now connects production `RuntimeServices.repairJava` to the Java provider, permits at most two attempts, and fails closed unless compile/E2E evidence classifies the failure as `GENERATED_TEST_DEFECT`. Request reservations and persisted responses prevent a crash replay from silently issuing a duplicate generation/repair request.
+- `framework/src/runtime/java-artifact-registry.ts` preserves the first GENERATED Java source, writes each repair to a separate immutable artifact, stores parent and first-source hashes, verifies the chain, and checks that original assertion calls remain. The ExpressCart harness consumes only verified GENERATED/REPAIRED registrations.
+- `framework/src/runtime/validation-invocation.ts`, `framework/src/t01c-cli.ts`, and `adapters/expresscart/experiment.ts` allocate distinct immutable validation evidence directories, bind stage outcomes to invocation and artifact pins, and run scoped cleanup after fixture/E2E exceptions when ownership is verified.
+- Offline fake-provider repair is exercised with actual isolated Maven compilation: attempt 1 fails on an injected generated-test defect; repair 1 is registered separately and passes compilation. Evidence is synthetic, not Gemini output: `evidence/verification/rerun-20261108-offline-review-fixes-03/offline-repair-loop.json`.
+- Latest verification: build PASS; unit tests 42/42 PASS; full integration 19 PASS / 0 FAIL / 1 opt-in crash-recovery E2E skipped; ExpressCart Agent tests 5/5 PASS. Logs are under `evidence/verification/rerun-20261108-offline-review-fixes-03/`; `npm ci` PASS is recorded under `evidence/verification/rerun-20261108-offline-review-fixes/`.
+
+The five authorized Gemini calls remain 4 `API_KEY_INVALID` plus 1 fetch failure and 0 model outputs. No additional request was made. Live Java generation/repair and generated-candidate E2E remain unverified. The task remains partial and is awaiting review; no G2/D1 gate is self-accepted. Historical Sprint 01–05 metrics, ExpressCart source, Docker configuration, and `bewt-original/` were not intentionally changed.
+
 - LangGraph T01-C CLI wires pinned coverage analysis, Gemini Gherkin generation, human review, post-ACCEPT Java generation, registry, adapter compile/fixture/Selenium/cleanup, and structured validation: `framework/src/t01c-cli.ts`, `framework/src/runtime/workflow.ts`, `framework/src/runtime/model-provider.ts`. Review packets include persisted coverage gaps; REVISE emits a fresh packet bound to the new revision/checkpoint.
 - Source-backed coverage analysis is in `framework/src/runtime/coverage-analysis.ts`; ExpressCart pinned-source identity is checked through `adapters/expresscart/source-identity.ts` and manifest `config/apps/expresscart.json`.
 - Historical overlap inputs are indexed in `data/coverage/expresscart/` and source-linked to Sprint 02–05 records; `framework/test/historical-behavior-index.test.ts` verifies all five mappings, source existence and rejection of duplicate IDs/out-of-sprint paths. Baseline comparison remains exact-tag only and does not prove novelty.

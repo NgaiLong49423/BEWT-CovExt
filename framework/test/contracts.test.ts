@@ -94,7 +94,7 @@ function recordedDecision(decision: "APPROVED" | "REJECTED" | "UNVERIFIED", deci
 
 function validationResult(overrides: Record<string, unknown> = {}) {
   return {
-    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, invocationId: "validation-001", sourceCommit: sha, sourceVersion: "1.1.19",
+    appId: "expresscart", candidateId: "EC-C91", candidateRevision: 1, invocationId: "validation-001", artifact: { path: "extension/expresscart/selenium/ec-c91/revision-1/Test.java", sha256: "a".repeat(64), origin: "GENERATED" }, sourceCommit: sha, sourceVersion: "1.1.19",
     compile: execution("run-compile"), fixture: execution("run-fixture"), e2e: execution("run-e2e"), cleanup: execution("run-cleanup"),
     oracleDecision: recordedDecision("APPROVED", "oracle-approved"), noveltyDecision: recordedDecision("APPROVED", "novelty-approved"),
     repeats: [repeat("rerun-1"), repeat("rerun-2"), repeat("rerun-3")], repairAttempts: 1,

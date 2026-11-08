@@ -1,5 +1,18 @@
 # Test Results
 
+## T01-C offline review-fix verification (2026-11-08)
+
+| Check | Result | Evidence |
+|---|---:|---|
+| Framework `npm ci` | PASS | `evidence/verification/rerun-20261108-offline-review-fixes/framework-npm-ci.txt` |
+| Framework TypeScript build | PASS | `evidence/verification/rerun-20261108-offline-review-fixes-03/framework-build.txt` |
+| Framework unit tests | PASS, 42/42 | `evidence/verification/rerun-20261108-offline-review-fixes-03/framework-unit.txt` |
+| Full framework integration outside sandbox | PASS, 19 passed / 0 failed / 1 opt-in crash-recovery skipped | `evidence/verification/rerun-20261108-offline-review-fixes-03/framework-integration-outside-sandbox.txt` |
+| Focused fake-provider generation and bounded repair with isolated Maven | PASS, 2/2; first compile FAIL classified GENERATED_TEST_DEFECT, repaired compile PASS | `evidence/verification/rerun-20261108-offline-review-fixes-03/offline-generation-repair-integration.txt`; run record: `evidence/verification/rerun-20261108-offline-review-fixes-03/offline-repair-loop.json` |
+| ExpressCart Agent regression | PASS, 5/5 | `evidence/verification/rerun-20261108-offline-review-fixes-03/expresscart-agent-unit.txt` |
+
+The synthetic Maven compilation uses a fake Java provider and does not count as Gemini-generated success. The adapter integration includes an ownership-scoped Docker fixture/cleanup path but intentionally refuses Selenium for its unregistered artifact; the synthetic repair run marks fixture, E2E and cleanup `NOT_RUN`. OS process crash-recovery E2E remains skipped. No historical Sprint 01–05 metrics were changed.
+
 | Check | Result | Evidence |
 |---|---:|---|
 | Framework `npm ci` | PASS | `evidence/verification/rerun-20261108-final/framework-npm-ci.txt` |
@@ -22,7 +35,7 @@
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt` |
 | Filesystem safety integration outside sandbox | PASS, 3/3 | `evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt`; `evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt` |
 | Earlier managed-sandbox integration run | FAIL, 12 passed / 4 failed / 1 skipped; superseded by the current outside-sandbox full run below | `evidence/verification/rerun-20261108/framework-integration.txt`; symlink creation `EPERM`; Docker access blocked; crash/replay skipped |
-| Gemini Gherkin requests | FAIL, 4 authorized provider invocations, no retries; three `API_KEY_INVALID`, one fetch failure | `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`, `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`, `evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/`, and `evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/`; three budget rejects recorded separately with `calls=0` |
+| Gemini Gherkin requests | FAIL, 5 authorized provider invocations, 0 model outputs, no retries; four `API_KEY_INVALID`, one fetch failure | Five run directories are listed in `COVERAGE-AND-CANDIDATE-RESULTS.md`; latest CLI evidence: `evidence/verification/rerun-20261108-live-call-05/cli-output.txt`; three budget rejects were local preflight only (`calls=0`) |
 | Live Maven fixture / Selenium / cleanup / repeats | NOT_RUN | No live candidate; offline compile is not live validation |
 
 ## Current revalidation after Docker access was restored outside the sandbox

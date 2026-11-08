@@ -4,8 +4,8 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { AgentWorkflowState, CandidateScenario, EvidenceReference, HumanReviewDecision } from "../src/contracts.js";
-import { pauseAtHumanReview, submitReviewDecision, transitionWorkflow } from "../src/policy.js";
-import { expectedGeneratedTestClass, registerGeneratedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
+import { pauseAtHumanReview, startRepair, submitReviewDecision, transitionWorkflow } from "../src/policy.js";
+import { expectedGeneratedTestClass, registerGeneratedJava, registerRepairedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
 import { FakeJavaGenerationProvider, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -63,7 +63,9 @@ test("generated Java registration is immutable, candidate/revision-bound and req
     const verified = await verifyRegisteredGeneratedJava(root, accepted, accepted.candidate!, artifact);
     assert.equal(verified.registration.sourceSha256, artifact.sha256);
     assert.equal((await readFile(verified.absolutePath, "utf8")), generated.javaSource);
-    await assert.rejects(registerGeneratedJava(root, accepted, accepted.candidate!, generated), /already exists/);
+    const repeatedRegistration = await registerGeneratedJava(root, accepted, accepted.candidate!, generated);
+    assert.deepEqual(repeatedRegistration.artifact, artifact, "workflow replay must recover the exact immutable first source without EEXIST");
+    await assert.rejects(registerGeneratedJava(root, accepted, accepted.candidate!, { ...generated, javaSource: `${generated.javaSource}//different bytes` }), /immutable artifact already exists with different content/);
 
     const changedCandidate = { ...accepted.candidate!, gherkin: `${accepted.candidate!.gherkin}\n    And a changed oracle step` };
     await assert.rejects(verifyRegisteredGeneratedJava(root, accepted, changedCandidate, artifact), /exact human-approved candidate revision/);
@@ -72,5 +74,42 @@ test("generated Java registration is immutable, candidate/revision-bound and req
 
     await writeFile(verified.absolutePath, `${generated.javaSource}//tampered\n`);
     await assert.rejects(verifyRegisteredGeneratedJava(root, accepted, accepted.candidate!, artifact), /hash mismatch/);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
+
+test("repaired artifacts are immutable, assertion-preserving, and chained through both bounded attempts", async () => {
+  const root = await mkdtemp(join(tmpdir(), "bewt-t01c-java-repair-registry-"));
+  try {
+    const candidate = { ...proposed };
+    const accepted = acceptedWorkflow(candidate);
+    const approvedCandidate = accepted.candidate!;
+    const provider = new FakeJavaGenerationProvider();
+    const generated = await provider.generateJava(accepted.candidate!, accepted);
+    const first = await registerGeneratedJava(root, accepted, accepted.candidate!, generated);
+    const withFirst = { ...accepted, artifacts: [{ kind: "generated_java" as const, path: first.artifact.path, testClass: first.artifact.testClass,
+      candidateId: candidate.candidateId, revision: candidate.revision, origin: "GENERATED" as const, sha256: first.artifact.sha256! }] };
+    let repairing = startRepair(transitionWorkflow(transitionWorkflow(withFirst, "JAVA_GENERATED"), "VALIDATING"));
+    const validation = { compile: { outcome: "FAIL", failureClassification: "GENERATED_TEST_DEFECT" }, e2e: { outcome: "NOT_RUN" } } as import("../src/contracts.js").ValidationResult;
+    const firstRepairOutput = await provider.repairJava(approvedCandidate, repairing, generated.javaSource, validation, 1);
+    const repair1 = await registerRepairedJava(root, repairing, approvedCandidate, first.artifact, first.artifact, 1, firstRepairOutput);
+    assert.equal(repair1.artifact.origin, "REPAIRED");
+    assert.notEqual(repair1.artifact.sha256, first.artifact.sha256);
+    const withRepair1 = { ...repairing, artifacts: [...withFirst.artifacts, { kind: "generated_java" as const, path: repair1.artifact.path,
+      testClass: repair1.artifact.testClass, candidateId: candidate.candidateId, revision: candidate.revision, origin: "REPAIRED" as const, sha256: repair1.artifact.sha256! }] };
+    const verified1 = await verifyRegisteredGeneratedJava(root, withRepair1, approvedCandidate, repair1.artifact);
+    assert.equal(verified1.registration.repairAttempt, 1);
+    repairing = startRepair(transitionWorkflow(withRepair1, "VALIDATING"));
+    const secondRepairOutput = await provider.repairJava(approvedCandidate, repairing, await readFile(verified1.absolutePath, "utf8"), validation, 2);
+    const repair2 = await registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2, secondRepairOutput);
+    const withRepair2 = { ...repairing, artifacts: [...withRepair1.artifacts, { kind: "generated_java" as const, path: repair2.artifact.path,
+      testClass: repair2.artifact.testClass, candidateId: candidate.candidateId, revision: candidate.revision, origin: "REPAIRED" as const, sha256: repair2.artifact.sha256! }] };
+    const verified2 = await verifyRegisteredGeneratedJava(root, withRepair2, approvedCandidate, repair2.artifact);
+    assert.equal(verified2.registration.repairAttempt, 2);
+    assert.equal(verified2.registration.parentArtifactPath, repair1.artifact.path);
+    assert.equal(verified2.registration.firstGeneratedSourceSha256, first.artifact.sha256);
+    await writeFile(verified2.absolutePath, `${secondRepairOutput.javaSource}// tamper\n`);
+    await assert.rejects(verifyRegisteredGeneratedJava(root, withRepair2, approvedCandidate, repair2.artifact), /hash mismatch/);
+    await assert.rejects(registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2,
+      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace("Assert.assertNotNull(appUrl);", "") }), /retain every assertion call/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

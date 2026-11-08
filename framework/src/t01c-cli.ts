@@ -2,17 +2,18 @@ import { createHash, randomUUID } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
-import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult } from "./contracts.js";
+import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseToolResult, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult, type ValidationResult } from "./contracts.js";
 import { assertBaselineMatchesManifest } from "./policy.js";
 import { analyzeSourceBackedCoverage } from "./runtime/coverage-analysis.js";
-import { candidateFromGeneration, GeminiGenerationProvider, GeminiJavaGenerationProvider, newCandidateId, type GenerationOutput } from "./runtime/model-provider.js";
+import { candidateFromGeneration, GeminiGenerationProvider, GeminiJavaGenerationProvider, newCandidateId, parseGeneratedJavaOutput, type GenerationOutput } from "./runtime/model-provider.js";
 import { parseGherkin } from "./runtime/gherkin.js";
 import { buildWorkflow, openSqliteCheckpointer, resumeReview, type RuntimeServices, type RuntimeState } from "./runtime/workflow.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./runtime/safe-path.js";
 import { verifyExpressCartSourceInputs } from "../../adapters/expresscart/source-identity.js";
-import { registerGeneratedJava } from "./runtime/java-artifact-registry.js";
-import { readModelRunBudget, recordModelCall, reserveModelCall } from "./runtime/model-call-ledger.js";
+import { loadRegisteredGeneratedJava, loadRegisteredRepairedJava, registerGeneratedJava, registerRepairedJava } from "./runtime/java-artifact-registry.js";
+import { completePendingModelCall, hasReservedModelCall, readModelRunBudget, recordModelCall, reserveModelCall } from "./runtime/model-call-ledger.js";
 import { readHistoricalBehaviorIndex } from "../../adapters/expresscart/historical-behavior-index.js";
+import { reserveValidationInvocation } from "./runtime/validation-invocation.js";
 
 const root = resolve(process.cwd(), "..");
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -23,6 +24,11 @@ const evidenceRoot = "docs/tasks/T01-C/evidence";
 
 async function writeUnique(relativePath: string, content: string): Promise<void> {
   await writeFile(await resolveContainedOutputPath(root, relativePath), content, { flag: "wx" });
+}
+
+async function readOptionalJson(relativePath: string): Promise<unknown | undefined> {
+  try { return JSON.parse(await readFile(await resolveContainedExistingPath(root, relativePath), "utf8")) as unknown; }
+  catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return undefined; throw error; }
 }
 
 async function readCoverageReviewData(runId: string): Promise<{ analysis: unknown[]; gaps: CoverageGap[] }> {
@@ -36,7 +42,7 @@ function executionReference(result: ToolResult, invocationId: string, appState: 
   const runIds = [...new Set(result.evidence.map((reference) => reference.runId))];
   if (runIds.length > 1) throw new Error(`${result.tool} produced evidence from multiple stage runs`);
   const stageRunId = runIds[0];
-  return { invocationId, ...(stageRunId ? { stageRunId } : {}), outcome: result.outcome,
+  return { invocationId, ...(stageRunId ? { stageRunId } : {}), outcome: result.outcome, ...(result.failureClassification ? { failureClassification: result.failureClassification } : {}),
     sourceCommit: appState.sourceCommit, sourceVersion: appState.sourceVersion, evidence: result.evidence };
 }
 
@@ -144,15 +150,33 @@ async function main(args: string[]): Promise<void> {
       trustedReviewerId,
       prepareJava: async (candidate, workflow) => {
         if (!javaProvider) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED_FOR_POST_ACCEPT_JAVA");
-        const context = await approvedJavaContext(candidate);
-        const reservation = await reserveModelCall(root, evidenceRoot, workflow.runId, "java");
-        let output;
-        try {
-          output = await javaProvider.generateJava(candidate, workflow, context);
-          await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, "PASS", javaProvider.lastTelemetry);
-        } catch (error) {
-          await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
-          throw error;
+        let recovered: GeneratedJavaArtifact | undefined;
+        try { recovered = await loadRegisteredGeneratedJava(root, workflow, candidate); }
+        catch (error) { if (!(error instanceof Error) || !error.message.includes("incomplete immutable Java registration")) throw error; }
+        if (recovered) {
+          await writeUnique(`${evidenceRoot}/${workflow.runId}/java-generation-recovered-${randomUUID()}.json`, JSON.stringify({ runId: workflow.runId,
+            candidateId: candidate.candidateId, revision: candidate.revision, artifactPath: recovered.path, artifactSha256: recovered.sha256,
+            origin: "GENERATED", resumedWithoutDuplicateModelCall: true }, null, 2));
+          return { path: recovered.path, testClass: recovered.testClass, sha256: recovered.sha256!, origin: "GENERATED" };
+        }
+        const responsePath = `${evidenceRoot}/${workflow.runId}/java-generation-response.json`;
+        let response = await readOptionalJson(responsePath) as { output?: unknown; telemetry?: unknown } | undefined;
+        let output = response ? parseGeneratedJavaOutput(response.output) : undefined;
+        if (response) await completePendingModelCall(root, evidenceRoot, workflow.runId, "java", response.telemetry ?? response);
+        if (!output) {
+          if (await hasReservedModelCall(root, evidenceRoot, workflow.runId, "java")) throw new Error("JAVA_GENERATION_CALL_ALREADY_RESERVED_WITHOUT_RECOVERABLE_RESPONSE; replay blocked to prevent duplicate model generation");
+          const context = await approvedJavaContext(candidate);
+          const reservation = await reserveModelCall(root, evidenceRoot, workflow.runId, "java");
+          try {
+            output = await javaProvider.generateJava(candidate, workflow, context);
+            await writeUnique(responsePath, JSON.stringify({ runId: workflow.runId, candidateId: candidate.candidateId, revision: candidate.revision,
+              sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion, provider: javaProvider.name, model: javaProvider.model,
+              telemetry: javaProvider.lastTelemetry, output }, null, 2));
+            await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, "PASS", javaProvider.lastTelemetry);
+          } catch (error) {
+            await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
+            throw error;
+          }
         }
         const registered = await registerGeneratedJava(root, workflow, candidate, output);
         const directory = `${evidenceRoot}/${workflow.runId}`;
@@ -165,41 +189,101 @@ async function main(args: string[]): Promise<void> {
           immutableFirstGeneration: true, historicalArtifactReused: false }, null, 2));
         return { path: registered.artifact.path, testClass: registered.artifact.testClass, sha256: registered.artifact.sha256!, origin: "GENERATED" };
       },
+      repairJava: async (candidate, firstRuntime, currentRuntime, validation, attempt, workflow) => {
+        if (!javaProvider?.repairJava) throw new Error("PRODUCTION_JAVA_REPAIR_NOT_IMPLEMENTED");
+        if (!Number.isInteger(attempt) || attempt < 1 || attempt > 2 || workflow.repairAttempts !== attempt) throw new Error("repair attempt does not match the bounded workflow counter");
+        const isGeneratedDefect = (validation.compile.outcome === "FAIL" && validation.compile.failureClassification === "GENERATED_TEST_DEFECT") ||
+          (validation.e2e.outcome === "FAIL" && validation.e2e.failureClassification === "GENERATED_TEST_DEFECT");
+        if (!isGeneratedDefect) throw new Error("repair is permitted only for a GENERATED_TEST_DEFECT validation failure");
+        const first: GeneratedJavaArtifact = { kind: "generated_java", path: firstRuntime.path, testClass: firstRuntime.testClass, sha256: firstRuntime.sha256,
+          origin: firstRuntime.origin, candidateId: candidate.candidateId, revision: candidate.revision };
+        const current: GeneratedJavaArtifact = { kind: "generated_java", path: currentRuntime.path, testClass: currentRuntime.testClass, sha256: currentRuntime.sha256,
+          origin: currentRuntime.origin, candidateId: candidate.candidateId, revision: candidate.revision };
+        const currentSource = await readFile(await resolveContainedExistingPath(root, current.path), "utf8");
+        let recovered: GeneratedJavaArtifact | undefined;
+        try { recovered = await loadRegisteredRepairedJava(root, workflow, candidate, attempt); }
+        catch (error) { if (!(error instanceof Error) || !error.message.includes("incomplete immutable repair registration")) throw error; }
+        if (recovered) return { path: recovered.path, testClass: recovered.testClass, sha256: recovered.sha256!, origin: "REPAIRED" };
+        const responsePath = `${evidenceRoot}/${workflow.runId}/java-repair-${attempt}-response.json`;
+        const response = await readOptionalJson(responsePath) as { output?: unknown; telemetry?: unknown } | undefined;
+        let output = response ? parseGeneratedJavaOutput(response.output) : undefined;
+        const stage = `repair-${attempt}` as "repair-1" | "repair-2";
+        if (response) await completePendingModelCall(root, evidenceRoot, workflow.runId, stage, response.telemetry ?? response);
+        if (!output && await hasReservedModelCall(root, evidenceRoot, workflow.runId, stage)) throw new Error(`JAVA_REPAIR_${attempt}_CALL_ALREADY_RESERVED_WITHOUT_RECOVERABLE_RESPONSE; replay blocked to prevent duplicate model repair`);
+        const reservation = output ? undefined : await reserveModelCall(root, evidenceRoot, workflow.runId, stage);
+        let callRecorded = false;
+        try {
+          if (!output) {
+            output = await javaProvider.repairJava(candidate, workflow, currentSource, validation, attempt);
+            await writeUnique(responsePath, JSON.stringify({ runId: workflow.runId, candidateId: candidate.candidateId, revision: candidate.revision,
+              attempt, sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion, provider: javaProvider.name, model: javaProvider.model,
+              telemetry: javaProvider.lastTelemetry, output }, null, 2));
+            await recordModelCall(root, evidenceRoot, workflow.runId, reservation!.callNumber, "PASS", javaProvider.lastTelemetry);
+            callRecorded = true;
+          }
+          const repaired = await registerRepairedJava(root, workflow, candidate, first, current, attempt, output);
+          await writeUnique(`${evidenceRoot}/${workflow.runId}/java-repair-${attempt}.json`, JSON.stringify({ runId: workflow.runId, candidateId: candidate.candidateId,
+            revision: candidate.revision, attempt, sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion,
+            provider: javaProvider.name, model: javaProvider.model, telemetry: javaProvider.lastTelemetry,
+            parentArtifactPath: current.path, parentArtifactSha256: current.sha256, firstGeneratedArtifactPath: first.path,
+            firstGeneratedArtifactSha256: first.sha256, artifact: repaired.registration, assertionsPreserved: true }, null, 2));
+          return { path: repaired.artifact.path, testClass: repaired.artifact.testClass, sha256: repaired.artifact.sha256!, origin: "REPAIRED" };
+        } catch (error) {
+          if (reservation && !callRecorded) await recordModelCall(root, evidenceRoot, workflow.runId, reservation.callNumber, javaProvider.lastTelemetry.status, javaProvider.lastTelemetry, error);
+          await writeUnique(`${evidenceRoot}/${workflow.runId}/java-repair-${attempt}-failure.json`, JSON.stringify({ runId: workflow.runId, candidateId: candidate.candidateId,
+            revision: candidate.revision, attempt, parentArtifactPath: current.path, parentArtifactSha256: current.sha256,
+            error: sanitizeToolOutput(error instanceof Error ? error.message : "repair failed"), telemetry: javaProvider.lastTelemetry }, null, 2));
+          throw error;
+        }
+      },
       validate: async (candidate, artifact, repairAttempts, workflow) => {
-        const invocationId = workflow.validationInvocationId ?? workflow.runId;
+        await adapter.reconcilePriorT01cInvocations(candidate, workflow);
+        const allocation = await reserveValidationInvocation(root, evidenceRoot, workflow.runId);
+        const invocationId = allocation.invocationId;
+        const invocationState: AgentWorkflowState = { ...workflow, validationInvocationId: invocationId };
+        const invocationDirectory = allocation.evidenceDirectory;
         const generatedArtifact: GeneratedJavaArtifact = { kind: "generated_java", path: artifact.path, testClass: artifact.testClass,
           sha256: artifact.sha256, origin: artifact.origin, candidateId: candidate.candidateId, revision: candidate.revision };
-        const compile = await adapter.compileGenerated(candidate, generatedArtifact, workflow);
+        const stageFailure = (tool: ToolResult["tool"], error: unknown): ToolResult => parseToolResult({ tool, outcome: tool === "cleanup-experiment" ? "BLOCKED" : "FAIL",
+          stdout: "", stderr: sanitizeToolOutput(error instanceof Error ? error.message : "stage failed"), evidence: [] });
+        let compile: ToolResult = { tool: "compile-maven-project", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
         let fixture: ToolResult = { tool: "prepare-fixture", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
         let e2e: ToolResult = { tool: "run-selenium-test", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
         let cleanup: ToolResult = { tool: "cleanup-experiment", outcome: "NOT_RUN", stdout: "", stderr: "", evidence: [] };
+        try { compile = await adapter.compileGenerated(candidate, generatedArtifact, invocationState); }
+        catch (error) { compile = stageFailure("compile-maven-project", error); }
         if (compile.outcome === "PASS") {
-          fixture = await adapter.prepareFixture(candidate, manifest.fixtureReset.experimentKey, workflow);
-          if (fixture.outcome === "PASS") e2e = await adapter.runGeneratedSelenium(candidate, generatedArtifact, workflow);
-          cleanup = await adapter.cleanup(candidate, manifest.fixtureReset.experimentKey, workflow);
+          try { fixture = await adapter.prepareFixture(candidate, manifest.fixtureReset.experimentKey, invocationState, generatedArtifact); }
+          catch (error) { fixture = stageFailure("prepare-fixture", error); }
+          if (fixture.outcome === "PASS") {
+            try { e2e = await adapter.runGeneratedSelenium(candidate, generatedArtifact, invocationState); }
+            catch (error) { e2e = stageFailure("run-selenium-test", error); }
+          }
         }
+        try { cleanup = await adapter.cleanup(candidate, manifest.fixtureReset.experimentKey, invocationState, generatedArtifact); }
+        catch (error) { cleanup = stageFailure("cleanup-experiment", error); }
         const decision = (suffix: string) => ({ decisionId: `${workflow.runId}-${suffix}-${randomUUID()}`, appId: candidate.appId,
           candidateId: candidate.candidateId, candidateRevision: candidate.revision, decision: "UNVERIFIED" as const,
           reviewerId: "not-reviewed", decidedAt: new Date().toISOString(),
           rationale: "No research oracle or novelty acceptance decision was made by the T01-C execution agent.", evidence: [] });
-        const resultPath = `${evidenceRoot}/${workflow.runId}/validation-result.json`;
+        const resultPath = `${invocationDirectory}/validation-result.json`;
         const parsed = parseValidationResult({ appId: candidate.appId, candidateId: candidate.candidateId, candidateRevision: candidate.revision,
-          invocationId, sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion,
+          invocationId, artifact: { path: generatedArtifact.path, sha256: generatedArtifact.sha256, origin: generatedArtifact.origin }, sourceCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion,
           compile: executionReference(compile, invocationId, workflow), fixture: executionReference(fixture, invocationId, workflow),
           e2e: executionReference(e2e, invocationId, workflow), cleanup: executionReference(cleanup, invocationId, workflow),
           oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts,
           evidence: [{ repositoryCommit: workflow.sourceCommit, sourceVersion: workflow.sourceVersion, runId: invocationId, artifactPath: resultPath }],
           researchAcceptance: { status: "NOT_REVIEWED" } });
-        await ensureContainedDirectory(root, `${evidenceRoot}/${workflow.runId}`);
         await writeUnique(resultPath, JSON.stringify(parsed, null, 2));
         return parsed;
       },
       recordEvidence: async (state) => {
         const directory = `${evidenceRoot}/${state.workflow.runId}`;
         await ensureContainedDirectory(root, directory);
-        const path = `${directory}/workflow-final.json`;
+        const path = `${directory}/workflow-final-${randomUUID()}.json`;
         await writeUnique(path, JSON.stringify({ runId: state.workflow.runId, status: state.workflow.status, candidate: state.workflow.candidate,
           reviewDecisions: state.workflow.reviewDecisions, artifacts: state.workflow.artifacts, terminalError: state.terminalError,
+          validation: state.validation, validationHistory: state.validationHistory,
           liveModelTelemetry: { gherkin: provider?.lastTelemetry ?? { status: "NOT_RUN", calls: 0 }, java: javaProvider?.lastTelemetry ?? { status: "NOT_RUN", calls: 0 } } }, null, 2));
         return path;
       },

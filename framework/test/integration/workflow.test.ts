@@ -34,7 +34,8 @@ function validation(candidateRecord: CandidateScenario, invocationId: string, re
   };
   return {
     appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision,
-    invocationId, sourceCommit: commit, sourceVersion: "1.1.19", compile: stage("compile"), fixture: stage("fixture"), e2e: stage("e2e"), cleanup: stage("cleanup"),
+    invocationId, artifact: { path: `extension/expresscart/selenium/${candidateRecord.candidateId}/revision-${candidateRecord.revision}/Test.java`, sha256: "b".repeat(64), origin: repairAttempts ? "REPAIRED" : "GENERATED" },
+    sourceCommit: commit, sourceVersion: "1.1.19", compile: stage("compile"), fixture: stage("fixture"), e2e: stage("e2e"), cleanup: stage("cleanup"),
     oracleDecision: { decisionId: `${invocationId}-oracle`, appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision, decision: "UNVERIFIED", reviewerId: "test", decidedAt: "2026-11-07T00:00:00Z", rationale: "Integration stub does not verify an independent oracle.", evidence: [] },
     noveltyDecision: { decisionId: `${invocationId}-novelty`, appId: candidateRecord.appId, candidateId: candidateRecord.candidateId, candidateRevision: candidateRecord.revision, decision: "UNVERIFIED", reviewerId: "test", decidedAt: "2026-11-07T00:00:00Z", rationale: "Integration stub does not make a novelty decision.", evidence: [] },
     repeats: [], repairAttempts, evidence: [], technicalEligibility: Object.values(outcomes).includes("FAIL") ? "INELIGIBLE" : "UNVERIFIED", researchAcceptance: { status: "NOT_REVIEWED" },

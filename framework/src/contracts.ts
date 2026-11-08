@@ -189,6 +189,7 @@ export type ToolRequest =
 export interface ToolResult {
   tool: ToolName;
   outcome: Outcome;
+  failureClassification?: ExecutionReference["failureClassification"];
   exitCode?: number;
   stdout: string;
   stderr: string;
@@ -250,6 +251,7 @@ export interface ValidationResult {
   candidateId: string;
   candidateRevision: number;
   invocationId: string;
+  artifact: { path: string; sha256: string; origin: "GENERATED" | "REUSED" | "REPAIRED" };
   sourceCommit: string;
   sourceVersion: string;
   compile: ExecutionReference;
@@ -627,11 +629,15 @@ export function parseToolRequest(input: unknown): ToolRequest {
 
 export function parseToolResult(input: unknown): ToolResult {
   const value = record(input, "ToolResult");
-  assertKeys(value, ["tool", "outcome", "exitCode", "stdout", "stderr", "evidence"], "ToolResult");
+  assertKeys(value, ["tool", "outcome", "failureClassification", "exitCode", "stdout", "stderr", "evidence"], "ToolResult");
   const exitCode = value.exitCode;
   if (exitCode !== undefined && (!Number.isInteger(exitCode) || (exitCode as number) < 0)) throw new ContractError("exitCode must be a non-negative integer");
+  const outcome = member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "outcome");
+  const failureClassification = value.failureClassification === undefined ? undefined : member(value.failureClassification, ["GENERATED_TEST_DEFECT", "APPLICATION_BEHAVIOR", "ENVIRONMENT_OR_HARNESS", "UNCLASSIFIED"] as const, "failureClassification");
+  if (failureClassification !== undefined && outcome !== "FAIL") throw new ContractError("failureClassification is only valid for a FAIL tool outcome");
   return {
-    tool: member(value.tool, TOOL_NAMES, "tool"), outcome: member(value.outcome, ["PASS", "FAIL", "BLOCKED", "NOT_RUN", "INCONCLUSIVE"] as const, "outcome"),
+    tool: member(value.tool, TOOL_NAMES, "tool"), outcome,
+    ...(failureClassification === undefined ? {} : { failureClassification }),
     ...(exitCode === undefined ? {} : { exitCode: exitCode as number }),
     stdout: sanitizeToolOutput(outputText(value.stdout ?? "", "stdout")),
     stderr: sanitizeToolOutput(outputText(value.stderr ?? "", "stderr")),
@@ -641,12 +647,17 @@ export function parseToolResult(input: unknown): ToolResult {
 
 export function parseValidationResult(input: unknown): ValidationResult {
   const value = record(input, "ValidationResult");
-  assertKeys(value, ["appId", "candidateId", "candidateRevision", "invocationId", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup", "oracleDecision", "noveltyDecision", "repeats", "repairAttempts", "evidence", "technicalEligibility", "researchAcceptance"], "ValidationResult");
+  assertKeys(value, ["appId", "candidateId", "candidateRevision", "invocationId", "artifact", "sourceCommit", "sourceVersion", "compile", "fixture", "e2e", "cleanup", "oracleDecision", "noveltyDecision", "repeats", "repairAttempts", "evidence", "technicalEligibility", "researchAcceptance"], "ValidationResult");
   const declaredEligibility = value.technicalEligibility === undefined ? undefined : member(value.technicalEligibility, ["ELIGIBLE", "INELIGIBLE", "UNVERIFIED"] as const, "technicalEligibility");
   const appId = member(value.appId, APP_IDS, "appId");
   const candidateId = text(value.candidateId, "candidateId", 120);
   const candidateRevision = positiveInteger(value.candidateRevision, "candidateRevision");
   const invocationId = text(value.invocationId, "invocationId", 120);
+  const artifactInput = record(value.artifact, "artifact");
+  assertKeys(artifactInput, ["path", "sha256", "origin"], "ValidationResult.artifact");
+  const artifact = { path: assertSafeRelativePath(artifactInput.path, "ValidationResult.artifact.path"),
+    sha256: sha256(artifactInput.sha256, "ValidationResult.artifact.sha256"),
+    origin: member(artifactInput.origin, ["GENERATED", "REUSED", "REPAIRED"] as const, "ValidationResult.artifact.origin") };
   const sourceCommit = sha(value.sourceCommit, "sourceCommit");
   const sourceVersion = text(value.sourceVersion, "sourceVersion", 120);
   const compile = parseExecutionReference(value.compile, "compile");
@@ -680,7 +691,7 @@ export function parseValidationResult(input: unknown): ValidationResult {
     ...(acceptanceInput.decision === undefined ? {} : { decision: parseRecordedDecision(acceptanceInput.decision, "researchAcceptance.decision") }),
   };
   if (acceptance.decision) assertDecisionTarget(acceptance.decision, appId, candidateId, candidateRevision, "research acceptance decision");
-  const resultBase = { appId, candidateId, candidateRevision, invocationId, sourceCommit, sourceVersion, compile, fixture, e2e, cleanup, oracleDecision, noveltyDecision, repeats, repairAttempts: attempts as number, evidence, researchAcceptance: acceptance };
+  const resultBase = { appId, candidateId, candidateRevision, invocationId, artifact, sourceCommit, sourceVersion, compile, fixture, e2e, cleanup, oracleDecision, noveltyDecision, repeats, repairAttempts: attempts as number, evidence, researchAcceptance: acceptance };
   for (const [stage, reference] of [["compile", compile], ["fixture", fixture], ["e2e", e2e], ["cleanup", cleanup]] as const) {
     assertExecutionPin(reference, invocationId, sourceCommit, sourceVersion, stage);
   }

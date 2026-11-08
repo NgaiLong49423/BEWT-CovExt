@@ -38,8 +38,8 @@ export function resolveExpressCartFixtureProfile(candidate: CandidateScenario): 
   if (hasPinnedResetRoute && /reset/i.test(candidate.gherkin) && /token/i.test(candidate.gherkin) && /invalid|expired/i.test(candidate.gherkin)) return "invalid-reset-token";
   throw new Error("no approved ExpressCart fixture profile matches this candidate's pinned behavior and source evidence");
 }
-function outcomeResult(tool: ToolName, outcome: ToolResult["outcome"], stdout = "", stderr = "", exitCode?: number, evidence: EvidenceReference[] = []): ToolResult {
-  return parseToolResult({ tool, outcome, stdout, stderr, ...(exitCode === undefined ? {} : { exitCode }), evidence });
+function outcomeResult(tool: ToolName, outcome: ToolResult["outcome"], stdout = "", stderr = "", exitCode?: number, evidence: EvidenceReference[] = [], failureClassification?: ToolResult["failureClassification"]): ToolResult {
+  return parseToolResult({ tool, outcome, stdout, stderr, ...(exitCode === undefined ? {} : { exitCode }), evidence, ...(failureClassification ? { failureClassification } : {}) });
 }
 function isBlocked(error: unknown): boolean {
   const message = error instanceof Error ? error.message : String(error);
@@ -97,6 +97,28 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     return inventory;
   }
 
+  /** On replay, reconcile only prior T01-C Compose projects whose persisted owner and Compose hash validate. */
+  async reconcilePriorT01cInvocations(candidate: CandidateScenario, workflow: AgentWorkflowState): Promise<void> {
+    if (!workflow.runId.startsWith("t01c-")) throw new Error("T01-C replay recovery requires a T01-C workflow run ID");
+    const root = `docs/tasks/T01-C/evidence/${workflow.runId}/invocations`;
+    let entries;
+    try { entries = await readdir(await resolveContainedExistingPath(this.repositoryRoot, root), { withFileTypes: true }); }
+    catch (error) { if ((error as NodeJS.ErrnoException).code === "ENOENT") return; throw error; }
+    for (const entry of entries) {
+      if (entry.isSymbolicLink()) throw new Error(`prior T01-C invocation entry ${entry.name} is a symlink; recovery is blocked`);
+      if (!entry.isDirectory()) continue;
+      const priorState = { ...workflow, validationInvocationId: entry.name };
+      let ownerExists = false;
+      try { await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(priorState)}/owner.json`); ownerExists = true; }
+      catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+      if (!ownerExists) continue; // Compose is never started before the owner record is durable.
+      const recovered = await this.recoverRun(priorState, entry.name);
+      if (!recovered) throw new Error(`prior T01-C invocation ${entry.name} has unverifiable ownership; new fixture creation is blocked`);
+      const result = await this.cleanup(candidate, this.manifest.fixtureReset.experimentKey, priorState);
+      if (result.outcome === "BLOCKED" || result.outcome === "FAIL") throw new Error(`prior T01-C invocation ${entry.name} cleanup is ${result.outcome}; new fixture creation is blocked`);
+    }
+  }
+
   async prepareJava(candidateInput: CandidateScenario, state: AgentWorkflowState): Promise<{ path: string; testClass: string; sha256: string; origin: "REUSED" }> {
     const candidate = parseCandidateScenario(candidateInput);
     const testClass = CLASS_BY_CANDIDATE[candidate.candidateId];
@@ -123,7 +145,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     }
   }
 
-  async prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult> {
+  async prepareFixture(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState, artifact?: GeneratedJavaArtifact): Promise<ToolResult> {
     if (experimentKey !== this.manifest.fixtureReset.experimentKey) throw new Error("experiment ownership key mismatch");
     assertHumanApprovedCandidate(state, candidate);
     const fixtureKind = resolveExpressCartFixtureProfile(candidate);
@@ -145,7 +167,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       await writeFile(composePath, JSON.stringify(compose, null, 2), { flag: "wx" });
       run.composePath = composePath;
       run.composeSha256 = sha256(await readFile(composePath));
-      await this.writeRunEvidence(state, "owner.json", JSON.stringify({ workflowRunId: state.runId, invocationId: invocation, project: run.project, composeFile: composeRelative, composeSha256: run.composeSha256, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, candidateId: candidate.candidateId, candidateRevision: candidate.revision, fixtureKind: run.fixtureKind, ownedResourcesOnly: true }, null, 2));
+      await this.writeRunEvidence(state, "owner.json", JSON.stringify({ workflowRunId: state.runId, invocationId: invocation, project: run.project, composeFile: composeRelative, composeSha256: run.composeSha256, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, candidateId: candidate.candidateId, candidateRevision: candidate.revision, fixtureKind: run.fixtureKind, ...(artifact ? { artifactPath: artifact.path, artifactSha256: artifact.sha256, artifactOrigin: artifact.origin } : {}), ownedResourcesOnly: true }, null, 2));
       const config = await this.compose(run, ["config", "--format", "json"]);
       if (config.exitCode !== 0 || !this.validateComposeConfig(config.stdout, run.project)) throw new Error("isolated Compose configuration did not match the run project and service set");
       const started = await this.compose(run, ["up", "-d", "--pull", "never", "--no-build"]);
@@ -167,7 +189,8 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       const fixture = { runId: state.runId, project: run.project, appUrl: run.baseUrl, fixtureKind: run.fixtureKind,
         ...(mongoCustomerMatchCountBefore === undefined ? {} : { mongoCustomerMatchCountBefore }), emailSha256: sha256(email),
         sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, emailStored: false, databaseModified: false };
-      const evidence = await this.writeRunEvidence(state, "fixture-preflight.json", JSON.stringify({ ...fixture, invocationId: invocation }, null, 2));
+      const evidence = await this.writeRunEvidence(state, "fixture-preflight.json", JSON.stringify({ ...fixture, invocationId: invocation,
+        ...(artifact ? { artifactPath: artifact.path, artifactSha256: artifact.sha256, artifactOrigin: artifact.origin } : {}) }, null, 2));
       return outcomeResult("prepare-fixture", "PASS", run.fixtureKind === "legacy-ec-c04" ? "App readiness and exact email-absence preflight passed." : "App readiness passed; invalid reset token requires no customer mutation.", "", 0, [this.evidenceRef(invocation, evidence)]);
     } catch (error) {
       const message = error instanceof Error ? error.message : "fixture setup failed";
@@ -180,7 +203,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   async compileGenerated(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, state: AgentWorkflowState): Promise<ToolResult> {
     try {
       assertHumanApprovedCandidate(state, candidate);
-      if (artifact.origin !== "GENERATED" || artifact.candidateId !== candidate.candidateId || artifact.revision !== candidate.revision) throw new Error("compile requires the newly generated artifact for the approved candidate revision");
+      if (!["GENERATED", "REPAIRED"].includes(String(artifact.origin)) || artifact.candidateId !== candidate.candidateId || artifact.revision !== candidate.revision) throw new Error("compile requires a registered generated or repaired artifact for the approved candidate revision");
       const invocation = invocationId(state);
       const run = await this.getOrCreateRun(state.runId, invocation);
       const workspace = await createIsolatedExpressCartWorkspace(this.repositoryRoot, this.manifest, state, candidate, artifact, invocation);
@@ -189,10 +212,13 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       const evidence = await this.writeRunEvidence(state, "generated-java-compile.json", JSON.stringify({ runId: state.runId, invocationId: invocation,
         candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: state.sourceCommit, sourceVersion: state.sourceVersion,
         generatedArtifactPath: artifact.path, generatedArtifactSha256: artifact.sha256, workspaceOwner: workspace.metadataPath,
-        origin: "GENERATED", outcome: result.exitCode === 0 ? "PASS" : "FAIL", exitCode: result.exitCode, durationMs: result.durationMs,
+        origin: artifact.origin, outcome: result.exitCode === 0 ? "PASS" : "FAIL", exitCode: result.exitCode, durationMs: result.durationMs,
         stdout: sanitizeToolOutput(result.stdout), stderr: sanitizeToolOutput(result.stderr) }, null, 2));
+      const diagnostic = `${result.stdout}\n${result.stderr}`;
+      const classification = result.exitCode === 0 ? undefined : diagnostic.includes(`${artifact.testClass.slice("tests.".length)}.java`) && /COMPILATION ERROR|cannot find symbol|';' expected|illegal start|not a statement/i.test(diagnostic)
+        ? "GENERATED_TEST_DEFECT" : "ENVIRONMENT_OR_HARNESS";
       return outcomeResult("compile-maven-project", result.exitCode === 0 ? "PASS" : "FAIL", sanitizeToolOutput(result.stdout), sanitizeToolOutput(result.stderr), result.exitCode,
-        [this.evidenceRef(invocation, evidence)]);
+        [this.evidenceRef(invocation, evidence)], classification);
     } catch (error) {
       const message = error instanceof Error ? error.message : "isolated Maven compilation could not start";
       return outcomeResult("compile-maven-project", isBlocked(error) ? "BLOCKED" : "FAIL", "", sanitizeToolOutput(message));
@@ -232,10 +258,13 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       const classificationPath = await this.writeRunEvidence(state, "generated-selenium-classification.json", JSON.stringify({ outcome,
         classification: outcome === "PASS" ? "E2E_PASS" : outcome === "FAIL" ? "SELENIUM_ASSERTION_OR_TEST_FAILURE" : "JUNIT_REPORT_MISSING",
         exitCode: result.exitCode, durationMs: Date.now() - startedAt, registeredTestClass: artifact.testClass,
-        candidateId: candidate.candidateId, revision: candidate.revision, driverVersion: driver.version }, null, 2));
+        candidateId: candidate.candidateId, revision: candidate.revision, artifactPath: artifact.path, artifactSha256: artifact.sha256, artifactOrigin: artifact.origin, driverVersion: driver.version }, null, 2));
       const logsRef = this.evidenceRef(`${invocation}-e2e`, logsPath);
+      const diagnostic = `${result.stdout}\n${result.stderr}\n${report}`;
+      const classification = outcome === "FAIL" && /NoSuchElementException|InvalidSelectorException|StaleElementReferenceException/.test(diagnostic)
+        ? "GENERATED_TEST_DEFECT" : outcome === "FAIL" ? "UNCLASSIFIED" : undefined;
       return outcomeResult("run-selenium-test", outcome, sanitizeToolOutput(result.stdout), sanitizeToolOutput(result.stderr), result.exitCode,
-        [logsRef, ...junitEvidence, this.evidenceRef(`${invocation}-e2e`, driverEvidence), this.evidenceRef(`${invocation}-e2e`, classificationPath)]);
+        [logsRef, ...junitEvidence, this.evidenceRef(`${invocation}-e2e`, driverEvidence), this.evidenceRef(`${invocation}-e2e`, classificationPath)], classification);
     } catch (error) {
       const message = error instanceof Error ? error.message : "generated Selenium execution failed";
       const evidence = await this.writeRunEvidence(state, "generated-selenium-error.json", JSON.stringify({ outcome: isBlocked(error) ? "BLOCKED" : "FAIL",
@@ -303,7 +332,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     }
   }
 
-  async cleanup(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState): Promise<ToolResult> {
+  async cleanup(candidate: CandidateScenario, experimentKey: string, state: AgentWorkflowState, artifact?: GeneratedJavaArtifact): Promise<ToolResult> {
     if (experimentKey !== this.manifest.fixtureReset.experimentKey) throw new Error("cleanup ownership key mismatch");
     const invocation = invocationId(state);
     let run = this.runs.get(invocation);
@@ -326,8 +355,10 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
         priorCleanupExists = true;
       } catch { /* first cleanup attempt for this invocation */ }
       if (!run.composePath) return outcomeResult("cleanup-experiment", "NOT_RUN", "Source/image preflight stopped before an owned Compose project was created.");
-      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; ownedResourcesOnly?: boolean };
-      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== run.project || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${evidenceDirectory(state)}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== candidate.candidateId || owner.candidateRevision !== candidate.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256 || owner.composeSha256 !== sha256(await readFile(run.composePath))) throw new Error("invocation ownership or Compose integrity mismatch; cleanup is refused");
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${evidenceDirectory(state)}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; artifactPath?: string; artifactSha256?: string; artifactOrigin?: string; ownedResourcesOnly?: boolean };
+      const registeredArtifact = owner.artifactPath ? state.artifacts.find((item) => item.kind === "generated_java" && item.path === owner.artifactPath && item.sha256 === owner.artifactSha256 && item.origin === owner.artifactOrigin) : undefined;
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== run.project || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${evidenceDirectory(state)}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== candidate.candidateId || owner.candidateRevision !== candidate.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256 || owner.composeSha256 !== sha256(await readFile(run.composePath)) ||
+          (artifact && (owner.artifactPath !== artifact.path || owner.artifactSha256 !== artifact.sha256 || owner.artifactOrigin !== artifact.origin)) || (owner.artifactPath && !registeredArtifact)) throw new Error("invocation ownership or Compose integrity mismatch; cleanup is refused");
       if (priorCleanupExists) {
         try {
           await this.assertNoOwnedResources(run);
@@ -433,7 +464,7 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
       const evidence = await this.writeRunEvidence(invocationState, "recovery-blocked.json", JSON.stringify({ outcome: "BLOCKED", reason: allocation.blocked, priorInvocationsRetained: true, noNewFixtureStarted: true }, null, 2));
       refs.set("cleanup", { invocationId, stageRunId: `${invocationId}-cleanup`, outcome: "BLOCKED", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [this.evidenceRef(`${invocationId}-cleanup`, evidence)] });
       for (const stage of STAGE_NAMES) if (!refs.has(stage)) refs.set(stage, { invocationId, outcome: "NOT_RUN", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [] });
-      return this.buildValidationResult(candidate, invocationId, repairAttempts, refs);
+      return this.buildValidationResult(candidate, artifact, invocationId, repairAttempts, refs);
     }
     const record = async (stage: Stage, tool: ToolName, request: Record<string, unknown>): Promise<ToolResult> => {
       const stageRunId = `${invocationId}-${stage}`;
@@ -470,12 +501,14 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
     let cleanup: ToolResult = outcomeResult("cleanup-experiment", "NOT_RUN");
     if (fixture.outcome !== "NOT_RUN" || this.runs.has(invocationId)) cleanup = await record("cleanup", "cleanup-experiment", { tool: "cleanup-experiment", ...common, experimentKey: this.manifest.fixtureReset.experimentKey });
     for (const stage of STAGE_NAMES) if (!refs.has(stage)) refs.set(stage, { invocationId, outcome: "NOT_RUN", sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, evidence: [] });
-    return this.buildValidationResult(candidate, invocationId, repairAttempts, refs);
+    return this.buildValidationResult(candidate, artifact, invocationId, repairAttempts, refs);
   }
 
-  private buildValidationResult(candidate: CandidateScenario, invocationId: string, repairAttempts: number, refs: Map<Stage, ValidationResult[Stage]>): ValidationResult {
+  private buildValidationResult(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, invocationId: string, repairAttempts: number, refs: Map<Stage, ValidationResult[Stage]>): ValidationResult {
     const decision = (kind: "oracle" | "novelty") => ({ decisionId: `${invocationId}-${kind}`, appId: "expresscart" as const, candidateId: candidate.candidateId, candidateRevision: candidate.revision, decision: "UNVERIFIED" as const, reviewerId: trustedReviewerId(), decidedAt: new Date().toISOString(), rationale: `T01-B ${kind} review remains independent and was not recorded by the implementation approval.`, evidence: [] });
-    return parseValidationResult({ appId: "expresscart", candidateId: candidate.candidateId, candidateRevision: candidate.revision, invocationId, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION, compile: refs.get("compile"), fixture: refs.get("fixture"), e2e: refs.get("e2e"), cleanup: refs.get("cleanup"), oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts, evidence: [], researchAcceptance: { status: "NOT_REVIEWED" } });
+    return parseValidationResult({ appId: "expresscart", candidateId: candidate.candidateId, candidateRevision: candidate.revision, invocationId,
+      artifact: { path: artifact.path, sha256: artifact.sha256, origin: artifact.origin ?? "REUSED" }, sourceCommit: SOURCE_COMMIT, sourceVersion: SOURCE_VERSION,
+      compile: refs.get("compile"), fixture: refs.get("fixture"), e2e: refs.get("e2e"), cleanup: refs.get("cleanup"), oracleDecision: decision("oracle"), noveltyDecision: decision("novelty"), repeats: [], repairAttempts, evidence: [], researchAcceptance: { status: "NOT_REVIEWED" } });
   }
 
   private async allocateInvocation(candidate: CandidateScenario, artifact: GeneratedJavaArtifact, repairAttempts: number, state: AgentWorkflowState): Promise<{ invocationId: string; blocked?: string }> {
@@ -535,8 +568,9 @@ export class ExpressCartExperimentAdapter implements ApplicationAdapter {
   private async recoverRun(state: AgentWorkflowState, invocation: string): Promise<ActiveRun | undefined> {
     const base = evidenceDirectory(state);
     try {
-      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; ownedResourcesOnly?: boolean };
-      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${base}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== state.candidate?.candidateId || owner.candidateRevision !== state.candidate?.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256) return undefined;
+      const owner = JSON.parse(await readFile(await resolveContainedExistingPath(this.repositoryRoot, `${base}/owner.json`), "utf8")) as { workflowRunId?: string; invocationId?: string; project?: string; composeFile?: string; composeSha256?: string; sourceCommit?: string; sourceVersion?: string; candidateId?: string; candidateRevision?: number; artifactPath?: string; artifactSha256?: string; artifactOrigin?: string; ownedResourcesOnly?: boolean };
+      const registeredArtifact = owner.artifactPath ? state.artifacts.find((item) => item.kind === "generated_java" && item.path === owner.artifactPath && item.sha256 === owner.artifactSha256 && item.origin === owner.artifactOrigin) : undefined;
+      if (owner.workflowRunId !== state.runId || owner.invocationId !== invocation || owner.project !== safeProjectName(`${state.runId}-${invocation}`) || owner.composeFile !== `${base}/compose.json` || owner.sourceCommit !== SOURCE_COMMIT || owner.sourceVersion !== SOURCE_VERSION || owner.candidateId !== state.candidate?.candidateId || owner.candidateRevision !== state.candidate?.revision || owner.ownedResourcesOnly !== true || !owner.composeSha256 || (owner.artifactPath && !registeredArtifact)) return undefined;
       const composePath = await resolveContainedExistingPath(this.repositoryRoot, owner.composeFile);
       if (sha256(await readFile(composePath)) !== owner.composeSha256) return undefined;
       const run: ActiveRun = { workflowRunId: state.runId, invocationId: invocation, project: owner.project, composePath, composeSha256: owner.composeSha256, evidence: [] };

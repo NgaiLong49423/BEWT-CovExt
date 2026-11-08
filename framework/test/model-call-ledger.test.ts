@@ -3,7 +3,7 @@ import test from "node:test";
 import { mkdtemp, mkdir, readFile, readdir, rm, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 import { tmpdir } from "node:os";
-import { readModelRunBudget, recordModelCall, reserveModelCall } from "../src/runtime/model-call-ledger.js";
+import { completePendingModelCall, hasReservedModelCall, readModelRunBudget, recordModelCall, reserveModelCall } from "../src/runtime/model-call-ledger.js";
 
 test("model run reservations enforce request budget across restart and keep failed calls consumed", async () => {
   const root = await mkdtemp(join(tmpdir(), "bewt-model-ledger-"));
@@ -44,4 +44,21 @@ test("model run budget rejects malformed or overcommitted limits", async () => {
   } finally {
     await rm(root, { recursive: true, force: true });
   }
+});
+
+test("a crash after reservation is not replayed, while a persisted response completes its original call", async () => {
+  const root = await mkdtemp(join(tmpdir(), "bewt-model-replay-"));
+  const evidenceRoot = "docs/tasks/T01-C/evidence";
+  const runId = "t01c-java-replay";
+  await mkdir(join(root, evidenceRoot, runId), { recursive: true });
+  await writeFile(join(root, evidenceRoot, runId, "model-run-budget.json"), JSON.stringify({ apiRequestsAllowed: 4, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: 0.005 }));
+  try {
+    const reservation = await reserveModelCall(root, evidenceRoot, runId, "java");
+    assert.equal(await hasReservedModelCall(root, evidenceRoot, runId, "java"), true);
+    await completePendingModelCall(root, evidenceRoot, runId, "java", { calls: 1, status: "PASS" });
+    assert.equal(await readFile(join(root, evidenceRoot, runId, "model-calls/call-01-result.json"), "utf8").then((text) => text.includes('"status": "PASS"')), true);
+    assert.equal(reservation.callNumber, 1);
+    assert.equal((await readdir(join(root, evidenceRoot, runId, "model-calls"))).filter((name) => name.endsWith("-reserved.json")).length, 1,
+      "a replay can detect the consumed Java stage and reuse the persisted response instead of reserving another call");
+  } finally { await rm(root, { recursive: true, force: true }); }
 });

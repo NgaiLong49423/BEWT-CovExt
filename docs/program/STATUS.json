@@ -25,13 +25,13 @@
     "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
     "reviewFixes": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
-    "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "boundedRepair": "PRODUCTION_CLI_REPAIR_IMPLEMENTED_OFFLINE_FAKE_PROVIDER_MAVEN_COMPILE_TESTED_LIVE_GEMINI_REPAIR_UNVERIFIED",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_FIVE_AUTHORIZED_LIVE_GHERKIN_INVOCATIONS_FAILED_NO_CANDIDATE",
     "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
     "t01cValidation": "PARTIAL_OFFLINE_WORKFLOW_MAVEN_COMPILE_AND_DOCKER_ADAPTER_LIFECYCLE_TESTED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
-    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_39_PASS_OFFLINE_PIPELINE_SYNTHETIC_MAVEN_PASS_SONARCLOUD_PASS_ZERO_NEW_ISSUES_COVERAGE_REPORT_NOT_UPLOADED",
+    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_42_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SYNTHETIC_OFFLINE_REPAIR_MAVEN_PASS_GEMINI_OUTPUT_ZERO",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-6/",
       "docs/tasks/T01-C/evidence/t01c-offline-approved-78fb846d-0234-4a4f-bfdd-17f3d8843cc0/isolated-maven-compile.json",
@@ -67,7 +67,9 @@
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-no-application-repair/",
       "docs/tasks/T01-C/evidence/t01c-4bd373f5-66a7-4e83-b812-303f2518e4e9/",
       "docs/tasks/T01-C/evidence/t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f/",
-      "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/"
+      "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes-03/"
     ],
     "sources": [
       "experiments/expresscart/agent/",
@@ -289,7 +291,7 @@
   },
   "taskReview": {
     "currentTaskId": "T01-C",
-    "currentTaskStatus": "PARTIAL_READY_FOR_REVIEW_BLOCKED_LIVE_MODEL_OUTPUT_AND_GENERATED_E2E",
+    "currentTaskStatus": "PARTIAL_READY_FOR_REVIEW_BLOCKED_LIVE_MODEL_OUTPUT_AND_GENERATED_E2E_OFFLINE_REPAIR_IMPLEMENTED",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",

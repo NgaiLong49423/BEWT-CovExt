@@ -132,6 +132,14 @@ export function assertCanGenerateJava(stateInput: AgentWorkflowState, candidateI
   assertHumanApprovedCandidate(state, candidate);
 }
 
+/** A repair is a new artifact only after an accepted implementation entered bounded REPAIRING state. */
+export function assertCanRepairJava(stateInput: AgentWorkflowState, candidateInput: CandidateScenario): void {
+  const state = parseWorkflowState(stateInput);
+  const candidate = parseCandidateScenario(candidateInput);
+  if (state.status !== "REPAIRING" || state.repairAttempts < 1 || state.repairAttempts > 2) throw new ContractError("Java repair requires a bounded REPAIRING workflow after human approval");
+  assertHumanApprovedCandidate(state, candidate);
+}
+
 export function assertHumanApprovedCandidate(stateInput: AgentWorkflowState, candidateInput: CandidateScenario): void {
   const state = parseWorkflowState(stateInput);
   const candidate = parseCandidateScenario(candidateInput);

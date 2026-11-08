@@ -3,7 +3,7 @@ import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
 import { sanitizeToolOutput, type BaselineInventory, type CandidateScenario, type CoverageGap } from "../contracts.js";
 import { parseCandidateScenario } from "../contracts.js";
-import { assertCanGenerateJava } from "../policy.js";
+import { assertCanGenerateJava, assertCanRepairJava } from "../policy.js";
 import { expectedGeneratedTestClass } from "./java-class.js";
 
 const ModelOutput = z.object({
@@ -21,7 +21,7 @@ export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { 
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
 export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
-export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; }
+export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; repairJava?(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string, validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput>; }
 
 export function classifyModelError(error: unknown): string {
   const message = error instanceof Error ? error.message.toLowerCase() : "unknown";
@@ -177,6 +177,18 @@ export class FakeJavaGenerationProvider implements JavaGenerationProvider {
     validateGeneratedJavaContract(output, testClass);
     return output;
   }
+  async repairJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string, validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput> {
+    assertCanRepairJava(workflow, candidate);
+    if (attempt < 1 || attempt > 2 || !hasGeneratedTestDefect(validation)) throw new Error("repair requires an eligible generated-test defect and attempt 1 or 2");
+    const output = parseGeneratedJavaOutput({ testClass: expectedGeneratedTestClass(candidate), javaSource: `${currentJava}\n// synthetic repair attempt ${attempt}; no research or runtime claim\n` });
+    validateGeneratedJavaContract(output, expectedGeneratedTestClass(candidate));
+    return output;
+  }
+}
+
+function hasGeneratedTestDefect(validation: import("../contracts.js").ValidationResult): boolean {
+  return (validation.compile.outcome === "FAIL" && validation.compile.failureClassification === "GENERATED_TEST_DEFECT") ||
+    (validation.e2e.outcome === "FAIL" && validation.e2e.failureClassification === "GENERATED_TEST_DEFECT");
 }
 
 /** Live Java generation is explicitly separate from Gherkin generation and requires current ACCEPT. */
@@ -185,6 +197,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   lastTelemetry: ModelTelemetry = { provider: "Gemini", model: "unavailable", calls: 0, attempts: 0, elapsedMs: 0, status: "NOT_RUN", estimatedMaxCostUsd: 0 };
   private readonly modelClient: { invoke(input: string, options?: { signal?: AbortSignal }): Promise<unknown> };
   private used = false;
+  private readonly repairAttempts = new Set<number>();
   private readonly timeoutMs: number;
   private readonly maxOutputTokens: number;
   private readonly costCeilingUsd: number;
@@ -241,6 +254,53 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const category = classifyModelError(error);
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
       throw new Error(`MODEL_CALL_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
+    }
+  }
+
+  async repairJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string,
+    validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput> {
+    assertCanRepairJava(workflow, candidate);
+    if (!Number.isInteger(attempt) || attempt < 1 || attempt > 2 || this.repairAttempts.has(attempt) || !hasGeneratedTestDefect(validation)) {
+      throw new Error("repair requires a new bounded attempt and a GENERATED_TEST_DEFECT classification");
+    }
+    if (currentJava.length > 5_000) throw new Error("repair source exceeds the bounded prompt budget");
+    const expectedClass = expectedGeneratedTestClass(candidate);
+    const failure = [validation.compile, validation.e2e].filter((stage) => stage.outcome === "FAIL" && stage.failureClassification === "GENERATED_TEST_DEFECT")
+      .map((stage) => stage.evidence.map((item) => item.artifactPath).join(", ")).join("; ").slice(0, 1_000);
+    const prompt = [
+      "Repair the existing Java Selenium/JUnit test for only the classified generated-test defect. Do not claim any test ran successfully.",
+      "Preserve the accepted scenario, every assertion of the approved oracle, browser-only interaction, package, class, and existing approved APIs. Do not weaken, delete, skip, or rewrite assertions to force a pass. Do not use HTTP, database access, credentials, process execution, or arbitrary commands.",
+      `Return the exact class ${expectedClass} and the complete replacement source. This is repair attempt ${attempt} of at most 2.`,
+      JSON.stringify({ candidate: { candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
+        sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, oracle: candidate.oracle },
+        classifiedFailureEvidence: failure, currentJavaSource: currentJava }),
+    ].join("\n\n");
+    const promptCharacters = Array.from(prompt).length;
+    const requestEvidence = buildSanitizedRequestEvidence(prompt);
+    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
+    if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
+      throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
+    }
+    this.repairAttempts.add(attempt);
+    const startedAt = Date.now();
+    try {
+      const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
+      const output = parseGeneratedJavaOutput(response.parsed);
+      const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
+      validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
+      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
+      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
+      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
+      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
+      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
+        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+      return output;
+    } catch (error) {
+      const category = classifyModelError(error);
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
+      throw new Error(`MODEL_REPAIR_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
     }
   }
 }
