@@ -104,26 +104,17 @@ function javaTokens(source: string): JavaToken[] {
       tokens.push({ kind: "literal", value: source.slice(start, index), start, end: index });
       continue;
     }
-    if (!isStart(source.charCodeAt(index))) { index += 1; continue; }
+    if (!isStart(source.charCodeAt(index))) {
+      tokens.push({ kind: "symbol", value: char, start: index, end: index + 1 });
+      index += 1;
+      continue;
+    }
     const start = index;
     index += 1;
     while (index < source.length && isPart(source.charCodeAt(index))) index += 1;
     tokens.push({ kind: "identifier", value: source.slice(start, index), start, end: index });
   }
-  // Add punctuation in a second pass only over source regions not consumed as identifiers/literals/comments.
-  // A compact single-character token is sufficient for package, annotation, call and delimiter checks below.
-  const occupied = tokens.map(({ start, end }) => [start, end] as const);
-  const punctuation: JavaToken[] = [];
-  let occupiedIndex = 0;
-  for (let cursor = 0; cursor < source.length; cursor += 1) {
-    while (occupiedIndex < occupied.length && occupied[occupiedIndex]![1] <= cursor) occupiedIndex += 1;
-    if (occupiedIndex < occupied.length && occupied[occupiedIndex]![0] <= cursor) { cursor = occupied[occupiedIndex]![1] - 1; continue; }
-    if (/\s/.test(source[cursor]!)) continue;
-    if (source.startsWith("//", cursor)) { while (cursor < source.length && source[cursor] !== "\n" && source[cursor] !== "\r") cursor += 1; continue; }
-    if (source.startsWith("/*", cursor)) { const end = source.indexOf("*/", cursor + 2); cursor = end < 0 ? source.length : end + 1; continue; }
-    punctuation.push({ kind: "symbol", value: source[cursor]!, start: cursor, end: cursor + 1 });
-  }
-  return [...tokens, ...punctuation].sort((left, right) => left.start - right.start);
+  return tokens;
 }
 
 function javaIdentifiers(source: string): JavaIdentifier[] {
@@ -195,8 +186,8 @@ export function executableAssertionCount(source: string): number { return assert
 
 /** Preserve the generated assertion calls across repair; locator literals passed directly to Selenium By factories may change. */
 export function assertExecutableAssertionsPreserved(before: string, after: string): void {
-  const expected = assertionCalls(before).map((assertion) => assertion.canonical).sort();
-  const actual = assertionCalls(after).map((assertion) => assertion.canonical).sort();
+  const expected = assertionCalls(before).map((assertion) => assertion.canonical);
+  const actual = assertionCalls(after).map((assertion) => assertion.canonical);
   if (expected.length === 0 || expected.length !== actual.length || expected.some((assertion, index) => assertion !== actual[index])) {
     throw new Error("Java repair must preserve every executable test assertion without changing its oracle expression");
   }
