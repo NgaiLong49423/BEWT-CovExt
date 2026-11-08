@@ -1,0 +1,15 @@
+{
+  "task": "T04-A",
+  "application": "Kanboard 1.2.15",
+  "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "sourceTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+  "proposal": "STATIC_INVENTORY_PREPARED_PENDING_HUMAN_REVIEW",
+  "g1": "NOT_ACCEPTED",
+  "runtime": "NOT_RUN",
+  "candidateNovelty": "NOT_VERIFIED",
+  "candidateCount": 10,
+  "shortlistCount": 5,
+  "nextTask": "T04-B_NOT_STARTED",
+  "sharedStatusJsonChanged": false,
+  "reason": "Parallel T03-B work; reconcile on integration."
+}

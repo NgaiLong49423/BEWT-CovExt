@@ -1,0 +1,11 @@
+{
+  "result": "PASS",
+  "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "bewtTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+  "bewtFilesVerified": 89,
+  "upstreamCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "upstreamFilesVerified": 24,
+  "totalFiles": 113,
+  "hashFormat": "Git blob SHA-1 (40 hex) plus original-byte SHA-256 (64 hex)",
+  "readPolicy": "Pinned blobs read via git cat-file; tracked worktree diff checked against pin"
+}

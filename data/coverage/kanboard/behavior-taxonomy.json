@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "1.0",
+  "groups": [
+    {
+      "id": "project-management",
+      "caseIds": [
+        "KB-001",
+        "KB-002",
+        "KB-005",
+        "KB-016",
+        "KB-028"
+      ],
+      "description": "Project create, private project, description update, and removal."
+    },
+    {
+      "id": "task-management",
+      "caseIds": [
+        "KB-003",
+        "KB-004",
+        "KB-017",
+        "KB-018",
+        "KB-027"
+      ],
+      "description": "Task create, close, and status search."
+    },
+    {
+      "id": "board-configuration",
+      "caseIds": [
+        "KB-006",
+        "KB-007",
+        "KB-008",
+        "KB-009",
+        "KB-010",
+        "KB-011"
+      ],
+      "description": "Column, swimlane, and category creation/required-field checks."
+    },
+    {
+      "id": "user-and-permission-management",
+      "caseIds": [
+        "KB-013",
+        "KB-019",
+        "KB-020",
+        "KB-021",
+        "KB-022",
+        "KB-023",
+        "KB-024",
+        "KB-025",
+        "KB-026"
+      ],
+      "description": "Account creation/validation/removal and project access check."
+    },
+    {
+      "id": "profile-management",
+      "caseIds": [
+        "KB-012"
+      ],
+      "description": "Profile email update."
+    },
+    {
+      "id": "application-settings",
+      "caseIds": [
+        "KB-014",
+        "KB-015",
+        "KB-029",
+        "KB-030"
+      ],
+      "description": "Currency, language, refresh interval, and currency rates."
+    }
+  ],
+  "classification": "Observed assertions only; categories do not imply complete app coverage."
+}
