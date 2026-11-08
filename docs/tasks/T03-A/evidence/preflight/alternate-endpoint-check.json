@@ -1,0 +1,20 @@
+{
+  "observedAt": "2026-11-08T09:24:33.4562292Z",
+  "contexts": [
+    {
+      "endpointType": "Docker Desktop named pipe",
+      "status": "UNAVAILABLE",
+      "name": "desktop-linux"
+    },
+    {
+      "endpointType": "default Docker named pipe",
+      "status": "UNAVAILABLE",
+      "name": "default"
+    }
+  ],
+  "podman": "NOT_INSTALLED",
+  "nerdctl": "NOT_INSTALLED",
+  "wsl": "present but no running distribution was reported",
+  "mutationPerformed": false,
+  "result": "No reachable Docker-compatible engine found."
+}

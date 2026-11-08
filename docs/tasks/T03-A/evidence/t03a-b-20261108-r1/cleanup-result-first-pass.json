@@ -1,0 +1,31 @@
+{
+  "runId": "t03a-b-20261108-r1",
+  "outcome": "PASS",
+  "resourcesRemoved": {
+    "container": true,
+    "network": true,
+    "volumes": 3
+  },
+  "postTeardownInventory": "PASS",
+  "protectedResourceSetsUnchanged": [
+    "containers",
+    "networks",
+    "volumes",
+    "images"
+  ],
+  "beforeCounts": {
+    "containers": 32,
+    "runningContainers": 2,
+    "networks": 11,
+    "volumes": 24,
+    "images": 19
+  },
+  "afterCounts": {
+    "containers": 32,
+    "runningContainers": 2,
+    "networks": 11,
+    "volumes": 24,
+    "images": 19
+  },
+  "cleanupWasAlreadyComplete": false
+}

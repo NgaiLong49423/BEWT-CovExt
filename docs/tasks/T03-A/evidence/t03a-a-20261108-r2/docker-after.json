@@ -1,0 +1,1189 @@
+{
+  "capturedAt": "2026-11-08T10:00:48.501Z",
+  "daemon": {
+    "version": "29.8.0",
+    "osType": "linux",
+    "architecture": "x86_64",
+    "cpuCount": 16,
+    "memoryBytes": 7157485568
+  },
+  "counts": {
+    "containers": 32,
+    "runningContainers": 2,
+    "networks": 11,
+    "volumes": 24,
+    "images": 19
+  },
+  "containers": [
+    {
+      "role": "existing-bewt-expresscart-protected",
+      "signature": "21f7e1815ee85aefdbb61c68057f469a05c5fc65b53653375ae6b6450ca768ba",
+      "idHash": "7a1efbcebce2b593d4456bf9c39761d8a58e7fbae1b16f7812d74de930b251f1",
+      "nameHash": "17eb929e52ec9f795c29eb0577354c4a83891bbafc51d5bf6f662ef33f011c34",
+      "imageHash": "e13678509d08a77c2f0c705f6760ab040eacbb4a229a7f98f6f38b60c8e85f00",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "composeServiceHash": "a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333",
+      "ownershipLabels": {},
+      "state": "running",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/expressCart/config",
+          "sourceHash": "f769b774f02979bb5db6ab98fe3802a90229f2e240f809787bae7671835822ea"
+        },
+        {
+          "type": "volume",
+          "destination": "/var/expressCart/public/uploads",
+          "sourceHash": "328b798ead02419ebc30c872b91b9ab261011f0f1a2d7af3664d38ed3211d53f"
+        }
+      ],
+      "ports": [
+        {
+          "containerPort": "1111/tcp",
+          "hostIp": "127.0.0.1",
+          "hostPort": "3111"
+        }
+      ],
+      "networkIdHashes": [
+        "258de36655e931e8515babac1538150d6d19cf062f743a81f59590007da2c4bb"
+      ]
+    },
+    {
+      "role": "existing-bewt-expresscart-protected",
+      "signature": "c0f9d5afa03d4af9039dac40a2dd2e2fe03d8def3d88ba8e7621974cff6b7f20",
+      "idHash": "8d72d01e62713a8eccecb090287f49a23e1ea14e9326657396654de34aba20b8",
+      "nameHash": "3da9f449fc3add69731ab82d7dbd25151bbcd287a1bbd42a66da82c368ed304e",
+      "imageHash": "223c6e844e7c007827b423e830763f4d507e356a1699fdd9cdf130a40e7e7d1d",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "composeServiceHash": "ba1c464e18573b1f54a78563d8c3a4eeadb817db5cd7fb8d626456783369f0e2",
+      "ownershipLabels": {},
+      "state": "running",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/data/configdb",
+          "sourceHash": "d71e9de6a20087672e2caae2186dc0f4cd14e0b1be178b3d4051ce209e57a852"
+        },
+        {
+          "type": "volume",
+          "destination": "/data/db",
+          "sourceHash": "0c447a84b02f106dfb222317291e808d21b146d776af386851b5faac997521b4"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "258de36655e931e8515babac1538150d6d19cf062f743a81f59590007da2c4bb"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "0937a5b06fdae22cca8e2e9c4a99268627cf805707f73bbc3ef33f2c73290a33",
+      "idHash": "e633f1e7f0fd048645cc55632ea7ef693942d5bde58f813b6bf51e6a886e26ce",
+      "nameHash": "6600db3b030879b8305480ce6c3aab843cfb7663ed0e27682f6d1d728c8929cd",
+      "imageHash": "53c1588437dd119dde44b3a1c85b777f38bd8a2964fe6f66e6bff4ca1c494559",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "e57b77d686355d5c55dbad625b5c2cf9f752884888a39ad2f7cdf4ae365b36fd"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "6510a4027e76c4f901add080612e26439b231edc261a9d8cb21d23757823da44"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "aa4805af48f39f8ecd653288ce8ad6c0478e6abb57c47b2732a2ae999dda5691"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "0966d685fa7a445038c3a007a24c4e2c148ee26c9ce964839c9d9152c803a1e9",
+      "idHash": "c824bba2be18218ca4f4b46093255385da74d85851797a6b202c788ae6504b57",
+      "nameHash": "2954fd6158cffc09209d880913b99b7002e8f74d790c2250dc7e1d112e9dd622",
+      "imageHash": "181641f0ae1525e5796a865757c4d825e35bf4eee1d370c2ee1353550bd0c35e",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "01132027a534ebc7aa652270f8367240d6d3533cf9dc0f84c022d895bbaff031"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "c14e500a340fb0135caaa432765392138ef7ee18f696bea0228fcd863a3f8956"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4210c13a1c39ca9f39be2f5df7459f0dfe52980513d6a9085fcf48e6ea598783"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "0f6065315653638385cbeebe1cb4a5d1d5187d9914a172ead4cbab436909f01b",
+      "idHash": "890a2df1eb2358ec5fc8e9c9a50d534fbd3c8cb65bcd637b11aee998bd3db959",
+      "nameHash": "a649df42f87364d391032de9f1c144f2cb3f99df0201398497ad77148381b8ba",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "8f87a2faabc34d5720f6e036f54eb63154243f77b468ce1065e5d7551887518c"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "10b4fe2b97db27482518d0882561d105e742baebcdbb0a87dd68f0dabe80add8",
+      "idHash": "8fa230055af6165da3c67934f650ce4e546271e9ff42caf9b6b854ae78cb2bb5",
+      "nameHash": "198d94012162467943518f2ed1b0c8191a5e53a05d419efff3fef917f0fbb0c9",
+      "imageHash": "26d940e373c196f0522c1da5530a0ddd1c78d64fff05c33748c5f70a7e611887",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "e57b77d686355d5c55dbad625b5c2cf9f752884888a39ad2f7cdf4ae365b36fd"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "94ea03da1e6441fa76b5888628cd20820aa470f6757e87f2e01bf0d678d3ee36"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "db44a90824d94e35d5b809be62c339ea774209da12b5e911622500f78b774fd1"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "2df459ec1cbdc95361b9abc346f56adf7f30b5579e7bd527d945da7cc80888e2",
+      "idHash": "b2ca581979b41679c144409e20fc12b44a8db4b3d32fee72e6d7f963a67766a7",
+      "nameHash": "508bb21ca5bb45db0ee3b286de9c65c8af62937368d028caec8f60f07360fba0",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "c31e775a779eaa5688fc2ccc76ecfca11ddc9d438f035e02d40ca2139df6537b"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "338f5772ed9d8fbb455191c47a332bc0cbf1c42308346e5479afeffc59f131ce",
+      "idHash": "86ec76b72cc02063d32ab70ac8c9c8acc8e533e57f4d9720c7948df8dad43f6c",
+      "nameHash": "ce4c1ad07274546af1c7f8c1475d281c66493dcd5ac78bb8bb39e4ecd32b8b0a",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "19df4b45ab63716e064a6a3e31b1a44a57159e07c5b153a633dba0c226961838"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "c31e775a779eaa5688fc2ccc76ecfca11ddc9d438f035e02d40ca2139df6537b"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "379b9c5925456ae5d5a20b5ef26cf59630b833d58e9e631afa81f4561f77a694",
+      "idHash": "4329441e12d7cdfdf8f6f276c0cd8abf529cfd3b0336144e4076f979bcfb5374",
+      "nameHash": "3937621325eda88f38481e906c93380a5127a846e644e9828dd172138ad62891",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "composeServiceHash": "c45df724cba87ac84892bf3eeb910393d69d163e9ad96cac2e2074487eaa907b",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/seed/sample-data.sql",
+          "sourceHash": "93a82376e3b925d7e687eac6debd22577e329a29e15b0b52127ff0c28eee9704"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "39b8bb7d940109fb3deb0b90d907103170e74675a38b3256c7d43c0ac7d7a4d9",
+      "idHash": "5cf39fed5e3ccd58f2586b429eb09b8776216e2b27cef1f876b86b620cec71d2",
+      "nameHash": "c334ee99929209718488b4a8b9f3e333b1a345dcb8ca9fd7a76c2a636f5f4fe1",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "39be062037cffb58539be2e6d067cdb4432bfda0a6a935d83158be76a53dec00",
+      "idHash": "3eb0f6fffcd0eb7ddbd0ed6f7c75531ca6d42588356fd1ca1e0980ceb256662b",
+      "nameHash": "c02c54f09618597c545f7b63372fe173f53060544ae3478deb803b3608b1e59d",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "4d7ff9326b3602ad8d0a2571bcbfc787ee8e8224ea6fc8a07448c635badeffb7"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "40f7a50dca68e7cab4f9c5ccbc79c94b0023f3cb5d6dda10c2a003deecd09330",
+      "idHash": "4b8375d98febd3073fccd527fb9fb1fbca3de62f6cd9ab3a61cfa6d10c0c649b",
+      "nameHash": "fc0f2df77fa6052485446b453ac55a462709c3b520136bf0378413399a52f64e",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "814199fa450ce36ecac751baa2f79517e4e89be25eb883823d005e80553af694"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "8f87a2faabc34d5720f6e036f54eb63154243f77b468ce1065e5d7551887518c"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "48ac4e7ae7d0fc1983db237e39020b5ddd907ee8e82ffbb775528b7602780bad",
+      "idHash": "b6f0c7bfbacc2294a2ccbbae15665b1d0be98794e3aa911ef689f93a8dd62f46",
+      "nameHash": "570853e90c0b0ebfb2d6a0cb0d65aaaa1b9068f6a5daa618348823aecf375767",
+      "imageHash": "e1cf0d061a9ec03d2e8d1bc39b1fb29713bc3d52076b706d4ccd14a5959cfabf",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "dab6916e1771207b5e0865ab27a05fad3d35d74c2caeda1e81e1d464b564fe72"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "31c2a147f64ceb50ebb0c4eb188e425c66da0bd329382ab658cdee472f2ca72f"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "490241862870f777a5aa923af7d1d74c8896b4304a2a005b4076eb0fa6c32df5",
+      "idHash": "9862ce55eb8ffa6fd66465098f5c9ae62d94f106c169a2a6ece92a9d3ff55dec",
+      "nameHash": "f564b73371f943499be785abbf74510bf68b08af4e19a0ca68cded406b3b391a",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "db44a90824d94e35d5b809be62c339ea774209da12b5e911622500f78b774fd1"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "4b2668bcf85037c83b17988e0a96b76cc8b1c6246177565dbe4e3a56f67323cb",
+      "idHash": "9944069767689e4ee482e183c7a0aed89fd27e251fe3340f26997da6864e026a",
+      "nameHash": "0ecfc8195662d355181eb575b3e6f52ed79c539a1bb13bf99810e5d4551542b6",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "6efaf4eb08d3392ee1c68f0efdf71054ff0f517b83374c87ca8cefe9a7893c5d"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "db44a90824d94e35d5b809be62c339ea774209da12b5e911622500f78b774fd1"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "53683263b849fc3d4b0246a53ee37192ee0af81b34b3177b74d7890090fa57d6",
+      "idHash": "0bde90436f4ae162d96428518828808978b42ff4ef72c81f0313c5400fbee275",
+      "nameHash": "244db028fb320993ee35bd57015bf674a35606050cf76f74f9652eb8f6ea69f5",
+      "imageHash": "bb52dbfc4c2249887755a48e28d353aa864e1cf29270ac26f4ce8dc4267a82a3",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "24e0733153cde0c3aa3d926c6821a6e4387d3a99d3194cff7c116547a02442e9"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "c31e775a779eaa5688fc2ccc76ecfca11ddc9d438f035e02d40ca2139df6537b"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "764373c06400adc85072e2dd1b08b2722c17f950c99ee0b2bd21efa13be15f05",
+      "idHash": "cfd998d3ef279fb76a6a430f597c8cc54751a976ab6538b771350df087fc6308",
+      "nameHash": "b1c1da6a5b2e8b77a2c250886335122485e57983ce08f538732fc8ee85c168ed",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "aa4805af48f39f8ecd653288ce8ad6c0478e6abb57c47b2732a2ae999dda5691"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "7e3d63adbe750786f512174bd6ffa97219e112359e68567058bc2528406de659",
+      "idHash": "6518cc51756b5a56657af70b794428e3f5b645e70bf0b19e1140cc17cb4ed583",
+      "nameHash": "e4fa8d35a4f91e452311b409966a9eb29401aa3a5a9bed4ad64ac3012d71f4de",
+      "imageHash": "21fed7aca85100ff926b66dee849620a6d91e91e99df3f552f07e4b4d421ebca",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "83740feb9eb1c61d00f4ee0b45858094bcd219660d9523ca422a575e4bc98405"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4210c13a1c39ca9f39be2f5df7459f0dfe52980513d6a9085fcf48e6ea598783"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "94aca6b8969aa4144b5e132391731019473f384a6001e04c6de4857a17e48855",
+      "idHash": "312abe49fab58c85da93681c1fa1c5d20eff2bc88cf8e427ad68c4501e2ee37e",
+      "nameHash": "33d46d075af1e4574ef3fbf38941eb0f488d2cf56702a14ed80bd6879747fe54",
+      "imageHash": "d7a9a4a61a916526915d08ac4f2fb96d682236fe43cba2201c0b862dc06a46d7",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "e57b77d686355d5c55dbad625b5c2cf9f752884888a39ad2f7cdf4ae365b36fd"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "67225d941c493904ad2bb9d2e884bb1e130c24a1388e0748bc1f8a293ee3cecf"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "8f87a2faabc34d5720f6e036f54eb63154243f77b468ce1065e5d7551887518c"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "96ab38e5a98c2253fee0f5edb1ff04eec430299e42ea35a70ff1d9be43def089",
+      "idHash": "465cc0caff91f4e09894f0a0f722cbe26331b83475d4a59efdb7e6dbfe526610",
+      "nameHash": "70ce879e2bf94eef90a10f1fb66d1ffcbeffe3fe00edcb3e6e4fee20b99ceeb5",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "f4a90df00ae6a74f5afa28d082a93acb4382b984ae8eb01613882e7bc931bdcf"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "982ce69357550064b87b378fd36c9bf0c3a42b58c37f769571bc9846ecd68147",
+      "idHash": "0489c9e8c855e39d1676981fd05ea53cb0cf3fabaf0b5c02114a850055aaedda",
+      "nameHash": "078243fdec9f0e26ad7d75e1a6e35cb8c3250fee17255f2373e7cc223891dc67",
+      "imageHash": "7e11c24891b7294dad72a0a053d52699acce2f8d2be0d8cd51e4685e7cb70964",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "29a989302c5c420c669df5cbadc53942c97a1cc1db4143c6dc3337fca96d5139"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4d7ff9326b3602ad8d0a2571bcbfc787ee8e8224ea6fc8a07448c635badeffb7"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "a4a11b2b2f6f6dae0cdd847614015207edf772eef12f56788449440060cda39f",
+      "idHash": "80683da0d2a08bb6c0e435a5cbc8e07b88256f3ddeec447518fb9070088f2209",
+      "nameHash": "972705291d7165f7a516e2f93166aa683e695b901faa74e0ce832777b329b470",
+      "imageHash": "6a635a7ee090b6d5758d5d5f27c488e11db1eb558164de1ddfe0b42212314cbf",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/evaluation",
+          "sourceHash": "6f1a00827caf53bb5a9b6a0b80f8443ed498011c877731c104c504b6f84a73d6"
+        },
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "301f24ac55cdbe07a3395cc357387ddb2b0c48229dcf34f835765614282034db"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "8f87a2faabc34d5720f6e036f54eb63154243f77b468ce1065e5d7551887518c"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "aa96e30948a0d4c5afe8bda14d74d6424b33a84f5b0b00febb94ce1d12307493",
+      "idHash": "e15e12d71495ccacad7ced7d22577a5ba6df5a00d1702b68f59bb3ae972a7207",
+      "nameHash": "a1392dd9ba8c3973228f3e922d124867cde36597f8e48d7ee45fa88754e14f54",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "214ef2fdb8815ecab100433968d84e4b1bc61b8e1785fd815369a01df2d184c2"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4d7ff9326b3602ad8d0a2571bcbfc787ee8e8224ea6fc8a07448c635badeffb7"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "b15c23d50b1ac00a1239895a7410daf5020178a4a90a90c5b6d4f4644ab9283a",
+      "idHash": "2a9c54f1d9ab1b21178ce386410b729844d6e47142ffedc61a23672797538b5a",
+      "nameHash": "efec510e0998feebb93bb9d9e76d68f414abe48fe1eb38bd9c8c0c770f6395e4",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "53e48df85db85ebf3342dc72bc65dd730546d4d8ba8b38681ab558d1068eaa62"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "aa4805af48f39f8ecd653288ce8ad6c0478e6abb57c47b2732a2ae999dda5691"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "ba1718724a6a0d2a36843c4b625291e62dbe33adf3d38a9b1c77b7d031713027",
+      "idHash": "83041f431eb0398d9ce3121417462d5dddea872eb5d65e7776cdc8413f85616f",
+      "nameHash": "f04a721d9cf6abec79a18b4c453638e101169e541c9fac0205ba24e622a546ab",
+      "imageHash": "790ba990ced2b7eca4b91d3b6ddad6efd27de3a808d2b5a0572e6e037ccfc3e2",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "e57b77d686355d5c55dbad625b5c2cf9f752884888a39ad2f7cdf4ae365b36fd"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "5b086adc7ee67e7177e20257e6432a88a6b77e6215a5992770b8556011d28163"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "c31e775a779eaa5688fc2ccc76ecfca11ddc9d438f035e02d40ca2139df6537b"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "ba325b802aead47b8cdda0a5883ec86010cb5f866324617a916c1f39397928df",
+      "idHash": "765d0657065b246f560b209881aad828361609782a3a781b68ce0c5f53eeeca3",
+      "nameHash": "3900d1b7eb3337bdd251614ee1d4ca2f8db3e01c1aa9dfb1200a481f34dbd21e",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "composeServiceHash": "4270ceb3db39fc36daf9216bd48a5763c9823a17344f41cf00a44fe5fab4586d",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "volume",
+          "destination": "/var/opt/mssql",
+          "sourceHash": "49baf568526eb35425856f691a39a04d06b722737a612dc69aa6511cba24e88c"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4210c13a1c39ca9f39be2f5df7459f0dfe52980513d6a9085fcf48e6ea598783"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "d698866cb6228d0785bd30a070e7234e6720931e5d54e27ff63a8950125fa304",
+      "idHash": "e4223d06f7cfa55bc607038ca557de19c3e51cc670e7be696329141a667ba924",
+      "nameHash": "98daa4de265c914db4b95e98f9e5a9b7a0e7843201dfe2dc3557ed52448e4ed3",
+      "imageHash": "5f8575d35f67818dbfa8534f540a8f96beaa8b000621ac63bf8b311c136e6ce9",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/root/.m2/repository",
+          "sourceHash": "70a3486e96478c92afc9c3b7b0af39ef53c50db33bc986cc55e51c73b63591ab"
+        },
+        {
+          "type": "bind",
+          "destination": "/var/lib/mamxanh/eval-budget",
+          "sourceHash": "46c9b40529aadd43b5f6fe1fbf0db102dc656b553f032d12327855a3618750ca"
+        },
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "42c3a39738265816543619e140a7df61e32d79b3d45422c0fae4336afd23fff4"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "aa4805af48f39f8ecd653288ce8ad6c0478e6abb57c47b2732a2ae999dda5691"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "e0c817fcbaf03c754e0af2f8d4f55c601910a7f1c1522fb7c8e072739160614a",
+      "idHash": "564c7883b968ff4e4d31a4414d12396d70eeb76e5cb52280a407e3dad54fb872",
+      "nameHash": "56a81cc46605be72e5979cc9534d633d5e100872b7764a8b590bcda7624faf19",
+      "imageHash": "120d858488a757c4a20e049fadb4a0033636e8cff973c3c5d4a9c6cb3f26a639",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "composeServiceHash": "1cf387c012cd2d02f1923e589f86df4a4802427057dbc90f47b87f04d29d54bc",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/workspace",
+          "sourceHash": "e57b77d686355d5c55dbad625b5c2cf9f752884888a39ad2f7cdf4ae365b36fd"
+        },
+        {
+          "type": "volume",
+          "destination": "/workspace/node_modules",
+          "sourceHash": "09020227916a360222a446a2495f69106aae4ad37cb6a0c2e0d794808000193c"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "4d7ff9326b3602ad8d0a2571bcbfc787ee8e8224ea6fc8a07448c635badeffb7"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "ebcc115338e5b31577aa6394af58c68d74a7e363b0d7a708be6403f56df63091",
+      "idHash": "e2474312351de6dd0af18b33a6f50072c9284ab6f735626ae36d9151ec9f9ad3",
+      "nameHash": "aea550d69b744983ad370b23f55f8f8a2fe1c7e1d4db4074082a8a0ebd52c256",
+      "imageHash": "5e488330eace3533f5e53dffc4acc442682ddcbd4d23fefc254b26fd86c4b720",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [
+        {
+          "type": "bind",
+          "destination": "/var/lib/mamxanh/g3-evaluation",
+          "sourceHash": "dbde6df80864cc232d3d4cd89c66ece85dbcf5ec0bab740b51aa7d4f9ee99018"
+        },
+        {
+          "type": "volume",
+          "destination": "/var/lib/mamxanh/ai-telemetry",
+          "sourceHash": "6db8975ed995518708e3c11171293e69d08362ee8b65e21208219f66cf3968e0"
+        }
+      ],
+      "ports": [],
+      "networkIdHashes": [
+        "db44a90824d94e35d5b809be62c339ea774209da12b5e911622500f78b774fd1"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "edb426e66386d90756a6ef37e4848fcc834188d27ec703c4c884ca8f314d6129",
+      "idHash": "f71bc963d2f7b3b1b84daa9a3b12f9f2f6d5e679b31595e5d8b2a3b09c1c86ba",
+      "nameHash": "30f2ef9a2b5ae16d47457403f82007497fa7f518a55cb3792c3a28747901c418",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "composeServiceHash": "f0e7818d0312679880e6c8b1f832e2b7bcfe41d848ff2a082be195632a36cf0c",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "4210c13a1c39ca9f39be2f5df7459f0dfe52980513d6a9085fcf48e6ea598783"
+      ]
+    },
+    {
+      "role": "other-compose-project-protected",
+      "signature": "fa1bc0e2a57d078c019abe667a9111847b93fd6891b27d945dae4f933d3b7965",
+      "idHash": "9f0cd562573e4e2eaad4987261b915601ef6487fb72ab37402b66ff103437acb",
+      "nameHash": "d3a742b528c684a3a0cbcc322c8e42ed6e43029b2085429a764982ae98878dec",
+      "imageHash": "824f4313adba4ddf1f785b3fa7964b4465e57bb96262cc01b17764ad971940ba",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "composeServiceHash": "10e08a419e850eba1ebba18fdd28eb7ec1b7e8baa9bcc3b973e2b8891ec726be",
+      "ownershipLabels": {},
+      "state": "exited",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001"
+      ]
+    },
+    {
+      "role": "unclassified-protected",
+      "signature": "909ab48d98b0a95fa9144323128b4c76f4454b910f31854238bebe40be427a65",
+      "idHash": "aa6eaf68a810533653c27939ef9b42116c0928e93d437dc8927a5ceaa353594b",
+      "nameHash": "0abad1375dde3a0a1ac01a0ba695ecd66d6c28d4b45c2f996782a7d79dc254c3",
+      "imageHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "composeProjectHash": null,
+      "composeServiceHash": null,
+      "ownershipLabels": {},
+      "state": "created",
+      "mounts": [],
+      "ports": [],
+      "networkIdHashes": [
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      ]
+    }
+  ],
+  "networks": [
+    {
+      "signature": "048cf0ab096af82583f6ff43e95be8fe378ac4e2236869f73a2989f7707f3dec",
+      "idHash": "3d2e046e245ca493f0637a43f19833dc2e28f16932b8e0c6f842e3d32a9990aa",
+      "nameHash": "4740ae6347b0172c01254ff55bae5aff5199f4446e7f6d643d40185b3f475145",
+      "driver": "host",
+      "scope": "local",
+      "composeProjectHash": null,
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "09d2d77575bd977e902de2343086c2749a04a39de0fe5ade2e5a8784d2412d2e",
+      "idHash": "0b0b8c24d6dfe565e6ce377d545a9c6f506cccf378346d942229e307f6ebb001",
+      "nameHash": "70a8b17ce50d057d27579c602338f731658a9baa4754336bab47a82df0ae07b8",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "1e226cb519143090d783f0b16ab108b3679bdfe31060e463d88de83c7b5a09af",
+      "idHash": "4d7ff9326b3602ad8d0a2571bcbfc787ee8e8224ea6fc8a07448c635badeffb7",
+      "nameHash": "2a1cff9912fc4601bf4dda92c4bb8edeb9c07cf4ad87c9b8d69cc2d18e613a47",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "5ad4b8d28dafd7a8fee081cf9e20f8ec62f979c8d9340f45e92d17d0f328076b",
+      "idHash": "56ac0391ec21303cdaa9219a03b261e94428a0b53bb55cb742502ff2c1ce6b5d",
+      "nameHash": "140bedbf9c3f6d56a9846d2ba7088798683f4da0c248231336e6a05679e4fdfe",
+      "driver": "null",
+      "scope": "local",
+      "composeProjectHash": null,
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "5cbb966ae8469934297e0a498663c307e8be77ac8e3e46de8f6e5860e21850d6",
+      "idHash": "4210c13a1c39ca9f39be2f5df7459f0dfe52980513d6a9085fcf48e6ea598783",
+      "nameHash": "6231790958252a76f42db3d74adb0895544b5e0747bc9f4a22aa0297ef14db14",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "5e628b6100298bd53004a7bc1c40d0adadc1183bb4ac28c75ebe317570c9d562",
+      "idHash": "258de36655e931e8515babac1538150d6d19cf062f743a81f59590007da2c4bb",
+      "nameHash": "2e5a30aa0acf7a8deef320d379302f6b3ae43cd85132e89245df450bff78c634",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "6318d7a10766d0a613d7826fa80c27d263e6a9471b6eeac06e1b02cb98ff58c3",
+      "idHash": "c31e775a779eaa5688fc2ccc76ecfca11ddc9d438f035e02d40ca2139df6537b",
+      "nameHash": "0f5d83942460126a937a5978ab82ab8a83802a0932d494d1fbf1fa51a63aaccb",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "9911c425750d8aadb663ae478f92f95d384a8b4948e39ecc35d0d662319057d5",
+      "idHash": "8f87a2faabc34d5720f6e036f54eb63154243f77b468ce1065e5d7551887518c",
+      "nameHash": "56ae0a1fdba3e93da294d3122583b22d105d7c98e335adca96d29dbc96c5e296",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "9e7105e6cd93f5b6adc6470b49a40d8855211110adaa13153835c622dad08ef5",
+      "idHash": "aa4805af48f39f8ecd653288ce8ad6c0478e6abb57c47b2732a2ae999dda5691",
+      "nameHash": "beea8b7112026c98545e15efd9deb415bbc64057f38edfcc445a024dc8be139e",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "c91659d8678de92062108d845d544d613102db1a22a1e3494d59c52794643f1e",
+      "idHash": "db44a90824d94e35d5b809be62c339ea774209da12b5e911622500f78b774fd1",
+      "nameHash": "42479f71a316db57eda7c0654a539d981b9fea5b4a1582f463b25879affe5565",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "dd4839a388ba39bed0a04d6b8ca94ba5d17cbff504675336515dd3492c82b86f",
+      "idHash": "3e4c00dfdd1385a027ca4a73d572b743a2d742193364c62d8788461f4af01325",
+      "nameHash": "17f29b073143d8cd97b5bbe492bdeffec1c5fee55cc1fe2112c8b9335f8b6121",
+      "driver": "bridge",
+      "scope": "local",
+      "composeProjectHash": null,
+      "ownershipLabels": {}
+    }
+  ],
+  "volumes": [
+    {
+      "signature": "004f9136dcf1988b4e50cc472765ad8c318ba69a340f4ab669effb2f914c5d9e",
+      "nameHash": "301f24ac55cdbe07a3395cc357387ddb2b0c48229dcf34f835765614282034db",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "05a6d4352c5222de31eeaa1754f8f0ba366a540ae7684836e669cc3a8310268e",
+      "nameHash": "214ef2fdb8815ecab100433968d84e4b1bc61b8e1785fd815369a01df2d184c2",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "096ef0639f8c6f9233ef04058973d4b64dac520077bb3382666bbf5a7de353b9",
+      "nameHash": "0c447a84b02f106dfb222317291e808d21b146d776af386851b5faac997521b4",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "0ab2f2d9960af5776142d7693036a86dcf379cc166f398e25df73dea2b2e8f8c",
+      "nameHash": "c14e500a340fb0135caaa432765392138ef7ee18f696bea0228fcd863a3f8956",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "10d8ff60c73f3df730336e8c17cb85431ed86b2e5772dfee4fa8640a881f38b7",
+      "nameHash": "19df4b45ab63716e064a6a3e31b1a44a57159e07c5b153a633dba0c226961838",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "150831ea3281b686b5194f1f389bce26f09ba3c856381ef5ab8151d57b4ad3cb",
+      "nameHash": "6510a4027e76c4f901add080612e26439b231edc261a9d8cb21d23757823da44",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "23c3e1b319ce94013f6c5cc3a9116888cd77d0a4db70439336f69d1046dc0943",
+      "nameHash": "09020227916a360222a446a2495f69106aae4ad37cb6a0c2e0d794808000193c",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "407c7f8de9c03565246e98131eb7023f5454213120f4bf685b919cdf2ee5366b",
+      "nameHash": "5b086adc7ee67e7177e20257e6432a88a6b77e6215a5992770b8556011d28163",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "4936eb7b4db70d049c50f1c34e8acb6dbb7c64635336ec7d90611a3ccbff97bd",
+      "nameHash": "f769b774f02979bb5db6ab98fe3802a90229f2e240f809787bae7671835822ea",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "586bf0420901a41ffab497e3de72d7e1ef605d58732e07c01ade216daa9f24b4",
+      "nameHash": "67225d941c493904ad2bb9d2e884bb1e130c24a1388e0748bc1f8a293ee3cecf",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "5b2452d3ffd54f51c053cc7c38077f80530d40a34f54961d28bbddf3c78f4c6e",
+      "nameHash": "94ea03da1e6441fa76b5888628cd20820aa470f6757e87f2e01bf0d678d3ee36",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "6666ca86a52e8402b7adcc1f1299e9d4538ca1a0a6325c0c42d4a737f980f0c0",
+      "nameHash": "6db8975ed995518708e3c11171293e69d08362ee8b65e21208219f66cf3968e0",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "67d5185560402d250a0e5042571b974eb35ef40f62de937e361020f520c2ea7b",
+      "nameHash": "d71e9de6a20087672e2caae2186dc0f4cd14e0b1be178b3d4051ce209e57a852",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "6b19b4a7f6988b193b269627d4f70f34ef65f813e10588eeef33d916971c401e",
+      "nameHash": "83740feb9eb1c61d00f4ee0b45858094bcd219660d9523ca422a575e4bc98405",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "71267c3d87e74729fb154763294399676ab7bd8c8afc234d55a52e7c322c257a",
+      "nameHash": "f4a90df00ae6a74f5afa28d082a93acb4382b984ae8eb01613882e7bc931bdcf",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "7578948b0b439b9e830971eb23b5967d55bd6ee4251cb7cb2a57152c09cf630b",
+      "nameHash": "24e0733153cde0c3aa3d926c6821a6e4387d3a99d3194cff7c116547a02442e9",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "3e38b345b1c763a2392e886e6092e74212eddb8e1d4cfb7041d1563d9c0bd83f",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "88a8a65f3e935d29bad5bfb17c3ee142e41b761b66d7704a8cdb7ff259e29de5",
+      "nameHash": "814199fa450ce36ecac751baa2f79517e4e89be25eb883823d005e80553af694",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "059e6d56395ad9d048c24179f467a8ab8cc87610e147a347bb236e95042fa80d",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "a87ae382a0dff8ea668e0cc4dc1eefcb549235c4ce78b23a5d765c45405900aa",
+      "nameHash": "31c2a147f64ceb50ebb0c4eb188e425c66da0bd329382ab658cdee472f2ca72f",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "f4c2cbcbbf1aa74ac0a1fb6714c4000b04fa1545e37a0dfc2601e0186c92ed69",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "b084774f8eeddad39a713b136ce98855d5c8021c2894340c9be168fb89af819b",
+      "nameHash": "42c3a39738265816543619e140a7df61e32d79b3d45422c0fae4336afd23fff4",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "b4cc636a81782f4afd8e08afeae6494b2ac9ae69a8defb698edf607ae5abe365",
+      "nameHash": "49baf568526eb35425856f691a39a04d06b722737a612dc69aa6511cba24e88c",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "939ea150724c326bb3942f07e8c58c26c6b74af4dcd29d1c6a2caa170eddb57c",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "bb130f738ecd863bf27cc15338bd9974a540034631c238ccf771849e5daaa1a1",
+      "nameHash": "6efaf4eb08d3392ee1c68f0efdf71054ff0f517b83374c87ca8cefe9a7893c5d",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "40721538c233b2f5b39a26c8c3fdf2fbdc80b9423618bcea5c8de461fca78bfb",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "eed8a9791244303fdb6be5bfb5dd00007dfe21b9a9e2a95b35fbbd85a5f5d6ee",
+      "nameHash": "53e48df85db85ebf3342dc72bc65dd730546d4d8ba8b38681ab558d1068eaa62",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "e6579bd19ba9b6cef39cedf9379d00d9085778a6c35f7b4215ea7c2e756cfcc5",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "f0b6cc3b4a964bca591cb1c87607c85ff2b16ba404de075f1154f799e9aa1204",
+      "nameHash": "29a989302c5c420c669df5cbadc53942c97a1cc1db4143c6dc3337fca96d5139",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "73c775e2069fc69f2d11f1ad93bd156fa5360b1f52c3a045cfa8ee406627eaa3",
+      "ownershipLabels": {}
+    },
+    {
+      "signature": "fb396db1e2ba5dd3203c6c4bf6e77bb88db169fcf2c3579e64d59e0e48534aaf",
+      "nameHash": "328b798ead02419ebc30c872b91b9ab261011f0f1a2d7af3664d38ed3211d53f",
+      "driver": "local",
+      "scope": "local",
+      "composeProjectHash": "af3fd806f4128b12e98561c2f60b43744387add659e492a15690ed95803642dd",
+      "ownershipLabels": {}
+    }
+  ],
+  "images": [
+    {
+      "role": "preexisting-image-protected",
+      "signature": "0c4ee4e709abf345d162bc3bb77b36967b6cbbb94de323ca43fdc5bba8c425db",
+      "idHash": "482a219c18e6d60acbb9d24355fafb5042ead7e9b0bde6ded370a691e889d507",
+      "tagsHash": "df776b4b8a9ef6d8a92bd7211406c68a5295086bfa1b20100282b2351ed57eaa",
+      "repoDigestsHash": "66fc475016b2f2155899ee054eb7f382cd5e3766d64b44cb7831d3f4cb3ba319",
+      "size": 4829372
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "0cdeada0102156d449e5380323dbf2384b76e6e0cd1f71c8da151528fff12d64",
+      "idHash": "bb52dbfc4c2249887755a48e28d353aa864e1cf29270ac26f4ce8dc4267a82a3",
+      "tagsHash": "16849cf077aeb02fcde48f28aa120e1db0913f3696e5b33551e6c56c75de0b6d",
+      "repoDigestsHash": "94a3260476c4c06803a5b59f994f2573e2896c4e6036a82623c660070afd94d3",
+      "size": 1344839939
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "0e81296b2901dab0750ca101fcaa3209e0663bb5852475f68061369d3fb46347",
+      "idHash": "6a635a7ee090b6d5758d5d5f27c488e11db1eb558164de1ddfe0b42212314cbf",
+      "tagsHash": "3ef5b51f2ddd4be077445dafc80ec761356a3c680e5087db710d5be98cee0f71",
+      "repoDigestsHash": "92e9e2bbd474344b7494887003c7ab202e1dc6652120661ac097da45986de3eb",
+      "size": 1346848230
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "172709bd3c72b24f97a4940217cda4e242ad9327db35b149caf12ea7f70b36fd",
+      "idHash": "c53ddab634fb78b3d93e3b85bb8e2e3ee1129dc7b405b6d2e20bccd504856dfd",
+      "tagsHash": "f9c27fde64d7a102bebc6d71aca10f2ad6ee1ac7ec946afbc2bc7e509ef59f26",
+      "repoDigestsHash": "f8327cf49ddf23fe506907436dee322855ec84cd278cafa6e4de70b1e15fc9b6",
+      "size": 1037596011
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "302af090ec3769db54b7af8bae5956cfec8a8706aa854639cfcab9dfa9564e91",
+      "idHash": "cebadffa3fd79e8649a813501073b049a9a243f3fe0e08514a19a21916eb30bc",
+      "tagsHash": "b331f0713a8f9354ba5adf61843386ea52717a9974c6e3ac6f3b364b5f669b37",
+      "repoDigestsHash": "7452a11acb4aebfeff3247767d2a173cde44c5572cc1d34c1340e025d86cca40",
+      "size": 1004954497
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "50dcb29f0798e21a63eef67a4ff61fab9fdefbc73ee432cb9811d56f6f80c692",
+      "idHash": "56907d5e46732f14c32656e9216bfbaa32aaf40ed030078a6be7a7af002d4109",
+      "tagsHash": "2da8d8c4980f806d858beb22e2a8b7dc101c82fde3b144a086f92cbf114ee78f",
+      "repoDigestsHash": "2da8d8c4980f806d858beb22e2a8b7dc101c82fde3b144a086f92cbf114ee78f",
+      "size": 86179176
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "51db4cde4d99525f21fc2f23813c859bfeca5c851387669eb65e897138c35096",
+      "idHash": "21fed7aca85100ff926b66dee849620a6d91e91e99df3f552f07e4b4d421ebca",
+      "tagsHash": "afbd89fc15d88890d7250a5b74f4b2bd3b0dc71421fbbfa28e83805581d6c659",
+      "repoDigestsHash": "42138e0f40cc050fffa456c2add01343a837b58b252aef703287cb1fc5e5eb22",
+      "size": 1037533442
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "6382e22094ccd6ca4351625f1f8a4939baaf3f64b14893de9fc57595d4c2420a",
+      "idHash": "223c6e844e7c007827b423e830763f4d507e356a1699fdd9cdf130a40e7e7d1d",
+      "tagsHash": "4808a56d46d3f26bb8ab08315de7b8437ab5cd4f6c1f7a7d3337cb56719a2723",
+      "repoDigestsHash": "55e5a22d7f04370d62bc94dc0aa006226cc01c7d706e6b49615483745b405729",
+      "size": 615995911
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "678c262a35011f4d5d60be8e7c91bfa6b86441976cdfe6fde8664c3e71016b28",
+      "idHash": "4f86ddeb7439c4b4612fbe4e760e8c7d39e9a891d7bdcf23334d2614ae3c70cc",
+      "tagsHash": "66752896c952c33c10c6eaeaf17cc543319f00cf6c9540d48de152a412e6ce6e",
+      "repoDigestsHash": "5f397f48a4bd60c5a5fcf829bea6ed70fe9b24c82f272b12a98af68bc4bd95c1",
+      "size": 1020235917
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "690f102e32651322f74136a2fc7571f47ccf47e2f3d7d33f7d382f34dcb41a51",
+      "idHash": "ea77a8c35579186fb0569bef9dfa0bb5ee9d57aa3e5aea1dc9ee8a6514c56001",
+      "tagsHash": "3d2964f51722a1e047f9ad39cc6e279e0437995d25fa3e4f67fe6e65239cb55d",
+      "repoDigestsHash": "5fe82a647743c2dec30bb7ecc61530b073fe11f1d06b968550ad8446d1199f7f",
+      "size": 2046142438
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "832a6ddf8e55a1df3dd117437df411970fd1fe045c1ef89fb0a54de1ab2475bd",
+      "idHash": "5e488330eace3533f5e53dffc4acc442682ddcbd4d23fefc254b26fd86c4b720",
+      "tagsHash": "e66cd43632d2be9fb71465ef945b472f600615ff65884a7906d1903133041904",
+      "repoDigestsHash": "a82556ccf99b3926f8d87e37ee9803d5019c9b5de2032b8d0abd41d0851f3847",
+      "size": 1335643872
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "93b29f66216126d0f9510f716d1b88008673a495f0f11d995135ba4faffc1df9",
+      "idHash": "d70766675b4d8068c4483d347c90c58d11088aa187f890c3893d00ade70d8f03",
+      "tagsHash": "50fdf7762877fe75c3ffd1af3a406b915389c6b6d0351f9b70dea9aeb5b6d97a",
+      "repoDigestsHash": "ff0b53ac03bb0c8962ee23b24efeeaffed933b29c0ab16c1a7805594ef0ea044",
+      "size": 1004777506
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "a29b0590f44552a817f22fb59857b3eb0573993115db59ecbf48ecbd7c6b5a79",
+      "idHash": "181641f0ae1525e5796a865757c4d825e35bf4eee1d370c2ee1353550bd0c35e",
+      "tagsHash": "3a2f903ed5ddc2b38538eebe5c95d7ba49193f9b03021ab143ed291522421b0f",
+      "repoDigestsHash": "eabc1984cd0672b12f53e76cbba5c877d38a355a6bfd5d0717bafa60a26a45c8",
+      "size": 1004776692
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "bab816a497c905b72c8c4543729674a877eea7b08e9f28d147419121be33db25",
+      "idHash": "7e11c24891b7294dad72a0a053d52699acce2f8d2be0d8cd51e4685e7cb70964",
+      "tagsHash": "6adfe176486147f610dc54ce6f60cf8cb92b2b7dd70b34cc4b5bef5a86bcb486",
+      "repoDigestsHash": "91a0cae3981259438dc8ef7cc7e51723125bb67bfa97410407ce738d06af7782",
+      "size": 1037533442
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "d1e261834fff8bed555603c278f3afbcea91f4f52c2abd6ef448198c612e2b89",
+      "idHash": "120d858488a757c4a20e049fadb4a0033636e8cff973c3c5d4a9c6cb3f26a639",
+      "tagsHash": "6becf550899f12dc45ed2cfca48ab580609398e907cf92c3e55498cd8445c419",
+      "repoDigestsHash": "d7ee9a52732dfa5b78336f7886d5206d497b6c9f7ef8e6a99dc19b7a531a4ba3",
+      "size": 1004776692
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "d34ed8ef6dfef228a0b5e0f03382ae510cf3baee5d72714fa6a77a2883fe5fba",
+      "idHash": "790ba990ced2b7eca4b91d3b6ddad6efd27de3a808d2b5a0572e6e037ccfc3e2",
+      "tagsHash": "eba9fdd90f41796102e627a2376c3e6b3017fe445a1b615f3774bc24baf4c3cf",
+      "repoDigestsHash": "cd1701df52d5e9c357d33358f4b7d43c1a84ebd37a414faa376ed498fd2092b7",
+      "size": 1017508704
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "e967aef10d5cf0fd60196601e09451b1b1a8284e00d44cf194a9ef1a0597ff88",
+      "idHash": "26d940e373c196f0522c1da5530a0ddd1c78d64fff05c33748c5f70a7e611887",
+      "tagsHash": "a0a90a049b1105f3b48deb5d96166cbb0fe01f231b88949fe5ddebc633fefa46",
+      "repoDigestsHash": "dcc777f7d81755f660037d1be27f3d708f58639eaa8d007b09e878c84585491c",
+      "size": 1004954656
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "ed09b31cad24fe5081b83c22e66b150eae0122b2f20f800253e86e125e600a03",
+      "idHash": "e13678509d08a77c2f0c705f6760ab040eacbb4a229a7f98f6f38b60c8e85f00",
+      "tagsHash": "5044a45fd07e5a0abaf5b1211d91527275bbd0ab9bb9cb6474cefe92fa8007d5",
+      "repoDigestsHash": "27c50be7bd4df044c5890aeff61911d4d95e7e1fcecb0c080caa6aaf2355c4fc",
+      "size": 495750983
+    },
+    {
+      "role": "preexisting-image-protected",
+      "signature": "fff7e6c76a56369c79bcc632855012356754106519e11707f51c4fba9821b80a",
+      "idHash": "5f8575d35f67818dbfa8534f540a8f96beaa8b000621ac63bf8b311c136e6ce9",
+      "tagsHash": "3d1f188ead0ce7ef103f7f4c3f8f0ce08862542742e1c9d4768249f1342931c8",
+      "repoDigestsHash": "eadb35953368a16cb88a8b0e08aed7ddd898c6f3bcc698d833218cdb0f988ee2",
+      "size": 1345193157
+    }
+  ]
+}

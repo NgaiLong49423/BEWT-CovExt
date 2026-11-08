@@ -1,0 +1,27 @@
+{
+  "resourceInventory": null,
+  "docker": {
+    "engineError": "Docker Desktop Linux engine named pipe is absent",
+    "engineStatus": "UNAVAILABLE",
+    "inventoryStatus": "NOT_QUERIED_ENGINE_UNAVAILABLE",
+    "context": "desktop-linux",
+    "cliVersion": "29.8.0",
+    "defaultContextStatus": "UNAVAILABLE",
+    "alternateRuntime": "NOT_FOUND"
+  },
+  "registry": {
+    "image": "kanboard/kanboard:v1.2.15",
+    "localImageId": "NOT_AVAILABLE_DAEMON_UNAVAILABLE",
+    "registryQuery": "PASS",
+    "linuxAmd64Digest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"
+  },
+  "mainSha": "d7693ea291b8b88a7f999a131daba3522fcf505d",
+  "host": {
+    "freeRamBytes": 2221195264,
+    "architecture": "AMD64",
+    "os": "Windows 11"
+  },
+  "dockerDesktopProcessPresent": false,
+  "resourceInventoryNote": "Container, network, and volume inventory unavailable because daemon API could not be reached. Null does not mean empty.",
+  "observedAt": "2026-11-08T09:24:42.5001385Z"
+}

@@ -1,0 +1,33 @@
+{
+  "runId": "t03a-a-20261108-r2",
+  "outcome": "PASS",
+  "actionsPerformed": [
+    "stop-if-running",
+    "remove-container",
+    "remove-3-volumes",
+    "remove-network"
+  ],
+  "postTeardownInventory": "PASS",
+  "inventoryFile": "docker-after.json",
+  "protectedResourceSetsUnchanged": [
+    "containers",
+    "networks",
+    "volumes",
+    "images"
+  ],
+  "beforeCounts": {
+    "containers": 32,
+    "runningContainers": 2,
+    "networks": 11,
+    "volumes": 24,
+    "images": 19
+  },
+  "afterCounts": {
+    "containers": 32,
+    "runningContainers": 2,
+    "networks": 11,
+    "volumes": 24,
+    "images": 19
+  },
+  "cleanupWasAlreadyComplete": false
+}

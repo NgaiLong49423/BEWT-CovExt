@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-11-08T10:01:31.0416806Z",
+  "url": "http://127.0.0.1:62535/",
+  "httpStatus": 200,
+  "loginFormPresent": true,
+  "httpReadiness": "PASS",
+  "containerId": "c0a1aeaa9f230c3b7cd59c8fbce9c6a65c3a5a63c24b66964a7e1d66ebb61dd6",
+  "imageRef": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "labels": {
+    "app": "kanboard",
+    "managed-by": "bewt-covext-agent",
+    "owner": "bewt-covext",
+    "project": "bewt-covext",
+    "runId": "t03a-b-20261108-r2",
+    "task": "t03a-g0"
+  },
+  "state": "running",
+  "resourceLimits": {
+    "memoryBytes": 805306368,
+    "pidsLimit": 256
+  },
+  "ports": [
+    {
+      "containerPort": "80/tcp",
+      "hostIp": "127.0.0.1",
+      "hostPort": 62535
+    }
+  ],
+  "mounts": [
+    {
+      "type": "volume",
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-ssl",
+      "destination": "/etc/nginx/ssl",
+      "rw": true
+    },
+    {
+      "type": "volume",
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-data",
+      "destination": "/var/www/app/data",
+      "rw": true
+    },
+    {
+      "type": "volume",
+      "name": "bewt-covext-kanboard-t03a-b-20261108-r2-plugins",
+      "destination": "/var/www/app/plugins",
+      "rw": true
+    }
+  ],
+  "composeProject": null,
+  "composeFile": null,
+  "versionInsideImage": "v1.2.15"
+}

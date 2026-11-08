@@ -1,0 +1,13 @@
+{
+  "bewtSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "upstreamKanboardCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "sourceTreeSha256": "c4862b3766e533250ee4e3df5f34558dd449c02eac629121fa1547277e50eaeb",
+  "runtimeManifestSha256": "0c036985d0e570b8f4c9a27c7282063189de13cc7fe0910dfdf814c4c42731d9",
+  "imageTag": "kanboard/kanboard:v1.2.15",
+  "registryDigest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "localImageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "applicationVersion": "v1.2.15",
+  "testClass": "tests.AddNewProject",
+  "actualBrowserExecutions": 2,
+  "runId": "t03a-b-20261108-r1"
+}
