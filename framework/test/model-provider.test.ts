@@ -61,11 +61,14 @@ test("generated Java contract binds the declared class, BaseTest, and JUnit and 
   assert.doesNotThrow(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new CustomerPasswordResetPage(driver, appUrl); } }" }, undefined, "CustomerPasswordResetPage"));
 });
 
-test("generated Java parser bounds class identifiers and validates declaration without an interpolated regex", () => {
+test("generated Java contract bounds class identifiers and validates package, class, and APIs with deterministic scanning", () => {
   assert.throws(() => parseGeneratedJavaOutput({ javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() {} }", testClass: "A".repeat(129) }));
   const source = { javaSource: `package tests; class ${"A".repeat(128)} extends BaseTest { @Test void behavior() {} }`, testClass: "A".repeat(128) };
   assert.doesNotThrow(() => validateGeneratedJavaContract(source));
+  assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "A".repeat(129) }), /valid bounded identifier/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "x".repeat(30_001) }), /configured size limit/);
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class NotTheClass extends BaseTest { @Test void behavior() {} }" }), /declare the returned class/);
+  assert.doesNotThrow(() => validateGeneratedJavaContract({ javaSource: "// generated\npackage\n tests ;\nclass GeneratedTest\nextends BaseTest { @Test void behavior() { new\n CustomerPasswordResetPage\n (driver, appUrl); } }", testClass: "GeneratedTest" }, undefined, "CustomerPasswordResetPage"));
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {

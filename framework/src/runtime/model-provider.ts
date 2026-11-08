@@ -51,8 +51,14 @@ export function buildSanitizedRequestEvidence(prompt: string): NonNullable<Model
   return { promptSha256: createHash("sha256").update(prompt).digest("hex"), sanitizedPrompt: sanitizeToolOutput(prompt) };
 }
 
-function javaIdentifiers(source: string): string[] {
-  const identifiers: string[] = [];
+type JavaIdentifier = { name: string; start: number; end: number };
+
+function isWhitespaceCode(code: number): boolean {
+  return (code >= 9 && code <= 13) || code === 32 || code === 160 || code === 5760 || (code >= 8192 && code <= 8202) || code === 8232 || code === 8233 || code === 8239 || code === 8287 || code === 12288 || code === 65279;
+}
+
+function javaIdentifiers(source: string): JavaIdentifier[] {
+  const identifiers: JavaIdentifier[] = [];
   const isStart = (code: number): boolean => (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 36 || code === 95;
   const isPart = (code: number): boolean => isStart(code) || (code >= 48 && code <= 57);
   let index = 0;
@@ -61,22 +67,87 @@ function javaIdentifiers(source: string): string[] {
     const start = index;
     index += 1;
     while (index < source.length && isPart(source.charCodeAt(index))) index += 1;
-    identifiers.push(source.slice(start, index));
+    identifiers.push({ name: source.slice(start, index), start, end: index });
   }
   return identifiers;
 }
 
+function hasApprovedPackage(source: string): boolean {
+  let index = 0;
+  while (index < source.length) {
+    while (index < source.length && isWhitespaceCode(source.charCodeAt(index))) index += 1;
+    if (source.startsWith("//", index)) {
+      while (index < source.length && source[index] !== "\n" && source[index] !== "\r") index += 1;
+      continue;
+    }
+    if (source.startsWith("/*", index)) {
+      const end = source.indexOf("*/", index + 2);
+      if (end < 0) return false;
+      index = end + 2;
+      continue;
+    }
+    break;
+  }
+  if (!source.startsWith("package", index)) return false;
+  index += "package".length;
+  if (index >= source.length || !isWhitespaceCode(source.charCodeAt(index))) return false;
+  while (index < source.length && isWhitespaceCode(source.charCodeAt(index))) index += 1;
+  if (!source.startsWith("tests", index)) return false;
+  index += "tests".length;
+  const nextCode = source.charCodeAt(index);
+  if ((nextCode >= 48 && nextCode <= 57) || (nextCode >= 65 && nextCode <= 90) || (nextCode >= 97 && nextCode <= 122) || nextCode === 95 || nextCode === 36) return false;
+  while (index < source.length && isWhitespaceCode(source.charCodeAt(index))) index += 1;
+  return source.charAt(index) === ";";
+}
+
+function hasWhitespaceSequence(tokens: JavaIdentifier[], source: string, first: string, second: string): boolean {
+  for (let index = 0; index < tokens.length - 1; index += 1) {
+    const left = tokens[index]!;
+    const right = tokens[index + 1]!;
+    if (left.name !== first || right.name !== second) continue;
+    let cursor = left.end;
+    while (cursor < right.start && isWhitespaceCode(source.charCodeAt(cursor))) cursor += 1;
+    if (cursor === right.start) return true;
+  }
+  return false;
+}
+
+function isJavaIdentifier(name: string): boolean {
+  if (name.length < 1 || name.length > 128) return false;
+  const code = name.charCodeAt(0);
+  if (!((code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 36 || code === 95)) return false;
+  for (let index = 1; index < name.length; index += 1) {
+    const part = name.charCodeAt(index);
+    if (!((part >= 65 && part <= 90) || (part >= 97 && part <= 122) || (part >= 48 && part <= 57) || part === 36 || part === 95)) return false;
+  }
+  return true;
+}
+
+function hasNewConstructor(tokens: JavaIdentifier[], source: string, className: string): boolean {
+  for (let index = 0; index < tokens.length - 1; index += 1) {
+    const keyword = tokens[index]!;
+    const type = tokens[index + 1]!;
+    if (keyword.name !== "new" || type.name !== className || source.slice(keyword.end, type.start).trim() !== "") continue;
+    let next = type.end;
+    while (next < source.length && isWhitespaceCode(source.charCodeAt(next))) next += 1;
+    if (source.charAt(next) === "(") return true;
+  }
+  return false;
+}
+
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
 export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string): void {
+  if (output.javaSource.length < 1 || output.javaSource.length > 30_000) throw new Error("generated Java source must be within the configured size limit");
+  if (!isJavaIdentifier(output.testClass)) throw new Error("generated Java class name must be a valid bounded identifier");
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
-  if (!/^\s*package\s+tests\s*;/m.test(output.javaSource)) throw new Error("generated Java must use the approved tests package");
   const identifiers = javaIdentifiers(output.javaSource);
-  if (!identifiers.some((identifier, index) => identifier === "class" && identifiers[index + 1] === output.testClass)) throw new Error("generated Java must declare the returned class name");
-  if (!/extends\s+BaseTest\b/.test(output.javaSource)) throw new Error("generated Java must extend the suite BaseTest");
-  if (!/@Test\b/.test(output.javaSource)) throw new Error("generated Java must contain a JUnit test method");
-  if (requiredPageObject && (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(requiredPageObject) || !new RegExp(`\\bnew\\s+${requiredPageObject}\\s*\\(`).test(output.javaSource))) throw new Error("generated Java must use the approved source-specific Page Object API");
-  if (/\b(?:Runtime\.getRuntime\(\)\.exec|new\s+ProcessBuilder)\b/.test(output.javaSource)) throw new Error("generated Java must not spawn arbitrary processes");
-  if (/\b(?:java\.net\.http|HttpClient|MongoClient|java\.sql\.|DriverManager|RestAssured|OkHttpClient)\b/.test(output.javaSource)) throw new Error("generated Java must not bypass browser interaction through API or database clients");
+  if (!hasApprovedPackage(output.javaSource)) throw new Error("generated Java must use the approved tests package");
+  if (!hasWhitespaceSequence(identifiers, output.javaSource, "class", output.testClass)) throw new Error("generated Java must declare the returned class name");
+  if (!hasWhitespaceSequence(identifiers, output.javaSource, "extends", "BaseTest")) throw new Error("generated Java must extend the suite BaseTest");
+  if (!identifiers.some((token) => token.name === "Test" && output.javaSource[token.start - 1] === "@")) throw new Error("generated Java must contain a JUnit test method");
+  if (requiredPageObject && (!isJavaIdentifier(requiredPageObject) || !hasNewConstructor(identifiers, output.javaSource, requiredPageObject))) throw new Error("generated Java must use the approved source-specific Page Object API");
+  if (output.javaSource.includes("Runtime.getRuntime().exec") || hasWhitespaceSequence(identifiers, output.javaSource, "new", "ProcessBuilder")) throw new Error("generated Java must not spawn arbitrary processes");
+  if (["HttpClient", "MongoClient", "DriverManager", "RestAssured", "OkHttpClient"].some((name) => identifiers.some((token) => token.name === name)) || output.javaSource.includes("java.net.http") || output.javaSource.includes("java.sql.")) throw new Error("generated Java must not bypass browser interaction through API or database clients");
 }
 
 /** Deterministic offline provider. It exists for contract/integration tests, never as Gemini evidence. */
