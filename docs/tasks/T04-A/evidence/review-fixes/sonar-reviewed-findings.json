@@ -18,7 +18,9 @@
       "message": "Make sure the PATH variable only contains fixed, unwriteable directories.",
       "issue": "PATH executable resolution",
       "line": 15,
-      "resolution": "Use a fixed trusted Git executable path; shell execution disabled."
+      "resolution": "Use a fixed trusted Git executable path; shell execution disabled.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     },
     {
       "state": "SOURCE_CORRECTION_PENDING_RESCAN",
@@ -26,7 +28,9 @@
       "message": "Make sure the PATH variable only contains fixed, unwriteable directories.",
       "issue": "PATH executable resolution",
       "line": 16,
-      "resolution": "Use a fixed trusted Git executable path; shell execution disabled."
+      "resolution": "Use a fixed trusted Git executable path; shell execution disabled.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     },
     {
       "state": "SOURCE_CORRECTION_PENDING_RESCAN",
@@ -34,7 +38,9 @@
       "message": "Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.",
       "issue": "Super-linear regular expression",
       "line": 23,
-      "resolution": "Replace broad email regex with a bounded quoted-literal scanner."
+      "resolution": "Replace broad email regex with a bounded quoted-literal scanner.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     },
     {
       "state": "SOURCE_CORRECTION_PENDING_RESCAN",
@@ -42,7 +48,9 @@
       "message": "Simplify this regular expression to reduce its runtime, as it has super-linear performance due to backtracking.",
       "issue": "Super-linear regular expression",
       "line": 50,
-      "resolution": "Parse Java imports by line prefix and token checks."
+      "resolution": "Parse Java imports by line prefix and token checks.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     },
     {
       "state": "SOURCE_CORRECTION_PENDING_RESCAN",
@@ -50,7 +58,9 @@
       "message": "Provide a compare function to avoid sorting elements alphabetically.",
       "issue": "Default array sort",
       "line": 50,
-      "resolution": "Use explicit deterministic lexical comparator."
+      "resolution": "Use explicit deterministic lexical comparator.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     },
     {
       "state": "SOURCE_CORRECTION_PENDING_RESCAN",
@@ -58,7 +68,24 @@
       "message": "Provide a compare function to avoid sorting elements alphabetically.",
       "issue": "Default array sort",
       "line": 68,
-      "resolution": "Use explicit deterministic lexical comparator."
+      "resolution": "Use explicit deterministic lexical comparator.",
+      "newAnalysisStatus": "NOT_REPORTED_ON_0940E3C",
+      "sourceCorrectionApplied": true
     }
-  ]
+  ],
+  "newHeadAnalysis": {
+    "headSha": "0940e3c17c996ca784a36dbc7fca33d6137986a1",
+    "checkRunId": "128883189861",
+    "checkName": "SonarCloud Code Analysis",
+    "status": "completed",
+    "conclusion": "success",
+    "qualityGate": "PASS",
+    "detailsUrl": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=8",
+    "newIssues": 0,
+    "acceptedIssues": 0,
+    "securityHotspots": 0,
+    "annotations": 0,
+    "newCoverage": "0.0%",
+    "newDuplication": "0.0%"
+  }
 }

@@ -18,7 +18,7 @@ All checks are static source, inventory, integrity, or utility tests. No applica
 | Regeneration determinism | PASS; three outputs byte-identical across independent generations | `determinism.txt`, `regeneration-hashes.json` |
 | JSON consistency | PASS; inventory, provenance, taxonomy, candidate, shortlist and proposed-status JSON parsed and asserted | `dataset-consistency-redaction.json` |
 | UTF-8 / blocker history | PASS; strict UTF-8 and zero replacement characters in review packets and resolved-blocker evidence | `encoding-check.txt` |
-| Secret scan and diff check | See `secret-scan.txt` and `diff-check.txt` after staged review | `secret-scan.txt`, `diff-check.txt` |
-| SonarCloud on pushed review-fix commit | Pending until GitHub analyzes the new PR head; prior reviewed head `6e8033c` failed as detailed in `sonar-reviewed-findings.json` | `sonar-reviewed-findings.json`, updated after push |
+| Secret scan and staged diff check | PASS; 35 paths within scope, no credential patterns, `git diff --cached --check` clean | `secret-scan.txt`, `staged-review.txt`, `diff-check.txt` |
+| SonarCloud review-fix commit `0940e3c` | Quality Gate PASS, check run `128883189861`; 0 new/accepted issues, 0 hotspots, 0 annotations, 0.0% new-code coverage and 0.0% duplication reported | `sonar-reviewed-findings.json` |
 
 The source integrity check reads the pinned blobs from the Git object database and compares the relevant working-tree paths with the pinned commit before generation. It does not modify or clean either source clone. No research gate was advanced.
