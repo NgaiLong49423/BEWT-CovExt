@@ -10,7 +10,7 @@
 | Framework integration in sandbox | 16 passed / 3 failed / 1 opt-in skip; two failures were symlink `EPERM`, adapter result was BLOCKED | `evidence/verification/main-integration-20261108-01/framework-integration.txt` |
 | Framework integration outside sandbox | PASS, 19 passed / 0 failed / 1 opt-in process-crash-recovery test skipped | `evidence/verification/main-integration-20261108-01/framework-integration-outside-sandbox.txt` |
 | ExpressCart Agent regression | PASS, 5/5 | `evidence/verification/main-integration-20261108-01/expresscart-agent.txt` |
-| SonarCloud for the post-merge integration commit | PENDING; the previous PASS is for pre-merge code commit `4b033778a13e989a063cc0f0c7be318de3dfbae5` | To be checked against the pushed merge commit |
+| SonarCloud for the post-merge integration commit | NOT_VERIFIED; GitHub reports no check-runs and no commit-status entries for integration commit `acc5cc3f1b63837f23eb22c02236c54120007b89` | Checked with GitHub API after push; previous PASS is for pre-merge code commit `4b033778a13e989a063cc0f0c7be318de3dfbae5` |
 
 The sandbox failures are retained as diagnostic evidence; the full integration suite was rerun outside the sandbox and passed. No Gemini request or Docker reset was run. Live model output and generated-candidate Selenium remain blocked/unverified; offline acceptance does not accept G2 or D1.
 
