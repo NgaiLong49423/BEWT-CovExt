@@ -32,5 +32,6 @@ Task branch: `feature/t03a-kanboard-g0`, based on `d7693ea291b8b88a7f999a131daba
 
 ## Handoff
 
-The complete per-run logs, sanitized Surefire XML, Docker inventories, runtime manifests, source hashes and teardown records are under `evidence/`. `docs/program/STATUS.json`, `IMPLEMENTATION-ROADMAP.md`, `framework/`, `adapters/expresscart/` and `bewt-original/` were not modified. Branch commit, push and the review PR are authorized handoff steps; the PR will remain unmerged for Team Lead review.
+The complete per-run logs, sanitized Surefire XML, Docker inventories, runtime manifests, source hashes and teardown records are under `evidence/`. `docs/program/STATUS.json`, `IMPLEMENTATION-ROADMAP.md`, `framework/`, `adapters/expresscart/` and `bewt-original/` were not modified.\n\nThe task is committed on `feature/t03a-kanboard-g0` and pushed as `c549e07780ee87b3e5abcb538a15af29b39d5440`. Review PR: [#6](https://github.com/NgaiLong49423/BEWT-CovExt/pull/6), targeting `main`, open and unmerged.
+
 
