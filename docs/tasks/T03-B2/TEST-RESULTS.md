@@ -2,8 +2,8 @@
 
 | Command/check | Result |
 |---|---|
-| Five `node --check` commands for runner/helpers/cleanup/tests | PASS, all exit 0; logs in `evidence/offline-verification-20261109-r4/node-syntax-check.log` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 17 tests, 0 failures; log at `evidence/offline-verification-20261109-r4/node-fault-tests.log` |
+| Five `node --check` commands for runner/helpers/cleanup/tests | PASS, all exit 0; logs in `evidence/offline-verification-20261109-r5/node-syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 17 tests, 0 failures; log at `evidence/offline-verification-20261109-r5/node-fault-tests.log` |
 | `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | PASS, exit 0; compiled 22 main and 42 test sources; log at `evidence/offline-verification-20261109-r3/maven-test-compile.log` |
 | In-memory `parseApplicationManifest()` negative check | PASS expected rejection; `NOT_VERIFIED` fails the full 40-character Git SHA rule; no runtime manifest exists | `evidence/offline-verification-20261109-r2/manifest-parser-negative.json` |
 | Runtime HTTP/MySQL/Selenium and Maven test | NOT_RUN; user-approved fresh preflight RAM 1.64 GiB < 4 GiB |

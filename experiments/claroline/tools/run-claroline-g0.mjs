@@ -1,6 +1,6 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, validateRunId } from './claroline-g0.mjs';
@@ -83,6 +83,7 @@ try {
   writeOnce(resolve(evidenceDir, 'database-before.json'), { schemaObserved: 'claroline', userTable: table, fixtureUsername: 'user001', matchingRows: beforeUserCount });
   if (beforeUserCount !== 0) throw new Error('FIXTURE_FAILURE: user001 already exists before the smoke test');
   const suite = resolve(root, 'bewt-suite');
+  const mavenStartedAt = Date.now();
   const maven = spawnSync('mvn', ['-B', '-Dtest=' + APP_TEST_CLASS, `-Dapp.url=${appUrl}`, `-Dwebdriver.remote.url=http://127.0.0.1:${browserPort}/wd/hub`, 'clean', 'test'], { cwd: suite, encoding: 'utf8', windowsHide: true });
   const sanitize = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
   writeFileSync(resolve(evidenceDir, 'maven.stdout.log'), sanitize(maven.stdout), { flag: 'wx' });
@@ -90,7 +91,7 @@ try {
   writeOnce(resolve(evidenceDir, 'maven-exit.json'), { command: 'mvn -B -Dtest=test.Claroline_AddUserTest -Dapp.url=<loopback-dynamic> -Dwebdriver.remote.url=<loopback-dynamic>/wd/hub test', exitCode: maven.status, signal: maven.signal, stdoutSha256: sha256(sanitize(maven.stdout || '')), stderrSha256: sha256(sanitize(maven.stderr || '')) });
   const xmlPath = resolve(suite, 'target/surefire-reports/TEST-test.Claroline_AddUserTest.xml');
   let junit;
-  try { const raw = readFileSync(xmlPath, 'utf8'); const safe = sanitize(sanitizeSurefireXml(raw, [repo, root])); writeFileSync(resolve(evidenceDir, 'TEST-test.Claroline_AddUserTest.xml'), safe, { flag: 'wx' }); junit = parseSurefireXml(safe, APP_TEST_CLASS); writeOnce(resolve(evidenceDir, 'surefire-hash.json'), { originalXmlSha256: sha256(raw), sanitizedXmlSha256: sha256(safe) }); }
+  try { if (statSync(xmlPath).mtimeMs < mavenStartedAt) throw new Error('Surefire XML predates this Maven invocation'); const raw = readFileSync(xmlPath, 'utf8'); const safe = sanitize(sanitizeSurefireXml(raw, [repo, root])); writeFileSync(resolve(evidenceDir, 'TEST-test.Claroline_AddUserTest.xml'), safe, { flag: 'wx' }); junit = parseSurefireXml(safe, APP_TEST_CLASS); writeOnce(resolve(evidenceDir, 'surefire-hash.json'), { originalXmlSha256: sha256(raw), sanitizedXmlSha256: sha256(safe) }); }
   catch (error) { junit = { outcome: 'BLOCKED', reason: `Surefire XML unavailable: ${error.message}` }; }
   writeOnce(resolve(evidenceDir, 'junit-result.json'), junit);
   const afterUserCount = readUserCount();

@@ -27,8 +27,8 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 
 | Exact command | Exit code | PASS/FAIL/BLOCKED/NOT_RUN | Evidence path |
 |---|---:|---|---|
-| Five Node `--check` commands | 0 | PASS | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/node-syntax-check.log` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 17 passed, 0 failed | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/node-fault-tests.log` |
+| Five Node `--check` commands | 0 | PASS | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/node-syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 17 passed, 0 failed | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/node-fault-tests.log` |
 | `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | 0 | PASS — 22 main + 42 test sources | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/maven-test-compile.log` |
 | In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r2/manifest-parser-negative.json`; `framework/src/contracts.ts` unchanged |
 | Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` |
@@ -55,7 +55,7 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 ## 5. Evidence and reproduction
 
 - Source/test paths: `experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java`, `experiments/claroline/tools/`, `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; [baseline source comparison](evidence/offline-verification-20261109-r3/baseline-source-comparison.json).
-- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r4/`; Maven compile log is under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
+- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/`; Maven compile log is under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
 - Fixture/database before/after and cleanup: no app database was started. Preflight-container cleanup evidence is retained with its initial blocked checker record and exact NOT_FOUND follow-up.
 - Reproducible commands: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; Maven `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile`; runtime requires a fresh never-used `t03b2-<letter>-YYYYMMDD-rN` ID and ≥4 GiB free memory.
 - Known limitations: SourceForge archive bytes/hash unavailable; no verified Claroline upstream commit; runtime and DB reset not evaluated; image is legacy and has unknown build provenance.
