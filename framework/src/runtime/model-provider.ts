@@ -1,7 +1,7 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
-import { randomUUID } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { z } from "zod";
-import type { BaselineInventory, CandidateScenario, CoverageGap } from "../contracts.js";
+import { sanitizeToolOutput, type BaselineInventory, type CandidateScenario, type CoverageGap } from "../contracts.js";
 import { parseCandidateScenario } from "../contracts.js";
 import { assertCanGenerateJava } from "../policy.js";
 import { expectedGeneratedTestClass } from "./java-class.js";
@@ -19,7 +19,7 @@ export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
 export function parseGenerationOutput(input: unknown): GenerationOutput { return ModelOutput.parse(input); }
 export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { return JavaOutput.parse(input); }
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
-export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
+export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
 export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; }
 
@@ -45,6 +45,10 @@ function usageNumber(value: unknown, keys: string[]): number | undefined {
   const source = value as Record<string, unknown>;
   for (const key of keys) if (typeof source[key] === "number" && Number.isFinite(source[key])) return source[key] as number;
   return undefined;
+}
+
+export function buildSanitizedRequestEvidence(prompt: string): NonNullable<ModelTelemetry["requestEvidence"]> {
+  return { promptSha256: createHash("sha256").update(prompt).digest("hex"), sanitizedPrompt: sanitizeToolOutput(prompt) };
 }
 
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
@@ -125,6 +129,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
         sourceReferences: candidate.sourceReferences }, approvedImplementationContext: context }),
     ].join("\n\n");
     const promptCharacters = Array.from(prompt).length;
+    const requestEvidence = buildSanitizedRequestEvidence(prompt);
     const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
     if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
@@ -142,12 +147,12 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
       const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd,
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
         ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
       return output;
     } catch (error) {
       const category = classifyModelError(error);
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd };
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
       throw new Error(`MODEL_CALL_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
     }
   }
@@ -189,6 +194,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
         baselineCases: request.baseline.cases.slice(0, 40).map(({ caseId, scenarioName, behaviorTags }) => ({ caseId, scenarioName: scenarioName.slice(0, 120), behaviorTags: behaviorTags.slice(0, 5) })) }),
     ].join("\n\n");
     const promptCharacters = Array.from(prompt).length;
+    const requestEvidence = buildSanitizedRequestEvidence(prompt);
     const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
     if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: Date.now() - startedAt, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
@@ -202,12 +208,12 @@ export class GeminiGenerationProvider implements GenerationProvider {
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
       const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd,
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
         ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
       return output;
     } catch (error) {
       const category = classifyModelError(error);
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd };
+      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
       throw new Error(`MODEL_CALL_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
     }
   }

@@ -7,6 +7,9 @@
 | Framework unit tests | PASS, 37/37 | `evidence/verification/rerun-20261108-final-audit-5/framework-unit.txt` |
 | Framework build after bounded prompt compaction | PASS | `evidence/verification/rerun-20261108-prompt-budget-fix/framework-build.txt` |
 | Framework unit tests after bounded prompt compaction | PASS, 37/37 | `evidence/verification/rerun-20261108-prompt-budget-fix/framework-unit.txt` |
+| Framework build with sanitized request evidence | PASS | `evidence/verification/rerun-20261108-request-evidence/framework-build.txt` |
+| Framework unit tests with sanitized request evidence | PASS, 38/38 | `evidence/verification/rerun-20261108-request-evidence/framework-unit.txt` |
+| Focused workflow + offline Java pipeline with sanitized request evidence | PASS, 6/6 | `evidence/verification/rerun-20261108-request-evidence/t01c-workflow-integration.txt` |
 | Final prompt compaction build/unit | PASS / PASS, 37/37 | `evidence/verification/rerun-20261108-final-prompt-budget/{framework-build.txt,framework-unit.txt}` |
 | Focused workflow + offline Java pipeline after final prompt compaction | PASS, 6/6 | `evidence/verification/rerun-20261108-final-prompt-budget/t01c-workflow-integration.txt` |
 | Targeted model-provider regression tests after final test-fixture cleanup | PASS, 7/7 | Command: `npx tsx --test test/model-provider.test.ts` (final source state) |

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -25,6 +25,13 @@ test("model error classifier does not mistake generateContent for rate limiting"
   assert.equal(classifyModelError(new Error("400 Bad Request API_KEY_INVALID")), "AUTHORIZATION");
   assert.equal(classifyModelError(new Error("429 RESOURCE_EXHAUSTED")), "RATE_LIMIT");
   assert.equal(classifyModelError(new Error("network failure calling generateContent")), "PROVIDER_ERROR");
+});
+
+test("model request evidence is hashed and redacts secrets and private identifiers", () => {
+  const evidence = buildSanitizedRequestEvidence("email person@example.test password=hunter2 API_KEY=secret-value");
+  assert.match(evidence.promptSha256, /^[a-f0-9]{64}$/);
+  assert.doesNotMatch(evidence.sanitizedPrompt, /person@example\.test|hunter2|secret-value/);
+  assert.match(evidence.sanitizedPrompt, /REDACTED/);
 });
 
 test("structured generation parser rejects incomplete model output", () => {

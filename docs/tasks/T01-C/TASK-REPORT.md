@@ -13,7 +13,7 @@
 - Generated class identity and immutable registration are implemented in `framework/src/runtime/java-class.ts` and `framework/src/runtime/java-artifact-registry.ts`. Registration is tied to current accepted candidate/revision/source and uses exclusive creation.
 - The generated-test harness (`adapters/expresscart/generated-test-harness.ts`) copies the Maven manifest, existing `PageObject` base, source-grounded `CustomerPasswordResetPage`, approved `BaseTest`, and exact registered generated class into an isolated workspace. Adapter compile and Selenium methods are in `adapters/expresscart/experiment.ts`.
 - Validation distinctions and provenance are represented by `parseValidationResult` in `framework/src/contracts.ts`; technical eligibility is separate from oracle/novelty and research acceptance.
-- The model run ledger in `framework/src/runtime/model-call-ledger.ts` is append-only and fail-closed across retries/restarts; unit tests verify exhausted budgets remain consumed after restart. The CLI requires explicit live authorization flags. The latest bounded run made one provider invocation but returned no response; its `calls=1`, zero-retry telemetry and failure evidence are preserved.
+- The model run ledger in `framework/src/runtime/model-call-ledger.ts` is append-only and fail-closed across retries/restarts; unit tests verify exhausted budgets remain consumed after restart. The CLI requires explicit live authorization flags. Provider telemetry now includes sanitized prompt text and SHA-256 request identity, with redaction covered by tests. The latest bounded run made one provider invocation but returned no response before this enhancement, so its prompt cannot be reconstructed.
 
 ## Root cause and live request
 
@@ -22,6 +22,7 @@ The first bounded request, explicitly authorized earlier, returned `API_KEY_INVA
 ## Verification and limits
 
 - `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 37/37 after prompt budget correction. Latest logs: `evidence/verification/rerun-20261108-prompt-budget-fix/`.
+- Sanitized request evidence build/unit: PASS / PASS, 38/38; focused workflow integration: PASS, 6/6. Logs: `evidence/verification/rerun-20261108-request-evidence/`.
 - Final prompt compaction build/unit: PASS / 37/37; focused shared workflow + offline pipeline integration: PASS, 6/6. Logs: `evidence/verification/rerun-20261108-final-prompt-budget/`. Historical topics are compacted to all five candidate/behavior IDs; full source-linked topic records remain in the pinned source evidence. No live call followed this compaction.
 - ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt`).
 - Focused offline T01-C and shared workflow integration: PASS, 7/7, covering pause-before-effects, fake Java after test approval, actual Maven compile, REVISE/new checkpoint/ACCEPT, REJECT, replay protection, two repairs, and process restart. Log: `evidence/verification/rerun-20261108-final-audit-5/t01c-workflow-integration.txt`; latest Maven compile: `evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json`.
