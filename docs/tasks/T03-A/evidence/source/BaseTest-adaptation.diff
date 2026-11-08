@@ -1,0 +1,32 @@
+diff --git "a/src/test/java/tests/BaseTest.java" "b/src/test/java/tests/BaseTest.java"
+index 18d68cc..3324ab3 100644
+--- "a/src/test/java/tests/BaseTest.java"
++++ "b/src/test/java/tests/BaseTest.java"
+@@ -16,12 +16,15 @@ import org.openqa.selenium.remote.RemoteWebDriver;
+ 
+ public class BaseTest {
+ 
+-<baseline password literal omitted from public evidence>
+-	public static final String app_url = "http://localhost:8080";
++	public static final String password = System.getenv("KANBOARD_TEST_PASSWORD");
++	public static final String app_url = System.getProperty("app.url", "http://localhost:8080");
+ 	public WebDriver driver;
+ 
+ 	@Before
+ 	public void setUp() {
++		if (password == null || password.isBlank()) {
++			throw new IllegalStateException("KANBOARD_TEST_PASSWORD must be provided through the runtime environment");
++		}
+ 		setupNativeBrowser();
+ 		driver.get(app_url);
+ 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+@@ -42,7 +45,6 @@ public class BaseTest {
+ 	public void setupNativeBrowser() {
+ 		ChromeOptions options = new ChromeOptions();
+ 		options.addArguments("--disable-search-engine-choice-screen", "--disable-gpu", "--headless=new", "--screen-info={1920x1080}");
+-		options.setBrowserVersion("127");
+ 		driver = new ChromeDriver(options);
+ 	}
+ 
+
+

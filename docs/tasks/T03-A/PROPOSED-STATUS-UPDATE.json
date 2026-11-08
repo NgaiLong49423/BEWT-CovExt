@@ -1,0 +1,16 @@
+{
+  "task": "T03-A",
+  "application": "kanboard",
+  "proposedGateStatus": "G0_READY_FOR_REVIEW",
+  "reviewAcceptance": "NOT_ACCEPTED",
+  "programStatusJsonChanged": false,
+  "sourceAndImageProvenance": "PASS",
+  "runtimeIsolation": "PASS",
+  "httpReadiness": "PASS",
+  "originalBaseSelenium": "PASS",
+  "independentCleanStarts": 2,
+  "resetVerification": "PASS",
+  "cleanupAndProtection": "PASS",
+  "evidence": "docs/tasks/T03-A/evidence/",
+  "reviewRequired": true
+}

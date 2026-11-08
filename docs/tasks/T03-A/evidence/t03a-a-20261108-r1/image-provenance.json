@@ -1,0 +1,16 @@
+{
+  "imageTag": "kanboard/kanboard:v1.2.15",
+  "registryManifestDigest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "localRepoDigest": "kanboard/kanboard@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "localImageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+  "os": "linux",
+  "architecture": "amd64",
+  "declaredVolumes": [
+    "/etc/nginx/ssl",
+    "/var/www/app/data",
+    "/var/www/app/plugins"
+  ],
+  "applicationVersionInsideImage": "v1.2.15",
+  "versionVerification": "Kanboard built-in php cli version command",
+  "pulledByDigest": true
+}

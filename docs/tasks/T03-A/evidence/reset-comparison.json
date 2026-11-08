@@ -1,0 +1,50 @@
+{
+  "outcome": "PASS",
+  "independentRunsVerified": true,
+  "runIds": [
+    "t03a-a-20261108-r2",
+    "t03a-b-20261108-r2"
+  ],
+  "distinctContainerIds": true,
+  "distinctNetworkIds": true,
+  "distinctVolumeNames": true,
+  "runACleanupBeforeRunB": "PASS",
+  "runA": {
+    "httpReadiness": "PASS",
+    "mavenExitCode": 0,
+    "junit": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": 1
+    },
+    "sentinel": {
+      "before": 0,
+      "after": 1
+    },
+    "cleanup": "PASS"
+  },
+  "runBBeforeTest": {
+    "httpReadiness": "PASS",
+    "sentinelCount": 0,
+    "runASentinelAbsent": true
+  },
+  "runB": {
+    "mavenExitCode": 0,
+    "junit": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suites": 1
+    },
+    "sentinel": {
+      "before": 0,
+      "after": 1
+    },
+    "cleanup": "PASS"
+  },
+  "samePinnedImage": true,
+  "protectedDockerResourcesUnchanged": true
+}

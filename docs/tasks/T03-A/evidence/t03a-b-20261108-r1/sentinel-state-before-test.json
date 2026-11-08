@@ -1,0 +1,8 @@
+{
+  "runId": "t03a-b-20261108-r1",
+  "sentinel": "Test 2",
+  "countBeforeTest": 0,
+  "query": "SELECT COUNT(*) FROM projects WHERE name = 'Test 2'",
+  "readOnly": true,
+  "verification": "PASS"
+}

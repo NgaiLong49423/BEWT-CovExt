@@ -1,0 +1,36 @@
+{
+  "t03aContainerStateAtSettledSnapshot": "created, not running",
+  "repeatedReadOnlySnapshotFingerprintsStable": true,
+  "note": "T01-B Docker destroy events occurred during the user-confirmed memory-freeing window. T03-A issued no destroy operations. The settled snapshot includes the uniquely labeled, not-yet-started T03-A resources; subsequent cleanup comparison excludes only those exact run-owned IDs/names.",
+  "intermediateSnapshot": {
+    "runningContainers": 3,
+    "containers": 34,
+    "volumes": 26,
+    "networks": 12,
+    "images": 19
+  },
+  "settledSnapshotPath": "../t03a-a-20261108-r1/docker-prestart-settled-2.json",
+  "settledPrestartSnapshot": {
+    "runningContainers": 2,
+    "containers": 33,
+    "volumes": 27,
+    "networks": 12,
+    "images": 19
+  },
+  "protectedExistingExpressCartContainers": 2,
+  "changeBetweenIntermediateAndSettled": {
+    "ownership": "T01-B run resources, matched to Docker destroy events by container IDs and Compose project labels",
+    "networksRemoved": 1,
+    "causedByT03A": false,
+    "containersRemoved": 2,
+    "volumesRemoved": 2
+  },
+  "intermediateSnapshotPath": "../t03a-a-20261108-r1/docker-before.json",
+  "firstAvailableSnapshot": {
+    "runningContainers": 2,
+    "containers": 32,
+    "volumes": 24,
+    "networks": 11,
+    "images": 18
+  }
+}

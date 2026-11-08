@@ -6,6 +6,22 @@ import { parseApplicationManifest } from '../../../../../framework/src/contracts
 
 const cwd = process.cwd();
 
+export function validateRuntimeManifestCollection(files, loadManifest) {
+  const jsonFiles = files.filter((file) => file.endsWith('.json'));
+  if (jsonFiles.length === 0) throw new Error('config/apps contains no runtime manifest JSON files');
+  const appIds = new Set();
+  const parsedManifests = [];
+  for (const file of jsonFiles) {
+    const raw = loadManifest(file);
+    if (Object.hasOwn(raw, 'manifestType')) throw new Error(`${file} is a draft manifest and cannot be used at runtime`);
+    const parsed = parseApplicationManifest(raw);
+    if (appIds.has(parsed.appId)) throw new Error(`Duplicate runtime manifest appId: ${parsed.appId}`);
+    appIds.add(parsed.appId);
+    parsedManifests.push({ file, manifest: parsed });
+  }
+  return parsedManifests;
+}
+
 export function runVerification(options = {}) {
   const commandExecutor = options.commandExecutor || ((file, args, commandOptions) => execFileSync(file, args, commandOptions));
   const isDirectRun = options.silent !== true;
@@ -144,19 +160,16 @@ export function runVerification(options = {}) {
     }
   }
 
-  // 4. Clean config/apps directory check
-  if (isDirectRun) console.log('\n--- 4. Verify config/apps/ directory isolation ---');
+  // 4. Every JSON manifest under config/apps must pass runtime parsing; drafts fail closed.
+  if (isDirectRun) console.log('\n--- 4. Verify config/apps/ runtime-manifest isolation ---');
   try {
-    const configAppsFiles = fs.readdirSync('config/apps');
-    if (configAppsFiles.length === 1 && configAppsFiles[0] === 'expresscart.json') {
-      recordTest('CONFIG_APPS_ISOLATION', 'config/apps contains ONLY expresscart.json', 'PASS', 'Zero unverified draft manifests in config/apps');
-    } else {
-      recordTest('CONFIG_APPS_ISOLATION', 'config/apps contains ONLY expresscart.json', 'FAIL', `Found unisolated files in config/apps: ${configAppsFiles.join(', ')}`);
-    }
+    const entries = fs.readdirSync('config/apps', { withFileTypes: true });
+    const files = entries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+    const validated = validateRuntimeManifestCollection(files, (file) => JSON.parse(fs.readFileSync(path.join('config/apps', file), 'utf8')));
+    recordTest('CONFIG_APPS_ISOLATION', 'All config/apps JSON files are unique valid runtime manifests', 'PASS', `Validated ${validated.length} runtime manifests: ${validated.map((item) => item.manifest.appId).join(', ')}`);
   } catch (e) {
-    recordTest('CONFIG_APPS_ISOLATION', 'config/apps directory check', 'FAIL', e.message);
+    recordTest('CONFIG_APPS_ISOLATION', 'All config/apps JSON files are unique valid runtime manifests', 'FAIL', e.message);
   }
-
   const hasErrors = failCount > 0 || blockedCount > 0;
 
   // 5. Write TAP and JSON Evidence Logs if requested (default true on direct run)
