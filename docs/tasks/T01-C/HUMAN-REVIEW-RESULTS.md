@@ -2,7 +2,7 @@
 
 ## Live candidate
 
-No live Gemini candidate reached the review checkpoint. Consequently, no real reviewer decision was made, and no ACCEPT/REVISE/REJECT decision is reported for T01-C. The live run's failure evidence is `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`; the terminal status is `API_KEY_INVALID`, not `AWAITING_HUMAN_REVIEW`.
+No live Gemini candidate reached the review checkpoint. Consequently, no real reviewer decision was made, and no ACCEPT/REVISE/REJECT decision is reported for T01-C. The first invocation failed with `API_KEY_INVALID` in `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`; the later bounded invocation failed with `PROVIDER_ERROR` (`fetch failed`) in `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`. No terminal status was `AWAITING_HUMAN_REVIEW`.
 
 ## Offline policy verification
 

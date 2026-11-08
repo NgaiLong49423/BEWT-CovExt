@@ -2,7 +2,7 @@
 
 ## Live research result
 
-T01-C live candidate count: **0**. The single authorized Gemini Gherkin call failed with HTTP 400 `API_KEY_INVALID`, before structured output or a human-review checkpoint. Coverage gain: **NOT_EVALUATED**. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`.
+T01-C live candidate count: **0**. Two explicitly authorized Gemini Gherkin invocations returned no structured output: the earlier call failed with HTTP 400 `API_KEY_INVALID`; the later bounded call failed at fetch with `PROVIDER_ERROR`. Three intervening over-budget preflights were rejected locally with zero provider calls. No human-review checkpoint was reached. Coverage gain: **NOT_EVALUATED**. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/` and `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`.
 
 ## Implemented offline/source-backed behavior
 

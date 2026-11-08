@@ -21,7 +21,7 @@ The first bounded request, explicitly authorized earlier, returned `API_KEY_INVA
 
 ## Verification and limits
 
-- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, 37/37 after prompt budget correction. Latest logs: `evidence/verification/rerun-20261108-prompt-budget-fix/`.
+- `npm ci`: PASS; `npm run build`: PASS; `npm test`: PASS, latest 38/38 with request-evidence redaction. Latest logs: `evidence/verification/rerun-20261108-request-evidence/`.
 - Sanitized request evidence build/unit: PASS / PASS, 38/38; focused workflow integration: PASS, 6/6. Logs: `evidence/verification/rerun-20261108-request-evidence/`.
 - Final prompt compaction build/unit: PASS / 37/37; focused shared workflow + offline pipeline integration: PASS, 6/6. Logs: `evidence/verification/rerun-20261108-final-prompt-budget/`. Historical topics are compacted to all five candidate/behavior IDs; full source-linked topic records remain in the pinned source evidence. No live call followed this compaction.
 - ExpressCart Agent `npm test`: PASS, 5/5 (`evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt`).
