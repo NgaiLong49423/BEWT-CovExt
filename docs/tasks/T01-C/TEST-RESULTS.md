@@ -1,5 +1,19 @@
 # Test Results
 
+## Main integration follow-up (2026-11-08)
+
+| Check | Result | Evidence |
+|---|---:|---|
+| `npm ci` | PASS; 71 packages installed, 0 vulnerabilities | `evidence/verification/main-integration-20261108-01/npm-ci.txt` |
+| Framework TypeScript build | PASS | `evidence/verification/main-integration-20261108-01/framework-build.txt` |
+| Framework unit suite | PASS, 45/45 | `evidence/verification/main-integration-20261108-01/framework-unit.txt` |
+| Framework integration in sandbox | 16 passed / 3 failed / 1 opt-in skip; two failures were symlink `EPERM`, adapter result was BLOCKED | `evidence/verification/main-integration-20261108-01/framework-integration.txt` |
+| Framework integration outside sandbox | PASS, 19 passed / 0 failed / 1 opt-in process-crash-recovery test skipped | `evidence/verification/main-integration-20261108-01/framework-integration-outside-sandbox.txt` |
+| ExpressCart Agent regression | PASS, 5/5 | `evidence/verification/main-integration-20261108-01/expresscart-agent.txt` |
+| SonarCloud for the post-merge integration commit | PENDING; the previous PASS is for pre-merge code commit `4b033778a13e989a063cc0f0c7be318de3dfbae5` | To be checked against the pushed merge commit |
+
+The sandbox failures are retained as diagnostic evidence; the full integration suite was rerun outside the sandbox and passed. No Gemini request or Docker reset was run. Live model output and generated-candidate Selenium remain blocked/unverified; offline acceptance does not accept G2 or D1.
+
 ## Final offline assertion-preservation review (2026-11-08)
 
 | Check | Result | Evidence |

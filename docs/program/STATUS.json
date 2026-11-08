@@ -7,8 +7,8 @@
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "d7693ea291b8b88a7f999a131daba3522fcf505d",
-    "note": "Verified by git fetch origin main and GitHub branches API on 2026-11-08; main includes merged PR #5/T02. PR #6/T03-A remains open for review."
+    "observedHeadSha": "708724fee47e5136d628c479a5a0f90ab0ea15d7",
+    "note": "Verified by git fetch origin and GitHub PR API on 2026-11-08; main includes merged PR #5/T02 and PR #6/T03-A."
   },
   "repositoryMilestones": {
     "T02": {
@@ -18,7 +18,7 @@
     },
     "T03-A": {
       "pullRequest": 6,
-      "status": "OPEN_FOR_REVIEW",
+      "status": "MERGED",
       "headSha": "d8ed06f8dbc194695aea3927136e14ef9591e0dd"
     }
   },
@@ -42,10 +42,11 @@
     "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_FIVE_AUTHORIZED_LIVE_GHERKIN_INVOCATIONS_FAILED_NO_CANDIDATE",
     "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
-    "t01cValidation": "PARTIAL_OFFLINE_WORKFLOW_MAVEN_COMPILE_AND_DOCKER_ADAPTER_LIFECYCLE_TESTED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
-    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SYNTHETIC_OFFLINE_REPAIR_MAVEN_PASS_GEMINI_OUTPUT_ZERO_SONARCLOUD_PASS_0_9_DUPLICATION_0_NEW_ISSUES_0_HOTSPOTS_NEW_COVERAGE_0_0",
+    "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
+    "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PENDING_ON_INTEGRATION_COMMIT",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",
+      "docs/tasks/T01-C/evidence/verification/main-integration-20261108-01/",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-02/",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-6/",
       "docs/tasks/T01-C/evidence/t01c-offline-approved-78fb846d-0234-4a4f-bfdd-17f3d8843cc0/isolated-maven-compile.json",
@@ -306,10 +307,10 @@
   },
   "taskReview": {
     "currentTaskId": "T01-C",
-    "currentTaskStatus": "PARTIAL_READY_FOR_REVIEW_BLOCKED_LIVE_MODEL_OUTPUT_AND_GENERATED_E2E_OFFLINE_ASSERTION_PRESERVATION_CHECKED",
+    "currentTaskStatus": "OFFLINE_ACCEPTED_LIVE_BLOCKED",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
-    "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",
+    "reviewedTaskHeadSha": "7094978d88dccd67e857b4dfa97a9f310b3b0fec",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",

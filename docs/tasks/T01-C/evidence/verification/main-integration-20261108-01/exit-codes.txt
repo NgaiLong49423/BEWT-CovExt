@@ -1,0 +1,5 @@
+framework-build=0
+framework-unit=0
+framework-integration-sandbox=1
+framework-integration-outside-sandbox=0
+expresscart-agent=0
