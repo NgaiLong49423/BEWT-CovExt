@@ -3,10 +3,10 @@
 - Task scope / acceptance gate: Isolated Claroline G0 feasibility, source/image provenance, baseline compilation and safe runtime harness; no G1–G4.
 - Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
 - Working branch: `feature/t03b2-claroline-g0`.
-- Previous implementation commit: none; this task branch is new from the verified main SHA.
-- Head commit (full 40-char SHA): pending final commit.
-- PR: pending publication.
-- Push status: pending final commit and remote verification.
+- Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
+- Head commit (full 40-char SHA): this report update follows the implementation commit; see the final verified HEAD SHA in PR #9 and the handoff.
+- PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
+- Push status: implementation commit pushed; report update is being pushed and verified on the same branch/PR.
 - Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source commit not verified; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
 - Status proposed by Agent: `PARTIAL` / provenance `PROVENANCE_BLOCKED`; runtime `NOT_RUN` because the user-approved fresh RAM check measured 1.64 GiB free (<4 GiB preflight requirement).
 
@@ -64,4 +64,4 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 
 - Team Lead decisions: approve/decline the proposed archive-based source provenance contract separately; review whether to defer runtime until adequate host memory and archive/source provenance are available.
 - Suggested next task if accepted: resolve source provenance and rerun the isolated G0 runtime with two independent clean states, then request review; do not infer G0 acceptance from compilation.
-- GitHub PR diff URL and file paths: pending PR creation after commit/push.
+- GitHub PR diff URL: [PR #9 diff](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9/files). Main review paths: `experiments/claroline/tools/run-claroline-g0.mjs`, `experiments/claroline/tools/cleanup-claroline-g0.mjs`, `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`, `docs/tasks/T03-B2/CLAROLINE-SOURCE-PROVENANCE.md`, and `docs/tasks/T03-B2/G0-RUNTIME-RESULTS.md`.
