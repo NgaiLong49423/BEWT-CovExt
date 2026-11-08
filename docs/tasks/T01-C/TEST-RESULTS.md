@@ -31,11 +31,11 @@
 |---|---:|---|
 | Framework TypeScript build | PASS | `evidence/verification/rerun-20261108-full-verification-01/framework-build.txt` |
 | Framework unit tests | PASS, 38/38 | `evidence/verification/rerun-20261108-full-verification-01/framework-unit.txt` |
-| Framework build after SonarCloud regex finding fix | PASS | `evidence/verification/rerun-20261108-sonar-regex-fix/build.txt` |
-| Framework unit tests after SonarCloud regex finding fix | PASS, 39/39 | `evidence/verification/rerun-20261108-sonar-regex-fix/unit-tests.txt` |
-| Offline approved Java pipeline after class-token validation change | PASS, 1/1 | `evidence/verification/rerun-20261108-sonar-regex-fix/t01c-offline-approved-java-pipeline.txt` |
-| Synthetic generated Java isolated Maven `test-compile` from the same integration | PASS; synthetic Fake-provider artifact only | `evidence/t01c-offline-approved-650597c8-05b9-454c-9079-692665b4ec77/isolated-maven-compile.json` |
-| SonarCloud follow-up analysis for regex fix | NOT_RUN (fix is local and not pushed yet) | Existing PR check at prior SHA `004d8c3ca2d5fbc94abf285c9afa632331aae18d` reported `typescript:S8786`; do not infer resolution until a new remote analysis completes |
+| Framework build after SonarCloud regex finding fix | PASS | `evidence/verification/rerun-20261108-sonar-regex-fix-2/build.txt` |
+| Framework unit tests after SonarCloud regex finding fix | PASS, 39/39 | `evidence/verification/rerun-20261108-sonar-regex-fix-2/unit-tests.txt` |
+| Offline approved Java pipeline after class-token validation change | PASS, 1/1 | `evidence/verification/rerun-20261108-sonar-regex-fix-2/t01c-offline-approved-java-pipeline.txt` |
+| Synthetic generated Java isolated Maven `test-compile` from the same integration | PASS; synthetic Fake-provider artifact only | `evidence/t01c-offline-approved-66ed529a-a8d5-44e1-b06a-f9194199bdb8/isolated-maven-compile.json` |
+| SonarCloud analysis after first regex refactor | PASS, but `typescript:S8786` remained on SHA `4605cea9057ae6f76f29b5ea2b07b630892aa9eb` | The current manual character scanner is not yet on GitHub; require a fresh analysis before declaring the issue resolved |
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-full-verification-01/expresscart-agent-unit.txt` |
 | Full framework integration outside sandbox | PASS, 18 passed / 0 failed / 1 skipped | `evidence/verification/rerun-20261108-full-verification-01/framework-integration-outside-sandbox.txt` |
 | ExpressCart adapter lifecycle integration | PASS, 1/1, included in the full integration run | Same full integration log; standalone rerun at `evidence/verification/rerun-20261108-full-verification-01/adapter-lifecycle-outside-sandbox.txt` |

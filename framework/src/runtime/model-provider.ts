@@ -51,11 +51,26 @@ export function buildSanitizedRequestEvidence(prompt: string): NonNullable<Model
   return { promptSha256: createHash("sha256").update(prompt).digest("hex"), sanitizedPrompt: sanitizeToolOutput(prompt) };
 }
 
+function javaIdentifiers(source: string): string[] {
+  const identifiers: string[] = [];
+  const isStart = (code: number): boolean => (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 36 || code === 95;
+  const isPart = (code: number): boolean => isStart(code) || (code >= 48 && code <= 57);
+  let index = 0;
+  while (index < source.length) {
+    if (!isStart(source.charCodeAt(index))) { index += 1; continue; }
+    const start = index;
+    index += 1;
+    while (index < source.length && isPart(source.charCodeAt(index))) index += 1;
+    identifiers.push(source.slice(start, index));
+  }
+  return identifiers;
+}
+
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
 export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string): void {
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
   if (!/^\s*package\s+tests\s*;/m.test(output.javaSource)) throw new Error("generated Java must use the approved tests package");
-  const identifiers = output.javaSource.match(/[A-Za-z_$][A-Za-z0-9_$]*/g) ?? [];
+  const identifiers = javaIdentifiers(output.javaSource);
   if (!identifiers.some((identifier, index) => identifier === "class" && identifiers[index + 1] === output.testClass)) throw new Error("generated Java must declare the returned class name");
   if (!/extends\s+BaseTest\b/.test(output.javaSource)) throw new Error("generated Java must extend the suite BaseTest");
   if (!/@Test\b/.test(output.javaSource)) throw new Error("generated Java must contain a JUnit test method");

@@ -31,8 +31,10 @@
     "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
     "t01cValidation": "PARTIAL_OFFLINE_WORKFLOW_MAVEN_COMPILE_AND_DOCKER_ADAPTER_LIFECYCLE_TESTED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
-    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_TESTS_39_PASS_SONAR_REGEX_FIX_REMOTE_ANALYSIS_PENDING",
+    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_39_PASS_OFFLINE_PIPELINE_AND_SYNTHETIC_MAVEN_COMPILE_PASS_SONAR_MANUAL_SCANNER_ANALYSIS_PENDING",
     "t01cEvidence": [
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-2/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-66ed529a-a8d5-44e1-b06a-f9194199bdb8/isolated-maven-compile.json",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix/",
       "docs/tasks/T01-C/evidence/t01c-offline-approved-650597c8-05b9-454c-9079-692665b4ec77/isolated-maven-compile.json",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/",
