@@ -228,33 +228,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
         sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, preconditions: candidate.preconditions, oracle: candidate.oracle,
         sourceReferences: candidate.sourceReferences }, approvedImplementationContext: context }),
     ].join("\n\n");
-    const promptCharacters = Array.from(prompt).length;
-    const requestEvidence = buildSanitizedRequestEvidence(prompt);
-    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
-    if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
-      throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
-    }
-    this.used = true;
-    const startedAt = Date.now();
-    try {
-      const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
-      const output = parseGeneratedJavaOutput(response.parsed);
-      const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
-      validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
-      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
-      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
-      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
-      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
-      return output;
-    } catch (error) {
-      const category = classifyModelError(error);
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
-      throw new Error(`MODEL_CALL_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
-    }
+    return this.invokeJava(prompt, candidate, expectedClass, "MODEL_CALL_FAILED", () => { this.used = true; });
   }
 
   async repairJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string,
@@ -275,6 +249,10 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
         sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, oracle: candidate.oracle },
         classifiedFailureEvidence: failure, currentJavaSource: currentJava }),
     ].join("\n\n");
+    return this.invokeJava(prompt, candidate, expectedClass, "MODEL_REPAIR_FAILED", () => { this.repairAttempts.add(attempt); });
+  }
+
+  private async invokeJava(prompt: string, candidate: CandidateScenario, expectedClass: string, failureCode: string, consumeCall: () => void): Promise<GeneratedJavaOutput> {
     const promptCharacters = Array.from(prompt).length;
     const requestEvidence = buildSanitizedRequestEvidence(prompt);
     const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
@@ -282,7 +260,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
       throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
     }
-    this.repairAttempts.add(attempt);
+    consumeCall();
     const startedAt = Date.now();
     try {
       const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
@@ -300,7 +278,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     } catch (error) {
       const category = classifyModelError(error);
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: category === "AUTHORIZATION" ? "BLOCKED" : "FAIL", errorCategory: category, promptCharacters, estimatedMaxCostUsd, requestEvidence };
-      throw new Error(`MODEL_REPAIR_FAILED:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
+      throw new Error(`${failureCode}:${category}:${error instanceof Error ? error.message.slice(0, 300) : "unknown"}`);
     }
   }
 }

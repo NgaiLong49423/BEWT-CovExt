@@ -31,7 +31,7 @@
     "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
     "t01cValidation": "PARTIAL_OFFLINE_WORKFLOW_MAVEN_COMPILE_AND_DOCKER_ADAPTER_LIFECYCLE_TESTED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
-    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_42_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SYNTHETIC_OFFLINE_REPAIR_MAVEN_PASS_GEMINI_OUTPUT_ZERO",
+    "t01cLatestCodeVerification": "LOCAL_BUILD_PASS_UNIT_42_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SYNTHETIC_OFFLINE_REPAIR_MAVEN_PASS_GEMINI_OUTPUT_ZERO_SONARCLOUD_DUPLICATION_FIX_AWAITING_REANALYSIS",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-6/",
       "docs/tasks/T01-C/evidence/t01c-offline-approved-78fb846d-0234-4a4f-bfdd-17f3d8843cc0/isolated-maven-compile.json",
@@ -69,7 +69,8 @@
       "docs/tasks/T01-C/evidence/t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f/",
       "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes/",
-      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes-03/"
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes-03/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-duplication-fix-02/"
     ],
     "sources": [
       "experiments/expresscart/agent/",

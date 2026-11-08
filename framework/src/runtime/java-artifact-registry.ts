@@ -209,31 +209,28 @@ function javaAssertionCalls(source: string): string[] {
 
 /** Return the previously registered first generation after a graph replay, never making a second model request. */
 export async function loadRegisteredGeneratedJava(repositoryRoot: string, workflow: AgentWorkflowState, candidate: CandidateScenario): Promise<GeneratedJavaArtifact | undefined> {
-  const directory = registrationDirectory(candidate);
-  const artifactPath = generatedJavaExtensionPath(candidate);
-  const artifactAbsolute = await optionalExisting(repositoryRoot, artifactPath);
-  const registrationAbsolute = await optionalExisting(repositoryRoot, `${directory}/registration.json`);
-  if (!artifactAbsolute && !registrationAbsolute) return undefined;
-  if (!artifactAbsolute || !registrationAbsolute) throw new Error("incomplete immutable Java registration found after workflow replay; refusing another model generation");
-  const registration = parseRegistration(JSON.parse(await readFile(registrationAbsolute, "utf8")) as unknown);
-  const artifact: GeneratedJavaArtifact = { kind: "generated_java", path: artifactPath, testClass: registration.testClass,
-    candidateId: candidate.candidateId, revision: candidate.revision, origin: "GENERATED", sha256: registration.sourceSha256 };
-  await verifyRegisteredGeneratedJava(repositoryRoot, workflow, candidate, artifact);
-  return artifact;
+  return loadRegisteredJava(repositoryRoot, workflow, candidate, "GENERATED");
 }
 
 export async function loadRegisteredRepairedJava(repositoryRoot: string, workflow: AgentWorkflowState, candidate: CandidateScenario, attempt: number): Promise<GeneratedJavaArtifact | undefined> {
   if (!Number.isInteger(attempt) || attempt < 1 || attempt > 2) throw new Error("repair attempt must be 1 or 2");
-  const expectedClass = expectedGeneratedTestClass(candidate);
-  const directory = `${registrationDirectory(candidate)}/repair-${attempt}`;
-  const artifactPath = `${directory}/${expectedClass}.java`;
+  return loadRegisteredJava(repositoryRoot, workflow, candidate, "REPAIRED", attempt);
+}
+
+async function loadRegisteredJava(repositoryRoot: string, workflow: AgentWorkflowState, candidate: CandidateScenario,
+  origin: "GENERATED" | "REPAIRED", attempt?: number): Promise<GeneratedJavaArtifact | undefined> {
+  if (origin === "REPAIRED" && attempt === undefined) throw new Error("repair attempt is required to load a repaired artifact");
+  const directory = origin === "GENERATED" ? registrationDirectory(candidate) : `${registrationDirectory(candidate)}/repair-${attempt}`;
+  const artifactPath = origin === "GENERATED" ? generatedJavaExtensionPath(candidate) : `${directory}/${expectedGeneratedTestClass(candidate)}.java`;
   const artifactAbsolute = await optionalExisting(repositoryRoot, artifactPath);
   const registrationAbsolute = await optionalExisting(repositoryRoot, `${directory}/registration.json`);
   if (!artifactAbsolute && !registrationAbsolute) return undefined;
-  if (!artifactAbsolute || !registrationAbsolute) throw new Error("incomplete immutable repair registration found after workflow replay; refusing another model repair");
+  if (!artifactAbsolute || !registrationAbsolute) throw new Error(origin === "GENERATED"
+    ? "incomplete immutable Java registration found after workflow replay; refusing another model generation"
+    : "incomplete immutable repair registration found after workflow replay; refusing another model repair");
   const registration = parseRegistration(JSON.parse(await readFile(registrationAbsolute, "utf8")) as unknown);
   const artifact: GeneratedJavaArtifact = { kind: "generated_java", path: artifactPath, testClass: registration.testClass,
-    candidateId: candidate.candidateId, revision: candidate.revision, origin: "REPAIRED", sha256: registration.sourceSha256 };
+    candidateId: candidate.candidateId, revision: candidate.revision, origin, sha256: registration.sourceSha256 };
   await verifyRegisteredGeneratedJava(repositoryRoot, workflow, candidate, artifact);
   return artifact;
 }

@@ -5,7 +5,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type { AgentWorkflowState, CandidateScenario, EvidenceReference, HumanReviewDecision } from "../src/contracts.js";
 import { pauseAtHumanReview, startRepair, submitReviewDecision, transitionWorkflow } from "../src/policy.js";
-import { expectedGeneratedTestClass, registerGeneratedJava, registerRepairedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
+import { expectedGeneratedTestClass, loadRegisteredRepairedJava, registerGeneratedJava, registerRepairedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
 import { FakeJavaGenerationProvider, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -98,6 +98,8 @@ test("repaired artifacts are immutable, assertion-preserving, and chained throug
       testClass: repair1.artifact.testClass, candidateId: candidate.candidateId, revision: candidate.revision, origin: "REPAIRED" as const, sha256: repair1.artifact.sha256! }] };
     const verified1 = await verifyRegisteredGeneratedJava(root, withRepair1, approvedCandidate, repair1.artifact);
     assert.equal(verified1.registration.repairAttempt, 1);
+    const recoveredRepair1 = await loadRegisteredRepairedJava(root, withRepair1, approvedCandidate, 1);
+    assert.deepEqual(recoveredRepair1, repair1.artifact, "repaired artifact loader recovers only its registered immutable revision");
     repairing = startRepair(transitionWorkflow(withRepair1, "VALIDATING"));
     const secondRepairOutput = await provider.repairJava(approvedCandidate, repairing, await readFile(verified1.absolutePath, "utf8"), validation, 2);
     const repair2 = await registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2, secondRepairOutput);

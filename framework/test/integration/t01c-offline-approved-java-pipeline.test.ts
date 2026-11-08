@@ -47,16 +47,7 @@ function validation(candidateId: string, runId: string, compileOutcome: "PASS" |
   } as ValidationResult;
 }
 
-test("offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation", async () => {
-  const root = await mkdtemp(join(tmpdir(), "bewt-t01c-offline-full-"));
-  const repositoryRoot = resolve(process.cwd(), "..");
-  const saver = openSqliteCheckpointer(join(root, "checkpoints.sqlite"));
-  const gherkin = new FakeGenerationProvider();
-  const java = new FakeJavaGenerationProvider();
-  const candidateId = newCandidateId();
-  let javaCalls = 0;
-  let validationCalls = 0;
-  const runId = `t01c-offline-approved-${randomUUID()}`;
+async function stageExpressCartCompileInputs(root: string, repositoryRoot: string): Promise<void> {
   const suite = join(root, manifest.baseSuitePath);
   await mkdir(join(suite, "src/test/java/tests"), { recursive: true });
   await mkdir(join(suite, "src/main/java/po"), { recursive: true });
@@ -67,6 +58,19 @@ test("offline LangGraph path pauses before effects, then uses fake Java only aft
   const resetPageObject = await readFile(join(repositoryRoot, "adapters/expresscart/java/CustomerPasswordResetPage.java"));
   await writeFile(join(suite, "src/main/java/po/CustomerPasswordResetPage.java"), resetPageObject);
   await writeFile(join(root, "adapters/expresscart/java/CustomerPasswordResetPage.java"), resetPageObject);
+}
+
+test("offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation", async () => {
+  const root = await mkdtemp(join(tmpdir(), "bewt-t01c-offline-full-"));
+  const repositoryRoot = resolve(process.cwd(), "..");
+  const saver = openSqliteCheckpointer(join(root, "checkpoints.sqlite"));
+  const gherkin = new FakeGenerationProvider();
+  const java = new FakeJavaGenerationProvider();
+  const candidateId = newCandidateId();
+  let javaCalls = 0;
+  let validationCalls = 0;
+  const runId = `t01c-offline-approved-${randomUUID()}`;
+  await stageExpressCartCompileInputs(root, repositoryRoot);
   const services: RuntimeServices = {
     readBaseline: async () => baseline,
     analyzeCoverage: async () => [gap],
@@ -129,16 +133,7 @@ test("offline production-shaped repair loop preserves the first Java artifact an
   const gherkin = new FakeGenerationProvider();
   const candidateId = newCandidateId();
   const runId = `t01c-offline-repair-${randomUUID()}`;
-  const suite = join(root, manifest.baseSuitePath);
-  await mkdir(join(suite, "src/test/java/tests"), { recursive: true });
-  await mkdir(join(suite, "src/main/java/po"), { recursive: true });
-  await mkdir(join(root, "adapters/expresscart/java"), { recursive: true });
-  await writeFile(join(suite, "pom.xml"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "pom.xml")));
-  await writeFile(join(suite, "src/test/java/tests/BaseTest.java"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "src/test/java/tests/BaseTest.java")));
-  await writeFile(join(suite, "src/main/java/po/PageObject.java"), await readFile(join(repositoryRoot, manifest.baseSuitePath, "src/main/java/po/PageObject.java")));
-  const resetPageObject = await readFile(join(repositoryRoot, "adapters/expresscart/java/CustomerPasswordResetPage.java"));
-  await writeFile(join(suite, "src/main/java/po/CustomerPasswordResetPage.java"), resetPageObject);
-  await writeFile(join(root, "adapters/expresscart/java/CustomerPasswordResetPage.java"), resetPageObject);
+  await stageExpressCartCompileInputs(root, repositoryRoot);
 
   let generationCalls = 0;
   let repairCalls = 0;
