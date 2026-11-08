@@ -1,0 +1,5 @@
+T04-A initial offline blocker check ºw^~)Þt SUPERSEDED by evidence/source-recovery/
+
+At this point the command was scoped to the outer repository D:/Github-Projects/BEWT-CovExt (remote NgaiLong49423/BEWT-CovExt), not the nested bewt-original repository. The resulting source commit lookup failure was not valid evidence of source absence. The initial fail-closed dataset was subsequently replaced only after cloning and verifying the correct repository OlianasD/BEWT at commit 0501249ff3e9a5ea83a06155cd2971dc36197056 and tree d38fcc0eae8073023c48bb46998741c8c19d4d06.
+
+Final authoritative source recovery and test results are under evidence/source-recovery/. Do not treat this initial blocker as current status.

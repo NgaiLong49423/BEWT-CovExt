@@ -1,0 +1,226 @@
+{
+  "schemaVersion": "1.0",
+  "sourceCommits": {
+    "bewt": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "bewtTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "upstream": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b"
+  },
+  "pageObjectCount": 27,
+  "javaClassHashes": {
+    "AddNewProject": "105bac9e132572018a34d4514d60ccd8965a94ed6eb52bb69a796b05362a4de3",
+    "AddEmptyProject": "7e26f92c04cf07fb317e66b158908c6c36c073dc31c3ccb5b2ae4d3299b6451d",
+    "AddNewTask": "54af474669a998d9277ebca4ce970c84feca28b937c1551a760aca5cea163d1c",
+    "AddEmptyTask": "50adb7e92cfa2be25e5e96fb65453e590219042147298c1dd3145e62f7f50e18",
+    "EditProject": "c78ce03c53b34dbc530d3e2f04ec6fd1c8044bbe08033c2e8db8d4473f11e915",
+    "AddNewColumn": "66d70d019e6de4a111df372d192ecd816ec3508565013804adfed575d8dc9ee2",
+    "AddEmptyColumn": "4d8d5a7f14156dc451b6c2939cc9a33d24b337acdbd775bea66bcafcd9993311",
+    "AddNewSwimlane": "0376acd3936ffcee55efd9dc0803eb77e2b45ace69b65901e48874c213e876af",
+    "AddEmptySwimlane": "0504b730a4a9ab92807a1d37c9ccbef50d1073097eac2d0c9efe7a25b9fd7357",
+    "AddNewCategory": "c7ffaa7ab29568b0eb58d562fded9073cc95eb370a4de420519e182e036f9ba5",
+    "AddEmptyCategory": "30722a16f68634c97b7d39dfa1c3239282b0ac21c7f9d53f2c59c8b01a83774e",
+    "EditProfile": "969664bb914533c2c6c45c60958a0b22c3b0c068859d88f1cabd079c914a21c1",
+    "AuthorizedUsers": "3bba911aff07a2878995d4b0f1859523596168028c680dc58064b8a50f72efea",
+    "SetReferenceCurrency": "5b3be815bf7dfa4a0173742533f305ae71812c8615b9c178fa25ecf661544138",
+    "ChangeLanguage": "b3ab7c68669909ab62f580a8f274f03aed17e6202e791148f32eef906aaa0276",
+    "AddNewPrivateProject": "99c9e74ec888fc40b60121a13385d370b2d9a6622930b5910bd409a211b9ec3d",
+    "SearchInProject": "f0cf19308337cd1ef028a76f94fe78c18807439860c28761619b7866adf879dc",
+    "ChangeTask": "39f759fd680e64912c059c7b10e2bf42891bc96847b6bef47c8b2c021ad6529c",
+    "AddLocalUser": "48fc6f9cf43495d5ff0c0cd446fdd29c867b513a902399d51a8e92b8a1a6f066",
+    "AddRemoteUser": "ffc82fc4890d9ecd5ad848523391feeee294b5c4d1c74d063a9b00e4f9b31a05",
+    "AddLocalUser_DifferentPasswords": "82fd24456c29fa6ec8598538e3c6962a4dd17cdea3c2683da4bfbb2d1107c24c",
+    "AddLocalUser_EmptyConfirmPassword": "278b6d92a63c79e21642d0146c067418b1af518a72bc5086392d0acfcb99c97b",
+    "AddLocalUser_EmptyPassword": "0734cf2ae9bd0d7d657b5fc3cda787cb7d298b75036747db753c6f18288be368",
+    "AddLocalUser_EmptyUsername": "80d1521afce0d5236260002886f2bff29feb6a70185ef43b4b12fc6dca790a0e",
+    "AddLocalUser_ShortPassword": "a2affb388687fe34f8d12d2cd93362341924b187a88a5992da6e68ab11cf602d",
+    "RemoveUser": "e4ea8d3e2da55ac2ae31ac02ac632535556257c719092161e4d885d2dedff175",
+    "ClosedTasks": "73a87c56fca39a6c82460aea180e0b66615905c8c3dda775055c69609d1f176b",
+    "RemoveProject": "29a283562b59e1174b3d750e1557dc3bc0038ce534c7134694920098e8515325",
+    "ChangeBoardSettings": "be99f5fc0ec6b4c71f83666bd4f6dab85632e281ef3a14703924d804d648faa0",
+    "AddNewCurrencyRate": "7a9f8ca8b1a46dafdc7737391deb4c41c3074663517c2203f87004044e1d8c49"
+  },
+  "pageObjectHashes": {
+    "AddNewProjectPage.java": "09f80ac2aa02de5b27c07533e3e44174db31a36321c087ef9f7d89823f86a865",
+    "ApplicationSettingsPage.java": "f26075673d3738c6bced3e07e74f75ddf7b92fbc02cc40369f6ec3a27bc756bb",
+    "BoardSettingsPage.java": "b2cca89614a3ffe08119d52336d9fc1180405fbc4b51f0756d355edc85eb018f",
+    "CategoriesPage.java": "8ffaff3885c9dac926ac52a024200259ff7349a7e8dd822484d6c752699dd959",
+    "ColumnsPage.java": "927531e418f60bcfd05c9a14177844f657e4b443be602b7bc3a3f99e4792827b",
+    "CurrencyRatesPage.java": "8ee0733fca9e156451fd309efa5c5b28812755d1d8516a248f4e2e7db89d8578",
+    "EditProjectPage.java": "0afbef81180ffad1973e7e7fda63a96d3d74af9cd8c865140f1b1ce6b56e697e",
+    "EditUserProfilePage.java": "b408f2c53301a75edf392094d4403cd7aec7cf394a1eeec8e7d2c36dca1cb877",
+    "KanboardHomePage.java": "19b757892882ef1395fa46b73428248bf3c3267d131cb6eeb246bf4f0824890e",
+    "LoginPage.java": "049a7d7af8db8b4478815126217fb351c42403ae4a6cad1f6e60eb1a844c5425",
+    "NewUserPage.java": "94113224ffbd5152a9f20491319df8acd2c02e3e8149c20424bfc34e9ca10456",
+    "PageObject.java": "1dab1fdc4ae72154bd5b6b772a983ac8ca9c388a238bd24b0dd4b93dde5a1395",
+    "PermissionsPage.java": "4acf3eda217b1c29dbe74022913a233cb1692dd5eda0f70b0951629872f70b75",
+    "ProjectListPage.java": "0f4ffb698e3a5dcb982b5702216ea0cf7948ccefdaed281f26d928ec3cf7ac5e",
+    "ProjectManagementPage.java": "271753268288fc9e2a0768d040ac163f280d2ff13cea7b795900ba99625bbabe",
+    "ProjectPage.java": "de640f2cac1ea9fd2b3b90571fc61b8889328b22bf32038ef995a1624690a093",
+    "ProjectSidebar.java": "ef66e09f9848edebed868f72883247361f4e3ded9d364c9655e8a7a346783091",
+    "ProjectSummaryPage.java": "cef1637a57c2b6dcc781c5459e4331fe74dc6136d4942a3a0e3fe685f57ab8d1",
+    "SearchResultsPage.java": "b64dae190f7d78ac354c89de28310d7fd53520b3e5abd2cb463ed6a1d3d8cfcf",
+    "SettingsPage.java": "a0937397cfe35256a3c258b1bff14972b862f0e5d954ee6997040aa1148ac892",
+    "SettingsSidebar.java": "eb111dd66f09bf11cf3275674a160992fb0ae9904d7ba53c804a48aa6a5116de",
+    "SwimlanesPage.java": "5b1099c900942dff5438330829909dbbd1eb872427b878f067d02da1048413a3",
+    "TaskPage.java": "657c8ad51dbcfd02f155fa8488f058e13e3d0a54d229802b727b2a43d9612fa7",
+    "TaskSidebar.java": "4f82b3f98ec0cc4f58983764f186b2f909f25bdafd09a349bfa53c2c4bdff812",
+    "TopNavBar.java": "863ac0179980a7dd104323c82833632199dd8641903295d0ed3da010f0ec8b12",
+    "UserSummaryPage.java": "25312648ec2ed5b6630ea1e3e2074254c1f45f9bba328e8dfa284be45e5aa38b",
+    "UsersManagementPage.java": "81428206ef75c0a3f20a1a453b9ba0c770cc3261a5a37aa2963c48ba9077d589"
+  },
+  "gherkinHashes": {
+    "01_AddNewProject.feature": "60eea61e9202336cec69fbf1dda7b290eeb2567ffdc88685b297eea7e0464218",
+    "02_AddEmptyProject.feature": "c9fc13a4ccff330d7c78fdd0c34cfca9909ce282c1c52de1049975ed493d35b0",
+    "03_AddNewTask.feature": "9a7b77a00a8c709ccfa5ff76332ae08ebb7a47130a8ab3a206064c180d81aa2f",
+    "04_AddEmptyTask.feature": "ecd8e090f0eeaa84baf3e8edcf8ae2d3210832196f3b9f515da5db84b9af937c",
+    "05_EditProject.feature": "f472fff7650a99057440b38eeeea8ccdde41e700799e198c77d61215ab18c270",
+    "06_AddNewColumn.feature": "05983247563a3905f59bad63b0df7f88f12fa335225663d5bb2fdb1061f688f4",
+    "07_AddEmptyColumn.feature": "271147ba4a991f9fa0c1deb7465c778d8a69fd2dc0d8c036b5e80314dc0badf0",
+    "08_AddNewSwimlane.feature": "0f60036fc61ea1880c11fffa8b403b39a087109078a97f6588ea6eb43f3e0a4e",
+    "09_AddEmptySwimlane.feature": "7ddade38877fecf7d03053399c56bf2869773ac5c387f8fad45a0075df51605b",
+    "10_AddNewCategory.feature": "d33492305f1abc5f930d73c2200c2b9753fa567f3ecd520181f010be73f7e573",
+    "11_AddEmptyCategory.feature": "6c9bc7bf5dd8e95e2d639193b9701025582bac58d66f25dff388c31bbcf4c826",
+    "12_EditProfile.feature": "d437bca02a77049de46777224f9b51f76e6950572d7d30dbf6976ac1ab8ed81e",
+    "13_AuthorizedUsers.feature": "d9c807cdc5b8d3bbc9ce8ca0785045f287ba35834b760d1a0baec1b727eeb4c4",
+    "14_SetReferenceCurrency.feature": "ed5dac099a2500b0a2d06bcd6462f0b32c3a56956f6e68d51c076f129d50be1b",
+    "15_ChangeLanguage.feature": "bf216831193945d0202a84a6f6e0490bf82ca5e02aff7c9d6bca087e5b1ea3ab",
+    "16_AddNewPrivateProject.feature": "adc3a04dc708ad48a04fc3bbc1c15e7a39b0b6b450f3313966282b33831f0279",
+    "17_SearchInProject.feature": "5b579349ac5e080a1bf6860cc78e5bac0463dd3d955304dc50759627bf4d0e40",
+    "18_ChangeTask.feature": "cd7dcaf4cfb532ef8f499bf004d1113c0379e31f41b351b20b840ae8f240e904",
+    "19_AddLocalUser.feature": "ba6f71480f245f88c3291a27c4fcfac15b4b245acd1dffe3476c721f16fa1d72",
+    "20_AddRemoteUser.feature": "9549784514c578d96ebcf8260cc6ca222cdbd91d773bfff2286633c87df49a25",
+    "21_AddLocalUser_DifferentPasswords.feature": "97badd670f48c33e1f35007e749040129551f8094e7ce4fc58282f4c7abb1118",
+    "22_AddLocalUser_EmptyConfirmPassword.feature": "a7b6580dc8848aedc1612d8f56849c06d8536d9a66d6d5e961479fd1966aba5f",
+    "23_AddLocalUser_EmptyPassword.feature": "d112919d652b648396478e760c37ccdcf1cd3b02cb367ba1062245e7127a97cf",
+    "24_AddLocalUser_EmptyUsername.feature": "04956c524d3bef71945a04f3e1fdb7a30bae401653e1073b0f42c5a3854b7b2d",
+    "25_AddLocalUser_ShortPassword.feature": "beb5907cb24cf58aa2dd3ed1ce03ff1b77887f9d075516a4f202dd1ef502b4f3",
+    "26_RemoveUser.feature": "16839a1e8cbd74dc819a58d77e228f775d59f601d7aa4cc244e20c406067eba9",
+    "27_ClosedTasks.feature": "f94948739e1bc2ba6ebab41f3c4298fb8d84d8e1d3285a0d40b1a88c42e7756e",
+    "28_RemoveProject.feature": "a286065a02c5841335f405c7d12ab8b5e0be19732011e621545c3f2f3ec04437",
+    "29_ChangeBoardSettings.feature": "451779f172ed09dcd03df97cd01a3a12254b2dcbdeeabf1bd39e159c7633653f",
+    "30_AddNewCurrencyRate.feature": "5786b0c6304a239a34a84ad40b0867f8e277067ec2be0583fcb22fa220ba5963"
+  },
+  "baselineSupportHashes": {
+    "testSuite": "0615ca70f10e136a5013eaa7261839dbff9609463788879a982e023df442fb87",
+    "baseTest": "72608a61f11146f187ed32f75c1b4d57662088c1310a912624e5ed9dca2c30b8"
+  },
+  "upstreamReferences": [
+    {
+      "path": "app/Template/task/sidebar.php",
+      "sha256": "7d233ec153adba8970daa69fc6520bed5e800dbee2440efb380f5ef479ee942d",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task/sidebar.php"
+    },
+    {
+      "path": "app/Template/task_comments/create.php",
+      "sha256": "fb1a4add241aa77299b8fe3e4663cd372b3cb8ba29c89555ce10c4799ad774f9",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_comments/create.php"
+    },
+    {
+      "path": "app/Template/subtask/create.php",
+      "sha256": "d17e3b285bf0ad613750bf10dda798b10a4381e9acf5544410f042c3dd73be32",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/subtask/create.php"
+    },
+    {
+      "path": "app/Template/column/edit.php",
+      "sha256": "146cd0280193b8329e82993579391deaaeb90d3ab257ce347847a20ce96a1601",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/column/edit.php"
+    },
+    {
+      "path": "app/Template/swimlane/edit.php",
+      "sha256": "1b2c54c4814f87a6cacdd1d632170fb65b7c092e3e94aa98bf132411ae505448",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/swimlane/edit.php"
+    },
+    {
+      "path": "app/Controller/TaskStatusController.php",
+      "sha256": "4c652c2bc0506f36203cb70fbef29a4b1f9d3d682e2bae4fdceb744d26089dea",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskStatusController.php"
+    },
+    {
+      "path": "app/Controller/TaskModificationController.php",
+      "sha256": "8702cd1cf3246eae8c1e3b12229bbfadd52b6ff9ca68dcec33100ac3f187ed82",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php"
+    },
+    {
+      "path": "app/Controller/ProjectPermissionController.php",
+      "sha256": "00ad6423c7b5c70db16a923f8de660d6eba77cb929f8ba52f31564862070ebe0",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ProjectPermissionController.php"
+    },
+    {
+      "path": "app/Controller/CommentController.php",
+      "sha256": "8359e35177185c55baf6e33968647a34ea460b15e0ef13e4441fe2e71499cd0a",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/CommentController.php"
+    },
+    {
+      "path": "app/Controller/SubtaskController.php",
+      "sha256": "bd0c87523e6e3f027358b3f2207c10c2511a7fe3da917c128c9c5dfa154ccabe",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SubtaskController.php"
+    },
+    {
+      "path": "app/Controller/ColumnController.php",
+      "sha256": "8f3ff22caa799bd20e47835a19a0b8146a5a2fb2d9c8d9a7fc2e880741164a64",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ColumnController.php"
+    },
+    {
+      "path": "app/Controller/SwimlaneController.php",
+      "sha256": "5c720da29c0b8f0e3042778325229b5de3ecedc8a9bcecb17a018ca96daf2e15",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SwimlaneController.php"
+    },
+    {
+      "path": "app/Template/app/filters_helper.php",
+      "sha256": "7a93482abee9dc070a5d4c5f4b4225d07c0e4a617b540ae9d79b9f3fd1a43cd4",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/app/filters_helper.php"
+    },
+    {
+      "path": "app/Template/task_modification/show.php",
+      "sha256": "c982f1f43200e896924ef92f11b5c178ff24c49f0e5dfc1de0524ba28e88fa66",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_modification/show.php"
+    },
+    {
+      "path": "app/Template/task_creation/show.php",
+      "sha256": "df9872926719f28a1680b851e8a4606a9c977dd91324355601a65eee84036f06",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_creation/show.php"
+    },
+    {
+      "path": "app/Template/project_permission/users.php",
+      "sha256": "95a258dd4fa4dec169e66f71f25d69134bbed46832e4b0e5c42d564d48917b25",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/project_permission/users.php"
+    },
+    {
+      "path": "assets/js/components/project-select-role.js",
+      "sha256": "74d51d1dac80facabe84385e4b4b3f4c052492614be971ae3e031cfcb9a45cec",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/components/project-select-role.js"
+    },
+    {
+      "path": "app/Template/board/table_column.php",
+      "sha256": "db1476cb2cdcd15db3850675cb1de162ee74f0db6ec004091514c3c48f66aa9a",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/board/table_column.php"
+    },
+    {
+      "path": "app/Helper/TaskHelper.php",
+      "sha256": "07d89c4e333375437ca9b0ec4d715c19c85f5755e212eb73e544303ab2ee9e2e",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php"
+    },
+    {
+      "path": "app/Controller/BoardAjaxController.php",
+      "sha256": "ed1c11d47e6ae1f28c2c5d3d300a83066815c75fbc824207280a81aaaca731f2",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/BoardAjaxController.php"
+    },
+    {
+      "path": "assets/js/src/BoardDragAndDrop.js",
+      "sha256": "5648880b934342691f1e9dfab620a329998789edb7d2b90a21799c7b9fdf1f2c",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/src/BoardDragAndDrop.js"
+    },
+    {
+      "path": "app/Template/board/table_tasks.php",
+      "sha256": "48cef73d7e7499e46362fa7dd4a1c9a26122731daaf539eda0bf5bcbec5af472",
+      "permalink": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/board/table_tasks.php"
+    }
+  ],
+  "redaction": "Fixture email and password literals are omitted/redacted from published text; file SHA-256 and source paths/line numbers preserve traceability.",
+  "workingCopyComparison": {
+    "result": "MATCH",
+    "businessJavaFilesCompared": 30,
+    "pageObjectFilesCompared": 27,
+    "mismatches": 0,
+    "source": "experiments/kanboard/bewt-suite checked against the verified BEWT commit"
+  }
+}

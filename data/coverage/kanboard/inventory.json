@@ -1,0 +1,4142 @@
+{
+  "schemaVersion": "1.0",
+  "application": "Kanboard",
+  "applicationVersion": "1.2.15",
+  "sourceStatus": "STATIC_VERIFIED",
+  "bewtBenchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "upstreamCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "counts": {
+    "gherkinFiles": 30,
+    "javaTestDirectoryFiles": 32,
+    "javaSuiteCases": 30,
+    "pageObjectClasses": 27,
+    "behaviorGroups": 6
+  },
+  "behaviorGroups": [
+    "application-settings",
+    "board-configuration",
+    "profile-management",
+    "project-management",
+    "task-management",
+    "user-and-permission-management"
+  ],
+  "coverageSemantics": "Coverage describes behaviors asserted by the baseline; gaps are proposals only. Exact-tag absence or title difference does not establish novelty.",
+  "cases": [
+    {
+      "caseId": "KB-001",
+      "gherkin": {
+        "path": "kanboard/gherkin/01_AddNewProject.feature",
+        "sha256": "60eea61e9202336cec69fbf1dda7b290eeb2567ffdc88685b297eea7e0464218",
+        "scenarioTitle": "Add a new project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"New project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And enter \"Test 2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "Then \"Test 2\" is shown to the right of the \"KB\" logo",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And \"This project is open\" is shown below \"Summary\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewProject.java",
+        "sha256": "105bac9e132572018a34d4514d60ccd8965a94ed6eb52bb69a796b05362a4de3",
+        "className": "AddNewProject",
+        "suiteOrder": 1,
+        "assertions": [
+          {
+            "line": 22,
+            "text": "assertEquals(\"Test 2\", project.getTitle());"
+          },
+          {
+            "line": 23,
+            "text": "assertEquals(\"This project is open\", project.getStatus());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectSummaryPage"
+      ],
+      "behavioralCategory": "project-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"New project\" link",
+        "And enter \"Test 2\" in the \"Name\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"Test 2\" is shown to the right of the \"KB\" logo",
+        "And \"This project is open\" is shown below \"Summary\""
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-002",
+      "gherkin": {
+        "path": "kanboard/gherkin/02_AddEmptyProject.feature",
+        "sha256": "c9fc13a4ccff330d7c78fdd0c34cfca9909ce282c1c52de1049975ed493d35b0",
+        "scenarioTitle": "Tries to add a project without name and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"New project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "Then \"The project name is required\" is show below the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 12,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 13,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 11,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 12,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 13,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyProject.java",
+        "sha256": "7e26f92c04cf07fb317e66b158908c6c36c073dc31c3ccb5b2ae4d3299b6451d",
+        "className": "AddEmptyProject",
+        "suiteOrder": 2,
+        "assertions": [
+          {
+            "line": 20,
+            "text": "assertEquals(\"The project name is required\", newProjPage.getErrorMessage());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "AddNewProjectPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "project-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"New project\" link",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The project name is required\" is show below the \"Name\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-003",
+      "gherkin": {
+        "path": "kanboard/gherkin/03_AddNewTask.feature",
+        "sha256": "9a7b77a00a8c709ccfa5ff76332ae08ebb7a47130a8ab3a206064c180d81aa2f",
+        "scenarioTitle": "Adds a new task to a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"Test 2\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the gear icon to the left of the screen",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Add a new task\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"task 3\" in the \"Title\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then \"task 3\" is shown on a yellow box",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewTask.java",
+        "sha256": "54af474669a998d9277ebca4ce970c84feca28b937c1551a760aca5cea163d1c",
+        "className": "AddNewTask",
+        "suiteOrder": 3,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"task 3\", project.getFirstTaskName());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectManagementPage"
+      ],
+      "behavioralCategory": "task-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"Test 2\" link",
+        "And clicks the gear icon to the left of the screen",
+        "And clicks the \"Add a new task\" link",
+        "And enters \"task 3\" in the \"Title\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"task 3\" is shown on a yellow box"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-004",
+      "gherkin": {
+        "path": "kanboard/gherkin/04_AddEmptyTask.feature",
+        "sha256": "ecd8e090f0eeaa84baf3e8edcf8ae2d3210832196f3b9f515da5db84b9af937c",
+        "scenarioTitle": "Tries to  add a task without title and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"Test 2\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the gear icon to the left of the screen",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Add a new task\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "Then \"The title is required\" is show below the \"Title\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 15,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyTask.java",
+        "sha256": "50adb7e92cfa2be25e5e96fb65453e590219042147298c1dd3145e62f7f50e18",
+        "className": "AddEmptyTask",
+        "suiteOrder": 4,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"The title is required\", project.getErrorMessage());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectManagementPage"
+      ],
+      "behavioralCategory": "task-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"Test 2\" link",
+        "And clicks the gear icon to the left of the screen",
+        "And clicks the \"Add a new task\" link",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The title is required\" is show below the \"Title\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-005",
+      "gherkin": {
+        "path": "kanboard/gherkin/05_EditProject.feature",
+        "sha256": "f472fff7650a99057440b38eeeea8ccdde41e700799e198c77d61215ab18c270",
+        "scenarioTitle": "Changes the description of a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Edit project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"This is the new description\" in the \"Description\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Summary\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then \"This is the new description\" is shown below \"Description\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/EditProject.java",
+        "sha256": "c78ce03c53b34dbc530d3e2f04ec6fd1c8044bbe08033c2e8db8d4473f11e915",
+        "className": "EditProject",
+        "suiteOrder": 5,
+        "assertions": [
+          {
+            "line": 26,
+            "text": "assertEquals(\"This is the new description\", project.getDescription());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectSummaryPage"
+      ],
+      "behavioralCategory": "project-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Edit project\" link",
+        "And enters \"This is the new description\" in the \"Description\" field",
+        "And clicks the \"Save\" button",
+        "And clicks the \"Summary\" link"
+      ],
+      "expectedOracle": [
+        "Then \"This is the new description\" is shown below \"Description\""
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-006",
+      "gherkin": {
+        "path": "kanboard/gherkin/06_AddNewColumn.feature",
+        "sha256": "05983247563a3905f59bad63b0df7f88f12fa335225663d5bb2fdb1061f688f4",
+        "scenarioTitle": "Adds a new column",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Columns\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new column\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"New Column 3\" in the \"Column\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then \"New Column 3\" is shown in the last row of the table",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewColumn.java",
+        "sha256": "66d70d019e6de4a111df372d192ecd816ec3508565013804adfed575d8dc9ee2",
+        "className": "AddNewColumn",
+        "suiteOrder": 6,
+        "assertions": [
+          {
+            "line": 25,
+            "text": "assertTrue(columns.getLastColumnName().contains(\"New Column 3\"));"
+          }
+        ]
+      },
+      "pageObjects": [
+        "ColumnsPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Columns\" link",
+        "And clicks the \"Add a new column\" link",
+        "And enters \"New Column 3\" in the \"Column\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"New Column 3\" is shown in the last row of the table"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-007",
+      "gherkin": {
+        "path": "kanboard/gherkin/07_AddEmptyColumn.feature",
+        "sha256": "271147ba4a991f9fa0c1deb7465c778d8a69fd2dc0d8c036b5e80314dc0badf0",
+        "scenarioTitle": "Tries to add a column without name and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Columns\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new column\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then \"The title is required\" is shown below the \"Title\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyColumn.java",
+        "sha256": "4d8d5a7f14156dc451b6c2939cc9a33d24b337acdbd775bea66bcafcd9993311",
+        "className": "AddEmptyColumn",
+        "suiteOrder": 7,
+        "assertions": [
+          {
+            "line": 21,
+            "text": "assertEquals(\"The title is required\", columns.getErrorMessage());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "ColumnsPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Columns\" link",
+        "And clicks the \"Add a new column\" link",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The title is required\" is shown below the \"Title\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-008",
+      "gherkin": {
+        "path": "kanboard/gherkin/08_AddNewSwimlane.feature",
+        "sha256": "0f60036fc61ea1880c11fffa8b403b39a087109078a97f6588ea6eb43f3e0a4e",
+        "scenarioTitle": "Adds a new swimlane",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Swimlanes\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new swimlane\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"New Swimlane 3\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then \"New Swimlane 3\" is shown in the last row of the table",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewSwimlane.java",
+        "sha256": "0376acd3936ffcee55efd9dc0803eb77e2b45ace69b65901e48874c213e876af",
+        "className": "AddNewSwimlane",
+        "suiteOrder": 8,
+        "assertions": [
+          {
+            "line": 25,
+            "text": "assertTrue(swimlanes.getLastSwimlaneName().contains(\"New Swimlane 3\"));"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "SwimlanesPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Swimlanes\" link",
+        "And clicks the \"Add a new swimlane\" link",
+        "And enters \"New Swimlane 3\" in the \"Name\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"New Swimlane 3\" is shown in the last row of the table"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-009",
+      "gherkin": {
+        "path": "kanboard/gherkin/09_AddEmptySwimlane.feature",
+        "sha256": "7ddade38877fecf7d03053399c56bf2869773ac5c387f8fad45a0075df51605b",
+        "scenarioTitle": "Tries to add a swimlane without name and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Swimlanes\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new swimlane\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then \"The name is required\" is shown below the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptySwimlane.java",
+        "sha256": "0504b730a4a9ab92807a1d37c9ccbef50d1073097eac2d0c9efe7a25b9fd7357",
+        "className": "AddEmptySwimlane",
+        "suiteOrder": 9,
+        "assertions": [
+          {
+            "line": 27,
+            "text": "assertEquals(\"The name is required\", swimlanes.getErrorMessage());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "SwimlanesPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Swimlanes\" link",
+        "And clicks the \"Add a new swimlane\" link",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The name is required\" is shown below the \"Name\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-010",
+      "gherkin": {
+        "path": "kanboard/gherkin/10_AddNewCategory.feature",
+        "sha256": "d33492305f1abc5f930d73c2200c2b9753fa567f3ecd520181f010be73f7e573",
+        "scenarioTitle": "Adds a new category",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Categories\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new category\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"New Category 2\" in the \"Category Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then \"New Category 2\" is shown in the table",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewCategory.java",
+        "sha256": "c7ffaa7ab29568b0eb58d562fded9073cc95eb370a4de420519e182e036f9ba5",
+        "className": "AddNewCategory",
+        "suiteOrder": 10,
+        "assertions": [
+          {
+            "line": 26,
+            "text": "assertTrue(categories.getCategoryName().contains(\"New Category 2\"));"
+          }
+        ]
+      },
+      "pageObjects": [
+        "CategoriesPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Categories\" link",
+        "And clicks the \"Add a new category\" link",
+        "And enters \"New Category 2\" in the \"Category Name\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"New Category 2\" is shown in the table"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-011",
+      "gherkin": {
+        "path": "kanboard/gherkin/11_AddEmptyCategory.feature",
+        "sha256": "6c9bc7bf5dd8e95e2d639193b9701025582bac58d66f25dff388c31bbcf4c826",
+        "scenarioTitle": "Tries to add a category without name and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Categories\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add a new category\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then \"The name is required\" is shown below the \"Category Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 16,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddEmptyCategory.java",
+        "sha256": "30722a16f68634c97b7d39dfa1c3239282b0ac21c7f9d53f2c59c8b01a83774e",
+        "className": "AddEmptyCategory",
+        "suiteOrder": 11,
+        "assertions": [
+          {
+            "line": 23,
+            "text": "assertEquals(\"The name is required\", categories.getErrorMessage());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "CategoriesPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "board-configuration",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Categories\" link",
+        "And clicks the \"Add a new category\" link",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The name is required\" is shown below the \"Category Name\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-012",
+      "gherkin": {
+        "path": "kanboard/gherkin/12_EditProfile.feature",
+        "sha256": "d437bca02a77049de46777224f9b51f76e6950572d7d30dbf6976ac1ab8ed81e",
+        "scenarioTitle": "Changes the email associated to a user's profile",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"admin\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Edit profile\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Then [REDACTED TEST EMAIL] is shown to the right of \"Email: \"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 19,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/EditProfile.java",
+        "sha256": "969664bb914533c2c6c45c60958a0b22c3b0c068859d88f1cabd079c914a21c1",
+        "className": "EditProfile",
+        "suiteOrder": 12,
+        "assertions": [
+          {
+            "line": 27,
+            "text": "assertEquals([REDACTED TEST EMAIL], user.getEmail());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "UserSummaryPage"
+      ],
+      "behavioralCategory": "profile-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Settings\" link",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"admin\" link",
+        "And clicks the \"Edit profile\" link",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then [REDACTED TEST EMAIL] is shown to the right of \"Email: \""
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-013",
+      "gherkin": {
+        "path": "kanboard/gherkin/13_AuthorizedUsers.feature",
+        "sha256": "d9c807cdc5b8d3bbc9ce8ca0785045f287ba35834b760d1a0baec1b727eeb4c4",
+        "scenarioTitle": "Check the users permissions on a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Permissions\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "Then \"admin\" is the only user shown in the \"Allowed Users\" section",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 13,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 12,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 13,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AuthorizedUsers.java",
+        "sha256": "3bba911aff07a2878995d4b0f1859523596168028c680dc58064b8a50f72efea",
+        "className": "AuthorizedUsers",
+        "suiteOrder": 13,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"admin\", permissions.getFirstAllowedUser());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "PermissionsPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Permissions\" link"
+      ],
+      "expectedOracle": [
+        "Then \"admin\" is the only user shown in the \"Allowed Users\" section"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-014",
+      "gherkin": {
+        "path": "kanboard/gherkin/14_SetReferenceCurrency.feature",
+        "sha256": "ed5dac099a2500b0a2d06bcd6462f0b32c3a56956f6e68d51c076f129d50be1b",
+        "scenarioTitle": "Changes the reference currency",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Currency rates\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Change reference currency\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And selects \"EUR - Euro\" in the dropdown select",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then \"Reference currency: EUR\" is shown on the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/SetReferenceCurrency.java",
+        "sha256": "5b3be815bf7dfa4a0173742533f305ae71812c8615b9c178fa25ecf661544138",
+        "className": "SetReferenceCurrency",
+        "suiteOrder": 14,
+        "assertions": [
+          {
+            "line": 29,
+            "text": "assertEquals(\"Reference currency: EUR\", currencies.getReferenceCurrency());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "CurrencyRatesPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "application-settings",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Settings\" link",
+        "And clicks the \"Currency rates\" link",
+        "And clicks the \"Change reference currency\" link",
+        "And selects \"EUR - Euro\" in the dropdown select",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"Reference currency: EUR\" is shown on the page"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-015",
+      "gherkin": {
+        "path": "kanboard/gherkin/15_ChangeLanguage.feature",
+        "sha256": "bf216831193945d0202a84a6f6e0490bf82ca5e02aff7c9d6bca087e5b1ea3ab",
+        "scenarioTitle": "Changes the application language (and then sets it back to English)",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Application settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And selects \"Italiano\" in the \"Language\" dropdown menu",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then the language dropdown select is now labeled \"Lingua\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And \"Italiano\" is selected in the \"Lingua\" dropdown select",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertions passed",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "When the user selects \"English (US)\" in the \"Lingua\" dropdown select",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Salva\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 18,
+            "text": "Then the language selection dropdown select is now labeled \"Language\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 19,
+            "text": "And \"English (US)\" is selected in the \"Language\" dropdown select",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 21,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 22,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 23,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 21,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 22,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 23,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeLanguage.java",
+        "sha256": "b3ab7c68669909ab62f580a8f274f03aed17e6202e791148f32eef906aaa0276",
+        "className": "ChangeLanguage",
+        "suiteOrder": 15,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"Italiano\", appSettings.getSelectedLanguage());"
+          },
+          {
+            "line": 25,
+            "text": "assertEquals(\"Lingua\", appSettings.getLanguageLabel());"
+          },
+          {
+            "line": 27,
+            "text": "assertEquals(\"English (US)\", appSettings.getSelectedLanguage());"
+          },
+          {
+            "line": 28,
+            "text": "assertEquals(\"Language\", appSettings.getLanguageLabel());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "ApplicationSettingsPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "application-settings",
+      "preconditions": [
+        "Given the user is on the login page (/login)",
+        "Given the previous assertions passed"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Settings\" link",
+        "And clicks the \"Application settings\" link",
+        "And selects \"Italiano\" in the \"Language\" dropdown menu",
+        "And clicks the \"Save\" button",
+        "When the user selects \"English (US)\" in the \"Lingua\" dropdown select",
+        "And clicks the \"Salva\" button"
+      ],
+      "expectedOracle": [
+        "Then the language dropdown select is now labeled \"Lingua\"",
+        "And \"Italiano\" is selected in the \"Lingua\" dropdown select",
+        "Then the language selection dropdown select is now labeled \"Language\"",
+        "And \"English (US)\" is selected in the \"Language\" dropdown select"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-016",
+      "gherkin": {
+        "path": "kanboard/gherkin/16_AddNewPrivateProject.feature",
+        "sha256": "adc3a04dc708ad48a04fc3bbc1c15e7a39b0b6b450f3313966282b33831f0279",
+        "scenarioTitle": "Add a new private project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"New personal project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And enter \"Test private 2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "Then \"Test private 2\" is shown as project title",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And \"This project is open\" is the first line of the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And \"This project is personal\" is the third line of the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And \"Public access disabled\" is the fourth line of the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 15,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 16,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 17,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewPrivateProject.java",
+        "sha256": "99c9e74ec888fc40b60121a13385d370b2d9a6622930b5910bd409a211b9ec3d",
+        "className": "AddNewPrivateProject",
+        "suiteOrder": 16,
+        "assertions": [
+          {
+            "line": 23,
+            "text": "assertEquals(\"Test private 2\", project.getTitle());"
+          },
+          {
+            "line": 24,
+            "text": "assertEquals(\"This project is open\", project.getStatus());"
+          },
+          {
+            "line": 25,
+            "text": "assertTrue(project.getAccessLevel().contains(\"This project is personal\"));"
+          },
+          {
+            "line": 26,
+            "text": "assertEquals(\"Public access disabled\", project.getPublicAccess());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectSummaryPage"
+      ],
+      "behavioralCategory": "project-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"New personal project\" link",
+        "And enter \"Test private 2\" in the \"Name\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"Test private 2\" is shown as project title",
+        "And \"This project is open\" is the first line of the summary",
+        "And \"This project is personal\" is the third line of the summary",
+        "And \"Public access disabled\" is the fourth line of the summary"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-017",
+      "gherkin": {
+        "path": "kanboard/gherkin/17_SearchInProject.feature",
+        "sha256": "5b579349ac5e080a1bf6860cc78e5bac0463dd3d955304dc50759627bf4d0e40",
+        "scenarioTitle": "Searches for open tasks in a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"Test 2\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And enters \"status:open\" in the search bar",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And presses the Enter key",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "Then \"task 3\" is the only result",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 13,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 12,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 13,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/SearchInProject.java",
+        "sha256": "f0cf19308337cd1ef028a76f94fe78c18807439860c28761619b7866adf879dc",
+        "className": "SearchInProject",
+        "suiteOrder": 17,
+        "assertions": [
+          {
+            "line": 19,
+            "text": "assertEquals(\"task 3\", results.getFirstTask());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "SearchResultsPage"
+      ],
+      "behavioralCategory": "task-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"Test 2\" link",
+        "And enters \"status:open\" in the search bar",
+        "And presses the Enter key"
+      ],
+      "expectedOracle": [
+        "Then \"task 3\" is the only result"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-018",
+      "gherkin": {
+        "path": "kanboard/gherkin/18_ChangeTask.feature",
+        "sha256": "cd7dcaf4cfb532ef8f499bf004d1113c0379e31f41b351b20b840ae8f240e904",
+        "scenarioTitle": "Closes a task",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"Test 2\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"task 3\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Close this task\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks \"Yes\" in the confirmation window",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "Then the task has status \"Closed\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeTask.java",
+        "sha256": "39f759fd680e64912c059c7b10e2bf42891bc96847b6bef47c8b2c021ad6529c",
+        "className": "ChangeTask",
+        "suiteOrder": 18,
+        "assertions": [
+          {
+            "line": 22,
+            "text": "assertEquals(\"closed\", task.getStatus());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "TaskPage"
+      ],
+      "behavioralCategory": "task-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the \"Test 2\" link",
+        "And clicks the \"task 3\" link",
+        "And clicks the \"Close this task\" link",
+        "And clicks \"Yes\" in the confirmation window"
+      ],
+      "expectedOracle": [
+        "Then the task has status \"Closed\""
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-019",
+      "gherkin": {
+        "path": "kanboard/gherkin/19_AddLocalUser.feature",
+        "sha256": "ba6f71480f245f88c3291a27c4fcfac15b4b245acd1dffe3476c721f16fa1d72",
+        "scenarioTitle": "Adds a local user",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"Test User\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"User1\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Then \"Login: TestUser\" is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "And \"Full Name: User1\" is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 18,
+            "text": "And [REDACTED TEST EMAIL] is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 20,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 21,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 22,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 20,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 21,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 22,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser.java",
+        "sha256": "48fc6f9cf43495d5ff0c0cd446fdd29c867b513a902399d51a8e92b8a1a6f066",
+        "className": "AddLocalUser",
+        "suiteOrder": 19,
+        "assertions": [
+          {
+            "line": 29,
+            "text": "assertEquals(user.getUsername(), \"TestUser\");"
+          },
+          {
+            "line": 30,
+            "text": "assertEquals(user.getFullname(), \"User1\");"
+          },
+          {
+            "line": 31,
+            "text": "assertEquals(user.getEmail(), [REDACTED TEST EMAIL]);"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "UserSummaryPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"Test User\" in the \"Username\" field",
+        "And enters \"User1\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"Login: TestUser\" is shown in the summary",
+        "And \"Full Name: User1\" is shown in the summary",
+        "And [REDACTED TEST EMAIL] is shown in the summary"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-020",
+      "gherkin": {
+        "path": "kanboard/gherkin/20_AddRemoteUser.feature",
+        "sha256": "9549784514c578d96ebcf8260cc6ca222cdbd91d773bfff2286633c87df49a25",
+        "scenarioTitle": "Adds a remote user",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"TestRemote\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"remote1\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And clicks the \"Remote user\" checkbox",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Then \"Login: TestRemote\" is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "And \"Full Name: remote1\" is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "And [REDACTED TEST EMAIL] is shown in the summary",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 18,
+            "text": "And \"Account type: Remote\" is shown in the \"Security\" section",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 20,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 21,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 22,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 20,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 21,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 22,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddRemoteUser.java",
+        "sha256": "ffc82fc4890d9ecd5ad848523391feeee294b5c4d1c74d063a9b00e4f9b31a05",
+        "className": "AddRemoteUser",
+        "suiteOrder": 20,
+        "assertions": [
+          {
+            "line": 29,
+            "text": "assertEquals(user.getUsername(), \"TestRemote\");"
+          },
+          {
+            "line": 30,
+            "text": "assertEquals(user.getFullname(), \"remote1\");"
+          },
+          {
+            "line": 31,
+            "text": "assertEquals(user.getEmail(), [REDACTED TEST EMAIL]);"
+          },
+          {
+            "line": 32,
+            "text": "assertEquals(user.getAccountType(), \"Remote\");"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "UserSummaryPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"TestRemote\" in the \"Username\" field",
+        "And enters \"remote1\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And clicks the \"Remote user\" checkbox",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"Login: TestRemote\" is shown in the summary",
+        "And \"Full Name: remote1\" is shown in the summary",
+        "And [REDACTED TEST EMAIL] is shown in the summary",
+        "And \"Account type: Remote\" is shown in the \"Security\" section"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-021",
+      "gherkin": {
+        "path": "kanboard/gherkin/21_AddLocalUser_DifferentPasswords.feature",
+        "sha256": "97badd670f48c33e1f35007e749040129551f8094e7ce4fc58282f4c7abb1118",
+        "scenarioTitle": "Tries to add a local user with non matching passwords and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"TestUser2\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"User2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 18,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 20,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 21,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 18,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 19,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 20,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 21,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_DifferentPasswords.java",
+        "sha256": "82fd24456c29fa6ec8598538e3c6962a4dd17cdea3c2683da4bfbb2d1107c24c",
+        "className": "AddLocalUser_DifferentPasswords",
+        "suiteOrder": 21,
+        "assertions": [
+          {
+            "line": 25,
+            "text": "assertEquals(\"Passwords don't match\", user.getPswError());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "NewUserPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"TestUser2\" in the \"Username\" field",
+        "And enters \"User2\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-022",
+      "gherkin": {
+        "path": "kanboard/gherkin/22_AddLocalUser_EmptyConfirmPassword.feature",
+        "sha256": "a7b6580dc8848aedc1612d8f56849c06d8536d9a66d6d5e961479fd1966aba5f",
+        "scenarioTitle": "Tries to add a local user without confirming the password and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"TestUser2\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"User2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Confirmation\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 20,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 19,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 20,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyConfirmPassword.java",
+        "sha256": "278b6d92a63c79e21642d0146c067418b1af518a72bc5086392d0acfcb99c97b",
+        "className": "AddLocalUser_EmptyConfirmPassword",
+        "suiteOrder": 22,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"The confirmation is required\", user.getPswConfirmError());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "NewUserPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"TestUser2\" in the \"Username\" field",
+        "And enters \"User2\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Confirmation\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-023",
+      "gherkin": {
+        "path": "kanboard/gherkin/23_AddLocalUser_EmptyPassword.feature",
+        "sha256": "d112919d652b648396478e760c37ccdcf1cd3b02cb367ba1062245e7127a97cf",
+        "scenarioTitle": "Tries to add a local user with non matching passwords and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"TestUser2\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"User2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 18,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 19,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyPassword.java",
+        "sha256": "0734cf2ae9bd0d7d657b5fc3cda787cb7d298b75036747db753c6f18288be368",
+        "className": "AddLocalUser_EmptyPassword",
+        "suiteOrder": 23,
+        "assertions": [
+          {
+            "line": 23,
+            "text": "assertEquals(\"The password is required\", user.getPswError());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "NewUserPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"TestUser2\" in the \"Username\" field",
+        "And enters \"User2\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SCENARIO_TITLE_CONFLICTS_WITH_JAVA_REQUIRED_PASSWORD_ASSERTION"
+      ]
+    },
+    {
+      "caseId": "KB-024",
+      "gherkin": {
+        "path": "kanboard/gherkin/24_AddLocalUser_EmptyUsername.feature",
+        "sha256": "04956c524d3bef71945a04f3e1fdb7a30bae401653e1073b0f42c5a3854b7b2d",
+        "scenarioTitle": "Tries to add a local user without username and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"User2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "Then \"The username is required\" is shown below the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 20,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 17,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 18,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 19,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 20,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_EmptyUsername.java",
+        "sha256": "80d1521afce0d5236260002886f2bff29feb6a70185ef43b4b12fc6dca790a0e",
+        "className": "AddLocalUser_EmptyUsername",
+        "suiteOrder": 24,
+        "assertions": [
+          {
+            "line": 24,
+            "text": "assertEquals(\"The username is required\", user.getNameError());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "NewUserPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"User2\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"The username is required\" is shown below the \"Username\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-025",
+      "gherkin": {
+        "path": "kanboard/gherkin/25_AddLocalUser_ShortPassword.feature",
+        "sha256": "beb5907cb24cf58aa2dd3ed1ce03ff1b77887f9d075516a4f202dd1ef502b4f3",
+        "scenarioTitle": "Tries to add a local user with a password below 6 characters and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"New user\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"TestUser2\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"User2\" in the \"Name\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 18,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 19,
+            "text": "Then the user clicks the \"x\" icon to close the modal",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 20,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 21,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 18,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 19,
+            "text": "Then the user clicks the \"x\" icon to close the modal"
+          },
+          {
+            "line": 20,
+            "text": "And clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 21,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddLocalUser_ShortPassword.java",
+        "sha256": "a2affb388687fe34f8d12d2cd93362341924b187a88a5992da6e68ab11cf602d",
+        "className": "AddLocalUser_ShortPassword",
+        "suiteOrder": 25,
+        "assertions": [
+          {
+            "line": 25,
+            "text": "assertEquals(\"The minimum length is 6 characters\", user.getPswError());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "NewUserPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"New user\" link",
+        "And enters \"TestUser2\" in the \"Username\" field",
+        "And enters \"User2\" in the \"Name\" field",
+        "And enters \"[REDACTED TEST EMAIL]\" in the \"Email\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Confirmation\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then \"[REDACTED TEST PASSWORD]\" is shown below the \"Password\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": []
+    },
+    {
+      "caseId": "KB-026",
+      "gherkin": {
+        "path": "kanboard/gherkin/26_RemoveUser.feature",
+        "sha256": "16839a1e8cbd74dc819a58d77e228f775d59f601d7aa4cc244e20c406067eba9",
+        "scenarioTitle": "Tries to add a local user with a password below 6 characters and fails",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks the \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Users management\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"#3\" icon to the left of \"remote1\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Remove\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks \"Yes\" in the confirmation window",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "Then \"remote1\" is not shown on the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 14,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 15,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 16,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/RemoveUser.java",
+        "sha256": "e4ea8d3e2da55ac2ae31ac02ac632535556257c719092161e4d885d2dedff175",
+        "className": "RemoveUser",
+        "suiteOrder": 26,
+        "assertions": [
+          {
+            "line": 22,
+            "text": "assertFalse(users.containsUser(\"remote1\"));"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "UsersManagementPage"
+      ],
+      "behavioralCategory": "user-and-permission-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks the \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Users management\" link",
+        "And clicks the \"#3\" icon to the left of \"remote1\"",
+        "And clicks the \"Remove\" link",
+        "And clicks \"Yes\" in the confirmation window"
+      ],
+      "expectedOracle": [
+        "Then \"remote1\" is not shown on the page"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SCENARIO_TITLE_CONFLICTS_WITH_JAVA_REMOVE_USER_ASSERTION"
+      ]
+    },
+    {
+      "caseId": "KB-027",
+      "gherkin": {
+        "path": "kanboard/gherkin/27_ClosedTasks.feature",
+        "sha256": "f94948739e1bc2ba6ebab41f3c4298fb8d84d8e1d3285a0d40b1a88c42e7756e",
+        "scenarioTitle": "Searches for closed tasks in a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And enters \"status:closed\" in the search bar",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And presses the Enter key",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "Then \"task 3\" is the only result",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 12,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 13,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 11,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 12,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 13,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ClosedTasks.java",
+        "sha256": "73a87c56fca39a6c82460aea180e0b66615905c8c3dda775055c69609d1f176b",
+        "className": "ClosedTasks",
+        "suiteOrder": 27,
+        "assertions": [
+          {
+            "line": 22,
+            "text": "assertEquals(\"task 3\", results.getFirstTask());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "SearchResultsPage"
+      ],
+      "behavioralCategory": "task-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And enters \"status:closed\" in the search bar",
+        "And presses the Enter key"
+      ],
+      "expectedOracle": [
+        "Then \"task 3\" is the only result"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-028",
+      "gherkin": {
+        "path": "kanboard/gherkin/28_RemoveProject.feature",
+        "sha256": "a286065a02c5841335f405c7d12ab8b5e0be19732011e621545c3f2f3ec04437",
+        "scenarioTitle": "Removes a project",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the \"#1\" icon to the left of \"Test 2\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Configure this project\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Remove\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks \"Yes\" in the confirmation window",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "Then \"Test 2\" is not shown on the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 13,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 14,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 15,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/RemoveProject.java",
+        "sha256": "29a283562b59e1174b3d750e1557dc3bc0038ce534c7134694920098e8515325",
+        "className": "RemoveProject",
+        "suiteOrder": 28,
+        "assertions": [
+          {
+            "line": 23,
+            "text": "assertFalse(projects.containsProject(\"Test 2\"));"
+          }
+        ]
+      },
+      "pageObjects": [
+        "LoginPage",
+        "ProjectListPage"
+      ],
+      "behavioralCategory": "project-management",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the \"#1\" icon to the left of \"Test 2\"",
+        "And clicks the \"Configure this project\" link",
+        "And clicks the \"Remove\" link",
+        "And clicks \"Yes\" in the confirmation window"
+      ],
+      "expectedOracle": [
+        "Then \"Test 2\" is not shown on the page"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-029",
+      "gherkin": {
+        "path": "kanboard/gherkin/29_ChangeBoardSettings.feature",
+        "sha256": "451779f172ed09dcd03df97cd01a3a12254b2dcbdeeabf1bd39e159c7633653f",
+        "scenarioTitle": "Changes the refresh interval of the application",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Board settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And enters \"85\" in the \"Refresh interval for public board\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Application settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "And clicks the \"Board settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "Then \"85\" is the value of the \"Refresh interval for public board\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 18,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/ChangeBoardSettings.java",
+        "sha256": "be99f5fc0ec6b4c71f83666bd4f6dab85632e281ef3a14703924d804d648faa0",
+        "className": "ChangeBoardSettings",
+        "suiteOrder": 29,
+        "assertions": [
+          {
+            "line": 29,
+            "text": "assertEquals(\"85\", boardSettings.getPublicRefreshInterval());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "BoardSettingsPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "application-settings",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Settings\" link",
+        "And clicks the \"Board settings\" link",
+        "And enters \"85\" in the \"Refresh interval for public board\" field",
+        "And clicks the \"Save\" button",
+        "And clicks the \"Application settings\" link",
+        "And clicks the \"Board settings\" link"
+      ],
+      "expectedOracle": [
+        "Then \"85\" is the value of the \"Refresh interval for public board\" field"
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    },
+    {
+      "caseId": "KB-030",
+      "gherkin": {
+        "path": "kanboard/gherkin/30_AddNewCurrencyRate.feature",
+        "sha256": "5786b0c6304a239a34a84ad40b0867f8e277067ec2be0583fcb22fa220ba5963",
+        "scenarioTitle": "Adds a new currency rate",
+        "scenarioCount": 1,
+        "steps": [
+          {
+            "line": 3,
+            "text": "Given the user is on the login page (/login)",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 4,
+            "text": "When the user enters \"admin\" in the \"Username\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 5,
+            "text": "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 6,
+            "text": "And clicks thre \"Sign in\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 7,
+            "text": "And clicks the icon in the top right corner of the page",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 8,
+            "text": "And clicks the \"Settings\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 9,
+            "text": "And clicks the \"Currency rates\" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 10,
+            "text": "And clicks the \"Add or change currency rate \" link",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 11,
+            "text": "And enters \"1.2\" in the \"Rate\" field",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 12,
+            "text": "And clicks the \"Save\" button",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 13,
+            "text": "Then the column \"Currency\" has value \"USD\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 14,
+            "text": "And the column \"Rate\" has value \"1.20\"",
+            "phase": "SCENARIO"
+          },
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen",
+            "phase": "CLEANUP"
+          },
+          {
+            "line": 18,
+            "text": "And clicks the \"Logout\" link",
+            "phase": "CLEANUP"
+          }
+        ],
+        "cleanupSteps": [
+          {
+            "line": 16,
+            "text": "Given the previous assertion passed"
+          },
+          {
+            "line": 17,
+            "text": "Then the user clicks on the \"A\" icon in the top-right corner of the screen"
+          },
+          {
+            "line": 18,
+            "text": "And clicks the \"Logout\" link"
+          }
+        ]
+      },
+      "java": {
+        "path": "kanboard/baseline/kanboard-1.2.15/src/test/java/tests/AddNewCurrencyRate.java",
+        "sha256": "7a9f8ca8b1a46dafdc7737391deb4c41c3074663517c2203f87004044e1d8c49",
+        "className": "AddNewCurrencyRate",
+        "suiteOrder": 30,
+        "assertions": [
+          {
+            "line": 28,
+            "text": "assertEquals(\"USD\", currencies.getRateCurrency());"
+          },
+          {
+            "line": 29,
+            "text": "assertEquals(\"1.20\", currencies.getRateValue());"
+          }
+        ]
+      },
+      "pageObjects": [
+        "CurrencyRatesPage",
+        "LoginPage"
+      ],
+      "behavioralCategory": "application-settings",
+      "preconditions": [
+        "Given the user is on the login page (/login)"
+      ],
+      "testAction": [
+        "When the user enters \"admin\" in the \"Username\" field",
+        "And enters \"[REDACTED TEST PASSWORD]\" in the \"Password\" field",
+        "And clicks thre \"Sign in\" button",
+        "And clicks the icon in the top right corner of the page",
+        "And clicks the \"Settings\" link",
+        "And clicks the \"Currency rates\" link",
+        "And clicks the \"Add or change currency rate \" link",
+        "And enters \"1.2\" in the \"Rate\" field",
+        "And clicks the \"Save\" button"
+      ],
+      "expectedOracle": [
+        "Then the column \"Currency\" has value \"USD\"",
+        "And the column \"Rate\" has value \"1.20\""
+      ],
+      "mappingConfidence": "HIGH_FILENAME_AND_SUITE_ORDER",
+      "reviewFlags": [
+        "SOURCE_GHERKIN_TYPO_CLICKS_THRE"
+      ]
+    }
+  ]
+}

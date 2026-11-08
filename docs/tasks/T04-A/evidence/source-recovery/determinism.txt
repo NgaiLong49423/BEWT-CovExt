@@ -1,0 +1,7 @@
+Deterministic regeneration: PASS
+Output was generated a second time into a new temporary directory from the verified BEWT and upstream repositories.
+provenance-index.json: SHA-256 AF5AC17E44BEBC6562F9E3930C57BA4FFF6458A9B10B640D45473D5352EC4AD9; byte-identical to data/coverage/kanboard
+inventory.json: SHA-256 403539E4C11507255743D95646716A13E842F40D03F4BC4F22BAEAAE5382C5F3; byte-identical to data/coverage/kanboard
+KANBOARD-BASELINE-MAPPING.md: SHA-256 B1DA8F45B7155F954AA78752D77CC145876074FA81ED664A8BFC52B92F911ECB; byte-identical to data/coverage/kanboard
+Unit tests: PASS 7/7
+Node syntax: PASS; JSON parsing: PASS; secret scan: PASS; git diff --check: PASS

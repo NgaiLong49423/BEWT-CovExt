@@ -1,0 +1,12 @@
+Clone command: git clone https://github.com/OlianasD/BEWT.git C:\Users\Lenovo\AppData\Local\Temp\bewt-t04a-source-recovery-20261108-0501249
+Clone exit code: 0
+Checked remote: git ls-remote https://github.com/OlianasD/BEWT.git refs/heads/main
+Remote result: 0501249ff3e9a5ea83a06155cd2971dc36197056 refs/heads/main
+ls-remote exit code: 0
+Checked out HEAD: 0501249ff3e9a5ea83a06155cd2971dc36197056
+cat-file type: commit
+Tree SHA: d38fcc0eae8073023c48bb46998741c8c19d4d06
+Clone status: clean (git status --porcelain empty)
+Upstream Kanboard checkout HEAD: 00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b
+
+Root cause: prior cat-file/API checks targeted the outer NgaiLong49423/BEWT-CovExt repository. The requested commit belongs to nested repo OlianasD/BEWT. GitHub API 422 was obtained from the wrong repository endpoint, not from an unavailable object or an auth/rate-limit/network failure.
