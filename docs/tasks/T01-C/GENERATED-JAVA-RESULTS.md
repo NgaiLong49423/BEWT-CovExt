@@ -15,6 +15,6 @@ The one user-authorized Gemini request was sent for Gherkin generation and retur
 - `framework/test/java-artifact-registry.test.ts`: immutable registration, candidate/revision binding and approval policy.
 - `framework/test/expresscart-generated-harness.test.ts`: isolated workspace contents and selector binding.
 - `framework/test/integration/t01c-offline-approved-java-pipeline.test.ts`: offline graph-to-compile path, plus NOT_RUN/research-not-reviewed states.
-- Latest observed framework unit run: 35/35 PASS; build PASS. Focused T01-C/shared workflow integration: 7/7 PASS, including actual Maven `test-compile` PASS. Logs: `evidence/verification/rerun-20261108-final-audit-4/`; latest compile evidence: `evidence/t01c-offline-approved-e95ab9ae-40bc-4ff6-8d4e-cb895614e362/isolated-maven-compile.json`.
+- Latest observed framework unit run: 37/37 PASS; build PASS. Focused T01-C/shared workflow integration: 7/7 PASS, including actual Maven `test-compile` PASS. Logs: `evidence/verification/rerun-20261108-final-audit-5/`; latest compile evidence: `evidence/t01c-offline-approved-e95ab9ae-40bc-4ff6-8d4e-cb895614e362/isolated-maven-compile.json`.
 
 The full framework integration suite remains non-green in this managed Windows sandbox (12 pass / 4 fail / 1 skip in its last captured run); symlink tests hit `EPERM`, and a lifecycle test was BLOCKED on unavailable Docker/runtime prerequisites. See `evidence/verification/rerun-20261108/framework-integration.txt`. This does not prove live Selenium operation.

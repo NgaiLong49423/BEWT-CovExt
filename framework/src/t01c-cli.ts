@@ -12,11 +12,13 @@ import { ensureContainedDirectory, resolveContainedExistingPath, resolveContaine
 import { verifyExpressCartSourceInputs } from "../../adapters/expresscart/source-identity.js";
 import { registerGeneratedJava } from "./runtime/java-artifact-registry.js";
 import { readModelRunBudget, recordModelCall, reserveModelCall } from "./runtime/model-call-ledger.js";
+import { readHistoricalBehaviorIndex } from "../../adapters/expresscart/historical-behavior-index.js";
 
 const root = resolve(process.cwd(), "..");
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
 const sourceVersion = "1.1.19";
 const manifestPath = "config/apps/expresscart.json";
+const historicalIndexPath = "data/coverage/expresscart/historical-candidate-behavior-index.json";
 const evidenceRoot = "docs/tasks/T01-C/evidence";
 
 async function writeUnique(relativePath: string, content: string): Promise<void> {
@@ -71,6 +73,8 @@ async function main(args: string[]): Promise<void> {
   if (appId !== "expresscart") throw new Error(`No verified runtime adapter/manifest is configured for app '${appId}'. The program target remains all 8 applications.`);
   const manifest = parseApplicationManifest(JSON.parse(await readFile(await resolveContainedExistingPath(root, manifestPath), "utf8")));
   const adapter = new ExpressCartExperimentAdapter(root, manifest);
+  const historicalBehaviorIndex = await readHistoricalBehaviorIndex(root, historicalIndexPath);
+  if (historicalBehaviorIndex.sourceCommit !== sourceCommit || historicalBehaviorIndex.sourceVersion !== sourceVersion) throw new Error("historical candidate index does not match the pinned ExpressCart source");
   const candidateId = newCandidateId();
   let provider: GeminiGenerationProvider | undefined;
   let javaProvider: GeminiJavaGenerationProvider | undefined;
@@ -92,9 +96,7 @@ async function main(args: string[]): Promise<void> {
         if (start < 0 || end < 0) throw new Error("pinned source does not contain the expected reset-token route block");
         const routeContext = route.slice(start, end).trim();
         const reference = { repositoryCommit: sourceCommit, sourceVersion, runId: `t01c-source-${runIdForEvidence}`, artifactPath: routePath };
-        const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: [
-          "cart.discount.remove", "cart.empty", "product.publication.admin-state", "customer.password.forgotten-request", "admin.static-page.create-view",
-        ], sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavioralCategory: "Account recovery and reset-token security", behavior: "An invalid or expired password-reset token redirects to the forgot-password page and displays the invalid-or-expired message.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.", sourceReferences: [reference] }] });
+        const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: historicalBehaviorIndex.candidates.map((item) => item.behaviorId), sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavioralCategory: "Account recovery and reset-token security", behavior: "An invalid or expired password-reset token redirects to the forgot-password page and displays the invalid-or-expired message.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.", sourceReferences: [reference] }] });
         const gap = results.find((item) => item.disposition === "CANDIDATE_GAP")?.gap;
         if (!gap) throw new Error(`source-backed candidate gap unavailable: ${results.map((item) => `${item.behaviorId}:${item.disposition}`).join(",")}`);
         const evidenceDirectory = `${evidenceRoot}/${runIdForEvidence}`;
@@ -102,12 +104,13 @@ async function main(args: string[]): Promise<void> {
         await writeUnique(`${evidenceDirectory}/source-coverage-analysis.json`, JSON.stringify({ runId: runIdForEvidence, appId: baseline.appId, sourceCommit, sourceVersion,
           baselineObservedScenarios: baseline.observedScenarioCount, sourceIdentity: sourcePin, coverageAnalysis: results, candidateGaps: results.flatMap((result) => result.gap ? [result.gap] : []),
           sourceClaims: results.map(({ behaviorId, behavioralCategory, disposition, sourceReferences, rationale }) => ({ behaviorId, behavioralCategory, disposition, sourceReferences, rationale })),
-          sourceArtifactSha256: createHash("sha256").update(route).digest("hex"), historicProposalSet: "docs/research-results/sprint-02/CANDIDATE-REVIEW.md; EC-C01..EC-C05 topics",
+          sourceArtifactSha256: createHash("sha256").update(route).digest("hex"), historicalBehaviorIndexPath: historicalIndexPath,
+          historicalCandidates: historicalBehaviorIndex.candidates,
           historicApprovalReused: false, researchNovelty: "UNVERIFIED" }, null, 2));
         sourceContext = [
           `Pinned application source excerpt (${routePath}):\n${routeContext}`,
           `Baseline observed scenarios: ${baseline.cases.map((item) => `${item.caseId}: ${item.scenarioName}`).slice(0, 31).join("; ")}`,
-          "Historic proposal topics already recorded: discount removal, empty cart, product publication state, forgotten-password request, static-page create/view. Do not present those as novel.",
+          `Historical Sprint 01–05 candidate behaviors and source records: ${JSON.stringify(historicalBehaviorIndex.candidates)}. Do not present overlapping behavior as novel.`,
           `Coverage assessment: ${JSON.stringify(results.map(({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale }) => ({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale })))}.`,
           "Coverage gap status is a candidate only; technical behavior, oracle, testability, and novelty remain subject to human review.",
         ];

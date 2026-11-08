@@ -32,8 +32,10 @@
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
     "t01cValidation": "PARTIAL_TECHNICAL_CONTRACT_AND_OFFLINE_COMPILE_ONLY_NO_LIVE_CANDIDATE_OR_VALIDATION",
     "t01cEvidence": [
-      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-4/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/",
       "docs/tasks/T01-C/evidence/t01c-offline-approved-e95ab9ae-40bc-4ff6-8d4e-cb895614e362/isolated-maven-compile.json",
+      "data/coverage/expresscart/historical-candidate-behavior-index.json",
+      "framework/test/historical-behavior-index.test.ts",
       "docs/tasks/T01-C/COVERAGE-AND-CANDIDATE-RESULTS.md",
       "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json"
     ],
