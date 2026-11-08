@@ -22,7 +22,7 @@
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt` |
 | Filesystem safety integration outside sandbox | PASS, 3/3 | `evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt`; `evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt` |
 | Earlier managed-sandbox integration run | FAIL, 12 passed / 4 failed / 1 skipped; superseded by the current outside-sandbox full run below | `evidence/verification/rerun-20261108/framework-integration.txt`; symlink creation `EPERM`; Docker access blocked; crash/replay skipped |
-| Gemini Gherkin requests | FAIL, 3 authorized provider invocations, no retries; two `API_KEY_INVALID`, one fetch failure | `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`, `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`, and `evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/`; three budget rejects recorded separately with `calls=0` |
+| Gemini Gherkin requests | FAIL, 4 authorized provider invocations, no retries; three `API_KEY_INVALID`, one fetch failure | `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`, `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`, `evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/`, and `evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/`; three budget rejects recorded separately with `calls=0` |
 | Live Maven fixture / Selenium / cleanup / repeats | NOT_RUN | No live candidate; offline compile is not live validation |
 
 ## Current revalidation after Docker access was restored outside the sandbox
@@ -34,6 +34,7 @@
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-full-verification-01/expresscart-agent-unit.txt` |
 | Full framework integration outside sandbox | PASS, 18 passed / 0 failed / 1 skipped | `evidence/verification/rerun-20261108-full-verification-01/framework-integration-outside-sandbox.txt` |
 | ExpressCart adapter lifecycle integration | PASS, 1/1, included in the full integration run | Same full integration log; standalone rerun at `evidence/verification/rerun-20261108-full-verification-01/adapter-lifecycle-outside-sandbox.txt` |
+| Latest bounded Gemini Gherkin call | BLOCKED, 1/1 attempt, `API_KEY_INVALID`; no retry or response | `evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/` and `evidence/verification/rerun-20261108-live-call-04/cli-output.txt` |
 
 The lifecycle regression exposed a test-fixture error: `recoveryState` used a different workflow `runId` while carrying the original run-bound human approval. The adapter correctly rejected that state. The test now models a process restart by retaining the workflow run ID and assigning only a fresh `validationInvocationId`; the standalone lifecycle test and full integration suite then passed. This did not change adapter behavior. The lifecycle test verifies run-scoped compile/fixture/cleanup and that Selenium is refused for an unregistered artifact; it is not a live Selenium success. The one skipped case is the separately opt-in OS-process crash-recovery E2E. Docker Compose state after the run contained only the pre-existing ExpressCart and unrelated pre-existing projects; no test project remained.
 
