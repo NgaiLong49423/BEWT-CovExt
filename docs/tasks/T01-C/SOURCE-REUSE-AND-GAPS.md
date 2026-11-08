@@ -24,5 +24,5 @@
 
 - The current source claim and historical candidate index are ExpressCart-specific; the baseline remains the pinned Sprint 01 sanitized feature/test inventory with route-derived tags. Neither exact-tag comparison nor the historical index establishes semantic novelty, and this is not generalized to seven other apps.
 - No live Gemini candidate, real human review decision, Gemini Java artifact, Selenium E2E, cleanup outcome, repair attempt, or T01-C actual `ValidationResult` exists. The offline Maven compile used a fake provider and is not model evidence.
-- Adversarial runtime realpath/symlink behavior could not be fully verified in this Windows sandbox (`EPERM` in symlink integration cases). Docker-backed live app lifecycle is also unavailable in this environment.
+- Filesystem-only traversal/symlink checks in `framework/test/integration/tool-boundaries.test.ts` and the ExpressCart evidence-discovery test passed outside the managed sandbox (3/3). The full adapter lifecycle test still cannot run because Docker Desktop's daemon is unavailable.
 - Historical Sprint 01–05 metrics and `bewt-original/` remain read-only. No application source or Docker configuration was changed.
