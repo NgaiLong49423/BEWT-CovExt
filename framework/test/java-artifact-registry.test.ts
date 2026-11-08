@@ -6,7 +6,7 @@ import { join } from "node:path";
 import type { AgentWorkflowState, CandidateScenario, EvidenceReference, HumanReviewDecision } from "../src/contracts.js";
 import { pauseAtHumanReview, startRepair, submitReviewDecision, transitionWorkflow } from "../src/policy.js";
 import { expectedGeneratedTestClass, loadRegisteredRepairedJava, registerGeneratedJava, registerRepairedJava, verifyRegisteredGeneratedJava } from "../src/runtime/java-artifact-registry.js";
-import { FakeJavaGenerationProvider, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { assertExecutableAssertionsPreserved, executableAssertionCount, FakeJavaGenerationProvider, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
 const sourceReference: EvidenceReference = { repositoryCommit: sourceCommit, sourceVersion: "1.1.19", runId: "unit-source", artifactPath: "docs/tasks/T01-C/evidence/source.json" };
@@ -30,8 +30,61 @@ function acceptedWorkflow(candidate: CandidateScenario): AgentWorkflowState {
 
 function javaOutput(candidate: CandidateScenario, useResetPageObject = false) {
   const testClass = expectedGeneratedTestClass(candidate);
-  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl);" : "org.junit.Assert.assertNotNull(appUrl);"} }\n}\n` };
+  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl); " : ""}Assert.assertNotNull(appUrl); }\n}\n` };
 }
+
+test("generated Java requires an executable assertion in an annotated test method", () => {
+  const valid = javaOutput(proposed);
+  assert.equal(executableAssertionCount(valid.javaSource), 1);
+  assert.doesNotThrow(() => validateGeneratedJavaContract(valid, expectedGeneratedTestClass(proposed)));
+
+  const cases = [
+    ["removed", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "")],
+    ["line comment", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "// Assert.assertNotNull(appUrl);")],
+    ["block comment", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "/* Assert.assertNotNull(appUrl); */")],
+    ["string literal", valid.javaSource.replace("Assert.assertNotNull(appUrl);", 'String example = "Assert.assertNotNull(appUrl);";')],
+    ["helper outside @Test", valid.javaSource.replace("@Test public void syntheticContract() { Assert.assertNotNull(appUrl); }", "public void helper() { Assert.assertNotNull(appUrl); } @Test public void syntheticContract() {}")],
+  ] as const;
+  for (const [label, javaSource] of cases) {
+    assert.equal(executableAssertionCount(javaSource), 0, `${label} must not be lexed as an executable test assertion`);
+    assert.throws(() => validateGeneratedJavaContract({ ...valid, javaSource }, expectedGeneratedTestClass(proposed)), /executable assertion/);
+  }
+});
+
+test("repair preserves executable assertion and oracle while allowing a Selenium locator correction", () => {
+  const candidate = { ...proposed };
+  const testClass = expectedGeneratedTestClass(candidate);
+  const before = `package tests; import org.junit.Test; import org.junit.Assert; public class ${testClass} extends BaseTest { @Test public void verifiesBehavior() { Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText()); } }`;
+  const fixedLocator = before.replace('By.id("old-locator")', 'By.id("correct-locator")');
+  assert.doesNotThrow(() => assertExecutableAssertionsPreserved(before, fixedLocator));
+  assert.throws(() => assertExecutableAssertionsPreserved(before, before.replace('"expected-oracle"', '"changed-oracle"')), /preserve every executable test assertion/);
+  for (const disguised of [
+    before.replace('Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText());', '// Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText());'),
+    before.replace('Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText());', '/* Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText()); */'),
+    before.replace('Assert.assertEquals("expected-oracle", driver.findElement(By.id("old-locator")).getText());', 'String decoy = "Assert.assertEquals(\\"expected-oracle\\", driver.findElement(By.id(\\"old-locator\\")).getText());";'),
+  ]) assert.throws(() => assertExecutableAssertionsPreserved(before, disguised), /preserve every executable test assertion/);
+});
+
+test("registry accepts a repaired artifact with only a locator literal corrected", async () => {
+  const root = await mkdtemp(join(tmpdir(), "bewt-t01c-java-locator-repair-"));
+  try {
+    const candidate = { ...proposed };
+    const accepted = acceptedWorkflow(candidate);
+    const className = expectedGeneratedTestClass(candidate);
+    const initial = {
+      testClass: className,
+      javaSource: `package tests; import org.junit.Test; import org.junit.Assert; public class ${className} extends BaseTest { @Test public void verifiesBehavior() { Assert.assertEquals("expected-oracle", driver.findElement(By.id("stale-locator")).getText()); } }`,
+    };
+    const first = await registerGeneratedJava(root, accepted, accepted.candidate!, initial);
+    const withFirst = { ...accepted, artifacts: [{ kind: "generated_java" as const, path: first.artifact.path, testClass: first.artifact.testClass,
+      candidateId: candidate.candidateId, revision: candidate.revision, origin: "GENERATED" as const, sha256: first.artifact.sha256! }] };
+    const repairing = startRepair(transitionWorkflow(transitionWorkflow(withFirst, "JAVA_GENERATED"), "VALIDATING"));
+    const fixed = { ...initial, javaSource: `${initial.javaSource.replace('By.id("stale-locator")', 'By.id("verified-locator")')}\n// repair 1` };
+    const repaired = await registerRepairedJava(root, repairing, accepted.candidate!, first.artifact, first.artifact, 1, fixed);
+    assert.equal(repaired.registration.origin, "REPAIRED");
+    assert.notEqual(repaired.artifact.sha256, first.artifact.sha256);
+  } finally { await rm(root, { recursive: true, force: true }); }
+});
 
 test("generated Java registration is immutable, candidate/revision-bound and requires current ACCEPT", async () => {
   const root = await mkdtemp(join(tmpdir(), "bewt-t01c-java-registry-"));
@@ -98,6 +151,7 @@ test("repaired artifacts are immutable, assertion-preserving, and chained throug
       testClass: repair1.artifact.testClass, candidateId: candidate.candidateId, revision: candidate.revision, origin: "REPAIRED" as const, sha256: repair1.artifact.sha256! }] };
     const verified1 = await verifyRegisteredGeneratedJava(root, withRepair1, approvedCandidate, repair1.artifact);
     assert.equal(verified1.registration.repairAttempt, 1);
+    assert.equal((await readFile(join(root, first.artifact.path), "utf8")), generated.javaSource, "first-generated artifact remains byte-for-byte immutable after repair 1");
     const recoveredRepair1 = await loadRegisteredRepairedJava(root, withRepair1, approvedCandidate, 1);
     assert.deepEqual(recoveredRepair1, repair1.artifact, "repaired artifact loader recovers only its registered immutable revision");
     repairing = startRepair(transitionWorkflow(withRepair1, "VALIDATING"));
@@ -109,9 +163,11 @@ test("repaired artifacts are immutable, assertion-preserving, and chained throug
     assert.equal(verified2.registration.repairAttempt, 2);
     assert.equal(verified2.registration.parentArtifactPath, repair1.artifact.path);
     assert.equal(verified2.registration.firstGeneratedSourceSha256, first.artifact.sha256);
+    assert.notEqual(repair1.artifact.sha256, repair2.artifact.sha256, "both repair attempts have independent source hashes");
+    assert.equal((await readFile(join(root, repair1.artifact.path), "utf8")).includes("synthetic repair attempt 1"), true);
     await writeFile(verified2.absolutePath, `${secondRepairOutput.javaSource}// tamper\n`);
     await assert.rejects(verifyRegisteredGeneratedJava(root, withRepair2, approvedCandidate, repair2.artifact), /hash mismatch/);
     await assert.rejects(registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2,
-      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace("Assert.assertNotNull(appUrl);", "") }), /retain every assertion call/);
+      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace("Assert.assertNotNull(appUrl);", "") }), /executable assertion|preserve every executable test assertion/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

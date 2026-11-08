@@ -4,7 +4,7 @@ import { join } from "node:path";
 import type { AgentWorkflowState, CandidateScenario, GeneratedJavaArtifact } from "../contracts.js";
 import { assertCanGenerateJava, assertCanRepairJava, assertHumanApprovedCandidate } from "../policy.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./safe-path.js";
-import { validateGeneratedJavaContract, type GeneratedJavaOutput } from "./model-provider.js";
+import { assertExecutableAssertionsPreserved, validateGeneratedJavaContract, type GeneratedJavaOutput } from "./model-provider.js";
 import { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
 export { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
 
@@ -158,8 +158,7 @@ export async function registerRepairedJava(
   const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
   validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
   const firstSource = await readFile(await resolveContainedExistingPath(repositoryRoot, firstArtifact.path), "utf8");
-  const assertions = javaAssertionCalls(firstSource);
-  if (assertions.length === 0 || assertions.some((assertion) => !output.javaSource.includes(assertion))) throw new Error("repaired Java must retain every assertion call from the immutable first-generated source");
+  assertExecutableAssertionsPreserved(firstSource, output.javaSource);
   const directory = `${registrationDirectory(candidate)}/repair-${attempt}`;
   await ensureContainedDirectory(repositoryRoot, directory);
   const artifactPath = `${directory}/${expectedClass}.java`;
@@ -176,35 +175,6 @@ export async function registerRepairedJava(
   await writeImmutable(repositoryRoot, `${directory}/registration.json`, `${JSON.stringify(registration, null, 2)}\n`);
   return { artifact: { kind: "generated_java", path: artifactPath, candidateId: candidate.candidateId, revision: candidate.revision,
     testClass: registration.testClass, origin: "REPAIRED", sha256: sourceSha256 }, registration };
-}
-
-/** Preserve each original assertion call byte-for-byte while allowing unrelated locator/control-flow repair. */
-function javaAssertionCalls(source: string): string[] {
-  const calls: string[] = [];
-  const identifier = /\b(?:assert[A-Z][A-Za-z0-9_]*|fail)\b/g;
-  for (const match of source.matchAll(identifier)) {
-    let open = match.index! + match[0].length;
-    while (/\s/.test(source[open] ?? "")) open += 1;
-    if (source[open] !== "(") continue;
-    let depth = 0;
-    let quote = "";
-    let escaped = false;
-    let lineComment = false;
-    let blockComment = false;
-    for (let cursor = open; cursor < source.length; cursor += 1) {
-      const char = source[cursor]!;
-      const next = source[cursor + 1];
-      if (lineComment) { if (char === "\n" || char === "\r") lineComment = false; continue; }
-      if (blockComment) { if (char === "*" && next === "/") { blockComment = false; cursor += 1; } continue; }
-      if (quote) { if (escaped) escaped = false; else if (char === "\\") escaped = true; else if (char === quote) quote = ""; continue; }
-      if (char === "/" && next === "/") { lineComment = true; cursor += 1; continue; }
-      if (char === "/" && next === "*") { blockComment = true; cursor += 1; continue; }
-      if (char === "\"" || char === "'") { quote = char; continue; }
-      if (char === "(") depth += 1;
-      else if (char === ")" && --depth === 0) { calls.push(source.slice(match.index!, cursor + 1)); break; }
-    }
-  }
-  return [...new Set(calls)];
 }
 
 /** Return the previously registered first generation after a graph replay, never making a second model request. */

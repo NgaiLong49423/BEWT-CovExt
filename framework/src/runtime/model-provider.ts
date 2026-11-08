@@ -52,24 +52,154 @@ export function buildSanitizedRequestEvidence(prompt: string): NonNullable<Model
 }
 
 type JavaIdentifier = { name: string; start: number; end: number };
+type JavaToken = { kind: "identifier" | "literal" | "symbol"; value: string; start: number; end: number };
 
 function isWhitespaceCode(code: number): boolean {
   return (code >= 9 && code <= 13) || code === 32 || code === 160 || code === 5760 || (code >= 8192 && code <= 8202) || code === 8232 || code === 8233 || code === 8239 || code === 8287 || code === 12288 || code === 65279;
 }
 
-function javaIdentifiers(source: string): JavaIdentifier[] {
-  const identifiers: JavaIdentifier[] = [];
+function javaTokens(source: string): JavaToken[] {
+  const tokens: JavaToken[] = [];
   const isStart = (code: number): boolean => (code >= 65 && code <= 90) || (code >= 97 && code <= 122) || code === 36 || code === 95;
   const isPart = (code: number): boolean => isStart(code) || (code >= 48 && code <= 57);
   let index = 0;
   while (index < source.length) {
+    const char = source[index]!;
+    const next = source[index + 1];
+    if (isWhitespaceCode(source.charCodeAt(index))) { index += 1; continue; }
+    if (char === "/" && next === "/") {
+      index += 2;
+      while (index < source.length && source[index] !== "\n" && source[index] !== "\r") index += 1;
+      continue;
+    }
+    if (char === "/" && next === "*") {
+      const end = source.indexOf("*/", index + 2);
+      if (end < 0) return tokens;
+      index = end + 2;
+      continue;
+    }
+    if (source.startsWith('"""', index)) {
+      const start = index;
+      index += 3;
+      while (index < source.length) {
+        if (source.startsWith('"""', index)) {
+          let slashes = 0;
+          for (let back = index - 1; back >= start && source[back] === "\\"; back -= 1) slashes += 1;
+          if (slashes % 2 === 0) { index += 3; break; }
+        }
+        index += 1;
+      }
+      tokens.push({ kind: "literal", value: source.slice(start, index), start, end: index });
+      continue;
+    }
+    if (char === "\"" || char === "'") {
+      const start = index;
+      const quote = char;
+      index += 1;
+      while (index < source.length) {
+        if (source[index] === "\\") { index += 2; continue; }
+        if (source[index] === quote) { index += 1; break; }
+        index += 1;
+      }
+      tokens.push({ kind: "literal", value: source.slice(start, index), start, end: index });
+      continue;
+    }
     if (!isStart(source.charCodeAt(index))) { index += 1; continue; }
     const start = index;
     index += 1;
     while (index < source.length && isPart(source.charCodeAt(index))) index += 1;
-    identifiers.push({ name: source.slice(start, index), start, end: index });
+    tokens.push({ kind: "identifier", value: source.slice(start, index), start, end: index });
   }
-  return identifiers;
+  // Add punctuation in a second pass only over source regions not consumed as identifiers/literals/comments.
+  // A compact single-character token is sufficient for package, annotation, call and delimiter checks below.
+  const occupied = tokens.map(({ start, end }) => [start, end] as const);
+  const punctuation: JavaToken[] = [];
+  let occupiedIndex = 0;
+  for (let cursor = 0; cursor < source.length; cursor += 1) {
+    while (occupiedIndex < occupied.length && occupied[occupiedIndex]![1] <= cursor) occupiedIndex += 1;
+    if (occupiedIndex < occupied.length && occupied[occupiedIndex]![0] <= cursor) { cursor = occupied[occupiedIndex]![1] - 1; continue; }
+    if (/\s/.test(source[cursor]!)) continue;
+    if (source.startsWith("//", cursor)) { while (cursor < source.length && source[cursor] !== "\n" && source[cursor] !== "\r") cursor += 1; continue; }
+    if (source.startsWith("/*", cursor)) { const end = source.indexOf("*/", cursor + 2); cursor = end < 0 ? source.length : end + 1; continue; }
+    punctuation.push({ kind: "symbol", value: source[cursor]!, start: cursor, end: cursor + 1 });
+  }
+  return [...tokens, ...punctuation].sort((left, right) => left.start - right.start);
+}
+
+function javaIdentifiers(source: string): JavaIdentifier[] {
+  return javaTokens(source).filter((token) => token.kind === "identifier").map(({ value, start, end }) => ({ name: value, start, end }));
+}
+
+type ExecutableAssertion = { canonical: string };
+
+function matchingDelimiter(tokens: JavaToken[], openIndex: number, open: string, close: string): number | undefined {
+  let depth = 0;
+  for (let index = openIndex; index < tokens.length; index += 1) {
+    if (tokens[index]!.value === open) depth += 1;
+    else if (tokens[index]!.value === close && --depth === 0) return index;
+  }
+  return undefined;
+}
+
+function testMethodBodies(tokens: JavaToken[]): Array<[number, number]> {
+  const bodies: Array<[number, number]> = [];
+  for (let annotation = 0; annotation < tokens.length - 1; annotation += 1) {
+    if (tokens[annotation]!.value !== "@" || tokens[annotation + 1]!.value !== "Test") continue;
+    let index = annotation + 2;
+    if (tokens[index]?.value === "(") {
+      const end = matchingDelimiter(tokens, index, "(", ")");
+      if (end === undefined) continue;
+      index = end + 1;
+    }
+    // Skip modifiers/return type/parameters/throws until the annotated method body.
+    while (index < tokens.length && tokens[index]!.value !== "{" && tokens[index]!.value !== ";") {
+      if (tokens[index]!.value === "(") {
+        const end = matchingDelimiter(tokens, index, "(", ")");
+        if (end === undefined) break;
+        index = end + 1;
+      } else index += 1;
+    }
+    if (tokens[index]?.value !== "{") continue;
+    const end = matchingDelimiter(tokens, index, "{", "}");
+    if (end !== undefined) bodies.push([index + 1, end]);
+    annotation += 1;
+  }
+  return bodies;
+}
+
+function assertionCalls(source: string): ExecutableAssertion[] {
+  const tokens = javaTokens(source);
+  const bodies = testMethodBodies(tokens);
+  const assertions: ExecutableAssertion[] = [];
+  for (const [start, end] of bodies) {
+    for (let index = start; index + 1 < end; index += 1) {
+      const token = tokens[index]!;
+      if (token.kind !== "identifier" || !(/^(?:assert[A-Z][A-Za-z0-9_]*|fail)$/.test(token.value)) || tokens[index + 1]!.value !== "(") continue;
+      const close = matchingDelimiter(tokens, index + 1, "(", ")");
+      if (close === undefined || close >= end) continue;
+      const callTokens = tokens.slice(index, close + 1);
+      const canonical = callTokens.map((part, position) => {
+        const isByLocatorString = part.kind === "literal" && position >= 4 && callTokens[position - 1]!.value === "(" &&
+          callTokens[position - 2]!.kind === "identifier" && ["id", "name", "className", "tagName", "linkText", "partialLinkText", "cssSelector", "xpath"].includes(callTokens[position - 2]!.value) &&
+          callTokens[position - 3]!.value === "." && callTokens[position - 4]!.value === "By";
+        return isByLocatorString ? "<locator-string>" : `${part.kind}:${part.value}`;
+      }).join(" ");
+      assertions.push({ canonical });
+    }
+  }
+  return assertions;
+}
+
+/** Require executable assertions inside an @Test method; this is lexical evidence, not oracle semantic proof. */
+export function executableAssertionCount(source: string): number { return assertionCalls(source).length; }
+
+/** Preserve the generated assertion calls across repair; locator literals passed directly to Selenium By factories may change. */
+export function assertExecutableAssertionsPreserved(before: string, after: string): void {
+  const expected = assertionCalls(before).map((assertion) => assertion.canonical).sort();
+  const actual = assertionCalls(after).map((assertion) => assertion.canonical).sort();
+  if (expected.length === 0 || expected.length !== actual.length || expected.some((assertion, index) => assertion !== actual[index])) {
+    throw new Error("Java repair must preserve every executable test assertion without changing its oracle expression");
+  }
 }
 
 function hasApprovedPackage(source: string): boolean {
@@ -141,6 +271,7 @@ export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expec
   if (!isJavaIdentifier(output.testClass)) throw new Error("generated Java class name must be a valid bounded identifier");
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
   const identifiers = javaIdentifiers(output.javaSource);
+  if (executableAssertionCount(output.javaSource) === 0) throw new Error("generated Java must contain an executable assertion inside a JUnit test method");
   if (!hasApprovedPackage(output.javaSource)) throw new Error("generated Java must use the approved tests package");
   if (!hasWhitespaceSequence(identifiers, output.javaSource, "class", output.testClass)) throw new Error("generated Java must declare the returned class name");
   if (!hasWhitespaceSequence(identifiers, output.javaSource, "extends", "BaseTest")) throw new Error("generated Java must extend the suite BaseTest");
@@ -249,7 +380,13 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
         sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, oracle: candidate.oracle },
         classifiedFailureEvidence: failure, currentJavaSource: currentJava }),
     ].join("\n\n");
-    return this.invokeJava(prompt, candidate, expectedClass, "MODEL_REPAIR_FAILED", () => { this.repairAttempts.add(attempt); });
+    const output = await this.invokeJava(prompt, candidate, expectedClass, "MODEL_REPAIR_FAILED", () => { this.repairAttempts.add(attempt); });
+    try { assertExecutableAssertionsPreserved(currentJava, output.javaSource); }
+    catch (error) {
+      this.lastTelemetry = { ...this.lastTelemetry, status: "FAIL", errorCategory: "OUTPUT_CONTRACT" };
+      throw error;
+    }
+    return output;
   }
 
   private async invokeJava(prompt: string, candidate: CandidateScenario, expectedClass: string, failureCode: string, consumeCall: () => void): Promise<GeneratedJavaOutput> {
