@@ -1,0 +1,14 @@
+{
+  "outcome": "PASS",
+  "failCount": 0,
+  "blockedCount": 0,
+  "isolation": {
+    "id": "CONFIG_APPS_ISOLATION",
+    "name": "All config/apps JSON files are unique valid runtime manifests",
+    "status": "PASS",
+    "details": "Validated 2 runtime manifests: expresscart, kanboard",
+    "expectedBlocked": false
+  },
+  "draftsExpectedBlocked": true,
+  "historicalEvidenceWritten": false
+}

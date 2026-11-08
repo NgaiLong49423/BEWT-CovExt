@@ -1,21 +1,19 @@
-# Test Results
+# Test Results — T03-A Corrections
 
-## Helper tests
+## Node unit and fault-injection tests
 
-Command: `node --experimental-strip-types --test experiments/kanboard/tools/test/kanboard-g0.test.mjs`
+Command: `node --experimental-strip-types --test experiments/kanboard/tools/test/cleanup-kanboard-g0.test.mjs experiments/kanboard/tools/test/kanboard-g0.test.mjs docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs`
 
-Result: **PASS**, 10 tests, 0 failed, exit code 0. These tests use local fixtures for manifest parsing/promotion, Docker identity/ownership decisions, port mapping, URL and test selection, JUnit classification, reset checks and cleanup protection. They do not simulate Docker runtime as a PASS.
+Result: **PASS**, 23 tests, 0 failed, exit code 0. Coverage includes exact Docker NOT_FOUND classification; daemon, permission, transport and unknown inspect errors; idempotent cleanup; partial teardown failure and retry; stale container/network IDs; BLOCKED-to-nonzero-exit mapping; residual container/network/volume detection; Kanboard runtime manifest parsing; multiple runtime manifests; and draft/duplicate rejection.
 
-`node --check` for `kanboard-g0.mjs`, `docker-inventory.mjs` and `cleanup-kanboard-g0.mjs`: **PASS**.
+`node --check` for the cleanup helper, both T03-A test files, and the active T02 verifier/test: **PASS**. Captured test output: [node-tests.txt](evidence/review-corrections/node-tests.txt). Active T02 verification: [t02-runtime-isolation.json](evidence/review-corrections/t02-runtime-isolation.json). Historical TAP/JSON hashes are unchanged, recorded in [before](evidence/review-corrections/t02-historical-evidence-hashes-before.txt) and [after](evidence/review-corrections/t02-historical-evidence-hashes-after.txt) inventories.
 
 ## Maven compilation
 
-Command (run from `experiments/kanboard/bewt-suite`): `mvn.cmd -B clean test-compile`
+Command (from `experiments/kanboard/bewt-suite`): `mvn.cmd -B clean test-compile`
 
-Result: **PASS**, 27 main sources and 32 test sources compiled, exit code 0. Full output is saved at `evidence/verification/maven-full-test-compile.txt`.
+Result for this correction pass: **PASS**, exit code 0; 27 main and 32 test sources compiled. Captured output and exit metadata: [maven-test-compile.log](evidence/review-corrections/maven-test-compile.log), [maven-test-compile-result.json](evidence/review-corrections/maven-test-compile-result.json).
 
-## Live browser tests
+## Prior live browser runs
 
-The final adapted source ran `tests.AddNewProject` in both `t03a-a-20261108-r2` and `t03a-b-20261108-r2` against independent fresh Docker instances. Maven exited 0 for each; Surefire reports exactly 1 test, 0 failures, 0 errors and 0 skipped. The runner received the pinned baseline password through the ephemeral `KANBOARD_TEST_PASSWORD` process environment; the value is excluded from source and evidence. Original business steps and assertions remain unchanged.
-
-Sanitized JUnit XML, Maven logs, and original XML hashes are stored under each run's evidence directory. Selenium emitted a warning that Selenium 4.35 has no CDP implementation matching Chrome 156. The test does not use DevTools, and the browser-driven test passed both times. No failure screenshot was needed.
+Run A and Run B remain the two previously completed real Selenium executions. Their original combined Maven console logs, sanitized Surefire XML and XML hashes are retained and linked in [MAVEN-RUN-METADATA.md](MAVEN-RUN-METADATA.md). These review corrections did not rerun Maven Selenium tests. The evidence metadata distinguishes the command reconstruction from the unpreserved original shell line; recorded process exit codes are supported by the contemporaneous reset comparison and the Maven logs' `BUILD SUCCESS`, not inferred from JUnit XML alone.

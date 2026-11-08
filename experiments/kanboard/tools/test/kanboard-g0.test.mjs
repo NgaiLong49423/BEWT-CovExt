@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { parseApplicationManifest } from '../../../../framework/src/contracts.ts';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -60,6 +61,14 @@ function dockerResources(runId = 't03a-a-001') {
   return { labels, container, volume, network, recorded, volumeName, imageDigest };
 }
 
+test('promoted config/apps Kanboard manifest parses as runtime and preserves pinned source/image', () => {
+  const runtime = JSON.parse(fs.readFileSync(path.join(repoRoot, 'config/apps/kanboard.json'), 'utf8'));
+  const parsed = parseApplicationManifest(runtime);
+  assert.equal(parsed.appId, 'kanboard');
+  assert.equal(parsed.source.commit, '00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b');
+  assert.equal(parsed.runtime.imageDigest, 'sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e');
+  assert.equal(Object.hasOwn(runtime, 'manifestType'), false);
+});
 test('draft-to-runtime promotion validates the Docker image digest and removes only draft-only fields', () => {
   const runtime = promoteKanboardDraft(draft, `sha256:${'a'.repeat(64)}`);
   assert.equal(runtime.appId, APP_ID);

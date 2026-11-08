@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "kanboard",
+  "benchmarkBaseVersion": "1.2.15",
+  "source": {
+    "repository": "https://github.com/kanboard/kanboard",
+    "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+    "packageVersion": "v1.2.15"
+  },
+  "baseSuitePath": "experiments/kanboard/bewt-suite",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-7.x-alpine-sqlite",
+    "image": "kanboard/kanboard:v1.2.15",
+    "imageDigest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-kanboard",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Per-run labeled network and labeled named volumes for every image-declared mount; loopback-only dynamically allocated HTTP port; remove only verified run-owned containers, volumes, and network, then prove their absence.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

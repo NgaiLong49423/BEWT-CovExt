@@ -1,0 +1,32 @@
+✔ active config/apps isolation accepts multiple parser-valid runtime manifests (3.1267ms)
+✔ active config/apps isolation rejects draft manifests even beside valid runtime manifests (2.0925ms)
+✔ active config/apps isolation rejects duplicate app IDs (0.6446ms)
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (3.9692ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.2448ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (0.9285ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (0.8661ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.4224ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.4295ms)
+  ✔ network (0.3578ms)
+  ✔ volume (0.3244ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (1.6468ms)
+✔ promoted config/apps Kanboard manifest parses as runtime and preserves pinned source/image (1.6523ms)
+✔ draft-to-runtime promotion validates the Docker image digest and removes only draft-only fields (0.6332ms)
+✔ Docker container, volume, and network identity require the recorded IDs and ownership labels (0.515ms)
+✔ cleanup refuses bind mounts and resources outside the run-owned volume inventory (0.4047ms)
+✔ Docker port publication requests a dynamic loopback binding and accepts only a valid assigned port (0.8835ms)
+✔ baseline URL is property-driven and preserves the original default URL (0.631ms)
+✔ Maven selection targets only the original AddNewProject Base class and receives the allocated URL (0.2292ms)
+✔ JUnit parsing detects empty selection, PASS, skipped, assertion failure, browser setup, and application connection failure (0.5899ms)
+✔ Run B must start with distinct resources and no Run A data, after Run A cleanup PASS (0.283ms)
+✔ cleanup plan is scoped to recorded resources, succeeds idempotently, and checks post-cleanup absence (0.3386ms)
+✔ resource comparison protects all pre-existing Docker resources (0.1736ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 136.9306
