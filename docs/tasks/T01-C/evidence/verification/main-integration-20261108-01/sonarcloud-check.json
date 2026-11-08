@@ -1,0 +1,21 @@
+{
+  "provider": "SonarQube Cloud",
+  "repository": "NgaiLong49423/BEWT-CovExt",
+  "pullRequest": 4,
+  "headSha": "ec93bc8340f0e6e14445f51ed897d73a9fc6c104",
+  "checkRunId": 128780857756,
+  "checkName": "SonarCloud Code Analysis",
+  "status": "completed",
+  "conclusion": "success",
+  "qualityGate": "passed",
+  "completedAt": "2026-11-08T15:50:25Z",
+  "metrics": {
+    "newIssues": 0,
+    "acceptedIssues": 0,
+    "securityHotspots": 0,
+    "newCodeCoveragePercent": 0.0,
+    "newCodeDuplicationPercent": 0.9
+  },
+  "coverageNote": "No coverage report was uploaded.",
+  "detailsUrl": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=4"
+}
