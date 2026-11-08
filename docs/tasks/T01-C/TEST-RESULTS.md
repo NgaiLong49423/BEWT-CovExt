@@ -12,6 +12,7 @@
 | Focused workflow + offline Java pipeline with sanitized request evidence | PASS, 6/6 | `evidence/verification/rerun-20261108-request-evidence/t01c-workflow-integration.txt` |
 | No-application-repair workflow regression | PASS, included in focused integration 7/7 | `evidence/verification/rerun-20261108-no-application-repair/t01c-workflow-integration.txt` |
 | Framework build/unit and focused integration after repair classification | PASS / PASS, 38/38 / PASS, 7/7 | `evidence/verification/rerun-20261108-no-application-repair/` |
+| ExpressCart Agent unit tests after repair classification | PASS, 5/5 | `evidence/verification/rerun-20261108-no-application-repair/expresscart-agent-unit.txt` |
 | Final prompt compaction build/unit | PASS / PASS, 37/37 | `evidence/verification/rerun-20261108-final-prompt-budget/{framework-build.txt,framework-unit.txt}` |
 | Focused workflow + offline Java pipeline after final prompt compaction | PASS, 6/6 | `evidence/verification/rerun-20261108-final-prompt-budget/t01c-workflow-integration.txt` |
 | Targeted model-provider regression tests after final test-fixture cleanup | PASS, 7/7 | Command: `npx tsx --test test/model-provider.test.ts` (final source state) |
@@ -21,7 +22,7 @@
 | ExpressCart Agent unit tests | PASS, 5/5 | `evidence/verification/rerun-20261108-final-audit-4/expresscart-agent-unit.txt` |
 | Filesystem safety integration outside sandbox | PASS, 3/3 | `evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt`; `evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt` |
 | Full framework integration suite | FAIL in managed sandbox, 12 passed / 4 failed / 1 skipped (last captured run) | `evidence/verification/rerun-20261108/framework-integration.txt`; symlink creation `EPERM`, adapter lifecycle BLOCKED on unavailable Docker/runtime; crash/replay skipped |
-| Gemini Gherkin requests | FAIL, 2 actual provider invocations, no retries; latest fetch failed | `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/` and `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`; intermediate budget rejects recorded separately with `calls=0` |
+| Gemini Gherkin requests | FAIL, 3 authorized provider invocations, no retries; two `API_KEY_INVALID`, one fetch failure | `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`, `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`, and `evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/`; three budget rejects recorded separately with `calls=0` |
 | Live Maven fixture / Selenium / cleanup / repeats | NOT_RUN | No live candidate; offline compile is not live validation |
 
 The offline integration proves a synthetic, test-only ACCEPT can traverse the artifact registry and isolated Maven compile path. It does not establish Gemini output, live E2E, oracle/novelty acceptance, or VALIDATED status. No gate is self-accepted. The full framework integration suite remains non-green at its last complete run (12 pass / 4 fail / 1 skip); three filesystem-only tests from that run were rerun outside the sandbox and passed. The adapter lifecycle remains unverified because Docker is unavailable; see `evidence/verification/rerun-20261108/framework-integration.txt` and the two isolated logs above.

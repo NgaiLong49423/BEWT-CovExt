@@ -2,7 +2,7 @@
 
 ## Live research result
 
-T01-C live candidate count: **0**. Two explicitly authorized Gemini Gherkin invocations returned no structured output: the earlier call failed with HTTP 400 `API_KEY_INVALID`; the later bounded call failed at fetch with `PROVIDER_ERROR`. Three intervening over-budget preflights were rejected locally with zero provider calls. No human-review checkpoint was reached. Coverage gain: **NOT_EVALUATED**. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/` and `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`.
+T01-C live candidate count: **0**. Three explicitly authorized Gemini Gherkin invocations returned no structured output: two failed with HTTP 400 `API_KEY_INVALID`; one failed at fetch with `PROVIDER_ERROR`. Three intervening over-budget preflights were rejected locally with zero provider calls. No human-review checkpoint was reached. Coverage gain: **NOT_EVALUATED**. Evidence: `evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/`, `evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/`, and `evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/`.
 
 ## Implemented offline/source-backed behavior
 
