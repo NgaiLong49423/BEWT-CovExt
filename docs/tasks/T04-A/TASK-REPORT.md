@@ -32,7 +32,7 @@
 
 The new evidence directory records syntax, utility tests, source-to-Git-object integrity, source oracle comparisons, regeneration hashes, JSON/mapping consistency, redaction validation, secret scan, staged diff, and the SonarCloud result for the review-fix source commit. The focused suite covers both positive pinned-file reads and negative dirty source, wrong pin and symlink inputs; it directly compares KB-021, KB-022, KB-023 and KB-025 output against their pinned Gherkin and Java blobs.
 
-## 5. Final main integration
+## 4. Final main integration
 
 `origin/main` at `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d` was merged with a normal merge into this branch at merge commit `24d6ce3a20d0df1eafd3020a6492cd3cb207731a`. There were no conflicts. The merge retains T04-A inventory and review artifacts while adding the merged T03-B1 Bludit manifest, source/test suite, tooling and evidence from PR #7. See [FINAL-MAIN-INTEGRATION.md](FINAL-MAIN-INTEGRATION.md) and its run-specific evidence directory.
 
@@ -40,6 +40,6 @@ The integration checks passed for Kanboard helper tests (20/20), Bludit/T03-B1 t
 
 No BEWT source, historical Sprint 01-05 evidence, Docker configuration, runtime environment or candidate research outcome was changed. `docs/program/STATUS.json` was updated only with the verified main SHA, merged T03-B1 milestone, and T04-A integration review status; no gate was upgraded. Gemini, Docker, Selenium and live application behavior were not run. The static oracle parser cannot establish semantic correctness beyond source/Java text comparison. SonarCloud passed for exact source commit `0940e3c17c996ca784a36dbc7fca33d6137986a1`; it does not accept G1 or any program gate. The current integrated PR HEAD is checked separately in its GitHub status run.
 
-## 6. Review request
+## 5. Review request
 
 Please review the preserved validation oracles, provenance/integrity contract, KB-023/KB-026 interpretation fields, and KB-GAP-004 guards/recommendation. Decide the five shortlist candidate dispositions separately. Do not start T04-B until this review gate is accepted.
