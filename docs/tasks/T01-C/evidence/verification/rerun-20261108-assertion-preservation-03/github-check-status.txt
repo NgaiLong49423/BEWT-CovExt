@@ -1,0 +1,11 @@
+Pull request: https://github.com/NgaiLong49423/BEWT-CovExt/pull/4
+Head SHA: 4b033778a13e989a063cc0f0c7be318de3dfbae5
+Check: SonarCloud Code Analysis (run/check ID 128741492949)
+Conclusion: completed / success
+Quality Gate: PASS
+New issues: 0
+Accepted issues: 0
+Security hotspots: 0
+New-code duplication: 0.9%
+New-code coverage: 0.0% (no coverage report was uploaded; this is not test-coverage evidence)
+Details: https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=4

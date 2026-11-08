@@ -10,10 +10,11 @@
 | Framework integration suite | PASS, 19 passed / 0 failed / 1 opt-in process-crash-recovery test skipped | `evidence/verification/rerun-20261108-assertion-preservation-03/framework-integration.txt` |
 | ExpressCart Agent regression | PASS, 5/5 | `evidence/verification/rerun-20261108-assertion-preservation-03/expresscart-agent-unit.txt` |
 | Initial full unit run before updating legacy Java fixtures | 43 passed / 2 failed; both failures were old generated-Java fixtures without assertions and were updated to comply with the new contract | `evidence/verification/rerun-20261108-assertion-preservation-02/framework-unit-initial-fixture-fail.txt` |
+| SonarCloud Quality Gate on final head `4b033778a13e989a063cc0f0c7be318de3dfbae5` | PASS; 0 new issues, 0 hotspots, 0.9% new-code duplication; coverage 0.0% because no coverage report was uploaded | `evidence/verification/rerun-20261108-assertion-preservation-03/github-check-status.txt` |
 
 No Gemini request was made. Integration's single skip is the separately opt-in OS-process crash-recovery E2E. The static assertion scan does not prove semantic oracle correctness. Live generated-candidate Selenium remains unverified and T01-C remains partial.
 
-SonarCloud on intermediate commit `2a61b0125e09eb77e243ea540517ca3b9ba5b6fa` reported four Reliability issues in the new scanner (cursor-index assignments and locale-dependent array sorting). The scanner was simplified to one ordered lexical pass and assertion order is now compared directly, avoiding locale-dependent sorting. Final GitHub/Sonar status will be recorded after the follow-up commit's checks complete.
+SonarCloud on intermediate commit `2a61b0125e09eb77e243ea540517ca3b9ba5b6fa` reported four Reliability issues in the new scanner (cursor-index assignments and locale-dependent array sorting). The scanner was simplified to one ordered lexical pass and assertion order is now compared directly, avoiding locale-dependent sorting. The final check on `4b033778a13e989a063cc0f0c7be318de3dfbae5` passed.
 
 ## T01-C offline review-fix verification (2026-11-08)
 
