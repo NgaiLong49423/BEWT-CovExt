@@ -110,7 +110,7 @@ async function main(args: string[]): Promise<void> {
         sourceContext = [
           `Pinned application source excerpt (${routePath}):\n${routeContext}`,
           `Baseline observed scenarios: ${baseline.cases.map((item) => `${item.caseId}: ${item.scenarioName}`).slice(0, 31).join("; ")}`,
-          `Historical Sprint 01–05 candidate behaviors and source records: ${JSON.stringify(historicalBehaviorIndex.candidates)}. Do not present overlapping behavior as novel.`,
+          `Historical Sprint 01–05 candidate behavior topics: ${JSON.stringify(historicalBehaviorIndex.candidates.map(({ candidateId, behaviorId }) => ({ candidateId, behaviorId })))}. Do not present overlapping behavior as novel; full source records are pinned in source-coverage-analysis.json.`,
           `Coverage assessment: ${JSON.stringify(results.map(({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale }) => ({ behaviorId, behavioralCategory, baselineComparison, candidateConfidence, uncertainties, rationale })))}.`,
           "Coverage gap status is a candidate only; technical behavior, oracle, testability, and novelty remain subject to human review.",
         ];

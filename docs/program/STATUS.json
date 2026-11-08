@@ -27,7 +27,7 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
-    "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_ONE_LIVE_GHERKIN_REQUEST_FAILED_INVALID_API_KEY",
+    "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_TWO_LIVE_GHERKIN_INVOCATIONS_FAILED_NO_CANDIDATE",
     "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
     "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
     "t01cValidation": "PARTIAL_TECHNICAL_CONTRACT_AND_OFFLINE_COMPILE_ONLY_NO_LIVE_CANDIDATE_OR_VALIDATION",
@@ -39,7 +39,12 @@
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt",
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt",
       "docs/tasks/T01-C/COVERAGE-AND-CANDIDATE-RESULTS.md",
-      "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json"
+      "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json",
+      "docs/tasks/T01-C/evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-prompt-budget/",
+      "docs/tasks/T01-C/evidence/t01c-4bd373f5-66a7-4e83-b812-303f2518e4e9/",
+      "docs/tasks/T01-C/evidence/t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f/",
+      "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/"
     ],
     "sources": [
       "experiments/expresscart/agent/",
@@ -261,7 +266,7 @@
   },
   "taskReview": {
     "currentTaskId": "T01-C",
-    "currentTaskStatus": "BLOCKED_INVALID_GEMINI_CREDENTIALS_AND_LIVE_RUNTIME_VERIFICATION",
+    "currentTaskStatus": "BLOCKED_GEMINI_PROVIDER_FETCH_FAILURE_AND_LIVE_RUNTIME_VERIFICATION",
     "currentTaskBranch": "feature/t01c-model-backed-generation",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
     "reviewedTaskHeadSha": "9f2f441d61a4294c5e5c387cbe2aed1863498c3a",

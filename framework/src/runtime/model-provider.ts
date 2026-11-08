@@ -183,10 +183,10 @@ export class GeminiGenerationProvider implements GenerationProvider {
       "Generate one Gherkin browser-test candidate grounded only in the supplied source-backed gap and baseline summary.",
       "Do not generate Java yet; Java generation is a separate post-ACCEPT stage. Do not claim novelty is verified.",
       "Do not invent selectors, methods, source facts, test evidence, or behavior. Return only the required structured candidate fields.",
-      JSON.stringify({ sourceContext: (request.sourceContext ?? []).slice(0, 8).map((item) => item.slice(0, 1_000)) }),
+      JSON.stringify({ sourceContext: (request.sourceContext ?? []).slice(0, 8).map((item) => item.slice(0, 650)) }),
       JSON.stringify({ appId: request.baseline.appId, sourceCommit: request.baseline.sourceCommit, sourceVersion: request.baseline.sourceVersion,
         gaps: request.gaps.slice(0, 10).map(({ gapId, behavior, rationale, sourceReferences }) => ({ gapId, behavior, rationale, sourceReferences: sourceReferences.slice(0, 3) })),
-        baselineCases: request.baseline.cases.slice(0, 40).map(({ caseId, scenarioName, behaviorTags }) => ({ caseId, scenarioName, behaviorTags })) }),
+        baselineCases: request.baseline.cases.slice(0, 40).map(({ caseId, scenarioName, behaviorTags }) => ({ caseId, scenarioName: scenarioName.slice(0, 120), behaviorTags: behaviorTags.slice(0, 5) })) }),
     ].join("\n\n");
     const promptCharacters = Array.from(prompt).length;
     const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;

@@ -1,0 +1,18 @@
+{
+  "runId": "t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca",
+  "callNumber": 1,
+  "status": "FAIL",
+  "telemetry": {
+    "provider": "Gemini",
+    "model": "gemini-3.1-flash-lite",
+    "calls": 1,
+    "attempts": 1,
+    "elapsedMs": 68,
+    "status": "FAIL",
+    "errorCategory": "PROVIDER_ERROR",
+    "promptCharacters": 7841,
+    "estimatedMaxCostUsd": 0.010841
+  },
+  "error": "MODEL_CALL_FAILED:PROVIDER_ERROR:[GoogleGenerativeAI Error]: Error fetching from http[REDACTED_ABSOLUTE_PATH]:generateContent: fetch failed",
+  "completedAt": "2026-11-08T08:44:57.717Z"
+}

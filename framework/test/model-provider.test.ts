@@ -18,7 +18,7 @@ test("fake provider creates a schema-valid proposed candidate with source pins",
 });
 
 test("Gemini provider refuses construction without explicit live-model authorization", () => {
-  assert.throws(() => new GeminiGenerationProvider("gemini-test", { authorized: false, apiKey: "test-only" }), /LIVE_MODEL_AUTHORIZATION_REQUIRED/);
+  assert.throws(() => new GeminiGenerationProvider("gemini-test", { authorized: false, apiKey: "test" }), /LIVE_MODEL_AUTHORIZATION_REQUIRED/);
 });
 
 test("model error classifier does not mistake generateContent for rate limiting", () => {
@@ -55,10 +55,10 @@ test("generated Java contract binds the declared class, BaseTest, and JUnit and 
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {
-  assert.throws(() => new GeminiGenerationProvider("unapproved-model", { authorized: true, apiKey: "test-only" }), /permits only/);
-  const provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: "test-only" });
-  const oversizedBaseline: BaselineInventory = { ...baseline, cases: Array.from({ length: 40 }, (_, index) => ({ caseId: `c${index}`, gherkinPath: "base.feature", scenarioName: "x".repeat(400), baseTestPaths: [], behaviorTags: [], sourceReferences: [] })), observedScenarioCount: 40 };
-  await assert.rejects(provider.generate({ baseline: oversizedBaseline, gaps, candidateId: "CAND-test", revision: 1 }), /MODEL_INPUT_BUDGET_EXCEEDED/);
+  assert.throws(() => new GeminiGenerationProvider("unapproved-model", { authorized: true, apiKey: "test" }), /permits only/);
+  const provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: "test" });
+  const oversizedBaseline: BaselineInventory = { ...baseline, cases: Array.from({ length: 40 }, (_, index) => ({ caseId: `c${index}`, gherkinPath: "base.feature", scenarioName: `case-${index}`, baseTestPaths: [], behaviorTags: [], sourceReferences: [] })), observedScenarioCount: 40 };
+  await assert.rejects(provider.generate({ baseline: oversizedBaseline, gaps, candidateId: "CAND-test", revision: 1, sourceContext: Array.from({ length: 8 }, () => "x".repeat(1_000)) }), /MODEL_INPUT_BUDGET_EXCEEDED/);
   assert.equal(provider.lastTelemetry.calls, 0);
   assert.equal(provider.lastTelemetry.status, "BLOCKED");
   await assert.rejects(provider.generate({ baseline, gaps, candidateId: "CAND-test", revision: 1 }), /budget is exhausted/);
