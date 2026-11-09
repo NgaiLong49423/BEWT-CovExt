@@ -1,0 +1,15 @@
+reviewed_head=0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c
+reviewed_tree=faefd2b460069ac54c7b98580146b0ff0db049d3
+model_provider_blob=f21f66bf244bca23f954f6d2960cf456d0c22bc9
+model_provider_sha256=24506406ea30be0fd51af381041a3c9b75a7ae99e4a5e0d9b504cb452fe28f0a
+round_3_source_changes=none
+tests_not_rerun=no source changes in correction round; latest source execution remains execution commit ffa19f6f1d890269cd20397fbaa66ba1ed66963e, with exact commands/exits/counts in correction-05/execution-provenance.txt
+node=v24.19.0
+npm=11.17.0
+gitleaks_command=gitleaks git --no-banner --redact=100 --report-format json --report-path "docs/tasks/T05-B/evidence/verification/20261110-correction-06/gitleaks-reviewed-head-report.json" --log-opts af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..HEAD "C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt"
+gitleaks_scope=13 committed PR commits from merge-base to reviewed HEAD
+gitleaks_exit=0
+gitleaks_result=no leaks found
+gitleaks_log_sha256=61afa2f5704eadcc5275cb306540e48740a94a2c253f211073aafdcf29352322
+gitleaks_report_sha256=37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570
+hash_audit_sha256=cc2a2ebc389cdb90dd62c62551a0b1ed9eb1c1e00007becddeef6e8b92f3c0c4

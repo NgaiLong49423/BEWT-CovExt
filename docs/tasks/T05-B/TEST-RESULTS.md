@@ -64,3 +64,35 @@ All four requested commands were re-executed after the source fix was committed,
 These are local results, not CI results. Full Docker integration remains NOT_RUN because Agent 1 owns the runtime.
 
 Secret scan: official Gitleaks `8.30.1`, release archive checksum verified against the publisher's checksums file. The committed PR history and staged T05-B report/evidence were scanned with 100% redaction; both commands exited 0 with no leaks. Together these scans covered the complete proposed PR diff at evidence preparation. Exact commands, scope, scanner hash, logs and empty JSON reports are in `evidence/verification/20261110-correction-05/secret-scan-provenance.txt` and the adjacent `gitleaks-*` files. No findings or justified false positives were reported.
+
+## Correction evidence index (rounds 02–04 retained)
+
+| Round | Preserved result / purpose | Evidence directory |
+|---|---|---|
+| correction-02 | Initial source/cost correction verification; includes the sandbox symlink `EPERM` attempt and successful outside-sandbox retry, source-pin verifier, and earlier Sonar duplication investigation. | `evidence/verification/20261110-correction-02/` |
+| correction-03 | Clean install and repeat build/provider/framework/focused offline workflow tests; fake provider only. | `evidence/verification/20261110-correction-03/` |
+| correction-04 | Redirect-only oracle narrowing and its build/provider/framework/focused offline workflow regression results. | `evidence/verification/20261110-correction-04/` |
+| correction-05 | Provenance for execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; sanitized logs and earlier Sonar/secret-scan records. | `evidence/verification/20261110-correction-05/` |
+| correction-06 | Exact Git-blob versus local SHA-256 audit; reviewed-HEAD secret scan; current-main/T04-E reconciliation. | `evidence/verification/20261110-correction-06/` |
+
+## Independent review correction round 3
+
+### SonarCloud
+
+The reviewer verified successful SonarCloud check run `129377220205` on exact reviewed HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`; latest PR Quality Gate is PASS. This supersedes the prior observation that exact-head status was `NOT_VERIFIED` for this SHA. No production refactor was made in this correction round. A later documentation/evidence commit has a distinct SHA and is not claimed to have the same exact-HEAD check. See `sonarqube-reviewed-head-verification.md` in correction-06.
+
+### Committed evidence byte audit
+
+`execution-provenance.txt` in correction-05 recorded local pre-commit SHA-256 values. The new audit independently hashes raw bytes from `git cat-file blob` at reviewed HEAD and the local files. The provider, framework, and focused integration logs match exactly. Each of four exit files is `0\r\n` locally (3 bytes) and `0\n` in the Git blob (2 bytes); LF-normalized contents match, consistent with checkout line-ending conversion (`core.autocrlf=true`). The committed build log is 31 bytes with SHA-256 `89336c295edb42c283e07259c89c63e294a1d6b535d32bf952935c821ae73220`. The previously recorded digest `34fc8f532e8455212c5eeba2f44af8dd0d5a13e2138025e81ecd8272dd2f48fa` is reproducible by appending two LF bytes to that blob; the prior digest was captured before trailing-blank trimming. No original log or test result was rewritten. Raw blob IDs, lengths, local hashes, committed blob hashes, and reproduction are in `committed-evidence-hash-audit.json`.
+
+### Final reviewed-HEAD Gitleaks scan
+
+Gitleaks `8.30.1` was run with `--redact=100` over all committed PR history in `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`. It scanned 13 commits / approximately 106,186 bytes, exited 0, and reported no leaks. Official archive and executable SHA-256 values, full command, scope, exact HEAD, sanitized log and empty JSON report are in correction-06 `gitleaks-reviewed-head-*` files. This is not a scan of environment variables; no credential was probed or printed.
+
+### Current-main reconciliation
+
+Fetched `origin/main` at `bd9b3b15fca28419ada9862b8a65bac910edf169` (merge-base `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`). T04-E introduces `EC-GAP-002` over-stock cart rejection, `EC-GAP-003` customer address persistence/order snapshot fallback, and `EC-GAP-004` invalid discount date-window rejection; all remain proposals with novelty `NOT_VERIFIED`, and only the first two are shortlisted. T05-B's invalid/expired reset token redirect to `/forgot` is behaviorally distinct from these three recorded oracles; `EC-GAP-003` is adjacent in customer domain but addresses a different route and data flow. Historical `EC-C04` remains an overlap cue, so T05-B novelty stays unverified. No proposal was substituted, T04-E data changed, or novelty approved. PR #15 was reported mergeable/clean; no synchronization or rebase was needed. Full details: `current-main-and-t04e-reconciliation.md` in correction-06.
+
+### Live-generation and scope gate
+
+D-C1 remains `NOT_APPROVED`; live generation stays `BLOCKED_AUTHORIZATION`. No Gemini invocation, credential probe, candidate fabrication, human decision, Java/Selenium/Docker run, `docs/program/STATUS.json` edit, or historical evidence rewrite occurred. No CI PASS is claimed. Full Docker integration remains `NOT_RUN` because the runtime is not to be started for this task.

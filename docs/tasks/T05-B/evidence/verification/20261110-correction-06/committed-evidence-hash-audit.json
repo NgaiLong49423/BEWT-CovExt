@@ -1,0 +1,119 @@
+{
+  "reviewedCommit": "0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c",
+  "method": "SHA-256 over raw bytes returned by git cat-file blob <OID> and raw local file bytes; blob OIDs from git rev-parse HEAD:<path>.",
+  "records": [
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/provider-unit.txt",
+      "priorLocalSha256": "cddf0d738a5db71c0c2bed9ce9b6fe82a88d1ebdebc74743d5eb216512c625a2",
+      "gitBlobOid": "a397c61ef24475161961d7d2a2ecdaf07ec99f82",
+      "localByteLength": 1191,
+      "gitBlobByteLength": 1191,
+      "localSha256": "cddf0d738a5db71c0c2bed9ce9b6fe82a88d1ebdebc74743d5eb216512c625a2",
+      "gitBlobSha256": "cddf0d738a5db71c0c2bed9ce9b6fe82a88d1ebdebc74743d5eb216512c625a2",
+      "localMatchesGitBlob": true,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 0,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/framework-unit.txt",
+      "priorLocalSha256": "9ad648384cd3f7c8119c3f2312acc2df6286cb1898713fbdd3f6aef6ff09450c",
+      "gitBlobOid": "59ecb4a2aa7766ead73c2263101b9f2f09d64725",
+      "localByteLength": 4937,
+      "gitBlobByteLength": 4937,
+      "localSha256": "9ad648384cd3f7c8119c3f2312acc2df6286cb1898713fbdd3f6aef6ff09450c",
+      "gitBlobSha256": "9ad648384cd3f7c8119c3f2312acc2df6286cb1898713fbdd3f6aef6ff09450c",
+      "localMatchesGitBlob": true,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 0,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/focused-workflow-integration.txt",
+      "priorLocalSha256": "e475dd061fb14b675fc72e31862b591033425094a8603a84d12753c23a4b3ad3",
+      "gitBlobOid": "8feda05ac04adb011b34a39848b03ed60ad6dd94",
+      "localByteLength": 731,
+      "gitBlobByteLength": 731,
+      "localSha256": "e475dd061fb14b675fc72e31862b591033425094a8603a84d12753c23a4b3ad3",
+      "gitBlobSha256": "e475dd061fb14b675fc72e31862b591033425094a8603a84d12753c23a4b3ad3",
+      "localMatchesGitBlob": true,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 0,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/framework-build.txt",
+      "priorLocalSha256": "34fc8f532e8455212c5eeba2f44af8dd0d5a13e2138025e81ecd8272dd2f48fa",
+      "gitBlobOid": "1b1c8b30ab7c1994b7071b3cc884b355786d9e29",
+      "localByteLength": 31,
+      "gitBlobByteLength": 31,
+      "localSha256": "89336c295edb42c283e07259c89c63e294a1d6b535d32bf952935c821ae73220",
+      "gitBlobSha256": "89336c295edb42c283e07259c89c63e294a1d6b535d32bf952935c821ae73220",
+      "localMatchesGitBlob": true,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 0,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/provider-unit-exit.txt",
+      "priorLocalSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobOid": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56",
+      "localByteLength": 3,
+      "gitBlobByteLength": 2,
+      "localSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "localMatchesGitBlob": false,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 1,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/framework-unit-exit.txt",
+      "priorLocalSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobOid": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56",
+      "localByteLength": 3,
+      "gitBlobByteLength": 2,
+      "localSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "localMatchesGitBlob": false,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 1,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/focused-workflow-integration-exit.txt",
+      "priorLocalSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobOid": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56",
+      "localByteLength": 3,
+      "gitBlobByteLength": 2,
+      "localSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "localMatchesGitBlob": false,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 1,
+      "gitBlobCRLFCount": 0
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-correction-05/framework-build-exit.txt",
+      "priorLocalSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobOid": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56",
+      "localByteLength": 3,
+      "gitBlobByteLength": 2,
+      "localSha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "gitBlobSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "localMatchesGitBlob": false,
+      "lfNormalizedLocalMatchesGitBlob": true,
+      "localCRLFCount": 1,
+      "gitBlobCRLFCount": 0
+    }
+  ],
+  "frameworkBuildTrailingBlankVerification": {
+    "priorRecordedSha256": "34fc8f532e8455212c5eeba2f44af8dd0d5a13e2138025e81ecd8272dd2f48fa",
+    "committedAndCurrentSha256": "89336c295edb42c283e07259c89c63e294a1d6b535d32bf952935c821ae73220",
+    "committedByteLength": 31,
+    "oldDigestReproducedByAppendingTwoLF": "34fc8f532e8455212c5eeba2f44af8dd0d5a13e2138025e81ecd8272dd2f48fa",
+    "appendedByteLength": 33,
+    "conclusion": "The prior digest was captured before the post-hash trailing-blank trim; the immutable committed log is the 31-byte blob with no final newline. Test output/status is unchanged."
+  },
+  "exitRecordConclusion": "All four committed exit blobs contain ASCII 0 followed by LF (2 bytes); local working copies contain ASCII 0 followed by CRLF (3 bytes). SHA mismatch is line-ending normalization; normalized bytes and recorded exit values match."
+}
