@@ -1,0 +1,38 @@
+{
+  "capturedAtUtc": "2026-11-09T11:23:53Z",
+  "hostRamSamples": [
+    {
+      "capturedAtUtc": "2026-11-09T11:23:43Z",
+      "freeBytes": 4660264960,
+      "freeGiB": 4.34,
+      "totalBytes": 14806622208
+    },
+    {
+      "capturedAtUtc": "2026-11-09T11:23:48Z",
+      "freeBytes": 4649336832,
+      "freeGiB": 4.33,
+      "totalBytes": 14806622208
+    },
+    {
+      "capturedAtUtc": "2026-11-09T11:23:53Z",
+      "freeBytes": 4651974656,
+      "freeGiB": 4.332,
+      "totalBytes": 14806622208
+    }
+  ],
+  "dockerServerVersion": "29.8.0",
+  "dockerVersionExitCode": 0,
+  "runningContainerCount": 2,
+  "runningContainerListExitCode": 0,
+  "wslVmProcesses": [
+    {
+      "workingSetBytes": 1696399360
+    }
+  ],
+  "t03b2OwnedContainerCount": 0,
+  "t03b2OwnedNetworkCount": 0,
+  "t03b2OwnedVolumeCount": 0,
+  "actions": "Read-only host/Docker preflight. No T03-B2 runtime resources created, started, stopped, or removed.",
+  "runtimeDecision": "HOST_MEMORY_BLOCKED",
+  "publicSanitization": "No other-project resource names or IDs recorded."
+}

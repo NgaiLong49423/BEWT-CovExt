@@ -80,4 +80,14 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 | Independent r5 postcheck | PASS; zero run residuals; zero missing baseline IDs | `evidence/t03b2-a-20261109-r5/cleanup-recovery-postcheck-r21.json` |
 | Run B | NOT_RUN | `G0-RUNTIME-RESULTS.md` |
 | Maven clean test-compile | Last verified PASS remains r9; not rerun; no Java changes | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |
-| Latest RAM check | 4.409 GiB; no new run started after r5 app OOM exit 137; below safe retry margin | `evidence/offline-verification-20261109-r25/runtime-preflight.json` |
+| Latest RAM check | r28: 4.340, 4.330, 4.332 GiB; `HOST_MEMORY_BLOCKED` below preferred ~6 GiB margin; r5 exit 137 cause `ROOT_CAUSE_NOT_VERIFIED` | `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json` |
+
+## Current port and runtime verification — r28/r31
+
+| Check | Result | Evidence |
+|---|---|---|
+| Docker Engine and read-only resource filters | PASS; Engine 29.8.0; zero T03-B2-owned containers/networks/volumes | `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json` |
+| r5 exact-container Docker events | No events returned; both queries exit 0; cause remains `ROOT_CAUSE_NOT_VERIFIED` | `evidence/offline-verification-20261109-r28/r5-docker-events-query.json` |
+| Port probe, exact HostConfig/NetworkSettings helper, port-conflict classifier | PASS, 26/26 tests; 4 syntax checks exit 0; offline only | `evidence/offline-verification-20261109-r31/` |
+| Docker runtime port binding | `PORT_BINDING_RUNTIME_NOT_VERIFIED`; no container started | `G0-RUNTIME-RESULTS.md` |
+| Claroline/Selenium diagnostic and G0 A/B | `HOST_MEMORY_BLOCKED`; business tests remain `NOT_RUN` | `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json` |

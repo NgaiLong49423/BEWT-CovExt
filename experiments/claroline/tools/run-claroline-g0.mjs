@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
@@ -28,7 +28,11 @@ let exitCode = 1;
 function dockerCall(args, evidenceName, throwOnError = true) {
   const result = spawnSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
   if (evidenceName) writeFileSync(resolve(evidenceDir, evidenceName), JSON.stringify({ command: ['docker', ...args], status: result.status, stdout: result.stdout || '', stderr: result.stderr || '', error: result.error?.message || null }, null, 2) + '\n', { flag: 'wx' });
-  if (throwOnError && (result.error || result.status !== 0)) throw new Error(`docker ${args[0]} failed (${result.status}): ${(result.stderr || result.error?.message || '').trim()}`);
+  if (throwOnError && (result.error || result.status !== 0)) {
+    const detail = (result.stderr || result.error?.message || '').trim();
+    const prefix = /port is already allocated|address already in use|failed to bind|bind:.*(address|port)/i.test(detail) ? 'PORT_BIND_CONFLICT: ' : '';
+    throw new Error(`${prefix}docker ${args[0]} failed (${result.status}): ${detail}`);
+  }
   return result;
 }
 
@@ -48,7 +52,10 @@ try {
   while (browserPort === appPort) browserPort = await selectLoopbackPort();
   record.selectedHostPorts = { app: appPort, browser: browserPort };
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
-  writeOnce(resolve(evidenceDir, 'host-port-allocation.json'), { app: appPort, browser: browserPort, bindAddress: '127.0.0.1', allocation: 'host ephemeral loopback ports selected before Docker create' });
+  writeOnce(resolve(evidenceDir, 'host-port-allocation.json'), { app: appPort, browser: browserPort, bindAddress: '127.0.0.1', allocation: 'host ephemeral loopback ports selected before Docker create', reservationHeld: false });
+  const portProbes = { app: await probeLoopbackPort(appPort), browser: await probeLoopbackPort(browserPort), capturedAtUtc: new Date().toISOString(), reservationHeld: false };
+  writeOnce(resolve(evidenceDir, 'port-precreate-check.json'), portProbes);
+  if (!portProbes.app.available || !portProbes.browser.available || appPort === browserPort) throw new Error('PORT_BIND_CONFLICT: selected loopback ports are unavailable or not distinct before Docker create');
   const safeConfig = config => ({ Entrypoint: config.Entrypoint, Cmd: config.Cmd, WorkingDir: config.WorkingDir, User: config.User, Labels: config.Labels, ExposedPorts: config.ExposedPorts });
   writeOnce(resolve(evidenceDir, 'image-inspect.json'), { app: { Id: appInspect.Id, RepoDigests: appInspect.RepoDigests, Os: appInspect.Os, Architecture: appInspect.Architecture, Created: appInspect.Created, Config: safeConfig(appInspect.Config), RootFS: appInspect.RootFS }, browser: { Id: browserInspect.Id, RepoDigests: browserInspect.RepoDigests, Os: browserInspect.Os, Architecture: browserInspect.Architecture, Created: browserInspect.Created } });
   const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', ...labelArgs, names.network], 'network-create.json', false);
@@ -60,10 +67,15 @@ try {
   dockerCall(['start', names.app], 'app-start.json');
   dockerCall(['start', names.browser], 'selenium-start.json');
   const appInfo = JSON.parse(docker(['inspect', names.app]))[0];
-  const assignedAppPort = appInfo.NetworkSettings.Ports['80/tcp']?.[0]?.HostPort;
   const browserInfo = JSON.parse(docker(['inspect', names.browser]))[0];
-  const assignedBrowserPort = browserInfo.NetworkSettings.Ports['4444/tcp']?.[0]?.HostPort;
-  if (assignedAppPort !== String(appPort) || assignedBrowserPort !== String(browserPort)) throw new Error('Docker did not bind the selected loopback ports');
+  assertPublishedLoopbackPort(appInfo, '80/tcp', appPort);
+  assertPublishedLoopbackPort(browserInfo, '4444/tcp', browserPort);
+  assertContainerPortNotPublished(appInfo, '3306/tcp');
+  writeOnce(resolve(evidenceDir, 'host-port-verification.json'), {
+    outcome: 'PASS', bindAddress: '127.0.0.1', app: { requestedHostPort: appPort, hostConfig: appInfo.HostConfig.PortBindings['80/tcp'], networkSettings: appInfo.NetworkSettings.Ports['80/tcp'] },
+    browser: { requestedHostPort: browserPort, hostConfig: browserInfo.HostConfig.PortBindings['4444/tcp'], networkSettings: browserInfo.NetworkSettings.Ports['4444/tcp'] },
+    mysql3306Published: false, reservationHeld: false,
+  });
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify({ ...record, appPort, browserPort }, null, 2)}\n`);
   const waitHttp = async (url, label, validate = () => true) => {
     const deadline = Date.now() + 180000;

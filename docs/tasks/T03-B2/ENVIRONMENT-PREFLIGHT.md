@@ -53,4 +53,8 @@ At 11/09/2026 10:45:05, host RAM was **4.192 GiB of 13.79 GiB**; Docker Engine 2
 
 ## Latest read-only gate — r25
 
-At 2026-11-09T10:49:31Z, host RAM was **4.409 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. No runtime was started after r5 app OOM exit 137; current memory remains below the safe retry margin. Evidence: docs/tasks/T03-B2/evidence/offline-verification-20261109-r25/runtime-preflight.json.
+At 2026-11-09T10:49:31Z, host RAM was **4.409 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. No runtime was started after the observed r5 app exit 137; its cause is not verified. Evidence: `evidence/offline-verification-20261109-r25/runtime-preflight.json`.
+
+## Current runtime gate — r28
+
+Three host RAM samples at 2026-11-09T11:23:43Z, 11:23:48Z, and 11:23:53Z measured **4.340, 4.330, and 4.332 GiB free** of 13.79 GiB. Docker Engine 29.8.0 was reachable; the WSL VM process working set was 1,696,399,360 bytes. Read-only filters found zero T03-B2-owned containers, networks, or volumes. This is below the preferred approximately 6 GiB margin, so diagnostic and full runtime were not started (`HOST_MEMORY_BLOCKED`). No T03-B2 resources were created, started, stopped, or removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.

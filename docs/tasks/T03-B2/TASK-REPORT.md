@@ -4,11 +4,11 @@
 - Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
 - Working branch: `feature/t03b2-claroline-g0`.
 - Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
-- PR #9 was merged by the repository owner at merge commit `ae149842185877bcd4a97cf99ebdb3fc099e040b`. This follow-up began from branch HEAD `c68eafcf34b7fc1ee9282661c68e640fc1aa34b5`; current code/evidence changes are not yet committed or pushed.
+- Historical implementation note: PR #9 was merged by the repository owner at merge commit `ae149842185877bcd4a97cf99ebdb3fc099e040b`; this T03-B2 follow-up originally began at `c68eafcf34b7fc1ee9282661c68e640fc1aa34b5`. The current review follow-up is tracked separately by draft PR #12 on `feature/t03b2-claroline-g0`; its reviewed starting HEAD was `fc9c755b16b1b4f8afce4285c0d99bd2ffa25b1a`.
 - PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
 - PR #9 was merged by the repository owner. Draft follow-up PR #12 is open for review: https://github.com/NgaiLong49423/BEWT-CovExt/pull/12. Runtime A/B remain incomplete and G0 is PARTIAL.
 - Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source release verified by historical tag/archive comparison; runtime image base matches source archive with one unattributed code patch; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
-- Status proposed by Agent: `PARTIAL` / provenance `PARTIAL` (base verified; one image-only patch unattributed); runtime remains `NOT_RUN`. The latest host reading was 3.06 GiB free (<4 GiB); Docker Engine 29.8.0 is available.
+- Current proposed gate: G0 `PARTIAL`; runtime `HOST_MEMORY_BLOCKED`, business tests `NOT_RUN`, r5 exit 137 cause `ROOT_CAUSE_NOT_VERIFIED`. The pinned image derivative contains one unattributed patch and remains pending Team Lead decision.
 
 ## 1. What changed
 
@@ -77,7 +77,7 @@ No `config/apps/claroline.json` was added: although the official release source 
 - Current unit/fault tests: 19/19 PASS, exit 0; four Node syntax checks PASS, exit 0. Evidence: `evidence/offline-verification-20261109-r16/`.
 - r4 run-owned containers/network are absent after recovery. Cleanup remains `BLOCKED` because global inventory found one pre-existing network ID missing and a replacement ID present. All baseline containers, volumes and images match. No unrelated Docker resource was removed; the default-network identity change’s cause is unknown. Evidence: `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
 - Latest r16 host RAM: 3.06 GiB; fresh r17 RAM: 4.017 GiB of 13.79 GiB with Docker Engine 29.8.0 reachable. The fresh reading was marginal, so no new run was started. Maven `clean test-compile` remains the previously verified r9 PASS; Java source has not changed.
-- PR #9 was merged by the repository owner. This follow-up is not yet pushed; publish it for review without merging, and continue the two runtime runs only after the host gate passes.
+- PR #9 is historical and merged by the repository owner. Draft PR #12 is the active review target; do not merge. The current handoff reports the new pushed commit SHA verified from GitHub.
 
 ## 6. Review request
 
@@ -135,8 +135,15 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 - The runner now selects and records two host loopback ephemeral ports before Docker creation, requests explicit bindings, and verifies Docker assigned those exact ports. The port selector availability test passes; this code change has not been exercised in Docker runtime.
 - Cleanup now permits no host-port assignment only when Docker reports no external binding, and handles an exited container with a detached incomplete endpoint while preserving strict ID/name/image/label/mount/network checks. The latest combined unit/fault suite passes 23/23; syntax checks for helper, runner and test pass. Evidence: `evidence/offline-verification-20261109-r24/`.
 - Run A r5 passed runner RAM preflight but Docker assigned no host ports; the app later exited 137. Runner exit 1; Maven/Selenium/AddUser/reset did not run. Exact cleanup recovery PASS and independent before/after/residual postcheck PASS. Run B remains NOT_RUN. Evidence: `evidence/t03b2-a-20261109-r5/`.
-- Latest read-only RAM check: 4.409 GiB; Docker 29.8.0 reachable. No new runtime started after r5 OOM. Evidence: `evidence/offline-verification-20261109-r25/runtime-preflight.json`.
+- Historical r25 RAM check: 4.409 GiB. It did not establish an OOM cause for r5's exit 137.
 - Maven `clean test-compile` remains the previously verified r9 PASS (22 main + 42 test sources); application/test Java sources are unchanged. No new Maven console evidence is claimed.
 - G0 remains PARTIAL / not accepted; the runtime manifest remains withheld pending source-patch provenance and completed A/B runs.
+
+## Runtime blocker and port guard follow-up — r28/r31
+
+- Current read-only gate: free host RAM 4.340, 4.330, and 4.332 GiB across three samples; Docker Engine 29.8.0 reachable; WSL VM process working set 1,696,399,360 bytes; zero task-owned containers/networks/volumes. This is below the preferred ~6 GiB margin, so no Claroline/Selenium diagnostic or full run was started. No T03-B2 resources were created/started/stopped/removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.
+- Corrected Docker events query for both r5 container IDs exited 0 and returned no events. That does not establish exit 137's cause: `ROOT_CAUSE_NOT_VERIFIED`. Run A r5 remains `BLOCKED`; Maven/Selenium/business assertions/reset remain `NOT_RUN`; Run B remains `NOT_RUN`. r4 default-network ID delta remains unexplained.
+- Port handling now probes selected ports immediately before creation (socket released; no reservation claim), verifies exact loopback `HostConfig.PortBindings` and `NetworkSettings.Ports`, forbids MySQL 3306 publishing, and classifies port races as `PORT_BIND_CONFLICT`. Latest offline verification: 26/26 tests and 4 syntax checks exit 0 at `evidence/offline-verification-20261109-r31/`. Docker runtime binding remains `PORT_BINDING_RUNTIME_NOT_VERIFIED`.
+- PR #9 is historical and merged. Draft PR #12 remains active on `feature/t03b2-claroline-g0`; this follow-up is not merged. The pinned image derivative decision remains pending Team Lead. No runtime manifest was promoted; G0 remains `PARTIAL`.
 
 - Public evidence sanitization: raw Docker inventories were excluded because they contain unrelated local project resource names. Sanitized r3-r5 inventory summaries retain counts and resource conservation/deltas using SHA-256 fingerprints. Raw files remain local only; no runtime outcome was altered.

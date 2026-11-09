@@ -1,0 +1,22 @@
+[
+  {
+    "file": "experiments/claroline/tools/claroline-g0.mjs",
+    "exitCode": 0,
+    "output": []
+  },
+  {
+    "file": "experiments/claroline/tools/run-claroline-g0.mjs",
+    "exitCode": 0,
+    "output": []
+  },
+  {
+    "file": "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+    "exitCode": 0,
+    "output": []
+  },
+  {
+    "file": "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+    "exitCode": 0,
+    "output": []
+  }
+]

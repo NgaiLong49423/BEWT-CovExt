@@ -1,0 +1,18 @@
+{
+  "queriedAtUtc": "2026-11-09T11:23:53Z",
+  "queryWindowUtc": {
+    "from": "2026-11-09T10:30:00Z",
+    "to": "2026-11-09T10:42:00Z"
+  },
+  "r5App": {
+    "recordedId": "035ab7b27441dde6ffe7232b88fb07e4ab145c0dbe09e4e7930bc02ea0bb0d03",
+    "exitCode": 0,
+    "eventLines": []
+  },
+  "r5Browser": {
+    "recordedId": "8776be009d081f179f796c0e1749e41d57550b950466f56c6f16b184ba918c99",
+    "exitCode": 0,
+    "eventLines": []
+  },
+  "interpretation": "No matching historical events were returned if exit codes are zero and arrays are empty; the Docker event query cannot establish exit 137 cause by itself."
+}

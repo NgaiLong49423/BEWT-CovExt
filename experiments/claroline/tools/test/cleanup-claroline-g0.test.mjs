@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -22,7 +22,7 @@ const unrelatedLabels = { project: 'other-task', owner: 'other-task' };
 
 function record(roles = ['app', 'browser'], includeNetwork = true) {
   return {
-    runId, imageDigest, browserImageDigest, imageLabels,
+    runId, imageDigest, browserImageDigest, imageLabels, selectedHostPorts: { app: 51001, browser: 51002 },
     containers: roles.map(role => ({ role, id: ids[role], name: names[role], imageRef: role === 'app' ? APP_IMAGE_REF : BROWSER_IMAGE_REF })),
     network: includeNetwork ? { id: ids.network, name: names.network } : null,
   };
@@ -36,7 +36,7 @@ function makeContainer(role, overrides = {}) {
     Config: { Image: image, Labels: { ...imageLabels[role], ...labels } },
     State: { Running: true }, Mounts: [],
     HostConfig: { Privileged: false, NetworkMode: names.network, Binds: [], PortBindings: { [hostPort]: [{ HostIp: '127.0.0.1', HostPort: role === 'app' ? '51001' : '51002' }] } },
-    NetworkSettings: { Networks: { [names.network]: { NetworkID: ids.network, EndpointID: `${role}-endpoint` } } },
+    NetworkSettings: { Ports: { [hostPort]: [{ HostIp: '127.0.0.1', HostPort: role === 'app' ? '51001' : '51002' }] }, Networks: { [names.network]: { NetworkID: ids.network, EndpointID: `${role}-endpoint` } } },
     ...overrides,
   };
 }
@@ -156,6 +156,16 @@ test('create ID is persisted before nonzero status is classified for network/app
   assert.deepEqual(seleniumRecord.containers.map(item => item.role), ['app']);
 });
 
+test('Docker create port bind race is classified after any returned ID is recorded', () => {
+  const value = record([], false); value.network = { id: ids.network, name: names.network };
+  assert.throws(() => recordCreatedResource({
+    kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF,
+    result: { status: 1, stdout: `${ids.app}\n`, stderr: Buffer.from('Bind for 127.0.0.1:51001 failed: port is already allocated') },
+    record: value,
+  }), /PORT_BIND_CONFLICT/);
+  assert.equal(value.containers[0].id, ids.app);
+});
+
 test('fault injection: Selenium start failure cleans both containers because their IDs were recorded at create', () => {
   const created = record([], false);
   recordCreatedResource({ kind: 'network', name: names.network, result: { status: 0, stdout: `${ids.network}\n` }, record: created });
@@ -203,7 +213,7 @@ test('an empty HostConfig port is blocked if Docker reports an assigned external
   assert.throws(() => cleanup(fake), CleanupBlockedError);
   assert.deepEqual(fake.state.mutations, []);
 });
-test('stopped OOM container with detached endpoint and no published port is safely removed', () => {
+test('stopped exit-137 container with detached endpoint and no published port is safely removed', () => {
   const fake = fakeDocker();
   const app = fake.state.containers.get(ids.app);
   app.State = { Status: 'exited', Running: false, ExitCode: 137 };
@@ -337,4 +347,30 @@ test('loopback port selector returns an available host-only ephemeral port', asy
   const server = createServer();
   await new Promise((resolvePort, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolvePort); });
   await new Promise((resolvePort, reject) => server.close(error => error ? reject(error) : resolvePort()));
+});
+
+test('selected loopback port probe detects occupied port and does not claim reservation', async () => {
+  const { createServer } = await import('node:net');
+  const server = createServer();
+  await new Promise((resolveListen, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolveListen); });
+  const port = server.address().port;
+  try { assert.deepEqual(await probeLoopbackPort(port), { port, available: false, errorCode: 'EADDRINUSE' }); }
+  finally { await new Promise(resolveClose => server.close(resolveClose)); }
+  const available = await probeLoopbackPort(port);
+  assert.equal(available.available, true);
+  assert.equal(available.reservationHeld, false);
+});
+
+test('Docker port verification requires exact loopback HostConfig and NetworkSettings match', () => {
+  const sample = { HostConfig: { PortBindings: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51001' }] } }, NetworkSettings: { Ports: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51001' }] } } };
+  assert.equal(assertPublishedLoopbackPort(sample, '80/tcp', 51001), true);
+  for (const changed of [
+    { ...sample, HostConfig: { PortBindings: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51002' }] } } },
+    { ...sample, NetworkSettings: { Ports: { '80/tcp': [{ HostIp: '0.0.0.0', HostPort: '51001' }] } } },
+    { ...sample, NetworkSettings: { Ports: {} } },
+  ]) assert.throws(() => assertPublishedLoopbackPort(changed, '80/tcp', 51001), /PORT_BINDING_MISMATCH/);
+  assert.equal(isPortBindingConflict('Error starting proxy: listen tcp: address already in use'), true);
+  assert.equal(isPortBindingConflict('container exited with status 137'), false);
+  assert.equal(assertContainerPortNotPublished(sample, '3306/tcp'), true);
+  assert.throws(() => assertContainerPortNotPublished({ HostConfig: { PortBindings: { '3306/tcp': [{ HostIp: '127.0.0.1', HostPort: '3306' }] } } }, '3306/tcp'), /must not be published/);
 });

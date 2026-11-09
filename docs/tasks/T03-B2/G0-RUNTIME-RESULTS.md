@@ -2,7 +2,7 @@
 
 
 
-**Current disposition: PARTIAL; G0 is not accepted.** Run A r5 passed the runner RAM gate but Docker did not assign host ports, and the app later exited 137. No readiness, Maven/Selenium business test, or DB reset ran. The runner exited 1. Exact ownership cleanup later passed, with independent verification of no residual run resources or baseline losses. Run B remains NOT_RUN. Docker Engine 29.8.0 is available, but latest free RAM is below the safe retry margin after the OOM. The pinned image still contains one unattributed source patch, so the runtime manifest remains unpromoted.
+**Current disposition: PARTIAL; G0 is not accepted.** Run A r5 is `BLOCKED` before readiness and business tests: Docker did not assign host ports and the app container was later observed exited with code 137. The cause is `ROOT_CAUSE_NOT_VERIFIED`; no direct OOM/kill evidence is available. Maven, Selenium, business assertions, and DB reset are `NOT_RUN`; the runner exited 1. Exact ownership cleanup passed with no run residuals and no missing baseline IDs. Run B remains `NOT_RUN`. Current repeated host samples are below the preferred ~6 GiB margin, so no diagnostic or full run was started. The pinned image still contains one unattributed source patch, and the runtime manifest remains unpromoted pending Team Lead review.
 
 
 
@@ -96,7 +96,7 @@ Docker Desktop was started to enable the requested runtime. Docker Engine 29.8.0
 
 
 
-Runner preflight passed at 4,353,576,960 free bytes. The runner created the exact recorded app/browser containers and an internal network, then failed because Docker reported no assigned host port for either requested loopback mapping. No readiness probes, Maven/Selenium session, AddUser, or database reset ran. The app container later exited with code 137; Selenium remained running until verified cleanup. Runner exit code was 1 and its first cleanup result was BLOCKED. Evidence is immutable under `evidence/t03b2-a-20261109-r5/`.
+Runner preflight passed at 4,353,576,960 free bytes. The runner created the exact recorded app/browser containers and an internal network, then failed because Docker reported no assigned host port for either requested loopback mapping. No readiness probes, Maven/Selenium session, AddUser, or database reset ran. The app container later exited with code 137; Selenium remained running until verified cleanup. Runner exit code was 1 and its first cleanup result was BLOCKED. Exit 137 does not establish OOM. A later exact-ID events query returned no r5 events for either container. Evidence is immutable under `evidence/t03b2-a-20261109-r5/`; query evidence is `evidence/offline-verification-20261109-r28/r5-docker-events-query.json`.
 
 
 
@@ -112,12 +112,20 @@ Run A r5 is `BLOCKED` before application/Selenium tests; Run B remains `NOT_RUN`
 
 
 
-After r5, the runner selects two available host loopback ephemeral ports before Docker container creation, records both in `host-port-allocation.json`/`run-record.json`, requests explicit `127.0.0.1:<selected>:<container-port>` bindings, and verifies the same ports after start. The port selector regression test passes. This correction has not yet been exercised in Docker runtime; host memory is still marginal after the r5 OOM and Run A/B remain incomplete.
+After r5, the runner selects two distinct host loopback ports, probes both immediately before resource creation, records that the probe socket is released (`reservationHeld: false`), requests explicit `127.0.0.1:<selected>:<container-port>` bindings, and compares both `HostConfig.PortBindings` and `NetworkSettings.Ports` to the selected ports after start. Bind races are classified `PORT_BIND_CONFLICT`; Docker remains authoritative because the probe does not reserve the port. Unit/fault tests cover occupied ports and exact binding mismatches. This correction has not been exercised in Docker runtime; Run A/B remain incomplete.
+
+
+
+## Current gate recheck and port guard — 2026-11-09 (r28/r31)
+
+Three host samples were 4.340, 4.330, and 4.332 GiB free; Docker Engine 29.8.0 was reachable, the WSL VM process working set was 1,696,399,360 bytes, and no T03-B2-owned containers, networks, or volumes were listed. This remains below the preferred ~6 GiB margin, so neither a diagnostic container nor full G0 runtime was started. No experiment Docker resources were created, started, stopped, or removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.
+
+The corrected read-only event query returned no r5 events for either exact recorded container ID (both Docker commands exited 0). It does not establish exit 137's cause; status is `ROOT_CAUSE_NOT_VERIFIED`. r4's default-network ID delta also remains unexplained. Current states: Run A r5 `BLOCKED`, Run B `NOT_RUN`; HTTP/MySQL/Selenium and `test.Claroline_AddUserTest` are `NOT_RUN`.
+
+Offline port/cleanup tests and syntax checks are recorded under `evidence/offline-verification-20261109-r31/`. Docker runtime binding remains `PORT_BINDING_RUNTIME_NOT_VERIFIED`. Image derivative acceptance is explicitly pending Team Lead decision; no runtime manifest has been promoted and G0 remains `PARTIAL`.
 
 
 
 ## Public evidence redaction note
-
-
 
 Raw Docker before/after inventories for r3-r5 contain identifiers/names of unrelated local projects. They remain in the local evidence directories and are excluded from the public commit. Sanitized summaries preserve inventory counts and before/after resource equality/deltas using SHA-256 fingerprints without disclosing those names: `evidence/t03b2-a-20261109-r3/docker-inventory-sanitized-summary.json`, and likewise in r4 and r5. r5 cleanup recovery and independent zero-residual checks are published separately.

@@ -162,6 +162,48 @@ export function selectLoopbackPort() {
     });
   });
 }
+
+/** Probe a selected host port; the socket closes before Docker can bind it. */
+export async function probeLoopbackPort(port) {
+  if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('host port must be an integer in 1024..65535');
+  const server = createServer();
+  try {
+    await new Promise((resolveListen, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolveListen); });
+  } catch (error) {
+    if (error?.code === 'EADDRINUSE') return { port, available: false, errorCode: error.code };
+    throw error;
+  }
+  await new Promise((resolveClose, reject) => server.close(error => error ? reject(error) : resolveClose()));
+  return { port, available: true, reservationHeld: false };
+}
+
+/** Verify Docker configured and active published endpoint match the selected loopback port. */
+export function assertPublishedLoopbackPort(container, containerPort, expectedHostPort) {
+  const expected = String(expectedHostPort);
+  const configured = container?.HostConfig?.PortBindings?.[containerPort];
+  const active = container?.NetworkSettings?.Ports?.[containerPort];
+  if (!Array.isArray(configured) || configured.length !== 1 || configured[0]?.HostIp !== '127.0.0.1' || configured[0]?.HostPort !== expected) {
+    throw new Error(`PORT_BINDING_MISMATCH: HostConfig.PortBindings does not match 127.0.0.1:${expected}`);
+  }
+  if (!Array.isArray(active) || active.length !== 1 || active[0]?.HostIp !== '127.0.0.1' || active[0]?.HostPort !== expected) {
+    throw new Error(`PORT_BINDING_MISMATCH: NetworkSettings.Ports does not match 127.0.0.1:${expected}`);
+  }
+  return true;
+}
+
+export function assertContainerPortNotPublished(container, containerPort) {
+  const configured = container?.HostConfig?.PortBindings || {};
+  const active = container?.NetworkSettings?.Ports?.[containerPort];
+  if (Object.hasOwn(configured, containerPort) || (Array.isArray(active) && active.length > 0)) {
+    throw new Error(`PORT_BINDING_MISMATCH: ${containerPort} must not be published to the host`);
+  }
+  return true;
+}
+
+export function isPortBindingConflict(value) {
+  const text = typeof value === 'string' ? value : dockerErrorText(value);
+  return /port is already allocated|address already in use|failed to bind|bind:.*(address|port)/i.test(text);
+}
 export function snapshotInventory(dockerExec = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim()) {
   try {
     const list = args => { const text = dockerExec(args); return text ? text.split(/\r?\n/).map(line => line.trim()).filter(Boolean).sort((left, right) => left.localeCompare(right, 'en')) : []; };
@@ -212,7 +254,9 @@ export function recordCreatedResource({ kind, role, name, imageRef, result, reco
     onRecord(value);
   }
   if (Number(result?.status) !== 0) {
-    throw new Error(`${kind} create failed${hasId ? ' after returning a resource ID that was recorded' : ' without returning a recordable resource ID'}`);
+    const detail = Buffer.isBuffer(result?.stderr) ? result.stderr.toString('utf8') : String(result?.stderr || '');
+    const prefix = isPortBindingConflict(detail) ? 'PORT_BIND_CONFLICT: ' : '';
+    throw new Error(`${prefix}${kind} create failed${hasId ? ' after returning a resource ID that was recorded' : ' without returning a recordable resource ID'}`);
   }
   if (!hasId) throw new Error(`${kind} create did not return a full Docker resource ID`);
   return id;

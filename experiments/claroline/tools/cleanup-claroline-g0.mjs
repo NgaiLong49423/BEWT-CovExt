@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
-import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory } from './claroline-g0.mjs';
+import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
 
 const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
@@ -34,7 +34,7 @@ function normalizeContainer(record, item) {
   return item;
 }
 
-function assertContainerSecurity(container, item, networkName) {
+function assertContainerSecurity(container, item, networkName, record) {
   const host = container.HostConfig || {};
   const expectedHostPort = item.role === 'app' ? '80/tcp' : '4444/tcp';
   const preStart = container.State?.Status === 'created' && container.State?.Running !== true;
@@ -53,6 +53,11 @@ function assertContainerSecurity(container, item, networkName) {
   const allocatedPort = hostBinding.length === 1 && /^\d+$/.test(hostBinding[0].HostPort || '');
   if (hostBinding.length !== 1 || hostBinding[0].HostIp !== '127.0.0.1' || (!createdBeforeStart && !allocatedPort && !unallocatedPort)) {
     throw new CleanupBlockedError(`${item.role} port is not a valid dynamic loopback binding for its container state`);
+  }
+  const selectedPort = record.selectedHostPorts?.[item.role];
+  if (allocatedPort && selectedPort !== undefined) {
+    try { assertPublishedLoopbackPort(container, expectedHostPort, selectedPort); }
+    catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
   }
   if (item.role === 'app' && Object.keys(bindings).some(key => key.startsWith('3306/'))) {
     throw new CleanupBlockedError('Claroline MySQL port must not be published to the host');
@@ -88,6 +93,10 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   const networkRecord = record.network;
   if (networkRecord && (networkRecord.name !== names.network || !/^[a-f0-9]{64}$/i.test(networkRecord.id || ''))) throw new CleanupBlockedError('recorded network ID/name does not match the run identity');
   if (!networkRecord && containers.length > 0) throw new CleanupBlockedError('recorded containers exist without a recorded network; endpoint ownership cannot be verified');
+  if (record.selectedHostPorts !== undefined) {
+    const { app, browser } = record.selectedHostPorts || {};
+    if (![app, browser].every(port => Number.isInteger(port) && port >= 1024 && port <= 65535) || app === browser) throw new CleanupBlockedError('recorded selected host ports must be distinct valid loopback ports');
+  }
 
   const foundContainers = [];
   const expectedEndpointIds = [];
@@ -98,7 +107,7 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     if (Boolean(byId) !== Boolean(byName)) throw new CleanupBlockedError(`recorded ID/name lookup mismatch for ${item.name}`);
     if (byId) {
       assertOwnedContainer(byId, { ...item, labels, imageLabels: record.imageLabels?.[item.role] || {} });
-      if (assertContainerSecurity(byId, item, names.network)) expectedEndpointIds.push(byId.Id);
+      if (assertContainerSecurity(byId, item, names.network, record)) expectedEndpointIds.push(byId.Id);
     }
     foundContainers.push(byId);
   }
@@ -127,12 +136,12 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     let current = inspect(dockerExec, 'container', item.id);
     if (!current) continue;
     assertOwnedContainer(current, { ...item, labels, imageLabels: record.imageLabels?.[item.role] || {} });
-    assertContainerSecurity(current, item, names.network);
+    assertContainerSecurity(current, item, names.network, record);
     if (current.State?.Running) dockerExec(['stop', item.id]);
     current = inspect(dockerExec, 'container', item.id);
     if (!current) continue;
     assertOwnedContainer(current, { ...item, labels, imageLabels: record.imageLabels?.[item.role] || {} });
-    assertContainerSecurity(current, item, names.network);
+    assertContainerSecurity(current, item, names.network, record);
     dockerExec(['rm', item.id]);
     if (inspect(dockerExec, 'container', item.id) || inspect(dockerExec, 'container', item.name)) throw new CleanupBlockedError(`recorded container ${item.name} remains after rm`);
   }

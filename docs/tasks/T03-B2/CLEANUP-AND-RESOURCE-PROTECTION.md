@@ -1,5 +1,7 @@
 # Cleanup and resource protection
 
+For current selected-port runs, the verifier also requires Docker's configured `HostConfig.PortBindings` and active `NetworkSettings.Ports` to match the recorded host port and loopback address. The pre-create check is advisory only and records `reservationHeld: false`; Docker bind remains authoritative. No published MySQL 3306 binding is allowed.
+
 Cleanup implementation: `experiments/claroline/tools/cleanup-claroline-g0.mjs`; reusable ownership/run helpers: `experiments/claroline/tools/claroline-g0.mjs`; native-command policy: `experiments/claroline/tools/child-process-policy.mjs`; CLI wrapper: `experiments/claroline/tools/cleanup-run.mjs`.
 
 Before mutation the cleanup validates the complete task labels, recorded full IDs, exact names and immutable image references; requires no mounts/binds, no privileged/host networking, loopback-only ephemeral host port bindings recorded before creation, an internal bridge, and exact recorded endpoints. It accepts only exact Docker NOT_FOUND messages as idempotent missing. Daemon, permission, transport, malformed response, stale ID/name, ownership mismatch, or unknown failures return BLOCKED/nonzero before unsafe deletion. It removes only validated recorded containers and network, never volumes or images, never invokes prune, checks residual resources by run ID/full labels, and checks that all pre-run inventory remains present.
@@ -14,4 +16,6 @@ The verifier now accepts an unallocated HostPort only when `HostConfig.PortBindi
 
 The 22-test fault suite passes at `evidence/offline-verification-20261109-r21/cleanup-fault-tests.log`. It covers empty host ports with/without external binding, stopped detached endpoints, partial startup, inspect faults, partial teardown and residuals, idempotency, and preservation of ExpressCart/Kanboard resources.
 
-Run A r5 did not reach readiness or Maven: Docker assigned no host ports and the app later exited 137. The runner exited 1. Cleanup-only for its exact recorded resources returned PASS; an independent postcheck found no r5 residuals and no missing pre-existing inventory IDs. No unrelated Docker resource was removed. Evidence: `../T03-B2/evidence/t03b2-a-20261109-r5/cleanup-recovery-r21.json` and `cleanup-recovery-postcheck-r21.json`.
+The r21 case named “stopped OOM container” is a simulated fixture for stopped state/exit code 137 and is not evidence that the historical r5 app was OOM-killed. The test title was clarified in the later suite; the original log remains unchanged.
+
+Run A r5 did not reach readiness or Maven: Docker assigned no host ports and the app later exited 137. The cause is `ROOT_CAUSE_NOT_VERIFIED`. The runner exited 1. Cleanup-only for its exact recorded resources returned PASS; an independent postcheck found no r5 residuals and no missing pre-existing inventory IDs. No unrelated Docker resource was removed. Evidence: `../T03-B2/evidence/t03b2-a-20261109-r5/cleanup-recovery-r21.json` and `cleanup-recovery-postcheck-r21.json`.

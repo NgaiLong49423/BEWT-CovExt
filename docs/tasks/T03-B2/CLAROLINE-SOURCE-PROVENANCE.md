@@ -61,4 +61,6 @@ Later layers add 24 runtime configuration/cache files, remove the web installer 
 
 No container was created or started during this registry-layer inspection. Host RAM remained below the runtime gate and Docker Engine remained unavailable; see r14 `runtime-preflight.json`.
 
-The `parseApplicationManifest()` parser accepted a candidate manifest object in memory with the verified source commit and pinned image digest. This is parser evidence only: no `config/apps/claroline.json` file was created or promoted because the image contains an unattributed application-code patch and runtime remains `NOT_RUN`. See `evidence/offline-verification-20261109-r14/manifest-candidate-parser.json`.
+The `parseApplicationManifest()` parser accepted a candidate manifest object in memory with the verified source commit and pinned image digest. This is parser evidence only: no `config/apps/claroline.json` file was created or promoted because the image contains an unattributed application-code patch and runtime remains incomplete. See `evidence/offline-verification-20261109-r14/manifest-candidate-parser.json`.
+
+**Pending Team Lead decision:** explicitly accept or reject the pinned customized image derivative, including its unattributed patch to `claroline/inc/lib/add_course.lib.inc.php`, as an eligible G0 runtime. The exact image digest preserves the reviewed bytes but does not establish patch authorship or upstream equivalence. No manifest promotion or G0 acceptance is made here.

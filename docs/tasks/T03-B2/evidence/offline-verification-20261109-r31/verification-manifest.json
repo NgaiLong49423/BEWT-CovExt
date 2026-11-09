@@ -1,0 +1,46 @@
+{
+  "capturedAtUtc": "2026-11-09T11:40:07Z",
+  "commands": [
+    {
+      "command": "node --check <each listed source>",
+      "exitCode": 0,
+      "files": [
+        "experiments/claroline/tools/claroline-g0.mjs",
+        "experiments/claroline/tools/run-claroline-g0.mjs",
+        "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+        "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+      ]
+    },
+    {
+      "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+      "exitCode": 0,
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "sourceSha256": [
+    {
+      "path": "experiments/claroline/tools/claroline-g0.mjs",
+      "sha256": "7a0e78d101a5a356957f4a235484c01dccda9b8285e26a357dcf378f73d688ca"
+    },
+    {
+      "path": "experiments/claroline/tools/run-claroline-g0.mjs",
+      "sha256": "39e1184c47b7ef72d1f0614025d652718154621fe5e599634160983214f19b50"
+    },
+    {
+      "path": "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+      "sha256": "bc07dce7c3ebd1fedf97b5a6793c9f5cc314416f5260d7dc1bcad2197a06ec2e"
+    },
+    {
+      "path": "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+      "sha256": "41751cfe2e72b9d174248b92bf452df71b4e78b9b62c6c4149d43f06bb6cbf62"
+    }
+  ],
+  "evidenceFiles": {
+    "syntaxCheck": "syntax-check.json",
+    "faultSuite": "cleanup-fault-tests.log"
+  },
+  "runtime": "NOT_RUN: memory below preferred approximately 6 GiB margin",
+  "dockerResourcesChanged": false
+}
