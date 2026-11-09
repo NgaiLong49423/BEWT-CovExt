@@ -1,0 +1,81 @@
+{
+  "testedRepositoryHead": "bd9b3b15fca28419ada9862b8a65bac910edf169",
+  "workingTreeDirtyAtTest": true,
+  "testSuites": [
+    {
+      "command": "node --check experiments/g0-safety/offline-runtime-safety.mjs",
+      "exitCode": 0,
+      "tests": null,
+      "pass": null,
+      "fail": null,
+      "log": "node-check-safety.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "node --check experiments/g0-safety/test/offline-runtime-safety.test.mjs",
+      "exitCode": 0,
+      "tests": null,
+      "pass": null,
+      "fail": null,
+      "log": "node-check-safety-tests.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "node --check experiments/g0-safety/test/baseline-adapter.test.mjs",
+      "exitCode": 0,
+      "tests": null,
+      "pass": null,
+      "fail": null,
+      "log": "node-check-adapter-tests.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": "node --test experiments/g0-safety/test/offline-runtime-safety.test.mjs experiments/g0-safety/test/baseline-adapter.test.mjs",
+      "exitCode": 0,
+      "tests": 8,
+      "pass": 8,
+      "fail": 0,
+      "log": "offline-safety-suite.log",
+      "logSha256": "b98ac2a60a4f70c6d664f63ed7ce697b87ef8ef87804b74630944dd2125b0a78"
+    },
+    {
+      "command": "node --test experiments/kanboard/tools/test/cleanup-kanboard-g0.test.mjs experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs",
+      "exitCode": 0,
+      "tests": 23,
+      "pass": 23,
+      "fail": 0,
+      "log": "existing-cleanup-fault-suite.log",
+      "logSha256": "29e81b482a0392b76cb6c10fdd07087f1580644d866a08baa404aed56fc54ce5"
+    },
+    {
+      "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+      "exitCode": 0,
+      "tests": 18,
+      "pass": 18,
+      "fail": 0,
+      "log": "claroline-cleanup-fault-suite.log",
+      "logSha256": "498cd206f56214e75d613b01694d464868c6cb7094f7b388bf268dbb806ea05e"
+    }
+  ],
+  "totalTests": 49.0,
+  "totalPass": 49.0,
+  "totalFail": 0.0,
+  "syntaxChecks": [
+    {
+      "command": "node --check experiments/g0-safety/offline-runtime-safety.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check experiments/g0-safety/test/offline-runtime-safety.test.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check experiments/g0-safety/test/baseline-adapter.test.mjs",
+      "exitCode": 0
+    }
+  ],
+  "mavenCompile": "evidence/offline-compile-20261110-r3/compile-summary.json",
+  "sourceTestHashes": "source-test-hashes.json",
+  "provenance": "baseline-source-provenance.json",
+  "runtime": "NOT_RUN"
+}

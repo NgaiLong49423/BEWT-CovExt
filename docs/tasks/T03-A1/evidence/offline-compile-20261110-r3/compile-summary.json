@@ -1,0 +1,30 @@
+[
+  {
+    "app": "joomla",
+    "command": "mvn -B -o -f experiments/joomla/bewt-suite/pom.xml test-compile",
+    "exitCode": 0,
+    "log": "joomla-maven-offline-test-compile.log",
+    "logSha256": "87aaff0d38d56cbe8456b186dcb90653d92ee4609763ebdffda70b718c261213"
+  },
+  {
+    "app": "mantisbt",
+    "command": "mvn -B -o -f experiments/mantisbt/bewt-suite/pom.xml test-compile",
+    "exitCode": 0,
+    "log": "mantisbt-maven-offline-test-compile.log",
+    "logSha256": "0ea221e98accc8eb410e7cab9c24d98ca17c5becc8707c1df8809d5b7215b139"
+  },
+  {
+    "app": "mediawiki",
+    "command": "mvn -B -o -f experiments/mediawiki/bewt-suite/pom.xml test-compile",
+    "exitCode": 0,
+    "log": "mediawiki-maven-offline-test-compile.log",
+    "logSha256": "a06c6aba19205437caaaf451946ccbdbd63a5a174436e17bf7758287df630ce1"
+  },
+  {
+    "app": "prestashop",
+    "command": "mvn -B -o -f experiments/prestashop/bewt-suite/pom.xml test-compile",
+    "exitCode": 0,
+    "log": "prestashop-maven-offline-test-compile.log",
+    "logSha256": "2351ccf8f7607f6cf9dde6e2a3a90fa912d123c0f14399ee90540b969d0c8bb4"
+  }
+]
