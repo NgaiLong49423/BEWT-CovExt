@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Offline G0 code/config/Base-suite readiness for Joomla, MantisBT, MediaWiki, and PrestaShop; this is not G0 runtime acceptance.
 - Base branch + base SHA: `origin/main` / `bd9b3b15fca28419ada9862b8a65bac910edf169` (fetched 2026-11-10).
 - Working branch: `task/t03-offline-g0-agent1`.
-- Head commit: see the exact branch/PR HEAD in the GitHub handoff; the report is included in that commit, so a commit cannot embed its own final SHA.
-- PR: to be created against `main` after publishing this branch; no merge requested.
-- Push status: pending publication verification.
+- Head commit: see PR #19's verified HEAD SHA in the final handoff; the report is included in that commit, so a commit cannot embed its own final SHA.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/19 (Draft; base `main`).
+- Push status: `PUSHED`; final branch SHA/PR HEAD equality is verified in the final handoff.
 - Runtime/commit/version tested: Offline source/test working tree based on the SHA above; four suite baselines correspond to read-only `bewt-original/` commit `0501249ff3e9a5ea83a06155cd2971dc36197056`.
 - Status proposed by Agent: `PARTIAL` — offline implementation slice ready for review; runtime pending; G0 not verified.
 
@@ -27,7 +27,7 @@
 | `node --test experiments/kanboard/tools/test/cleanup-kanboard-g0.test.mjs experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs` | 0 | 23/23 PASS | `evidence/offline-verification-20261110-r2/existing-cleanup-fault-suite.log` |
 | `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | 18/18 PASS | `evidence/offline-verification-20261110-r2/claroline-cleanup-fault-suite.log` |
 | `mvn -B -o -f experiments/<app>/bewt-suite/pom.xml test-compile` for four apps | 0 each | PASS | `evidence/offline-compile-20261110-r3/compile-summary.json` and per-app logs |
-| `git diff --cached --check` and scoped secret/protected-path review | 0 | PASS (pending final staged review) | `evidence/offline-verification-20261110-r2/review-checks.log` |
+| `git diff --cached --check` and scoped secret/protected-path review | 0 | PASS | `evidence/offline-verification-20261110-r2/review-checks.json` |
 
 The three Node suites total 49/49 tests. Provenance has SHA-256 and Git blob IDs for 253 Java/MJS source/test files in `evidence/offline-verification-20261110-r2/source-test-hashes.json`; source HEAD and dirty-at-test state are recorded in `verification-summary.json`. The offline test commands ran on the working tree based on base SHA `bd9b3b15fca28419ada9862b8a65bac910edf169`; hashes/blobs identify the exact tested files, which are checked against the staged/committed source before publication.
 
@@ -59,6 +59,6 @@ The three Node suites total 49/49 tests. Provenance has SHA-256 and Git blob IDs
 
 - Team Lead decision: approve a separate future runtime task only after immutable image provenance/digests, at least 6 GiB free RAM, actual Docker ownership/resource checks, and deny-by-default network isolation are independently established. No privileged action is requested by this offline PR.
 - Suggested next task: resolve image provenance and implement/run app-specific isolated G0 runtime harnesses under a separately authorized task; keep each app's runtime evidence independent.
-- PR diff URL: to be added after PR creation. Inspect `experiments/*/g0-plan.json`, the adapter/safety code and `docs/tasks/T03-A1/` evidence.
+- PR diff URL: https://github.com/NgaiLong49423/BEWT-CovExt/pull/19/files. Inspect `experiments/*/g0-plan.json`, the adapter/safety code and `docs/tasks/T03-A1/` evidence.
 
 `docs/program/STATUS.json` is intentionally unchanged per task instruction. This report does not mark any G0 gate accepted.
