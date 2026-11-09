@@ -1,6 +1,4 @@
-import { createServer } from 'node:net';
-import { createInterface } from 'node:readline/promises';
-import { randomUUID } from 'node:crypto';
+import { createConnection, createServer } from 'node:net';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -22,7 +20,6 @@ export const EGRESS_PROBE_TARGETS = Object.freeze({
 });
 const ROUTE_APPROVAL_SCOPE = 'one privileged exec in this exact container network namespace before services start; no host routing, Docker daemon, or other-container changes';
 const ROUTE_APPROVAL_ROLLBACK = 'if route removal or any probe fails, do not start services; remove only the exact recorded run-owned containers and network; discard the container rather than restoring its route';
-const issuedRouteApprovals = new WeakMap();
 
 function approvalRequired(message) {
   const error = new Error(`BLOCKED_APPROVAL_REQUIRED: ${message}`);
@@ -46,48 +43,10 @@ export function routeIsolationApprovalRequest(containerId, role, runId) {
   };
 }
 
-export function routeIsolationApprovalPhrase(request) {
-  return `APPROVE ${request.runId} ${request.containerId} ONCE; SCOPE=CONTAINER_NETNS_ONLY; ROLLBACK=REMOVE_EXACT_RUN_RESOURCES`;
-}
-
-export function validateRouteIsolationApproval(approval, request) {
-  if (!approval || !request || approval.approvalId === undefined || !/^[0-9a-f-]{36}$/i.test(approval.approvalId) ||
-      approval.runId !== request.runId || approval.containerId !== request.containerId || approval.role !== request.role || approval.command !== request.command ||
-      approval.maxExecutions !== 1 || approval.scope !== request.scope || approval.rollback !== request.rollback ||
-      typeof approval.approvedBy !== 'string' || !approval.approvedBy.trim() || approval.approverRole !== 'Team Lead' ||
-      typeof approval.approvedAtUtc !== 'string' || !Number.isFinite(Date.parse(approval.approvedAtUtc)) ||
-      approval.confirmation !== routeIsolationApprovalPhrase(request)) {
-    throw approvalRequired('approval must identify this exact full container ID, one command, scope, rollback, and Team Lead confirmation');
-  }
-  return approval;
-}
-
-export async function requestRouteIsolationApproval(containerId, role, runId, {
-  interactive = process.stdin.isTTY === true,
-  input = process.stdin,
-  output = process.stdout,
-} = {}) {
-  const request = routeIsolationApprovalRequest(containerId, role, runId);
-  if (!interactive) throw approvalRequired('interactive Team Lead confirmation is unavailable; no privileged command was run');
-  output.write(`\nPrivileged operation approval required:\n${JSON.stringify(request, null, 2)}\n`);
-  const readline = createInterface({ input, output });
-  try {
-    const approvedBy = await readline.question('Team Lead GitHub handle: ');
-    const approverRole = await readline.question('Type role exactly as Team Lead: ');
-    const confirmation = await readline.question(`Type exactly “${routeIsolationApprovalPhrase(request)}”: `);
-    const approval = Object.freeze(validateRouteIsolationApproval({
-      ...request,
-      approvalId: randomUUID(),
-      approvedBy: approvedBy.trim(),
-      approverRole: approverRole.trim(),
-      approvedAtUtc: new Date().toISOString(),
-      confirmation: confirmation.trim(),
-    }, request));
-    issuedRouteApprovals.set(approval, 'unused');
-    return approval;
-  } finally {
-    readline.close();
-  }
+export function requestRouteIsolationApproval(request) {
+  const error = approvalRequired('no independently authenticated Team Lead decision verifier is configured; operator confirmation is not authorization');
+  error.authorizationRequest = request;
+  throw error;
 }
 
 export const INTERNAL_IPAM_SUBNET_CANDIDATES = Object.freeze([
@@ -169,13 +128,12 @@ export function assertContainerNetworkGateway(container, networkName, gateway, n
   return endpoint;
 }
 
-/** Build the route command only after validating an explicit per-container Team Lead approval. */
-export function routeIsolationExecArgs(containerId, approval, runId) {
-  const request = routeIsolationApprovalRequest(containerId, approval?.role, runId);
-  validateRouteIsolationApproval(approval, request);
-  if (issuedRouteApprovals.get(approval) !== 'unused') throw approvalRequired('approval is not an unused interactive grant or has already been consumed');
-  issuedRouteApprovals.set(approval, 'consumed');
-  return ['exec', '--privileged', '--user', '0', containerId, '/bin/sh', '-c', 'ip route del default'];
+/** No privileged command is available until a separately governed authorization service is designed and approved. */
+export function routeIsolationExecArgs(containerId, decision, runId) {
+  const request = routeIsolationApprovalRequest(containerId, decision?.role, runId);
+  const error = approvalRequired('independent Team Lead authorization is unavailable; privileged route isolation is disabled');
+  error.authorizationRequest = request;
+  throw error;
 }
 
 /** Validate that startup logs stay in a fresh private directory below the container user's home. */
@@ -209,13 +167,47 @@ export function assertRouteIsolationContainer(container, networkName) {
   return true;
 }
 
-/** Classify a no-payload outbound TCP probe; a host control probe must pass first. */
+export function classifyTcpProbe(result) {
+  if (!result) return 'PROBE_EXECUTION_FAILURE';
+  const output = `${result.stderr || ''} ${result.stdout || ''} ${result.error?.message || ''}`;
+  const errorCode = result.error?.code || result.code;
+  if (['ENETUNREACH', 'EHOSTUNREACH', 'ENETDOWN'].includes(errorCode) || /network is unreachable|no route to host|network is down/i.test(output)) return 'NETWORK_UNREACHABLE';
+  if (errorCode === 'ETIMEDOUT' || result.status === 124 || /connection timed out|operation timed out|timed out/i.test(output)) return 'PROBE_TIMEOUT';
+  if (result.status === 0 || /connected/i.test(output)) return 'CONNECTION_SUCCESS';
+  if (errorCode === 'ECONNREFUSED' || /connection refused/i.test(output)) return 'CONNECTION_REFUSED';
+  if (result.error || result.status === null || result.status === undefined || [125, 126, 127].includes(result.status) || /command not found|cannot execute|permission denied|docker daemon/i.test(output)) return 'PROBE_EXECUTION_FAILURE';
+  return 'INCONCLUSIVE';
+}
+
+export function classifyHostControlProbe(result, family) {
+  const probe = classifyTcpProbe(result);
+  if (probe === 'CONNECTION_SUCCESS') return 'HOST_CONTROL_REACHABLE';
+  if (probe === 'NETWORK_UNREACHABLE') return family === 'ipv6' ? 'HOST_IPV6_UNAVAILABLE' : 'HOST_IPV4_UNAVAILABLE';
+  if (probe === 'CONNECTION_REFUSED') return 'HOST_CONTROL_TARGET_REFUSED';
+  if (probe === 'PROBE_TIMEOUT') return 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE';
+  if (probe === 'PROBE_EXECUTION_FAILURE') return 'HOST_CONTROL_EXECUTION_FAILURE';
+  return 'HOST_CONTROL_INCONCLUSIVE';
+}
+
+/** Only an explicit network-unreachable result verifies this fixed endpoint is blocked. */
 export function classifyEgressProbe(result) {
-  if (!result || result.error || result.status === null || result.status === undefined) return 'BLOCKED';
-  const output = `${result.stderr || ''} ${result.stdout || ''}`;
-  if (result.status === 0 || /connection refused|connected/i.test(output)) return 'FAIL';
-  if (result.status === 124 || /network is unreachable|no route to host|connection timed out|operation timed out/i.test(output)) return 'PASS';
-  return 'BLOCKED';
+  const probe = classifyTcpProbe(result);
+  if (probe === 'NETWORK_UNREACHABLE') return 'NETWORK_UNREACHABLE';
+  if (probe === 'CONNECTION_SUCCESS' || probe === 'CONNECTION_REFUSED') return 'EGRESS_REACHABLE';
+  if (probe === 'PROBE_TIMEOUT') return 'TCP_TIMEOUT_INCONCLUSIVE';
+  if (probe === 'PROBE_EXECUTION_FAILURE') return 'PROBE_EXECUTION_FAILURE';
+  return 'INCONCLUSIVE';
+}
+
+export function probeTcpTarget(address, port, family, timeoutMs = 5000) {
+  return new Promise(resolve => {
+    let settled = false;
+    const finish = result => { if (settled) return; settled = true; socket.destroy(); resolve(result); };
+    const socket = createConnection({ host: address, port, family: family === 'ipv6' ? 6 : 4 });
+    socket.setTimeout(timeoutMs, () => finish({ status: null, error: Object.assign(new Error('TCP probe timed out'), { code: 'ETIMEDOUT' }) }));
+    socket.once('connect', () => finish({ status: 0, stdout: 'connected', stderr: '' }));
+    socket.once('error', error => finish({ status: 1, error }));
+  });
 }
 
 export function validateRunId(runId) {

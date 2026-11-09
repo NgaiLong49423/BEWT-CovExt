@@ -1,11 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { PassThrough } from 'node:stream';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, routeIsolationApprovalPhrase, validateRouteIsolationApproval, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -193,44 +192,60 @@ test('internal IPAM selector skips overlapping Docker and host route CIDRs', () 
   assert.throws(() => selectInternalBridgeIpam(INTERNAL_IPAM_SUBNET_CANDIDATES, ['172.30.0.0/16']), /no non-overlapping/);
 });
 
-test('external egress probe distinguishes blocked, reachable, and inconclusive outcomes', () => {
-  assert.equal(classifyEgressProbe({ status: 124, stdout: '', stderr: '' }), 'PASS');
-  assert.equal(classifyEgressProbe({ status: 1, stdout: '', stderr: 'connect: Network is unreachable' }), 'PASS');
-  assert.equal(classifyEgressProbe({ status: 0, stdout: '', stderr: '' }), 'FAIL');
-  assert.equal(classifyEgressProbe({ status: 1, stdout: '', stderr: 'Connection refused' }), 'FAIL');
-  assert.equal(classifyEgressProbe({ status: 127, stdout: '', stderr: 'timeout: command not found' }), 'BLOCKED');
-  assert.equal(classifyEgressProbe({ status: null, error: new Error('spawn timeout') }), 'BLOCKED');
+test('TCP probe classification keeps timeout, unreachable, execution failure, and egress distinct', () => {
+  assert.equal(classifyTcpProbe({ status: 0 }), 'CONNECTION_SUCCESS');
+  assert.equal(classifyTcpProbe({ status: 1, stderr: 'connect: Network is unreachable' }), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyTcpProbe({ status: 1, stderr: 'No route to host' }), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyTcpProbe({ status: 124, stderr: 'Terminated' }), 'PROBE_TIMEOUT');
+  assert.equal(classifyTcpProbe({ status: 1, stderr: 'Connection timed out' }), 'PROBE_TIMEOUT');
+  assert.equal(classifyTcpProbe({ status: 1, stderr: 'Connection refused' }), 'CONNECTION_REFUSED');
+  assert.equal(classifyTcpProbe({ status: 127, stderr: 'bash: command not found' }), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyTcpProbe({ status: null, error: Object.assign(new Error('spawn failed'), { code: 'ENOENT' }) }), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyTcpProbe({ status: 1, stderr: 'unexpected probe output' }), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe({ status: 1, stderr: 'Network is unreachable' }), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyEgressProbe({ status: 124 }), 'TCP_TIMEOUT_INCONCLUSIVE');
+  assert.equal(classifyEgressProbe({ status: 1, stderr: 'Connection refused' }), 'EGRESS_REACHABLE');
+  assert.equal(classifyEgressProbe({ status: 0 }), 'EGRESS_REACHABLE');
+  assert.equal(classifyEgressProbe({ status: 127, stderr: 'timeout command not found' }), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyEgressProbe({ status: 1, stderr: 'unknown' }), 'INCONCLUSIVE');
 });
 
-test('published bridge route isolation requires exact per-container interactive Team Lead approval', async () => {
+test('host IPv6 unavailable is distinct from a reachable host control and never proves container isolation', () => {
+  assert.equal(classifyHostControlProbe({ status: 0 }, 'ipv6'), 'HOST_CONTROL_REACHABLE');
+  assert.equal(classifyHostControlProbe({ status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv6'), 'HOST_IPV6_UNAVAILABLE');
+  assert.equal(classifyHostControlProbe({ status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv4'), 'HOST_IPV4_UNAVAILABLE');
+  assert.equal(classifyHostControlProbe({ status: null, error: Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }) }, 'ipv6'), 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE');
+  assert.equal(classifyHostControlProbe({ status: 1, stderr: 'Connection refused' }, 'ipv6'), 'HOST_CONTROL_TARGET_REFUSED');
+});
+
+test('privileged route command stays disabled without independent Team Lead authorization', () => {
   const correct = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
   assert.equal(assertNetworkPolicy(correct, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), correct);
-  assert.throws(() => routeIsolationExecArgs(ids.app), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => routeIsolationExecArgs(ids.app, true), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => routeIsolationApprovalRequest('bewt-covext-app', 'app', runId), /full recorded Docker container ID/);
-  await assert.rejects(requestRouteIsolationApproval(ids.app, 'app', runId, { interactive: false }), error => error.code === 'BLOCKED_APPROVAL_REQUIRED');
   const request = routeIsolationApprovalRequest(ids.app, 'app', runId);
-  const phrase = routeIsolationApprovalPhrase(request);
-  const output = new PassThrough();
-  const input = new PassThrough();
-  const approvalPromise = requestRouteIsolationApproval(ids.app, 'app', runId, { interactive: true, input, output });
-  setTimeout(() => input.write('NgaiLong49423\n'), 20);
-  setTimeout(() => input.write('Team Lead\n'), 40);
-  setTimeout(() => input.write(`${phrase}\n`), 60);
-  const approval = await approvalPromise;
-  input.end();
-  output.end();
-  assert.equal(validateRouteIsolationApproval(approval, request), approval);
-  assert.throws(() => validateRouteIsolationApproval({ ...approval, containerId: ids.browser }, request), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => validateRouteIsolationApproval({ ...approval, command: 'docker exec --privileged other' }, request), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => validateRouteIsolationApproval({ ...approval, scope: 'all containers' }, request), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => validateRouteIsolationApproval({ ...approval, rollback: 'restore route' }, request), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => validateRouteIsolationApproval({ ...approval, approverRole: 'Coding Agent' }, request), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => routeIsolationExecArgs(ids.browser, approval, runId), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.throws(() => routeIsolationExecArgs(ids.app, { ...approval }, runId), /unused interactive grant/);
-  assert.throws(() => routeIsolationExecArgs(ids.app, approval, 't03b2-a-20261109-r2'), /BLOCKED_APPROVAL_REQUIRED/);
-  assert.deepEqual(routeIsolationExecArgs(ids.app, approval, runId), ['exec', '--privileged', '--user', '0', ids.app, '/bin/sh', '-c', 'ip route del default']);
-  assert.throws(() => routeIsolationExecArgs(ids.app, approval, runId), /already been consumed/);
+  assert.equal(request.runId, runId);
+  assert.equal(request.containerId, ids.app);
+  assert.match(request.command, new RegExp(ids.app));
+  assert.equal(request.maxExecutions, 1);
+  const candidates = [
+    undefined,
+    { role: 'app', approverRole: 'Team Lead', approvedBy: 'untrusted-input' },
+    { role: 'app', runId: 'wrong-run', containerId: ids.app, command: request.command, scope: request.scope, rollback: request.rollback },
+    { role: 'app', runId, containerId: ids.browser, command: request.command, scope: request.scope, rollback: request.rollback },
+    { role: 'app', runId, containerId: ids.app, command: 'docker exec --privileged other', scope: request.scope, rollback: request.rollback },
+    { role: 'app', runId, containerId: ids.app, command: request.command, scope: 'wrong scope', rollback: request.rollback },
+    { role: 'app', runId, containerId: ids.app, command: request.command, scope: request.scope, rollback: 'wrong rollback' },
+    { role: 'app', runId, containerId: ids.app, command: request.command, scope: request.scope, rollback: request.rollback, expiresAtUtc: '2000-01-01T00:00:00Z', nonce: 'reused' },
+  ];
+  for (const candidate of candidates) {
+    assert.throws(() => routeIsolationExecArgs(ids.app, candidate, runId), error => error.code === 'BLOCKED_APPROVAL_REQUIRED');
+  }
+  assert.throws(() => routeIsolationApprovalRequest('bewt-covext-app', 'app', runId), /full recorded Docker container ID/);
+  assert.throws(() => requestRouteIsolationApproval(request), error => error.code === 'BLOCKED_APPROVAL_REQUIRED' && error.authorizationRequest === request);
+  assert.throws(() => routeIsolationExecArgs(ids.app, undefined, runId), error => error.code === 'BLOCKED_APPROVAL_REQUIRED');
+  const diagnosticSource = readFileSync(new URL('../run-claroline-diagnostic.mjs', import.meta.url), 'utf8');
+  const g0Source = readFileSync(new URL('../run-claroline-g0.mjs', import.meta.url), 'utf8');
+  assert.ok(diagnosticSource.indexOf('requestRouteIsolationApproval(routeRequest)') < diagnosticSource.indexOf("dockerCall(['start', record.containers[0].id]"));
+  assert.ok(g0Source.indexOf('requestRouteIsolationApproval(routeRequests.app)') < g0Source.indexOf("dockerCall(['start', appRecord.id]"));
   assert.equal(assertNoDefaultRoutes('192.168.0.0/16 dev eth0 scope link\n'), true);
   assert.equal(assertNoDefaultRoutes(''), true);
   assert.throws(() => assertNoDefaultRoutes('default via 172.26.254.1 dev eth0'), /EGRESS_ROUTE_PRESENT/);
