@@ -1,0 +1,10 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/kanboard/tools/kanboard-g0.mjs": "978b93ae9145512c35520daa6fe07c385cc04e0aab3433fedee658e9e7897c48",
+    "experiments/kanboard/tools/test/kanboard-g0.test.mjs": "979682e142f7113a67cc0828694b1948be55ca46b50dd1b157c7dc577bda748d",
+    "docs/tasks/T03-KANBOARD-RERUN/evidence/offline-tests.txt": "a99064fcdc218c8128b7d8acdbc6677ef0f8f778962f781cbd95c050d36c979b",
+    "docs/tasks/T03-KANBOARD-RERUN/evidence/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  }
+}

@@ -102,6 +102,18 @@ test('cleanup refuses bind mounts and resources outside the run-owned volume inv
   assert.throws(() => assertOwnedNetwork(foreignNetwork, { id: resource.network.Id, name: resource.network.Name, labels: resource.labels }), /ownership labels/);
 });
 
+test('container inspection requires explicit and complete distinct volume mounts', () => {
+  const resource = dockerResources();
+  const noVolumes = { ...resource.recorded, volumeNames: [] };
+  assert.equal(assertOwnedContainer({ ...resource.container, Mounts: [] }, noVolumes), true);
+  for (const mounts of [undefined, null, {}]) {
+    assert.throws(() => assertOwnedContainer({ ...resource.container, Mounts: mounts }, noVolumes), /must include a Mounts array/);
+  }
+  const mount = resource.container.Mounts[0];
+  const twoVolumes = { ...resource.recorded, volumeNames: [mount.Name, `${mount.Name}-other`] };
+  assert.throws(() => assertOwnedContainer({ ...resource.container, Mounts: [mount, mount] }, twoVolumes), /volume inventory/);
+});
+
 test('Docker port publication requests a dynamic loopback binding and accepts only a valid assigned port', () => {
   assert.deepEqual(dynamicPublishArguments(), ['--publish', '127.0.0.1::80']);
   const resource = dockerResources();
