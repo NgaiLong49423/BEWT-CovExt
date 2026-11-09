@@ -50,11 +50,14 @@ export function assertOwnedContainer(inspect, expected) {
   if (inspect.Config?.Image !== expected.imageRef) throw new Error('Container image reference does not match the pinned image');
   if (!requiredLabelsMatch(inspect.Config?.Labels, expected.labels)) throw new Error('Container ownership labels do not match this T03-A run');
   if (expected.requireRunning && inspect.State?.Running !== true) throw new Error('Recorded Kanboard container is not running');
-  const mounts = inspect.Mounts ?? [];
+  if (!Array.isArray(inspect.Mounts)) throw new Error('Container inspection must include a Mounts array');
+  const mounts = inspect.Mounts;
   if (mounts.some((mount) => mount.Type !== 'volume')) throw new Error('Unexpected bind, tmpfs, or other non-volume mount blocks ownership cleanup');
   const expectedVolumes = new Set(expected.volumeNames ?? []);
   if (mounts.some((mount) => !expectedVolumes.has(mount.Name))) throw new Error('Container references a volume outside the recorded T03-A run inventory');
-  if (mounts.length !== expectedVolumes.size) throw new Error('Recorded volume inventory does not match the container mounts');
+  if (mounts.length !== expectedVolumes.size || new Set(mounts.map((mount) => mount.Name)).size !== expectedVolumes.size) {
+    throw new Error('Recorded volume inventory does not match the container mounts');
+  }
   return true;
 }
 
