@@ -1,0 +1,944 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "prestashop",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "prestashop-01-addnewproduct",
+      "scenarioTitles": [
+        "Adds a new product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-02-addemptyproduct",
+      "scenarioTitles": [
+        "Tries to add a product without name and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-03-editproduct",
+      "scenarioTitles": [
+        "Changes the name of a product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-04-addnewstate",
+      "scenarioTitles": [
+        "Adds a new state"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-05-addemptystate",
+      "scenarioTitles": [
+        "Tries to add an empty state and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-06-addnewproductwithtax",
+      "scenarioTitles": [
+        "Checks that taxes are computed correctly when adding a new product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-07-addnewproductwithtax10",
+      "scenarioTitles": [
+        "Checks that taxes are computed correctly when adding a new product using the italian reduced VAT rate (10%)"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-08-addnewfeatures",
+      "scenarioTitles": [
+        "Adds a new product feature"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-09-addemptyfeature",
+      "scenarioTitles": [
+        "Tries to add a feature without name and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-10-addnewattribute",
+      "scenarioTitles": [
+        "Adds a new product attribute"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-11-addemptyattribute",
+      "scenarioTitles": [
+        "Tries to add an empty product attribute and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-12-addnewaddress",
+      "scenarioTitles": [
+        "Adds a new customer address"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 20,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-13-addemptyaddress",
+      "scenarioTitles": [
+        "Tries to add an empty address for a customer and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-14-addnewcategory",
+      "scenarioTitles": [
+        "Adds a new category"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-15-addemptycategory",
+      "scenarioTitles": [
+        "Tries to add a category without name and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-16-editcategory",
+      "scenarioTitles": [
+        "Changes the name of a category"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-17-addnewmanufacturer",
+      "scenarioTitles": [
+        "Adds a new manufacturer"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-18-addemptymanufacturer",
+      "scenarioTitles": [
+        "Tries to add a manufacturer without name and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-19-editmanufacturer",
+      "scenarioTitles": [
+        "Changes a manufacturer's name"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-20-addnewsupplier",
+      "scenarioTitles": [
+        "Adds a new supplier"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-21-addemptysupplier",
+      "scenarioTitles": [
+        "Tries to add an empty supplier and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-22-removesupplier",
+      "scenarioTitles": [
+        "Deletes a supplier"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-23-registeremployee",
+      "scenarioTitles": [
+        "Adds a new employee"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-24-registeremployee-noname",
+      "scenarioTitles": [
+        "Tries to add a new employee without name and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-25-registeremployee-noemail",
+      "scenarioTitles": [
+        "Tries to add a new employee without email and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-26-registeremployee-nopassword",
+      "scenarioTitles": [
+        "Tries to add a new employee without password and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-27-registeremployee-nopermission",
+      "scenarioTitles": [
+        "Tries to add a new employee without permission profile and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-28-outofstockvalidity",
+      "scenarioTitles": [
+        "Tries to create an order for an out of stock product and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-29-addtag",
+      "scenarioTitles": [
+        "Checks the iso code for a language"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-30-addcurrency",
+      "scenarioTitles": [
+        "Adds a new currency"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-31-addemptycurrency",
+      "scenarioTitles": [
+        "Tries to add an empty currency and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-32-editaddress",
+      "scenarioTitles": [
+        "Edits a customer address"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-33-editemployee",
+      "scenarioTitles": [
+        "Edits an employee"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

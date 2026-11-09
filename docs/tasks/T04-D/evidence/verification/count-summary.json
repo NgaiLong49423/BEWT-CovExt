@@ -1,0 +1,118 @@
+{
+  "apps": {
+    "bludit": {
+      "features": 23,
+      "scenario": 0,
+      "tests": 23,
+      "mapped": 23,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "claroline": {
+      "features": 40,
+      "scenario": 40,
+      "tests": 40,
+      "mapped": 40,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "expresscart": {
+      "features": 31,
+      "scenario": 31,
+      "tests": 31,
+      "mapped": 31,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "joomla": {
+      "features": 35,
+      "scenario": 35,
+      "tests": 35,
+      "mapped": 35,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "mantisbt": {
+      "features": 38,
+      "scenario": 38,
+      "tests": 37,
+      "mapped": 37,
+      "featureOnly": 1,
+      "javaOnly": 0
+    },
+    "mediawiki": {
+      "features": 27,
+      "scenario": 27,
+      "tests": 27,
+      "mapped": 27,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "prestashop": {
+      "features": 33,
+      "scenario": 33,
+      "tests": 35,
+      "mapped": 33,
+      "featureOnly": 0,
+      "javaOnly": 2
+    }
+  },
+  "javaSource": {
+    "testMethods": 228,
+    "assertionCallLines": 316,
+    "byApp": {
+      "bludit": {
+        "methods": 23,
+        "assertionCallLines": 27
+      },
+      "claroline": {
+        "methods": 40,
+        "assertionCallLines": 73
+      },
+      "expresscart": {
+        "methods": 31,
+        "assertionCallLines": 43
+      },
+      "joomla": {
+        "methods": 35,
+        "assertionCallLines": 43
+      },
+      "mantisbt": {
+        "methods": 37,
+        "assertionCallLines": 51
+      },
+      "mediawiki": {
+        "methods": 27,
+        "assertionCallLines": 44
+      },
+      "prestashop": {
+        "methods": 35,
+        "assertionCallLines": 35
+      }
+    }
+  },
+  "totals": {
+    "features": 227,
+    "scenario": 204,
+    "tests": 228,
+    "mapped": 226,
+    "featureOnly": 1,
+    "javaOnly": 2
+  },
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "totalDenominators": {
+    "featureFiles": 227,
+    "explicitScenarioHeaders": 204,
+    "testSuiteBusinessEntriesMeasuredFromPinnedSource": 228,
+    "structuralMappings": 226,
+    "behaviorDenominator": "NOT_ESTABLISHED"
+  }
+}

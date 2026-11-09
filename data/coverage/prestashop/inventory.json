@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "prestashop",
+  "proposalBaseLabel": "1.6.1.23",
+  "proposalBusinessCaseCount": 35,
+  "source": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceType": "PINNED_BENCHMARK_TEST_SOURCE"
+  },
+  "observedCounts": {
+    "gherkinFeatureFiles": 33,
+    "explicitScenarioHeaders": 33,
+    "baselineTestSuiteBusinessEntries": 35,
+    "baselineJavaFilesUnderTestTree": 38,
+    "matchedFeatureToSuiteClass": 33,
+    "featureWithoutSuiteClass": 0,
+    "suiteClassWithoutFeature": 2,
+    "behaviorDenominator": "NOT_ESTABLISHED",
+    "baselineJavaTestMethodsFound": 35,
+    "javaAssertionCallLineCount": 35
+  },
+  "anomalies": {
+    "featureWithoutSuiteClass": [],
+    "suiteClassWithoutFeature": [
+      "AddEmptyTag",
+      "AddLanguageIsoCodeValidity"
+    ],
+    "notes": [
+      "Two baseline TestSuite business classes have no matching feature file."
+    ]
+  },
+  "G1": "NOT_VERIFIED",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "behaviorTagInterpretation": {
+    "status": "HEURISTIC_INFERENCE_ONLY",
+    "basis": "Keyword heuristic over pinned Gherkin step text; not verified app behavior.",
+    "usedAsRQ2Denominator": false
+  }
+}

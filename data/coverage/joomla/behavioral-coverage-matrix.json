@@ -1,0 +1,1017 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "joomla",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "joomla-01-adminlogintest",
+      "scenarioTitles": [
+        "Logins as admin"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 10,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 14,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-02-badlogin",
+      "scenarioTitles": [
+        "Tries to login with wrong credentials and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-03-emptylogin",
+      "scenarioTitles": [
+        "Tries to login with empty credentials and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-04-adduser",
+      "scenarioTitles": [
+        "Adds a new user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 20,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-05-loginasnewuser",
+      "scenarioTitles": [
+        "Logins as the newly added user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 10,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-06-badsiteadminlogin",
+      "scenarioTitles": [
+        "Tries to login to the site administration area with wrong credentials and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-07-emptysiteadminlogin",
+      "scenarioTitles": [
+        "Tries to login to the site administration area with wrong credentials and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 17,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-08-addnewarticle",
+      "scenarioTitles": [
+        "Adds a new article"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 16,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-09-addemptyarticle",
+      "scenarioTitles": [
+        "Tries to add an empty article and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 17,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-10-editarticle",
+      "scenarioTitles": [
+        "Edits an article"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-11-deletearticle",
+      "scenarioTitles": [
+        "Deletes an article"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-12-addcategory",
+      "scenarioTitles": [
+        "Adds a category"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-13-addemptycategory",
+      "scenarioTitles": [
+        "Adds a category"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-14-assigncategory",
+      "scenarioTitles": [
+        "Assigns a category to an article"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-15-changepassword",
+      "scenarioTitles": [
+        "Changes the password of a user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-16-changepassworddontmatch",
+      "scenarioTitles": [
+        "Tries to change the password of a user with two non matching passwords and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-17-addmenuitem",
+      "scenarioTitles": [
+        "Adds a menu item"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 23,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 30,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-18-addmenuitem-emptytitle",
+      "scenarioTitles": [
+        "Tries to add a menu item with empty title and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 22,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-19-addmenuitem-menunotselected",
+      "scenarioTitles": [
+        "Tries to add a menu item without selecting a menu and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 22,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-20-addmenuitem-emptymenutype",
+      "scenarioTitles": [
+        "Tries to add a menu item without selecting a menu item type and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-21-archivearticle",
+      "scenarioTitles": [
+        "Archives an article"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-22-seearchivedarticle",
+      "scenarioTitles": [
+        "Opens the previously created menu to see the archived articles"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-23-addgroup",
+      "scenarioTitles": [
+        "Adds a group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-24-addemptygroup",
+      "scenarioTitles": [
+        "Adds a group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-25-assignusertogroup",
+      "scenarioTitles": [
+        "Assigns a user to a group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-26-addfield",
+      "scenarioTitles": [
+        "Adds a field"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-27-addemptyfield",
+      "scenarioTitles": [
+        "Tries to add a field without specifying the title and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-28-addfieldgroup",
+      "scenarioTitles": [
+        "Adds a field group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-29-addemptyfieldgroup",
+      "scenarioTitles": [
+        "Tries to add an empty field group and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-30-assignfieldtogroup",
+      "scenarioTitles": [
+        "Assigns a group to a field"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-31-deleteusergroup",
+      "scenarioTitles": [
+        "Deletes a user group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 17,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-32-deletefield",
+      "scenarioTitles": [
+        "Deletes a field"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-33-deletefieldgroup",
+      "scenarioTitles": [
+        "Deletes a field group"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-34-deleteuser",
+      "scenarioTitles": [
+        "Deletes a user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 27,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "joomla-35-deletecategory",
+      "scenarioTitles": [
+        "Deletes a category"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 27,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

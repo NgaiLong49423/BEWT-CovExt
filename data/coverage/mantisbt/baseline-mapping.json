@@ -1,0 +1,1694 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "mappingMethod": "Feature filename stem matched to a class referenced in the pinned version's TestSuite.java; structural link only, semantic equivalence is not established.",
+  "matchedCount": 37,
+  "unmappedFeaturePaths": [
+    "mantisbt/gherkin/0_Login.feature"
+  ],
+  "unmappedSuiteClasses": [],
+  "entries": [
+    {
+      "caseId": "mantisbt-01-adduser",
+      "featurePath": "mantisbt/gherkin/01_AddUser.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Add a new user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "AddUser",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
+      "javaBlobSha": "94c181b0074183a2bc15a47043b3643ce1f3c5b6",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ff86f3e677ac6733463f781ceddf185848c9fbf9",
+      "featureBytes": 760,
+      "javaTestMethodRefs": [
+        {
+          "name": "addUser",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-02-addexistinguserfails",
+      "featurePath": "mantisbt/gherkin/02_AddExistingUserFails.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an already existing user and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddExistingUserFails",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
+      "javaBlobSha": "5daecfc3d0caa700ac471c85afc8d74fd4842585",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "534a4428df0533951adcae28e2e1cc1a4847bb7d",
+      "featureBytes": 611,
+      "javaTestMethodRefs": [
+        {
+          "name": "addExistingUserFails",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-03-addemptyuserfails",
+      "featurePath": "mantisbt/gherkin/03_AddEmptyUserFails.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty user and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "AddEmptyUserFails",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
+      "javaBlobSha": "3ce1b33f4f6a806cb1ac742715b3d7a2cd3cc0d1",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "52b757c44c8e1d2e81b082a28dd8346e324099ad",
+      "featureBytes": 363,
+      "javaTestMethodRefs": [
+        {
+          "name": "addEmptyUserFails",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-04-addproject",
+      "featurePath": "mantisbt/gherkin/04_AddProject.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 15,
+      "javaClass": "AddProject",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
+      "javaBlobSha": "90fae83d99e8f54153c3a91636d44db643f4986f",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "816cb044f62ef6be8f2ec033d9132552c3959278",
+      "featureBytes": 720,
+      "javaTestMethodRefs": [
+        {
+          "name": "addProject",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-05-addexistingprojectfails",
+      "featurePath": "mantisbt/gherkin/05_AddExistingProjectFails.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an existing project and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddExistingProjectFails",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
+      "javaBlobSha": "734ef3f6b0a71178433edd497c51275f6f33c85b",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c4a547b7e9f53880a0d5c69746e06db921c31c5b",
+      "featureBytes": 618,
+      "javaTestMethodRefs": [
+        {
+          "name": "addExistingProjectFails",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-06-addcategory",
+      "featurePath": "mantisbt/gherkin/06_AddCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a category"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "AddCategory",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
+      "javaBlobSha": "dc79339c71567e03862e5b22ffdbb2aa3eff38cd",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "1e89486c2627afe170c615919a57fcffd380c345",
+      "featureBytes": 433,
+      "javaTestMethodRefs": [
+        {
+          "name": "addCategory",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-07-addexistingcategoryfails",
+      "featurePath": "mantisbt/gherkin/07_AddExistingCategoryFails.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an existing category and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "AddExistingCategoryFails",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
+      "javaBlobSha": "10a8dd1d3a494ce8781d3d8c8914f5ea8e183445",
+      "assertionLineRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "7b0379785b901ccb859b5dee8e0894cd9ce72fb7",
+      "featureBytes": 431,
+      "javaTestMethodRefs": [
+        {
+          "name": "addExistingCategoryFails",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-08-addissue",
+      "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new issue"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddIssue",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+      "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+      "assertionLineRefs": [
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+      "featureBytes": 734,
+      "javaTestMethodRefs": [
+        {
+          "name": "addIssue",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-09-assignissue",
+      "featurePath": "mantisbt/gherkin/09_AssignIssue.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Assigns an issue to the administrator"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "AssignIssue",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
+      "javaBlobSha": "7eece57a283b126a7ef74cee36212d22d708a88a",
+      "assertionLineRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "aa7817c1964851f045d3836642cd9db089f91548",
+      "featureBytes": 400,
+      "javaTestMethodRefs": [
+        {
+          "name": "assignIssue",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-0-login",
+      "featurePath": "mantisbt/gherkin/0_Login.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Logs in as the administrator"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": null,
+      "javaPath": null,
+      "javaBlobSha": null,
+      "assertionLineRefs": [],
+      "mappingStatus": "UNMAPPED_FEATURE",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "56ea7e9f0bb94ffaef5ffa02046e250cd02270d5",
+      "featureBytes": 298,
+      "javaTestMethodRefs": [],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-10-updateissuepriority",
+      "featurePath": "mantisbt/gherkin/10_UpdateIssuePriority.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the priorrity of an issue"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssuePriority",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
+      "javaBlobSha": "1b9db8ae163c0dac32cee067ab3a689e89fd998a",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f485b38a9c016a5e4fde26a39b1ad5cf22c29c2c",
+      "featureBytes": 365,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssuePriority",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-11-updateissueseverity",
+      "featurePath": "mantisbt/gherkin/11_UpdateIssueSeverity.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the severity of an issue"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueSeverity",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
+      "javaBlobSha": "33d5bb88e2ace1e307d746bab3fb2477a13de40f",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "705f4b882454049c2672eb0cf0d987fc63981204",
+      "featureBytes": 368,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueSeverity",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-12-updateissuestatusacknowledged",
+      "featurePath": "mantisbt/gherkin/12_UpdateIssueStatusAcknowledged.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"acknowledged\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusAcknowledged",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+      "javaBlobSha": "e8bc21660ceb9f655075d5151cdf7c3c5c49d328",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6c4551d3028f5f3a15abc3da7023bf84c62ef0c6",
+      "featureBytes": 394,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusAcknowledged",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-13-updateissuestatusassigned",
+      "featurePath": "mantisbt/gherkin/13_UpdateIssueStatusAssigned.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"assigned\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusAssigned",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
+      "javaBlobSha": "35d288c31a24ba1c6d1a6a302f14bb61d6e67a2e",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b5539f84a01742fd0164d8db1d6087898c508041",
+      "featureBytes": 382,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusAssigned",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-14-updateissuestatusconfirmed",
+      "featurePath": "mantisbt/gherkin/14_UpdateIssueStatusConfirmed.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"confirmed\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusConfirmed",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
+      "javaBlobSha": "10e982eeb12ddd1efbcfdf2e17142e94d9fffacd",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "a0e2ad2503c0b60713a7dbe998f24f5ec4fafb6e",
+      "featureBytes": 385,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusConfirmed",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-15-updateissuestatusfeedback",
+      "featurePath": "mantisbt/gherkin/15_UpdateIssueStatusFeedback.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"feedback\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusFeedback",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
+      "javaBlobSha": "689cd800a68ef387a29c937d0751c42dd7363d91",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "eb12173d6c32b39cb4a6e11885d9a6947c29bc99",
+      "featureBytes": 382,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusFeedback",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-16-updateissuestatusnew",
+      "featurePath": "mantisbt/gherkin/16_UpdateIssueStatusNew.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"new\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusNew",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
+      "javaBlobSha": "4dd41a52c4d2516b1026f508f0086e1484bcbced",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d069aa11de5d7362ea54507aa6ad7b5fb64896d8",
+      "featureBytes": 367,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusNew",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-17-updateissuestatusresolved",
+      "featurePath": "mantisbt/gherkin/17_UpdateIssueStatusResolved.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of an issue to \"resolved\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "UpdateIssueStatusResolved",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
+      "javaBlobSha": "44e0427584266bd1de1e5784359c78663b1bacd7",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "2cc948053b533868000e59902feb26e9d2654768",
+      "featureBytes": 382,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueStatusResolved",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-18-updateissuesummary",
+      "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the summary of an issue"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "UpdateIssueSummary",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+      "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+      "featureBytes": 407,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateIssueSummary",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-19-updateprojectstatus",
+      "featurePath": "mantisbt/gherkin/19_UpdateProjectStatus.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the status of a project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "UpdateProjectStatus",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
+      "javaBlobSha": "bf506a62b66d967845bf635b56d5590fdf256677",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c37938f1dd2484b9fa235ff510b863444b71c6de",
+      "featureBytes": 383,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateProjectStatus",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-20-updateprojectdescription",
+      "featurePath": "mantisbt/gherkin/20_UpdateProjectDescription.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the description of a project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "UpdateProjectDescription",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
+      "javaBlobSha": "5c91e393b0465d1bd85d2d806391500b3f0ba5c1",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3a31acf4e132fc8a86a13d6bd95969e7aeea1865",
+      "featureBytes": 448,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateProjectDescription",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-21-updateprojectviewstatus",
+      "featurePath": "mantisbt/gherkin/21_UpdateProjectViewStatus.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the view status (visibility) of a project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "UpdateProjectViewStatus",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
+      "javaBlobSha": "751318d96039f7c83c833e17c6eb508463626fc9",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "dcc1f66ff73df57250ed3ba24a2881f3ecce3f03",
+      "featureBytes": 413,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateProjectViewStatus",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-22-updatecategory",
+      "featurePath": "mantisbt/gherkin/22_UpdateCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes a category's name"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "UpdateCategory",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
+      "javaBlobSha": "f1c773ba851b6a56d3f913669ede1179a2f8f733",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "eefb12e84c2ddd6323c34176eb3f6b1374d24cb3",
+      "featureBytes": 504,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateCategory",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-23-updatecategoryempty",
+      "featurePath": "mantisbt/gherkin/23_UpdateCategoryEmpty.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to change a category's name with an empty string and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "UpdateCategoryEmpty",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
+      "javaBlobSha": "74f5f75166386a0b419a299232b59af484816a31",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6a98de7191af5b3432f994c552b02d1000fae341",
+      "featureBytes": 483,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateCategoryEmpty",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-24-updateuser",
+      "featurePath": "mantisbt/gherkin/24_UpdateUser.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes a user's real name"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "UpdateUser",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
+      "javaBlobSha": "7b74a3fa60877b811369a8ef5fbe9761c473908d",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6a38a681a31f60e473437f3e11885f46cf71258f",
+      "featureBytes": 433,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateUser",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-25-updateuserempty",
+      "featurePath": "mantisbt/gherkin/25_UpdateUserEmpty.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to change a username with an empty string and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "UpdateUserEmpty",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
+      "javaBlobSha": "49f98123a079617d9f686e6f4976b509a60e5ad5",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "afbe5b885098815526d6e8f9e2fdce00635b66a6",
+      "featureBytes": 476,
+      "javaTestMethodRefs": [
+        {
+          "name": "updateUserEmpty",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-26-deleteissue",
+      "featurePath": "mantisbt/gherkin/26_DeleteIssue.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes an issue"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "DeleteIssue",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
+      "javaBlobSha": "7b5310b9b65462b4e39ebbce6091e2157fdffc13",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "0932397cfe110f6a311eb8a25c8cc061c7c195fa",
+      "featureBytes": 389,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteIssue",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-27-deletecategory",
+      "featurePath": "mantisbt/gherkin/27_DeleteCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a category"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "DeleteCategory",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
+      "javaBlobSha": "188fff16a369c3773a1a473356f79ffdc6734940",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "43bb10a3a55dbc8540451c88880296d0014808b2",
+      "featureBytes": 396,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteCategory",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-28-deleteproject",
+      "featurePath": "mantisbt/gherkin/28_DeleteProject.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "DeleteProject",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
+      "javaBlobSha": "7db612dd2d15074997c0aee1b0da7e22df0aeba1",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f8c661f796f2a5e90a4956992e3f1bc5a193b2bb",
+      "featureBytes": 341,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteProject",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-29-deleteuser",
+      "featurePath": "mantisbt/gherkin/29_DeleteUser.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "DeleteUser",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
+      "javaBlobSha": "265907b2586afc945d0ebc1c49a9c26673914763",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b9867d1275fcb8f1ceefb9e4139e28b43727c2ae",
+      "featureBytes": 357,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteUser",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-30-badlogin",
+      "featurePath": "mantisbt/gherkin/30_BadLogin.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to login with invalid credentials and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": "BadLogin",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
+      "javaBlobSha": "1bc9545a1c54835bab609330e4c673f891214bd6",
+      "assertionLineRefs": [
+        {
+          "line": 16,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "60c642d362b4aaca168e671b36cf9b230fa9e8b1",
+      "featureBytes": 344,
+      "javaTestMethodRefs": [
+        {
+          "name": "badLogin",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-31-addmultipleusers",
+      "featurePath": "mantisbt/gherkin/31_AddMultipleUsers.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds three new users"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 26,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 40,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 40,
+      "javaClass": "AddMultipleUsers",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
+      "javaBlobSha": "fb63df322dfc74da49530a8eccaad28d1e9552f0",
+      "assertionLineRefs": [
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 35,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 36,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "238eea4728f13392c04844e45c954d23fc9941ea",
+      "featureBytes": 2130,
+      "javaTestMethodRefs": [
+        {
+          "name": "addMultipleUsers",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-32-deletemultipleusers",
+      "featurePath": "mantisbt/gherkin/32_DeleteMultipleUsers.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes three users"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 23,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 20,
+      "javaClass": "DeleteMultipleUsers",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
+      "javaBlobSha": "99d05a6a41272091fe6e35813e9f401ea9bbee84",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "2c8ad6552e97d7e876c5acc45f942d0433d26160",
+      "featureBytes": 821,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteMultipleUsers",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-33-addmultiplesubprojects",
+      "featurePath": "mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new project and then adds two subprojects"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 26,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 24,
+      "javaClass": "AddMultipleSubprojects",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+      "javaBlobSha": "8796c9628a7b55df042b4e20822cd37a8e015a31",
+      "assertionLineRefs": [
+        {
+          "line": 35,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 43,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "2427b22ae2dcc5a8a7e1e1443ab392c9e5b1c221",
+      "featureBytes": 1150,
+      "javaTestMethodRefs": [
+        {
+          "name": "addMultipleSubprojects",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-34-unlinkmultiplesubprojects",
+      "featurePath": "mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Unlinks two subprojects from their parent project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 13,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "UnlinkMultipleSubprojects",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+      "javaBlobSha": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertFalse"
+        },
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "0d04e867f6cd8958ad598c2728f7b960263b7e8a",
+      "featureBytes": 578,
+      "javaTestMethodRefs": [
+        {
+          "name": "unlinkMultipleSubprojects",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-35-linkmultiplesubprojects",
+      "featurePath": "mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Links two subprojects to another project"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "LinkMultipleSubprojects",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+      "javaBlobSha": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 29,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "233ce344bb917c463aab1fe64e99422b5489d475",
+      "featureBytes": 776,
+      "javaTestMethodRefs": [
+        {
+          "name": "linkMultipleSubprojects",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-36-deletemultipleprojects",
+      "featurePath": "mantisbt/gherkin/36_DeleteMultipleProjects.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes three projects"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 14,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 20,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 17,
+      "javaClass": "DeleteMultipleProjects",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
+      "javaBlobSha": "af6d7f604d521e2e50b610d09df54f33252c2d62",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "fb8924b0ea3be8a7cea3f2f8fcb4125d0ecc9470",
+      "featureBytes": 781,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteMultipleProjects",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "mantisbt-37-logout",
+      "featurePath": "mantisbt/gherkin/37_Logout.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Add a new user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 4,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 3,
+      "javaClass": "Logout",
+      "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java",
+      "javaBlobSha": "7b621389f3e3e0f83a489943852762cafd9b046a",
+      "assertionLineRefs": [
+        {
+          "line": 16,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b270f81123d4f03be0b4f0136de4f982155bc392",
+      "featureBytes": 171,
+      "javaTestMethodRefs": [
+        {
+          "name": "logout",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

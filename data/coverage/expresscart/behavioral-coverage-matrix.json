@@ -1,0 +1,956 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "expresscart",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "expresscart-01-addusertest",
+      "scenarioTitles": [
+        "Adds a user to the system"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 16,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-02-addemptyusertest",
+      "scenarioTitles": [
+        "Tries to add a empty user to the system and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        },
+        {
+          "line": 11,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-03-loginusertest",
+      "scenarioTitles": [
+        "Logins as the newly added user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 9,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-04-addexistinguserfailstest",
+      "scenarioTitles": [
+        "Tries to add a user with the same data of an already existing user and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-05-addproducttest",
+      "scenarioTitles": [
+        "Adds a product to the system"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-06-addemptyproducttest",
+      "scenarioTitles": [
+        "Tries to add an empty product to the system and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-07-addnewprodtocarttest",
+      "scenarioTitles": [
+        "Adds a product to the cart"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-08-searchproducttest",
+      "scenarioTitles": [
+        "Searches a product in the store"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-09-addreviewtest",
+      "scenarioTitles": [
+        "Adds a review to a product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 35,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-10-addemptyreviewtest",
+      "scenarioTitles": [
+        "Tries to add an empty review to a product and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-11-seereviewtest",
+      "scenarioTitles": [
+        "Checks the review to a product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-12-adddiscountcodeamounttest",
+      "scenarioTitles": [
+        "Adds a discount code (by amount) to the system"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-13-adddiscountcodepercenttest",
+      "scenarioTitles": [
+        "Adds a discount code (by percent) to the system"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-14-addemptydiscountcodetest",
+      "scenarioTitles": [
+        "Tries to add an empty discount code and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "COUNT_OR_LIST_STATE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 27,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-15-usediscountcodeamounttest",
+      "scenarioTitles": [
+        "Buys a product using a discound code (by amount)"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 33,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-16-usediscountcodepercenttest",
+      "scenarioTitles": [
+        "Buys a product using a discound code (by percent)"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 33,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-17-addproducttagtest",
+      "scenarioTitles": [
+        "Adds a tag to a product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-18-searchproducttagtest",
+      "scenarioTitles": [
+        "Searches a product using its tag"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-19-addmenutest",
+      "scenarioTitles": [
+        "Adds a menu"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-20-openmenutest",
+      "scenarioTitles": [
+        "Searches a product using its tag"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-21-deletediscountcodeamounttest",
+      "scenarioTitles": [
+        "Deletes a discount code (by amount)"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-22-deletediscountcodepercenttest",
+      "scenarioTitles": [
+        "Deletes a discount code (by percent)"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-23-deleteddiscountcodefailsamounttest",
+      "scenarioTitles": [
+        "Tries to buy a product using a deleted discound code (by amount) and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-24-deleteddiscountcodefailspercenttest",
+      "scenarioTitles": [
+        "Tries to buy a product using a deleted discound code (by percent) and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-25-deleteusertest",
+      "scenarioTitles": [
+        "Deletes a user"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-26-logindeleteduserfailstest",
+      "scenarioTitles": [
+        "Tries to login as a deleted user and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-27-deletereviewtest",
+      "scenarioTitles": [
+        "Deletes a review"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-28-deleteproducttagtest",
+      "scenarioTitles": [
+        "Deletes a product tag"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-29-searchdeletedproducttagfailstest",
+      "scenarioTitles": [
+        "Searches a product using a deleted tag and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-30-deleteproducttest",
+      "scenarioTitles": [
+        "Deletes a product"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-31-searchdeletedproductfailstest",
+      "scenarioTitles": [
+        "Searches for a delete dproduct and fails"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

@@ -1,0 +1,2051 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "claroline",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "mappingMethod": "Feature filename stem matched to a class referenced in the pinned version's TestSuite.java; structural link only, semantic equivalence is not established.",
+  "matchedCount": 40,
+  "unmappedFeaturePaths": [],
+  "unmappedSuiteClasses": [],
+  "entries": [
+    {
+      "caseId": "claroline-01-addusertest",
+      "featurePath": "claroline/gherkin/01_AddUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a user to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 19,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_AddUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddUserTest.java",
+      "javaBlobSha": "11dedfa2d1c33a1e93cd16bcc2c9f64aa6aff8a5",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "7a78f664016674e5e126af320d4581f7f04905fc",
+      "featureBytes": 876,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-02-searchusertest",
+      "featurePath": "claroline/gherkin/02_SearchUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Search a user in the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_SearchUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchUserTest.java",
+      "javaBlobSha": "c58a7e0e4fd1918410a5c7d132da2af590cb26e5",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "abeb45ad7c4b781bc7658e3b3e6795445bd46e10",
+      "featureBytes": 729,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-03-loginusertest",
+      "featurePath": "claroline/gherkin/03_LoginUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Log in as user \"user001\""
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 12,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "Claroline_LoginUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_LoginUserTest.java",
+      "javaBlobSha": "8ee244d2ded4f82e175dae792d2f39eb38f3ad54",
+      "assertionLineRefs": [
+        {
+          "line": 16,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "7ce9ccd08954b13a2fc71fd3583c7f9e4a77ed92",
+      "featureBytes": 598,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-04-addcoursetest",
+      "featurePath": "claroline/gherkin/04_AddCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 17,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 20,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 19,
+      "javaClass": "Claroline_AddCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
+      "javaBlobSha": "09072853d6c3da7f76a0e79529d51da16fc58ca8",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "11f260aeb230d37f0c75cd9984f8ce9ca4e786a7",
+      "featureBytes": 933,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-05-searchcoursetest",
+      "featurePath": "claroline/gherkin/05_SearchCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_SearchCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchCourseTest.java",
+      "javaBlobSha": "931a98ddce27f7edf2f1f6618426471429a404b7",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c0b8ab45c9104bd2463d5be9b4b1120426f69f5f",
+      "featureBytes": 645,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-06-enrolusertest",
+      "featurePath": "claroline/gherkin/06_EnrolUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Enrols a user to a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_EnrolUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolUserTest.java",
+      "javaBlobSha": "bda790d256697f98a5c9070444dbc844d0c59b68",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "98de0b64e45431a38dab4a29f9fff72f6e996846",
+      "featureBytes": 630,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-07-addcourseeventtest",
+      "featurePath": "claroline/gherkin/07_AddCourseEventTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds an event to a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 18,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_AddCourseEventTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
+      "javaBlobSha": "045fbc815075f344cfaf227f017cb7f0aff56091",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "dc08c8b2f56cd6280a3b472d49d3df20ec7976cb",
+      "featureBytes": 758,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-08-addcourseexercisetest",
+      "featurePath": "claroline/gherkin/08_AddCourseExerciseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds an exercise to a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_AddCourseExerciseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
+      "javaBlobSha": "b41b7e337a98b10ff5c67cb681099bc4e1f54abd",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "19af1b20249dbbf67496a547519b57ef828cf35f",
+      "featureBytes": 575,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-09-makecourseexercisevisibletest",
+      "featurePath": "claroline/gherkin/09_MakeCourseExerciseVisibleTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Makes an exercise visible"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_MakeCourseExerciseVisibleTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_MakeCourseExerciseVisibleTest.java",
+      "javaBlobSha": "285250652dd3651943b2a914daa1f1341d5d8977",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "7cf464cae560af166eb88e9ec68775eadc1f6a53",
+      "featureBytes": 778,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-10-addcourseexercisequestionstest",
+      "featurePath": "claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds questions to an exercise"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 43,
+          "kind": "VISIBLE_CONTENT"
+        },
+        {
+          "line": 48,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 46,
+      "javaClass": "Claroline_AddCourseExerciseQuestionsTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
+      "javaBlobSha": "2ab6ab38542104b006ecbcbc54164038b6191374",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 35,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "14c874d55a53e3a7b04d3544f07ed8994352fbba",
+      "featureBytes": 2322,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-11-docourseexercisequestionstest",
+      "featurePath": "claroline/gherkin/11_DoCourseExerciseQuestionsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Does an exercise in the role of a user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 16,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "Claroline_DoCourseExerciseQuestionsTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
+      "javaBlobSha": "5440af24a8b07245dbc0316742ebc83e9008c30c",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ada4880fb8868a6debebb5852809e0a2de4dd3aa",
+      "featureBytes": 732,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-12-viewprofilestatisticsusertest",
+      "featurePath": "claroline/gherkin/12_ViewProfileStatisticsUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Views the statistics for a user in a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_ViewProfileStatisticsUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
+      "javaBlobSha": "d6f287a8a7e27878f6201bea9e8c6113400f67e7",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "7077ecdc18c030762381ed0e397b8143a7822e91",
+      "featureBytes": 668,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-13-addmultipleuserstest",
+      "featurePath": "claroline/gherkin/13_AddMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a user to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 33,
+          "kind": "VISIBLE_CONTENT"
+        },
+        {
+          "line": 38,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 36,
+      "javaClass": "Claroline_AddMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddMultipleUsersTest.java",
+      "javaBlobSha": "ba37e6f81b186635e024188d1dcd8d7243187d17",
+      "assertionLineRefs": [
+        {
+          "line": 28,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 29,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 30,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "5ed085141a9d3159a9222e3b3f6c264dac6c3d68",
+      "featureBytes": 1712,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-14-searchmultipleuserstest",
+      "featurePath": "claroline/gherkin/14_SearchMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches multiple users in the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "Claroline_SearchMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchMultipleUsersTest.java",
+      "javaBlobSha": "d3410d0bf80458d6fd3a21ca8c229857bff8ceae",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3ec08f0c35510bd4665aef5502bd09c139f0d104",
+      "featureBytes": 814,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-15-searchstudenttest",
+      "featurePath": "claroline/gherkin/15_SearchStudentTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a student in the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_SearchStudentTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchStudentTest.java",
+      "javaBlobSha": "e3a762db272e94f78c711fde559c686b28c77ffb",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "884e81775495d81b1a12876d687f7efa6fa0b6d0",
+      "featureBytes": 639,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-16-searchteachertest",
+      "featurePath": "claroline/gherkin/16_SearchTeacherTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a teacher in the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_SearchTeacherTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchTeacherTest.java",
+      "javaBlobSha": "6e3f037256488fca3c1130f88525c1b32ccef222",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "4b6718d319c7a296a50e2472db58a914fe9e6273",
+      "featureBytes": 646,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-17-searchadmintest",
+      "featurePath": "claroline/gherkin/17_SearchAdminTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches an admin in the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_SearchAdminTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAdminTest.java",
+      "javaBlobSha": "d8e94dd4134a9388ecf98b5406fc401fcc812c66",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "1f70626eee59ec663408d89a64fffe0aa7b8c346",
+      "featureBytes": 653,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-18-enrolmultipleuserstest",
+      "featurePath": "claroline/gherkin/18_EnrolMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Enrols a user to a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 39,
+          "kind": "VISIBLE_CONTENT"
+        },
+        {
+          "line": 44,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 38,
+      "javaClass": "Claroline_EnrolMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolMultipleUsersTest.java",
+      "javaBlobSha": "4e0832f02e52001c168a02b5c04a678f5cf65653",
+      "assertionLineRefs": [
+        {
+          "line": 35,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 36,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 37,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c9251b77183dd509a1825186527b4036ff96450c",
+      "featureBytes": 1931,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-19-docourseexercisequestionsmultipleuserstest",
+      "featurePath": "claroline/gherkin/19_DoCourseExerciseQuestionsMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Multiple users do an exercise"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 45,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "stepCount": 49,
+      "javaClass": "Claroline_DoCourseExerciseQuestionsMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsMultipleUsersTest.java",
+      "javaBlobSha": "43bfe5f54b59d83dcbbb201a70d5e6274dbef2f6",
+      "assertionLineRefs": [
+        {
+          "line": 38,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 39,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 40,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 41,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 42,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 43,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "5e22eef4f2e936c7fb00ec38cc7de91ba96494c5",
+      "featureBytes": 2617,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-20-removeenrolmultipleuserstest",
+      "featurePath": "claroline/gherkin/20_RemoveEnrolMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Unsubscribe multiple users from a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 19,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 17,
+      "javaClass": "Claroline_RemoveEnrolMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolMultipleUsersTest.java",
+      "javaBlobSha": "e1d0bc109ec717b10d3419d33fa5edc8d7862b0b",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "0b63798d486721ecef7c77a6a302490df24aded8",
+      "featureBytes": 895,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-21-removemultipleuserstest",
+      "featurePath": "claroline/gherkin/21_RemoveMultipleUsersTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Remove multiple users from the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 21,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 18,
+      "javaClass": "Claroline_RemoveMultipleUsersTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveMultipleUsersTest.java",
+      "javaBlobSha": "9b2eb1b2b863b1f2896ff9cb8e05b76fd69b833c",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "1c46ffba01a8944108ad6e97f60666849c1513e0",
+      "featureBytes": 967,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-22-addemptyusertest",
+      "featurePath": "claroline/gherkin/22_AddEmptyUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a user without filling all the required fields and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 12,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "Claroline_AddEmptyUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyUserTest.java",
+      "javaBlobSha": "3704e686af9ffceaa81cbdbe7f2ff40351276e88",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f384704064e08507ea6dc0765b2bd326d9537f95",
+      "featureBytes": 532,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-23-addwrongemailusertest",
+      "featurePath": "claroline/gherkin/23_AddWrongEmailUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a user with a badly formatted e-mail and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 19,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 17,
+      "javaClass": "Claroline_AddWrongEmailUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongEmailUserTest.java",
+      "javaBlobSha": "6e02a58e03412eba7f5cc9d8a126a7f25973c87b",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "8f4c3b317ed365380c181c7c8e25f4b2faf7ce84",
+      "featureBytes": 855,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-24-addtwiceusertest",
+      "featurePath": "claroline/gherkin/24_AddTwiceUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a user with the same data of an already existing user and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 18,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_AddTwiceUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddTwiceUserTest.java",
+      "javaBlobSha": "4f321f29bcb01929f67013ce3933b5103a4aa24f",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "748b7560eb3613a2084fc72a95501cabf50f7092",
+      "featureBytes": 858,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-25-addwrongpasswordusertest",
+      "featurePath": "claroline/gherkin/25_AddWrongPasswordUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a user with non matching passwords and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 19,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 17,
+      "javaClass": "Claroline_AddWrongPasswordUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongPasswordUserTest.java",
+      "javaBlobSha": "29d70ed1f6f5d8967333b825c6d155e4edd468d7",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3e2be806f4786a15dea82f5fb4cb4453cd77cf6c",
+      "featureBytes": 864,
+      "javaTestMethodRefs": [
+        {
+          "name": "runTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-26-addemptycoursetest",
+      "featurePath": "claroline/gherkin/26_AddEmptyCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a course without filling the required fields and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_AddEmptyCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyCourseTest.java",
+      "javaBlobSha": "4a842fbfb98957a1f43db43d4c97ce137c2b99df",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "dfd2d9afee337b72f9ae669e05d5cbaee4cac83a",
+      "featureBytes": 564,
+      "javaTestMethodRefs": [
+        {
+          "name": "addEmptyCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-27-adddeniedcoursetest",
+      "featurePath": "claroline/gherkin/27_AddDeniedCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a denied (closed registrations) course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_AddDeniedCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
+      "javaBlobSha": "f05796e9fbf8935acde4bf18eeb0d559dc7c3205",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "238565e4666ea9cf6decdb41a57f5c66efcc186a",
+      "featureBytes": 786,
+      "javaTestMethodRefs": [
+        {
+          "name": "addDeniedCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-28-enroldeniedcoursetest",
+      "featurePath": "claroline/gherkin/28_EnrolDeniedCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to enrol to a closed registration course and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_EnrolDeniedCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
+      "javaBlobSha": "efcc97769cb2bcdad1a6781644544e5b244e9a95",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "5dbb5bdf90f97d23834e1cc318815bf253c099a0",
+      "featureBytes": 698,
+      "javaTestMethodRefs": [
+        {
+          "name": "enrolDeniedCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-29-addpasswordcoursetest",
+      "featurePath": "claroline/gherkin/29_AddPasswordCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a password protected course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 19,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 18,
+      "javaClass": "Claroline_AddPasswordCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddPasswordCourseTest.java",
+      "javaBlobSha": "ad839b2d8f4a82c84beb74196f4dcf446110ba2f",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ab6c8a53aa7177563fecdf0f81e0d7728fa48df0",
+      "featureBytes": 956,
+      "javaTestMethodRefs": [
+        {
+          "name": "addPasswordCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
+      "featurePath": "claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "The user tries to enrol to a password protected course using a wrong password and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "Claroline_EnrolPasswordCourseWrongPasswordUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
+      "javaBlobSha": "560fcd4fb112b01a9626e9b64015d335ee292d00",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "5cbfb4937c0b6d40447af0a52f1fc3a6d4baf44b",
+      "featureBytes": 770,
+      "javaTestMethodRefs": [
+        {
+          "name": "enrolPasswordCourseWrongPassword",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-31-enrolpasswordcoursegoodpasswordusertest",
+      "featurePath": "claroline/gherkin/31_EnrolPasswordCourseGoodPasswordUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "The user enrols to a password protected course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "Claroline_EnrolPasswordCourseGoodPasswordUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseGoodPasswordUserTest.java",
+      "javaBlobSha": "20cb72dce4ad2969c49078ab8dcde84f016795bd",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "341b7e28cbe23d186b191d1d75f42d953de1a471",
+      "featureBytes": 738,
+      "javaTestMethodRefs": [
+        {
+          "name": "enrolPasswordCourseGoodPassword",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-32-searchallowedcoursetest",
+      "featurePath": "claroline/gherkin/32_SearchAllowedCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a course using the advanced search function"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_SearchAllowedCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAllowedCourseTest.java",
+      "javaBlobSha": "71b8cc5229b04573f3f63d114e8421644ed34703",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d21f3963cb4a8b93f84edd9842cf8a4fa5e96089",
+      "featureBytes": 691,
+      "javaTestMethodRefs": [
+        {
+          "name": "searchAllowedCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-33-searchandremovepasswordcoursetest",
+      "featurePath": "claroline/gherkin/33_SearchAndRemovePasswordCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a password protected course using the advanced search function and then removes it"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_SearchAndRemovePasswordCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemovePasswordCourseTest.java",
+      "javaBlobSha": "aeaed60899868cea7d72cdc64522e347ab517d9b",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d73f43121cc72df80f7399e4ddbe67222df362d3",
+      "featureBytes": 967,
+      "javaTestMethodRefs": [
+        {
+          "name": "searchAndRemovePasswordCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-34-searchandremovedeniedcoursetest",
+      "featurePath": "claroline/gherkin/34_SearchAndRemoveDeniedCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a denied course using the advanced search function and then removes it"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 17,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "Claroline_SearchAndRemoveDeniedCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemoveDeniedCourseTest.java",
+      "javaBlobSha": "4e5662a6dc0dd2d10724721e0651f1b1eb8568cf",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f14edf851af58c73f3a9b8e86d9ebae6f07e981c",
+      "featureBytes": 935,
+      "javaTestMethodRefs": [
+        {
+          "name": "searchAndRemoveDeniedCourse",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-35-removecourseexercisequestionstest",
+      "featurePath": "claroline/gherkin/35_RemoveCourseExerciseQuestionsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes questions to an exercise"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 20,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 18,
+      "javaClass": "Claroline_RemoveCourseExerciseQuestionsTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseQuestionsTest.java",
+      "javaBlobSha": "7ce018ee1b23f59c4cff0713cab7db9cfaa8f219",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "da24c59a68ddbc9d6f47ef6e75ec91079509cdf0",
+      "featureBytes": 971,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeCourseExerciseQuestions",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-36-removecourseeventtest",
+      "featurePath": "claroline/gherkin/36_RemoveCourseEventTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes an event from a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_RemoveCourseEventTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseEventTest.java",
+      "javaBlobSha": "c0280329aabaaa632f5c0a4bda8992de2705eeb7",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "31209d0667f773b718908ab2d5219c333cb8f58b",
+      "featureBytes": 553,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeCourseEvent",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-37-removecourseexercisetest",
+      "featurePath": "claroline/gherkin/37_RemoveCourseExerciseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes an exercise from a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_RemoveCourseExerciseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseTest.java",
+      "javaBlobSha": "70dcd56c1228a01a353e558c662302d35548d712",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d73b8a0139f895d8d81f22bed954ef9d65aefc43",
+      "featureBytes": 581,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeCourseExerciseTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-38-removeenrolusertest",
+      "featurePath": "claroline/gherkin/38_RemoveEnrolUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes enrolment of a user to a course"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "Claroline_RemoveEnrolUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolUserTest.java",
+      "javaBlobSha": "dbe79017e407f713911e146e5e7668a626590fe7",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "8571c076249b533490a1263242f6054d88dcd9a7",
+      "featureBytes": 618,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeEnrolUser",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-39-removeusertest",
+      "featurePath": "claroline/gherkin/39_RemoveUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes a user from the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "Claroline_RemoveUserTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveUserTest.java",
+      "javaBlobSha": "7f5e387912425f4aa38f218a6d961b48228ad8f7",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "928c549ba3401c681c915071abca1748452c23d3",
+      "featureBytes": 624,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeUserTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "claroline-40-removecoursetest",
+      "featurePath": "claroline/gherkin/40_RemoveCourseTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Removes a course from the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "Claroline_RemoveCourseTest",
+      "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseTest.java",
+      "javaBlobSha": "11f3486a405b11d0c64cb6109be2108ffea1b398",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "47a475bb443f9c2d8444d0d871131cb94de180c3",
+      "featureBytes": 615,
+      "javaTestMethodRefs": [
+        {
+          "name": "removeCourseTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

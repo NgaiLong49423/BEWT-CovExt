@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "prestashop",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "NOT_EVALUATED",
+  "candidateCount": 0,
+  "candidates": [],
+  "reason": "Pinned BEWT test specifications do not establish all application behavior or prove a missing test is a valid application feature. Exact application source/release evidence and human novelty/oracle review were not available; no candidate was inferred from titles or absence alone.",
+  "nextEvidence": [
+    "Pinned application source or release documentation",
+    "Behavior and permission boundary source references",
+    "Fixture/reset evidence",
+    "Human novelty/oracle decision"
+  ]
+}

@@ -1,0 +1,919 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "mappingMethod": "Feature filename stem matched to a class referenced in the pinned version's TestSuite.java; structural link only, semantic equivalence is not established.",
+  "matchedCount": 23,
+  "unmappedFeaturePaths": [],
+  "unmappedSuiteClasses": [],
+  "entries": [
+    {
+      "caseId": "bludit-01-addcontenttest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "AddContentTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
+      "javaBlobSha": "73b873db1386fc18dddee653910edb5efba38300",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "a1d6f286aa5a66057dfa419d38cac730d87e775d",
+      "featureBytes": 476,
+      "javaTestMethodRefs": [
+        {
+          "name": "addContentTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-02-changeurltest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/02_ChangeUrlTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "ChangeUrlTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java",
+      "javaBlobSha": "68453163efaecaa6f1bd99dde0b32ed15f04e2ce",
+      "assertionLineRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "88c2ef97e1d1f4f13f18ddcff4172af36cfafdb0",
+      "featureBytes": 625,
+      "javaTestMethodRefs": [
+        {
+          "name": "changeUrlTest",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-03-changepositiontest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/03_ChangePositionTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "ChangePositionTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePositionTest.java",
+      "javaBlobSha": "3d3f9fd76cb6c2e3a749dbb838c3651e8f7103e0",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3d78d11cdeba4dc78d73b9f7bd0d5ace715bfd53",
+      "featureBytes": 699,
+      "javaTestMethodRefs": [
+        {
+          "name": "changePosition",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-04-changeparenttest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/04_ChangeParentTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "ChangeParentTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java",
+      "javaBlobSha": "a96fa2fd48001377ab9132f197ad4f3a3462f24d",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "321293693990f088a867d6b1bf1e7056c7371809",
+      "featureBytes": 714,
+      "javaTestMethodRefs": [
+        {
+          "name": "changeParent",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-05-addasdrafttest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/05_AddAsDraftTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "AddAsDraftTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddAsDraftTest.java",
+      "javaBlobSha": "0d23d5678569a745de5f3e14570037b42e077421",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c716ef40de36a014d4a391d81d9e8533a1b9c576",
+      "featureBytes": 481,
+      "javaTestMethodRefs": [
+        {
+          "name": "addAsDraft",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-06-setstickyposttest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/06_SetStickyPostTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "SetStickyPostTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetStickyPostTest.java",
+      "javaBlobSha": "12b7717e51c24353000421bd8ee1d7f4a95a2b3a",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "37d571b05b90f3c2dcac32f329503eb5367a1fe2",
+      "featureBytes": 598,
+      "javaTestMethodRefs": [
+        {
+          "name": "setStickyPost",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-07-deleteposttest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/07_DeletePostTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeletePostTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeletePostTest.java",
+      "javaBlobSha": "baffc67613f2dd49044a297c969ce0a71162b857",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d6ba3030c80bfcb904754cddd1b4ac2e4794fa75",
+      "featureBytes": 462,
+      "javaTestMethodRefs": [
+        {
+          "name": "deletePost",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-08-addusertest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/08_AddUserTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "PAGE_OR_ELEMENT_STATE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddUserTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java",
+      "javaBlobSha": "819dce4095fddf828c1ff93bf70c8559144bd492",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "4b3d7b5f46d6a82ac2350c2218a257b35be7963d",
+      "featureBytes": 696,
+      "javaTestMethodRefs": [
+        {
+          "name": "addUser",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-09-changepasswordtest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/09_ChangePasswordTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "ChangePasswordTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java",
+      "javaBlobSha": "2a5294b1b7c75098233b380f023e944cc6bb8605",
+      "assertionLineRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "a4e592a5bd5dddcbdbe74f472d46272c919b8613",
+      "featureBytes": 662,
+      "javaTestMethodRefs": [
+        {
+          "name": "changePassword",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-10-addsocialstest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/10_AddSocialsTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddSocialsTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSocialsTest.java",
+      "javaBlobSha": "b8b20e1c73e59d67027644c62c4a1e67a67372ff",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "66c7093738821b8a487bef435a82ae76b9f98703",
+      "featureBytes": 905,
+      "javaTestMethodRefs": [
+        {
+          "name": "addSocials",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-11-changehometest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/11_ChangeHomeTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "ChangeHomeTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeHomeTest.java",
+      "javaBlobSha": "9499d5a968a6b0cec2205f95f68e011e5868e6cf",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b100364bcf8f04ee7b0b76e056214c17d9f70fd7",
+      "featureBytes": 510,
+      "javaTestMethodRefs": [
+        {
+          "name": "changeHome",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-12-orderbypositiontest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/12_OrderByPositionTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "OrderByPositionTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/OrderByPositionTest.java",
+      "javaBlobSha": "98240273b249277d206b9f33ae8c0994c6f3a48b",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f8864cf20992569bc5faaa4ae9ebf6c7d1a59c35",
+      "featureBytes": 515,
+      "javaTestMethodRefs": [
+        {
+          "name": "orderByPosition",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-13-addsitesocialtest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/13_AddSiteSocialTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "AddSiteSocialTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSiteSocialTest.java",
+      "javaBlobSha": "267c2125386c8725bba206979a37a1128abfecc0",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "fb83cb0d0254155339de437b0278e731fdc3f169",
+      "featureBytes": 524,
+      "javaTestMethodRefs": [
+        {
+          "name": "addSiteSocial",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-14-setfootertest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/14_SetFooterTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "SetFooterTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetFooterTest.java",
+      "javaBlobSha": "88537681a813604c780a652e8b291628fa28fddc",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d190a9e94e6f78e6ce8e4c6141db7c4d1ada7ec7",
+      "featureBytes": 470,
+      "javaTestMethodRefs": [
+        {
+          "name": "setFooter",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-15-changelanguagetest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/15_ChangeLanguageTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "ChangeLanguageTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeLanguageTest.java",
+      "javaBlobSha": "7c229f8e7e5a111c7dcdf468c8b953efd1bc21ac",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f9f07877bc6b2845de83e6ffea0f5a7af801634a",
+      "featureBytes": 708,
+      "javaTestMethodRefs": [
+        {
+          "name": "changeLanguage",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-16-deleteusertest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/16_DeleteUserTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteUserTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java",
+      "javaBlobSha": "eb1e404aa92c4ab7df48ad40e1ce85560a0c88d2",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "bb3a8ddd2c1175318316d9bff6aeb73178fd06e4",
+      "featureBytes": 520,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteUser",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-17-changepostdatetest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/17_ChangePostDateTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "ChangePostDateTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java",
+      "javaBlobSha": "6bfc5cd008cec03ea62b0bd37aa2caea063f0ab3",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "27b332fab55df96efda60fa2a3f1375682f8326f",
+      "featureBytes": 707,
+      "javaTestMethodRefs": [
+        {
+          "name": "changePostDate",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-18-badloginfailstest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/18_BadLoginFailsTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": "BadLoginFailsTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/BadLoginFailsTest.java",
+      "javaBlobSha": "c1ab15e4f7a6380ce6f5bfee2d6e9bb3de123d56",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "8f5ca1f9ff01c39fe8dec2bf5d99ed603eb37471",
+      "featureBytes": 345,
+      "javaTestMethodRefs": [
+        {
+          "name": "badLogin_Fails",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-19-addcategorytest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/19_AddCategoryTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddCategoryTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddCategoryTest.java",
+      "javaBlobSha": "a95739ebba04fa80e564637fc703b10a106fc1c4",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "362f258d20aae9983cec8859d5c722137eab0bff",
+      "featureBytes": 494,
+      "javaTestMethodRefs": [
+        {
+          "name": "addCategory",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-20-assigncategorytest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/20_AssignCategoryTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AssignCategoryTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AssignCategoryTest.java",
+      "javaBlobSha": "49e7833535d9a1730e525d052049b5b1da5ebb70",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "91f5bd91036ad44f5e48ebd3ae2cf66ca38f876c",
+      "featureBytes": 736,
+      "javaTestMethodRefs": [
+        {
+          "name": "assignCategory",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-21-seecategoryarticlestest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/21_SeeCategoryArticlesTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "SeeCategoryArticlesTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SeeCategoryArticlesTest.java",
+      "javaBlobSha": "f81f5504f1642be77386acee2438f6bf7b23280f",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "746ab9a7bff1127c135100e46f38f015da0d4d10",
+      "featureBytes": 439,
+      "javaTestMethodRefs": [
+        {
+          "name": "seeCategoryArticles",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-22-deletecategorytest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/22_DeleteCategoryTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "DeleteCategoryTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteCategoryTest.java",
+      "javaBlobSha": "65461925672604aae8102864f5b529dd9d59c892",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "1a049f50d46381a8c665c420d40d2684d55df654",
+      "featureBytes": 425,
+      "javaTestMethodRefs": [
+        {
+          "name": "deleteCategory",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "bludit-23-emptyloginfailstest",
+      "featurePath": "bludit/gherkin/bludit-3.13.1/23_EmptyLoginFailsTest.feature",
+      "scenarioHeaderLines": [],
+      "scenarioTitles": [],
+      "thenLineRefs": [
+        {
+          "line": 4,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 3,
+      "javaClass": "EmptyLoginFailsTest",
+      "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/EmptyLoginFailsTest.java",
+      "javaBlobSha": "5773e28b4b2029b46e5f619b052fe9ca0e6b0642",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f3968730409955a4887e69351744884c99927aeb",
+      "featureBytes": 251,
+      "javaTestMethodRefs": [
+        {
+          "name": "emptyLogin_Fails",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false,
+  "versionLabelMismatch": {
+    "t02Issue": "M2_VERSION_TAG_MISMATCH",
+    "gherkinFolderLabel": "bludit-3.13.1",
+    "baselineSuiteLabel": "bludit-2.3.4",
+    "t02Note": "T02 records that the 23 Gherkin files appear to match the 2.3.4 Base despite the 3.13.1 folder label.",
+    "t04dDisposition": "LABEL_MISMATCH_RECORDED; this task does not establish application-version equivalence."
+  }
+}

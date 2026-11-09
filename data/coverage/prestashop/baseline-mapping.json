@@ -1,0 +1,1479 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "prestashop",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "mappingMethod": "Feature filename stem matched to a class referenced in the pinned version's TestSuite.java; structural link only, semantic equivalence is not established.",
+  "matchedCount": 33,
+  "unmappedFeaturePaths": [],
+  "unmappedSuiteClasses": [
+    "AddEmptyTag",
+    "AddLanguageIsoCodeValidity"
+  ],
+  "entries": [
+    {
+      "caseId": "prestashop-01-addnewproduct",
+      "featurePath": "prestashop/gherkin/01_AddNewProduct.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddNewProduct",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+      "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "327a9cb0f3d57c4215fda0d73a36b5e52582bf8a",
+      "featureBytes": 445,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_new_product",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-02-addemptyproduct",
+      "featurePath": "prestashop/gherkin/02_AddEmptyProduct.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a product without name and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyProduct",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyProduct.java",
+      "javaBlobSha": "a169d273ecd72dad41d6f78084a2e37e42737830",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c7e3f6d3330d0149e9aab155341c07f8d328cc43",
+      "featureBytes": 535,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_product",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-03-editproduct",
+      "featurePath": "prestashop/gherkin/03_EditProduct.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the name of a product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "EditProduct",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditProduct.java",
+      "javaBlobSha": "d8359b013b900364cbd32881f31b0b29734c06f9",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d26c17e503f4df7525a45437cd6b5d51ad8de28a",
+      "featureBytes": 507,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_edit_product",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-04-addnewstate",
+      "featurePath": "prestashop/gherkin/04_AddNewState.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new state"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddNewState",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewState.java",
+      "javaBlobSha": "e88edcfa0303634df301bb2abf0c28f08847a587",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "197cd020fe292c6fd6cbbd74300e22c8333053f4",
+      "featureBytes": 590,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_new_state",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-05-addemptystate",
+      "featurePath": "prestashop/gherkin/05_AddEmptyState.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty state and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyState",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyState.java",
+      "javaBlobSha": "89e8c3f2c2c6e3466046296be8be28f12a4da91f",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "584027491e9fb896d879f4fc81ff935f364daa55",
+      "featureBytes": 464,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_state",
+          "line": 18
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-06-addnewproductwithtax",
+      "featurePath": "prestashop/gherkin/06_AddNewProductWithTax.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Checks that taxes are computed correctly when adding a new product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddNewProductWithTax",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax.java",
+      "javaBlobSha": "bdc76bd28ed0d43e381faf467e5a670a0cfa4b5d",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "fe22d63d18564b271314d743358a4674309366c1",
+      "featureBytes": 517,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_new_product_with_tax",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-07-addnewproductwithtax10",
+      "featurePath": "prestashop/gherkin/07_AddNewProductWithTax10.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Checks that taxes are computed correctly when adding a new product using the italian reduced VAT rate (10%)"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "AddNewProductWithTax10",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax10.java",
+      "javaBlobSha": "b6a2a30b1eedf6398129357457ea6d2eb6b710ad",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "766679e0b7be81a22b3f6402bb84d528e852132f",
+      "featureBytes": 632,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_new_product_with_tax10",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-08-addnewfeatures",
+      "featurePath": "prestashop/gherkin/08_AddNewFeatures.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new product feature"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddNewFeatures",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewFeatures.java",
+      "javaBlobSha": "e8976841f04690385937135fa2936b8fe99fceb5",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "06ae239dd6094e64071b69588792009a895f5890",
+      "featureBytes": 452,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_features",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-09-addemptyfeature",
+      "featurePath": "prestashop/gherkin/09_AddEmptyFeature.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a feature without name and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyFeature",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyFeature.java",
+      "javaBlobSha": "7b8768decbf784d336797cc794f05df3c9f5eaf1",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "21826c7cdd180aa75cba6435929cf685aa16faf0",
+      "featureBytes": 422,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_feature",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-10-addnewattribute",
+      "featurePath": "prestashop/gherkin/10_AddNewAttribute.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new product attribute"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "AddNewAttribute",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAttribute.java",
+      "javaBlobSha": "a6389eba2b71a5fc81956fffc804911398119386",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "5111508f195e6084a2549d277bd3e2ead370ccee",
+      "featureBytes": 522,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_attributes",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-11-addemptyattribute",
+      "featurePath": "prestashop/gherkin/11_AddEmptyAttribute.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty product attribute and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyAttribute",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAttribute.java",
+      "javaBlobSha": "e5fe547b2a0629a976f6ef672383e5c498c9d996",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6bda2280d51996aae595ae1f2153b8e43eef5da4",
+      "featureBytes": 434,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_attributes",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-12-addnewaddress",
+      "featurePath": "prestashop/gherkin/12_AddNewAddress.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new customer address"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 20,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 19,
+      "javaClass": "AddNewAddress",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+      "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+      "featureBytes": 958,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_address",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-13-addemptyaddress",
+      "featurePath": "prestashop/gherkin/13_AddEmptyAddress.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty address for a customer and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyAddress",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAddress.java",
+      "javaBlobSha": "c49fa5fcbb7d95710aa19105e7249f4545b9ca3e",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "33284b341c3ef07ef8576666dc1fe624cbf2ebef",
+      "featureBytes": 430,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_address",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-14-addnewcategory",
+      "featurePath": "prestashop/gherkin/14_AddNewCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new category"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddNewCategory",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java",
+      "javaBlobSha": "63798a29081b1fea9164c435c5a2ab06102f1565",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "193ff284dc574d1810593c1e3acde399967dc228",
+      "featureBytes": 468,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_category",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-15-addemptycategory",
+      "featurePath": "prestashop/gherkin/15_AddEmptyCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a category without name and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyCategory",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCategory.java",
+      "javaBlobSha": "23e02167acc9ee0b72b708ab6dac2ca9016f8151",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "2cd44edcdd67bf8e2f00c480c138e079957d8c2e",
+      "featureBytes": 428,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_category",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-16-editcategory",
+      "featurePath": "prestashop/gherkin/16_EditCategory.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes the name of a category"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "EditCategory",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditCategory.java",
+      "javaBlobSha": "b0e16a27c8f1461bfe9644f8e5fe9d43ed1adb24",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3aec0f496f41fb0cc32923408b13990793cf719e",
+      "featureBytes": 533,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_edit_category",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-17-addnewmanufacturer",
+      "featurePath": "prestashop/gherkin/17_AddNewManufacturer.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new manufacturer"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddNewManufacturer",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewManufacturer.java",
+      "javaBlobSha": "010c47ac6c1114cff6b3c4f63ef9727531047353",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "e238d372a6291a49eee3f7415c0edd2a0c065395",
+      "featureBytes": 466,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_manufacturer",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-18-addemptymanufacturer",
+      "featurePath": "prestashop/gherkin/18_AddEmptyManufacturer.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a manufacturer without name and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyManufacturer",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyManufacturer.java",
+      "javaBlobSha": "e30a7dd933f755bcd15f0adc1caf978e90c88b11",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "107b71d56184e592b810520c12a882d6dbbc41ff",
+      "featureBytes": 439,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_manufacturer",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-19-editmanufacturer",
+      "featurePath": "prestashop/gherkin/19_EditManufacturer.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Changes a manufacturer's name"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "EditManufacturer",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditManufacturer.java",
+      "javaBlobSha": "c37096378daf888d2e69dad11401faef164574e7",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c9df87872ecd9ae326e35268faa82e62410889f1",
+      "featureBytes": 571,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_edit_manufacturer_address",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-20-addnewsupplier",
+      "featurePath": "prestashop/gherkin/20_AddNewSupplier.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new supplier"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddNewSupplier",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewSupplier.java",
+      "javaBlobSha": "51211f9b677b7a4a54a7b1fbbfd41c8e074765a3",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3081ec307a55a6b96a31ffec7ab3f783c0222b3a",
+      "featureBytes": 620,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_supplier",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-21-addemptysupplier",
+      "featurePath": "prestashop/gherkin/21_AddEmptySupplier.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty supplier and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptySupplier",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptySupplier.java",
+      "javaBlobSha": "922af046e3fbee755b508924a2106c595a8c9c1a",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "46767073df62a2a56ff5e71d3190972400eb168d",
+      "featureBytes": 421,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_supplier",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-22-removesupplier",
+      "featurePath": "prestashop/gherkin/22_RemoveSupplier.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a supplier"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "RemoveSupplier",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RemoveSupplier.java",
+      "javaBlobSha": "5044e24ccae97f827a94a0e976d14402777013b8",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ffad7476108aef4f2d01f49974faf8e793e0763a",
+      "featureBytes": 478,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_remove_supplier",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-23-registeremployee",
+      "featurePath": "prestashop/gherkin/23_RegisterEmployee.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new employee"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "RegisterEmployee",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee.java",
+      "javaBlobSha": "5483550b2bff28d2e479ec57f40f57f37503b463",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "e251fe145da2f87c9d15b94567ec9651063f626b",
+      "featureBytes": 728,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_register_employee",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-24-registeremployee-noname",
+      "featurePath": "prestashop/gherkin/24_RegisterEmployee_NoName.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a new employee without name and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "RegisterEmployee_NoName",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoName.java",
+      "javaBlobSha": "646863fb74198454803ec61d5871a6d8f7879233",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "adb727bc08e4a5f3e9e9f8e0f8459a2e3b7c143a",
+      "featureBytes": 643,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_register_employee_no_name",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-25-registeremployee-noemail",
+      "featurePath": "prestashop/gherkin/25_RegisterEmployee_NoEmail.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a new employee without email and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "RegisterEmployee_NoEmail",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoEmail.java",
+      "javaBlobSha": "defc8f4b43c6197fc2397d17f550f48120d62fde",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "4bb5255d4c5e229126f3596301dcf498ee779999",
+      "featureBytes": 685,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_register_employee_no_email",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-26-registeremployee-nopassword",
+      "featurePath": "prestashop/gherkin/26_RegisterEmployee_NoPassword.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a new employee without password and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "RegisterEmployee_NoPassword",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPassword.java",
+      "javaBlobSha": "6033f76715e5a53021a75c026e0779d3c4523e54",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "66daf7dabf11b86ee8bc1613af7a713449dc686a",
+      "featureBytes": 698,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_register_employee_no_passsword",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-27-registeremployee-nopermission",
+      "featurePath": "prestashop/gherkin/27_RegisterEmployee_NoPermission.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a new employee without permission profile and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "RegisterEmployee_NoPermission",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPermission.java",
+      "javaBlobSha": "1ff519319642b4464cded6a7a700f1450686b522",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "18c3383ca3db0d114f73b5b74eb8a40f0202d220",
+      "featureBytes": 689,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_register_employee_no_permission",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-28-outofstockvalidity",
+      "featurePath": "prestashop/gherkin/28_OutOfStockValidity.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to create an order for an out of stock product and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 12,
+      "javaClass": "OutOfStockValidity",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+      "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+      "featureBytes": 662,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_outofstock",
+          "line": 12
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-29-addtag",
+      "featurePath": "prestashop/gherkin/29_AddTag.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Checks the iso code for a language"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddTag",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddTag.java",
+      "javaBlobSha": "f3896862716f11b86d6201ee4867b16226ce202d",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "80fdfec45a412934b86a8e8d533a24c63df08525",
+      "featureBytes": 529,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_tag",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-30-addcurrency",
+      "featurePath": "prestashop/gherkin/30_AddCurrency.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a new currency"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddCurrency",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddCurrency.java",
+      "javaBlobSha": "9342941f84514859ff02af985ed4a61e9a58079f",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "a3c8b4211272fbdadc8d48e109308747843a74d4",
+      "featureBytes": 624,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_currency",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-31-addemptycurrency",
+      "featurePath": "prestashop/gherkin/31_AddEmptyCurrency.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty currency and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyCurrency",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCurrency.java",
+      "javaBlobSha": "388e2b10b084a8b184106bb68ed55e97007a38ee",
+      "assertionLineRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "63953fa23320ecdf1996b94aa7595aeeb02f404d",
+      "featureBytes": 436,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_currency",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-32-editaddress",
+      "featurePath": "prestashop/gherkin/32_EditAddress.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Edits a customer address"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "EditAddress",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditAddress.java",
+      "javaBlobSha": "e12c5ed10c4360bac7d2bd65901c28eb9664daff",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "26e0f5ac1474bcc1beeca38733c7a29377cb9f5e",
+      "featureBytes": 503,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_edit_address",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "prestashop-33-editemployee",
+      "featurePath": "prestashop/gherkin/33_EditEmployee.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Edits an employee"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "EditEmployee",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditEmployee.java",
+      "javaBlobSha": "120296b27843b7f112c5160706392f8d3d197b38",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b651461bb92a82af3a01ce0a02dff31594e10b21",
+      "featureBytes": 515,
+      "javaTestMethodRefs": [
+        {
+          "name": "test_update_employee",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "unmappedSuiteEvidence": [
+    {
+      "javaClass": "AddEmptyTag",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyTag.java",
+      "javaBlobSha": "7c08c7d33384ef4cb7e3f1922a96a3fa4428c96c",
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_empty_tag",
+          "line": 13
+        }
+      ],
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ]
+    },
+    {
+      "javaClass": "AddLanguageIsoCodeValidity",
+      "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddLanguageIsoCodeValidity.java",
+      "javaBlobSha": "263efc29465275fbc795534e0128553cdfd96097",
+      "javaTestMethodRefs": [
+        {
+          "name": "test_add_iso_code",
+          "line": 13
+        }
+      ],
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ]
+    }
+  ],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

@@ -1,0 +1,427 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "prestashop",
+  "sourcePin": {
+    "repository": "https://github.com/OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "retrieval": "GitHub Contents API at ref=commit; blob SHAs from recursive Git tree. No BEWT source content is redistributed.",
+  "localGitCatFileVerification": "NOT_RUN_DUE_SHELL_DNS",
+  "files": [
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/01_AddNewProduct.feature",
+      "blobSha": "327a9cb0f3d57c4215fda0d73a36b5e52582bf8a",
+      "bytes": 445
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/02_AddEmptyProduct.feature",
+      "blobSha": "c7e3f6d3330d0149e9aab155341c07f8d328cc43",
+      "bytes": 535
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/03_EditProduct.feature",
+      "blobSha": "d26c17e503f4df7525a45437cd6b5d51ad8de28a",
+      "bytes": 507
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/04_AddNewState.feature",
+      "blobSha": "197cd020fe292c6fd6cbbd74300e22c8333053f4",
+      "bytes": 590
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/05_AddEmptyState.feature",
+      "blobSha": "584027491e9fb896d879f4fc81ff935f364daa55",
+      "bytes": 464
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/06_AddNewProductWithTax.feature",
+      "blobSha": "fe22d63d18564b271314d743358a4674309366c1",
+      "bytes": 517
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/07_AddNewProductWithTax10.feature",
+      "blobSha": "766679e0b7be81a22b3f6402bb84d528e852132f",
+      "bytes": 632
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/08_AddNewFeatures.feature",
+      "blobSha": "06ae239dd6094e64071b69588792009a895f5890",
+      "bytes": 452
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/09_AddEmptyFeature.feature",
+      "blobSha": "21826c7cdd180aa75cba6435929cf685aa16faf0",
+      "bytes": 422
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/10_AddNewAttribute.feature",
+      "blobSha": "5111508f195e6084a2549d277bd3e2ead370ccee",
+      "bytes": 522
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/11_AddEmptyAttribute.feature",
+      "blobSha": "6bda2280d51996aae595ae1f2153b8e43eef5da4",
+      "bytes": 434
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/12_AddNewAddress.feature",
+      "blobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+      "bytes": 958
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/13_AddEmptyAddress.feature",
+      "blobSha": "33284b341c3ef07ef8576666dc1fe624cbf2ebef",
+      "bytes": 430
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/14_AddNewCategory.feature",
+      "blobSha": "193ff284dc574d1810593c1e3acde399967dc228",
+      "bytes": 468
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/15_AddEmptyCategory.feature",
+      "blobSha": "2cd44edcdd67bf8e2f00c480c138e079957d8c2e",
+      "bytes": 428
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/16_EditCategory.feature",
+      "blobSha": "3aec0f496f41fb0cc32923408b13990793cf719e",
+      "bytes": 533
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/17_AddNewManufacturer.feature",
+      "blobSha": "e238d372a6291a49eee3f7415c0edd2a0c065395",
+      "bytes": 466
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/18_AddEmptyManufacturer.feature",
+      "blobSha": "107b71d56184e592b810520c12a882d6dbbc41ff",
+      "bytes": 439
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/19_EditManufacturer.feature",
+      "blobSha": "c9df87872ecd9ae326e35268faa82e62410889f1",
+      "bytes": 571
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/20_AddNewSupplier.feature",
+      "blobSha": "3081ec307a55a6b96a31ffec7ab3f783c0222b3a",
+      "bytes": 620
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/21_AddEmptySupplier.feature",
+      "blobSha": "46767073df62a2a56ff5e71d3190972400eb168d",
+      "bytes": 421
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/22_RemoveSupplier.feature",
+      "blobSha": "ffad7476108aef4f2d01f49974faf8e793e0763a",
+      "bytes": 478
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/23_RegisterEmployee.feature",
+      "blobSha": "e251fe145da2f87c9d15b94567ec9651063f626b",
+      "bytes": 728
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/24_RegisterEmployee_NoName.feature",
+      "blobSha": "adb727bc08e4a5f3e9e9f8e0f8459a2e3b7c143a",
+      "bytes": 643
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/25_RegisterEmployee_NoEmail.feature",
+      "blobSha": "4bb5255d4c5e229126f3596301dcf498ee779999",
+      "bytes": 685
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/26_RegisterEmployee_NoPassword.feature",
+      "blobSha": "66daf7dabf11b86ee8bc1613af7a713449dc686a",
+      "bytes": 698
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/27_RegisterEmployee_NoPermission.feature",
+      "blobSha": "18c3383ca3db0d114f73b5b74eb8a40f0202d220",
+      "bytes": 689
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/28_OutOfStockValidity.feature",
+      "blobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+      "bytes": 662
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/29_AddTag.feature",
+      "blobSha": "80fdfec45a412934b86a8e8d533a24c63df08525",
+      "bytes": 529
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/30_AddCurrency.feature",
+      "blobSha": "a3c8b4211272fbdadc8d48e109308747843a74d4",
+      "bytes": 624
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/31_AddEmptyCurrency.feature",
+      "blobSha": "63953fa23320ecdf1996b94aa7595aeeb02f404d",
+      "bytes": 436
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/32_EditAddress.feature",
+      "blobSha": "26e0f5ac1474bcc1beeca38733c7a29377cb9f5e",
+      "bytes": 503
+    },
+    {
+      "role": "gherkin",
+      "path": "prestashop/gherkin/33_EditEmployee.feature",
+      "blobSha": "b651461bb92a82af3a01ce0a02dff31594e10b21",
+      "bytes": 515
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+      "blobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+      "bytes": 507
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyProduct.java",
+      "blobSha": "a169d273ecd72dad41d6f78084a2e37e42737830",
+      "bytes": 617
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditProduct.java",
+      "blobSha": "d8359b013b900364cbd32881f31b0b29734c06f9",
+      "bytes": 523
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewState.java",
+      "blobSha": "e88edcfa0303634df301bb2abf0c28f08847a587",
+      "bytes": 494
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyState.java",
+      "blobSha": "89e8c3f2c2c6e3466046296be8be28f12a4da91f",
+      "bytes": 548
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax.java",
+      "blobSha": "bdc76bd28ed0d43e381faf467e5a670a0cfa4b5d",
+      "bytes": 494
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax10.java",
+      "blobSha": "b6a2a30b1eedf6398129357457ea6d2eb6b710ad",
+      "bytes": 496
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewFeatures.java",
+      "blobSha": "e8976841f04690385937135fa2936b8fe99fceb5",
+      "bytes": 499
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyFeature.java",
+      "blobSha": "7b8768decbf784d336797cc794f05df3c9f5eaf1",
+      "bytes": 529
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAttribute.java",
+      "blobSha": "a6389eba2b71a5fc81956fffc804911398119386",
+      "bytes": 534
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAttribute.java",
+      "blobSha": "e5fe547b2a0629a976f6ef672383e5c498c9d996",
+      "bytes": 627
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+      "blobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+      "bytes": 562
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAddress.java",
+      "blobSha": "c49fa5fcbb7d95710aa19105e7249f4545b9ca3e",
+      "bytes": 783
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java",
+      "blobSha": "63798a29081b1fea9164c435c5a2ab06102f1565",
+      "bytes": 487
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCategory.java",
+      "blobSha": "23e02167acc9ee0b72b708ab6dac2ca9016f8151",
+      "bytes": 616
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditCategory.java",
+      "blobSha": "b0e16a27c8f1461bfe9644f8e5fe9d43ed1adb24",
+      "bytes": 487
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewManufacturer.java",
+      "blobSha": "010c47ac6c1114cff6b3c4f63ef9727531047353",
+      "bytes": 507
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyManufacturer.java",
+      "blobSha": "e30a7dd933f755bcd15f0adc1caf978e90c88b11",
+      "bytes": 532
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditManufacturer.java",
+      "blobSha": "c37096378daf888d2e69dad11401faef164574e7",
+      "bytes": 513
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewSupplier.java",
+      "blobSha": "51211f9b677b7a4a54a7b1fbbfd41c8e074765a3",
+      "bytes": 518
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptySupplier.java",
+      "blobSha": "922af046e3fbee755b508924a2106c595a8c9c1a",
+      "bytes": 700
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RemoveSupplier.java",
+      "blobSha": "5044e24ccae97f827a94a0e976d14402777013b8",
+      "bytes": 456
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee.java",
+      "blobSha": "5483550b2bff28d2e479ec57f40f57f37503b463",
+      "bytes": 528
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoName.java",
+      "blobSha": "646863fb74198454803ec61d5871a6d8f7879233",
+      "bytes": 623
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoEmail.java",
+      "blobSha": "defc8f4b43c6197fc2397d17f550f48120d62fde",
+      "bytes": 564
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPassword.java",
+      "blobSha": "6033f76715e5a53021a75c026e0779d3c4523e54",
+      "bytes": 599
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPermission.java",
+      "blobSha": "1ff519319642b4464cded6a7a700f1450686b522",
+      "bytes": 589
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+      "blobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+      "bytes": 584
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddTag.java",
+      "blobSha": "f3896862716f11b86d6201ee4867b16226ce202d",
+      "bytes": 416
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyTag.java",
+      "blobSha": "7c08c7d33384ef4cb7e3f1922a96a3fa4428c96c",
+      "bytes": 445
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddLanguageIsoCodeValidity.java",
+      "blobSha": "263efc29465275fbc795534e0128553cdfd96097",
+      "bytes": 507
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddCurrency.java",
+      "blobSha": "9342941f84514859ff02af985ed4a61e9a58079f",
+      "bytes": 483
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCurrency.java",
+      "blobSha": "388e2b10b084a8b184106bb68ed55e97007a38ee",
+      "bytes": 589
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditAddress.java",
+      "blobSha": "e12c5ed10c4360bac7d2bd65901c28eb9664daff",
+      "bytes": 461
+    },
+    {
+      "role": "java-test",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditEmployee.java",
+      "blobSha": "120296b27843b7f112c5160706392f8d3d197b38",
+      "bytes": 475
+    },
+    {
+      "role": "test-suite",
+      "path": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/TestSuite.java",
+      "blobSha": "761042c14d5904195f979b086691f1a04b585f60",
+      "bytes": 1074
+    }
+  ]
+}

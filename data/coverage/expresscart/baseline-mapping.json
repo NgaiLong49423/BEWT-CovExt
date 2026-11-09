@@ -1,0 +1,1423 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "expresscart",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "mappingMethod": "Feature filename stem matched to a class referenced in the pinned version's TestSuite.java; structural link only, semantic equivalence is not established.",
+  "matchedCount": 31,
+  "unmappedFeaturePaths": [],
+  "unmappedSuiteClasses": [],
+  "entries": [
+    {
+      "caseId": "expresscart-01-addusertest",
+      "featurePath": "expresscart/gherkin/01_AddUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a user to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 16,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "AddUserTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddUserTest.java",
+      "javaBlobSha": "7832e8498ea7eeb6d811ee392e685fc25f6f98ed",
+      "assertionLineRefs": [
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "bb4d5680a478fe9b5f3f3ce001da2df0164593eb",
+      "featureBytes": 761,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartNewUser",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-02-addemptyusertest",
+      "featurePath": "expresscart/gherkin/02_AddEmptyUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a empty user to the system and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        },
+        {
+          "line": 11,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddEmptyUserTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyUserTest.java",
+      "javaBlobSha": "6a5bdf0f433f1bc7922a8f3e093e53fe9248355e",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 24,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 25,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "612d66272be4eb2694771c195ee30fdcee50eed7",
+      "featureBytes": 481,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartEmptyUser",
+          "line": 14
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-03-loginusertest",
+      "featurePath": "expresscart/gherkin/03_LoginUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Logins as the newly added user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 9,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "LoginUserTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/LoginUserTest.java",
+      "javaBlobSha": "1aa75ac6fa4231b8a917cc5471df5dc3487a85a2",
+      "assertionLineRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "885340edc0df36bf46a099ea4d40a7fedc801e31",
+      "featureBytes": 371,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartLoginUser",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-04-addexistinguserfailstest",
+      "featurePath": "expresscart/gherkin/04_AddExistingUserFailsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add a user with the same data of an already existing user and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddExistingUserFailsTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddExistingUserFailsTest.java",
+      "javaBlobSha": "718028acf41888df456524cb48549cef9d40c34f",
+      "assertionLineRefs": [
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "13471c7515e259fa6a2564d15005614178c44dd7",
+      "featureBytes": 845,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartExistingUserFails",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-05-addproducttest",
+      "featurePath": "expresscart/gherkin/05_AddProductTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a product to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 11,
+      "javaClass": "AddProductTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java",
+      "javaBlobSha": "55f346f86ae9c447606339a387aad167c04296bb",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f8129c1b6868c45cb018b9e38dca08cee01864b4",
+      "featureBytes": 627,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddProduct",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-06-addemptyproducttest",
+      "featurePath": "expresscart/gherkin/06_AddEmptyProductTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty product to the system and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 8,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "AddEmptyProductTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyProductTest.java",
+      "javaBlobSha": "73c8505a91f3ea66013adec4d1fdcbdb94657b9b",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "f50a7ce2fae1534d123ebcc30deeeaee60728e18",
+      "featureBytes": 448,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddEmptyProduct",
+          "line": 11
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-07-addnewprodtocarttest",
+      "featurePath": "expresscart/gherkin/07_AddNewProdToCartTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a product to the cart"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 7,
+      "javaClass": "AddNewProdToCartTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java",
+      "javaBlobSha": "42acb2364b1b7d56a2682391dfc73d085eb8611d",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "898b88b5942d1cc4e3874f76e198322916a8f8a1",
+      "featureBytes": 354,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddNewProdToCart",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-08-searchproducttest",
+      "featurePath": "expresscart/gherkin/08_SearchProductTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a product in the store"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": "SearchProductTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchProductTest.java",
+      "javaBlobSha": "13d016c7dbe7b0ffcf0928180a9233643895e2c6",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "88dec6b698b5ce7b9b24d211e2cc5969693d17be",
+      "featureBytes": 306,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartSearchProduct",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-09-addreviewtest",
+      "featurePath": "expresscart/gherkin/09_AddReviewTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a review to a product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "AddReviewTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddReviewTest.java",
+      "javaBlobSha": "4b04152c6e642a887400a5f51c098ffb6eb2f1f5",
+      "assertionLineRefs": [
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 35,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c0d54d20b233e831d5fbb78fb762210457249c41",
+      "featureBytes": 782,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddReview",
+          "line": 18
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-10-addemptyreviewtest",
+      "featurePath": "expresscart/gherkin/10_AddEmptyReviewTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty review to a product and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 10,
+      "javaClass": "AddEmptyReviewTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyReviewTest.java",
+      "javaBlobSha": "163c821183568445cd35a7afe8b39692e6b0d0a5",
+      "assertionLineRefs": [
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "24dc1c32ffe1f7f60800d266893d1d6d3fc7236c",
+      "featureBytes": 633,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddEmptyReview",
+          "line": 18
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-11-seereviewtest",
+      "featurePath": "expresscart/gherkin/11_SeeReviewTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Checks the review to a product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 6,
+      "javaClass": "SeeReviewTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SeeReviewTest.java",
+      "javaBlobSha": "ae04ee53b189ff8bf8bc869521c7e057f52312e4",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ce890f336de5fe3625ce620d63041d9b0371a5df",
+      "featureBytes": 300,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartSeeReview",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-12-adddiscountcodeamounttest",
+      "featurePath": "expresscart/gherkin/12_AddDiscountCodeAmountTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a discount code (by amount) to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 13,
+      "javaClass": "AddDiscountCodeAmountTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java",
+      "javaBlobSha": "9e5c94e7dd356f9946bcaa1df5dba29141aa0cc9",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "00b4cf80e728bd5cb52413e4d409181c67d81b1c",
+      "featureBytes": 838,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddDiscountCodeAmount",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-13-adddiscountcodepercenttest",
+      "featurePath": "expresscart/gherkin/13_AddDiscountCodePercentTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a discount code (by percent) to the system"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 16,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 14,
+      "javaClass": "AddDiscountCodePercentTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java",
+      "javaBlobSha": "f513de2a2fb94bbd3832aece5998f60f350fbc6c",
+      "assertionLineRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "e1482b82d44c4b0b9052e35e1f5fb70f02f15cb6",
+      "featureBytes": 904,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddDiscountCodePercent",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-14-addemptydiscountcodetest",
+      "featurePath": "expresscart/gherkin/14_AddEmptyDiscountCodeTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to add an empty discount code and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 9,
+          "kind": "COUNT_OR_LIST_STATE"
+        }
+      ],
+      "stepCount": 8,
+      "javaClass": "AddEmptyDiscountCodeTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyDiscountCodeTest.java",
+      "javaBlobSha": "675c49d8f28b3d5c005758560ef863344d0c53eb",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 27,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "0004b208ed7c29c487f7ca5e6ead53291ab7970f",
+      "featureBytes": 458,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddEmptyDiscountCode",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-15-usediscountcodeamounttest",
+      "featurePath": "expresscart/gherkin/15_UseDiscountCodeAmountTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Buys a product using a discound code (by amount)"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "UseDiscountCodeAmountTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
+      "javaBlobSha": "aa0202618a35a66e4434292b2ee21f914c03da3a",
+      "assertionLineRefs": [
+        {
+          "line": 33,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "cce65dde0c3d1ad7a8faee9bf4d337a37a471e1b",
+      "featureBytes": 782,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartUseDiscountCodeAmount",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-16-usediscountcodepercenttest",
+      "featurePath": "expresscart/gherkin/16_UseDiscountCodePercentTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Buys a product using a discound code (by percent)"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 16,
+      "javaClass": "UseDiscountCodePercentTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
+      "javaBlobSha": "29d04655f474bfce0ca07335c422119763688cf0",
+      "assertionLineRefs": [
+        {
+          "line": 33,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "e18707670139dc0bbf65564707ad7b28b75da554",
+      "featureBytes": 783,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartUseDiscountCodePercent",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-17-addproducttagtest",
+      "featurePath": "expresscart/gherkin/17_AddProductTagTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a tag to a product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddProductTagTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTagTest.java",
+      "javaBlobSha": "80b3179b2d95529c13911adb9e0841a67baeeef3",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "81ba18fc218406b4835a299e572de8bd304b883c",
+      "featureBytes": 464,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddProductTag",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-18-searchproducttagtest",
+      "featurePath": "expresscart/gherkin/18_SearchProductTagTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a product using its tag"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 4,
+      "javaClass": "SearchProductTagTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchProductTagTest.java",
+      "javaBlobSha": "834528faf63cf202a0c38641ca5b09c5eea94e04",
+      "assertionLineRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "9f6ea62745c57776c2eb9e6ec22d74a8b79ab759",
+      "featureBytes": 236,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartSearchProductTag",
+          "line": 18
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-19-addmenutest",
+      "featurePath": "expresscart/gherkin/19_AddMenuTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Adds a menu"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "AddMenuTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddMenuTest.java",
+      "javaBlobSha": "9c868f8d7315ece9bc5f03bcfd8dbadbe4727f38",
+      "assertionLineRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d71c65273ddb9b089eba6e780a7d11560c672981",
+      "featureBytes": 599,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddMenu",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-20-openmenutest",
+      "featurePath": "expresscart/gherkin/20_OpenMenuTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a product using its tag"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": "OpenMenuTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/OpenMenuTest.java",
+      "javaBlobSha": "35b9068520796aca2f5b21e8a5c2ffd6871e3705",
+      "assertionLineRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "2eb65740824848e8456975b583818f90216ce435",
+      "featureBytes": 268,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartOpenMenu",
+          "line": 19
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-21-deletediscountcodeamounttest",
+      "featurePath": "expresscart/gherkin/21_DeleteDiscountCodeAmountTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a discount code (by amount)"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteDiscountCodeAmountTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteDiscountCodeAmountTest.java",
+      "javaBlobSha": "a9469ad551caf5ad20055518d28f62ab6dd3f48f",
+      "assertionLineRefs": [
+        {
+          "line": 25,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c28245081985335d77a29478fbc61e3b7696d865",
+      "featureBytes": 474,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddDiscountCodeAmount",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-22-deletediscountcodepercenttest",
+      "featurePath": "expresscart/gherkin/22_DeleteDiscountCodePercentTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a discount code (by percent)"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteDiscountCodePercentTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteDiscountCodePercentTest.java",
+      "javaBlobSha": "bf6209433cd090f6d4643071b5e1347d66c3430e",
+      "assertionLineRefs": [
+        {
+          "line": 25,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "066090aacecd28a50925187a983b43d7224c2c9b",
+      "featureBytes": 475,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartAddDiscountCodePercent",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-23-deleteddiscountcodefailsamounttest",
+      "featurePath": "expresscart/gherkin/23_DeletedDiscountCodeFailsAmountTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to buy a product using a deleted discound code (by amount) and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 18,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 15,
+      "javaClass": "DeletedDiscountCodeFailsAmountTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeletedDiscountCodeFailsAmountTest.java",
+      "javaBlobSha": "0689b82c475ae386cb166ca6e18a5af7e5a5f77a",
+      "assertionLineRefs": [
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "d09906831822b6a1cda2d7194ba3bd7f392d2bd6",
+      "featureBytes": 874,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeletedDiscountCodeFailsAmount",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-24-deleteddiscountcodefailspercenttest",
+      "featurePath": "expresscart/gherkin/24_DeletedDiscountCodeFailsPercentTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to buy a product using a deleted discound code (by percent) and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 18,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 15,
+      "javaClass": "DeletedDiscountCodeFailsPercentTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeletedDiscountCodeFailsPercentTest.java",
+      "javaBlobSha": "8dfb7d6794f91e4209feabdeda6b57e7aa1767cf",
+      "assertionLineRefs": [
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6c4bc8bb9f865e8bd10281491f54330715351a9c",
+      "featureBytes": 875,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeletedDiscountCodeFailsPercent",
+          "line": 16
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-25-deleteusertest",
+      "featurePath": "expresscart/gherkin/25_DeleteUserTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a user"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteUserTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteUserTest.java",
+      "javaBlobSha": "27c513d662fb41b573ba42e7e58c2cf6fa9e9f41",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "b79cfbf5883f01f1e7dc1e5997d308839b51a3d6",
+      "featureBytes": 445,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeleteUser",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-26-logindeleteduserfailstest",
+      "featurePath": "expresscart/gherkin/26_LoginDeletedUserFailsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Tries to login as a deleted user and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 7,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 5,
+      "javaClass": "LoginDeletedUserFailsTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/LoginDeletedUserFailsTest.java",
+      "javaBlobSha": "df8b2c24c49a1320cf0ead9ec5520aedae8177f2",
+      "assertionLineRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "c0fad38fd56bea733fcff4de22311b37e76b5691",
+      "featureBytes": 420,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartLoginUser",
+          "line": 13
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-27-deletereviewtest",
+      "featurePath": "expresscart/gherkin/27_DeleteReviewTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a review"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteReviewTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteReviewTest.java",
+      "javaBlobSha": "447b0aaadba47cbf79fc1db1f1febcdf8f675e12",
+      "assertionLineRefs": [
+        {
+          "line": 24,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "33fbac9a4b85c289dbbc90d79ef06ae2ec5ad455",
+      "featureBytes": 442,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeleteReview",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-28-deleteproducttagtest",
+      "featurePath": "expresscart/gherkin/28_DeleteProductTagTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a product tag"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteProductTagTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteProductTagTest.java",
+      "javaBlobSha": "5824492c7538478176609a53143fdf070ceb28f6",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertTrue"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "6e2785a5d49a747b642e4f25c8ff19f955cba96c",
+      "featureBytes": 434,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeleteProductTag",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-29-searchdeletedproducttagfailstest",
+      "featurePath": "expresscart/gherkin/29_SearchDeletedProductTagFailsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches a product using a deleted tag and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 4,
+      "javaClass": "SearchDeletedProductTagFailsTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchDeletedProductTagFailsTest.java",
+      "javaBlobSha": "4501ddeadd1974e2165722da2bdad11ab27258d4",
+      "assertionLineRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "ab96afa868989717ab3fd33bb5da8856dd653712",
+      "featureBytes": 243,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartSearchDeletedProductTagFails",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-30-deleteproducttest",
+      "featurePath": "expresscart/gherkin/30_DeleteProductTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Deletes a product"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "stepCount": 9,
+      "javaClass": "DeleteProductTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteProductTest.java",
+      "javaBlobSha": "df8f5a56465f69fbbd01a54cdfc47d17c16c77eb",
+      "assertionLineRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "dd42abd507d2a2a852f7fca3ca96324381dac25e",
+      "featureBytes": 453,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartDeleteProduct",
+          "line": 17
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    },
+    {
+      "caseId": "expresscart-31-searchdeletedproductfailstest",
+      "featurePath": "expresscart/gherkin/31_SearchDeletedProductFailsTest.feature",
+      "scenarioHeaderLines": [
+        1
+      ],
+      "scenarioTitles": [
+        "Searches for a delete dproduct and fails"
+      ],
+      "thenLineRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "stepCount": 4,
+      "javaClass": "SearchDeletedProductFailsTest",
+      "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchDeletedProductFailsTest.java",
+      "javaBlobSha": "ea10444e4e9a07884ac7dc8d83708b4665622c48",
+      "assertionLineRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "featureBlobSha": "0bb7c2dbd57618077277aaef7a424ee7bbc84c28",
+      "featureBytes": 242,
+      "javaTestMethodRefs": [
+        {
+          "name": "testExpressCartSearchDeletedProductFails",
+          "line": 15
+        }
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
+    }
+  ],
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
+}

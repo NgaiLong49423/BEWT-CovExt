@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mediawiki",
+  "proposalBaseLabel": "1.40.0",
+  "proposalBusinessCaseCount": 27,
+  "source": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceType": "PINNED_BENCHMARK_TEST_SOURCE"
+  },
+  "observedCounts": {
+    "gherkinFeatureFiles": 27,
+    "explicitScenarioHeaders": 27,
+    "baselineTestSuiteBusinessEntries": 27,
+    "baselineJavaFilesUnderTestTree": 30,
+    "matchedFeatureToSuiteClass": 27,
+    "featureWithoutSuiteClass": 0,
+    "suiteClassWithoutFeature": 0,
+    "behaviorDenominator": "NOT_ESTABLISHED",
+    "baselineJavaTestMethodsFound": 27,
+    "javaAssertionCallLineCount": 44
+  },
+  "anomalies": {
+    "featureWithoutSuiteClass": [],
+    "suiteClassWithoutFeature": [],
+    "notes": []
+  },
+  "G1": "NOT_VERIFIED",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "behaviorTagInterpretation": {
+    "status": "HEURISTIC_INFERENCE_ONLY",
+    "basis": "Keyword heuristic over pinned Gherkin step text; not verified app behavior.",
+    "usedAsRQ2Denominator": false
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mediawiki",
+  "sourcePin": {
+    "repository": "https://github.com/OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "retrieval": "GitHub Contents API at ref=commit; blob SHAs from recursive Git tree. No BEWT source content is redistributed.",
+  "localGitCatFileVerification": "NOT_RUN_DUE_SHELL_DNS",
+  "files": [
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/01_CreateUserTest.feature",
+      "blobSha": "9ccb675867d58e8262fd9692b940893dac1956f0",
+      "bytes": 722
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/02_CloseInitialEditorPopupTest.feature",
+      "blobSha": "dd46252a868154d7409e7faa3f7bec691002fd4d",
+      "bytes": 625
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/03_CreatePageTest.feature",
+      "blobSha": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+      "bytes": 714
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/04_CreateAndLinkPageTest.feature",
+      "blobSha": "c52e97d04dd6d285a7466103e333e5dadf325244",
+      "bytes": 1126
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/05_SearchPageTest.feature",
+      "blobSha": "8f8f41cd06354855117092fdf3289d8ba251258a",
+      "bytes": 196
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/06_EditPageTest.feature",
+      "blobSha": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+      "bytes": 656
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/07_CreateTemplateTest.feature",
+      "blobSha": "917d513f1682fff9025dec1df8871e5b24a5ec3c",
+      "bytes": 627
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+      "blobSha": "cfa958801e8ff05f4f22d05b1b6f42d43d69d838",
+      "bytes": 702
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/09_ApplyTemplateTest.feature",
+      "blobSha": "18d69cf244e5b645bd9d096bf01355f8516e11f2",
+      "bytes": 696
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/10_AddCategoryTest.feature",
+      "blobSha": "4b40d7f5075cc446cfa6c1afc1315fd79c8d1980",
+      "bytes": 882
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/11_ProtectPageTest.feature",
+      "blobSha": "6d2efbd3304301733e92dcf44a999249ea302b18",
+      "bytes": 708
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/12_AdminEditProtectedPage_GetsWarningTest.feature",
+      "blobSha": "65e76a78013da9b676d523981cb3d2b1e3bf29f1",
+      "bytes": 469
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/13_EditProtectedPage_ForbiddenTest.feature",
+      "blobSha": "749f79cfebdfe6ad81cb6c0059c7f1e5565fed93",
+      "bytes": 520
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/14_PromoteToAdminTest.feature",
+      "blobSha": "01436df854418df42718d62834057b16ae045fa6",
+      "bytes": 760
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/15_EditProtectedPage_NewAdmin_SuccessTest.feature",
+      "blobSha": "7c4a82222a4f7163f1e496c33b07630fd05f9acc",
+      "bytes": 700
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/16_RevertLastCommitTest.feature",
+      "blobSha": "556d9d8176fa155ef046f6d9af56a353cabbee2f",
+      "bytes": 713
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/17_CreateUserPageTest.feature",
+      "blobSha": "cc39fcef474ad253267df1afb97b265c720af121",
+      "bytes": 531
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/18_BlockUserTest.feature",
+      "blobSha": "237da306c61c837fc9099a00253eab25a4e36751",
+      "bytes": 784
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/19_BlockedUser_CantEdit.feature",
+      "blobSha": "041322b829fdc986207a16aaa1eb0acb093347a9",
+      "bytes": 423
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/20_DeletePageTest.feature",
+      "blobSha": "53d136f6e8c8e202119a018a6d3bce1d9871a463",
+      "bytes": 508
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/21_CreateRedirectTest.feature",
+      "blobSha": "9ef76de11e1e8e0c4ab237cfd21ee592106b7f6d",
+      "bytes": 621
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/22_FollowRedirectTest.feature",
+      "blobSha": "bb90ccd544e11b2b169aba46e9d6c8ce9bffcf3e",
+      "bytes": 294
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/23_ChangePassword_TooShortTest.feature",
+      "blobSha": "c96b54b7a731d0501139f234c63bc56852cfe8c5",
+      "bytes": 730
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/24_ChangePassword_TooCommonTest.feature",
+      "blobSha": "aa86e1cb607827ceaf910e4caf8a8c013f34401f",
+      "bytes": 726
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/25_ChangePassword_OK.feature",
+      "blobSha": "dad983bb8e06b4147064e8710b4c6eaf86b92fc3",
+      "bytes": 723
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/26_CreateBlankPage_GetsWarning.feature",
+      "blobSha": "db8c37e311fbedf480376ad78191976984bc537f",
+      "bytes": 520
+    },
+    {
+      "role": "gherkin",
+      "path": "mediawiki/gherkin/27_CreateEmptyUser_Fails.feature",
+      "blobSha": "132bf3078bd0c35d77d549e140133ff9ce6f4e88",
+      "bytes": 479
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserTest.java",
+      "blobSha": "c6abb075f09a24c250d9d806d82b19832e21e970",
+      "bytes": 567
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+      "blobSha": "c0203c21273dc3880befbb7f6cf3bda7b41a5c5e",
+      "bytes": 411
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+      "blobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
+      "bytes": 1000
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateAndLinkPageTest.java",
+      "blobSha": "0365b606c6b35c90865fdc07cb9bb732054fdd81",
+      "bytes": 1011
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/SearchPageTest.java",
+      "blobSha": "7b3013d0931038b99b0a0d6181eb177696b92880",
+      "bytes": 644
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+      "blobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+      "bytes": 931
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateTemplateTest.java",
+      "blobSha": "0fba176d835a951e460b71c54f32758edcf9748d",
+      "bytes": 533
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+      "blobSha": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+      "bytes": 1055
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ApplyTemplateTest.java",
+      "blobSha": "b1d27b4ac42e2a05bd2c584ddae26ed842245028",
+      "bytes": 556
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AddCategoryTest.java",
+      "blobSha": "b138712b78afc019b2d0583e140f1bfa2bf7d59d",
+      "bytes": 579
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ProtectPageTest.java",
+      "blobSha": "5f7d954655924c450737becf5fcfbe37b02d5ffd",
+      "bytes": 462
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+      "blobSha": "a7d4b90209a8b430751210449b175c48975c1864",
+      "bytes": 555
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+      "blobSha": "45286fd4605a2ce9cc870b90fdbbc84e138bef15",
+      "bytes": 605
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/PromoteToAdminTest.java",
+      "blobSha": "843464b878899349048ca334f65ace61e415b36a",
+      "bytes": 543
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+      "blobSha": "2da06da85e9e09d93b1666831464bc65a514de4f",
+      "bytes": 1044
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
+      "blobSha": "2a8e87f31cfbc09637190bf7a15d246870689d9b",
+      "bytes": 1010
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserPageTest.java",
+      "blobSha": "6eb14e11da7df54171db38e32806988933f9f6fd",
+      "bytes": 461
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockUserTest.java",
+      "blobSha": "8dd5f24ad32f467c7fb0830364e33c41136aeb1a",
+      "bytes": 441
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+      "blobSha": "f2ce6d5b55e74edd406960849b0bbf9aaacb6429",
+      "bytes": 575
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/DeletePageTest.java",
+      "blobSha": "9f53f0066d32a31ccdb8bfbc003e203ed9d32e6f",
+      "bytes": 450
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java",
+      "blobSha": "eb5837980b3be8aad60679f6ddf5d451c47cc116",
+      "bytes": 468
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java",
+      "blobSha": "92edb4fea62757ca7aee08a36a79b68c5108fac1",
+      "bytes": 400
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+      "blobSha": "236dde7420315460c9e27ff8e6ea68e8ae268347",
+      "bytes": 502
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+      "blobSha": "7e1c0c327835385a0fc3d79bd4cca9ebdc3e0990",
+      "bytes": 581
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_OKTest.java",
+      "blobSha": "19c23eb9bc2a20ac2f2ff5173e3f9aaf590c7645",
+      "bytes": 526
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+      "blobSha": "de1082b50069eed3e437b35096eae5a17bbe5001",
+      "bytes": 558
+    },
+    {
+      "role": "java-test",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateEmptyUser_Fails.java",
+      "blobSha": "a1af83e328be3081722c7407c20b4d85e6b43a8b",
+      "bytes": 419
+    },
+    {
+      "role": "test-suite",
+      "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/TestSuite.java",
+      "blobSha": "ee5905251fcc59179c0c2dce45b1ef5b0eaac932",
+      "bytes": 1009
+    }
+  ]
+}
