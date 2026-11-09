@@ -4,7 +4,7 @@ import { writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertRouteIsolationContainer, assertContainerPortNotPublished,
+  APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertContainerPortNotPublished,
   assertPublishedLoopbackPort, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway,
   classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD,
   routeIsolationExecArgs, assertNoDefaultRoutes, selectInternalBridgeIpam,
@@ -43,6 +43,15 @@ let reason = 'diagnostic did not complete';
 let dockerChanged = false;
 
 function saveRecord() { writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`); }
+
+function createPrivateStartupLogDirectory(item) {
+  const result = dockerCall(['exec', item.id, '/bin/sh', '-c', 'set -eu; test -d "$HOME"; test ! -L "$HOME"; umask 077; printf "%s\\n" "$HOME"; mktemp -d "$HOME/.t03b2-logs.XXXXXXXX"'], `${item.role}-service-log-directory.json`);
+  const [homeDirectory, logDirectory] = String(result.stdout || '').trim().split(/\r?\n/);
+  item.startupLogHome = homeDirectory;
+  item.startupLogDirectory = assertPrivateLogDirectory(logDirectory, homeDirectory);
+  saveRecord();
+  return item.startupLogDirectory;
+}
 
 function selectNetworkIpam() {
   const ids = docker(['network', 'ls', '-q']).split(/\r?\n/).filter(Boolean);
@@ -117,9 +126,9 @@ function capturePreTeardownEvidence() {
     try { writeOnce(`${item.role}-logs-metadata.json`, { exitCode: logs.status, error: scrub(logs.error?.message || ''), sha256: createHash('sha256').update(logText).digest('hex'), redactionPolicy: 'local paths replaced; credential-like fields redacted' }); } catch {}
     const stats = spawnSync(DOCKER_CLI_PATH, ['stats', '--no-stream', '--format', '{{json .}}', item.id], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
     try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, rows: String(stats.stdout || '').trim().split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line)) }); } catch { try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, output: scrub(stats.stdout || stats.stderr) }); } catch {} }
-    if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD) {
-      const logPath = item.role === 'app' ? '/tmp/t03b2-claroline-services.log' : '/tmp/t03b2-selenium-services.log';
-      const startup = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logPath}`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+    if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD && item.startupLogDirectory) {
+      const logDirectory = assertPrivateLogDirectory(item.startupLogDirectory, item.startupLogHome);
+      const startup = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logDirectory}/services.log`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
       const startupLog = scrub(startup.stdout || startup.stderr || '');
       try { writeTextOnce(`${item.role}-service-startup-sanitized.log`, startupLog); } catch {}
       try { writeOnce(`${item.role}-service-startup-metadata.json`, { exitCode: startup.status, error: scrub(startup.error?.message || ''), sha256: createHash('sha256').update(startupLog).digest('hex'), redactionPolicy: 'local paths replaced; credential-like fields redacted' }); } catch {}
@@ -200,7 +209,8 @@ try {
   const egressOutcome = classifyEgressProbe(egressProbe);
   writeOnce('app-egress-policy-check.json', { target: '1.1.1.1:443', outcome: egressOutcome, exitCode: egressProbe.status, stdout: scrub(egressProbe.stdout || ''), stderr: scrub(egressProbe.stderr || ''), error: scrub(egressProbe.error?.message || '') });
   if (egressOutcome !== 'PASS') throw new Error(egressOutcome === 'FAIL' ? 'EGRESS_POLICY_VIOLATION: container reached an external TCP target' : 'EGRESS_POLICY_UNVERIFIED: container egress probe was inconclusive');
-  dockerCall(['exec', '--detach', '--user', '0', record.containers[0].id, '/bin/sh', '-c', './run-services-docker.sh bash > /tmp/t03b2-claroline-services.log 2>&1'], 'app-services-start.json');
+  const appLogDirectory = createPrivateStartupLogDirectory(record.containers[0]);
+  dockerCall(['exec', '--detach', '--user', '0', record.containers[0].id, '/bin/sh', '-c', `./run-services-docker.sh bash > ${appLogDirectory}/services.log 2>&1`], 'app-services-start.json');
   const deadline = Date.now() + 180000;
   let http = { outcome: 'BLOCKED', reason: 'readiness timeout' };
   while (Date.now() < deadline) {

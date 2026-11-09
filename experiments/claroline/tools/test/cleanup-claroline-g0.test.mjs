@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, assertNetworkPolicy, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -210,6 +210,11 @@ test('published bridge route isolation requires an exact no-masquerade bridge an
   assert.equal(assertNoDefaultRoutes(''), true);
   assert.throws(() => assertNoDefaultRoutes('default via 172.26.254.1 dev eth0'), /EGRESS_ROUTE_PRESENT/);
   assert.throws(() => assertNoDefaultRoutes(undefined), /output is missing/);
+  assert.equal(assertPrivateLogDirectory('/root/.t03b2-logs.A1B2C3D4', '/root'), '/root/.t03b2-logs.A1B2C3D4');
+  assert.equal(assertPrivateLogDirectory('/home/seluser/.t03b2-logs.A1B2C3D4', '/home/seluser'), '/home/seluser/.t03b2-logs.A1B2C3D4');
+  for (const path of ['/tmp/t03b2.log', '/root/.t03b2-logs../unsafe', '/root/.t03b2-logs.a/../../tmp']) {
+    assert.throws(() => assertPrivateLogDirectory(path, '/root'), /private directory below the container home/);
+  }
   for (const mutate of [network => { network.Internal = true; }, network => { network.EnableIPv6 = true; }, network => { network.Options['com.docker.network.bridge.enable_ip_masquerade'] = 'true'; }]) {
     const network = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY); mutate(network);
     assert.throws(() => assertNetworkPolicy(network, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), /network policy mismatch/);

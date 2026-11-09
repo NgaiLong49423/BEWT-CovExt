@@ -57,12 +57,13 @@
     "evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json",
     "evidence/offline-verification-20261109-r51/",
     "evidence/offline-verification-20261109-r53/runtime-gate-recheck.json",
-    "evidence/offline-verification-20261109-r55/verification-summary.json"
+    "evidence/offline-verification-20261109-r55/verification-summary.json",
+    "evidence/offline-verification-20261109-r57/verification-summary.json"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
   "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r55/",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r57/",
   "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r53/runtime-gate-recheck.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",

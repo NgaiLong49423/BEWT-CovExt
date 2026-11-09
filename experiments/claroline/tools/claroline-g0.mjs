@@ -101,10 +101,21 @@ export function routeIsolationExecArgs(containerId) {
   return ['exec', '--privileged', '--user', '0', containerId, '/bin/sh', '-c', 'ip route del default'];
 }
 
+/** Validate that startup logs stay in a fresh private directory below the container user's home. */
+export function assertPrivateLogDirectory(directory, homeDirectory) {
+  if (typeof directory !== 'string' || typeof homeDirectory !== 'string' || !/^\/(?:root|home\/[A-Za-z0-9_-]+)$/.test(homeDirectory) ||
+      !directory.startsWith(`${homeDirectory}/.t03b2-logs.`) || !/^[A-Za-z0-9]+$/.test(directory.slice(`${homeDirectory}/.t03b2-logs.`.length))) {
+    throw new Error('startup log directory must be a fresh private directory below the container home');
+  }
+  return directory;
+}
+
 /** Fail closed unless the inspected IPv4 and IPv6 route tables contain no default route. */
 export function assertNoDefaultRoutes(routeOutput) {
   if (typeof routeOutput !== 'string') throw new Error('route isolation verification output is missing');
-  if (/^\s*default(?:\s|$)/mi.test(routeOutput)) throw new Error('EGRESS_ROUTE_PRESENT: container still has a default route');
+  if (routeOutput.split(/\r?\n/).some(line => line.trimStart().split(/\s+/, 1)[0] === 'default')) {
+    throw new Error('EGRESS_ROUTE_PRESENT: container still has a default route');
+  }
   return true;
 }
 

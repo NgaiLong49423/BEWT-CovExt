@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
@@ -35,6 +35,15 @@ function dockerCall(args, evidenceName, throwOnError = true) {
     throw new Error(`${prefix}docker ${args[0]} failed (${result.status}): ${detail}`);
   }
   return result;
+}
+
+function createPrivateStartupLogDirectory(container, role) {
+  const result = dockerCall(['exec', container.id, '/bin/sh', '-c', 'set -eu; test -d "$HOME"; test ! -L "$HOME"; umask 077; printf "%s\\n" "$HOME"; mktemp -d "$HOME/.t03b2-logs.XXXXXXXX"'], `${role}-service-log-directory.json`);
+  const [homeDirectory, logDirectory] = String(result.stdout || '').trim().split(/\r?\n/);
+  container.startupLogHome = homeDirectory;
+  container.startupLogDirectory = assertPrivateLogDirectory(logDirectory, homeDirectory);
+  writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
+  return container.startupLogDirectory;
 }
 
 function selectNetworkIpam() {
@@ -96,6 +105,7 @@ try {
   recordCreatedResource({ kind: 'container', role: 'browser', name: names.browser, imageRef: BROWSER_IMAGE_REF, result: browserCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const appRecord = record.containers.find(item => item.role === 'app');
   const browserRecord = record.containers.find(item => item.role === 'browser');
+  if (!appRecord || !browserRecord) throw new Error('RUN_RECORD_INCOMPLETE: expected recorded app and browser container IDs');
   dockerCall(['start', appRecord.id], 'app-start.json');
   dockerCall(['start', browserRecord.id], 'selenium-start.json');
   const appInfo = JSON.parse(docker(['inspect', appRecord.id]))[0];
@@ -127,8 +137,10 @@ try {
     mysql3306Published: false, reservationHeld: false,
   });
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify({ ...record, appPort, browserPort }, null, 2)}\n`);
-  dockerCall(['exec', '--detach', '--user', '0', appRecord.id, '/bin/sh', '-c', './run-services-docker.sh bash > /tmp/t03b2-claroline-services.log 2>&1'], 'app-services-start.json');
-  dockerCall(['exec', '--detach', '--user', '1200', browserRecord.id, '/bin/sh', '-c', '/opt/bin/entry_point.sh > /tmp/t03b2-selenium-services.log 2>&1'], 'selenium-services-start.json');
+  const appLogDirectory = createPrivateStartupLogDirectory(appRecord, 'app');
+  const browserLogDirectory = createPrivateStartupLogDirectory(browserRecord, 'selenium');
+  dockerCall(['exec', '--detach', '--user', '0', appRecord.id, '/bin/sh', '-c', `./run-services-docker.sh bash > ${appLogDirectory}/services.log 2>&1`], 'app-services-start.json');
+  dockerCall(['exec', '--detach', '--user', '1200', browserRecord.id, '/bin/sh', '-c', `/opt/bin/entry_point.sh > ${browserLogDirectory}/services.log 2>&1`], 'selenium-services-start.json');
   const waitHttp = async (url, label, validate = () => true) => {
     const deadline = Date.now() + 180000;
     let last = '';
@@ -182,8 +194,9 @@ try {
 } finally {
   if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD) {
     for (const item of record.containers) {
-      const logPath = item.role === 'app' ? '/tmp/t03b2-claroline-services.log' : '/tmp/t03b2-selenium-services.log';
-      const result = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logPath}`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+      if (!item.startupLogDirectory || !item.startupLogHome) continue;
+      const logDirectory = assertPrivateLogDirectory(item.startupLogDirectory, item.startupLogHome);
+      const result = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logDirectory}/services.log`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
       const output = sanitizeEvidenceText(result.stdout || result.stderr || '');
       try { writeFileSync(resolve(evidenceDir, `${item.role}-service-startup-sanitized.log`), output, { flag: 'wx' }); } catch {}
       try { writeOnce(resolve(evidenceDir, `${item.role}-service-startup-metadata.json`), { exitCode: result.status, error: sanitizeEvidenceText(result.error?.message || ''), sha256: sha256(output), redactionPolicy: 'local paths and fixture credentials sanitized' }); } catch {}

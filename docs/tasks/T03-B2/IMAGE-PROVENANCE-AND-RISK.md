@@ -40,3 +40,5 @@ A read-only Registry API inspection fetched the pinned manifest and verified all
 Evidence: `evidence/offline-verification-20261109-r14/registry-image-manifest.json`, `image-source-layer-comparison.json`, and `runtime-preflight.json`. The layer inspection did not create or alter Docker resources.
 
 **Pending Team Lead decision:** whether this precisely pinned customized derivative is acceptable as the G0 runtime despite the unattributed application-code patch. No runtime manifest is promoted pending that decision and runtime verification.
+
+The post-Sonar candidate stores service startup output in a fresh directory under each container user's home, created with `mktemp -d` and `umask 077` after checking that `$HOME` is a non-symlink directory. It validates the generated path before interpolating it into a shell command. The final offline checks are in `evidence/offline-verification-20261109-r57/`; there is no runtime proof yet.
