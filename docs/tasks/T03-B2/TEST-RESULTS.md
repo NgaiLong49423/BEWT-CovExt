@@ -140,3 +140,13 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
 - Regression cases: independent authorization unavailable/fail-closed (missing, forged, mismatched run/container/command/scope/rollback, expired/replay candidate); no container start before authorization block; host IPv6 unavailable distinct from container endpoint unreachable; TCP timeout, connection refusal/reachability, probe process failure and inconclusive output never count as blocked PASS.
 - Evidence: `evidence/offline-verification-20261110-r67/` contains exact commands, per-command output logs, exit codes, log SHA-256, source/test SHA-256, Git blob IDs, tested HEAD and test counts.
 - Runtime egress probes were not run. Building a probe command is not runtime evidence. Docker diagnostic, full G0, Selenium Base, DB reset and runtime cleanup remain `NOT_RUN` under the unchanged 6 GiB gate and independent authorization blocker.
+
+## Independent reviewer correction round 3 — offline verification r68 (2026-11-10)
+
+- Tested source HEAD: `992db57c3320320d68b69a64547a6784c89c237f`; source/test tree clean at test time and Git blob IDs matched HEAD.
+- Seven Node syntax checks: **7/7 PASS**, all exit 0.
+- `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **36 passed, 0 failed**, exit 0.
+- Required result cases exercised through both `classifyTcpProbe()` and `classifyEgressProbe()` where applicable: exit 0 plus unreachable text, exit 127 plus unreachable text, null-status spawn error, successful connection, connection refused, marked genuine network-unreachable, timeout, contradictory status/output, and empty/incomplete results.
+- Probe wrapper now emits a structured inner exit marker and returns that status. The classifier only treats network-unreachable as valid when the marker exists, outer and inner statuses agree, and no success/contradictory evidence exists. Docker process startup errors cannot be mistaken for socket errors from a container.
+- Evidence: `evidence/offline-verification-20261110-r68/verification-summary.json` plus seven syntax logs and the test log, exact commands, exit codes, SHA-256 logs/source and Git blob IDs.
+- Docker, live TCP, Selenium Base, DB reset, Maven/business runtime and cleanup: `NOT_RUN`; no privileged execution. The unchanged 6 GiB gate is below the last recorded RAM samples.

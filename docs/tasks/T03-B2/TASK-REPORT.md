@@ -274,3 +274,13 @@ The runners create the task-labeled network and stopped containers to obtain exa
 ### Verification and disposition
 
 `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **36 passed, 0 failed**, exit 0. Seven Node syntax checks: **7/7 passed**, all exit 0. Exact commands, individual logs/exit codes/log hashes, source hashes and test counts are in `evidence/offline-verification-20261110-r67/`. Latest existing RAM evidence remains r65 (3.089/3.109/3.110 GiB free, below unchanged 6 GiB); no repeated sampling or runtime was performed. Docker diagnostic, G0 A/B, network probe, Selenium Base, DB reset, Maven/business execution, and runtime cleanup are `NOT_RUN`. G0 remains `PARTIAL/BLOCKED`; no acceptance is claimed. Shared `docs/program/STATUS.json` and historical evidence r1-r66 were not changed.
+
+## Independent reviewer correction round 3 — 2026-11-10 (r68)
+
+The egress classifier now separates Docker process execution from the in-container TCP command result using a structured `__BEWT_TCP_PROBE_EXIT__` marker. The wrapper returns the inner probe exit code; the classifier requires a present marker and matching exit codes before accepting `NETWORK_UNREACHABLE`. Docker spawn errors, missing markers, exit 127, mismatched outer/inner status, and contradictory output are non-PASS (`PROBE_EXECUTION_FAILURE` or `INCONCLUSIVE`). Node host socket results carry `source: node-socket`, while Docker CLI results carry `source: process`.
+
+Regression coverage includes exit 0 with unreachable stderr, exit 127 with unreachable stderr, null-status spawn error, connection success, connection refused, genuine marked network-unreachable, timeout, contradictory success/unreachable signals, incomplete/empty results, plus separate host socket and Docker process failures. The suite verifies that ambiguous execution cannot become an egress-isolation PASS.
+
+Post-commit verification ran on `992db57c3320320d68b69a64547a6784c89c237f`: seven syntax checks PASS (all exit 0); Claroline cleanup/fault tests PASS (36/36, exit 0). Provenance and hashes are in `evidence/offline-verification-20261110-r68/verification-summary.json`; source/test files matched HEAD before and after. The later report/evidence commit does not change Claroline source/test content.
+
+Runtime is `NOT_RUN`. Last recorded RAM samples remain 3.089/3.109/3.110 GiB, below the unchanged 6 GiB gate. No Docker or TCP diagnostic ran. Privileged execution remains disabled pending independently authenticated Team Lead authorization design and network-level deny-by-default design. G0 remains `PARTIAL/BLOCKED`; r1-r67 evidence, `bewt-original/`, and `docs/program/STATUS.json` remain unchanged.

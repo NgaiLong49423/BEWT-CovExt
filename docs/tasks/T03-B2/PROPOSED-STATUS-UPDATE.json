@@ -9,7 +9,7 @@
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest user-confirmed r53 memory samples were 4.848, 4.904, and 4.863 GiB (<6 GiB); Docker was reachable and no task resources were present. The route-isolated published-bridge candidate has only offline verification and was not run. r55 fault suite 34/34 and five syntax checks passed; historical r2/r3/r5 results remain unchanged. Latest recheck r58 measured 5.437, 5.442, and 5.460 GiB free (<6 GiB); Docker Engine responded and task ownership counts were zero. No diagnostic was run or Docker resources changed. Latest user-confirmed memory recheck r60 measured 5.174, 4.974, and 4.959 GiB (<6 GiB); Docker Engine was reachable, WSL VM working set was 1,238,462,464 bytes, and all task resource counts were zero. No runtime was run. Current continuation 2026-11-10: Docker Engine 29.8.0 reachable; exact task-label inventory zero; free RAM 3.089/3.109/3.110 GiB below 6 GiB; runtime diagnostic NOT_RUN and no Docker resources changed. Offline suite 34/34 and five syntax checks PASS. See offline-verification-20261110-r64/ and offline-verification-20261110-r65/runtime-gate-recheck.json.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest user-confirmed r53 memory samples were 4.848, 4.904, and 4.863 GiB (<6 GiB); Docker was reachable and no task resources were present. The route-isolated published-bridge candidate has only offline verification and was not run. r55 fault suite 34/34 and five syntax checks passed; historical r2/r3/r5 results remain unchanged. Latest recheck r58 measured 5.437, 5.442, and 5.460 GiB free (<6 GiB); Docker Engine responded and task ownership counts were zero. No diagnostic was run or Docker resources changed. Latest user-confirmed memory recheck r60 measured 5.174, 4.974, and 4.959 GiB (<6 GiB); Docker Engine was reachable, WSL VM working set was 1,238,462,464 bytes, and all task resource counts were zero. No runtime was run. Current continuation 2026-11-10: Docker Engine 29.8.0 reachable; exact task-label inventory zero; free RAM 3.089/3.109/3.110 GiB below 6 GiB; runtime diagnostic NOT_RUN and no Docker resources changed. Offline suite 34/34 and five syntax checks PASS. See offline-verification-20261110-r64/ and offline-verification-20261110-r65/runtime-gate-recheck.json. Correction round 3 (2026-11-10): TCP classification requires the structured in-container probe exit marker and matching process status; exit 0 with unreachable text, exit 127, spawn error, timeout, refusal, contradiction, and incomplete results are fail-closed. Verification r68 on source HEAD 992db57c3320320d68b69a64547a6784c89c237f: seven syntax checks and 36/36 cleanup/fault tests PASS; source/test hashes match tested HEAD. Runtime NOT_RUN; last recorded RAM remains below 6 GiB; privileged route execution remains disabled.",
   "statusJsonChanged": false,
   "archiveCandidates": [
     {
@@ -64,12 +64,13 @@
     "evidence/offline-verification-20261110-r64/",
     "evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
     "evidence/offline-verification-20261110-r66/",
-    "evidence/offline-verification-20261110-r67/"
+    "evidence/offline-verification-20261110-r67/",
+    "evidence/offline-verification-20261110-r68/"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
   "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r67/",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r68/",
   "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",
@@ -80,29 +81,27 @@
   },
   "latestContinuation": {
     "dateLocal": "2026-11-10",
+    "reviewRoundStartCommit": "a9ad11e77f8d316c1ca35653e22295754021b02a",
+    "testedSourceCommit": "992db57c3320320d68b69a64547a6784c89c237f",
     "branch": "feature/t03b2-claroline-g0",
     "pr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/12",
-    "dockerEngine": "Last recorded Docker Engine 29.8.0 from r65; not rechecked this round",
+    "lastRecordedDockerEngine": "29.8.0 in r65, not rechecked in round 3",
     "latestRecordedFreeRamGiBSamples": [
       3.089,
       3.109,
       3.11
     ],
     "ramGate": "BLOCKED_UNCHANGED_6_GIB",
-    "resourceInventory": "NOT_RECHECKED",
-    "syntaxChecks": "7/7 PASS, all exit 0",
+    "syntaxChecks": "7/7 PASS, exit 0",
     "cleanupFaultTests": "36/36 PASS, exit 0",
-    "evidence": "evidence/offline-verification-20261110-r67/",
-    "provenance": "Source/test working tree clean at test; SHA-256 and normalized Git blob IDs match tested HEAD",
+    "testProvenance": "Source/test blobs matched tested HEAD; source tree clean",
+    "evidence": "evidence/offline-verification-20261110-r68/",
+    "tcpClassifier": "PROCESS_MARKER_REQUIRED; mismatched/incomplete/contradictory results never establish isolation",
     "runtime": "NOT_RUN",
-    "privilegedDockerExec": "BLOCKED_APPROVAL_REQUIRED_NOT_INVOKED",
+    "privilegedDockerExec": "DISABLED_BLOCKED_APPROVAL_REQUIRED_NOT_INVOKED",
     "independentTeamLeadDecision": "MISSING_AUTHORIZATION_MECHANISM_DESIGN_REQUIRED",
     "temporalEgressRisk": "Future start-to-route-removal interval requires network-level deny-by-default before runtime",
     "dockerResourcesChanged": false,
-    "sharedStatusJsonChanged": false,
-    "reviewRoundStartCommit": "95abeaf0180d4e71552c6688244d461a6294367a",
-    "testedSourceCommit": "2625bc618c1cbaabf7267f9d7594cedd71c0426e",
-    "independentAuthorization": "NOT_CONFIGURED_FAIL_CLOSED_TEAM_LEAD_DESIGN_REQUIRED",
-    "sourceTestHashes": "evidence/offline-verification-20261110-r67/verification-summary.json"
+    "sharedStatusJsonChanged": false
   }
 }
