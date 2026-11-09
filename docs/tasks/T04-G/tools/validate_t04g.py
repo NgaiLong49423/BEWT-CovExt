@@ -366,7 +366,7 @@ def main():
         "Agent / Task: Agent 2 / T04-G", "Docker target: GOOGLE_CLOUD_ONLY",
         "Local Docker allowed: NO", "Cloud VM verified: NO", "Runtime lease owner: Agent 1",
         "Runtime performed: NO", "Changes required: apply this policy to future runtime tasks.",
-        "Next action: complete static correction",
+        "Next action: independent review of PR #21",
     ):
         if required not in report:
             errors.append("missing Cloud-only policy acknowledgement: " + required)

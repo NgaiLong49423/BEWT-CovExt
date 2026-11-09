@@ -68,5 +68,5 @@ Command: `git diff --check`
 ## PR state and handoff
 
 - PR #20 was already MERGED before these corrections: reviewed head `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`, merge commit `3687c015bf06c6e05a2e15ac2ef91bbaafa2c541`.
-- The merged PR head is `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`; it cannot be reopened. Corrections are pushed to the original feature branch, with its final correction SHA reported in the handoff. No replacement PR was created.
+- PR #20's merged head is `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`; it cannot be reopened. After the user's later authorization, PR #21 was created from the correction branch to `main`; it is OPEN and is the current independent review gate. Its final head SHA is supplied in the task handoff.
 - T04-G remains `PARTIAL_WITH_LIMITATIONS`; no candidate approval, G1 PASS, confirmed semantic consolidation, official denominator, or RQ2 result is claimed.

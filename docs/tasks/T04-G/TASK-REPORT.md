@@ -18,7 +18,7 @@
 - Outcome: `PARTIAL_WITH_LIMITATIONS`. No candidate implementation, G1 PASS, runtime/E2E result, novelty validation, or RQ2 result is claimed. `docs/program/STATUS.json` remains unchanged.
 - Validator and negative-test evidence: see `TEST-RESULTS.md`.
 - Exact tested code/data SHA: `0fd9fc9b711e2293c90c7ab00f26f49b911c20bb` (tests rerun at this commit; later commits update reports only).
-- Final PR #20 URL: https://github.com/NgaiLong49423/BEWT-CovExt/pull/20; the final head SHA is verified from PR metadata at handoff.
+- Original PR #20 was already merged before corrections. Following the user's later authorization, replacement PR #21 was opened to `main`: https://github.com/NgaiLong49423/BEWT-CovExt/pull/21. Its final head SHA is verified from PR metadata at handoff.
 
 ## Changed files
 
@@ -26,7 +26,7 @@ All task artifacts, pinned-source excerpts, builder, validator, and handoff docu
 
 ## Independent review gate
 
-At the start of this correction task, GitHub reported PR #20 already MERGED at `2026-11-09T21:53:52Z`, head `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`, merge commit `3687c015bf06c6e05a2e15ac2ef91bbaafa2c541`. This agent did not merge it. A merged PR cannot be returned to OPEN; no replacement PR is created under the current instruction. Corrections are pushed to the original branch for inspection, but the independent review gate cannot be restored through PR #20. No candidate approval or implementation is inferred from that prior merge.
+At the start of this correction task, GitHub reported PR #20 already MERGED at `2026-11-09T21:53:52Z`, head `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`, merge commit `3687c015bf06c6e05a2e15ac2ef91bbaafa2c541`. This agent did not merge it. After the user authorized a new review request, PR #21 was created from the correction branch to `main`; it is OPEN and not merged. No candidate approval or implementation is inferred from PR #20's prior merge.
 
 ## Independent review corrections
 
@@ -47,4 +47,4 @@ At the start of this correction task, GitHub reported PR #20 already MERGED at `
 - Runtime performed: NO
 - Changes required: apply this policy to future runtime tasks.
 - Blockers: none for the static corrections; runtime tasks must verify VM state, authorization, and exclusive lease first.
-- Next action: complete static correction and return PR #20 to independent review.
+- Next action: independent review of PR #21; keep it open until reviewers decide.
