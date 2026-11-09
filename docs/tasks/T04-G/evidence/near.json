@@ -1,0 +1,135 @@
+[
+  {
+    "candidateId": "CL-GAP-001",
+    "application": "claroline",
+    "baselineCaseId": "claroline-04-addcoursetest",
+    "unitId": "BU-CLAROLINE-04-ADDCOURSETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "CL-GAP-001",
+    "application": "claroline",
+    "baselineCaseId": "claroline-07-addcourseeventtest",
+    "unitId": "BU-CLAROLINE-07-ADDCOURSEEVENTTEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-001",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-08-addissue",
+    "unitId": "BU-MANTISBT-08-ADDISSUE",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-001",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-18-updateissuesummary",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-002",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-08-addissue",
+    "unitId": "BU-MANTISBT-08-ADDISSUE",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-002",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-18-updateissuesummary",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-004",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-08-addissue",
+    "unitId": "BU-MANTISBT-08-ADDISSUE",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MB-GAP-004",
+    "application": "mantisbt",
+    "baselineCaseId": "mantisbt-18-updateissuesummary",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-002",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-03-createpagetest",
+    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-002",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-06-editpagetest",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-002",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
+    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-003",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-03-createpagetest",
+    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-003",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-06-editpagetest",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "MW-GAP-003",
+    "application": "mediawiki",
+    "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
+    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "PS-GAP-001",
+    "application": "prestashop",
+    "baselineCaseId": "prestashop-01-addnewproduct",
+    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "PS-GAP-001",
+    "application": "prestashop",
+    "baselineCaseId": "prestashop-12-addnewaddress",
+    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "PS-GAP-001",
+    "application": "prestashop",
+    "baselineCaseId": "prestashop-28-outofstockvalidity",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "PS-GAP-002",
+    "application": "prestashop",
+    "baselineCaseId": "prestashop-12-addnewaddress",
+    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  },
+  {
+    "candidateId": "PS-GAP-002",
+    "application": "prestashop",
+    "baselineCaseId": "prestashop-28-outofstockvalidity",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+  }
+]
