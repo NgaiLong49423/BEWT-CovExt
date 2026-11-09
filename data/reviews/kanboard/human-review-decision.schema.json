@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/NgaiLong49423/BEWT-CovExt/blob/main/data/reviews/kanboard/human-review-decision.schema.json",
+  "title": "Append-only Kanboard human review decision record",
+  "type": "object",
+  "required": ["recordId", "recordSequence", "previousRecordHash", "supersedesRecordId", "candidateId", "candidateVersionSha256", "reviewedDatasetSha256", "reviewedCommitSha", "reviewerIdentity", "decisionDate", "decision", "rationale", "oracleConfirmation", "noveltyAssessment", "conditionsForImplementation", "reviewerEvidence"],
+  "properties": {
+    "recordId": {"type": "string", "format": "uuid"},
+    "recordSequence": {"type": "integer", "minimum": 1},
+    "previousRecordHash": {"type": ["string", "null"], "pattern": "^[a-f0-9]{64}$"},
+    "supersedesRecordId": {"type": ["string", "null"], "format": "uuid"},
+    "candidateId": {"enum": ["KB-GAP-001", "KB-GAP-002", "KB-GAP-003", "KB-GAP-004", "KB-GAP-008"]},
+    "candidateVersionSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reviewedDatasetSha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "reviewedCommitSha": {"type": "string", "pattern": "^[a-f0-9]{40}$"},
+    "reviewerIdentity": {"type": "string", "minLength": 2},
+    "decisionDate": {"type": "string", "format": "date-time"},
+    "decision": {"enum": ["ACCEPT", "REVISE", "REJECT"]},
+    "rationale": {"type": "string", "minLength": 10},
+    "oracleConfirmation": {"type": "object", "required": ["status", "rationale"], "properties": {"status": {"enum": ["CONFIRMED", "CONDITIONED", "NOT_CONFIRMED"]}, "rationale": {"type": "string", "minLength": 5}}, "additionalProperties": false},
+    "noveltyAssessment": {"type": "object", "required": ["status", "rationale"], "properties": {"status": {"enum": ["SUPPORTED", "OVERLAP", "INSUFFICIENT_EVIDENCE", "INCONCLUSIVE"]}, "rationale": {"type": "string", "minLength": 5}}, "additionalProperties": false},
+    "conditionsForImplementation": {"type": "array", "items": {"type": "string", "minLength": 3}},
+    "reviewerEvidence": {"type": "array", "minItems": 1, "items": {"type": "object", "required": ["path", "sha256", "description"], "properties": {"path": {"type": "string", "minLength": 1}, "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"}, "description": {"type": "string", "minLength": 5}}, "additionalProperties": false}}
+  },
+  "additionalProperties": false
+}

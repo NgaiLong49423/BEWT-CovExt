@@ -1,0 +1,5 @@
+First run: generated tracked dataset from verified pinned Git object inputs.
+Second run: docs/tasks/T04-A/evidence/review-fixes/regeneration-run.txt into a new temporary directory.
+Compared outputs: inventory.json, provenance-index.json, KANBOARD-BASELINE-MAPPING.md.
+All three outputs were byte-identical.
+Result: PASS.

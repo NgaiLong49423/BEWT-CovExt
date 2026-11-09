@@ -1,0 +1,22 @@
+{
+  "result": "PASS",
+  "branch": "feature/t04a-kanboard-coverage-inventory",
+  "acceptedStaticInventoryHead": "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
+  "originMain": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+  "mergeCommit": "24d6ce3a20d0df1eafd3020a6492cd3cb207731a",
+  "mergeParents": [
+    "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
+    "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d"
+  ],
+  "strategy": "normal ort merge",
+  "conflicts": 0,
+  "verifiedPaths": {
+    "t04aInventory": "data/coverage/kanboard/inventory.json",
+    "t03b1Manifest": "config/apps/bludit.json",
+    "t03b1SourceAndTests": "experiments/bludit/",
+    "t03b1Evidence": "docs/tasks/T03-B1/evidence/",
+    "t02IsolationTest": "docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs"
+  },
+  "noGeminiDockerSeleniumOrAppRuntime": true,
+  "gate": "G1 NOT_ACCEPTED; per-app G1 remains NOT_VERIFIED"
+}

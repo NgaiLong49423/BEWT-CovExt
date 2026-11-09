@@ -1,0 +1,1 @@
+JSON parse PASS; T04-A invariants: 30 cases, 6 groups, 10 candidates; T03-B1 Bludit manifest present (appId=bludit)

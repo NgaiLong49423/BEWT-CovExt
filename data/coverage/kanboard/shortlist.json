@@ -1,0 +1,39 @@
+{
+  "schemaVersion": "1.0",
+  "status": "PROPOSED_FOR_HUMAN_REVIEW",
+  "items": [
+    {
+      "rank": 1,
+      "candidateId": "KB-GAP-001",
+      "rationale": "Inverse lifecycle with visible status and search oracle."
+    },
+    {
+      "rank": 2,
+      "candidateId": "KB-GAP-002",
+      "rationale": "Persisted collaboration behavior with task-scoped oracle."
+    },
+    {
+      "rank": 3,
+      "candidateId": "KB-GAP-003",
+      "rationale": "Parent-child relation distinct from top-level creation."
+    },
+    {
+      "rank": 4,
+      "candidateId": "KB-GAP-004",
+      "rationale": "Common workflow; update form and permission boundary are source-backed."
+    },
+    {
+      "rank": 5,
+      "candidateId": "KB-GAP-008",
+      "rationale": "Column update complements baseline create/validation coverage."
+    }
+  ],
+  "deferred": {
+    "KB-GAP-005": "Date/time stability risk.",
+    "KB-GAP-006": "Drag/drop runtime reliability needs assessment.",
+    "KB-GAP-007": "Category display oracle needs review.",
+    "KB-GAP-009": "AJAX feedback and project-manager invariants add fixture complexity.",
+    "KB-GAP-010": "Swimlane description visibility and cleanup need confirmation."
+  },
+  "humanReview": "No decision exists; shortlist is a proposal and not ACCEPTED_FOR_IMPLEMENTATION."
+}

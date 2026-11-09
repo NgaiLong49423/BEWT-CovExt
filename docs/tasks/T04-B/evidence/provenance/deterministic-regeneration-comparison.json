@@ -1,0 +1,5 @@
+[
+  {"file":"inventory.json","checkedInSha256":"a81d5bdc8a4590bab4a23073d9b3dc2b7dcf97977ff8db44854949f2feb94704","freshSha256":"a81d5bdc8a4590bab4a23073d9b3dc2b7dcf97977ff8db44854949f2feb94704","byteIdentical":true},
+  {"file":"provenance-index.json","checkedInSha256":"3892a3bb0b6ff8331d2d3f06af4976d39073a3b61042ad8302fa62d4d35c8b4c","freshSha256":"3892a3bb0b6ff8331d2d3f06af4976d39073a3b61042ad8302fa62d4d35c8b4c","byteIdentical":true},
+  {"file":"KANBOARD-BASELINE-MAPPING.md","checkedInSha256":"0895ac1d36c1326366e3e4fdceff455233da997effc0cbae19ab886ae33e7b9a","freshSha256":"0895ac1d36c1326366e3e4fdceff455233da997effc0cbae19ab886ae33e7b9a","byteIdentical":true}
+]

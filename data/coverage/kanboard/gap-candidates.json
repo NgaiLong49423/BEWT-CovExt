@@ -1,0 +1,413 @@
+{
+  "schemaVersion": "1.0",
+  "application": "Kanboard",
+  "upstreamCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "status": "PROPOSED_PENDING_HUMAN_REVIEW",
+  "items": [
+    {
+      "id": "KB-GAP-001",
+      "category": "task-management",
+      "title": "Reopen a closed task",
+      "description": "Reopen a closed task.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/task/sidebar.php",
+          "line": "L81",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task/sidebar.php#L81"
+        },
+        {
+          "path": "app/Controller/TaskStatusController.php",
+          "line": "L28-L36",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskStatusController.php#L28-L36"
+        },
+        {
+          "path": "app/Template/app/filters_helper.php",
+          "line": "L11-L13",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/app/filters_helper.php#L11-L13"
+        }
+      ],
+      "baselineComparison": "Baseline KB-018 closes task 3 and KB-027 searches closed tasks; no test opens one.",
+      "preconditions": [
+        "Existing closed task; actor may open it."
+      ],
+      "expectedObservableResult": "Visible Open status and status:open search returns the task.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "HIGH",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-002",
+      "category": "task-management",
+      "title": "Create and view a task comment",
+      "description": "Create and view a task comment.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/task_comments/create.php",
+          "line": "L1",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_comments/create.php#L1"
+        },
+        {
+          "path": "app/Template/task/sidebar.php",
+          "line": "L50",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task/sidebar.php#L50"
+        },
+        {
+          "path": "app/Controller/CommentController.php",
+          "line": "L44-L60",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/CommentController.php#L44-L60"
+        }
+      ],
+      "baselineComparison": "None of the 30 mapped baseline cases creates or asserts task comments.",
+      "preconditions": [
+        "Existing visible task; authenticated user may comment."
+      ],
+      "expectedObservableResult": "Exact new comment appears in that task's comment history.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "HIGH",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-003",
+      "category": "task-management",
+      "title": "Create a subtask under a task",
+      "description": "Create a subtask under a task.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/subtask/create.php",
+          "line": "L15",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/subtask/create.php#L15"
+        },
+        {
+          "path": "app/Template/task/sidebar.php",
+          "line": "L41",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task/sidebar.php#L41"
+        },
+        {
+          "path": "app/Controller/SubtaskController.php",
+          "line": "L65-L113",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SubtaskController.php#L65-L113"
+        }
+      ],
+      "baselineComparison": "Baseline creates top-level tasks only; no parent-child assertion.",
+      "preconditions": [
+        "Existing parent task and permitted actor."
+      ],
+      "expectedObservableResult": "Child title appears in the parent's subtask section.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "HIGH",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-004",
+      "category": "task-management",
+      "title": "Change an existing task assignee",
+      "description": "Change an existing task assignee.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/task_modification/show.php",
+          "line": "L19",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_modification/show.php#L19"
+        },
+        {
+          "path": "app/Controller/TaskModificationController.php",
+          "line": "L136-L164",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php#L136-L164"
+        },
+        {
+          "path": "app/Controller/TaskModificationController.php",
+          "line": "L81-L105",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php#L81-L105"
+        },
+        {
+          "path": "app/Helper/TaskHelper.php",
+          "line": "L115-L130",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php#L115-L130"
+        },
+        {
+          "path": "app/Model/ProjectUserRoleModel.php",
+          "line": "L163-L197",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Model/ProjectUserRoleModel.php#L163-L197"
+        },
+        {
+          "path": "app/Helper/ProjectRoleHelper.php",
+          "line": "L186-L214",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/ProjectRoleHelper.php#L186-L214"
+        }
+      ],
+      "baselineComparison": "Baseline task creation does not set or verify assignment.",
+      "preconditions": [
+        "Use a stable fixture: a pre-seeded project and existing task with recorded fixture IDs and reset procedure.",
+        "Actor is an active project member whose role permits both updating this task and changing its assignee; retain an unauthorized-role negative control.",
+        "Target is an active, assignable member of the same project (Manager/Member, not Viewer); verify the candidate is selected from that project's assignable-user list.",
+        "Keep target membership and actor permissions unchanged across reruns; do not rely on an unseeded or dynamically created user.",
+        "Treat server-side rejection of a forged non-member owner_id as NOT_VERIFIED until a focused test proves that permission boundary."
+      ],
+      "expectedObservableResult": "Modification form retains target assignee after save/reopen.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified.",
+        "The inspected source builds the selectable list from active non-viewer project members and checks actor permissions; server-side enforcement of a forged non-member owner_id has not been established."
+      ],
+      "technicalRecommendation": {
+        "recommendation": "KEEP_PROPOSED_WITH_ADDITIONAL_GUARDS",
+        "basis": "Add the stable fixture, target project membership, actor role, and unauthorized-role control above before human review. This is an engineering recommendation only, not a Team Lead candidate decision."
+      },
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-005",
+      "category": "task-management",
+      "title": "Set due date and use date filter",
+      "description": "Set due date and use date filter.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/task_modification/show.php",
+          "line": "L27",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_modification/show.php#L27"
+        },
+        {
+          "path": "app/Helper/TaskHelper.php",
+          "line": "L229-L232",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php#L229-L232"
+        },
+        {
+          "path": "app/Template/app/filters_helper.php",
+          "line": "L7-L10",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/app/filters_helper.php#L7-L10"
+        }
+      ],
+      "baselineComparison": "Baseline KB-017 searches status:open; no due-date assertion.",
+      "preconditions": [
+        "Existing task; due date selected within controlled window."
+      ],
+      "expectedObservableResult": "Task appears in the matching due-date filter and shows date.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-006",
+      "category": "task-management",
+      "title": "Move task to another column",
+      "description": "Move task to another column.",
+      "sourceEvidence": [
+        {
+          "path": "assets/js/src/BoardDragAndDrop.js",
+          "line": "L10-56",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/src/BoardDragAndDrop.js#L10-56"
+        },
+        {
+          "path": "app/Controller/BoardAjaxController.php",
+          "line": "L22-L45",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/BoardAjaxController.php#L22-L45"
+        },
+        {
+          "path": "app/Template/board/table_tasks.php",
+          "line": "L10-L33",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/board/table_tasks.php#L10-L33"
+        }
+      ],
+      "baselineComparison": "Baseline creates tasks and closes one; no task-column move assertion.",
+      "preconditions": [
+        "Task and destination column on same board; actor can move tasks."
+      ],
+      "expectedObservableResult": "Card appears in destination column after reload.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-007",
+      "category": "task-management",
+      "title": "Assign category to existing task",
+      "description": "Assign category to existing task.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/task_modification/show.php",
+          "line": "L20",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/task_modification/show.php#L20"
+        },
+        {
+          "path": "app/Helper/TaskHelper.php",
+          "line": "L133-L150",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/TaskHelper.php#L133-L150"
+        },
+        {
+          "path": "app/Controller/TaskModificationController.php",
+          "line": "L136-L164",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/TaskModificationController.php#L136-L164"
+        }
+      ],
+      "baselineComparison": "Baseline creates categories KB-010/011 but does not assign a category to a task.",
+      "preconditions": [
+        "Existing task and project category."
+      ],
+      "expectedObservableResult": "Modification form retains category after save/reopen.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-008",
+      "category": "board-configuration",
+      "title": "Edit an existing column",
+      "description": "Edit an existing column.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/column/edit.php",
+          "line": "L5-20",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/column/edit.php#L5-20"
+        },
+        {
+          "path": "app/Controller/ColumnController.php",
+          "line": "L114-L143",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ColumnController.php#L114-L143"
+        }
+      ],
+      "baselineComparison": "Baseline creates column and checks empty title; no update assertion.",
+      "preconditions": [
+        "Project with editable column."
+      ],
+      "expectedObservableResult": "Board/list shows changed title after save.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "HIGH",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-009",
+      "category": "user-and-permission-management",
+      "title": "Change project member role",
+      "description": "Change project member role.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/project_permission/users.php",
+          "line": "L14-22",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/project_permission/users.php#L14-22"
+        },
+        {
+          "path": "assets/js/components/project-select-role.js",
+          "line": "L1-L60",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/assets/js/components/project-select-role.js#L1-L60"
+        },
+        {
+          "path": "app/Controller/ProjectPermissionController.php",
+          "line": "L112-L137",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/ProjectPermissionController.php#L112-L137"
+        }
+      ],
+      "baselineComparison": "Baseline KB-013 checks existing admin access only; it does not change a role.",
+      "preconditions": [
+        "Team project with another member and an authorized manager."
+      ],
+      "expectedObservableResult": "Role selector reflects the saved role after reload.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    },
+    {
+      "id": "KB-GAP-010",
+      "category": "board-configuration",
+      "title": "Edit swimlane description",
+      "description": "Edit swimlane description.",
+      "sourceEvidence": [
+        {
+          "path": "app/Template/swimlane/edit.php",
+          "line": "L8-15",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Template/swimlane/edit.php#L8-15"
+        },
+        {
+          "path": "app/Controller/SwimlaneController.php",
+          "line": "L103-L130",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "url": "https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Controller/SwimlaneController.php#L103-L130"
+        }
+      ],
+      "baselineComparison": "Baseline creates swimlanes KB-008/009; no update assertion.",
+      "preconditions": [
+        "Project with editable swimlane."
+      ],
+      "expectedObservableResult": "Reopened edit view displays saved description.",
+      "noveltyRationale": "Proposal only: baseline assertions do not exercise this behavior. Absence does not prove novelty; review semantic overlap and historical Sprint evidence.",
+      "feasibility": "MEDIUM",
+      "risks": [
+        "UI selectors, fixture isolation, and repeatability are not runtime-verified."
+      ],
+      "historicalOverlap": "No Kanboard-specific entry found in docs/research-results/final; absence does not establish novelty.",
+      "status": "PROPOSED",
+      "reviewDecision": "PENDING"
+    }
+  ]
+}

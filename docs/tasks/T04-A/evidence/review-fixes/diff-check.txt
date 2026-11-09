@@ -1,0 +1,21 @@
+warning: in the working copy of 'data/coverage/kanboard/KANBOARD-BASELINE-MAPPING.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/coverage/kanboard/README.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/coverage/kanboard/gap-candidates.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/coverage/kanboard/inventory.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'data/coverage/kanboard/provenance-index.json', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/CANDIDATE-SHORTLIST.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/COVERAGE-GAP-ANALYSIS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/KANBOARD-BASELINE-MAPPING.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/T04-B-READINESS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/TASK-REPORT.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/TEST-RESULTS.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/evidence/verification/t04a-offline-checks.txt', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/review-packets/KB-GAP-001.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/review-packets/KB-GAP-002.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/review-packets/KB-GAP-003.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/review-packets/KB-GAP-004.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'docs/tasks/T04-A/review-packets/KB-GAP-008.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'experiments/kanboard/tools/coverage-inventory.mjs', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'experiments/kanboard/tools/test/coverage-inventory.test.mjs', LF will be replaced by CRLF the next time Git touches it
+git diff --check exit code: 0
+Result: PASS
