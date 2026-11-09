@@ -35,5 +35,18 @@
     "newDuplicatedLinesDensity": "0.0%",
     "checkRunId": 129363223709,
     "analysisLink": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15"
+  },
+  "latestCompletedPrAnalysisAtVerification": {
+    "analyzedCommit": "d79b56486e33c9a0183a0ae2b59288322e3c6eae",
+    "checkName": "SonarCloud Code Analysis",
+    "checkRunId": 129369098061,
+    "qualityGate": "PASS",
+    "newIssues": 0,
+    "acceptedIssues": 0,
+    "securityHotspots": 0,
+    "newCoverage": "0.0%",
+    "newDuplicatedLinesDensity": "0.0%",
+    "componentTree": "all four reported TypeScript files had 0 new duplicated lines and 0 new duplicated blocks",
+    "analysisLink": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15"
   }
 }
