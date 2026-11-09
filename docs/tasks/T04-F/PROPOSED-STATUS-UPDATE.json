@@ -1,0 +1,13 @@
+{
+  "task": "T04-F",
+  "proposedStatus": "PARTIAL_WITH_LIMITATIONS",
+  "handoffState": "PARTIAL_WITH_LIMITATIONS",
+  "evidence": "27 candidate packets and static audit artifacts; runtime NOT_RUN; human decisions unset.",
+  "blockedLimitations": [
+    "Claroline source/image provenance gap",
+    "Eight candidates have insufficient evidence for a firm semantic/oracle conclusion",
+    "No behavioral denominator for RQ2"
+  ],
+  "humanApprovalRequired": true,
+  "applyToSharedStatus": false
+}
