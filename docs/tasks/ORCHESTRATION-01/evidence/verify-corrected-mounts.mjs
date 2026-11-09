@@ -1,0 +1,12 @@
+import {execFileSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const commit='04e0049a6cdc803a593b9b758ff42ed3090d01cd',path='experiments/g0-safety/offline-runtime-safety.mjs';
+const blob=execFileSync('git',['rev-parse',`${commit}:${path}`],{encoding:'utf8'}).trim();
+const source=execFileSync('git',['show',`${commit}:${path}`]);
+const {assertOwnedContainer,labelsForRun}=await import(`data:text/javascript;base64,${source.toString('base64')}`);
+const labels=labelsForRun('joomla','test-run-001'), id='a'.repeat(64), image='example.invalid/app@sha256:'+'b'.repeat(64);
+const sample={Id:id,Name:'/task-app',Config:{Image:image,Labels:labels},NetworkSettings:{Networks:{n:{NetworkID:'net'}}},HostConfig:{PortBindings:{}}};
+const expected={id,name:'task-app',imageRef:image,labels,networkId:'net',portBindings:{},volumes:[]};
+for(const mounts of [undefined,null,{}]) assert.throws(()=>assertOwnedContainer({...sample,Mounts:mounts},expected),/must include a Mounts array/);
+assert.equal(assertOwnedContainer({...sample,Mounts:[]},expected),true);
+console.log(JSON.stringify({commit,blob,invalidMountsRejected:3,validEmptyMountsAccepted:true}));

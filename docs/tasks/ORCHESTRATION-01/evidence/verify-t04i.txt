@@ -1,0 +1,1 @@
+{"commit": "34812340917c6bf6d37c48535ce55c828f990dff", "testExit": 0, "testOutput": "PASS: deterministic output, six pinned source files, anchor presence, status boundary, missing-source rejection", "evidenceMatches": true, "sha256": "8c9f42065c1cd4d61b229756e006cffdf8ca4d9144ebb370951f87644de044c7"}

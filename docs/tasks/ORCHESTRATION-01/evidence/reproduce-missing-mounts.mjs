@@ -1,0 +1,15 @@
+import { execFileSync } from 'node:child_process';
+import assert from 'node:assert/strict';
+const commit='39f0f4e0b741be0bdc782c958354be42f24df0c0';
+const path='experiments/g0-safety/offline-runtime-safety.mjs';
+const blob=execFileSync('git',['rev-parse',`${commit}:${path}`],{encoding:'utf8'}).trim();
+assert.equal(blob,'af217c7862ffaaa47edd7e2de462ddb7c3fcdd5e');
+const source=execFileSync('git',['show',`${commit}:${path}`]);
+const {assertOwnedContainer,labelsForRun}=await import(`data:text/javascript;base64,${source.toString('base64')}`);
+const labels=labelsForRun('joomla','test-run-001');
+const id='a'.repeat(64), image='example.invalid/app@sha256:'+'b'.repeat(64);
+const specimen={Id:id,Name:'/task-app',Config:{Image:image,Labels:labels},NetworkSettings:{Networks:{n:{NetworkID:'net'}}},HostConfig:{PortBindings:{}}};
+const expected={id,name:'task-app',imageRef:image,labels,networkId:'net',portBindings:{},volumes:[]};
+const accepted=assertOwnedContainer(specimen,expected);
+assert.equal(accepted,true);
+console.log(JSON.stringify({commit,blob,mountsFieldPresent:Object.hasOwn(specimen,'Mounts'),accepted}));

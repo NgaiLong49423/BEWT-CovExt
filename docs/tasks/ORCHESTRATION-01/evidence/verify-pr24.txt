@@ -1,0 +1,1 @@
+{"commit": "5e09e93407f3abd622e73af40c367eabb1a0dd5f", "testExit": 0, "testOutput": "PASS: reproducibility, scoped comparison, status boundary, secret-free output and missing-source rejection", "evidenceMatches": true, "sha256": "867e1240d79f086b47f02084f41d22c9c18bcc946a45f292770c23c9c0616f8b"}
