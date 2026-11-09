@@ -17,6 +17,10 @@ Audit date: 2026-11-10. No provider request or Docker action was performed.
 | Historical provider events | T01-C's five authorized invocations are historical: four `API_KEY_INVALID`, one `fetch failed`; none produced output. These are not new T05-B results and were not repeated. | `docs/tasks/T01-C/MODEL-USAGE-AND-COST.md`; `docs/tasks/T05-A/PROVIDER-READINESS.md` |
 | Runtime ownership | No Docker commands or app runtime actions were run; Agent 1 owns Docker for this sprint. | T05-B task instructions / `00-QUY-TAC-CHUNG.md` |
 
-## Current gate
+## Gate at audit time
 
-`BLOCKED_AUTHORIZATION`. This correction supplied no D-C1 approval; the credential was not queried and provider was not contacted. The proposal is narrowed to the source-established redirect destination; page existence and message visibility remain unverified and are excluded. Research novelty remains pending review. No candidate or human review checkpoint exists; do not label this `HUMAN_REVIEW_PENDING`.
+At the time of this offline audit on 2026-11-10, D-C1 had not been supplied; the credential had not been queried and the provider had not been contacted. The proposal was narrowed to the source-established redirect destination; page existence and message visibility were unverified and excluded. Research novelty remained pending review.
+
+## Latest live-generation gate
+
+The Team Lead later supplied explicit D-C1 approval for exactly one bounded Gemini request. That invocation was consumed and failed with HTTP 400 `API_KEY_INVALID`; the production workflow persisted `FAILED`. No retry was made. No candidate, candidate ID, or human-review interruption/checkpoint exists, so the current result is `LIVE_GENERATION_FAILED`, not `HUMAN_REVIEW_PENDING`. See `docs/tasks/T05-B/evidence/verification/20261110-live-01/live-call-outcome.md` and the native run ledger under `docs/tasks/T01-C/evidence/t01c-866fcff6-aca1-4110-8ad6-bff250d9c521/`. Novelty remains unverified; Java/Selenium/Docker and shared program STATUS were not touched. Any further model request requires fresh explicit Team Lead authorization.
