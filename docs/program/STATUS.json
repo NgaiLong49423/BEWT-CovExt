@@ -3,12 +3,12 @@
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
   "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
-  "snapshotDate": "2026-11-08",
+  "snapshotDate": "2026-11-09",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "708724fee47e5136d628c479a5a0f90ab0ea15d7",
-    "note": "Verified by git fetch origin and GitHub PR API on 2026-11-08; main includes merged PR #5/T02 and PR #6/T03-A."
+    "observedHeadSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+    "note": "Verified by git fetch origin on 2026-11-09; main includes merged PR #5/T02, PR #6/T03-A, and PR #7/T03-B1."
   },
   "repositoryMilestones": {
     "T02": {
@@ -20,6 +20,12 @@
       "pullRequest": 6,
       "status": "MERGED",
       "headSha": "d8ed06f8dbc194695aea3927136e14ef9591e0dd"
+    },
+    "T03-B1": {
+      "pullRequest": 7,
+      "status": "MERGED",
+      "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+      "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
     }
   },
   "targets": {
@@ -143,7 +149,7 @@
       "proposalOriginalCases": 40,
       "targetNewCases": 5,
       "gates": {
-        "G0": "BLOCKED",
+        "G0": "NOT_VERIFIED",
         "G1": "NOT_VERIFIED",
         "G2": "NOT_VERIFIED",
         "G3": "NOT_VERIFIED",
@@ -155,31 +161,7 @@
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": [
-        "docs/tasks/T03-B2/TASK-REPORT.md",
-        "docs/tasks/T03-B2/evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json",
-        "docs/tasks/T03-B2/evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r38/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r41/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r42/runtime-gate-recheck.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r43/runtime-gate-recheck.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r44/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r45/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r46/",
-        "docs/tasks/T03-B2/evidence/t03b2-d-20261109-r2/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r47/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r48/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r49/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r50/",
-        "docs/tasks/T03-B2/evidence/t03b2-d-20261109-r3/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r51/",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r53/runtime-gate-recheck.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r55/verification-summary.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r57/verification-summary.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r58/runtime-gate-recheck.json",
-        "docs/tasks/T03-B2/evidence/offline-verification-20261109-r60/runtime-gate-recheck.json"
-      ]
+      "evidence": []
     },
     {
       "app": "expresscart",
@@ -330,11 +312,13 @@
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {
-    "currentTaskId": "T01-C",
-    "currentTaskStatus": "OFFLINE_ACCEPTED_LIVE_BLOCKED",
-    "currentTaskBranch": "feature/t01c-model-backed-generation",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/4",
-    "reviewedTaskHeadSha": "7094978d88dccd67e857b4dfa97a9f310b3b0fec",
+    "currentTaskId": "T04-A",
+    "currentTaskStatus": "STATIC_INVENTORY_ACCEPTED_MAIN_INTEGRATION_REVIEW_PENDING",
+    "currentTaskBranch": "feature/t04a-kanboard-coverage-inventory",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/8",
+    "reviewedTaskHeadSha": "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
+    "integrationBaseMainSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+    "integrationEvidence": "docs/tasks/T04-A/FINAL-MAIN-INTEGRATION.md",
     "lastApprovedTaskId": "T01-A",
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
