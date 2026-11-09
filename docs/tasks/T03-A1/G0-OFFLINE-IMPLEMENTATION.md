@@ -6,7 +6,7 @@
 - Added per-suite `ExperimentConfig` adapters. Application URL, Selenium endpoint, DB settings and administrative credentials are required process environment values; there are no committed secret defaults. The Base tests use `RemoteWebDriver` and fail on malformed configuration.
 - Removed fixed `192.168.1.141`, local Chrome/ChromeDriver workstation paths, and the benchmark's static high-entropy administrator password from copied Java tests. Synthetic test emails use the reserved `.invalid` domain.
 - Added `experiments/<app>/g0-plan.json` with verified source commits, Base test selection, candidate services, deny-by-default network requirements and explicit digest/runtime blockers. These are offline plans; they are not promoted `config/apps` manifests or runnable Compose files.
-- Added `experiments/g0-safety/offline-runtime-safety.mjs`: pre-start gate requires a run-owned internal IPv4-only bridge with no endpoint; ownership verification checks exact run labels/IDs/names/image digest/mounts/network/loopback port bindings; cleanup planning emits only argument arrays after complete inventory validation; startup CLI success is not readiness or PASS.
+- Added `experiments/g0-safety/offline-runtime-safety.mjs`: pre-start gate requires a run-owned internal IPv4-only bridge with an explicitly inspected empty `Containers` map; full ownership verification checks exact run labels/IDs/names/image digest/mounts/network and the complete expected `PortBindings`; a separate stopped-container partial-start cleanup path tolerates incomplete mappings but reports cleanup eligibility only, never network isolation or port-forwarding readiness.
 
 ## Deliberately pending
 

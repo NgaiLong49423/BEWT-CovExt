@@ -1,13 +1,13 @@
 # T03-A1 — Offline G0 implementation for four applications
 
 - Task scope / acceptance gate: Offline G0 code/config/Base-suite readiness for Joomla, MantisBT, MediaWiki, and PrestaShop; this is not G0 runtime acceptance.
-- Base branch + base SHA: `origin/main` / `bd9b3b15fca28419ada9862b8a65bac910edf169` (fetched 2026-11-10).
+- Base branch + base SHA: initial branch base `bd9b3b15fca28419ada9862b8a65bac910edf169`; latest fetched `origin/main` is `0cba0eaf0fa416e90a5ac766bc604ee71d43818e`. It adds five T04-F commits on disjoint paths; this correction does not merge unrelated files into the task branch.
 - Working branch: `task/t03-offline-g0-agent1`.
 - Head commit: see PR #19's verified HEAD SHA in the final handoff; the report is included in that commit, so a commit cannot embed its own final SHA.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/19 (Draft; base `main`).
 - Push status: `PUSHED`; final branch SHA/PR HEAD equality is verified in the final handoff.
 - Runtime/commit/version tested: Offline source/test working tree based on the SHA above; four suite baselines correspond to read-only `bewt-original/` commit `0501249ff3e9a5ea83a06155cd2971dc36197056`.
-- Status proposed by Agent: `PARTIAL` — offline implementation slice ready for review; runtime pending; G0 not verified.
+- Code review target proposed by Agent: `CODE_READY_FOR_MERGE` for this offline code correction only. Team Lead review remains required; runtime is `NOT_RUN` and G0 remains `NOT_VERIFIED`.
 
 ## 1. What changed
 
@@ -15,21 +15,22 @@
 |---|---|---|
 | `experiments/{joomla,mantisbt,mediawiki,prestashop}/bewt-suite/` | Isolated copies of pinned Maven/Page Object/Base test suites; RemoteWebDriver and required process-environment configuration; removed workstation-only paths, private LAN endpoint, benchmark static password, and unsafe generic container instructions | Make existing Base cases reproducible without changing the read-only benchmark source or claiming a runtime |
 | `experiments/{joomla,mantisbt,mediawiki,prestashop}/g0-plan.json` | Per-app source version, candidate baseline, network/ownership requirements, image/runtime blockers, explicit pending statuses | Record honest app-specific implementation gaps before any runtime promotion |
-| `experiments/g0-safety/offline-runtime-safety.mjs` and `experiments/g0-safety/test/` | Pure offline pre-start/ownership/cleanup planning guards plus regression tests | Ensure only exact run-owned, isolated, loopback-published resource inventories could later produce cleanup arguments; no Docker calls are made |
+| `experiments/g0-safety/offline-runtime-safety.mjs` and `experiments/g0-safety/test/` | Fail-closed Docker inspection and complete port-binding checks; explicit stopped partial-start cleanup path with non-readiness result flags | Address F02 without treating cleanup eligibility as network isolation or port-forwarding evidence |
 | `docs/tasks/T03-A1/` | Gap matrix, offline implementation/runtime/test reports, proposed status and write-once verification evidence | Provide reviewable evidence while preserving shared status and historical records |
 
 ## 2. Actual verification
 
 | Exact command | Exit code | Result | Evidence path |
 |---|---:|---|---|
-| `node --check` on the safety source and both test files (3 commands) | 0 each | PASS | `evidence/offline-verification-20261110-r2/node-check-*.exit-code.txt` |
-| `node --test experiments/g0-safety/test/offline-runtime-safety.test.mjs experiments/g0-safety/test/baseline-adapter.test.mjs` | 0 | 8/8 PASS | `evidence/offline-verification-20261110-r2/offline-safety-suite.log` |
-| `node --test experiments/kanboard/tools/test/cleanup-kanboard-g0.test.mjs experiments/bludit/tools/test/cleanup-bludit-g0.test.mjs` | 0 | 23/23 PASS | `evidence/offline-verification-20261110-r2/existing-cleanup-fault-suite.log` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | 18/18 PASS | `evidence/offline-verification-20261110-r2/claroline-cleanup-fault-suite.log` |
-| `mvn -B -o -f experiments/<app>/bewt-suite/pom.xml test-compile` for four apps | 0 each | PASS | `evidence/offline-compile-20261110-r3/compile-summary.json` and per-app logs |
-| `git diff --cached --check` and scoped secret/protected-path review | 0 | PASS | `evidence/offline-verification-20261110-r2/review-checks.json` |
+| Source correction commit tested | `35452b416c86a3688b5cb63f804ea58282cd87c4` | committed before verification | `evidence/offline-verification-20261110-r6/verification-summary.json` |
+| Three `node --check` syntax commands | 0 each | PASS | `evidence/offline-verification-20261110-r6/node-check-*.stdout.txt`, `.stderr.txt`, `.exit-code.txt` |
+| Safety/adapter Node regression suite | 0 | 9/9 PASS | `evidence/offline-verification-20261110-r6/offline-safety-suite.stdout.txt` |
+| Kanboard/Bludit cleanup/fault suites | 0 | 23/23 PASS | `evidence/offline-verification-20261110-r6/existing-cleanup-fault-suite.stdout.txt` |
+| Four offline Maven `test-compile` commands | 0 each; stdout says `BUILD SUCCESS` | PASS with `Access is denied.` present in each stderr log (unexplained) | `evidence/offline-compile-20261110-r7/compile-summary.json` and separate stdout/stderr `.txt` files |
+| Supplemental Claroline cleanup/fault suite | 1 | BLOCKED before test collection: sandbox could not locate signed Docker CLI at its supported path; no Docker command was executed | This supplementary local attempt is not counted as a PASS and is not substituted for current-code evidence |
+| Source/test provenance and staged review | 0 mismatches across 253 blobs; all 27 `.txt` logs are not ignored | PASS | `evidence/offline-verification-20261110-r6/source-test-hashes.json`, `verification-summary.json`, and `review-checks.json` |
 
-The three Node suites total 49/49 tests. Provenance has SHA-256 and Git blob IDs for 253 Java/MJS source/test files in `evidence/offline-verification-20261110-r2/source-test-hashes.json`; source HEAD and dirty-at-test state are recorded in `verification-summary.json`. The offline test commands ran on the working tree based on base SHA `bd9b3b15fca28419ada9862b8a65bac910edf169`; hashes/blobs identify the exact tested files, which are checked against the staged/committed source before publication.
+The r6 verification has 32/32 Node regression tests (9 safety/adapter plus 23 cleanup/fault); the three syntax checks are separate. Four Maven compiles exited 0. Provenance records 253 Java/MJS SHA-256 and Git blob IDs, all matching tested source commit `35452b416c86a3688b5cb63f804ea58282cd87c4`. The source tree was clean at test start; the full worktree was dirty only because prior untracked evidence directories were preserved.
 
 ## 3. Research impact
 
@@ -44,13 +45,13 @@ The three Node suites total 49/49 tests. Provenance has SHA-256 and Git blob IDs
 - `bewt-original/` touched: NO; used as read-only source. Targeted baseline suite paths were clean at the recorded source commit.
 - Docker/project resources touched: NONE. No Docker command, external request, Selenium, DB, or runtime cleanup was run.
 - Existing unrelated local dirty files preserved: YES; the original checkout's untracked `experiments/expresscart/bewt-suite/` was preserved and excluded by using a separate task worktree.
-- Secret scan / staged diff review: no credential values or private runtime data are intended; removed the benchmark static password/private LAN address/local workstation browser path from the isolated copies. Offline test has an explicit forbidden-string regression assertion. No `bewt-original/`, `docs/program/STATUS.json`, Claroline, project resource, or build output is in scope for commit.
-- Failed/blocked tasks: image digest/provenance, runtime orchestration/readiness, test seed/reset executor, browser invocation and exact resource cleanup executor remain incomplete. Runtime intentionally `NOT_RUN`.
+- Secret scan / staged diff review: no credentials or private runtime data; benchmark static password/private LAN address/local browser path are absent from copied suites. No `bewt-original/`, `docs/program/STATUS.json`, Claroline source, project resource, or build output is in scope for commit. The Claroline line in the gap matrix was corrected per F03; PR #12 was read-only and remains OPEN/DRAFT.
+- Failed/blocked tasks: supplemental Claroline cleanup/fault test could not load because the sandbox did not expose Docker's supported install path to its import-time signature verifier; no Docker command was run. Image digest/provenance, runtime orchestration/readiness, test seed/reset executor, browser invocation and exact resource cleanup executor remain incomplete. Runtime intentionally `NOT_RUN`.
 
 ## 5. Evidence and reproduction
 
 - Source/test paths: `experiments/{joomla,mantisbt,mediawiki,prestashop}/bewt-suite/`, `experiments/g0-safety/`.
-- Logs/compile records: `evidence/offline-verification-20261110-r2/`, `evidence/offline-compile-20261110-r3/`.
+- Logs/compile records: `evidence/offline-verification-20261110-r6/`, `evidence/offline-compile-20261110-r7/`.
 - Input fixtures/runtime cleanup: none; no runtime data was created.
 - Exact reproducible commands are listed in `G0-OFFLINE-IMPLEMENTATION.md` and `TEST-RESULTS.md`; all Maven commands use `-o`.
 - Known limitations: profiles are not runnable Compose configurations; application/database/Selenium digest pins and app-specific startup, readiness, install finalization, reset, runtime evidence capture and cleanup execution remain pending. MantisBT bundled DB provenance and MediaWiki DB version need resolution.
@@ -58,7 +59,7 @@ The three Node suites total 49/49 tests. Provenance has SHA-256 and Git blob IDs
 ## 6. Review request
 
 - Team Lead decision: approve a separate future runtime task only after immutable image provenance/digests, at least 6 GiB free RAM, actual Docker ownership/resource checks, and deny-by-default network isolation are independently established. No privileged action is requested by this offline PR.
-- Suggested next task: resolve image provenance and implement/run app-specific isolated G0 runtime harnesses under a separately authorized task; keep each app's runtime evidence independent.
+- Suggested next task: review/merge this offline correction if accepted. Treat the four apps' G0 runtime as pending; resolve image provenance and implement/run app-specific isolated runtime harnesses only under a separately authorized task.
 - PR diff URL: https://github.com/NgaiLong49423/BEWT-CovExt/pull/19/files. Inspect `experiments/*/g0-plan.json`, the adapter/safety code and `docs/tasks/T03-A1/` evidence.
 
 `docs/program/STATUS.json` is intentionally unchanged per task instruction. This report does not mark any G0 gate accepted.

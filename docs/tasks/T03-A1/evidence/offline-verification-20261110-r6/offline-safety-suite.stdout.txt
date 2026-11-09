@@ -1,0 +1,17 @@
+✔ four Base suites use remote WebDriver, required process settings, and asserted original Base tests (12.0387ms)
+✔ copied app test suites contain no benchmark admin password, private workstation path, or fixed LAN endpoint (165.4169ms)
+✔ offline runtime plans pin upstream source and explicitly block unpinned image promotion (3.6564ms)
+✔ labels bind one run to a recognized app and fail malformed ids closed (1.2311ms)
+✔ internal IPv4-only network must be inspected before any endpoint exists (2.2765ms)
+✔ container ownership requires exact digest, labels, isolated network, and loopback-only ports (0.9913ms)
+✔ startup result never treats a successful CLI response alone as readiness (0.194ms)
+✔ cleanup plan is emitted only for exact run-owned containers, network, and volumes (0.9652ms)
+✔ partial-start cleanup tolerates omitted port mappings but does not prove isolation or readiness (0.3084ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 267.5016
