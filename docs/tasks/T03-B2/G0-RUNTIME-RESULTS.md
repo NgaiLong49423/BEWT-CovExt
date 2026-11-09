@@ -189,3 +189,7 @@ Offline verification r57 passed 34/34 cleanup/fault tests and five Node syntax c
 ## Latest memory gate recheck — r58 (2026-11-09)
 
 Three host samples measured 5.437, 5.442, and 5.460 GiB free, below 6 GiB. Docker Engine 29.8.0 was available, and the full task ownership-label queries returned zero containers/networks/volumes. No route-isolation diagnostic or G0 A/B run was started; no Docker resource changed. The exact privileged route command remains unused. Evidence: `evidence/offline-verification-20261109-r58/runtime-gate-recheck.json`.
+
+## Latest memory gate recheck — r60 (2026-11-09)
+
+After the user's further memory recovery, three samples measured 5.174, 4.974, and 4.959 GiB free (<6 GiB). Docker Engine was available; WSL VM working set was 1,238,462,464 bytes; full task-label inventories found zero containers/networks/volumes. The route-isolation diagnostic and G0 A/B were not run, the approved route command remains unused, and no Docker resources changed. Evidence: `evidence/offline-verification-20261109-r60/runtime-gate-recheck.json`.

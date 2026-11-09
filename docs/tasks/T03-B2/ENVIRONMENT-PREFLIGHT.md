@@ -74,3 +74,7 @@ Three free-memory samples measured 4.848, 4.904, and 4.863 GiB, below the 6 GiB 
 ## Latest user-confirmed memory recheck — r58 (2026-11-09)
 
 Three new host samples measured 5.437, 5.442, and 5.460 GiB, still below the diagnostic gate of 6 GiB. Docker Engine 29.8.0 responded; exact project/task label queries found zero containers, networks, and volumes (query exit codes 0). The route-isolation candidate remains `HOST_MEMORY_BLOCKED`; the privileged route command was not invoked and no Docker resources changed. Evidence: `evidence/offline-verification-20261109-r58/runtime-gate-recheck.json`.
+
+## Latest user-confirmed memory recheck — r60 (2026-11-09)
+
+After a further user-confirmed attempt to free memory, three samples measured 5.174, 4.974, and 4.959 GiB. The 6 GiB gate remains `BLOCKED`. Docker Engine 29.8.0 responded, WSL VM working set was 1,238,462,464 bytes, and exact project/task ownership queries returned zero containers, networks, and volumes. No runtime was started and no Docker resource changed. Evidence: `evidence/offline-verification-20261109-r60/runtime-gate-recheck.json`.

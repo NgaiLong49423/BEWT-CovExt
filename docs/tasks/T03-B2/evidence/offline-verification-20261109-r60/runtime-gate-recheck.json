@@ -1,0 +1,20 @@
+{
+  "sampledAtUtc": "2026-11-09T15:00:47.1781720Z",
+  "freeGiBSamples": [
+    5.174,
+    4.974,
+    4.959
+  ],
+  "diagnosticRequiredGiB": 6,
+  "ramGate": "BLOCKED",
+  "dockerEngineVersion": "29.8.0",
+  "dockerInfoExitCode": 0,
+  "wslVmmemWorkingSetBytes": 1238462464,
+  "taskContainerCount": 0,
+  "containerQueryExitCode": 0,
+  "taskNetworkCount": 0,
+  "networkQueryExitCode": 0,
+  "taskVolumeCount": 0,
+  "volumeQueryExitCode": 0,
+  "dockerResourcesChanged": false
+}
