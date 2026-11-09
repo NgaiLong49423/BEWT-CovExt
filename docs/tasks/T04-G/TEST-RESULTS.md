@@ -20,7 +20,7 @@ python docs/tasks/T04-G/tools/validate_t04g.py --baseline-checkout BEWT-CHECKOUT
 
 ## Exact test commands and results
 
-Tested code/data commit: `0fd9fc9b711e2293c90c7ab00f26f49b911c20bb`.
+Tested code/data commit: `326d37e45deaab4a4cfcb673555cad0e28d2555e`.
 
 Command: `python docs/tasks/T04-G/tools/build_t04g.py --baseline-checkout docs/tasks/T04-G/evidence/baseline-checkout --check-determinism`
 

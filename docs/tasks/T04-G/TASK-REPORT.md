@@ -17,7 +17,7 @@
 - Human readiness: decision protocol, blank template, candidate-specific questions, fixture/oracle context and evidence links are present. No human decision or approval was created. `CL-GAP-002` remains blocked on authoritative authorization policy; Claroline runtime-image/source provenance is incomplete. Eight per-application quota shortfalls remain open.
 - Outcome: `PARTIAL_WITH_LIMITATIONS`. No candidate implementation, G1 PASS, runtime/E2E result, novelty validation, or RQ2 result is claimed. `docs/program/STATUS.json` remains unchanged.
 - Validator and negative-test evidence: see `TEST-RESULTS.md`.
-- Exact tested code/data SHA: `0fd9fc9b711e2293c90c7ab00f26f49b911c20bb` (tests rerun at this commit; later commits update reports only).
+- Exact tested code/data SHA: `326d37e45deaab4a4cfcb673555cad0e28d2555e` (tests rerun at this commit; later commits update reports only).
 - Original PR #20 was already merged before corrections. Following the user's later authorization, replacement PR #21 was opened to `main`: https://github.com/NgaiLong49423/BEWT-CovExt/pull/21. Its final head SHA is verified from PR metadata at handoff.
 
 ## Changed files
