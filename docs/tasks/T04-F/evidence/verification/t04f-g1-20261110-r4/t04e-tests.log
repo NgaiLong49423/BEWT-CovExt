@@ -1,0 +1,22 @@
+✔ all seven app bundles are internally consistent (3.2603ms)
+✔ mixed application source pin is rejected (0.9643ms)
+✔ duplicate candidate IDs are rejected (0.684ms)
+✔ invalid source blob or permalink is rejected (0.677ms)
+✔ false novelty verification is rejected (0.7541ms)
+✔ insufficient candidate fields are rejected (0.7168ms)
+✔ shortlist cannot exceed five or imply human approval (0.4584ms)
+✔ unknown source reference ID is rejected (0.7602ms)
+✔ source reference path, tree and line ranges must match the pinned repository (0.7325ms)
+✔ oracle source references must be a nonempty subset of candidate references (1.143ms)
+✔ shortlist count and unique ordered priorities must be consistent (1.2938ms)
+✔ proposal and shortlist counts must equal prioritized candidate count (0.9535ms)
+✔ shortlist IDs must match proposal priority order exactly (0.4141ms)
+✔ CLI validates fixture data, prints PASS, and rejects invalid data with nonzero exit (161.6574ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 267.7923

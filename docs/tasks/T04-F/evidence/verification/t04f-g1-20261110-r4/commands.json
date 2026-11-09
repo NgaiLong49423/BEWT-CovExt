@@ -1,0 +1,27 @@
+[
+  {
+    "name": "t04e-validator",
+    "command": "node docs/tasks/T04-E/tools/verify-source-backed-gaps.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "t04e-tests",
+    "command": "node --test docs/tasks/T04-E/tools/test/verify-source-backed-gaps.test.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "t04d-inventory",
+    "command": "node docs/tasks/T04-D/tools/verify-inventory.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "t04f-packet-integrity",
+    "command": "node docs/tasks/T04-F/tools/verify-review-package.mjs",
+    "exitCode": 0
+  },
+  {
+    "name": "t04f-syntax",
+    "command": "node --check docs/tasks/T04-F/tools/verify-review-package.mjs",
+    "exitCode": 0
+  }
+]
