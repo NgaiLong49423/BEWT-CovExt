@@ -1,0 +1,201 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mediawiki",
+  "applicationVersion": "1.40.0",
+  "sourcePin": {
+    "repository": "wikimedia/mediawiki",
+    "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+    "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 4,
+  "shortlistCount": 3,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "MW-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Moving a page preserves content at the target and optionally creates a redirect",
+      "actor": "Editor with move permission",
+      "role": "Editor with page-move right",
+      "preconditions": "Existing source page with unique text; destination title unused; redirect option enabled.",
+      "fixture": "Move page to a new title with reason and redirect; open old and new titles.",
+      "oracle": {
+        "observable": "New title contains prior content; old title resolves as redirect when selected; move history records the operation.",
+        "sourceRefs": [
+          "MW-S01"
+        ]
+      },
+      "sourceRefs": [
+        "MW-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline creates/edits/deletes/redirects pages but does not map to page move.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "mediawiki-03-createpagetest",
+          "mediawiki-06-editpagetest",
+          "mediawiki-21-createredirecttest",
+          "mediawiki-22-followredirecttest"
+        ],
+        "rationale": "Baseline creates/edits/deletes/redirects pages but does not map to page move.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Try an invalid occupied target and verify source page remains intact.",
+      "testabilityRisk": "Move permissions, title normalization and redirect suppression rights affect outcome.",
+      "uncertainty": "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Moving a page preserves content at the target and optionally creates a redirect.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Watch and unwatch state is scoped to the signed-in user",
+      "actor": "Registered editor",
+      "role": "Authenticated user",
+      "preconditions": "Two registered users and one existing page; watchlist initially excludes the page for both.",
+      "fixture": "Watch the page as user A, inspect watchlist, then unwatch and inspect again.",
+      "oracle": {
+        "observable": "User A's watchlist gains/removes the page; user B's watchlist remains unchanged.",
+        "sourceRefs": [
+          "MW-S02"
+        ]
+      },
+      "sourceRefs": [
+        "MW-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Repeat with user B to verify isolation.",
+      "testabilityRisk": "Watchlist expiry settings and anonymous account behavior can vary.",
+      "uncertainty": "Source includes a dedicated watch action and watchlist manager; UI labels require review.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Watch and unwatch state is scoped to the signed-in user.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Upload validation rejects a disallowed or oversized file without creating a file page",
+      "actor": "Uploader",
+      "role": "Authenticated user with upload permission",
+      "preconditions": "Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config.",
+      "fixture": "Upload allowed file, then attempt the invalid control file.",
+      "oracle": {
+        "observable": "Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob.",
+        "sourceRefs": [
+          "MW-S04"
+        ]
+      },
+      "sourceRefs": [
+        "MW-S04"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "T04-D baseline has no mapped upload case.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "T04-D baseline has no mapped upload case.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
+      "testabilityRisk": "Upload config, MIME detection and storage backend must be pinned.",
+      "uncertainty": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Upload validation rejects a disallowed or oversized file without creating a file page.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "A new edit creates a retrievable revision distinct from the prior revision",
+      "actor": "Editor",
+      "role": "Authenticated user with edit permission",
+      "preconditions": "Existing page with stable baseline text and known revision ID.",
+      "fixture": "Edit one sentence and open page history or revision API for both revisions.",
+      "oracle": {
+        "observable": "New revision has a later ID/timestamp and new content; old revision remains retrievable unchanged.",
+        "sourceRefs": [
+          "MW-S03",
+          "MW-S05"
+        ]
+      },
+      "sourceRefs": [
+        "MW-S03",
+        "MW-S05"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "mediawiki-06-editpagetest",
+          "mediawiki-16-revertlastcommittest"
+        ],
+        "rationale": "Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
+      "testabilityRisk": "History display/API state and edit tokens need pinned config.",
+      "uncertainty": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: A new edit creates a retrievable revision distinct from the prior revision.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    }
+  ]
+}

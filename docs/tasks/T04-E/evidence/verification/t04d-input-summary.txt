@@ -1,0 +1,13 @@
+T04-D read-only source snapshot; base origin/main af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb
+app | labels | features | Scenario headers | suite entries | structural mappings
+bludit | 23 | 23 | 0 | 23 | 23
+claroline | 40 | 40 | 40 | 40 | 40
+expresscart | 31 | 31 | 31 | 31 | 31
+joomla | 35 | 35 | 35 | 35 | 35
+mantisbt | 37 | 38 | 38 | 37 | 37
+mediawiki | 27 | 27 | 27 | 27 | 27
+prestashop | 35 | 33 | 33 | 35 | 33
+TOTAL | 228 | 227 | 204 | 228 | 226
+T02 aggregate projection 227 vs T04-D directly measured 228 suite entries remains unresolved.
+Behavior denominator NOT_ESTABLISHED; G1 NOT_VERIFIED for all seven. Heuristic behavior tags excluded.
+Six JSON inputs/app parsed read-only; no T04-D input changed.

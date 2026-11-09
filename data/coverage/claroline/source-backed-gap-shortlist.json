@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "claroline",
+  "shortlistCount": 3,
+  "sourcePin": {
+    "repository": "zefredz/claroline",
+    "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+    "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+    "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+  },
+  "status": "PROPOSED_REVIEW_ORDER_ONLY",
+  "humanDecisionStatus": "NOT_REVIEWED",
+  "decisionLedger": "UNCHANGED",
+  "topCandidates": [
+    {
+      "candidateId": "CL-GAP-001",
+      "priorityOrder": 1,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "priorityOrder": 2,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "priorityOrder": 3,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    }
+  ]
+}

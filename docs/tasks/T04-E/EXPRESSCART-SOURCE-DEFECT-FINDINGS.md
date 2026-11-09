@@ -1,0 +1,14 @@
+# ExpressCart — separate source-level defect findings
+
+These findings are separated from the source-backed candidate set. They describe suspicious or unsafe source behavior, not expected passing behavior, human-approved findings, or runtime-confirmed vulnerabilities. Both findings require a version-matched runtime reproduction before impact claims.
+
+| Finding | Pinned source evidence | Static observation | What remains unverified |
+|---|---|---|---|
+| EC-DEFECT-01 — Order creation route has no route-level authorization | `EC-S01` (`routes/order.js`, lines 110–125); `EC-S06` (`lib/auth.js`, lines 4–29 and 31–85); `EC-S07` (`app.js`, lines 401–415) | `POST /admin/order/create` is declared without `restrict` or `checkAccess`. The order router is mounted directly at `/`; app-level middleware before router mounting handles session/request setup and headers, not authorization. | The source path has no route-level auth guard. Runtime response for anonymous/customer/editor/admin sessions and intended exposure remain unverified; no vulnerability impact is claimed. |
+| EC-DEFECT-02 — Empty-cart guard does not stop order creation control flow | `EC-S01` (`routes/order.js`, lines 128–163) | If `req.session.cart` is absent, the handler writes a 400 response but does not return before constructing `orderDoc` and calling `db.orders.insertOne(orderDoc)`. | Database persistence, response behavior and cleanup require an isolated runtime test. No E2E or database experiment was performed. |
+
+The prior proposal `EC-GAP-001` (“Admin-created order persists an explicit order state and customer address”) was removed from the candidate set because the route has no route-level authorization and the empty-cart negative-control expectation was unsupported by control flow. Its identifier is retained in this correction record and must not be reused as a new candidate. The independent findings above do not count as gap candidates.
+
+`EC-GAP-002` remains a source-backed expected behavior: with stock tracking enabled, `/product/updatecart` rejects a requested quantity above product/variant stock before updating the session cart (`EC-S05`, lines 583–639). This check is implemented, not merely proposed.
+
+`EC-GAP-003` now explicitly connects customer persistence/session refresh (`EC-S03`, `/customer/update`) to the order snapshot fallback (`EC-S01`, `orderAddr1`/other address fields at lines 143–153). The route's missing authorization middleware is disclosed above and kept separate from the positive data-flow oracle. Runtime behavior remains NOT_RUN.

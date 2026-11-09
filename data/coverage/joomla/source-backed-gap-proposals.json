@@ -1,0 +1,207 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "joomla",
+  "applicationVersion": "3.10.11",
+  "sourcePin": {
+    "repository": "joomla/joomla-cms",
+    "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+    "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 4,
+  "shortlistCount": 3,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "JO-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Featured article flag appears and is removed from the featured list",
+      "actor": "Administrator",
+      "role": "Content administrator",
+      "preconditions": "Unfeatured published article with unique title; featured-list baseline empty for that title.",
+      "fixture": "Toggle featured on, reload list, then toggle off.",
+      "oracle": {
+        "observable": "Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.",
+        "sourceRefs": [
+          "JO-S01",
+          "JO-S02"
+        ]
+      },
+      "sourceRefs": [
+        "JO-S01",
+        "JO-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "joomla-08-addnewarticle",
+          "joomla-10-editarticle",
+          "joomla-21-archivearticle"
+        ],
+        "rationale": "Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Use a published but unfeatured article and verify it remains outside the featured list.",
+      "testabilityRisk": "Feature visibility can depend on front-end menu configuration.",
+      "uncertainty": "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Featured article flag appears and is removed from the featured list.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Publish-up and publish-down define the article visibility window",
+      "actor": "Administrator and guest",
+      "role": "Admin configures; guest observes",
+      "preconditions": "Published article with start/end timestamps in a controlled timezone; unique alias.",
+      "fixture": "Set future publish-up and future publish-down, then inspect before, within and after the window.",
+      "oracle": {
+        "observable": "Article is hidden before start, visible during the window, and hidden after end.",
+        "sourceRefs": [
+          "JO-S03"
+        ]
+      },
+      "sourceRefs": [
+        "JO-S03"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "joomla-08-addnewarticle",
+          "joomla-10-editarticle",
+          "joomla-21-archivearticle"
+        ],
+        "rationale": "Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Keep a normal published article as a control at each observation time.",
+      "testabilityRisk": "Timezone, cache and server clock can make boundaries flaky.",
+      "uncertainty": "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Publish-up and publish-down define the article visibility window.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Editor without edit-state permission cannot change publication state",
+      "actor": "Editor and administrator",
+      "role": "Editor lacks core.edit.state; admin has it",
+      "preconditions": "Two accounts with same article access but different ACL; article is checked in.",
+      "fixture": "Attempt to unpublish as editor, then as administrator.",
+      "oracle": {
+        "observable": "Editor cannot persist state change and receives an authorization outcome; administrator can perform the change.",
+        "sourceRefs": [
+          "JO-S01"
+        ]
+      },
+      "sourceRefs": [
+        "JO-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "joomla-23-addgroup",
+          "joomla-25-assignusertogroup",
+          "joomla-10-editarticle"
+        ],
+        "rationale": "Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Admin control confirms the test target is otherwise editable.",
+      "testabilityRisk": "ACL setup and cached sessions need clean users.",
+      "uncertainty": "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Editor without edit-state permission cannot change publication state.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Editing an article increments its version counter",
+      "actor": "Administrator",
+      "role": "Content administrator",
+      "preconditions": "Existing article with known version counter and history enabled.",
+      "fixture": "Edit and save a single field, then reload version/history information.",
+      "oracle": {
+        "observable": "Version counter increases once for one successful save and remains unchanged after a rejected save.",
+        "sourceRefs": [
+          "JO-S01"
+        ]
+      },
+      "sourceRefs": [
+        "JO-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "joomla-10-editarticle"
+        ],
+        "rationale": "Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Submit an invalid edit and verify version does not increment.",
+      "testabilityRisk": "Displayed version/history UI may require Joomla content-history configuration.",
+      "uncertainty": "Source model increments the article version on save; UI history visibility is a separate uncertainty.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Editing an article increments its version counter.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    }
+  ]
+}

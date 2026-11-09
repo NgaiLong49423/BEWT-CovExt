@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "applicationVersion": "2.3.4",
+  "sourcePin": {
+    "repository": "bludit/bludit",
+    "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+    "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 4,
+  "shortlistCount": 3,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "BL-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Scheduled pages are promoted on a request after their due time",
+      "actor": "Administrator",
+      "role": "Admin",
+      "preconditions": "A page with a future publish date; isolated clock-controlled fixture or bounded wait; no existing page with same slug.",
+      "fixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
+      "oracle": {
+        "observable": "A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection.",
+        "sourceRefs": [
+          "BL-S01",
+          "BL-S02"
+        ]
+      },
+      "sourceRefs": [
+        "BL-S01",
+        "BL-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "bludit-17-changepostdatetest"
+        ],
+        "rationale": "Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
+      "testabilityRisk": "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
+      "uncertainty": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Scheduled publication becomes visible at its scheduled time.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Cover image selection persists and renders for content",
+      "actor": "Administrator",
+      "role": "Editor or Administrator",
+      "preconditions": "Use a small synthetic PNG in the app-managed images area; choose a unique content slug.",
+      "fixture": "Select a local cover image while editing content, save, reload and open the public content page.",
+      "oracle": {
+        "observable": "Saved content references the selected image and the public page resolves that image in its cover slot.",
+        "sourceRefs": [
+          "BL-S01",
+          "BL-S03",
+          "BL-S08",
+          "BL-S09"
+        ]
+      },
+      "sourceRefs": [
+        "BL-S01",
+        "BL-S03",
+        "BL-S08",
+        "BL-S09"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "bludit-01-addcontenttest"
+        ],
+        "rationale": "Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
+      "testabilityRisk": "Theme-specific rendering and image cleanup may affect reproducibility.",
+      "uncertainty": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Cover image selection persists and renders for content.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Static status maps to page type and the static-page collection",
+      "actor": "Administrator",
+      "role": "Editor or Administrator",
+      "preconditions": "Fresh static page and post with unique slugs; public home page is available.",
+      "fixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
+      "oracle": {
+        "observable": "Setting static status sets type to page; the stored record appears in the static-page collection, while a published post remains in the published collection.",
+        "sourceRefs": [
+          "BL-S01"
+        ]
+      },
+      "sourceRefs": [
+        "BL-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "bludit-01-addcontenttest",
+          "bludit-02-changeurltest",
+          "bludit-04-changeparenttest"
+        ],
+        "rationale": "Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Compare with a normal post under the same category/route context.",
+      "testabilityRisk": "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
+      "uncertainty": "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Static page and post have distinct public placement.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Administrator can change a non-admin user's role and retain it",
+      "actor": "Administrator",
+      "role": "Administrator acting on an Editor",
+      "preconditions": "Seed a second non-admin user and record their current role; use synthetic credentials.",
+      "fixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
+      "oracle": {
+        "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route.",
+        "sourceRefs": [
+          "BL-S04",
+          "BL-S06",
+          "BL-S07"
+        ]
+      },
+      "sourceRefs": [
+        "BL-S04",
+        "BL-S06",
+        "BL-S07"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline add/delete user and password cases do not assert role editing or role-specific access.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "bludit-08-addusertest",
+          "bludit-16-deleteusertest",
+          "bludit-09-changepasswordtest"
+        ],
+        "rationale": "Baseline add/delete user and password cases do not assert role editing or role-specific access.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
+      "testabilityRisk": "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
+      "uncertainty": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Administrator can change a non-admin user's role and retain it.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    }
+  ]
+}

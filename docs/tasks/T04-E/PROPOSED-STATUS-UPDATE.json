@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "T04-E",
+  "taskStatusProposed": "READY_FOR_REVIEW_WITH_LIMITATIONS",
+  "programStatusFileModified": false,
+  "base": {
+    "branch": "main",
+    "sha": "af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb"
+  },
+  "workingBranch": "feature/t04e-seven-app-source-gaps",
+  "apps": [
+    {
+      "app": "bludit",
+      "sourceAvailability": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "claroline",
+      "sourceAvailability": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "expresscart",
+      "sourceAvailability": "PINNED_SOURCE_AVAILABLE",
+      "proposalCount": 3,
+      "technicalReviewOrderCount": 2,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "joomla",
+      "sourceAvailability": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "mantisbt",
+      "sourceAvailability": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "mediawiki",
+      "sourceAvailability": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    },
+    {
+      "app": "prestashop",
+      "sourceAvailability": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "proposalCount": 4,
+      "technicalReviewOrderCount": 3,
+      "noveltyVerifiedCount": 0,
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "G1": "NOT_VERIFIED"
+    }
+  ],
+  "research": {
+    "RQ1": "PARTIAL_SOURCE_SUPPORTED_PROPOSALS_ONLY",
+    "RQ2": "NOT_EVALUATED",
+    "RQ3": "NOT_RUN",
+    "RQ4": "NOT_EVALUATED"
+  },
+  "limitations": [
+    "27 source-supported proposals remain; below directional 8-12/app range, with no padding by inference.",
+    "EC-GAP-001 was removed and is documented separately as a source-level defect finding with runtime impact NOT_VERIFIED.",
+    "Claroline source/archive and image caveats remain.",
+    "No app runtime, Docker, Selenium or Gemini test was run.",
+    "No human decision or G1 acceptance was created."
+  ],
+  "prohibitedPromotions": {
+    "G1": "NOT_VERIFIED",
+    "novelty": "NOT_VERIFIED",
+    "validatedCases": 0,
+    "acceptedForImplementation": 0,
+    "behavioralCoverageGain": "NOT_EVALUATED"
+  }
+}

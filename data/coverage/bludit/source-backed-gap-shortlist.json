@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "shortlistCount": 3,
+  "sourcePin": {
+    "repository": "bludit/bludit",
+    "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+    "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "status": "PROPOSED_REVIEW_ORDER_ONLY",
+  "humanDecisionStatus": "NOT_REVIEWED",
+  "decisionLedger": "UNCHANGED",
+  "topCandidates": [
+    {
+      "candidateId": "BL-GAP-001",
+      "priorityOrder": 1,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "BL-GAP-002",
+      "priorityOrder": 2,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "priorityOrder": 3,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    }
+  ]
+}

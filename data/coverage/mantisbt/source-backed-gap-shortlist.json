@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "shortlistCount": 3,
+  "sourcePin": {
+    "repository": "mantisbt/mantisbt",
+    "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+    "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "status": "PROPOSED_REVIEW_ORDER_ONLY",
+  "humanDecisionStatus": "NOT_REVIEWED",
+  "decisionLedger": "UNCHANGED",
+  "topCandidates": [
+    {
+      "candidateId": "MB-GAP-001",
+      "priorityOrder": 1,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "MB-GAP-003",
+      "priorityOrder": 2,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "MB-GAP-004",
+      "priorityOrder": 3,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    }
+  ]
+}

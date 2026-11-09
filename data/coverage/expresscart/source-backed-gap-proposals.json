@@ -1,0 +1,161 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "expresscart",
+  "applicationVersion": "1.1.19 (BEWT label 1.19)",
+  "sourcePin": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+    "status": "PINNED_SOURCE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 3,
+  "shortlistCount": 2,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "EC-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Stock tracking rejects a cart quantity above available product or variant stock",
+      "actor": "Customer and administrator",
+      "role": "Customer adds; admin controls stock",
+      "preconditions": "One product/variant with stock=1 and stock tracking enabled; start with empty cart.",
+      "fixture": "Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.",
+      "oracle": {
+        "observable": "With stock tracking enabled and tracking not disabled for the item, attempting to set quantity above product/variant stock returns HTTP 400 with an insufficient-stock message and leaves the prior cart quantity unchanged.",
+        "sourceRefs": [
+          "EC-S02",
+          "EC-S05"
+        ]
+      },
+      "sourceRefs": [
+        "EC-S02",
+        "EC-S05"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Base AddProduct and AddNewProdToCart exercise creation/cart addition but do not assert stock quantity boundary.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "expresscart-05-addproducttest",
+          "expresscart-07-addnewprodtocarttest"
+        ],
+        "rationale": "Base AddProduct and AddNewProdToCart exercise creation/cart addition but do not assert stock quantity boundary.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.",
+      "testabilityRisk": "The exact rejection path may depend on cart validation outside the inspected product routes.",
+      "uncertainty": "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "Compared with T04-D historical index EC-C01..EC-C05: discount removal, empty cart, product publication admin state, forgotten-password response, and static page create/view. Candidate-specific relation is recorded above; no history entry is overwritten.",
+      "action": "Exercise: Product stock boundary prevents or flags an over-stock cart/order.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Customer address update persists and is copied from session into order snapshot",
+      "actor": "Customer",
+      "role": "Authenticated customer",
+      "preconditions": "Synthetic customer session with customerPresent/customerId, populated cart, and address fields accepted by the customer update schema; omit address fields from order request to exercise session fallback.",
+      "fixture": "Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.",
+      "oracle": {
+        "observable": "Customer update writes address fields to the customer record and session; a subsequent order creation request that omits address fields falls back to those session values in the persisted order snapshot.",
+        "sourceRefs": [
+          "EC-S03",
+          "EC-S01"
+        ]
+      },
+      "sourceRefs": [
+        "EC-S03",
+        "EC-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Base AddUser is admin user management; it does not cover storefront customer address persistence.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Base AddUser is admin user management; it does not cover storefront customer address persistence.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Use a distinct request-body address and verify the order route prefers the request value over the session fallback.",
+      "testabilityRisk": "Session-cached address may mask persistence unless a new session/relogin is used.",
+      "uncertainty": "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "Compared with T04-D historical index EC-C01..EC-C05: discount removal, empty cart, product publication admin state, forgotten-password response, and static page create/view. Candidate-specific relation is recorded above; no history entry is overwritten.",
+      "action": "Exercise: Customer address update persists across account reload and order creation.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "EC-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Invalid discount date windows are rejected during admin update",
+      "actor": "Shop administrator",
+      "role": "Restricted discount administrator",
+      "preconditions": "An existing synthetic discount code with known start/end values; controlled timezone and application clock.",
+      "fixture": "One unique discount record with a future valid window; no real customer data.",
+      "oracle": {
+        "observable": "Each invalid update returns the validation error and leaves the stored discount window unchanged.",
+        "sourceRefs": [
+          "EC-S04"
+        ]
+      },
+      "sourceRefs": [
+        "EC-S04"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Base discount cases create/use amount and percent codes and include empty/deleted-code paths, but do not assert invalid date-window validation. Historical EC-C01 tests discount removal, a separate behavior. This is a potential gap only.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "expresscart-12-adddiscountcodeamounttest",
+          "expresscart-13-adddiscountcodepercenttest",
+          "expresscart-15-usediscountcodeamounttest",
+          "expresscart-16-usediscountcodepercenttest"
+        ],
+        "rationale": "Base discount cases create/use amount and percent codes and include empty/deleted-code paths, but do not assert invalid date-window validation. Historical EC-C01 tests discount removal, a separate behavior. This is a potential gap only.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Submit a future start and an end later than start; the update should be accepted.",
+      "testabilityRisk": "Date parsing and timezone must be controlled; route-level validation can be asserted without relying on redemption behavior.",
+      "uncertainty": "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "Compared with T04-D historical index EC-C01..EC-C05: discount removal, empty cart, product publication admin state, forgotten-password response, and static page create/view. Candidate-specific relation is recorded above; no history entry is overwritten.",
+      "action": "Submit an update with a start date in the past, then an end date not later than start.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    }
+  ]
+}

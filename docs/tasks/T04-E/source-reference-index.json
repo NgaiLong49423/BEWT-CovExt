@@ -1,0 +1,502 @@
+{
+  "schemaVersion": "1.0.0",
+  "task": "T04-E",
+  "retrievedAt": "2026-11-10",
+  "retrieval": "GitHub REST commit and recursive tree APIs at exact source commit; file Git blob SHAs were matched from that commit tree. No application source bytes are redistributed.",
+  "apps": {
+    "bludit": {
+      "version": "2.3.4",
+      "sourceStatus": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "sourceRepository": "bludit/bludit",
+      "sourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "sourceTreeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+      "sourceReferences": {
+        "BL-S01": {
+          "id": "BL-S01",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/dbpages.class.php",
+          "blobSha": "9283d3f27354817808a4419691b2536db4682202",
+          "lineRanges": "13-18,39-53,82-110,131-140,149-166,193-216,313-373,417-423,449-456,548-579",
+          "observed": "Stores and persists page fields; maps future publish dates to scheduled; scheduler promotes due entries to published; published/static collections are separately queried.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/dbpages.class.php"
+        },
+        "BL-S02": {
+          "id": "BL-S02",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/boot/rules/69.pages.php",
+          "blobSha": "b3cb53cd97475cc824f9ce5f6b742f8305ebb721",
+          "lineRanges": "87-100,102-129",
+          "observed": "Invokes the database page scheduler during page boot, then builds public pages from published content.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/boot/rules/69.pages.php"
+        },
+        "BL-S03": {
+          "id": "BL-S03",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/admin/views/edit-content.php",
+          "blobSha": "2b0bd4833d517b089f67658733140cc46aa7c56a",
+          "lineRanges": "91-110",
+          "observed": "Edit-content view exposes the Images tab and cover-image field.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/admin/views/edit-content.php"
+        },
+        "BL-S04": {
+          "id": "BL-S04",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/admin/views/edit-user.php",
+          "blobSha": "fa84c88ec6efdd8acea415831bfc9822713a2d98",
+          "lineRanges": "56-62,135-160",
+          "observed": "Admin-only role selector offers Editor/Administrator; disabled-user password guidance.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/admin/views/edit-user.php"
+        },
+        "BL-S05": {
+          "id": "BL-S05",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/user.class.php",
+          "blobSha": "42cdd7d3e3326c786bf3613f03fc092792f9b8ba",
+          "lineRanges": "39-56",
+          "observed": "User model exposes role and enabled state.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/user.class.php"
+        },
+        "BL-S06": {
+          "id": "BL-S06",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/admin/controllers/edit-user.php",
+          "blobSha": "fa312712e3bbb845744d70a0466b9ee3ccefb60e",
+          "lineRanges": "18-20,33,44",
+          "observed": "Only admin can change role; controller removes posted role for non-admin and calls editUser.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/admin/controllers/edit-user.php"
+        },
+        "BL-S07": {
+          "id": "BL-S07",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/dbusers.class.php",
+          "blobSha": "283f7e36584c5c15e0f27f933029268631d86260",
+          "lineRanges": "9,61-99",
+          "observed": "User storage model defines default editor role and saves user records.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/dbusers.class.php"
+        },
+        "BL-S08": {
+          "id": "BL-S08",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/page.class.php",
+          "blobSha": "e5b5ac30e92cb255b6a7c7cfd3e446e1560ba60a",
+          "lineRanges": "311-331",
+          "observed": "Page coverImage accessor resolves a stored image key into the app-managed image URL; it returns false when unset.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/page.class.php"
+        },
+        "BL-S09": {
+          "id": "BL-S09",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-themes/alternative/php/page.php",
+          "blobSha": "354a0e993cdfd513c9aafb3e54e43afc3faf7638",
+          "lineRanges": "17-27",
+          "observed": "Pinned alternative theme renders the page cover image accessor in its page template.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-themes/alternative/php/page.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "claroline": {
+      "version": "1.11.10",
+      "sourceStatus": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE",
+      "sourceRepository": "zefredz/claroline",
+      "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "sourceTreeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+      "sourceReferences": {
+        "CL-S01": {
+          "id": "CL-S01",
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "path": "claroline/document/document.php",
+          "blobSha": "8afb874f28190449bb604e413b40d9236ac56eda",
+          "lineRanges": "20-51,69-104,202-375,742-767,1208-1224",
+          "observed": "Document tool implements upload, move and delete commands and gates course/group access.",
+          "permalink": "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/document/document.php"
+        },
+        "CL-S02": {
+          "id": "CL-S02",
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "path": "claroline/exercise/exercise.php",
+          "blobSha": "0fa1ed922ae3f40cde4528b0c144c56565f135df",
+          "lineRanges": "17-23,66-92",
+          "observed": "Exercise page checks course access, separates edit/tracking rights and imports exercises for editors.",
+          "permalink": "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/exercise/exercise.php"
+        },
+        "CL-S03": {
+          "id": "CL-S03",
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "path": "claroline/group/group_space.php",
+          "blobSha": "825d811e822c687968fc0c48c59dad7b8fae2261",
+          "lineRanges": "29-41",
+          "observed": "Group space checks course/group authorization and redirects or denies access.",
+          "permalink": "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/group/group_space.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "expresscart": {
+      "version": "1.1.19 (BEWT label 1.19)",
+      "sourceStatus": "PINNED_SOURCE_AVAILABLE",
+      "sourceRepository": "mrvautin/expressCart",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceTreeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+      "sourceReferences": {
+        "EC-S01": {
+          "id": "EC-S01",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/order.js",
+          "blobSha": "2c171c46d0b04cd690ec0b62cc4daddbe101a768",
+          "lineRanges": "110-190,286-304",
+          "observed": "Order routes create orders from session/cart data and expose a restricted order-status update route.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/order.js"
+        },
+        "EC-S02": {
+          "id": "EC-S02",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/product.js",
+          "blobSha": "e654616837f9624f82b9a1596b94ce93ad46b0de",
+          "lineRanges": "97-112,194-246,291-320",
+          "observed": "Product insert/edit and variant routes persist stock and stock-disable fields.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/product.js"
+        },
+        "EC-S03": {
+          "id": "EC-S03",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/customer.js",
+          "blobSha": "fc57d7a52432da13e0cb819c4eb100e85ec5ee17",
+          "lineRanges": "93-120,131-210",
+          "observed": "Customer routes save/update customer address fields and session address values.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/customer.js"
+        },
+        "EC-S04": {
+          "id": "EC-S04",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/admin.js",
+          "blobSha": "0cfe98665f77fb67672af3a145228488b9aa7bb3",
+          "lineRanges": "475-541",
+          "observed": "Restricted discount settings routes validate start/end dates and discount records.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/admin.js"
+        },
+        "EC-S05": {
+          "id": "EC-S05",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/index.js",
+          "blobSha": "774f41491d90d3c4f23151c5c70b340f97c89ae0",
+          "lineRanges": "541-550,583-639,641-642",
+          "observed": "Cart update rejects quantities beyond product/variant stock with HTTP 400 before changing the session cart; enforcement depends on stock tracking and product stock-disable configuration.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/index.js"
+        },
+        "EC-S06": {
+          "id": "EC-S06",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "lib/auth.js",
+          "blobSha": "a515394a68dd550551c5beed750109a3acb8782d",
+          "lineRanges": "4-29,31-65,68-85",
+          "observed": "Authentication/authorization only runs when route middleware is attached; admin order creation is absent from the restricted route list and its POST handler lacks restrict/checkAccess.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/lib/auth.js"
+        },
+        "EC-S07": {
+          "id": "EC-S07",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "app.js",
+          "blobSha": "e7615061e999b49ad4c743382856ca445e319a79",
+          "lineRanges": "401-415",
+          "observed": "Order router is mounted directly at the root after generic session/header middleware; no global authorization wrapper surrounds router mounts.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/app.js"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "joomla": {
+      "version": "3.10.11",
+      "sourceStatus": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "sourceRepository": "joomla/joomla-cms",
+      "sourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "sourceTreeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+      "sourceReferences": {
+        "JO-S01": {
+          "id": "JO-S01",
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "path": "administrator/components/com_content/models/article.php",
+          "blobSha": "8717315555a82d96ea00239269328fabbb7e620f",
+          "lineRanges": "61-67,233-250,262-281,701-706,722-800",
+          "observed": "Article model checks edit-state rights, prepares publication/version fields, saves article data, and persists featured state into the content/frontpage tables.",
+          "permalink": "https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/article.php"
+        },
+        "JO-S02": {
+          "id": "JO-S02",
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "path": "administrator/components/com_content/models/featured.php",
+          "blobSha": "debab364c64920da46b83507af8345e2e8f5803a",
+          "lineRanges": "40-84",
+          "observed": "Featured-article query includes featured flag, publication state and access level.",
+          "permalink": "https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/featured.php"
+        },
+        "JO-S03": {
+          "id": "JO-S03",
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "path": "administrator/components/com_content/models/articles.php",
+          "blobSha": "d2cfe7b344f328f8e9cec21152de8c82a712acaa",
+          "lineRanges": "40-52,178-191",
+          "observed": "Article listing filters/state includes publication window, access, and featured data.",
+          "permalink": "https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/articles.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "mantisbt": {
+      "version": "1.2.0",
+      "sourceStatus": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "sourceRepository": "mantisbt/mantisbt",
+      "sourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "sourceTreeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+      "sourceReferences": {
+        "MB-S01": {
+          "id": "MB-S01",
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "path": "bugnote_add.php",
+          "blobSha": "ab11808da86dfa45862ecb2f613612fc6f9b004b",
+          "lineRanges": "33-56",
+          "observed": "Bugnote submission accepts privacy and time-tracking fields and checks add-note access threshold.",
+          "permalink": "https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bugnote_add.php"
+        },
+        "MB-S02": {
+          "id": "MB-S02",
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "path": "bug_monitor_add.php",
+          "blobSha": "6bcc02763e4639108dd10dd9f92d150ed209c196",
+          "lineRanges": "30-67",
+          "observed": "Monitor route acts on current user and verifies monitoring permission.",
+          "permalink": "https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_monitor_add.php"
+        },
+        "MB-S03": {
+          "id": "MB-S03",
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "path": "bug_relationship_add.php",
+          "blobSha": "2af42c0d97251e2f6e4ad6914177d42c1d128643",
+          "lineRanges": "31-83",
+          "observed": "Relationship route validates source/destination, same-issue and existing relationship cases.",
+          "permalink": "https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_relationship_add.php"
+        },
+        "MB-S04": {
+          "id": "MB-S04",
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "path": "bug_file_add.php",
+          "blobSha": "ae768da9cb2a16fd946107f3718132811e27d7d8",
+          "lineRanges": "30-52",
+          "observed": "Attachment route validates bug/file input, upload limit and bug access.",
+          "permalink": "https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_file_add.php"
+        },
+        "MB-S05": {
+          "id": "MB-S05",
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "path": "bugnote_view_inc.php",
+          "blobSha": "e15690dd03c504da5da5dabe2cfd71bde3fe0a91",
+          "lineRanges": "35-48",
+          "observed": "Issue view renders bugnotes from the visible-bugnote query.",
+          "permalink": "https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bugnote_view_inc.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "mediawiki": {
+      "version": "1.40.0",
+      "sourceStatus": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "sourceRepository": "wikimedia/mediawiki",
+      "sourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "sourceTreeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+      "sourceReferences": {
+        "MW-S01": {
+          "id": "MW-S01",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/page/MovePage.php",
+          "blobSha": "20a30cd25355e85f73113cd74a9d17c2c56079ef",
+          "lineRanges": "325-413,504-528",
+          "observed": "Move operation checks permissions, validates source/target and exposes optional redirect creation.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/page/MovePage.php"
+        },
+        "MW-S02": {
+          "id": "MW-S02",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/actions/WatchAction.php",
+          "blobSha": "2882d987e8938fe1876270c1c49f8a3e3512a10e",
+          "lineRanges": "28-64",
+          "observed": "Watch action integrates current page with user watchlist and expiry configuration.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/actions/WatchAction.php"
+        },
+        "MW-S03": {
+          "id": "MW-S03",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/Revision/RevisionStore.php",
+          "blobSha": "46dc0544a26b52f29bd90718f0e58eba12e4b652",
+          "lineRanges": "417-526,1244-1245",
+          "observed": "Revision store inserts revision rows and exposes lookup by revision ID; caller/UI link is corroborated by PageUpdater.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Revision/RevisionStore.php"
+        },
+        "MW-S04": {
+          "id": "MW-S04",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/upload/UploadBase.php",
+          "blobSha": "485e92dab9b7b80485949781d7137da5201cf0e5",
+          "lineRanges": "646-692,905-945,963-1064",
+          "observed": "UploadBase validates filename/extensions and reports title errors; successful performUpload delegates to LocalFile::upload; frontend error rendering is not inferred.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/upload/UploadBase.php"
+        },
+        "MW-S05": {
+          "id": "MW-S05",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/Storage/PageUpdater.php",
+          "blobSha": "6e18bf1d2e6d54a45a5d08b54cb1aa0279d57579",
+          "lineRanges": "1328-1440,1495-1535",
+          "observed": "Normal page-update commit path inserts new revisions through RevisionStore and updates page latest revision.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Storage/PageUpdater.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    },
+    "prestashop": {
+      "version": "1.6.1.23",
+      "sourceStatus": "PINNED_RELEASE_SOURCE_AVAILABLE",
+      "sourceRepository": "PrestaShop/PrestaShop",
+      "sourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "sourceTreeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+      "sourceReferences": {
+        "PS-S01": {
+          "id": "PS-S01",
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "path": "classes/CartRule.php",
+          "blobSha": "762371fb28f33c162be00c92a47a409a4b331de7",
+          "lineRanges": "41-57,88-97,504-532",
+          "observed": "Cart-rule model carries per-customer quantity, minimum amount, carrier/product restrictions and checks validity.",
+          "permalink": "https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/CartRule.php"
+        },
+        "PS-S02": {
+          "id": "PS-S02",
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "path": "classes/Carrier.php",
+          "blobSha": "704763700a5deb01b4f69fdc5a864e4c76e9d92d",
+          "lineRanges": "30-47,66-93,248-299,330-412,602-686,1283-1419",
+          "observed": "Carrier model calculates range-based delivery prices and filters carriers for an order; range_behavior=disabled removes out-of-range carriers, while other configured behavior permits fallback pricing.",
+          "permalink": "https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/Carrier.php"
+        },
+        "PS-S03": {
+          "id": "PS-S03",
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "path": "classes/PaymentModule.php",
+          "blobSha": "74ab460c0115e2db281490bbc8cba72111d822f3",
+          "lineRanges": "145-162,265-373,680-696,798-800",
+          "observed": "Order validation writes order and history data and synchronizes stock where configured.",
+          "permalink": "https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/PaymentModule.php"
+        },
+        "PS-S04": {
+          "id": "PS-S04",
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "path": "classes/stock/StockAvailable.php",
+          "blobSha": "23ebcc8cc107ec4f2965b30c1f9d866f86e096f1",
+          "lineRanges": "29-48,100-108,128-132",
+          "observed": "Available-stock model supports quantity update and synchronization.",
+          "permalink": "https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/stock/StockAvailable.php"
+        }
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      }
+    }
+  }
+}
