@@ -1,0 +1,24 @@
+✔ verified source pins remain fixed to the reviewed inputs (1.257ms)
+✔ safeJoin rejects traversal and symlinked path components (4.4583ms)
+✔ generator rejects a caller-supplied source pin that differs from the contract (0.5056ms)
+✔ the current repository HEAD is not mistaken for the pinned benchmark HEAD (48.3093ms)
+✔ pinned file integrity accepts unchanged committed bytes (515.7735ms)
+✔ pinned file integrity rejects dirty tracked source without changing the checkout (463.8821ms)
+✔ pinned file integrity rejects a wrong or missing commit hash (405.5971ms)
+✔ pinned file integrity rejects an incorrect expected Git blob hash (504.6741ms)
+✔ pinned file integrity rejects symlink inputs (429.3715ms)
+✔ inventory maps all baseline cases, assertions, Page Objects and tracked input integrity (3.2785ms)
+✔ candidate proposals remain pending and shortlist/source references stay consistent (1.3299ms)
+✔ public oracle text for KB-021, 022, 023 and 025 remains identical to pinned Gherkin and Java assertions (441.8219ms)
+✔ password redaction applies only to form input and leaves error oracles untouched (2.3233ms)
+✔ email placeholders preserve one logical fixture across feature setup and Java equality assertion (1.7436ms)
+✔ KB-023 and KB-026 retain raw titles while documenting observed behavior separately (1.3636ms)
+✔ published dataset uses safe placeholders and preserves Java assertion syntax (1.8596ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2911.4799
