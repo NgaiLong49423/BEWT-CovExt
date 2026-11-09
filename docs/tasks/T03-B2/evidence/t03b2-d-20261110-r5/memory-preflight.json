@@ -1,0 +1,23 @@
+{
+  "samples": [
+    {
+      "capturedAtUtc": "2026-11-09T21:03:22.344Z",
+      "freeBytes": 65001398272,
+      "freeGiB": 60.537
+    },
+    {
+      "capturedAtUtc": "2026-11-09T21:03:27.350Z",
+      "freeBytes": 65005817856,
+      "freeGiB": 60.541
+    },
+    {
+      "capturedAtUtc": "2026-11-09T21:03:32.351Z",
+      "freeBytes": 65005015040,
+      "freeGiB": 60.541
+    }
+  ],
+  "minimumBytes": 65001398272,
+  "minimumGiB": 60.537,
+  "requiredBytes": 6442450944,
+  "outcome": "PASS"
+}

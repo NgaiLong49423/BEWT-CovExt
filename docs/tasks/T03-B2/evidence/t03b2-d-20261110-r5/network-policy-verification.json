@@ -1,0 +1,11 @@
+{
+  "outcome": "PASS",
+  "policy": "published-bridge-default-route-removed-v1",
+  "egressIsolationMethod": "container-netns-default-route-drop-v1",
+  "driver": "bridge",
+  "internal": false,
+  "ipv6Enabled": false,
+  "ipMasquerade": "false",
+  "subnet": "172.26.254.0/24",
+  "gateway": "172.26.254.1"
+}

@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-d-20261110-r5",
+  "outcome": "BLOCKED_APPROVAL_REQUIRED",
+  "reason": "BLOCKED_APPROVAL_REQUIRED: no independently authenticated Team Lead decision verifier is configured; operator confirmation is not authorization",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

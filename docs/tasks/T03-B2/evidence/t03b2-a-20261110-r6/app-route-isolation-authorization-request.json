@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-a-20261110-r6",
+  "containerName": "bewt-covext-claroline-t03b2-a-20261110-r6-app",
+  "containerId": "f6681250d57647092aaf2cafb64a8849a74b57838b5b1458ed87ba05cf4a71f6",
+  "role": "app",
+  "command": "docker exec --privileged --user 0 f6681250d57647092aaf2cafb64a8849a74b57838b5b1458ed87ba05cf4a71f6 /bin/sh -c 'ip route del default'",
+  "maxExecutions": 1,
+  "scope": "one privileged exec in this exact container network namespace before services start; no host routing, Docker daemon, or other-container changes",
+  "rollback": "if route removal or any probe fails, do not start services; remove only the exact recorded run-owned containers and network; discard the container rather than restoring its route"
+}

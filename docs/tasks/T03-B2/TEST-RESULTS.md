@@ -160,3 +160,31 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
 - The fake socket is injected into `probeTcpTarget`; no external/local network request was made.
 - Provenance: `evidence/offline-verification-20261110-r69/verification-summary.json` includes exact commands, exit codes, counts, source/test SHA-256 and Git blob IDs, and log hashes.
 - Runtime/Docker/TCP diagnostic: `NOT_RUN`; RAM and authorization gates remain unmet.
+
+## Cross-platform Cloud Runner verification & runtime diagnostics — 2026-11-10 (`r72`, `r73`, `d-r4`, `d-r5`, `a-r6`)
+
+### 1. Post-commit offline verification (`r72` Windows & `r73` Ubuntu 24.04 Cloud VM)
+
+- **Tested source HEAD**: `183668bc18e89b4e04212be510b971a9f79c7f65` (`sourceMatchesHeadAtTest: true`, `sourceTestDirtyBefore: false`, `sourceTestDirtyAfter: false` on both platforms).
+- **Node syntax checks (9 modules)**: `child-process-policy.mjs`, `cleanup-claroline-g0.mjs`, `run-claroline-diagnostic.mjs`, `run-claroline-g0.mjs`, `record-offline-verification.mjs`, `verify-claroline-image-provenance.mjs`, `cloud-controller.mjs`, `validate-evidence.mjs`, and `test/cleanup-claroline-g0.test.mjs` — **9/9 PASS (exit 0)** on both Windows (`r72`) and Ubuntu 24.04 Linux (`r73`).
+- **Unit, fault-injection, and cross-platform test suite**: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` — **41/41 PASS, 0 FAIL (exit 0)** on both Windows (`r72`) and Ubuntu 24.04 Linux (`r73`).
+- **New test coverage (tests 38–41)**:
+  - Linux `/proc/meminfo` `MemAvailable` parsing and `/proc/net/route` + `ip -4 route show` IPv4 route collision avoidance (`parseLinuxMeminfoBytes`, `parseLinuxIpv4Routes`, `selectNonOverlappingSubnetCidr`).
+  - Pre-start (`State.Status === "created"`) route-isolated container cleanup when `endpoint.NetworkID === ""` before `docker start` vs running container cleanup rejecting missing `endpoint.NetworkID`.
+  - Cloud controller termination schedule verification (`maxRunDuration=21600s`, `instanceTerminationAction=STOP`, active `terminationTimestamp`) and path/secret scrubbing (`scrubCloudText`).
+  - Deterministic evidence validator (`validate-evidence.mjs`) positive and negative validation, including SHA-256 manifest tampering detection.
+- **Cloud VM Maven compile check**: `mvn test-compile -DskipTests` in `experiments/claroline` on `bewt-covext-runner` — **PASS (exit 0)**, compiled 22 main source files and 42 test source files in `11.352 s`.
+- **Evidence**:
+  - Windows: `evidence/offline-verification-20261110-r72/` (`sha256-manifest.json` verified, 11 files).
+  - Ubuntu 24.04 Cloud VM: `evidence/offline-verification-20261110-r73/` (`sha256-manifest.json` verified, 12 files including `cloud-preflight.json`).
+
+### 2. Cloud VM Docker runtime execution summary (`t03b2-d-20261110-r4`, `t03b2-d-20261110-r5`, `t03b2-a-20261110-r6`)
+
+| Run ID | Runner | Host Free RAM (GiB) | Docker Resources Created | Stop Point | Teardown / Cleanup Result | Evidence Validator |
+| --- | --- | --- | --- | --- | --- | --- |
+| `t03b2-d-20261110-r4` | `run-claroline-diagnostic.mjs` | `60.522 / 60.522 / 60.522` (`PASS`) | Bridge `692707f3...` (`172.26.254.0/24`), dormant app `1051585e...` (`127.0.0.1:33863->80/tcp`) | `BLOCKED_APPROVAL_REQUIRED` before `docker start` | Initial `finally` exposed pre-start empty `NetworkID`; after fix (`183668bc`), `cleanup-recovery-r1.json` & `post-cleanup-independent-check.json` **PASS** (0 residuals) | `valid: true` (21 files) |
+| `t03b2-d-20261110-r5` | `run-claroline-diagnostic.mjs` | `60.537 / 60.541 / 60.541` (`PASS`) | Bridge `a8be33f2...` (`172.26.254.0/24`), dormant app `dca3595a...` (`127.0.0.1:46033->80/tcp`) | `BLOCKED_APPROVAL_REQUIRED` before `docker start` | Automatic `finally` `cleanup-result.json` **PASS** on first pass (0 residuals, `countsEqual: true`, `fingerprintsEqual: true`) | `valid: true` (19 files) |
+| `t03b2-a-20261110-r6` | `run-claroline-g0.mjs` | `60.540 / 60.541 / 60.541` (`PASS`) | Bridge `2ed133a9...` (`172.26.254.0/24`), dormant app `f6681250...` (`127.0.0.1:44465->80/tcp`), dormant browser `2824b38e...` (`127.0.0.1:34105->4444/tcp`) | `BLOCKED_APPROVAL_REQUIRED` before `docker start` | Automatic `finally` `cleanup-result.json` **PASS** on first pass (both containers + network removed, 0 residuals) | `valid: true` (16 files) |
+
+- **Business / Selenium / DB reset status**: `NOT_RUN` (blocked fail-closed at `requestRouteIsolationApproval()` before `docker start`).
+

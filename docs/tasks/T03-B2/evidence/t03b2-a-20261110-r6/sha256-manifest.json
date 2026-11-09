@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "runId": "t03b2-a-20261110-r6",
+  "generatedAtUtc": "2026-11-09T21:05:11.256Z",
+  "fileCount": 16,
+  "privateInventoriesExcluded": true,
+  "files": {
+    "app-create.json": {
+      "sha256": "603a29b1a1ddd6c621389350ff422ebf5925a16ad896eaa4dfa3f71defc105f5",
+      "bytes": 900
+    },
+    "app-route-isolation-authorization-request.json": {
+      "sha256": "7b9708ea865883720a722d24a5e08eb3b791199ff23571220611f27d6a02756e",
+      "bytes": 732
+    },
+    "browser-route-isolation-authorization-request.json": {
+      "sha256": "b8d33f43981ea80f459dd41aa03d619913fbc16ac5664067fa8407fd44f7d0c3",
+      "bytes": 741
+    },
+    "cleanup-result.json": {
+      "sha256": "3fdea710ab7a295a497a022faa09b4eba90caa1d1b20751db6bc84f6534bf02c",
+      "bytes": 512
+    },
+    "docker-inventory-sanitized-summary.json": {
+      "sha256": "b8ec6ab31792333454c002b3565da2a31b66868632706ce0b8edc153e329f190",
+      "bytes": 1137
+    },
+    "host-egress-control.json": {
+      "sha256": "b7fcac7a936ac3d7929f2eba88237c3e10b436bdf25c22cf31dd39e23da1aeb2",
+      "bytes": 375
+    },
+    "host-port-allocation.json": {
+      "sha256": "553907661b147d70afa65c365863c93f15274cb268a56106908a396c6e40243a",
+      "bytes": 176
+    },
+    "image-inspect.json": {
+      "sha256": "016c70b94eabfa3eea9fff46327fb0da2e792c981fffd4444dcba1663b250115",
+      "bytes": 2234
+    },
+    "memory-preflight.json": {
+      "sha256": "a30e86551c45a13bb28becb3d259243392e41039d59b4556cda98968e3a637f3",
+      "bytes": 497
+    },
+    "network-create.json": {
+      "sha256": "847ab1ce939149c10c1d3ac4927b84139ee9ff7f4ba4e8d130e4b476da0b69c6",
+      "bytes": 700
+    },
+    "network-ipam-selection.json": {
+      "sha256": "c3356bd57a93e96ea2d18875811dbc47af98d1527838a247b547a149e233b20a",
+      "bytes": 228
+    },
+    "network-policy-verification.json": {
+      "sha256": "df1137be0e3476c3606ee927117fd2e6a5710062f464ea88738014e91dc7804a",
+      "bytes": 303
+    },
+    "port-precreate-check.json": {
+      "sha256": "0dd4d6523b81b58ed8c4b005d80b23e3e7717b787aea7954df1dd430490fab4d",
+      "bytes": 256
+    },
+    "run-failure.txt": {
+      "sha256": "0552eab90b318fa8fe11ca334c6c5c87cda0d03caf7384206706c5a9c201aaa2",
+      "bytes": 151
+    },
+    "run-record.json": {
+      "sha256": "c08b75b35353f59b62d35f31fd91661df94d772ba6ce33fdde92ffc0780439eb",
+      "bytes": 1672
+    },
+    "selenium-create.json": {
+      "sha256": "49a5c28142c4d6953cf267cf821af2c510dd019df73b5229518bea9bafd15598",
+      "bytes": 931
+    }
+  }
+}

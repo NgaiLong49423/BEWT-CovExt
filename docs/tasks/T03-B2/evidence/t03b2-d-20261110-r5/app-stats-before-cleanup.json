@@ -1,0 +1,16 @@
+{
+  "exitCode": 0,
+  "rows": [
+    {
+      "BlockIO": "0B / 0B",
+      "CPUPerc": "0.00%",
+      "Container": "dca3595ab595726a8e4c028dfe2ff7bcbacc16d02f4ef7cb7109322bd8af71b6",
+      "ID": "dca3595ab595",
+      "MemPerc": "0.00%",
+      "MemUsage": "0B / 0B",
+      "Name": "bewt-covext-claroline-t03b2-d-20261110-r5-app",
+      "NetIO": "0B / 0B",
+      "PIDs": "0"
+    }
+  ]
+}

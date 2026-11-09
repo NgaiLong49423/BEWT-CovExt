@@ -2,14 +2,14 @@
   "task": "T03-B2",
   "application": "Claroline",
   "proposedStatus": "PARTIAL",
-  "runtimeStatus": "BLOCKED_HOST_MEMORY_GATE_ROUTE_ISOLATION_CANDIDATE_NOT_RUNTIME_VERIFIED",
+  "runtimeStatus": "MEMORY_GATE_PASSED_ON_CLOUD_VM_BLOCKED_AT_ROUTE_ISOLATION_APPROVAL_GATE",
   "businessTestStatus": "NOT_RUN",
   "rootCauseR5Exit137": "Docker Desktop port-forwarder failure verified; Docker stop-to-force escalation verified during teardown; initiating caller and app shutdown reason unknown; OOM not verified",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest user-confirmed r53 memory samples were 4.848, 4.904, and 4.863 GiB (<6 GiB); Docker was reachable and no task resources were present. The route-isolated published-bridge candidate has only offline verification and was not run. r55 fault suite 34/34 and five syntax checks passed; historical r2/r3/r5 results remain unchanged. Latest recheck r58 measured 5.437, 5.442, and 5.460 GiB free (<6 GiB); Docker Engine responded and task ownership counts were zero. No diagnostic was run or Docker resources changed. Latest user-confirmed memory recheck r60 measured 5.174, 4.974, and 4.959 GiB (<6 GiB); Docker Engine was reachable, WSL VM working set was 1,238,462,464 bytes, and all task resource counts were zero. No runtime was run. Current continuation 2026-11-10: Docker Engine 29.8.0 reachable; exact task-label inventory zero; free RAM 3.089/3.109/3.110 GiB below 6 GiB; runtime diagnostic NOT_RUN and no Docker resources changed. Offline suite 34/34 and five syntax checks PASS. See offline-verification-20261110-r64/ and offline-verification-20261110-r65/runtime-gate-recheck.json. Correction round 3 (2026-11-10): TCP classification requires the structured in-container probe exit marker and matching process status; exit 0 with unreachable text, exit 127, spawn error, timeout, refusal, contradiction, and incomplete results are fail-closed. Verification r68 on source HEAD 992db57c3320320d68b69a64547a6784c89c237f: seven syntax checks and 36/36 cleanup/fault tests PASS; source/test hashes match tested HEAD. Runtime NOT_RUN; last recorded RAM remains below 6 GiB; privileged route execution remains disabled.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest Windows memory samples were below 6 GiB (3.089-5.460 GiB). On 2026-11-10, execution moved to Google Cloud Compute Engine Ubuntu 24.04 VM bewt-covext-runner (c4d-highmem-8, 8 vCPU, 63 GiB RAM, Docker Engine 29.9.3, maxRunDuration=21600s, instanceTerminationAction=STOP). Cross-platform Linux support, cloud-controller.mjs, validate-evidence.mjs, and pre-start created-container cleanup fix were committed at 183668bc18e89b4e04212be510b971a9f79c7f65 and verified on both Windows (r72: 9/9 syntax PASS, 41/41 tests PASS) and Ubuntu 24.04 Cloud VM (r73: 9/9 syntax PASS, 41/41 tests PASS, Maven test-compile PASS). Cloud runtime runs t03b2-d-20261110-r4, t03b2-d-20261110-r5, and t03b2-a-20261110-r6 passed the 6 GiB memory preflight (~60.54 GiB available), selected non-overlapping subnet 172.26.254.0/24, created the isolated bridge network and dormant container(s), recorded the route-isolation authorization request(s), stopped fail-closed at BLOCKED_APPROVAL_REQUIRED before docker start, and completed verified zero-residual cleanup (automatic first-pass PASS in d-r5 and a-r6; recovery PASS in d-r4). Synced evidence directories passed validate-evidence.mjs and sha256-manifest.json verification. G0 remains PARTIAL/BLOCKED awaiting Team Lead approval for route/network isolation, GCE IPV4_ONLY host-control policy, and image provenance delta.",
   "statusJsonChanged": false,
   "archiveCandidates": [
     {
@@ -35,7 +35,7 @@
     "releaseSha256": "fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1",
     "imageSha256": "c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8"
   },
-  "diagnosticRunId": "t03b2-d-20261109-r3",
+  "diagnosticRunId": "t03b2-d-20261110-r5",
   "diagnosticOutcome": "BLOCKED",
   "g0Status": "PARTIAL",
   "evidence": [
@@ -66,13 +66,22 @@
     "evidence/offline-verification-20261110-r66/",
     "evidence/offline-verification-20261110-r67/",
     "evidence/offline-verification-20261110-r68/",
-    "evidence/offline-verification-20261110-r69/"
+    "evidence/offline-verification-20261110-r69/",
+    "evidence/offline-verification-20261110-r72/",
+    "evidence/offline-verification-20261110-r73/",
+    "evidence/t03b2-d-20261110-r4/diagnostic-result.json",
+    "evidence/t03b2-d-20261110-r4/cleanup-recovery-r1.json",
+    "evidence/t03b2-d-20261110-r4/post-cleanup-independent-check.json",
+    "evidence/t03b2-d-20261110-r5/diagnostic-result.json",
+    "evidence/t03b2-d-20261110-r5/cleanup-result.json",
+    "evidence/t03b2-a-20261110-r6/run-summary.json",
+    "evidence/t03b2-a-20261110-r6/cleanup-result.json"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
-  "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r69/",
-  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
+  "networkPolicyRuntimeStatus": "PRE_START_CREATED_AND_CLEANED_ON_CLOUD_VM_BLOCKED_AT_APPROVAL_GATE",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r73/",
+  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/t03b2-d-20261110-r5/memory-preflight.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",
     "method": "container-netns-default-route-drop-v1",
@@ -82,26 +91,43 @@
   },
   "latestContinuation": {
     "dateLocal": "2026-11-10",
-    "previousReviewedHead": "50f3802527378f4b6b3abbf84db61e276918b22f",
-    "testedSourceCommit": "0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674",
+    "previousReviewedHead": "0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674",
+    "testedSourceCommit": "183668bc18e89b4e04212be510b971a9f79c7f65",
     "branch": "feature/t03b2-claroline-g0",
     "pr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/12",
+    "cloudVm": {
+      "project": "gen-lang-client-0311012609",
+      "instanceName": "bewt-covext-runner",
+      "instanceId": "3042402845209891905",
+      "zone": "asia-southeast1-a",
+      "machineType": "c4d-highmem-8",
+      "maxRunDurationSeconds": 21600,
+      "instanceTerminationAction": "STOP",
+      "terminationTimestampUtc": "2026-11-10T02:18:54.625Z"
+    },
     "lastRecordedRamGiBSamples": [
-      3.089,
-      3.109,
-      3.11
+      60.54,
+      60.541,
+      60.541
     ],
-    "ramGate": "BLOCKED_UNCHANGED_6_GIB",
-    "syntaxChecks": "7/7 PASS, exit 0",
-    "cleanupFaultTests": "37/37 PASS, exit 0",
-    "provenance": "Source/test hashes and Git blob IDs match tested HEAD",
-    "evidence": "evidence/offline-verification-20261110-r69/",
+    "ramGate": "PASS_GREATER_THAN_6_GIB_ON_CLOUD_VM",
+    "syntaxChecks": "9/9 PASS, exit 0 (Windows r72 and Linux r73)",
+    "cleanupFaultTests": "41/41 PASS, exit 0 (Windows r72 and Linux r73)",
+    "mavenCompile": "PASS, exit 0 (22 main + 42 test classes compiled on Cloud VM)",
+    "provenance": "Source/test hashes and Git blob IDs match tested HEAD 183668bc18e89b4e04212be510b971a9f79c7f65",
+    "evidence": [
+      "evidence/offline-verification-20261110-r72/",
+      "evidence/offline-verification-20261110-r73/",
+      "evidence/t03b2-d-20261110-r4/",
+      "evidence/t03b2-d-20261110-r5/",
+      "evidence/t03b2-a-20261110-r6/"
+    ],
     "timeoutClassification": "STATUS_124_AND_TIMEOUT_EVIDENCE_PRECEDE_NETWORK_UNREACHABLE",
     "nodeSocketTimeoutSource": "PRESERVED_AND_TESTED_WITH_FAKE_SOCKET",
-    "runtime": "NOT_RUN",
+    "runtime": "DOCKER_NETWORK_AND_DORMANT_CONTAINERS_CREATED_STOPPED_AT_APPROVAL_GATE_CLEANUP_PASS",
     "privilegedRouteExecution": "DISABLED_BLOCKED_APPROVAL_REQUIRED",
     "dockerResourcesChanged": false,
-    "externalNetworkRequested": false,
+    "externalNetworkRequested": true,
     "sharedStatusJsonChanged": false
   }
 }

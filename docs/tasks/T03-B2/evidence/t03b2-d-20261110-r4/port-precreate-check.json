@@ -1,0 +1,10 @@
+{
+  "bindAddress": "127.0.0.1",
+  "app": {
+    "port": 33863,
+    "available": true,
+    "reservationHeld": false
+  },
+  "capturedAtUtc": "2026-11-09T20:57:56.213Z",
+  "reservationHeld": false
+}

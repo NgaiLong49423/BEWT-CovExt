@@ -292,3 +292,49 @@ Fixed the two requested defects only. `classifyTcpProbe` now handles timeout sta
 A deterministic fake-socket test exercises the timeout callback without opening any socket or making an external request, and confirms host timeout classification is `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`. Tests also assert both TCP and egress classifiers reject status 124 with a matching marker plus unreachable stderr, and combined timeout/unreachable evidence.
 
 Post-commit verification ran on `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`: all seven Node syntax checks PASS (exit 0); cleanup/fault tests PASS (37/37, exit 0). Source/test hashes and Git blobs matched tested HEAD. Evidence is `evidence/offline-verification-20261110-r69/`. No runtime or external network request ran. Last recorded RAM remains below the unchanged 6 GiB gate; privileged execution remains disabled. G0 stays `PARTIAL/BLOCKED`; historical evidence r1-r68 remains unchanged.
+
+## Google Cloud Ubuntu 24.04 runner, cross-platform compatibility, and runtime diagnostic — 2026-11-10 (r72/r73, d-r4/d-r5, a-r6)
+
+### 1. Cloud Runner preflight and 6 GiB memory gate resolution
+
+To overcome the persistent Windows host memory blocker (`3.089`–`5.460 GiB` free vs the required `6.0 GiB` gate) and Docker Desktop WSL port-forwarding defects, execution was extended to the provisioned Google Cloud Compute Engine Ubuntu 24.04 LTS VM (`bewt-covext-runner`, zone `asia-southeast1-a`, machine type `c4d-highmem-8`, 8 vCPU, 63 GiB RAM, 200 GB Hyperdisk Balanced, Docker Engine `29.9.3`, OpenJDK `21.0.10`, Maven `3.8.7`, Node.js `v20.20.2`).
+
+Before running any task workload, `experiments/claroline/tools/cloud-controller.mjs` verified the VM identity (`3042402845209891905`) and automatic 6-hour stop schedule (`maxRunDuration.seconds = 21600`, `instanceTerminationAction = STOP`, `terminationTimestamp = 2026-11-10T02:18:54.625Z` / `2026-11-10T09:18:54+07:00`). Three independent free-RAM samples on the Ubuntu VM measured **60.537, 60.541, and 60.541 GiB** (`MemAvailable` in `/proc/meminfo`), passing the unchanged `6.0 GiB` preflight gate with `>54 GiB` headroom.
+
+### 2. Cross-platform Linux compatibility, Cloud Controller, and Deterministic Evidence Validator
+
+The Claroline G0 tooling in `experiments/claroline/tools/` was updated to support both Windows (`win32`) and Ubuntu Linux (`linux`) without relaxing any security or fail-closed check:
+
+- **`child-process-policy.mjs`**: Preserved 100% of Windows path/Authenticode/environment rules while adding Linux binary verification (`verifyLinuxRootExecutable` checking root uid/gid `0:0`, non-world-writable mode, and realpath inside `/usr/bin`, `/bin`, `/usr/sbin`, `/sbin`, `/usr/local/bin`), `/proc/meminfo` `MemAvailable` parsing (`parseLinuxMeminfoBytes`), `/proc/net/route` + `ip -4 route show` subnet collision parsing (`parseLinuxIpv4Routes`), cross-platform host memory/route helpers (`readHostFreeMemoryBytes`, `readHostIpv4Routes`), and cross-platform Maven invocation (`invokeMaven`).
+- **`cleanup-claroline-g0.mjs`**: Fixed a latent pre-start cleanup check bug exposed on real Docker Engine during `t03b2-d-20261110-r4`. When `requestRouteIsolationApproval` blocks before `docker start` under `ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY`, a newly created container (`State.Status === "created"`, `State.Running === false`, `State.StartedAt === "0001-01-01T00:00:00Z"`) has `NetworkSettings.Networks[networkName].NetworkID === ""` until `docker start` attaches the sandbox endpoint. `cleanupClarolineResources` now verifies `assertContainerNetworkGateway` when `isPreStartCreatedContainer(container)` is false (or when `NetworkID` is already populated), while still enforcing full ownership labels (`task`, `run_id`, `role`), image digest, `HostConfig.NetworkMode`, and exact container/network IDs. Also added direct CLI recovery (`node cleanup-claroline-g0.mjs <runId>`).
+- **`cloud-controller.mjs`**: Implemented a thin, fail-closed `gcloud compute ssh` / `scp` controller supporting `preflight`, allowlisted `exec` actions (`offline-verify`, `maven-compile`, `diagnostic`, `g0-run`, `cleanup-recovery`), `sync` with SHA-256 manifest generation (`sha256-manifest.json`), and `verify-manifest`.
+- **`validate-evidence.mjs`**: Implemented a deterministic validator verifying `runId` format, source commit hash, pinned image digests, timestamp ordering, command exit codes vs reported outcomes, real Surefire `TEST-*.xml` parsing when business tests run, DB delta assertions, Docker isolation records, zero-residual cleanup, `sha256-manifest.json` integrity, and absence of leaked secrets or raw host paths.
+
+### 3. Post-commit verification on Windows (`r72`) and Cloud VM (`r73`)
+
+Code changes were committed at `183668bc18e89b4e04212be510b971a9f79c7f65` and verified on both platforms with clean working trees (`sourceMatchesHeadAtTest: true`):
+
+- **Windows (`evidence/offline-verification-20261110-r72/`)**: 9/9 Node syntax checks PASS (exit 0); 41/41 cleanup/fault/cross-platform tests PASS (exit 0).
+- **Ubuntu 24.04 Cloud VM (`evidence/offline-verification-20261110-r73/`)**: 9/9 Node syntax checks PASS (exit 0); 41/41 cleanup/fault/cross-platform tests PASS (exit 0); `cloud-preflight.json` PASS (`60.604 GiB` available RAM, `184.404 GiB` free disk, `0` active containers); Maven compilation (`mvn test-compile -DskipTests`) PASS (compiled 22 main + 42 test classes in `11.352 s`, exit 0).
+
+### 4. Actual Cloud Docker runtime runs (`t03b2-d-20261110-r4`, `t03b2-d-20261110-r5`, `t03b2-a-20261110-r6`)
+
+1. **`t03b2-d-20261110-r4` (App-only diagnostic — exposed and recovered pre-start cleanup check)**:
+   - Passed the 6 GiB memory gate (`~60.52 GiB` free).
+   - Recorded `host-egress-control.json`: IPv4 host control (`1.1.1.1:443`) returned `HOST_CONTROL_REACHABLE`; IPv6 host control (`2606:4700:4700::1111:443`) returned `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH`) because the GCE VPC interface is `IPV4_ONLY`.
+   - Selected non-overlapping subnet `172.26.254.0/24` (gateway `172.26.254.1`) from Linux `ip -4 route show`, created isolated bridge network `692707f3e7dba5926c2a7cdad876086829904e2e48cbc5ba65d27c9c942cc768` (`Internal: false`, `EnableIPv6: false`, `enable_ip_masquerade: false`, `enable_icc: true`), and created dormant app container `1051585e14a1396931ee3d5dff3c61d2642ef9c0a5d905d8f7cfe11cfddba3fd` (`127.0.0.1:33863->80/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and stopped fail-closed at `requestRouteIsolationApproval()` (`BLOCKED_APPROVAL_REQUIRED`) before `docker start`.
+   - Initial `finally` cleanup blocked on the unstarted container's empty `endpoint.NetworkID`. After fixing `cleanup-claroline-g0.mjs`, exact-resource recovery (`cleanup-recovery-r1.json` and `post-cleanup-independent-check.json`) removed the exact container and network with 0 residuals (`countsEqual: true`, `fingerprintsEqual: true`).
+2. **`t03b2-d-20261110-r5` (App-only diagnostic — clean end-to-end pre-approval lifecycle and automatic cleanup PASS)**:
+   - Passed the 6 GiB memory gate (`60.537 / 60.541 / 60.541 GiB` free).
+   - Created network `a8be33f2f2b1ac26a39345f1a8478ab1c7fecffb643d4c13f61a00c445a7842e` (`172.26.254.0/24`) and dormant app container `dca3595ab595726a8e4c028dfe2ff7bcbacc16d02f4ef7cb7109322bd8af71b6` (`127.0.0.1:46033->80/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before `docker start`.
+   - Automatic `finally` cleanup (`cleanup-result.json`) returned **`PASS`** on the first pass (`removedContainerIds: ["dca3595ab595726a8e4c028dfe2ff7bcbacc16d02f4ef7cb7109322bd8af71b6"]`, `removedNetworkId: "a8be33f2f2b1ac26a39345f1a8478ab1c7fecffb643d4c13f61a00c445a7842e"`, `residuals: { containers: 0, networks: 0, volumes: 0 }`, `countsEqual: true`, `fingerprintsEqual: true`).
+3. **`t03b2-a-20261110-r6` (G0 baseline runner — dual-container pre-approval lifecycle and automatic cleanup PASS)**:
+   - Passed the 6 GiB memory gate (`~60.54 GiB` free).
+   - Created network `2ed133a9f5b8df0cd8292ec3f7595813e07270913dab7a26dd39feb321f4047e` (`172.26.254.0/24`), dormant app container `f6681250d57647092aaf2cafb64a8849a74b57838b5b1458ed87ba05cf4a71f6` (`127.0.0.1:44465->80/tcp`), and dormant browser container `2824b38e30fbff53b458c975dc31d248a8dd8f3ce17982d3861a9126b62d54b0` (`127.0.0.1:34105->4444/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and `browser-route-isolation-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before `docker start`.
+   - Automatic `finally` cleanup (`cleanup-result.json`) returned **`PASS`**, removing both containers and the network with 0 residuals (`countsEqual: true`, `fingerprintsEqual: true`).
+
+All three Cloud runtime evidence folders and `offline-verification-20261110-r73` were synced via `cloud-controller.mjs sync`, verified with `sha256-manifest.json`, and validated with `validate-evidence.mjs` (`valid: true`). Detailed analysis, runbook, and the formal Team Lead Approval Request packet are documented in `docs/tasks/T03-B2/CLOUD-RUNNER-REPORT.md` and `docs/tasks/T03-B2/CLOUD-RUNNER-RUNBOOK.md`. G0 remains `PARTIAL/BLOCKED` at the Team Lead approval gate; `docs/program/STATUS.json` and historical evidence `r1`–`r69` remain unchanged.
+

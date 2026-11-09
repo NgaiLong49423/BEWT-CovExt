@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-d-20261110-r4",
+  "outcome": "BLOCKED",
+  "reason": "cleanup BLOCKED: app container endpoint network ID or gateway does not match the recorded isolated network",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

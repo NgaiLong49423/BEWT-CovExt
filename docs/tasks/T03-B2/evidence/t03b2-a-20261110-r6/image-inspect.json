@@ -1,0 +1,53 @@
+{
+  "app": {
+    "Id": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+    "RepoDigests": [
+      "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+    ],
+    "Os": "linux",
+    "Architecture": "amd64",
+    "Created": "2025-04-08T14:56:55.063602543Z",
+    "Config": {
+      "Entrypoint": [
+        "./run-services-docker.sh"
+      ],
+      "Cmd": [
+        "bash"
+      ],
+      "WorkingDir": "/home/claroline",
+      "ExposedPorts": {
+        "3306/tcp": {},
+        "80/tcp": {}
+      }
+    },
+    "RootFS": {
+      "Type": "layers",
+      "Layers": [
+        "sha256:aa4e7d478f39c9327a0c4872b858418020a01074f5deebff9526af0037454dc0",
+        "sha256:6d734414ae85b264a37e51d99c9a5a0eea57868e9685548bbbbde6cb4a1aab3d",
+        "sha256:52221a15d8f8dbdbea4877cf585d1c8b0939ce74be956ee9d48ef565635690a4",
+        "sha256:616fe7ac49b180db52ec54fbc3aed8b06aa99e5cdfa012348cb06408151697b8",
+        "sha256:1ff19b5310eddf5ce8a66f6fa88d9de43b6490f70399e77a8513d8cb1a389e7d",
+        "sha256:4c50be43da552ed97e6983e8dc9c1bafd34063e902720dfe3b39bc7ded3828c8",
+        "sha256:3c7412801cd9995caca74a011a333ce308fb2873d80c04c65ede021929a7c69a",
+        "sha256:972592d532337aa546a1c32640bbe73119612fd7f3085ba034c5ed2456cb9b9f",
+        "sha256:2f8b78e6e850602be6c5012e6f547994261ddb2009a177a11d06e116b1bb9f1d",
+        "sha256:79db5e8077663a65eaa1f92560a65305641e4cc64d6b01e51c064a33fffc300e",
+        "sha256:8f56ff3f51b5e6294566e845e6ea5972f9b5764ba8ddd1a6cdb14e04cedf0675",
+        "sha256:0a8c3acf47d734eeb8ad65b54b3adbeedc164894356c652cb081a54a76264789",
+        "sha256:84aa9f6b305ce689c5e7e6bd52e86a7ee2c4e639fde74eaa4760b48648228a19",
+        "sha256:4ee7b4b2fb476099b2823b370273b08c9da26da61cb4fc467b2112d25ab8cd8b",
+        "sha256:43b14b700c2e3f3899550ae35a5fbd8b05acb23e2f9dbaa301de1ce29f8899de"
+      ]
+    }
+  },
+  "browser": {
+    "Id": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+    "RepoDigests": [
+      "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f"
+    ],
+    "Os": "linux",
+    "Architecture": "amd64",
+    "Created": "2025-09-28T18:25:29.594091407Z"
+  }
+}

@@ -225,3 +225,39 @@ The process classifier now gives timeout status 124 and timeout evidence precede
 `probeTcpTarget` attaches `source: 'node-socket'` to the timeout callback result, as it already did for connect/error callbacks. An injected fake socket proves the timeout result retains that source and maps to `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`, without a network call.
 
 r69 tested source commit `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`: 7/7 syntax checks and 37/37 cleanup/fault tests PASS (exit 0). Evidence: `evidence/offline-verification-20261110-r69/`. Runtime remains `NOT_RUN`; 6 GiB and independent authorization/network isolation gates remain unmet. G0 remains `PARTIAL/BLOCKED`.
+
+## Google Cloud Ubuntu 24.04 runtime execution & pre-approval isolation verification — 2026-11-10 (`t03b2-d-20261110-r4`, `t03b2-d-20261110-r5`, `t03b2-a-20261110-r6`)
+
+### 1. Host memory gate resolved on Cloud VM (`bewt-covext-runner`)
+
+Running on the Ubuntu 24.04 LTS Cloud VM (`c4d-highmem-8`, 8 vCPU, 63 GiB RAM, Docker Engine `29.9.3`) resolved the local Windows 6 GiB free-RAM blocker:
+
+- `t03b2-d-20261110-r4/memory-preflight.json`: `60.522 / 60.522 / 60.522 GiB` available (`outcome: "PASS"`).
+- `t03b2-d-20261110-r5/memory-preflight.json`: `60.537 / 60.541 / 60.541 GiB` available (`outcome: "PASS"`).
+- `t03b2-a-20261110-r6/memory-preflight.json`: `60.540 / 60.541 / 60.541 GiB` available (`outcome: "PASS"`).
+
+### 2. Host egress control probe findings on GCE (`IPV4_ONLY` VPC interface)
+
+Before creating Docker networks, `run-claroline-diagnostic.mjs` (`d-r4`, `d-r5`) executed `probeHostEgressControls()`:
+
+- **IPv4 control (`1.1.1.1:443`)**: `HOST_CONTROL_REACHABLE` (connected in ~3–5 ms).
+- **IPv6 control (`2606:4700:4700::1111:443`)**: `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH`), because the GCE VM network interface (`nic0`) has `stackType: IPV4_ONLY` with no global IPv6 route.
+- Note: The Claroline task network explicitly sets `--ipv6=false` (`EnableIPv6: false`). However, under current runner policy, `run-claroline-diagnostic.mjs` requires Team Lead approval if IPv6 host control is unavailable or requires an IPv4-only host-control exemption when `EnableIPv6 === false`.
+
+### 3. Docker network creation, dormant container creation, and fail-closed approval stop
+
+Across `t03b2-d-20261110-r4`, `t03b2-d-20261110-r5`, and `t03b2-a-20261110-r6`, the runners verified pinned image digests (`olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` and `selenium/standalone-chrome-debug@sha256:bubbles/3.141.59-20210929` `sha256:c35da9ee2dbfb5fd9f1fb91f7f38e1320ef94853b3119881d1fc174f13a9f374`), selected non-overlapping subnet `172.26.254.0/24` (gateway `172.26.254.1`) from Linux `ip -4 route show`, created the task-labeled bridge network (`Internal: false`, `EnableIPv6: false`, `com.docker.network.bridge.enable_ip_masquerade: "false"`, `com.docker.network.bridge.enable_icc: "true"`), created dormant container(s) (`State.Status: "created"`, `State.Running: false`, `Entrypoint: ["/bin/sh", "-c"]`, `Cmd: ["sleep infinity"]`, `Privileged: false`, `CapAdd: null`, `Mounts: []`, `127.0.0.1` loopback port bindings), wrote the route-isolation authorization request JSON(s), and stopped fail-closed at `requestRouteIsolationApproval()` with `BLOCKED_APPROVAL_REQUIRED` **before** invoking `docker start`.
+
+### 4. Pre-start cleanup bug discovery (`d-r4`) and clean automatic teardown (`d-r5`, `a-r6`)
+
+- In `t03b2-d-20261110-r4`, stopping before `docker start` revealed that Docker Engine leaves `container.NetworkSettings.Networks[networkName].NetworkID` empty (`""`) while a container is in `created` state, causing `assertContainerNetworkGateway` in `cleanup-claroline-g0.mjs` to block during `finally`. After updating `cleanup-claroline-g0.mjs` (commit `183668bc18e89b4e04212be510b971a9f79c7f65`) to enforce `assertContainerNetworkGateway` on started containers (or when `NetworkID` is already populated) while keeping full ownership/label/digest/network-mode checks on pre-start `created` containers, recovery cleanup (`t03b2-d-20261110-r4/cleanup-recovery-r1.json`) succeeded with 0 residuals.
+- Subsequent runs `t03b2-d-20261110-r5` (diagnostic) and `t03b2-a-20261110-r6` (G0 runner) completed their automatic `finally` cleanup on the first pass (`cleanup-result.json` `outcome: "PASS"`, `residuals: { containers: 0, networks: 0, volumes: 0 }`, `countsEqual: true`, `fingerprintsEqual: true`).
+
+### 5. Remaining gates before `docker start` and `ClarolineTestSuite` (`AddUserTest`) execution
+
+1. **Team Lead approval / architecture decision on container egress isolation**:
+   - Either provide an independently authenticated Team Lead decision verifier for `requestRouteIsolationApproval()` **plus** a pre-start/host-level firewall rule (e.g., `iptables -I DOCKER-USER -i br-<networkId> ! -o br-<networkId> -j DROP`) so no egress is possible during the window between `docker start` and `ip route del default`;
+   - Or approve replacing `docker exec --privileged ... ip route del default` with a host-level `DOCKER-USER` iptables drop rule on the Linux Cloud VM bridge interface before `docker start`, eliminating both `--privileged` container exec and the start-to-route-removal egress window.
+2. **GCE `IPV4_ONLY` host control rule**: Approve treating `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH`) as non-blocking when the task bridge network has `EnableIPv6: false` and the host NIC is `IPV4_ONLY`.
+3. **Claroline image provenance delta**: Team Lead sign-off on the 1-file difference (`claroline/inc/lib/add_course.lib.inc.php`) in pinned image `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
+

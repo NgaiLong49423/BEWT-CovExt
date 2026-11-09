@@ -1,0 +1,11 @@
+{
+  "outcome": "PASS",
+  "selected": {
+    "subnet": "172.26.254.0/24",
+    "gateway": "172.26.254.1"
+  },
+  "dockerNetworkCount": 3,
+  "inspectedDockerSubnetCount": 1,
+  "inspectedHostRouteCount": 4,
+  "overlapChecked": true
+}
