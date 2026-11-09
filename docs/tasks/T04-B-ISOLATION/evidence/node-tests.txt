@@ -1,0 +1,28 @@
+✔ keeps the exact five candidates and 150 candidate-baseline records (1.1138ms)
+✔ preserves all eight explicit overlap flags and their pair evidence (0.2875ms)
+✔ unflagged pairs remain screening results and never claim semantic novelty (0.3987ms)
+✔ screening counts exactly match the 150 records (0.1827ms)
+✔ static candidate and provenance records remain pinned and human fields blank (4.3027ms)
+✔ all 150 records retain both baseline and candidate action/oracle/assertion evidence (4.1689ms)
+✔ review packet set and machine schemas are valid, and official decision ledger remains empty (4.7508ms)
+✔ custom decision validator accepts a complete reviewer payload and rejects missing reviewer/evidence fields (6.4189ms)
+✔ candidate-version or dataset-hash mismatch rejects a decision for stale review input (10.1494ms)
+✔ append-only history preserves decisions, links revisions and flags stale candidate versions (52.8619ms)
+✔ regeneration uses isolated outputs and preserves the official review artifacts (97.2249ms)
+✔ pinned T04-A oracle corrections remain in the accepted inventory (1.8137ms)
+✔ evidence index binds the two requested runs to pinned source and image (1.9147ms)
+✔ Surefire XML is bound to the exact reported class and the hash mismatch stays blocked (5.515ms)
+✔ Run A and B have independent reset and sentinel evidence (4.9582ms)
+✔ cleanup result is distinguished by run, including missing Run A idempotent repeat (6.5561ms)
+✔ CDP warning is reported without overriding the recorded assertion result (1.1237ms)
+✔ T04-B candidates remain proposed and the official human decision ledger remains empty (10.2333ms)
+✔ G0 proposal does not imply G1 acceptance or mutate shared program status (1.5606ms)
+✔ audit artifacts parse as JSON, contain no common token patterns, and preserve source scope (10.913ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 269.4409
