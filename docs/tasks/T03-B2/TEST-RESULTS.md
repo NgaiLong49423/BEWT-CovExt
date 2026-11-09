@@ -80,7 +80,7 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 | Independent r5 postcheck | PASS; zero run residuals; zero missing baseline IDs | `evidence/t03b2-a-20261109-r5/cleanup-recovery-postcheck-r21.json` |
 | Run B | NOT_RUN | `G0-RUNTIME-RESULTS.md` |
 | Maven clean test-compile | Last verified PASS remains r9; not rerun; no Java changes | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |
-| Latest RAM check | r28: 4.340, 4.330, 4.332 GiB; `HOST_MEMORY_BLOCKED` below preferred ~6 GiB margin; r5 exit 137 cause `ROOT_CAUSE_NOT_VERIFIED` | `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json` |
+| Latest RAM check | r32: 2.959, 2.971, 2.965 GiB; `HOST_MEMORY_BLOCKED` below hard 4 GiB gate; r5 exit 137 cause `ROOT_CAUSE_NOT_VERIFIED` | `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json` |
 
 ## Current port and runtime verification — r28/r31
 

@@ -58,3 +58,7 @@ At 2026-11-09T10:49:31Z, host RAM was **4.409 GiB of 13.79 GiB**; Docker Engine 
 ## Current runtime gate — r28
 
 Three host RAM samples at 2026-11-09T11:23:43Z, 11:23:48Z, and 11:23:53Z measured **4.340, 4.330, and 4.332 GiB free** of 13.79 GiB. Docker Engine 29.8.0 was reachable; the WSL VM process working set was 1,696,399,360 bytes. Read-only filters found zero T03-B2-owned containers, networks, or volumes. This is below the preferred approximately 6 GiB margin, so diagnostic and full runtime were not started (`HOST_MEMORY_BLOCKED`). No T03-B2 resources were created, started, stopped, or removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.
+
+## Latest runtime gate — r32
+
+At 2026-11-09T11:45:53Z, 11:45:59Z, and 11:46:04Z, host free RAM was **2.959, 2.971, and 2.965 GiB**, below the runner's hard 4 GiB gate. Docker Engine 29.8.0 was reachable; Docker VM memory limit was 7,157,477,376 bytes and WSL VM process working set was 655,040,512 bytes. Read-only ownership filters found zero T03-B2 containers, networks, and volumes. No diagnostic or G0 runtime was started and no T03-B2 Docker resources were changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.

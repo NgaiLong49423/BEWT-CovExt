@@ -146,4 +146,9 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 - Port handling now probes selected ports immediately before creation (socket released; no reservation claim), verifies exact loopback `HostConfig.PortBindings` and `NetworkSettings.Ports`, forbids MySQL 3306 publishing, and classifies port races as `PORT_BIND_CONFLICT`. Latest offline verification: 26/26 tests and 4 syntax checks exit 0 at `evidence/offline-verification-20261109-r31/`. Docker runtime binding remains `PORT_BINDING_RUNTIME_NOT_VERIFIED`.
 - PR #9 is historical and merged. Draft PR #12 remains active on `feature/t03b2-claroline-g0`; this follow-up is not merged. The pinned image derivative decision remains pending Team Lead. No runtime manifest was promoted; G0 remains `PARTIAL`.
 
+## Post-review runtime gate — r32
+
+- Three current host RAM samples are 2.959, 2.971, and 2.965 GiB, below the hard 4 GiB runtime gate. Docker Engine 29.8.0 is reachable; Docker VM limit is 7,157,477,376 bytes; WSL VM working set is 655,040,512 bytes; task ownership filters show zero containers/networks/volumes. No diagnostic or G0 run was started and no T03-B2 Docker resource was changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.
+- Run A remains `BLOCKED`, Run B remains `NOT_RUN`, and exit 137 cause remains `ROOT_CAUSE_NOT_VERIFIED`. The user was asked to free additional host memory while leaving Docker Desktop and ExpressCart running before another runtime gate recheck.
+
 - Public evidence sanitization: raw Docker inventories were excluded because they contain unrelated local project resource names. Sanitized r3-r5 inventory summaries retain counts and resource conservation/deltas using SHA-256 fingerprints. Raw files remain local only; no runtime outcome was altered.

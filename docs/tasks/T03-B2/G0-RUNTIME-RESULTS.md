@@ -2,7 +2,7 @@
 
 
 
-**Current disposition: PARTIAL; G0 is not accepted.** Run A r5 is `BLOCKED` before readiness and business tests: Docker did not assign host ports and the app container was later observed exited with code 137. The cause is `ROOT_CAUSE_NOT_VERIFIED`; no direct OOM/kill evidence is available. Maven, Selenium, business assertions, and DB reset are `NOT_RUN`; the runner exited 1. Exact ownership cleanup passed with no run residuals and no missing baseline IDs. Run B remains `NOT_RUN`. Current repeated host samples are below the preferred ~6 GiB margin, so no diagnostic or full run was started. The pinned image still contains one unattributed source patch, and the runtime manifest remains unpromoted pending Team Lead review.
+**Current disposition: PARTIAL; G0 is not accepted.** Run A r5 is `BLOCKED` before readiness and business tests: Docker did not assign host ports and the app container was later observed exited with code 137. The cause is `ROOT_CAUSE_NOT_VERIFIED`; no direct OOM/kill evidence is available. Maven, Selenium, business assertions, and DB reset are `NOT_RUN`; the runner exited 1. Exact ownership cleanup passed with no run residuals and no missing baseline IDs. Run B remains `NOT_RUN`. Latest samples are below the hard 4 GiB gate, so no diagnostic or full run was started. The pinned image still contains one unattributed source patch, and the runtime manifest remains unpromoted pending Team Lead review.
 
 
 
@@ -123,6 +123,10 @@ Three host samples were 4.340, 4.330, and 4.332 GiB free; Docker Engine 29.8.0 w
 The corrected read-only event query returned no r5 events for either exact recorded container ID (both Docker commands exited 0). It does not establish exit 137's cause; status is `ROOT_CAUSE_NOT_VERIFIED`. r4's default-network ID delta also remains unexplained. Current states: Run A r5 `BLOCKED`, Run B `NOT_RUN`; HTTP/MySQL/Selenium and `test.Claroline_AddUserTest` are `NOT_RUN`.
 
 Offline port/cleanup tests and syntax checks are recorded under `evidence/offline-verification-20261109-r31/`. Docker runtime binding remains `PORT_BINDING_RUNTIME_NOT_VERIFIED`. Image derivative acceptance is explicitly pending Team Lead decision; no runtime manifest has been promoted and G0 remains `PARTIAL`.
+
+## Latest memory gate recheck — r32
+
+Three samples measured 2.959, 2.971, and 2.965 GiB free, below the runner's hard 4 GiB gate. Docker Engine 29.8.0 remained available; Docker VM memory limit was 7,157,477,376 bytes; WSL VM process working set was 655,040,512 bytes. Task-owned container/network/volume counts remained zero. No diagnostic or G0 run was started; no task Docker resources were changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.
 
 
 
