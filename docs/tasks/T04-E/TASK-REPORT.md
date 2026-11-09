@@ -5,7 +5,7 @@
 - Working branch: `feature/t04e-seven-app-source-gaps`.
 - Head commit (full SHA): correction head is verified and reported in the final task handoff after push.
 - PR: [#16](https://github.com/NgaiLong49423/BEWT-CovExt/pull/16), same branch/PR, open against `main`; no merge requested or performed.
-- Push status: correction commits pending push and post-push SHA verification.
+- Push status: correction commits through `80c9a748d50e8fa1ef7ddb171681c70bdd849fef` are pushed to the existing PR; final evidence commit and remote-head verification are recorded after this report is committed.
 - Runtime/commit/version tested: static application source pins listed in `SOURCE-AVAILABILITY.md`; BEWT baseline `0501249ff3e9a5ea83a06155cd2971dc36197056`. Runtime NOT_RUN.
 - Status proposed by Agent: READY_FOR_REVIEW_WITH_LIMITATIONS. All G1 gates remain NOT_VERIFIED.
 
