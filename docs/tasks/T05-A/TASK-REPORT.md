@@ -3,8 +3,8 @@
 - Scope: provider readiness diagnosis and offline shared Agent workflow verification; live model and generated candidate steps remain conditional.
 - Base: origin/main ae149842185877bcd4a97cf99ebdb3fc099e040b
 - Branch: feature/t05a-expresscart-model-readiness
-- Commit / PR: See final GitHub handoff after publication.
-- Proposed status: PARTIAL / READY_FOR_REVIEW for offline evidence only.
+- Evidence commit (full SHA): fdf3ba216a0c9e03d9f979c2e252cbda1b9c012b
+- Proposed status: PARTIAL; offline evidence is ready for Team Lead review.
 - Tested source pin: ExpressCart b31302f4e99c3293bd742c6d076a721e168118b0, upstream 1.1.19 (benchmark label 1.19).
 
 ## 1. What changed
@@ -59,3 +59,6 @@ Limitations: no live provider/connectivity/quota/billing probe; no live candidat
 A fresh D-C1 approval and valid local credential are prerequisites if the Team Lead wants one live request. Any resulting candidate must stop at a real current-revision human review checkpoint. Docker execution also requires an exclusive runtime lease. No merge or acceptance is requested.
 
 - Test-generated untracked outputs remain locally under T01-B/T01-C and are excluded from this commit; see TEST-RESULTS.md for exact paths. Automated review denied cleanup outside the T05-A ownership boundary.
+
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/13 (OPEN; targets main).
+- Push status: PUSHED; PR HEAD was verified at fdf3ba216a0c9e03d9f979c2e252cbda1b9c012b before this handoff-metadata update.
