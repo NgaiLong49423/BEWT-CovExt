@@ -82,6 +82,23 @@ test('shortlist count and unique ordered priorities must be consistent', () => {
   assert.match(validateBundle(datasets, index, malformed).join(' '), /shortlist candidates must be an array/);
 });
 
+test('proposal and shortlist counts must equal prioritized candidate count', () => {
+  const copy = structuredClone(datasets);
+  copy.expresscart.shortlistCount = 3;
+  assert.match(validateBundle(copy, index, shortlists).join(' '), /expresscart: shortlist count mismatch/);
+
+  const missingPriority = structuredClone(datasets);
+  missingPriority.expresscart.candidates[1].priorityReviewOrder = null;
+  assert.match(validateBundle(missingPriority, index, shortlists).join(' '), /expresscart: shortlist count mismatch/);
+});
+
+test('shortlist IDs must match proposal priority order exactly', () => {
+  const copy = structuredClone(shortlists);
+  copy.expresscart.topCandidates[0].candidateId = 'EC-GAP-004';
+  const errors = validateBundle(datasets, index, copy).join(' ');
+  assert.match(errors, /prioritized candidates do not match shortlist IDs\/order/);
+});
+
 function makeCliFixture() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 't04e-cli-'));
   for (const app of APPS) {
@@ -106,11 +123,11 @@ test('CLI validates fixture data, prints PASS, and rejects invalid data with non
 
     const badPath = path.join(root, 'data/coverage/bludit/source-backed-gap-proposals.json');
     const bad = JSON.parse(fs.readFileSync(badPath, 'utf8'));
-    bad.candidateCount += 1;
+    bad.shortlistCount += 1;
     fs.writeFileSync(badPath, JSON.stringify(bad));
     const invalid = spawnSync(process.execPath, [cli, '--root', root], { encoding: 'utf8' });
     assert.notEqual(invalid.status, 0);
-    assert.match(invalid.stderr, /candidate count mismatch/);
+    assert.match(invalid.stderr, /shortlist count mismatch/);
     assert.doesNotMatch(invalid.stdout, /^PASS:/);
   } finally {
     fs.rmSync(root, { recursive: true, force: true });

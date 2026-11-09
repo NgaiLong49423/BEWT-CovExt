@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "mediawiki",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "wikimedia/mediawiki",
     "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",

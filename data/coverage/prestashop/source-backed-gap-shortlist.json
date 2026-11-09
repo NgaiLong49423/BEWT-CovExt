@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "prestashop",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "PrestaShop/PrestaShop",
     "commit": "475d65fbda93403cd1afde0db09764c5295e952c",

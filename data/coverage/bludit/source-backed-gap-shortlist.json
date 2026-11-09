@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "bludit",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "bludit/bludit",
     "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",

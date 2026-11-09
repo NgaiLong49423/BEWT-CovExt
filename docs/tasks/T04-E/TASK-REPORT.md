@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Static source-backed gap proposals for Bludit, Claroline, ExpressCart, Joomla, MantisBT, MediaWiki and PrestaShop; no shared status update or G1 acceptance.
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`.
 - Working branch: `feature/t04e-seven-app-source-gaps`.
-- Head commit (full SHA): correction head is verified and reported in the final task handoff after push.
+- Head commit (full SHA): Round 2 corrected source/data HEAD is verified and recorded in `evidence/verification/round-2-correction-run.md` after push.
 - PR: [#16](https://github.com/NgaiLong49423/BEWT-CovExt/pull/16), same branch/PR, open against `main`; no merge requested or performed.
-- Push status: correction commits through `80c9a748d50e8fa1ef7ddb171681c70bdd849fef` are pushed to the existing PR; final evidence commit and remote-head verification are recorded after this report is committed.
+- Push status: Round 2 changes are pushed to the existing PR; the exact remote HEAD is recorded in `evidence/verification/round-2-correction-run.md`.
 - Runtime/commit/version tested: static application source pins listed in `SOURCE-AVAILABILITY.md`; BEWT baseline `0501249ff3e9a5ea83a06155cd2971dc36197056`. Runtime NOT_RUN.
 - Status proposed by Agent: READY_FOR_REVIEW_WITH_LIMITATIONS. All G1 gates remain NOT_VERIFIED.
 
@@ -25,7 +25,7 @@ No source code was copied. T04-D historical files, `bewt-original/`, Kanboard fi
 
 ## 2. Actual verification
 
-See `TEST-RESULTS.md` and `evidence/verification/correction-run.md`. The corrected CLI and 12 focused tests are executed on the corrected head; all 36 indexed source files and seven commit/tree links are checked against exact pinned GitHub API refs. No live app, runtime, Selenium, Docker or Gemini execution.
+See `TEST-RESULTS.md` and `evidence/verification/round-2-correction-run.md` for Round 2. The corrected CLI and 14 focused tests run on the corrected source/data HEAD; all 36 indexed source files and seven commit/tree links were previously checked against exact pinned GitHub API refs. No live app, runtime, Selenium, Docker or Gemini execution.
 
 ## 3. Research impact
 
@@ -38,7 +38,7 @@ See `TEST-RESULTS.md` and `evidence/verification/correction-run.md`. The correct
 
 ## 7. Correction outcomes
 
-- Engineering: validator entrypoint uses `fileURLToPath`; subprocess CLI test proves valid data prints PASS and invalid data exits nonzero. Source path/pin/tree/range, shortlist, duplicate and oracle-reference consistency checks are deterministic; upstream object existence is confirmed separately by pinned GitHub API retrieval.
+- Engineering: validator entrypoint uses `fileURLToPath`; subprocess CLI tests prove valid data prints PASS and invalid candidate/shortlist counts exit nonzero. Source path/pin/tree/range, shortlist counts and order, duplicate and oracle-reference consistency checks are deterministic; upstream object existence is confirmed separately by pinned GitHub API retrieval.
 - Research: 27 candidate proposals, novelty NOT_VERIFIED, behavioral denominator NOT_ESTABLISHED, RQ2 NOT_EVALUATED. ExpressCart stock rejection is present in source; the missing-cart/auth concerns are separate unconfirmed defect findings.
 - Merge readiness: STOPPED at independent review gate; no merge, G1 promotion or acceptance claim.
 

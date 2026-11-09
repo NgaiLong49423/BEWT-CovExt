@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "mantisbt",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "mantisbt/mantisbt",
     "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",

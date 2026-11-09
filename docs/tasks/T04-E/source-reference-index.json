@@ -178,7 +178,7 @@
           "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
           "path": "routes/order.js",
           "blobSha": "2c171c46d0b04cd690ec0b62cc4daddbe101a768",
-          "lineRanges": "124-190,286-304",
+          "lineRanges": "110-190,286-304",
           "observed": "Order routes create orders from session/cart data and expose a restricted order-status update route.",
           "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/order.js"
         },

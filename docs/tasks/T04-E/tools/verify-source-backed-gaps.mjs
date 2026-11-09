@@ -71,6 +71,16 @@ export function validateBundle(datasets, sourceIndex, shortlists) {
     if (!Array.isArray(picked)) errors.push(`${app}: shortlist candidates must be an array`);
     const pickedList = Array.isArray(picked) ? picked : [];
     if (pickedList.length > 5) errors.push(`${app}: shortlist exceeds five candidates`);
+    const prioritized = (data.candidates || []).filter(candidate => candidate.priorityReviewOrder !== null && candidate.priorityReviewOrder !== undefined);
+    if (data.shortlistCount !== shortlist.shortlistCount || data.shortlistCount !== pickedList.length ||
+        shortlist.shortlistCount !== pickedList.length || prioritized.length !== pickedList.length) {
+      errors.push(`${app}: shortlist count mismatch`);
+    }
+    const orderedPrioritized = prioritized.toSorted((left, right) => left.priorityReviewOrder - right.priorityReviewOrder);
+    if (orderedPrioritized.some((candidate, position) => candidate.priorityReviewOrder !== position + 1 ||
+        candidate.candidateId !== pickedList[position]?.candidateId)) {
+      errors.push(`${app}: prioritized candidates do not match shortlist IDs/order`);
+    }
     const pickedIds = new Set();
     const pickedOrders = new Set();
     for (const [position, item] of pickedList.entries()) {

@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "claroline",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "zefredz/claroline",
     "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",

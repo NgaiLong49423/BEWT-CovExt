@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "application": "joomla",
+  "shortlistCount": 3,
   "sourcePin": {
     "repository": "joomla/joomla-cms",
     "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
