@@ -168,14 +168,49 @@ export function assertRouteIsolationContainer(container, networkName) {
 }
 
 export function classifyTcpProbe(result) {
-  if (!result) return 'PROBE_EXECUTION_FAILURE';
+  if (!result || typeof result !== 'object') return 'INCONCLUSIVE';
   const output = `${result.stderr || ''} ${result.stdout || ''} ${result.error?.message || ''}`;
   const errorCode = result.error?.code || result.code;
-  if (['ENETUNREACH', 'EHOSTUNREACH', 'ENETDOWN'].includes(errorCode) || /network is unreachable|no route to host|network is down/i.test(output)) return 'NETWORK_UNREACHABLE';
-  if (errorCode === 'ETIMEDOUT' || result.status === 124 || /connection timed out|operation timed out|timed out/i.test(output)) return 'PROBE_TIMEOUT';
-  if (result.status === 0 || /connected/i.test(output)) return 'CONNECTION_SUCCESS';
-  if (errorCode === 'ECONNREFUSED' || /connection refused/i.test(output)) return 'CONNECTION_REFUSED';
-  if (result.error || result.status === null || result.status === undefined || [125, 126, 127].includes(result.status) || /command not found|cannot execute|permission denied|docker daemon/i.test(output)) return 'PROBE_EXECUTION_FAILURE';
+  const status = result.status;
+  const unreachableCode = ['ENETUNREACH', 'EHOSTUNREACH', 'ENETDOWN'].includes(errorCode);
+  const unreachableText = /network is unreachable|no route to host|network is down/i.test(output);
+  const timeoutEvidence = errorCode === 'ETIMEDOUT' || /connection timed out|operation timed out|timed out/i.test(output);
+  const refusedEvidence = errorCode === 'ECONNREFUSED' || /connection refused/i.test(output);
+  const connectedEvidence = result.connectionEstablished === true || /\bconnected\b/i.test(output);
+
+  if (result.source === 'node-socket') {
+    if (!Number.isInteger(status)) return result.error?.code === 'ETIMEDOUT' ? 'PROBE_TIMEOUT' : 'INCONCLUSIVE';
+    if ((status === 0 && result.error) || (status !== 0 && !result.error)) return 'INCONCLUSIVE';
+    if (status === 0) return result.connectionEstablished === true && !unreachableText && !timeoutEvidence && !refusedEvidence ? 'CONNECTION_SUCCESS' : 'INCONCLUSIVE';
+    if (unreachableCode && !timeoutEvidence && !refusedEvidence && !connectedEvidence) return 'NETWORK_UNREACHABLE';
+    if (errorCode === 'ETIMEDOUT' && !unreachableText && !refusedEvidence) return 'PROBE_TIMEOUT';
+    if (errorCode === 'ECONNREFUSED' && !unreachableText && !timeoutEvidence) return 'CONNECTION_REFUSED';
+    return 'INCONCLUSIVE';
+  }
+
+  if (result.source === 'process') {
+    // Docker CLI/spawn failures and malformed wrappers are never container-network evidence.
+    if (result.error || !Number.isInteger(status)) return 'PROBE_EXECUTION_FAILURE';
+    const marker = output.match(/__BEWT_TCP_PROBE_EXIT__=(\d+)/);
+    if (!marker) return 'PROBE_EXECUTION_FAILURE';
+    const probeStatus = Number(marker[1]);
+    if (status !== probeStatus) return 'INCONCLUSIVE';
+    if ((probeStatus === 0 || connectedEvidence) && (unreachableText || timeoutEvidence || refusedEvidence)) return 'INCONCLUSIVE';
+    if (probeStatus === 0) return 'CONNECTION_SUCCESS';
+    if ([125, 126, 127].includes(probeStatus) || /command not found|cannot execute|permission denied/i.test(output)) return 'PROBE_EXECUTION_FAILURE';
+    if ((probeStatus === 124 || timeoutEvidence) && !unreachableText && !refusedEvidence) return 'PROBE_TIMEOUT';
+    if (connectedEvidence || (unreachableText && refusedEvidence)) return 'INCONCLUSIVE';
+    if (unreachableText) return 'NETWORK_UNREACHABLE';
+    if (refusedEvidence) return 'CONNECTION_REFUSED';
+    return 'INCONCLUSIVE';
+  }
+
+  // Unlabelled/spawn-like results lack enough provenance to prove endpoint isolation.
+  if (status === null || status === undefined) return result.error ? 'PROBE_EXECUTION_FAILURE' : 'INCONCLUSIVE';
+  if (!Number.isInteger(status)) return 'INCONCLUSIVE';
+  if ([125, 126, 127].includes(status)) return 'PROBE_EXECUTION_FAILURE';
+  if ((status === 0 || connectedEvidence) && (unreachableText || unreachableCode || timeoutEvidence || refusedEvidence)) return 'INCONCLUSIVE';
+  if (status === 0 || connectedEvidence) return 'CONNECTION_SUCCESS';
   return 'INCONCLUSIVE';
 }
 
@@ -205,8 +240,8 @@ export function probeTcpTarget(address, port, family, timeoutMs = 5000) {
     const finish = result => { if (settled) return; settled = true; socket.destroy(); resolve(result); };
     const socket = createConnection({ host: address, port, family: family === 'ipv6' ? 6 : 4 });
     socket.setTimeout(timeoutMs, () => finish({ status: null, error: Object.assign(new Error('TCP probe timed out'), { code: 'ETIMEDOUT' }) }));
-    socket.once('connect', () => finish({ status: 0, stdout: 'connected', stderr: '' }));
-    socket.once('error', error => finish({ status: 1, error }));
+    socket.once('connect', () => finish({ source: 'node-socket', status: 0, connectionEstablished: true }));
+    socket.once('error', error => finish({ source: 'node-socket', status: 1, error }));
   });
 }
 
@@ -406,7 +441,7 @@ export function buildEgressProbeArgs(containerId, family) {
   if (typeof containerId !== 'string' || !/^[a-f0-9]{64}$/i.test(containerId)) throw new Error('egress probe requires a recorded full container ID');
   const target = EGRESS_PROBE_TARGETS[family];
   if (!target) throw new Error('egress probe family must be ipv4 or ipv6');
-  const command = `timeout 5 bash -c 'echo >/dev/tcp/${target.address}/${target.port}'`;
+  const command = `timeout 5 bash -c 'echo >/dev/tcp/${target.address}/${target.port}'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' "$probe_status"; exit "$probe_status"`;
   return ['exec', containerId, 'bash', '-lc', command];
 }
 

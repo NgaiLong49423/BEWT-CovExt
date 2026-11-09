@@ -193,29 +193,61 @@ test('internal IPAM selector skips overlapping Docker and host route CIDRs', () 
 });
 
 test('TCP probe classification keeps timeout, unreachable, execution failure, and egress distinct', () => {
-  assert.equal(classifyTcpProbe({ status: 0 }), 'CONNECTION_SUCCESS');
-  assert.equal(classifyTcpProbe({ status: 1, stderr: 'connect: Network is unreachable' }), 'NETWORK_UNREACHABLE');
-  assert.equal(classifyTcpProbe({ status: 1, stderr: 'No route to host' }), 'NETWORK_UNREACHABLE');
-  assert.equal(classifyTcpProbe({ status: 124, stderr: 'Terminated' }), 'PROBE_TIMEOUT');
-  assert.equal(classifyTcpProbe({ status: 1, stderr: 'Connection timed out' }), 'PROBE_TIMEOUT');
-  assert.equal(classifyTcpProbe({ status: 1, stderr: 'Connection refused' }), 'CONNECTION_REFUSED');
-  assert.equal(classifyTcpProbe({ status: 127, stderr: 'bash: command not found' }), 'PROBE_EXECUTION_FAILURE');
-  assert.equal(classifyTcpProbe({ status: null, error: Object.assign(new Error('spawn failed'), { code: 'ENOENT' }) }), 'PROBE_EXECUTION_FAILURE');
-  assert.equal(classifyTcpProbe({ status: 1, stderr: 'unexpected probe output' }), 'INCONCLUSIVE');
-  assert.equal(classifyEgressProbe({ status: 1, stderr: 'Network is unreachable' }), 'NETWORK_UNREACHABLE');
-  assert.equal(classifyEgressProbe({ status: 124 }), 'TCP_TIMEOUT_INCONCLUSIVE');
-  assert.equal(classifyEgressProbe({ status: 1, stderr: 'Connection refused' }), 'EGRESS_REACHABLE');
-  assert.equal(classifyEgressProbe({ status: 0 }), 'EGRESS_REACHABLE');
-  assert.equal(classifyEgressProbe({ status: 127, stderr: 'timeout command not found' }), 'PROBE_EXECUTION_FAILURE');
-  assert.equal(classifyEgressProbe({ status: 1, stderr: 'unknown' }), 'INCONCLUSIVE');
+  const processProbe = (outerStatus, probeStatus, stderr = '', stdout = '') => ({
+    source: 'process', status: outerStatus, stderr,
+    stdout: `${stdout}${stdout ? '\n' : ''}__BEWT_TCP_PROBE_EXIT__=${probeStatus}`,
+  });
+  const unreachableText = 'connect: Network is unreachable';
+  const genuineUnreachable = processProbe(1, 1, unreachableText);
+  const connected = processProbe(0, 0);
+  const refused = processProbe(1, 1, 'Connection refused');
+  const timedOut = processProbe(124, 124, 'Connection timed out');
+
+  // Contradictory successful process exit and unreachable text is never isolation evidence.
+  const exitZeroUnreachable = processProbe(0, 0, unreachableText);
+  assert.equal(classifyTcpProbe(exitZeroUnreachable), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe(exitZeroUnreachable), 'INCONCLUSIVE');
+  const outerSuccessInnerFailure = processProbe(0, 1, unreachableText);
+  assert.equal(classifyTcpProbe(outerSuccessInnerFailure), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe(outerSuccessInnerFailure), 'INCONCLUSIVE');
+  const exit127Unreachable = { source: 'process', status: 127, stderr: unreachableText };
+  assert.equal(classifyTcpProbe(exit127Unreachable), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyEgressProbe(exit127Unreachable), 'PROBE_EXECUTION_FAILURE');
+
+  const spawnFailure = { source: 'process', status: null, error: Object.assign(new Error('spawn failed'), { code: 'ENOENT' }), stderr: unreachableText };
+  assert.equal(classifyTcpProbe(spawnFailure), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyEgressProbe(spawnFailure), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyTcpProbe({ source: 'process', status: 1, stderr: unreachableText }), 'PROBE_EXECUTION_FAILURE', 'without the in-container probe marker, Docker CLI failure cannot prove isolation');
+
+  assert.equal(classifyTcpProbe(connected), 'CONNECTION_SUCCESS');
+  assert.equal(classifyEgressProbe(connected), 'EGRESS_REACHABLE');
+  assert.equal(classifyTcpProbe(refused), 'CONNECTION_REFUSED');
+  assert.equal(classifyEgressProbe(refused), 'EGRESS_REACHABLE');
+  assert.equal(classifyTcpProbe(genuineUnreachable), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyEgressProbe(genuineUnreachable), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyTcpProbe(timedOut), 'PROBE_TIMEOUT');
+  assert.equal(classifyEgressProbe(timedOut), 'TCP_TIMEOUT_INCONCLUSIVE');
+
+  assert.equal(classifyTcpProbe(processProbe(0, 0, unreachableText)), 'INCONCLUSIVE', 'probe marker success conflicts with unreachable stderr');
+  assert.equal(classifyEgressProbe(processProbe(0, 1, 'Network is unreachable', 'connected')), 'INCONCLUSIVE', 'connection evidence conflicts with unreachable result');
+  assert.equal(classifyTcpProbe(processProbe(127, 127, 'bash: command not found; Network is unreachable')), 'PROBE_EXECUTION_FAILURE');
+  assert.equal(classifyTcpProbe({}), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe({}), 'INCONCLUSIVE');
+  assert.equal(classifyTcpProbe(null), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe({ status: 0, stderr: unreachableText }), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe({ status: 124 }), 'INCONCLUSIVE');
+  assert.equal(classifyTcpProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error(unreachableText), { code: 'ENETUNREACH' }) }), 'NETWORK_UNREACHABLE');
+  assert.equal(classifyTcpProbe({ source: 'node-socket', status: null, error: Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }) }), 'PROBE_TIMEOUT');
+  assert.equal(classifyTcpProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error('socket failure'), { code: 'EIO' }) }), 'INCONCLUSIVE');
 });
 
 test('host IPv6 unavailable is distinct from a reachable host control and never proves container isolation', () => {
-  assert.equal(classifyHostControlProbe({ status: 0 }, 'ipv6'), 'HOST_CONTROL_REACHABLE');
-  assert.equal(classifyHostControlProbe({ status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv6'), 'HOST_IPV6_UNAVAILABLE');
-  assert.equal(classifyHostControlProbe({ status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv4'), 'HOST_IPV4_UNAVAILABLE');
-  assert.equal(classifyHostControlProbe({ status: null, error: Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }) }, 'ipv6'), 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE');
-  assert.equal(classifyHostControlProbe({ status: 1, stderr: 'Connection refused' }, 'ipv6'), 'HOST_CONTROL_TARGET_REFUSED');
+  assert.equal(classifyHostControlProbe({ source: 'node-socket', status: 0, connectionEstablished: true }, 'ipv6'), 'HOST_CONTROL_REACHABLE');
+  assert.equal(classifyHostControlProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv6'), 'HOST_IPV6_UNAVAILABLE');
+  assert.equal(classifyHostControlProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error('Network is unreachable'), { code: 'ENETUNREACH' }) }, 'ipv4'), 'HOST_IPV4_UNAVAILABLE');
+  assert.equal(classifyHostControlProbe({ source: 'node-socket', status: null, error: Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }) }, 'ipv6'), 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE');
+  assert.equal(classifyHostControlProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error('Connection refused'), { code: 'ECONNREFUSED' }) }, 'ipv6'), 'HOST_CONTROL_TARGET_REFUSED');
+  assert.equal(classifyHostControlProbe({ source: 'process', status: null, error: Object.assign(new Error('spawn failed'), { code: 'ENOENT' }) }, 'ipv6'), 'HOST_CONTROL_EXECUTION_FAILURE');
 });
 
 test('privileged route command stays disabled without independent Team Lead authorization', () => {
@@ -263,8 +295,8 @@ test('privileged route command stays disabled without independent Team Lead auth
 test('external TCP probes are generated for fixed IPv4 and IPv6 targets', () => {
   assert.deepEqual(EGRESS_PROBE_TARGETS.ipv4, { family: 'ipv4', address: '1.1.1.1', port: 443 });
   assert.deepEqual(EGRESS_PROBE_TARGETS.ipv6, { family: 'ipv6', address: '2606:4700:4700::1111', port: 443 });
-  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv4'), ['exec', ids.app, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"]);
-  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv6'), ['exec', ids.app, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/2606:4700:4700::1111/443'"]);
+  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv4'), ['exec', ids.app, 'bash', '-lc', `timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' "$probe_status"; exit "$probe_status"`]);
+  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv6'), ['exec', ids.app, 'bash', '-lc', `timeout 5 bash -c 'echo >/dev/tcp/2606:4700:4700::1111/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' "$probe_status"; exit "$probe_status"`]);
   assert.throws(() => buildEgressProbeArgs('short-id', 'ipv4'), /full container ID/);
   assert.throws(() => buildEgressProbeArgs(ids.app, 'all'), /ipv4 or ipv6/);
 });

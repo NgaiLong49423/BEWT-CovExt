@@ -145,7 +145,7 @@ try {
     for (const family of Object.keys(EGRESS_PROBE_TARGETS)) {
       const target = EGRESS_PROBE_TARGETS[family];
       const probe = spawnSync(DOCKER_CLI_PATH, buildEgressProbeArgs(container.id, family), { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
-      const probeOutcome = classifyEgressProbe(probe);
+      const probeOutcome = classifyEgressProbe({ ...probe, source: 'process' });
       writeOnce(resolve(evidenceDir, `${role}-egress-policy-${family}.json`), { family, target: `${target.address}:${target.port}`, outcome: probeOutcome, exitCode: probe.status, stdout: probe.stdout || '', stderr: probe.stderr || '', error: probe.error?.message || '' });
       if (probeOutcome !== 'NETWORK_UNREACHABLE') throw new Error(probeOutcome === 'EGRESS_REACHABLE' ? `EGRESS_POLICY_VIOLATION: ${role} container reached external ${family} target` : `EGRESS_POLICY_UNVERIFIED: ${role} ${family} probe ${probeOutcome}`);
     }
