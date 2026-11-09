@@ -1,0 +1,5 @@
+{
+  "message": "This attempt captured no usable Maven console output or exit code. The wrapper proceeded to a Docker server-version query, which failed because the desktop-linux engine pipe was unavailable; the Node wrapper then exited 1. Do not interpret offline-verification.json nodeExitCode as Maven exit. The verified Maven result is recorded separately under offline-verification-20261109-r7.",
+  "classification": "CAPTURE_ORCHESTRATION_FAILURE_NOT_BUILD_RESULT",
+  "appendOnly": true
+}

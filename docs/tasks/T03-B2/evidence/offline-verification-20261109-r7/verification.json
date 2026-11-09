@@ -1,0 +1,14 @@
+{
+  "syntaxChecks": 6,
+  "nodeTests": "18",
+  "nodeFailures": "0",
+  "nodeExitCode": 0,
+  "mavenCommand": "mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile",
+  "mavenExitCode": 0,
+  "mavenBuildSuccess": true,
+  "mavenCliPath": "<PROGRAM_FILES_MAVEN_CMD>",
+  "childPath": "<SYSTEM32>;<PROGRAM_FILES_MAVEN_BIN>;<PROGRAM_FILES_JAVA21_BIN>",
+  "dockerServerExitCode": 1,
+  "freeMemoryBytes": 3904360448,
+  "memoryError": null
+}

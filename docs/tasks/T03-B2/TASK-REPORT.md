@@ -6,16 +6,16 @@
 - Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
 - Head commit (full 40-char SHA): this report update follows the implementation commit; see the final verified HEAD SHA in PR #9 and the handoff.
 - PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
-- Push status: implementation commit pushed; report update is being pushed and verified on the same branch/PR.
+- Push status: `PUSHED`; final branch, remote ref, and PR head are verified together after this report update.
 - Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source commit not verified; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
-- Status proposed by Agent: `PARTIAL` / provenance `PROVENANCE_BLOCKED`; runtime `NOT_RUN` because the user-approved fresh RAM check measured 1.64 GiB free (<4 GiB preflight requirement).
+- Status proposed by Agent: `PARTIAL` / provenance `PROVENANCE_BLOCKED`; runtime `NOT_RUN` because the latest user-authorized RAM check measured 3.64 GiB free (<4 GiB preflight requirement) and the Docker Desktop engine pipe was unavailable.
 
 ## 1. What changed
 
 | File path (repo-relative) | Change | Why |
 |---|---|---|
 | `experiments/claroline/bewt-suite/` | Isolated 75-file baseline suite; only `BaseTest.java` environment adaptation | Retain baseline oracle while supporting remote headless Selenium |
-| `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once cleanup wrapper, runtime harness | Reproducible and ownership-safe execution when preflight allows |
+| `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once wrapper, runtime harness, explicit signed-tool/path policy | Reproducible, ownership-safe, and avoids PATH search in child processes |
 | `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | Cleanup fault injection and Surefire/run identity/sanitization tests | Verify failure paths without touching Docker |
 | `docs/tasks/T03-B2/` | Provenance, image risk, preflight, adaptation, cleanup and partial result reports | Preserve auditable current state and limitations |
 | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` | Image-only inspection and preflight resource evidence | Preserve actual read-only image inspection and stopped-container cleanup records |
@@ -27,12 +27,14 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 
 | Exact command | Exit code | PASS/FAIL/BLOCKED/NOT_RUN | Evidence path |
 |---|---:|---|---|
-| Five Node `--check` commands | 0 | PASS | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/node-syntax-check.log` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 17 passed, 0 failed | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/node-fault-tests.log` |
-| `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | 0 | PASS — 22 main + 42 test sources | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/maven-test-compile.log` |
-| In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r2/manifest-parser-negative.json`; `framework/src/contracts.ts` unchanged |
-| Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` |
-| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 1.89 GiB (<4 GiB) | `ENVIRONMENT-PREFLIGHT.md` |
+| Six Node `--check` commands | 0 | PASS | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r7/node-syntax-check.json` |
+| Six Node `--check` commands | 0 | PASS | [syntax checks](evidence/offline-verification-20261109-r8/node-syntax-check.log) |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 18 passed, 0 failed | [fault tests](evidence/offline-verification-20261109-r8/node-fault-tests.log) |
+| `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | 0 | PASS — 22 main + 42 test sources using fixed child PATH | [Maven compile log](evidence/offline-verification-20261109-r7/maven-test-compile.log) |
+| In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | [parser negative check](evidence/offline-verification-20261109-r2/manifest-parser-negative.json); `framework/src/contracts.ts` unchanged |
+| Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | [image preflight evidence](evidence/preflight-image-20261109/) |
+| Read-only Docker CLI/RAM preflight after last check | 1 for Docker daemon query; RAM query 0 | BLOCKED — daemon pipe unavailable; free RAM 3.64 GiB | [preflight result](evidence/offline-verification-20261109-r7/docker-and-memory-preflight.json) |
+| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 3.64 GiB (<4 GiB) and daemon pipe unavailable | [runtime status](G0-RUNTIME-RESULTS.md) |
 
 ## 3. Research impact
 
@@ -55,7 +57,7 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 ## 5. Evidence and reproduction
 
 - Source/test paths: `experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java`, `experiments/claroline/tools/`, `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; [baseline source comparison](evidence/offline-verification-20261109-r3/baseline-source-comparison.json).
-- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r5/`; Maven compile log is under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r3/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
+- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r8/`; Maven compile and RAM/daemon preflight logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r7/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
 - Fixture/database before/after and cleanup: no app database was started. Preflight-container cleanup evidence is retained with its initial blocked checker record and exact NOT_FOUND follow-up.
 - Reproducible commands: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; Maven `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile`; runtime requires a fresh never-used `t03b2-<letter>-YYYYMMDD-rN` ID and ≥4 GiB free memory.
 - Known limitations: SourceForge archive bytes/hash unavailable; no verified Claroline upstream commit; runtime and DB reset not evaluated; image is legacy and has unknown build provenance.

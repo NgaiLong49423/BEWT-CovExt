@@ -1,6 +1,6 @@
 # G0 runtime results
 
-**Status: `PROVENANCE_BLOCKED` / runtime `NOT_RUN`.** After user authorization, host free memory recheck returned 1.64 GiB, below the runner's 4 GiB safety threshold. Per the preflight gate, no Claroline or Selenium service container was started. Therefore no HTTP/MySQL/Selenium readiness, AddUser execution, or clean-state run is claimed.
+**Status: `PROVENANCE_BLOCKED` / runtime `NOT_RUN`.** The latest user-authorized host free memory recheck returned 3.64 GiB, below the runner's 4 GiB safety threshold; a read-only Docker CLI query also found the `desktop-linux` daemon pipe unavailable. Per the preflight gate, no Claroline or Selenium service container was started. Therefore no HTTP/MySQL/Selenium readiness, AddUser execution, or clean-state run is claimed.
 
 The harness is prepared at `experiments/claroline/tools/run-claroline-g0.mjs`. Each invocation takes a never-before-used ID such as `t03b2-a-YYYYMMDD-r1` and creates a write-once directory under `docs/tasks/T03-B2/evidence/`. It rechecks free host memory before Docker operations. Running A/B requires a fresh user confirmation and at least 4 GiB free, then separate clean IDs. Source provenance remains a separate blocker even if runtime feasibility passes.
 

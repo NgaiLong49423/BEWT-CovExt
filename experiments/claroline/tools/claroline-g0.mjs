@@ -1,6 +1,7 @@
 import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
 
 export const APP_IMAGE_REF = 'olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af';
 export const BROWSER_IMAGE_REF = 'selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f';
@@ -40,8 +41,60 @@ export function namesForRun(runId) {
 function normalizedName(value) { return String(value || '').replace(/^\//, ''); }
 function sameLabels(actual, expected) {
   if (!actual || typeof actual !== 'object') return false;
-  const keys = Object.keys(expected).sort();
+  const keys = Object.keys(expected).sort((left, right) => left.localeCompare(right, 'en'));
   return keys.every(key => actual[key] === expected[key]) && Object.keys(actual).length === keys.length;
+}
+
+function readTagAttributes(xml, startIndex, tagName) {
+  const opening = `<${tagName}`;
+  let cursor = startIndex;
+  while ((cursor = xml.indexOf(opening, cursor)) !== -1) {
+    const boundary = xml[cursor + opening.length];
+    if (boundary && !/[\s/>]/.test(boundary)) { cursor += opening.length; continue; }
+    let end = cursor + opening.length;
+    let quote = '';
+    for (; end < xml.length; end += 1) {
+      const character = xml[end];
+      if (quote) { if (character === quote) quote = ''; continue; }
+      if (character === '"' || character === "'") { quote = character; continue; }
+      if (character === '>') break;
+    }
+    if (end >= xml.length) return null;
+    const attributes = {};
+    let index = cursor + opening.length;
+    while (index < end) {
+      while (index < end && /\s|\//.test(xml[index])) index += 1;
+      const nameStart = index;
+      while (index < end && /[\w:-]/.test(xml[index])) index += 1;
+      if (index === nameStart) { index += 1; continue; }
+      const name = xml.slice(nameStart, index);
+      while (index < end && /\s/.test(xml[index])) index += 1;
+      if (xml[index] !== '=') continue;
+      index += 1;
+      while (index < end && /\s/.test(xml[index])) index += 1;
+      const delimiter = xml[index];
+      if (delimiter !== '"' && delimiter !== "'") continue;
+      index += 1;
+      const valueStart = index;
+      while (index < end && xml[index] !== delimiter) index += 1;
+      attributes[name] = xml.slice(valueStart, index);
+      if (xml[index] === delimiter) index += 1;
+    }
+    return { attributes, nextIndex: end + 1 };
+  }
+  return null;
+}
+
+function readAllTagAttributes(xml, tagName) {
+  const tags = [];
+  let cursor = 0;
+  while (cursor < xml.length) {
+    const tag = readTagAttributes(xml, cursor, tagName);
+    if (!tag) break;
+    tags.push(tag.attributes);
+    cursor = tag.nextIndex;
+  }
+  return tags;
 }
 
 export class CleanupBlockedError extends Error {
@@ -68,10 +121,10 @@ export function isExactNotFound(error, kind, target) {
 
 export function parseSurefireXml(xml, expectedClass = APP_TEST_CLASS) {
   if (typeof xml !== 'string' || !xml.trim()) return { outcome: 'BLOCKED', reason: 'Surefire XML missing or empty' };
-  const suiteMatch = xml.match(/<testsuite\b([^>]*)>/i);
-  if (!suiteMatch) return { outcome: 'BLOCKED', reason: 'Surefire XML has no testsuite element' };
-  const attributes = Object.fromEntries([...suiteMatch[1].matchAll(/([\w:-]+)="([^"]*)"/g)].map(m => [m[1], m[2]]));
-  const cases = [...xml.matchAll(/<testcase\b([^>]*)\/?\s*>/gi)].map(m => Object.fromEntries([...m[1].matchAll(/([\w:-]+)="([^"]*)"/g)].map(a => [a[1], a[2]])));
+  const suite = readTagAttributes(xml, 0, 'testsuite');
+  if (!suite) return { outcome: 'BLOCKED', reason: 'Surefire XML has no testsuite element' };
+  const attributes = suite.attributes;
+  const cases = readAllTagAttributes(xml, 'testcase');
   const counters = {
     tests: Number(attributes.tests ?? cases.length),
     failures: Number(attributes.failures ?? 0),
@@ -97,9 +150,9 @@ export function sanitizeSurefireXml(xml, localRoots = []) {
   return output;
 }
 
-export function snapshotInventory(dockerExec = args => execFileSync('docker', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim()) {
+export function snapshotInventory(dockerExec = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim()) {
   try {
-    const list = args => { const text = dockerExec(args); return text ? text.split(/\r?\n/).map(line => line.trim()).filter(Boolean).sort() : []; };
+    const list = args => { const text = dockerExec(args); return text ? text.split(/\r?\n/).map(line => line.trim()).filter(Boolean).sort((left, right) => left.localeCompare(right, 'en')) : []; };
     return {
       containers: list(['ps', '-aq', '--no-trunc']),
       networks: list(['network', 'ls', '-q', '--no-trunc']),
@@ -123,7 +176,7 @@ export function assertOwnedContainer(resource, expected) {
 }
 
 export function assertOwnedNetwork(network, expected) {
-  const endpointIds = Object.keys(network?.Containers || {}).sort();
+  const endpointIds = Object.keys(network?.Containers || {}).sort((left, right) => left.localeCompare(right, 'en'));
   if (network?.Id !== expected.id || network?.Name !== expected.name || !sameLabels(network?.Labels, expected.labels)) {
     throw new CleanupBlockedError('recorded network identity or complete ownership labels do not match');
   }

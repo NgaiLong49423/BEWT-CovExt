@@ -4,11 +4,12 @@ import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, validateRunId } from './claroline-g0.mjs';
+import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 const repo = root;
-const docker = args => execFileSync('docker', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digest = ref => ref.slice(ref.indexOf('@') + 1);
 const sha256 = value => createHash('sha256').update(value).digest('hex');
 const writeOnce = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, { flag: 'wx' });
@@ -21,7 +22,7 @@ const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSou
 let exitCode = 1;
 
 function dockerCall(args, evidenceName, throwOnError = true) {
-  const result = spawnSync('docker', args, { encoding: 'utf8', windowsHide: true });
+  const result = spawnSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
   if (evidenceName) writeFileSync(resolve(evidenceDir, evidenceName), JSON.stringify({ command: ['docker', ...args], status: result.status, stdout: result.stdout || '', stderr: result.stderr || '', error: result.error?.message || null }, null, 2) + '\n', { flag: 'wx' });
   if (throwOnError && (result.error || result.status !== 0)) throw new Error(`docker ${args[0]} failed (${result.status}): ${(result.stderr || result.error?.message || '').trim()}`);
   return result;
@@ -29,7 +30,7 @@ function dockerCall(args, evidenceName, throwOnError = true) {
 
 try {
   writeOnce(resolve(evidenceDir, 'run-record.json'), record);
-  const memory = Number(execFileSync('powershell.exe', ['-NoProfile', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8' }).trim()) * 1024;
+  const memory = Number(execFileSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8', env: DOCKER_ENV }).trim()) * 1024;
   writeOnce(resolve(evidenceDir, 'memory-preflight.json'), { freeBytes: memory, minimumBytes: 4 * 1024 ** 3, outcome: memory >= 4 * 1024 ** 3 ? 'PASS' : 'BLOCKED' });
   if (memory < 4 * 1024 ** 3) throw new Error('runtime BLOCKED: host free RAM below 4 GiB threshold');
   const before = snapshotInventory();
@@ -84,7 +85,10 @@ try {
   if (beforeUserCount !== 0) throw new Error('FIXTURE_FAILURE: user001 already exists before the smoke test');
   const suite = resolve(root, 'bewt-suite');
   const mavenStartedAt = Date.now();
-  const maven = spawnSync('mvn', ['-B', '-Dtest=' + APP_TEST_CLASS, `-Dapp.url=${appUrl}`, `-Dwebdriver.remote.url=http://127.0.0.1:${browserPort}/wd/hub`, 'clean', 'test'], { cwd: suite, encoding: 'utf8', windowsHide: true });
+  const mavenArgs = ['-B', '-Dtest=' + APP_TEST_CLASS, `-Dapp.url=${appUrl}`, `-Dwebdriver.remote.url=http://127.0.0.1:${browserPort}/wd/hub`, 'clean', 'test'];
+  const psQuote = value => `'${String(value).replaceAll("'", "''")}'`;
+  const mavenScript = `& ${psQuote(MAVEN_CLI_PATH)} ${mavenArgs.map(psQuote).join(' ')}; exit $LASTEXITCODE`;
+  const maven = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', mavenScript], { cwd: suite, encoding: 'utf8', env: MAVEN_ENV, windowsHide: true });
   const sanitize = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
   writeFileSync(resolve(evidenceDir, 'maven.stdout.log'), sanitize(maven.stdout), { flag: 'wx' });
   writeFileSync(resolve(evidenceDir, 'maven.stderr.log'), sanitize(maven.stderr), { flag: 'wx' });

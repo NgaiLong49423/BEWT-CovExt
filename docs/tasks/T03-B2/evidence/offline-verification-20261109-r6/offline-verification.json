@@ -1,0 +1,8 @@
+{
+  "nodeTests": 18,
+  "nodeTestExitCode": 0,
+  "syntaxChecks": 6,
+  "safeMavenWrapperExitCode": 1,
+  "nodeFailures": 0,
+  "mavenCommand": "mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile"
+}

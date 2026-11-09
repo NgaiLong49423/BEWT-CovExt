@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, MAVEN_ENV } from '../child-process-policy.mjs';
 import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, sanitizeSurefireXml, validateRunId } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
@@ -225,6 +226,9 @@ test('Surefire parser requires exactly one expected passing testcase and blocks 
   assert.equal(parseSurefireXml('<testsuite tests="0" failures="0" errors="0" skipped="0"></testsuite>').outcome, 'BLOCKED');
   const pass = '<testsuite tests="1" failures="0" errors="0" skipped="0"><testcase classname="test.Claroline_AddUserTest" name="runTest"/></testsuite>';
   assert.equal(parseSurefireXml(pass).outcome, 'PASS');
+  assert.equal(parseSurefireXml("<testsuite tests='1' failures='0' errors='0' skipped='0'><testcase classname='test.Claroline_AddUserTest' name='runTest' /></testsuite>").outcome, 'PASS');
+  const longAttribute = '<testsuite tests="1" failures="0" errors="0" skipped="0"><testcase classname="test.Claroline_AddUserTest" name="' + 'x'.repeat(50000) + '"/></testsuite>';
+  assert.equal(parseSurefireXml(longAttribute).outcome, 'PASS');
   assert.equal(parseSurefireXml(pass.replace('failures="0"', 'failures="1"')).outcome, 'FAIL');
   assert.equal(parseSurefireXml(pass.replace('test.Claroline_AddUserTest', 'test.Other')).outcome, 'FAIL');
   assert.equal(parseSurefireXml(pass.replace('/></testsuite>', '/><testcase classname="test.Claroline_AddUserTest" name="second"/></testsuite>')).outcome, 'BLOCKED');
@@ -252,4 +256,12 @@ test('evidence directory creation is write-once for each run ID', () => {
     assert.equal(path, join(base, runId));
     assert.throws(() => createEvidenceDirectory(base, runId), error => error.code === 'EEXIST');
   } finally { rmSync(base, { recursive: true, force: true }); }
+});
+
+test('native tools resolve to explicit paths and child PATH excludes user-writable AppData', () => {
+  assert.match(DOCKER_CLI_PATH, /^[A-Z]:\\/i);
+  assert.match(MAVEN_CLI_PATH, /^[A-Z]:\\Program Files\\/i);
+  assert.doesNotMatch(MAVEN_ENV.PATH, /AppData|Users/i);
+  assert.match(MAVEN_ENV.PATH, /C:\\Windows\\System32/i);
+  assert.match(MAVEN_ENV.PATH, /Program Files/i);
 });

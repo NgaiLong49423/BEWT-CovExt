@@ -2,11 +2,11 @@
 
 | Command/check | Result |
 |---|---|
-| Five `node --check` commands for runner/helpers/cleanup/tests | PASS, all exit 0; logs in `evidence/offline-verification-20261109-r5/node-syntax-check.log` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 17 tests, 0 failures; log at `evidence/offline-verification-20261109-r5/node-fault-tests.log` |
-| `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` | PASS, exit 0; compiled 22 main and 42 test sources; log at `evidence/offline-verification-20261109-r3/maven-test-compile.log` |
+| Six `node --check` commands, including native-command policy | PASS, all exit 0; log in `evidence/offline-verification-20261109-r8/node-syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 18 tests, 0 failures; log at `evidence/offline-verification-20261109-r8/node-fault-tests.log` |
+| `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile` with fixed child PATH | PASS, exit 0; compiled 22 main and 42 test sources; log at `evidence/offline-verification-20261109-r7/maven-test-compile.log` |
 | In-memory `parseApplicationManifest()` negative check | PASS expected rejection; `NOT_VERIFIED` fails the full 40-character Git SHA rule; no runtime manifest exists | `evidence/offline-verification-20261109-r2/manifest-parser-negative.json` |
-| Runtime HTTP/MySQL/Selenium and Maven test | NOT_RUN; user-approved fresh preflight RAM 1.64 GiB < 4 GiB |
+| Runtime HTTP/MySQL/Selenium and Maven test | NOT_RUN; fresh RAM 3.64 GiB < 4 GiB and Docker daemon pipe unavailable; read-only details at `evidence/offline-verification-20261109-r7/docker-and-memory-preflight.json` |
 
 The first log-capture Maven invocation ran from the repository root without a POM and exited 1. It is retained and classified as an invocation error under `evidence/offline-verification-20261109/`; it is not counted as a build result. The corrected command above is the compile verification.
 

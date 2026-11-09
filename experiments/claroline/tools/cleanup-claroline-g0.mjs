@@ -1,7 +1,8 @@
 import { execFileSync } from 'node:child_process';
+import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
 import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory } from './claroline-g0.mjs';
 
-const dockerCli = args => execFileSync('docker', args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
 const list = (exec, args) => { const value = exec(args); return value ? value.split(/\r?\n/).map(item => item.trim()).filter(Boolean) : []; };
 
@@ -37,7 +38,7 @@ function assertContainerSecurity(container, item, networkName) {
   const host = container.HostConfig || {};
   const expectedHostPort = item.role === 'app' ? '80/tcp' : '4444/tcp';
   const bindings = host.PortBindings || {};
-  const publishedKeys = Object.keys(bindings).sort();
+  const publishedKeys = Object.keys(bindings).sort((left, right) => left.localeCompare(right, 'en'));
   if (host.Privileged === true || host.NetworkMode !== networkName || (host.Binds || []).length !== 0) {
     throw new CleanupBlockedError(`${item.role} container has privileged, host-network, or bind-mount configuration`);
   }
@@ -95,14 +96,14 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (!networkById && foundContainers.some(Boolean)) throw new CleanupBlockedError('recorded container exists while its recorded network is absent');
   if (networkById) {
     if (networkById.Driver !== 'bridge' || networkById.Internal !== true) throw new CleanupBlockedError('recorded network is not the required internal bridge');
-    assertOwnedNetwork(networkById, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: foundContainers.filter(Boolean).map(x => x.Id).sort() });
+    assertOwnedNetwork(networkById, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: foundContainers.filter(Boolean).map(x => x.Id).sort((left, right) => left.localeCompare(right, 'en')) });
   }
 
   // Validate all existing run-scoped resources before the first mutation.
   const seenContainers = residualIds(dockerExec, 'container', record.runId);
   const seenNetworks = residualIds(dockerExec, 'network', record.runId);
   const seenVolumes = residualIds(dockerExec, 'volume', record.runId);
-  const allowedContainerIds = foundContainers.filter(Boolean).map(x => x.Id).sort();
+  const allowedContainerIds = foundContainers.filter(Boolean).map(x => x.Id).sort((left, right) => left.localeCompare(right, 'en'));
   if (seenContainers.some(id => !allowedContainerIds.includes(id))) throw new CleanupBlockedError('unrecorded or incorrectly labelled runId container exists; no resource was removed');
   if (seenNetworks.some(id => !networkRecord || id !== networkRecord.id)) throw new CleanupBlockedError('unrecorded or incorrectly labelled runId network exists; no resource was removed');
   if (seenVolumes.length) throw new CleanupBlockedError('runId volume exists although Claroline declares no persistent mounts; no resource was removed');

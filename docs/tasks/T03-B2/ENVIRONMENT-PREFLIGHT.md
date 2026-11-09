@@ -8,7 +8,7 @@ The preflight-only container had full T03-B2 ownership labels, `network=none`, a
 
 ## Host resource gate
 
-The read-only Windows memory check first reported 1.89 GiB free. After the user authorized a recheck, the latest result was **1.64 GiB free of 13.79 GiB**. The runtime harness requires at least 4 GiB free before Docker runtime operations. **No Claroline or Selenium service container has been started.** Runtime A/B and Docker before/after run inventories are `NOT_RUN` because the measured threshold remains unmet.
+The read-only Windows memory checks first reported 1.89 GiB and then 1.64 GiB free. The latest user-authorized check reported **3.64 GiB free of 13.79 GiB**, still below the 4 GiB runtime threshold. The Docker CLI also reported that the `desktop-linux` engine named pipe is unavailable. **No Claroline or Selenium service container has been started.** Runtime A/B and Docker before/after run inventories are `NOT_RUN` because both required preflight conditions are unmet.
 
 Disk availability at initial preflight was 89.66 GiB on D: and 4.92 GiB on C:. This value can change and should be rechecked before runtime.
 
