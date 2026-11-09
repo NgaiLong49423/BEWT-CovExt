@@ -72,7 +72,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java#L27",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -143,9 +149,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "BL-017 changes a date; should scheduler promotion at request time remain a distinct observable?",
+        "Should the oracle assert stored status, public visibility, or both?",
+        "Can the fixture control time/cache and separate future-dated drafts?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
@@ -244,7 +250,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java#L22",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -315,9 +327,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "BL-001 creates content; is cover-image persistence/rendering sufficiently distinct from generic creation?",
+        "Which theme’s cover slot is the required oracle?",
+        "Can a synthetic image be uploaded and cleaned without shared media state?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
@@ -383,7 +395,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java#L22",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "bludit-02-changeurltest",
@@ -407,7 +425,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java#L25",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "bludit-04-changeparenttest",
@@ -431,7 +455,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java#L27",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -640,7 +670,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java#L27",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "bludit-16-deleteusertest",
@@ -664,7 +700,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java#L22",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "bludit-09-changepasswordtest",
@@ -688,7 +730,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java#L25",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "BL-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -807,9 +855,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "BL-008 creates a user; does role editing/effective route access add distinct coverage?",
+        "Should the oracle assert persisted role, effective permissions, or both?",
+        "Which role/account can perform and verify the change safely?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
@@ -858,11 +906,225 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "course documents: upload/move/delete",
+          "inventoryApp": "claroline",
+          "featureEntriesEnumerated": 40,
+          "caseIdsEnumerated": [
+            "claroline-01-addusertest",
+            "claroline-02-searchusertest",
+            "claroline-03-loginusertest",
+            "claroline-04-addcoursetest",
+            "claroline-05-searchcoursetest",
+            "claroline-06-enrolusertest",
+            "claroline-07-addcourseeventtest",
+            "claroline-08-addcourseexercisetest",
+            "claroline-09-makecourseexercisevisibletest",
+            "claroline-10-addcourseexercisequestionstest",
+            "claroline-11-docourseexercisequestionstest",
+            "claroline-12-viewprofilestatisticsusertest",
+            "claroline-13-addmultipleuserstest",
+            "claroline-14-searchmultipleuserstest",
+            "claroline-15-searchstudenttest",
+            "claroline-16-searchteachertest",
+            "claroline-17-searchadmintest",
+            "claroline-18-enrolmultipleuserstest",
+            "claroline-19-docourseexercisequestionsmultipleuserstest",
+            "claroline-20-removeenrolmultipleuserstest",
+            "claroline-21-removemultipleuserstest",
+            "claroline-22-addemptyusertest",
+            "claroline-23-addwrongemailusertest",
+            "claroline-24-addtwiceusertest",
+            "claroline-25-addwrongpasswordusertest",
+            "claroline-26-addemptycoursetest",
+            "claroline-27-adddeniedcoursetest",
+            "claroline-28-enroldeniedcoursetest",
+            "claroline-29-addpasswordcoursetest",
+            "claroline-30-enrolpasswordcoursewrongpasswordusertest",
+            "claroline-31-enrolpasswordcoursegoodpasswordusertest",
+            "claroline-32-searchallowedcoursetest",
+            "claroline-33-searchandremovepasswordcoursetest",
+            "claroline-34-searchandremovedeniedcoursetest",
+            "claroline-35-removecourseexercisequestionstest",
+            "claroline-36-removecourseeventtest",
+            "claroline-37-removecourseexercisetest",
+            "claroline-38-removeenrolusertest",
+            "claroline-39-removeusertest",
+            "claroline-40-removecoursetest"
+          ],
+          "featurePathsEnumerated": [
+            "claroline/gherkin/01_AddUserTest.feature",
+            "claroline/gherkin/02_SearchUserTest.feature",
+            "claroline/gherkin/03_LoginUserTest.feature",
+            "claroline/gherkin/04_AddCourseTest.feature",
+            "claroline/gherkin/05_SearchCourseTest.feature",
+            "claroline/gherkin/06_EnrolUserTest.feature",
+            "claroline/gherkin/07_AddCourseEventTest.feature",
+            "claroline/gherkin/08_AddCourseExerciseTest.feature",
+            "claroline/gherkin/09_MakeCourseExerciseVisibleTest.feature",
+            "claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature",
+            "claroline/gherkin/11_DoCourseExerciseQuestionsTest.feature",
+            "claroline/gherkin/12_ViewProfileStatisticsUserTest.feature",
+            "claroline/gherkin/13_AddMultipleUsersTest.feature",
+            "claroline/gherkin/14_SearchMultipleUsersTest.feature",
+            "claroline/gherkin/15_SearchStudentTest.feature",
+            "claroline/gherkin/16_SearchTeacherTest.feature",
+            "claroline/gherkin/17_SearchAdminTest.feature",
+            "claroline/gherkin/18_EnrolMultipleUsersTest.feature",
+            "claroline/gherkin/19_DoCourseExerciseQuestionsMultipleUsersTest.feature",
+            "claroline/gherkin/20_RemoveEnrolMultipleUsersTest.feature",
+            "claroline/gherkin/21_RemoveMultipleUsersTest.feature",
+            "claroline/gherkin/22_AddEmptyUserTest.feature",
+            "claroline/gherkin/23_AddWrongEmailUserTest.feature",
+            "claroline/gherkin/24_AddTwiceUserTest.feature",
+            "claroline/gherkin/25_AddWrongPasswordUserTest.feature",
+            "claroline/gherkin/26_AddEmptyCourseTest.feature",
+            "claroline/gherkin/27_AddDeniedCourseTest.feature",
+            "claroline/gherkin/28_EnrolDeniedCourseTest.feature",
+            "claroline/gherkin/29_AddPasswordCourseTest.feature",
+            "claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature",
+            "claroline/gherkin/31_EnrolPasswordCourseGoodPasswordUserTest.feature",
+            "claroline/gherkin/32_SearchAllowedCourseTest.feature",
+            "claroline/gherkin/33_SearchAndRemovePasswordCourseTest.feature",
+            "claroline/gherkin/34_SearchAndRemoveDeniedCourseTest.feature",
+            "claroline/gherkin/35_RemoveCourseExerciseQuestionsTest.feature",
+            "claroline/gherkin/36_RemoveCourseEventTest.feature",
+            "claroline/gherkin/37_RemoveCourseExerciseTest.feature",
+            "claroline/gherkin/38_RemoveEnrolUserTest.feature",
+            "claroline/gherkin/39_RemoveUserTest.feature",
+            "claroline/gherkin/40_RemoveCourseTest.feature"
+          ],
+          "javaPathsEnumerated": [
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_LoginUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_MakeCourseExerciseVisibleTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchStudentTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchTeacherTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAdminTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveMultipleUsersTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongEmailUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddTwiceUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongPasswordUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddPasswordCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseGoodPasswordUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAllowedCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemovePasswordCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemoveDeniedCourseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseQuestionsTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseEventTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveUserTest.java",
+            "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseTest.java"
+          ],
+          "reviewedNearbyCases": "Course create/search/enrol, event, exercise/question authoring/attempt/removal and user/course lifecycle inventory screened. CL-04 and CL-07 inspected as nearby course/event setup; neither asserts file/document upload, move, or delete. No relevant document-lifecycle case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 40,
+          "unmappedFeaturePaths": [],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "CL-GAP-001",
+            "application": "claroline",
+            "baselineCaseId": "claroline-04-addcoursetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "claroline/gherkin/04_AddCourseTest.feature",
+            "featureBlobSha": "11f260aeb230d37f0c75cd9984f8ce9ca4e786a7",
+            "gherkinLineRefs": [
+              {
+                "line": 17,
+                "kind": "VISIBLE_MESSAGE"
+              },
+              {
+                "line": 20,
+                "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/04_AddCourseTest.feature#L17-L20",
+            "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
+            "javaBlobSha": "09072853d6c3da7f76a0e79529d51da16fc58ca8",
+            "javaAssertionLineRefs": [
+              {
+                "line": 21,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java#L21",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "CL-GAP-001",
+            "application": "claroline",
+            "baselineCaseId": "claroline-07-addcourseeventtest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "claroline/gherkin/07_AddCourseEventTest.feature",
+            "featureBlobSha": "dc08c8b2f56cd6280a3b472d49d3df20ec7976cb",
+            "gherkinLineRefs": [
+              {
+                "line": 15,
+                "kind": "VISIBLE_MESSAGE"
+              },
+              {
+                "line": 18,
+                "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/07_AddCourseEventTest.feature#L15-L18",
+            "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
+            "javaBlobSha": "045fbc815075f344cfaf227f017cb7f0aff56091",
+            "javaAssertionLineRefs": [
+              {
+                "line": 20,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java#L20",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -896,9 +1158,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "CL-04 course creation and CL-07 event creation do not cover documents; should the absent upload/move/delete lifecycle remain a source-search lead?",
+        "Which file metadata, course resource link, and move/delete result does the pinned core actually guarantee, given the incomplete release and image patch provenance gap?",
+        "What course-role permissions, file-type/size config, and isolated storage/cleanup would make this fixture reproducible?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation.",
@@ -968,7 +1230,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java#L20",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "CL-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "claroline-28-enroldeniedcoursetest",
@@ -996,7 +1264,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java#L20",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "CL-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
@@ -1024,7 +1298,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java#L20",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "CL-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -1156,9 +1436,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Does the cited source actually enforce non-member denial, given the membership block appears commented?",
+        "Which observable is authoritative: HTTP response, UI denial, or protected resource absence?",
+        "Can image patch provenance and test account membership be fixed?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation.",
@@ -1201,9 +1481,186 @@
           "permalink": "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/exercise/exercise.php"
         }
       ],
-      "baselineCaseComparisons": [],
-      "baselineGherkinEvidence": [],
-      "baselineJavaAssertionEvidence": [],
+      "baselineCaseComparisons": [
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-08-addcourseexercisetest",
+          "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+          "featurePath": "claroline/gherkin/08_AddCourseExerciseTest.feature",
+          "featureBlobSha": "19af1b20249dbbf67496a547519b57ef828cf35f",
+          "gherkinThenLineRefs": [
+            {
+              "line": 11,
+              "kind": "VISIBLE_MESSAGE"
+            },
+            {
+              "line": 14,
+              "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+            }
+          ],
+          "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/08_AddCourseExerciseTest.feature#L11-L14",
+          "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
+          "javaBlobSha": "b41b7e337a98b10ff5c67cb681099bc4e1f54abd",
+          "javaAssertionLineRefs": [
+            {
+              "line": 22,
+              "kind": "assertEquals"
+            }
+          ],
+          "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java#L22",
+          "assessment": "REVIEWED_AT_PIN",
+          "directContentVerification": "PINNED_CONTENT_VERIFIED",
+          "note": "Gherkin performs manual New exercise creation and asserts the success message; Java asserts that message. It does not import a package or assert import fidelity, so it is an adjacent manual-authoring comparator.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-10-addcourseexercisequestionstest",
+          "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+          "featurePath": "claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature",
+          "featureBlobSha": "14c874d55a53e3a7b04d3544f07ed8994352fbba",
+          "gherkinThenLineRefs": [
+            {
+              "line": 43,
+              "kind": "VISIBLE_CONTENT"
+            },
+            {
+              "line": 48,
+              "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+            }
+          ],
+          "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature#L43-L48",
+          "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
+          "javaBlobSha": "2ab6ab38542104b006ecbcbc54164038b6191374",
+          "javaAssertionLineRefs": [
+            {
+              "line": 30,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 31,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 32,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 33,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 34,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 35,
+              "kind": "assertEquals"
+            }
+          ],
+          "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java#L30-L35",
+          "assessment": "REVIEWED_AT_PIN",
+          "directContentVerification": "PINNED_CONTENT_VERIFIED",
+          "note": "Gherkin creates three question types manually and asserts their displayed type/title; Java has six title/kind assertions. It does not test package import or imported question fidelity.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
+        }
+      ],
+      "baselineGherkinEvidence": [
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-08-addcourseexercisetest",
+          "path": "claroline/gherkin/08_AddCourseExerciseTest.feature",
+          "blobSha": "19af1b20249dbbf67496a547519b57ef828cf35f",
+          "lineRefs": [
+            {
+              "line": 11,
+              "kind": "VISIBLE_MESSAGE"
+            },
+            {
+              "line": 14,
+              "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/08_AddCourseExerciseTest.feature#L11-L14",
+          "status": "PINNED_CONTENT_VERIFIED"
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-10-addcourseexercisequestionstest",
+          "path": "claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature",
+          "blobSha": "14c874d55a53e3a7b04d3544f07ed8994352fbba",
+          "lineRefs": [
+            {
+              "line": 43,
+              "kind": "VISIBLE_CONTENT"
+            },
+            {
+              "line": 48,
+              "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature#L43-L48",
+          "status": "PINNED_CONTENT_VERIFIED"
+        }
+      ],
+      "baselineJavaAssertionEvidence": [
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-08-addcourseexercisetest",
+          "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
+          "blobSha": "b41b7e337a98b10ff5c67cb681099bc4e1f54abd",
+          "lineRefs": [
+            {
+              "line": 22,
+              "kind": "assertEquals"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java#L22",
+          "status": "PINNED_CONTENT_VERIFIED"
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "caseId": "claroline-10-addcourseexercisequestionstest",
+          "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
+          "blobSha": "2ab6ab38542104b006ecbcbc54164038b6191374",
+          "lineRefs": [
+            {
+              "line": 30,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 31,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 32,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 33,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 34,
+              "kind": "assertEquals"
+            },
+            {
+              "line": 35,
+              "kind": "assertEquals"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java#L30-L35",
+          "status": "PINNED_CONTENT_VERIFIED"
+        }
+      ],
       "semanticOverlapAssessment": {
         "classification": "PARTIAL_SEMANTIC_OVERLAP",
         "technicalAssessment": "Baseline creates exercises and questions manually; it does not cover package import.",
@@ -1245,9 +1702,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "CL-08/10 create exercises/questions manually; which import-specific metadata or state distinguishes this behavior?",
+        "Which imported fields and relationships must the oracle assert?",
+        "Is the package format and import permission stable in the target image?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify.",
@@ -1317,7 +1774,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "CL-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "claroline-12-viewprofilestatisticsusertest",
@@ -1349,7 +1812,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java#L20-L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "CL-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -1536,7 +2005,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java#L30",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "expresscart-07-addnewprodtocarttest",
@@ -1568,7 +2043,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java#L24-L26",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -1671,9 +2152,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Baseline cart tests cover ordinary add; under which stock-tracking guard does `/product/updatecart` reject a quantity change?",
+        "Should the oracle assert HTTP 400 and the insufficient-stock response, or also verify cart quantity remains unchanged?",
+        "Which product stock, global stock setting, session/cart state, and reset path control this negative case?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted.",
@@ -1727,9 +2208,130 @@
           "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/order.js"
         }
       ],
-      "baselineCaseComparisons": [],
-      "baselineGherkinEvidence": [],
-      "baselineJavaAssertionEvidence": [],
+      "baselineCaseComparisons": [
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-15-usediscountcodeamounttest",
+          "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+          "featurePath": "expresscart/gherkin/15_UseDiscountCodeAmountTest.feature",
+          "featureBlobSha": "cce65dde0c3d1ad7a8faee9bf4d337a37a471e1b",
+          "gherkinThenLineRefs": [
+            {
+              "line": 18,
+              "kind": "VISIBLE_MESSAGE"
+            }
+          ],
+          "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/15_UseDiscountCodeAmountTest.feature#L18",
+          "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
+          "javaBlobSha": "aa0202618a35a66e4434292b2ee21f914c03da3a",
+          "javaAssertionLineRefs": [
+            {
+              "line": 33,
+              "kind": "assertTrue"
+            }
+          ],
+          "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java#L33",
+          "assessment": "REVIEWED_AT_PIN",
+          "directContentVerification": "PINNED_CONTENT_VERIFIED",
+          "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies an amount discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-16-usediscountcodepercenttest",
+          "mappingStatus": "MATCHED_FEATURE_TO_SUITE_CLASS",
+          "featurePath": "expresscart/gherkin/16_UseDiscountCodePercentTest.feature",
+          "featureBlobSha": "e18707670139dc0bbf65564707ad7b28b75da554",
+          "gherkinThenLineRefs": [
+            {
+              "line": 18,
+              "kind": "VISIBLE_MESSAGE"
+            }
+          ],
+          "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/16_UseDiscountCodePercentTest.feature#L18",
+          "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
+          "javaBlobSha": "29d04655f474bfce0ca07335c422119763688cf0",
+          "javaAssertionLineRefs": [
+            {
+              "line": 33,
+              "kind": "assertTrue"
+            }
+          ],
+          "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java#L33",
+          "assessment": "REVIEWED_AT_PIN",
+          "directContentVerification": "PINNED_CONTENT_VERIFIED",
+          "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies a percentage discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
+        }
+      ],
+      "baselineGherkinEvidence": [
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-15-usediscountcodeamounttest",
+          "path": "expresscart/gherkin/15_UseDiscountCodeAmountTest.feature",
+          "blobSha": "cce65dde0c3d1ad7a8faee9bf4d337a37a471e1b",
+          "lineRefs": [
+            {
+              "line": 18,
+              "kind": "VISIBLE_MESSAGE"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/15_UseDiscountCodeAmountTest.feature#L18",
+          "status": "PINNED_CONTENT_VERIFIED"
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-16-usediscountcodepercenttest",
+          "path": "expresscart/gherkin/16_UseDiscountCodePercentTest.feature",
+          "blobSha": "e18707670139dc0bbf65564707ad7b28b75da554",
+          "lineRefs": [
+            {
+              "line": 18,
+              "kind": "VISIBLE_MESSAGE"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/16_UseDiscountCodePercentTest.feature#L18",
+          "status": "PINNED_CONTENT_VERIFIED"
+        }
+      ],
+      "baselineJavaAssertionEvidence": [
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-15-usediscountcodeamounttest",
+          "path": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
+          "blobSha": "aa0202618a35a66e4434292b2ee21f914c03da3a",
+          "lineRefs": [
+            {
+              "line": 33,
+              "kind": "assertTrue"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java#L33",
+          "status": "PINNED_CONTENT_VERIFIED"
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "caseId": "expresscart-16-usediscountcodepercenttest",
+          "path": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
+          "blobSha": "29d04655f474bfce0ca07335c422119763688cf0",
+          "lineRefs": [
+            {
+              "line": 33,
+              "kind": "assertTrue"
+            }
+          ],
+          "permalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java#L33",
+          "status": "PINNED_CONTENT_VERIFIED"
+        }
+      ],
       "semanticOverlapAssessment": {
         "classification": "PARTIAL_SEMANTIC_OVERLAP",
         "technicalAssessment": "Base AddUser is admin user management; it does not cover storefront customer address persistence.",
@@ -1770,9 +2372,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "EC-15/16 traverse shipping/payment but assert only discount text; which address persistence/order snapshot fields are absent?",
+        "Should the oracle compare address before checkout and persisted order snapshot after submission?",
+        "Which session/customer fixture and order cleanup/configuration are required?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN.",
@@ -1838,7 +2440,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java#L30",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "expresscart-13-adddiscountcodepercenttest",
@@ -1862,7 +2470,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java#L30",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "expresscart-15-usediscountcodeamounttest",
@@ -1886,7 +2500,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java#L33",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "expresscart-16-usediscountcodepercenttest",
@@ -1910,7 +2530,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java#L33",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "EC-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -2140,7 +2766,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java#L22-L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-10-editarticle",
@@ -2164,7 +2796,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-21-archivearticle",
@@ -2188,7 +2826,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -2315,9 +2959,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Which mapped article lifecycle case is nearest, and what featured-state visibility is additional?",
+        "Is the expected oracle stored featured flag or frontend placement?",
+        "Which menu/module/configuration controls the visible result?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent.",
@@ -2391,7 +3035,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java#L22-L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-10-editarticle",
@@ -2415,7 +3065,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-21-archivearticle",
@@ -2439,7 +3095,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-002",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -2566,9 +3228,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Which article edits are covered, and are any publication-window boundaries asserted?",
+        "What exact boundary-time result should be judged?",
+        "Can timezone and scheduled publication settings be pinned?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check.",
@@ -2634,7 +3296,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java#L24",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-25-assignusertogroup",
@@ -2658,7 +3326,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java#L26",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "joomla-10-editarticle",
@@ -2682,7 +3356,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -2801,9 +3481,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Which group/article access paths overlap, and what denied-edit state is distinct?",
+        "Should denial preserve version/content and expose a specific response?",
+        "Which user group/ACL setup is needed?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification.",
@@ -2869,7 +3549,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "JO-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -2940,9 +3626,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Which versioning cases are in the pinned baseline and what exact counter transition is absent?",
+        "Should the oracle assert version number, stored revision content, or both?",
+        "Which Joomla versioning/plugin/permission configuration controls this behavior?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Source model increments the article version on save; UI history visibility is a separate uncertainty.",
@@ -2991,11 +3677,220 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "per-user issue monitor/unmonitor state",
+          "inventoryApp": "mantisbt",
+          "featureEntriesEnumerated": 38,
+          "caseIdsEnumerated": [
+            "mantisbt-01-adduser",
+            "mantisbt-02-addexistinguserfails",
+            "mantisbt-03-addemptyuserfails",
+            "mantisbt-04-addproject",
+            "mantisbt-05-addexistingprojectfails",
+            "mantisbt-06-addcategory",
+            "mantisbt-07-addexistingcategoryfails",
+            "mantisbt-08-addissue",
+            "mantisbt-09-assignissue",
+            "mantisbt-0-login",
+            "mantisbt-10-updateissuepriority",
+            "mantisbt-11-updateissueseverity",
+            "mantisbt-12-updateissuestatusacknowledged",
+            "mantisbt-13-updateissuestatusassigned",
+            "mantisbt-14-updateissuestatusconfirmed",
+            "mantisbt-15-updateissuestatusfeedback",
+            "mantisbt-16-updateissuestatusnew",
+            "mantisbt-17-updateissuestatusresolved",
+            "mantisbt-18-updateissuesummary",
+            "mantisbt-19-updateprojectstatus",
+            "mantisbt-20-updateprojectdescription",
+            "mantisbt-21-updateprojectviewstatus",
+            "mantisbt-22-updatecategory",
+            "mantisbt-23-updatecategoryempty",
+            "mantisbt-24-updateuser",
+            "mantisbt-25-updateuserempty",
+            "mantisbt-26-deleteissue",
+            "mantisbt-27-deletecategory",
+            "mantisbt-28-deleteproject",
+            "mantisbt-29-deleteuser",
+            "mantisbt-30-badlogin",
+            "mantisbt-31-addmultipleusers",
+            "mantisbt-32-deletemultipleusers",
+            "mantisbt-33-addmultiplesubprojects",
+            "mantisbt-34-unlinkmultiplesubprojects",
+            "mantisbt-35-linkmultiplesubprojects",
+            "mantisbt-36-deletemultipleprojects",
+            "mantisbt-37-logout"
+          ],
+          "featurePathsEnumerated": [
+            "mantisbt/gherkin/01_AddUser.feature",
+            "mantisbt/gherkin/02_AddExistingUserFails.feature",
+            "mantisbt/gherkin/03_AddEmptyUserFails.feature",
+            "mantisbt/gherkin/04_AddProject.feature",
+            "mantisbt/gherkin/05_AddExistingProjectFails.feature",
+            "mantisbt/gherkin/06_AddCategory.feature",
+            "mantisbt/gherkin/07_AddExistingCategoryFails.feature",
+            "mantisbt/gherkin/08_AddIssue.feature",
+            "mantisbt/gherkin/09_AssignIssue.feature",
+            "mantisbt/gherkin/0_Login.feature",
+            "mantisbt/gherkin/10_UpdateIssuePriority.feature",
+            "mantisbt/gherkin/11_UpdateIssueSeverity.feature",
+            "mantisbt/gherkin/12_UpdateIssueStatusAcknowledged.feature",
+            "mantisbt/gherkin/13_UpdateIssueStatusAssigned.feature",
+            "mantisbt/gherkin/14_UpdateIssueStatusConfirmed.feature",
+            "mantisbt/gherkin/15_UpdateIssueStatusFeedback.feature",
+            "mantisbt/gherkin/16_UpdateIssueStatusNew.feature",
+            "mantisbt/gherkin/17_UpdateIssueStatusResolved.feature",
+            "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "mantisbt/gherkin/19_UpdateProjectStatus.feature",
+            "mantisbt/gherkin/20_UpdateProjectDescription.feature",
+            "mantisbt/gherkin/21_UpdateProjectViewStatus.feature",
+            "mantisbt/gherkin/22_UpdateCategory.feature",
+            "mantisbt/gherkin/23_UpdateCategoryEmpty.feature",
+            "mantisbt/gherkin/24_UpdateUser.feature",
+            "mantisbt/gherkin/25_UpdateUserEmpty.feature",
+            "mantisbt/gherkin/26_DeleteIssue.feature",
+            "mantisbt/gherkin/27_DeleteCategory.feature",
+            "mantisbt/gherkin/28_DeleteProject.feature",
+            "mantisbt/gherkin/29_DeleteUser.feature",
+            "mantisbt/gherkin/30_BadLogin.feature",
+            "mantisbt/gherkin/31_AddMultipleUsers.feature",
+            "mantisbt/gherkin/32_DeleteMultipleUsers.feature",
+            "mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+            "mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/36_DeleteMultipleProjects.feature",
+            "mantisbt/gherkin/37_Logout.feature"
+          ],
+          "javaPathsEnumerated": [
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java"
+          ],
+          "reviewedNearbyCases": "All 38 pinned MantisBT feature entries (37 mapped to Java; 0_Login.feature is feature-only) and matched Java suite inventory screened; issue add/assign/status/update, project, user and subproject workflows were considered. No monitor/unmonitor or per-user monitor-state assertion identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 37,
+          "unmappedFeaturePaths": [
+            "mantisbt/gherkin/0_Login.feature"
+          ],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "MB-GAP-001",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-08-addissue",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+            "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+            "gherkinLineRefs": [
+              {
+                "line": 12,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+            "javaAssertionLineRefs": [
+              {
+                "line": 28,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 29,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 30,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MB-GAP-001",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-18-updateissuesummary",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+            "gherkinLineRefs": [
+              {
+                "line": 8,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+            "javaAssertionLineRefs": [
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -3028,9 +3923,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Issue add/assignment/status cases do not assert per-user monitor state; is an unseen equivalent behavior in the pinned inventory a concern?",
+        "Should the oracle assert monitor row/user association and that unmonitoring leaves other users’ state unchanged?",
+        "Which reporter/viewer permissions and two-user fixture isolate account-scoped monitoring?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded.",
@@ -3090,11 +3985,220 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "private issue note visibility threshold",
+          "inventoryApp": "mantisbt",
+          "featureEntriesEnumerated": 38,
+          "caseIdsEnumerated": [
+            "mantisbt-01-adduser",
+            "mantisbt-02-addexistinguserfails",
+            "mantisbt-03-addemptyuserfails",
+            "mantisbt-04-addproject",
+            "mantisbt-05-addexistingprojectfails",
+            "mantisbt-06-addcategory",
+            "mantisbt-07-addexistingcategoryfails",
+            "mantisbt-08-addissue",
+            "mantisbt-09-assignissue",
+            "mantisbt-0-login",
+            "mantisbt-10-updateissuepriority",
+            "mantisbt-11-updateissueseverity",
+            "mantisbt-12-updateissuestatusacknowledged",
+            "mantisbt-13-updateissuestatusassigned",
+            "mantisbt-14-updateissuestatusconfirmed",
+            "mantisbt-15-updateissuestatusfeedback",
+            "mantisbt-16-updateissuestatusnew",
+            "mantisbt-17-updateissuestatusresolved",
+            "mantisbt-18-updateissuesummary",
+            "mantisbt-19-updateprojectstatus",
+            "mantisbt-20-updateprojectdescription",
+            "mantisbt-21-updateprojectviewstatus",
+            "mantisbt-22-updatecategory",
+            "mantisbt-23-updatecategoryempty",
+            "mantisbt-24-updateuser",
+            "mantisbt-25-updateuserempty",
+            "mantisbt-26-deleteissue",
+            "mantisbt-27-deletecategory",
+            "mantisbt-28-deleteproject",
+            "mantisbt-29-deleteuser",
+            "mantisbt-30-badlogin",
+            "mantisbt-31-addmultipleusers",
+            "mantisbt-32-deletemultipleusers",
+            "mantisbt-33-addmultiplesubprojects",
+            "mantisbt-34-unlinkmultiplesubprojects",
+            "mantisbt-35-linkmultiplesubprojects",
+            "mantisbt-36-deletemultipleprojects",
+            "mantisbt-37-logout"
+          ],
+          "featurePathsEnumerated": [
+            "mantisbt/gherkin/01_AddUser.feature",
+            "mantisbt/gherkin/02_AddExistingUserFails.feature",
+            "mantisbt/gherkin/03_AddEmptyUserFails.feature",
+            "mantisbt/gherkin/04_AddProject.feature",
+            "mantisbt/gherkin/05_AddExistingProjectFails.feature",
+            "mantisbt/gherkin/06_AddCategory.feature",
+            "mantisbt/gherkin/07_AddExistingCategoryFails.feature",
+            "mantisbt/gherkin/08_AddIssue.feature",
+            "mantisbt/gherkin/09_AssignIssue.feature",
+            "mantisbt/gherkin/0_Login.feature",
+            "mantisbt/gherkin/10_UpdateIssuePriority.feature",
+            "mantisbt/gherkin/11_UpdateIssueSeverity.feature",
+            "mantisbt/gherkin/12_UpdateIssueStatusAcknowledged.feature",
+            "mantisbt/gherkin/13_UpdateIssueStatusAssigned.feature",
+            "mantisbt/gherkin/14_UpdateIssueStatusConfirmed.feature",
+            "mantisbt/gherkin/15_UpdateIssueStatusFeedback.feature",
+            "mantisbt/gherkin/16_UpdateIssueStatusNew.feature",
+            "mantisbt/gherkin/17_UpdateIssueStatusResolved.feature",
+            "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "mantisbt/gherkin/19_UpdateProjectStatus.feature",
+            "mantisbt/gherkin/20_UpdateProjectDescription.feature",
+            "mantisbt/gherkin/21_UpdateProjectViewStatus.feature",
+            "mantisbt/gherkin/22_UpdateCategory.feature",
+            "mantisbt/gherkin/23_UpdateCategoryEmpty.feature",
+            "mantisbt/gherkin/24_UpdateUser.feature",
+            "mantisbt/gherkin/25_UpdateUserEmpty.feature",
+            "mantisbt/gherkin/26_DeleteIssue.feature",
+            "mantisbt/gherkin/27_DeleteCategory.feature",
+            "mantisbt/gherkin/28_DeleteProject.feature",
+            "mantisbt/gherkin/29_DeleteUser.feature",
+            "mantisbt/gherkin/30_BadLogin.feature",
+            "mantisbt/gherkin/31_AddMultipleUsers.feature",
+            "mantisbt/gherkin/32_DeleteMultipleUsers.feature",
+            "mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+            "mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/36_DeleteMultipleProjects.feature",
+            "mantisbt/gherkin/37_Logout.feature"
+          ],
+          "javaPathsEnumerated": [
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java"
+          ],
+          "reviewedNearbyCases": "All 38 pinned MantisBT feature entries (37 mapped to Java; 0_Login.feature is feature-only) and matched Java inventory screened; MB-08 issue creation and MB-18 summary update are nearby issue operations but assert category/severity/summary, not note privacy, threshold authorization or visibility. No relevant private-note case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 37,
+          "unmappedFeaturePaths": [
+            "mantisbt/gherkin/0_Login.feature"
+          ],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "MB-GAP-002",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-08-addissue",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+            "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+            "gherkinLineRefs": [
+              {
+                "line": 12,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+            "javaAssertionLineRefs": [
+              {
+                "line": 28,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 29,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 30,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MB-GAP-002",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-18-updateissuesummary",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+            "gherkinLineRefs": [
+              {
+                "line": 8,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+            "javaAssertionLineRefs": [
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -3127,9 +4231,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "No baseline case currently asserts private-note visibility; what user-level threshold and note state should the oracle check?",
+        "Which permission threshold and UI/API-visible outcome is authoritative?",
+        "How will reporter/viewer roles and private test data be isolated?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
@@ -3203,7 +4307,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java#L35-L43",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MB-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mantisbt-34-unlinkmultiplesubprojects",
@@ -3235,7 +4345,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java#L20-L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MB-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mantisbt-35-linkmultiplesubprojects",
@@ -3267,7 +4383,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java#L23-L29",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MB-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -3410,9 +4532,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Baseline subproject link/unlink is analogous; what issue-relation semantics are distinct?",
+        "Which persisted relation and reverse view should be asserted?",
+        "What project/issue permissions and cleanup are required?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation.",
@@ -3461,11 +4583,220 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "issue attachment upload validation/persistence",
+          "inventoryApp": "mantisbt",
+          "featureEntriesEnumerated": 38,
+          "caseIdsEnumerated": [
+            "mantisbt-01-adduser",
+            "mantisbt-02-addexistinguserfails",
+            "mantisbt-03-addemptyuserfails",
+            "mantisbt-04-addproject",
+            "mantisbt-05-addexistingprojectfails",
+            "mantisbt-06-addcategory",
+            "mantisbt-07-addexistingcategoryfails",
+            "mantisbt-08-addissue",
+            "mantisbt-09-assignissue",
+            "mantisbt-0-login",
+            "mantisbt-10-updateissuepriority",
+            "mantisbt-11-updateissueseverity",
+            "mantisbt-12-updateissuestatusacknowledged",
+            "mantisbt-13-updateissuestatusassigned",
+            "mantisbt-14-updateissuestatusconfirmed",
+            "mantisbt-15-updateissuestatusfeedback",
+            "mantisbt-16-updateissuestatusnew",
+            "mantisbt-17-updateissuestatusresolved",
+            "mantisbt-18-updateissuesummary",
+            "mantisbt-19-updateprojectstatus",
+            "mantisbt-20-updateprojectdescription",
+            "mantisbt-21-updateprojectviewstatus",
+            "mantisbt-22-updatecategory",
+            "mantisbt-23-updatecategoryempty",
+            "mantisbt-24-updateuser",
+            "mantisbt-25-updateuserempty",
+            "mantisbt-26-deleteissue",
+            "mantisbt-27-deletecategory",
+            "mantisbt-28-deleteproject",
+            "mantisbt-29-deleteuser",
+            "mantisbt-30-badlogin",
+            "mantisbt-31-addmultipleusers",
+            "mantisbt-32-deletemultipleusers",
+            "mantisbt-33-addmultiplesubprojects",
+            "mantisbt-34-unlinkmultiplesubprojects",
+            "mantisbt-35-linkmultiplesubprojects",
+            "mantisbt-36-deletemultipleprojects",
+            "mantisbt-37-logout"
+          ],
+          "featurePathsEnumerated": [
+            "mantisbt/gherkin/01_AddUser.feature",
+            "mantisbt/gherkin/02_AddExistingUserFails.feature",
+            "mantisbt/gherkin/03_AddEmptyUserFails.feature",
+            "mantisbt/gherkin/04_AddProject.feature",
+            "mantisbt/gherkin/05_AddExistingProjectFails.feature",
+            "mantisbt/gherkin/06_AddCategory.feature",
+            "mantisbt/gherkin/07_AddExistingCategoryFails.feature",
+            "mantisbt/gherkin/08_AddIssue.feature",
+            "mantisbt/gherkin/09_AssignIssue.feature",
+            "mantisbt/gherkin/0_Login.feature",
+            "mantisbt/gherkin/10_UpdateIssuePriority.feature",
+            "mantisbt/gherkin/11_UpdateIssueSeverity.feature",
+            "mantisbt/gherkin/12_UpdateIssueStatusAcknowledged.feature",
+            "mantisbt/gherkin/13_UpdateIssueStatusAssigned.feature",
+            "mantisbt/gherkin/14_UpdateIssueStatusConfirmed.feature",
+            "mantisbt/gherkin/15_UpdateIssueStatusFeedback.feature",
+            "mantisbt/gherkin/16_UpdateIssueStatusNew.feature",
+            "mantisbt/gherkin/17_UpdateIssueStatusResolved.feature",
+            "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "mantisbt/gherkin/19_UpdateProjectStatus.feature",
+            "mantisbt/gherkin/20_UpdateProjectDescription.feature",
+            "mantisbt/gherkin/21_UpdateProjectViewStatus.feature",
+            "mantisbt/gherkin/22_UpdateCategory.feature",
+            "mantisbt/gherkin/23_UpdateCategoryEmpty.feature",
+            "mantisbt/gherkin/24_UpdateUser.feature",
+            "mantisbt/gherkin/25_UpdateUserEmpty.feature",
+            "mantisbt/gherkin/26_DeleteIssue.feature",
+            "mantisbt/gherkin/27_DeleteCategory.feature",
+            "mantisbt/gherkin/28_DeleteProject.feature",
+            "mantisbt/gherkin/29_DeleteUser.feature",
+            "mantisbt/gherkin/30_BadLogin.feature",
+            "mantisbt/gherkin/31_AddMultipleUsers.feature",
+            "mantisbt/gherkin/32_DeleteMultipleUsers.feature",
+            "mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+            "mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+            "mantisbt/gherkin/36_DeleteMultipleProjects.feature",
+            "mantisbt/gherkin/37_Logout.feature"
+          ],
+          "javaPathsEnumerated": [
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
+            "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java"
+          ],
+          "reviewedNearbyCases": "All 38 pinned MantisBT feature entries (37 mapped to Java; 0_Login.feature is feature-only) and matched Java inventory screened; MB-08/18 cover issue creation and summary editing but no attachment upload/download, invalid file or persisted attachment assertion. No relevant attachment case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 37,
+          "unmappedFeaturePaths": [
+            "mantisbt/gherkin/0_Login.feature"
+          ],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "MB-GAP-004",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-08-addissue",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+            "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+            "gherkinLineRefs": [
+              {
+                "line": 12,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+            "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+            "javaAssertionLineRefs": [
+              {
+                "line": 28,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 29,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 30,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MB-GAP-004",
+            "application": "mantisbt",
+            "baselineCaseId": "mantisbt-18-updateissuesummary",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+            "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+            "gherkinLineRefs": [
+              {
+                "line": 8,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+            "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+            "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+            "javaAssertionLineRefs": [
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -3498,9 +4829,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Issue create/update cases do not assert attachment handling; which invalid input and persisted file metadata are in scope?",
+        "Should the oracle check rejection without a database/file orphan as well as successful download/persistence?",
+        "Which upload size/type configuration, permissions, storage path, and cleanup policy affect the result?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified.",
@@ -3570,7 +4901,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mediawiki-06-editpagetest",
@@ -3598,7 +4935,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mediawiki-21-createredirecttest",
@@ -3622,7 +4965,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java#L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mediawiki-22-followredirecttest",
@@ -3650,7 +4999,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java#L16-L17",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-001",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -3805,9 +5160,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Create/edit/redirect cases are adjacent; what move-specific title/history/redirect behavior is required?",
+        "Which source and destination page states form the oracle?",
+        "How will collisions and user rights be controlled?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation.",
@@ -3856,11 +5211,221 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "user-scoped watch/unwatch state",
+          "inventoryApp": "mediawiki",
+          "featureEntriesEnumerated": 27,
+          "caseIdsEnumerated": [
+            "mediawiki-01-createusertest",
+            "mediawiki-02-closeinitialeditorpopuptest",
+            "mediawiki-03-createpagetest",
+            "mediawiki-04-createandlinkpagetest",
+            "mediawiki-05-searchpagetest",
+            "mediawiki-06-editpagetest",
+            "mediawiki-07-createtemplatetest",
+            "mediawiki-08-createpagefromsourcetest",
+            "mediawiki-09-applytemplatetest",
+            "mediawiki-10-addcategorytest",
+            "mediawiki-11-protectpagetest",
+            "mediawiki-12-admineditprotectedpage-getswarningtest",
+            "mediawiki-13-editprotectedpage-forbiddentest",
+            "mediawiki-14-promotetoadmintest",
+            "mediawiki-15-editprotectedpage-newadmin-successtest",
+            "mediawiki-16-revertlastcommittest",
+            "mediawiki-17-createuserpagetest",
+            "mediawiki-18-blockusertest",
+            "mediawiki-19-blockeduser-cantedit",
+            "mediawiki-20-deletepagetest",
+            "mediawiki-21-createredirecttest",
+            "mediawiki-22-followredirecttest",
+            "mediawiki-23-changepassword-tooshorttest",
+            "mediawiki-24-changepassword-toocommontest",
+            "mediawiki-25-changepassword-ok",
+            "mediawiki-26-createblankpage-getswarning",
+            "mediawiki-27-createemptyuser-fails"
+          ],
+          "featurePathsEnumerated": [
+            "mediawiki/gherkin/01_CreateUserTest.feature",
+            "mediawiki/gherkin/02_CloseInitialEditorPopupTest.feature",
+            "mediawiki/gherkin/03_CreatePageTest.feature",
+            "mediawiki/gherkin/04_CreateAndLinkPageTest.feature",
+            "mediawiki/gherkin/05_SearchPageTest.feature",
+            "mediawiki/gherkin/06_EditPageTest.feature",
+            "mediawiki/gherkin/07_CreateTemplateTest.feature",
+            "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+            "mediawiki/gherkin/09_ApplyTemplateTest.feature",
+            "mediawiki/gherkin/10_AddCategoryTest.feature",
+            "mediawiki/gherkin/11_ProtectPageTest.feature",
+            "mediawiki/gherkin/12_AdminEditProtectedPage_GetsWarningTest.feature",
+            "mediawiki/gherkin/13_EditProtectedPage_ForbiddenTest.feature",
+            "mediawiki/gherkin/14_PromoteToAdminTest.feature",
+            "mediawiki/gherkin/15_EditProtectedPage_NewAdmin_SuccessTest.feature",
+            "mediawiki/gherkin/16_RevertLastCommitTest.feature",
+            "mediawiki/gherkin/17_CreateUserPageTest.feature",
+            "mediawiki/gherkin/18_BlockUserTest.feature",
+            "mediawiki/gherkin/19_BlockedUser_CantEdit.feature",
+            "mediawiki/gherkin/20_DeletePageTest.feature",
+            "mediawiki/gherkin/21_CreateRedirectTest.feature",
+            "mediawiki/gherkin/22_FollowRedirectTest.feature",
+            "mediawiki/gherkin/23_ChangePassword_TooShortTest.feature",
+            "mediawiki/gherkin/24_ChangePassword_TooCommonTest.feature",
+            "mediawiki/gherkin/25_ChangePassword_OK.feature",
+            "mediawiki/gherkin/26_CreateBlankPage_GetsWarning.feature",
+            "mediawiki/gherkin/27_CreateEmptyUser_Fails.feature"
+          ],
+          "javaPathsEnumerated": [
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateAndLinkPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/SearchPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateTemplateTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ApplyTemplateTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AddCategoryTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ProtectPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/PromoteToAdminTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockUserTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/DeletePageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_OKTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateEmptyUser_Fails.java"
+          ],
+          "reviewedNearbyCases": "All 27 mapped MediaWiki feature entries and matched Java inventory screened; create/edit/search/revert and user-page flows do not assert watchlist state or per-user scoping. No relevant watch/unwatch case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 27,
+          "unmappedFeaturePaths": [],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "MW-GAP-002",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-03-createpagetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/03_CreatePageTest.feature",
+            "featureBlobSha": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+            "gherkinLineRefs": [
+              {
+                "line": 15,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature#L15",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+            "javaBlobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
+            "javaAssertionLineRefs": [
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 23,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MW-GAP-002",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-06-editpagetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/06_EditPageTest.feature",
+            "featureBlobSha": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+            "gherkinLineRefs": [
+              {
+                "line": 14,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+            "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+            "javaAssertionLineRefs": [
+              {
+                "line": 20,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 21,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MW-GAP-002",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+            "featureBlobSha": "cfa958801e8ff05f4f22d05b1b6f42d43d69d838",
+            "gherkinLineRefs": [
+              {
+                "line": 14,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/08_CreatePageFromSourceTest.feature#L14",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+            "javaBlobSha": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+            "javaAssertionLineRefs": [
+              {
+                "line": 21,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java#L21-L22",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -3893,9 +5458,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Page create/edit cases do not assert watchlist state; should the candidate cover both watch and unwatch transitions for one user?",
+        "Which stored watch state and user-specific watchlist display constitute the expected oracle?",
+        "Which login rights, notification/preferences configuration, and second-user isolation are needed?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Source includes a dedicated watch action and watchlist manager; UI labels require review.",
@@ -3944,11 +5509,221 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "T04-D baseline has no mapped upload case.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "upload type/size rejection and no page creation",
+          "inventoryApp": "mediawiki",
+          "featureEntriesEnumerated": 27,
+          "caseIdsEnumerated": [
+            "mediawiki-01-createusertest",
+            "mediawiki-02-closeinitialeditorpopuptest",
+            "mediawiki-03-createpagetest",
+            "mediawiki-04-createandlinkpagetest",
+            "mediawiki-05-searchpagetest",
+            "mediawiki-06-editpagetest",
+            "mediawiki-07-createtemplatetest",
+            "mediawiki-08-createpagefromsourcetest",
+            "mediawiki-09-applytemplatetest",
+            "mediawiki-10-addcategorytest",
+            "mediawiki-11-protectpagetest",
+            "mediawiki-12-admineditprotectedpage-getswarningtest",
+            "mediawiki-13-editprotectedpage-forbiddentest",
+            "mediawiki-14-promotetoadmintest",
+            "mediawiki-15-editprotectedpage-newadmin-successtest",
+            "mediawiki-16-revertlastcommittest",
+            "mediawiki-17-createuserpagetest",
+            "mediawiki-18-blockusertest",
+            "mediawiki-19-blockeduser-cantedit",
+            "mediawiki-20-deletepagetest",
+            "mediawiki-21-createredirecttest",
+            "mediawiki-22-followredirecttest",
+            "mediawiki-23-changepassword-tooshorttest",
+            "mediawiki-24-changepassword-toocommontest",
+            "mediawiki-25-changepassword-ok",
+            "mediawiki-26-createblankpage-getswarning",
+            "mediawiki-27-createemptyuser-fails"
+          ],
+          "featurePathsEnumerated": [
+            "mediawiki/gherkin/01_CreateUserTest.feature",
+            "mediawiki/gherkin/02_CloseInitialEditorPopupTest.feature",
+            "mediawiki/gherkin/03_CreatePageTest.feature",
+            "mediawiki/gherkin/04_CreateAndLinkPageTest.feature",
+            "mediawiki/gherkin/05_SearchPageTest.feature",
+            "mediawiki/gherkin/06_EditPageTest.feature",
+            "mediawiki/gherkin/07_CreateTemplateTest.feature",
+            "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+            "mediawiki/gherkin/09_ApplyTemplateTest.feature",
+            "mediawiki/gherkin/10_AddCategoryTest.feature",
+            "mediawiki/gherkin/11_ProtectPageTest.feature",
+            "mediawiki/gherkin/12_AdminEditProtectedPage_GetsWarningTest.feature",
+            "mediawiki/gherkin/13_EditProtectedPage_ForbiddenTest.feature",
+            "mediawiki/gherkin/14_PromoteToAdminTest.feature",
+            "mediawiki/gherkin/15_EditProtectedPage_NewAdmin_SuccessTest.feature",
+            "mediawiki/gherkin/16_RevertLastCommitTest.feature",
+            "mediawiki/gherkin/17_CreateUserPageTest.feature",
+            "mediawiki/gherkin/18_BlockUserTest.feature",
+            "mediawiki/gherkin/19_BlockedUser_CantEdit.feature",
+            "mediawiki/gherkin/20_DeletePageTest.feature",
+            "mediawiki/gherkin/21_CreateRedirectTest.feature",
+            "mediawiki/gherkin/22_FollowRedirectTest.feature",
+            "mediawiki/gherkin/23_ChangePassword_TooShortTest.feature",
+            "mediawiki/gherkin/24_ChangePassword_TooCommonTest.feature",
+            "mediawiki/gherkin/25_ChangePassword_OK.feature",
+            "mediawiki/gherkin/26_CreateBlankPage_GetsWarning.feature",
+            "mediawiki/gherkin/27_CreateEmptyUser_Fails.feature"
+          ],
+          "javaPathsEnumerated": [
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateAndLinkPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/SearchPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateTemplateTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ApplyTemplateTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AddCategoryTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ProtectPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/PromoteToAdminTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateUserPageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockUserTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/DeletePageTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/ChangePassword_OKTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+            "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateEmptyUser_Fails.java"
+          ],
+          "reviewedNearbyCases": "All 27 mapped MediaWiki feature entries and matched Java inventory screened; MW-03 create page, MW-06 edit page and MW-08 source editor inspect page-text creation/editing, not media upload validation, byte/type limits or absence of a file page. No relevant upload-validation case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 27,
+          "unmappedFeaturePaths": [],
+          "unmappedJavaPaths": [],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "MW-GAP-003",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-03-createpagetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/03_CreatePageTest.feature",
+            "featureBlobSha": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+            "gherkinLineRefs": [
+              {
+                "line": 15,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature#L15",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+            "javaBlobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
+            "javaAssertionLineRefs": [
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 23,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MW-GAP-003",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-06-editpagetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/06_EditPageTest.feature",
+            "featureBlobSha": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+            "gherkinLineRefs": [
+              {
+                "line": 14,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+            "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+            "javaAssertionLineRefs": [
+              {
+                "line": 20,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 21,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "MW-GAP-003",
+            "application": "mediawiki",
+            "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+            "featureBlobSha": "cfa958801e8ff05f4f22d05b1b6f42d43d69d838",
+            "gherkinLineRefs": [
+              {
+                "line": 14,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/08_CreatePageFromSourceTest.feature#L14",
+            "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+            "javaBlobSha": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+            "javaAssertionLineRefs": [
+              {
+                "line": 21,
+                "kind": "assertEquals"
+              },
+              {
+                "line": 22,
+                "kind": "assertEquals"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java#L21-L22",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -3981,9 +5756,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Create-page/source-editor cases assert page text, not upload validation; which file types and size limits should distinguish the candidate?",
+        "Should the negative oracle assert no file page, no stored file, or both after rejection?",
+        "Which upload config, namespace permission, MIME detection, and cleanup policy can change the result?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
@@ -4064,7 +5839,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "mediawiki-16-revertlastcommittest",
@@ -4100,7 +5881,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java#L19-L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "MW-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -4211,9 +5998,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "How does the pinned edit/revert behavior overlap, and what additional revision transition is proposed?",
+        "Which revision ID/content should remain current after the operation?",
+        "What user rights, editor mode, and revision history fixture are necessary?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
@@ -4262,11 +6049,230 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline adds/edits products, customers and address data but has no mapped cart-rule redemption case.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "per-customer cart-rule usage limit",
+          "inventoryApp": "prestashop",
+          "featureEntriesEnumerated": 33,
+          "caseIdsEnumerated": [
+            "prestashop-01-addnewproduct",
+            "prestashop-02-addemptyproduct",
+            "prestashop-03-editproduct",
+            "prestashop-04-addnewstate",
+            "prestashop-05-addemptystate",
+            "prestashop-06-addnewproductwithtax",
+            "prestashop-07-addnewproductwithtax10",
+            "prestashop-08-addnewfeatures",
+            "prestashop-09-addemptyfeature",
+            "prestashop-10-addnewattribute",
+            "prestashop-11-addemptyattribute",
+            "prestashop-12-addnewaddress",
+            "prestashop-13-addemptyaddress",
+            "prestashop-14-addnewcategory",
+            "prestashop-15-addemptycategory",
+            "prestashop-16-editcategory",
+            "prestashop-17-addnewmanufacturer",
+            "prestashop-18-addemptymanufacturer",
+            "prestashop-19-editmanufacturer",
+            "prestashop-20-addnewsupplier",
+            "prestashop-21-addemptysupplier",
+            "prestashop-22-removesupplier",
+            "prestashop-23-registeremployee",
+            "prestashop-24-registeremployee-noname",
+            "prestashop-25-registeremployee-noemail",
+            "prestashop-26-registeremployee-nopassword",
+            "prestashop-27-registeremployee-nopermission",
+            "prestashop-28-outofstockvalidity",
+            "prestashop-29-addtag",
+            "prestashop-30-addcurrency",
+            "prestashop-31-addemptycurrency",
+            "prestashop-32-editaddress",
+            "prestashop-33-editemployee"
+          ],
+          "featurePathsEnumerated": [
+            "prestashop/gherkin/01_AddNewProduct.feature",
+            "prestashop/gherkin/02_AddEmptyProduct.feature",
+            "prestashop/gherkin/03_EditProduct.feature",
+            "prestashop/gherkin/04_AddNewState.feature",
+            "prestashop/gherkin/05_AddEmptyState.feature",
+            "prestashop/gherkin/06_AddNewProductWithTax.feature",
+            "prestashop/gherkin/07_AddNewProductWithTax10.feature",
+            "prestashop/gherkin/08_AddNewFeatures.feature",
+            "prestashop/gherkin/09_AddEmptyFeature.feature",
+            "prestashop/gherkin/10_AddNewAttribute.feature",
+            "prestashop/gherkin/11_AddEmptyAttribute.feature",
+            "prestashop/gherkin/12_AddNewAddress.feature",
+            "prestashop/gherkin/13_AddEmptyAddress.feature",
+            "prestashop/gherkin/14_AddNewCategory.feature",
+            "prestashop/gherkin/15_AddEmptyCategory.feature",
+            "prestashop/gherkin/16_EditCategory.feature",
+            "prestashop/gherkin/17_AddNewManufacturer.feature",
+            "prestashop/gherkin/18_AddEmptyManufacturer.feature",
+            "prestashop/gherkin/19_EditManufacturer.feature",
+            "prestashop/gherkin/20_AddNewSupplier.feature",
+            "prestashop/gherkin/21_AddEmptySupplier.feature",
+            "prestashop/gherkin/22_RemoveSupplier.feature",
+            "prestashop/gherkin/23_RegisterEmployee.feature",
+            "prestashop/gherkin/24_RegisterEmployee_NoName.feature",
+            "prestashop/gherkin/25_RegisterEmployee_NoEmail.feature",
+            "prestashop/gherkin/26_RegisterEmployee_NoPassword.feature",
+            "prestashop/gherkin/27_RegisterEmployee_NoPermission.feature",
+            "prestashop/gherkin/28_OutOfStockValidity.feature",
+            "prestashop/gherkin/29_AddTag.feature",
+            "prestashop/gherkin/30_AddCurrency.feature",
+            "prestashop/gherkin/31_AddEmptyCurrency.feature",
+            "prestashop/gherkin/32_EditAddress.feature",
+            "prestashop/gherkin/33_EditEmployee.feature"
+          ],
+          "javaPathsEnumerated": [
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewState.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyState.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax10.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewFeatures.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyFeature.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAttribute.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAttribute.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewSupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptySupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RemoveSupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoName.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoEmail.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPassword.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPermission.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddTag.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddCurrency.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCurrency.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditEmployee.java"
+          ],
+          "reviewedNearbyCases": "All 33 mapped PrestaShop feature entries and matched Java inventory screened; product, customer/address, employee and out-of-stock flows do not assert cart-rule redemption counts or per-customer limit enforcement. No relevant cart-rule usage case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 35,
+          "unmappedFeaturePaths": [],
+          "unmappedJavaPaths": [
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyTag.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddLanguageIsoCodeValidity.java"
+          ],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "PS-GAP-001",
+            "application": "prestashop",
+            "baselineCaseId": "prestashop-01-addnewproduct",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "prestashop/gherkin/01_AddNewProduct.feature",
+            "featureBlobSha": "327a9cb0f3d57c4215fda0d73a36b5e52582bf8a",
+            "gherkinLineRefs": [
+              {
+                "line": 11,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature#L11",
+            "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+            "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+            "javaAssertionLineRefs": [
+              {
+                "line": 20,
+                "kind": "assertTrue"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "PS-GAP-001",
+            "application": "prestashop",
+            "baselineCaseId": "prestashop-12-addnewaddress",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "prestashop/gherkin/12_AddNewAddress.feature",
+            "featureBlobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+            "gherkinLineRefs": [
+              {
+                "line": 20,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/12_AddNewAddress.feature#L20",
+            "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+            "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+            "javaAssertionLineRefs": [
+              {
+                "line": 21,
+                "kind": "assertTrue"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java#L21",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "PS-GAP-001",
+            "application": "prestashop",
+            "baselineCaseId": "prestashop-28-outofstockvalidity",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "prestashop/gherkin/28_OutOfStockValidity.feature",
+            "featureBlobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+            "gherkinLineRefs": [
+              {
+                "line": 13,
+                "kind": "REJECTION_EXPECTATION"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
+            "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+            "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+            "javaAssertionLineRefs": [
+              {
+                "line": 23,
+                "kind": "assertTrue"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -4299,9 +6305,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Product/address cases do not cover cart-rule redemption limits; is any baseline checkout comparator relevant beyond catalog/address setup?",
+        "Should the oracle check rejected second use, per-customer count, and whether the existing order remains valid?",
+        "Which customer identity, cart rule scope, guest/account settings, shop context, and order cleanup control the limit?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified.",
@@ -4350,11 +6356,199 @@
       "semanticOverlapAssessment": {
         "classification": "INSUFFICIENT_EVIDENCE",
         "technicalAssessment": "Baseline address/category/product cases do not check shipping carrier selection or range boundaries.",
-        "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient.",
+        "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search.",
         "limitations": [
           "Structural mapping is not semantic equivalence.",
           "Behavior tags are not coverage evidence.",
           "Runtime behavior was not executed."
+        ],
+        "searchDisposition": "NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN",
+        "searchScope": {
+          "candidateBehavior": "carrier eligibility at configured price/weight boundaries",
+          "inventoryApp": "prestashop",
+          "featureEntriesEnumerated": 33,
+          "caseIdsEnumerated": [
+            "prestashop-01-addnewproduct",
+            "prestashop-02-addemptyproduct",
+            "prestashop-03-editproduct",
+            "prestashop-04-addnewstate",
+            "prestashop-05-addemptystate",
+            "prestashop-06-addnewproductwithtax",
+            "prestashop-07-addnewproductwithtax10",
+            "prestashop-08-addnewfeatures",
+            "prestashop-09-addemptyfeature",
+            "prestashop-10-addnewattribute",
+            "prestashop-11-addemptyattribute",
+            "prestashop-12-addnewaddress",
+            "prestashop-13-addemptyaddress",
+            "prestashop-14-addnewcategory",
+            "prestashop-15-addemptycategory",
+            "prestashop-16-editcategory",
+            "prestashop-17-addnewmanufacturer",
+            "prestashop-18-addemptymanufacturer",
+            "prestashop-19-editmanufacturer",
+            "prestashop-20-addnewsupplier",
+            "prestashop-21-addemptysupplier",
+            "prestashop-22-removesupplier",
+            "prestashop-23-registeremployee",
+            "prestashop-24-registeremployee-noname",
+            "prestashop-25-registeremployee-noemail",
+            "prestashop-26-registeremployee-nopassword",
+            "prestashop-27-registeremployee-nopermission",
+            "prestashop-28-outofstockvalidity",
+            "prestashop-29-addtag",
+            "prestashop-30-addcurrency",
+            "prestashop-31-addemptycurrency",
+            "prestashop-32-editaddress",
+            "prestashop-33-editemployee"
+          ],
+          "featurePathsEnumerated": [
+            "prestashop/gherkin/01_AddNewProduct.feature",
+            "prestashop/gherkin/02_AddEmptyProduct.feature",
+            "prestashop/gherkin/03_EditProduct.feature",
+            "prestashop/gherkin/04_AddNewState.feature",
+            "prestashop/gherkin/05_AddEmptyState.feature",
+            "prestashop/gherkin/06_AddNewProductWithTax.feature",
+            "prestashop/gherkin/07_AddNewProductWithTax10.feature",
+            "prestashop/gherkin/08_AddNewFeatures.feature",
+            "prestashop/gherkin/09_AddEmptyFeature.feature",
+            "prestashop/gherkin/10_AddNewAttribute.feature",
+            "prestashop/gherkin/11_AddEmptyAttribute.feature",
+            "prestashop/gherkin/12_AddNewAddress.feature",
+            "prestashop/gherkin/13_AddEmptyAddress.feature",
+            "prestashop/gherkin/14_AddNewCategory.feature",
+            "prestashop/gherkin/15_AddEmptyCategory.feature",
+            "prestashop/gherkin/16_EditCategory.feature",
+            "prestashop/gherkin/17_AddNewManufacturer.feature",
+            "prestashop/gherkin/18_AddEmptyManufacturer.feature",
+            "prestashop/gherkin/19_EditManufacturer.feature",
+            "prestashop/gherkin/20_AddNewSupplier.feature",
+            "prestashop/gherkin/21_AddEmptySupplier.feature",
+            "prestashop/gherkin/22_RemoveSupplier.feature",
+            "prestashop/gherkin/23_RegisterEmployee.feature",
+            "prestashop/gherkin/24_RegisterEmployee_NoName.feature",
+            "prestashop/gherkin/25_RegisterEmployee_NoEmail.feature",
+            "prestashop/gherkin/26_RegisterEmployee_NoPassword.feature",
+            "prestashop/gherkin/27_RegisterEmployee_NoPermission.feature",
+            "prestashop/gherkin/28_OutOfStockValidity.feature",
+            "prestashop/gherkin/29_AddTag.feature",
+            "prestashop/gherkin/30_AddCurrency.feature",
+            "prestashop/gherkin/31_AddEmptyCurrency.feature",
+            "prestashop/gherkin/32_EditAddress.feature",
+            "prestashop/gherkin/33_EditEmployee.feature"
+          ],
+          "javaPathsEnumerated": [
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditProduct.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewState.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyState.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax10.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewFeatures.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyFeature.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAttribute.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAttribute.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditCategory.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditManufacturer.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewSupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptySupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RemoveSupplier.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoName.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoEmail.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPassword.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPermission.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddTag.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddCurrency.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCurrency.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditAddress.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditEmployee.java"
+          ],
+          "reviewedNearbyCases": "All 33 mapped PrestaShop feature entries and matched Java inventory screened; PS-12 adds a customer address and PS-28 rejects an out-of-stock order, but neither asserts carrier selection or price/weight boundary eligibility. No relevant carrier-range case identified.",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          },
+          "javaEntriesEnumerated": 35,
+          "unmappedFeaturePaths": [],
+          "unmappedJavaPaths": [
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyTag.java",
+            "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddLanguageIsoCodeValidity.java"
+          ],
+          "scopeMethod": "T04-D pinned-tree/mapping inventory enumerated by paths, case titles, Gherkin Then refs and Java assertion refs; nearby Gherkin/Java files listed in reviewer text were read directly at this pin. Not every application test file body is claimed as individually reviewed."
+        },
+        "nearbyCaseEvidence": [
+          {
+            "candidateId": "PS-GAP-002",
+            "application": "prestashop",
+            "baselineCaseId": "prestashop-12-addnewaddress",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "prestashop/gherkin/12_AddNewAddress.feature",
+            "featureBlobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+            "gherkinLineRefs": [
+              {
+                "line": 20,
+                "kind": "VISIBLE_MESSAGE"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/12_AddNewAddress.feature#L20",
+            "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+            "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+            "javaAssertionLineRefs": [
+              {
+                "line": 21,
+                "kind": "assertTrue"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java#L21",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          },
+          {
+            "candidateId": "PS-GAP-002",
+            "application": "prestashop",
+            "baselineCaseId": "prestashop-28-outofstockvalidity",
+            "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+            "baselinePin": {
+              "repository": "OlianasD/BEWT",
+              "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+              "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+            },
+            "featurePath": "prestashop/gherkin/28_OutOfStockValidity.feature",
+            "featureBlobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+            "gherkinLineRefs": [
+              {
+                "line": 13,
+                "kind": "REJECTION_EXPECTATION"
+              }
+            ],
+            "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
+            "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+            "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+            "javaAssertionLineRefs": [
+              {
+                "line": 23,
+                "kind": "assertTrue"
+              }
+            ],
+            "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
+            "directContentVerification": "PINNED_CONTENT_VERIFIED",
+            "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle."
+          }
         ]
       },
       "oracleAssessment": {
@@ -4387,9 +6581,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Address and out-of-stock cases do not assert carrier selection; what exact carrier eligibility behavior is proposed?",
+        "Should the oracle assert eligible/ineligible carriers at both price and weight boundaries?",
+        "Which zone, currency, tax, carrier ranges, cart weight/price, shop and configuration need pinning?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "technicalRationale": "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation.",
@@ -4455,7 +6649,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "PS-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "prestashop-01-addnewproduct",
@@ -4479,7 +6679,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "PS-GAP-003",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -4574,9 +6780,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Product/out-of-stock tests are adjacent; which positive order/payment outcome is not covered?",
+        "Which order/payment status proves success?",
+        "Which shop/zone, carrier, stock, and payment configuration must be fixed?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "technicalRationale": "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module.",
@@ -4642,7 +6848,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "PS-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         },
         {
           "caseId": "prestashop-28-outofstockvalidity",
@@ -4666,7 +6878,13 @@
           ],
           "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
           "assessment": "REVIEWED_AT_PIN",
-          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
+          "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+          "candidateId": "PS-GAP-004",
+          "baselinePin": {
+            "repository": "OlianasD/BEWT",
+            "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+            "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+          }
         }
       ],
       "baselineGherkinEvidence": [
@@ -4761,9 +6979,9 @@
         "reason": "Confidence reflects traceability and explicit limitation review, not a statistical probability."
       },
       "reviewerQuestions": [
-        "Is the observable sufficiently distinct from the exact baseline assertions?",
-        "Can the fixture and cleanup be isolated in the target deployment?",
-        "Does the human reviewer accept the source-to-oracle inference?"
+        "Which stock-management comparator is adjacent, and what combination-level behavior is additional?",
+        "Should the oracle assert per-combination quantity and purchasability?",
+        "Which shop context, combinations, stock policy, and cleanup are needed?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
       "technicalRationale": "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning.",

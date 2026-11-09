@@ -2,6 +2,13 @@
 
 Source-to-oracle assessment for all 27 proposals. `SOURCE_SUPPORTED` means the cited source supports the stated code-level behavior only; it does not establish runtime or E2E success. All runtime outcomes remain `NOT_RUN`.
 
+## Aggregate oracle classification
+
+- `PARTIALLY_SOURCE_SUPPORTED`: 25 candidates.
+- `SOURCE_SUPPORTED`: 1 candidate (EC-GAP-002). This is source-level support only.
+- `INSUFFICIENT_EVIDENCE`: 1 candidate (CL-GAP-002).
+- Combined with semantic `INSUFFICIENT_EVIDENCE`, the set union is 9 unique candidates: CL-GAP-001, CL-GAP-002, MB-GAP-001, MB-GAP-002, MB-GAP-004, MW-GAP-002, MW-GAP-003, PS-GAP-001, PS-GAP-002.
+
 ## BL-GAP-001 — Scheduled pages are promoted on a request after their due time
 
 - Oracle: `PARTIALLY_SOURCE_SUPPORTED` — A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection.

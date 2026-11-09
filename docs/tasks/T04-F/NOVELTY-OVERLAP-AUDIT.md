@@ -1,192 +1,260 @@
 # Novelty & Overlap Audit
 
-Pinned baseline: `OlianasD/BEWT@0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`). Each candidate was compared against mapped Gherkin and Java assertion locations where available. Mapping is navigation evidence, not semantic proof. All judgments are technical; novelty remains NOT_VERIFIED.
+## Review scope and counts
 
-## BL-GAP-001 — Scheduled pages are promoted on a request after their due time
+Pinned baseline: `OlianasD/BEWT@0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`). The audit has 27 candidate records, including all 20 shortlist entries. Semantic classifications: 19 `PARTIAL_SEMANTIC_OVERLAP`, 8 `INSUFFICIENT_EVIDENCE`, 0 `LIKELY_DUPLICATE`, and 0 `NO_DIRECT_SEMANTIC_OVERLAP`. Absence of a relevant baseline case is not evidence of novelty.
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
-- Comparator cases: bludit-17-changepostdatetest; pinned Gherkin/Java mappings: 1.
-- Assessment: BL-017 changes the post date; it does not assert request-time scheduler promotion. Clock, cache and public rendering remain runtime dependencies.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+Before correction the evidence index held 42 candidate-less comparison rows across 33 distinct cases. After correction it holds 46 candidate–baseline links across 35 distinct cases; the additional 4 links are the two Claroline manual exercise cases and the two ExpressCart checkout cases for EC-GAP-003. EC checkout cases also remain linked to their other candidate where applicable.
 
-## BL-GAP-002 — Cover image selection persists and renders for content
+## No relevant baseline case identified at pin
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
-- Comparator cases: bludit-01-addcontenttest; pinned Gherkin/Java mappings: 1.
-- Assessment: BL-001 creates content; no cover-image persistence or theme-render assertion is mapped. Rendering is theme-dependent.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+The following eight candidates were screened against the pinned T04-D application inventory using mapped case titles, Gherkin expected-result line references, Java assertion references, and targeted nearby Gherkin/Java files listed per candidate. This does not claim line-by-line reading of every source file. The search outcome is `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`; it is not a novelty confirmation. `HUMAN-REVIEW-PACKETS.json` and the evidence index contain the complete tree counts, mapped and unmapped paths, case IDs, and limits.
 
-## BL-GAP-003 — Static status maps to page type and the static-page collection
+### CL-GAP-001 — Course document upload, move and delete lifecycle
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: bludit-01-addcontenttest, bludit-02-changeurltest, bludit-04-changeparenttest; pinned Gherkin/Java mappings: 3.
-- Assessment: BL-001/002/004 cover add, URL and parent fields; none asserts static-page collection placement versus posts.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: course documents: upload/move/delete
+- Scope: 40 pinned feature entries, with 40 mapped Java paths for `claroline`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: Course create/search/enrol, event, exercise/question authoring/attempt/removal and user/course lifecycle inventory screened. CL-04 and CL-07 inspected as nearby course/event setup; neither asserts file/document upload, move, or delete. No relevant document-lifecycle case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## BL-GAP-004 — Administrator can change a non-admin user's role and retain it
+### MB-GAP-001 — User monitors and stops monitoring an issue for their own account
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
-- Comparator cases: bludit-08-addusertest, bludit-16-deleteusertest, bludit-09-changepasswordtest; pinned Gherkin/Java mappings: 3.
-- Assessment: BL-008/009/016 cover user creation, password and deletion; role editing and effective privilege are not asserted.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: per-user issue monitor/unmonitor state
+- Scope: 38 pinned feature files (37 mapped; `0_Login.feature` is feature-only) and 37 matched Java test files for `mantisbt`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: 38 pinned MantisBT feature entries enumerated (37 mapped to Java; `0_Login.feature` is feature-only), and matched Java assertions screened; issue add/assign/status/update, project, user and subproject workflows were considered. No monitor/unmonitor or per-user monitor-state assertion identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## CL-GAP-001 — Course document upload, move and delete lifecycle
+### MB-GAP-002 — Private issue note is hidden from users below the private-note threshold
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Source is incomplete and the runtime image patch is unattributed, so the core-source overlap comparison cannot establish deployed behavior.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: private issue note visibility threshold
+- Scope: 38 pinned feature files (37 mapped; `0_Login.feature` is feature-only) and 37 matched Java test files for `mantisbt`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: 38 pinned MantisBT feature entries enumerated (37 mapped to Java; `0_Login.feature` is feature-only), and matched Java assertions screened; MB-08 issue creation and MB-18 summary update are nearby issue operations but assert category/severity/summary, not note privacy, threshold authorization or visibility. No relevant private-note case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## CL-GAP-002 — Group space is inaccessible to a non-member student
+### MB-GAP-004 — Issue attachment upload is persisted and rejects invalid input
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
-- Comparator cases: claroline-27-adddeniedcoursetest, claroline-28-enroldeniedcoursetest, claroline-30-enrolpasswordcoursewrongpasswordusertest; pinned Gherkin/Java mappings: 3.
-- Assessment: Mapped group-space code has the membership-denial block commented; denial oracle lacks support from the reviewed core path.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: issue attachment upload validation/persistence
+- Scope: 38 pinned feature files (37 mapped; `0_Login.feature` is feature-only) and 37 matched Java test files for `mantisbt`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: 38 pinned MantisBT feature entries enumerated (37 mapped to Java; `0_Login.feature` is feature-only), and matched Java assertions screened; MB-08/18 cover issue creation and summary editing but no attachment upload/download, invalid file or persisted attachment assertion. No relevant attachment case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## CL-GAP-003 — Teacher imports an exercise package into a course
+### MW-GAP-002 — Watch and unwatch state is scoped to the signed-in user
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Exercise creation and question authoring are represented by separate pinned baseline cases; manual creation does not establish import behavior.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: user-scoped watch/unwatch state
+- Scope: 27 pinned feature entries, with 27 mapped Java paths for `mediawiki`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: All 27 mapped MediaWiki feature entries and matched Java inventory screened; create/edit/search/revert and user-page flows do not assert watchlist state or per-user scoping. No relevant watch/unwatch case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## CL-GAP-004 — Tracking controls are teacher-only while exercise attempts remain student-facing
+### MW-GAP-003 — Upload validation rejects a disallowed or oversized file without creating a file page
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: claroline-11-docourseexercisequestionstest, claroline-12-viewprofilestatisticsusertest; pinned Gherkin/Java mappings: 2.
-- Assessment: Related course/group workflows do not establish the candidate’s exact authorization or state-transition oracle; image provenance remains unresolved.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: upload type/size rejection and no page creation
+- Scope: 27 pinned feature entries, with 27 mapped Java paths for `mediawiki`; the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: All 27 mapped MediaWiki feature entries and matched Java inventory screened; MW-03 create page, MW-06 edit page and MW-08 source editor inspect page-text creation/editing, not media upload validation, byte/type limits or absence of a file page. No relevant upload-validation case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## EC-GAP-002 — Stock tracking rejects a cart quantity above available product or variant stock
+### PS-GAP-001 — Cart-rule per-customer usage limit is enforced
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
-- Comparator cases: expresscart-05-addproducttest, expresscart-07-addnewprodtocarttest; pinned Gherkin/Java mappings: 2.
-- Assessment: Baseline add-to-cart covers ordinary addition. Source guard in /product/updatecart returns HTTP 400 for insufficient stock before quantity update under stock-tracking guards; this is source support only.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: per-customer cart-rule usage limit
+- Scope: 33 pinned Gherkin files and 35 Java test files for `prestashop` (33 filename mappings; two suite-only Java classes); the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: 33 pinned PrestaShop Gherkin files and 35 Java tests enumerated (including two suite-only Java classes); product, customer/address, employee and out-of-stock flows do not assert cart-rule redemption counts or per-customer limit enforcement. No relevant cart-rule usage case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## EC-GAP-003 — Customer address update persists and is copied from session into order snapshot
+### PS-GAP-002 — Carrier eligibility follows configured price/weight range
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Checkout cases cover adjacent purchase flow but not the candidate address-dataflow assertion.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Candidate behavior: carrier eligibility at configured price/weight boundaries
+- Scope: 33 pinned Gherkin files and 35 Java test files for `prestashop` (33 filename mappings; two suite-only Java classes); the full inventory path list is in the packet searchScope.
+- Result: `NO_RELEVANT_BASELINE_CASE_IDENTIFIED_AT_PIN`. Nearby cases screened: 33 pinned PrestaShop Gherkin files and 35 Java tests enumerated (including two suite-only Java classes); PS-12 adds a customer address and PS-28 rejects an out-of-stock order, but neither asserts carrier selection or price/weight boundary eligibility. No relevant carrier-range case identified.
+- Conclusion limit: no relevant comparator was identified in this bounded inventory search; novelty remains `NOT_VERIFIED`.
 
-## EC-GAP-004 — Invalid discount date windows are rejected during admin update
+## Candidate comparisons
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: expresscart-12-adddiscountcodeamounttest, expresscart-13-adddiscountcodepercenttest, expresscart-15-usediscountcodeamounttest, expresscart-16-usediscountcodepercenttest; pinned Gherkin/Java mappings: 4.
-- Assessment: Discount creation/use overlap exists; invalid date update behavior is not asserted by those cases.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+Each candidate section below identifies mapped comparator cases where applicable. Evidence links resolve to pinned Gherkin/Java files and assertion/Then line anchors. A comparison can be adjacent rather than semantically equivalent. The entries for the ten previously unlinked candidates now distinguish two candidates with relevant adjacent comparators from eight bounded no-relevant-case searches.
 
-## JO-GAP-001 — Featured article flag appears and is removed from the featured list
+### BL-GAP-001 — Scheduled pages are promoted on a request after their due time
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
-- Comparator cases: joomla-08-addnewarticle, joomla-10-editarticle, joomla-21-archivearticle; pinned Gherkin/Java mappings: 3.
-- Assessment: Article lifecycle coverage does not assert the candidate featured-state visibility behavior.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
+- Baseline cases: bludit-17-changepostdatetest.
+- Assessment: Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## JO-GAP-002 — Publish-up and publish-down define the article visibility window
+### BL-GAP-002 — Cover image selection persists and renders for content
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
-- Comparator cases: joomla-08-addnewarticle, joomla-10-editarticle, joomla-21-archivearticle; pinned Gherkin/Java mappings: 3.
-- Assessment: Article edit coverage does not assert the exact publication-window boundary.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
+- Baseline cases: bludit-01-addcontenttest.
+- Assessment: Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## JO-GAP-003 — Editor without edit-state permission cannot change publication state
+### BL-GAP-003 — Static status maps to page type and the static-page collection
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
-- Comparator cases: joomla-23-addgroup, joomla-25-assignusertogroup, joomla-10-editarticle; pinned Gherkin/Java mappings: 3.
-- Assessment: Article/group assertions are adjacent; they do not establish the exact denied-edit state.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: bludit-01-addcontenttest, bludit-02-changeurltest, bludit-04-changeparenttest.
+- Assessment: Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## JO-GAP-004 — Editing an article increments its version counter
+### BL-GAP-004 — Administrator can change a non-admin user's role and retain it
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: joomla-10-editarticle; pinned Gherkin/Java mappings: 1.
-- Assessment: Existing version-related lifecycle assertions are adjacent, not the candidate’s exact version counter/state oracle.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
+- Baseline cases: bludit-08-addusertest, bludit-16-deleteusertest, bludit-09-changepasswordtest.
+- Assessment: Baseline add/delete user and password cases do not assert role editing or role-specific access.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MB-GAP-001 — User monitors and stops monitoring an issue for their own account
+### CL-GAP-001 — Course document upload, move and delete lifecycle
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: No mapped comparator establishes this exact permission outcome; insufficient evidence prevents a novelty claim.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MB-GAP-002 — Private issue note is hidden from users below the private-note threshold
+### CL-GAP-002 — Group space is inaccessible to a non-member student
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Privacy behavior has no direct mapped comparator; insufficient evidence prevents a novelty claim.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
+- Baseline cases: claroline-27-adddeniedcoursetest, claroline-28-enroldeniedcoursetest, claroline-30-enrolpasswordcoursewrongpasswordusertest.
+- Assessment: Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MB-GAP-003 — Issue relationship rejects self-link and duplicate links
+### CL-GAP-003 — Teacher imports an exercise package into a course
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
-- Comparator cases: mantisbt-33-addmultiplesubprojects, mantisbt-34-unlinkmultiplesubprojects, mantisbt-35-linkmultiplesubprojects; pinned Gherkin/Java mappings: 3.
-- Assessment: Subproject link/unlink is analogous, but does not assert issue relation semantics; likely overlap is not established.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
+- Baseline cases: claroline-08-addcourseexercisetest, claroline-10-addcourseexercisequestionstest.
+- Assessment: CL-08 asserts manual exercise creation; CL-10 asserts manually added question titles/types. These are adjacent authoring cases, not package import or import-fidelity checks. The comparison supports partial overlap, not equivalence.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MB-GAP-004 — Issue attachment upload is persisted and rejects invalid input
+### CL-GAP-004 — Tracking controls are teacher-only while exercise attempts remain student-facing
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `3`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Attachment-related behavior lacks a direct comparator; configuration and upload constraints need further tracing.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: claroline-11-docourseexercisequestionstest, claroline-12-viewprofilestatisticsusertest.
+- Assessment: Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MW-GAP-001 — Moving a page preserves content at the target and optionally creates a redirect
+### EC-GAP-002 — Stock tracking rejects a cart quantity above available product or variant stock
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
-- Comparator cases: mediawiki-03-createpagetest, mediawiki-06-editpagetest, mediawiki-21-createredirecttest, mediawiki-22-followredirecttest; pinned Gherkin/Java mappings: 4.
-- Assessment: Create/edit/redirect cases are adjacent but do not assert page move semantics.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
+- Baseline cases: expresscart-05-addproducttest, expresscart-07-addnewprodtocarttest.
+- Assessment: Base AddProduct and AddNewProdToCart exercise creation/cart addition but do not assert stock quantity boundary.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MW-GAP-002 — Watch and unwatch state is scoped to the signed-in user
+### EC-GAP-003 — Customer address update persists and is copied from session into order snapshot
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `2`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: No watchlist comparator is mapped; absence from mapping is not evidence of novelty.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
+- Baseline cases: expresscart-15-usediscountcodeamounttest, expresscart-16-usediscountcodepercenttest.
+- Assessment: EC-15/16 traverse checkout → shipping → payment and assert displayed discount text. Neither Gherkin nor Java asserts customer-address persistence or an address snapshot on the resulting order. The workflow overlap is real; address dataflow is untested by these assertions.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MW-GAP-003 — Upload validation rejects a disallowed or oversized file without creating a file page
+### EC-GAP-004 — Invalid discount date windows are rejected during admin update
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `3`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: Upload behavior is unmapped; frontend/no-save behavior is not established by the cited baseline.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: expresscart-12-adddiscountcodeamounttest, expresscart-13-adddiscountcodepercenttest, expresscart-15-usediscountcodeamounttest, expresscart-16-usediscountcodepercenttest.
+- Assessment: Base discount cases create/use amount and percent codes and include empty/deleted-code paths, but do not assert invalid date-window validation. Historical EC-C01 tests discount removal, a separate behavior. This is a potential gap only.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## MW-GAP-004 — A new edit creates a retrievable revision distinct from the prior revision
+### JO-GAP-001 — Featured article flag appears and is removed from the featured list
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: mediawiki-06-editpagetest, mediawiki-16-revertlastcommittest; pinned Gherkin/Java mappings: 2.
-- Assessment: Edit/revert workflow overlaps revision behavior and has the highest duplicate risk, but current evidence remains partial.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
+- Baseline cases: joomla-08-addnewarticle, joomla-10-editarticle, joomla-21-archivearticle.
+- Assessment: Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## PS-GAP-001 — Cart-rule per-customer usage limit is enforced
+### JO-GAP-002 — Publish-up and publish-down define the article visibility window
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: No direct mapped comparator; shop/zone/payment configuration and expected outcome remain insufficiently evidenced.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
+- Baseline cases: joomla-08-addnewarticle, joomla-10-editarticle, joomla-21-archivearticle.
+- Assessment: Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## PS-GAP-002 — Carrier eligibility follows configured price/weight range
+### JO-GAP-003 — Editor without edit-state permission cannot change publication state
 
-- Technical classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `2`.
-- Comparator cases: none mapped; pinned Gherkin/Java mappings: 0.
-- Assessment: No direct mapped comparator; stock/combinations setup and expected oracle remain insufficiently evidenced.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
+- Baseline cases: joomla-23-addgroup, joomla-25-assignusertogroup, joomla-10-editarticle.
+- Assessment: Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## PS-GAP-003 — Successful payment creates one order and applies stock synchronization
+### JO-GAP-004 — Editing an article increments its version counter
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
-- Comparator cases: prestashop-28-outofstockvalidity, prestashop-01-addnewproduct; pinned Gherkin/Java mappings: 2.
-- Assessment: Add-product/out-of-stock ordering overlaps adjacent catalog/cart cases; no positive payment-order flow is mapped.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: joomla-10-editarticle.
+- Assessment: Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
 
-## PS-GAP-004 — Available quantity update stays consistent with product/combination stock
+### MB-GAP-001 — User monitors and stops monitoring an issue for their own account
 
-- Technical classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
-- Comparator cases: prestashop-01-addnewproduct, prestashop-28-outofstockvalidity; pinned Gherkin/Java mappings: 2.
-- Assessment: Baseline stock model is adjacent but does not establish the candidate’s combination-admin flow.
-- See evidence index for commit-pinned permalinks and source line ranges. Runtime `NOT_RUN`; no human novelty decision is implied.
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MB-GAP-002 — Private issue note is hidden from users below the private-note threshold
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MB-GAP-003 — Issue relationship rejects self-link and duplicate links
+
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `2`.
+- Baseline cases: mantisbt-33-addmultiplesubprojects, mantisbt-34-unlinkmultiplesubprojects, mantisbt-35-linkmultiplesubprojects.
+- Assessment: Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MB-GAP-004 — Issue attachment upload is persisted and rejects invalid input
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `3`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MW-GAP-001 — Moving a page preserves content at the target and optionally creates a redirect
+
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `1`.
+- Baseline cases: mediawiki-03-createpagetest, mediawiki-06-editpagetest, mediawiki-21-createredirecttest, mediawiki-22-followredirecttest.
+- Assessment: Baseline creates/edits/deletes/redirects pages but does not map to page move.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MW-GAP-002 — Watch and unwatch state is scoped to the signed-in user
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `2`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MW-GAP-003 — Upload validation rejects a disallowed or oversized file without creating a file page
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `3`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### MW-GAP-004 — A new edit creates a retrievable revision distinct from the prior revision
+
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: mediawiki-06-editpagetest, mediawiki-16-revertlastcommittest.
+- Assessment: Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### PS-GAP-001 — Cart-rule per-customer usage limit is enforced
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `1`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### PS-GAP-002 — Carrier eligibility follows configured price/weight range
+
+- Classification: `INSUFFICIENT_EVIDENCE`; shortlisted: `true`; priority: `2`.
+- Baseline cases: no relevant case identified at pin (bounded search recorded above).
+- Assessment: No relevant mapped baseline case identified in the bounded search above; this is insufficient evidence, not evidence of novelty.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### PS-GAP-003 — Successful payment creates one order and applies stock synchronization
+
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `true`; priority: `3`.
+- Baseline cases: prestashop-28-outofstockvalidity, prestashop-01-addnewproduct.
+- Assessment: Baseline out-of-stock validity concerns product state but does not exercise payment-to-order transition or stock delta.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.
+
+### PS-GAP-004 — Available quantity update stays consistent with product/combination stock
+
+- Classification: `PARTIAL_SEMANTIC_OVERLAP`; shortlisted: `false`; priority: `not shortlisted`.
+- Baseline cases: prestashop-01-addnewproduct, prestashop-28-outofstockvalidity.
+- Assessment: Baseline adds products and tests out-of-stock validity but does not compare updates across combinations.
+- Runtime: `NOT_RUN`; novelty: `NOT_VERIFIED`. No human decision is implied.

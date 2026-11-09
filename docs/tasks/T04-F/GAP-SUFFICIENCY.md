@@ -14,6 +14,14 @@ Seven-app target: 35 new cases (five per app). Current input remains 27 proposal
 
 *“Clear enough to review” means source-linked reviewable, not runtime-proven or accepted. Counts are technical screening counts and may overlap with revision/evidence needs.
 
+## Review evidence counts (not research outcomes)
+
+- Semantic overlap: 19 `PARTIAL_SEMANTIC_OVERLAP`; 8 `INSUFFICIENT_EVIDENCE` (CL-GAP-001, MB-GAP-001, MB-GAP-002, MB-GAP-004, MW-GAP-002, MW-GAP-003, PS-GAP-001, PS-GAP-002); 0 `LIKELY_DUPLICATE`; 0 `NO_DIRECT_SEMANTIC_OVERLAP`.
+- Oracle: 25 `PARTIALLY_SOURCE_SUPPORTED`; 1 `SOURCE_SUPPORTED`; 1 `INSUFFICIENT_EVIDENCE` (CL-GAP-002).
+- Insufficient-evidence union: **9 unique candidates** (CL-GAP-001, CL-GAP-002, MB-GAP-001, MB-GAP-002, MB-GAP-004, MW-GAP-002, MW-GAP-003, PS-GAP-001, PS-GAP-002), computed as the set union across semantic and oracle classifications.
+- These are candidate review counts, not accepted or validated cases and not RQ1/RQ2 findings.
+- Baseline traceability after correction: **46 candidate–baseline links over 35 distinct pinned cases** (previously 42 rows over 33 cases).
+
 ## Cross-cutting limits
 
 - Proposal shortfall is eight: Bludit 1, Claroline 1, ExpressCart 2, Joomla 1, MantisBT 1, MediaWiki 1, PrestaShop 1. These are unfilled target slots, not presumed cases.
