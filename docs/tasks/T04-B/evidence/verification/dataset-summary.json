@@ -1,0 +1,13 @@
+{
+  "candidates": 5,
+  "baselines": 30,
+  "pairs": 150,
+  "provenance": 80,
+  "risks": 6,
+  "screeningMethod": "RULE_BASED_SCREENING",
+  "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+  "screeningCounts": {
+    "NO_DIRECT_OVERLAP_FLAGGED": 142,
+    "PARTIAL_SEMANTIC_OVERLAP": 8
+  }
+}

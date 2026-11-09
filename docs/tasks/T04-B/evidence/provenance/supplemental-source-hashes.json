@@ -1,0 +1,14 @@
+{
+  "repository": "kanboard/kanboard",
+  "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "workingTree": "CLEAN",
+  "verification": "HEAD matched the pin; clean tracked worktree; SHA-256 computed from each checked-out file.",
+  "files": [
+    {"path":"app/Model/TaskStatusModel.php","sha256":"3762118a118b0829b5f0134d858dda70e4e917de093ca80e8994a95de0721c21"},
+    {"path":"app/Model/CommentModel.php","sha256":"e0d108970059f54813ccda3df018446f312807a503cbbad240cf07d4e008dda9"},
+    {"path":"app/Template/task/show.php","sha256":"02468fe0c39ea66e78189903853bab1c70b36879ec4a14cf788150078af946f8"},
+    {"path":"app/Template/task_comments/show.php","sha256":"7eaf3d3a0e314594fff9a6d41dced23fb6f3f4afb2dad153ee26ab20a51f434d"},
+    {"path":"app/Model/SubtaskModel.php","sha256":"d5caa19e6d29c115428a154ad1f67869a4991240b5bac2fcf00f1596efad9c61"},
+    {"path":"app/Template/subtask/show.php","sha256":"37f905a21ac023a9df0d222adb6b80eb12a48464de986f162c13e06339c374c8"}
+  ]
+}

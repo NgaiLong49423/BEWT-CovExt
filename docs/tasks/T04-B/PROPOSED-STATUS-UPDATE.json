@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0",
+  "authority": "PROPOSAL_ONLY_NOT_APPLIED_TO_SHARED_STATUS",
+  "application": "Kanboard",
+  "task": "T04-B",
+  "staticReviewPackage": "PREPARED_FOR_TEAM_LEAD_REVIEW",
+  "candidateIds": ["KB-GAP-001", "KB-GAP-002", "KB-GAP-003", "KB-GAP-004", "KB-GAP-008"],
+  "humanReview": "PENDING",
+  "g0": "NOT_VERIFIED",
+  "g1": "NOT_VERIFIED",
+  "researchAcceptance": "NOT_EVALUATED",
+  "gatesSelfAccepted": false,
+  "note": "Engineering recommendations are not official candidate decisions. Shared docs/program/STATUS.json was intentionally not modified."
+}

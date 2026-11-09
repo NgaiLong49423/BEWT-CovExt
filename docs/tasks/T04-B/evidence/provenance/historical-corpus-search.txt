@@ -1,0 +1,5 @@
+Historical corpus search (read-only)
+Command: rg -n -i "kanboard|subtask|task comment|assignee|reopen.*task" docs/research-results/sprint-01 docs/research-results/sprint-02 docs/research-results/sprint-03 docs/research-results/sprint-04 docs/research-results/sprint-05 docs/research-results/final
+Result: no matches in the inspected ExpressCart historical corpus.
+Interpretation: no Kanboard-specific record found in these files; absence is not proof of global novelty.
+Files inspected: SPRINT-01-RESULTS.md through SPRINT-05-RESULTS.md and FINAL-RESEARCH-REPORT.md.
