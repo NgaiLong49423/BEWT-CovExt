@@ -98,5 +98,21 @@
     "mapped": 226,
     "featureOnly": 1,
     "javaOnly": 2
+  },
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "totalDenominators": {
+    "featureFiles": 227,
+    "explicitScenarioHeaders": 204,
+    "testSuiteBusinessEntriesMeasuredFromPinnedSource": 228,
+    "structuralMappings": 226,
+    "behaviorDenominator": "NOT_ESTABLISHED"
   }
 }

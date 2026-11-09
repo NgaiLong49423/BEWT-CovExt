@@ -11,3 +11,7 @@ Next: (1) obtain exact app source/releases matching T02 version pins, (2) cite b
 - mantisbt: NOT_EVALUATED; baseline index complete; product behavior gap not evaluated.
 - mediawiki: NOT_EVALUATED; baseline index complete; product behavior gap not evaluated.
 - prestashop: NOT_EVALUATED; baseline index complete; product behavior gap not evaluated.
+
+## Behavior tag caveat
+
+The per-case behavior tags are heuristic inferences from Gherkin step keywords. They do not establish verified app functionality, and are not used directly or indirectly as the RQ2 denominator. RQ2 remains NOT_EVALUATED pending a reviewed behavioral inventory.

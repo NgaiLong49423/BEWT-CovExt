@@ -14,11 +14,6 @@
       "scenarioTitles": [
         "Adds a user to the system"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 16,
@@ -37,18 +32,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-02-searchusertest",
       "scenarioTitles": [
         "Search a user in the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -76,17 +72,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-03-loginusertest",
       "scenarioTitles": [
         "Log in as user \"user001\""
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -106,17 +105,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-04-addcoursetest",
       "scenarioTitles": [
         "Adds a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -136,18 +137,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-05-searchcoursetest",
       "scenarioTitles": [
         "Searches a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -171,18 +173,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-06-enrolusertest",
       "scenarioTitles": [
         "Enrols a user to a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -202,17 +206,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-07-addcourseeventtest",
       "scenarioTitles": [
         "Adds an event to a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -232,17 +239,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-08-addcourseexercisetest",
       "scenarioTitles": [
         "Adds an exercise to a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -262,16 +271,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-09-makecourseexercisevisibletest",
       "scenarioTitles": [
         "Makes an exercise visible"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -299,17 +311,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-10-addcourseexercisequestionstest",
       "scenarioTitles": [
         "Adds questions to an exercise"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -349,17 +362,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-11-docourseexercisequestionstest",
       "scenarioTitles": [
         "Does an exercise in the role of a user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -379,17 +394,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-12-viewprofilestatisticsusertest",
       "scenarioTitles": [
         "Views the statistics for a user in a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -413,17 +430,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-13-addmultipleuserstest",
       "scenarioTitles": [
         "Adds a user to the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -451,17 +470,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-14-searchmultipleuserstest",
       "scenarioTitles": [
         "Searches multiple users in the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -489,19 +510,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-15-searchstudenttest",
       "scenarioTitles": [
         "Searches a student in the system"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 11,
@@ -520,19 +542,21 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-16-searchteachertest",
       "scenarioTitles": [
         "Searches a teacher in the system"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 11,
@@ -551,17 +575,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-17-searchadmintest",
       "scenarioTitles": [
         "Searches an admin in the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -581,18 +608,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-18-enrolmultipleuserstest",
       "scenarioTitles": [
         "Enrols a user to a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -620,17 +648,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-19-docourseexercisequestionsmultipleuserstest",
       "scenarioTitles": [
         "Multiple users do an exercise"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -666,16 +697,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-20-removeenrolmultipleuserstest",
       "scenarioTitles": [
         "Unsubscribe multiple users from a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -703,17 +737,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-21-removemultipleuserstest",
       "scenarioTitles": [
         "Remove multiple users from the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -745,16 +780,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-22-addemptyusertest",
       "scenarioTitles": [
         "Tries to add a user without filling all the required fields and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -774,18 +812,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-23-addwrongemailusertest",
       "scenarioTitles": [
         "Tries to add a user with a badly formatted e-mail and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -805,17 +843,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-24-addtwiceusertest",
       "scenarioTitles": [
         "Tries to add a user with the same data of an already existing user and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -835,17 +876,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-25-addwrongpasswordusertest",
       "scenarioTitles": [
         "Tries to add a user with non matching passwords and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -865,17 +908,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-26-addemptycoursetest",
       "scenarioTitles": [
         "Tries to add a course without filling the required fields and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -899,18 +944,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-27-adddeniedcoursetest",
       "scenarioTitles": [
         "Adds a denied (closed registrations) course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -930,18 +976,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-28-enroldeniedcoursetest",
       "scenarioTitles": [
         "Tries to enrol to a closed registration course and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -961,17 +1009,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-29-addpasswordcoursetest",
       "scenarioTitles": [
         "Adds a password protected course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -991,19 +1042,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
       "scenarioTitles": [
         "The user tries to enrol to a password protected course using a wrong password and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1023,18 +1074,21 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-31-enrolpasswordcoursegoodpasswordusertest",
       "scenarioTitles": [
         "The user enrols to a password protected course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1054,18 +1108,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-32-searchallowedcoursetest",
       "scenarioTitles": [
         "Searches a course using the advanced search function"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1085,18 +1141,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-33-searchandremovepasswordcoursetest",
       "scenarioTitles": [
         "Searches a password protected course using the advanced search function and then removes it"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1124,19 +1182,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-34-searchandremovedeniedcoursetest",
       "scenarioTitles": [
         "Searches a denied course using the advanced search function and then removes it"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1164,17 +1223,21 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-35-removecourseexercisequestionstest",
       "scenarioTitles": [
         "Removes questions to an exercise"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1202,17 +1265,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-36-removecourseeventtest",
       "scenarioTitles": [
         "Removes an event from a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1232,17 +1297,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-37-removecourseexercisetest",
       "scenarioTitles": [
         "Removes an exercise from a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1266,17 +1333,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-38-removeenrolusertest",
       "scenarioTitles": [
         "Removes enrolment of a user to a course"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1296,17 +1365,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-39-removeusertest",
       "scenarioTitles": [
         "Removes a user from the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1330,18 +1401,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-40-removecoursetest",
       "scenarioTitles": [
         "Removes a course from the system"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1361,7 +1433,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

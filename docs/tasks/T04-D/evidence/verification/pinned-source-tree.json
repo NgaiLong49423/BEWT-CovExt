@@ -73,5 +73,14 @@
       "javaOnly": 2
     }
   },
-  "integrityNote": "Pinned GitHub tree and contents were read via connected GitHub API; blob SHAs are indexed per app. Shell git clone failed because this environment could not resolve github.com; local cat-file verification NOT_RUN. No source content is copied into this repository."
+  "integrityNote": "Pinned GitHub tree and contents were read via connected GitHub API; blob SHAs are indexed per app. Shell git clone failed because this environment could not resolve github.com; local cat-file verification NOT_RUN. No source content is copied into this repository.",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  }
 }

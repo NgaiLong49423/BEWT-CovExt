@@ -28,9 +28,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "AddUser",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
       "javaBlobSha": "94c181b0074183a2bc15a47043b3643ce1f3c5b6",
@@ -61,7 +58,12 @@
           "name": "addUser",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-02-addexistinguserfails",
@@ -79,9 +81,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "AddExistingUserFails",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
       "javaBlobSha": "5daecfc3d0caa700ac471c85afc8d74fd4842585",
@@ -100,7 +99,12 @@
           "name": "addExistingUserFails",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-03-addemptyuserfails",
@@ -118,9 +122,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "AddEmptyUserFails",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
       "javaBlobSha": "3ce1b33f4f6a806cb1ac742715b3d7a2cd3cc0d1",
@@ -139,7 +140,12 @@
           "name": "addEmptyUserFails",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-04-addproject",
@@ -157,10 +163,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "AddProject",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
       "javaBlobSha": "90fae83d99e8f54153c3a91636d44db643f4986f",
@@ -191,7 +193,13 @@
           "name": "addProject",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-05-addexistingprojectfails",
@@ -209,10 +217,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "AddExistingProjectFails",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
       "javaBlobSha": "734ef3f6b0a71178433edd497c51275f6f33c85b",
@@ -231,7 +235,13 @@
           "name": "addExistingProjectFails",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-06-addcategory",
@@ -249,10 +259,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddCategory",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
       "javaBlobSha": "dc79339c71567e03862e5b22ffdbb2aa3eff38cd",
@@ -271,7 +277,13 @@
           "name": "addCategory",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-07-addexistingcategoryfails",
@@ -289,10 +301,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddExistingCategoryFails",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
       "javaBlobSha": "10a8dd1d3a494ce8781d3d8c8914f5ea8e183445",
@@ -311,7 +319,13 @@
           "name": "addExistingCategoryFails",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-08-addissue",
@@ -329,11 +343,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
-      ],
       "javaClass": "AddIssue",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
       "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
@@ -360,7 +369,14 @@
           "name": "addIssue",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-09-assignissue",
@@ -378,10 +394,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "AssignIssue",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
       "javaBlobSha": "7eece57a283b126a7ef74cee36212d22d708a88a",
@@ -400,7 +412,13 @@
           "name": "assignIssue",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-0-login",
@@ -418,10 +436,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": null,
       "javaPath": null,
       "javaBlobSha": null,
@@ -430,7 +444,13 @@
       "semanticOracleAlignment": "NOT_EVALUATED",
       "featureBlobSha": "56ea7e9f0bb94ffaef5ffa02046e250cd02270d5",
       "featureBytes": 298,
-      "javaTestMethodRefs": []
+      "javaTestMethodRefs": [],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-10-updateissuepriority",
@@ -448,10 +468,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssuePriority",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
       "javaBlobSha": "1b9db8ae163c0dac32cee067ab3a689e89fd998a",
@@ -470,7 +486,13 @@
           "name": "updateIssuePriority",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-11-updateissueseverity",
@@ -488,10 +510,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueSeverity",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
       "javaBlobSha": "33d5bb88e2ace1e307d746bab3fb2477a13de40f",
@@ -510,7 +528,13 @@
           "name": "updateIssueSeverity",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-12-updateissuestatusacknowledged",
@@ -528,10 +552,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusAcknowledged",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
       "javaBlobSha": "e8bc21660ceb9f655075d5151cdf7c3c5c49d328",
@@ -550,7 +570,13 @@
           "name": "updateIssueStatusAcknowledged",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-13-updateissuestatusassigned",
@@ -568,10 +594,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusAssigned",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
       "javaBlobSha": "35d288c31a24ba1c6d1a6a302f14bb61d6e67a2e",
@@ -590,7 +612,13 @@
           "name": "updateIssueStatusAssigned",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-14-updateissuestatusconfirmed",
@@ -608,10 +636,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusConfirmed",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
       "javaBlobSha": "10e982eeb12ddd1efbcfdf2e17142e94d9fffacd",
@@ -630,7 +654,13 @@
           "name": "updateIssueStatusConfirmed",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-15-updateissuestatusfeedback",
@@ -648,10 +678,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusFeedback",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
       "javaBlobSha": "689cd800a68ef387a29c937d0751c42dd7363d91",
@@ -670,7 +696,13 @@
           "name": "updateIssueStatusFeedback",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-16-updateissuestatusnew",
@@ -688,10 +720,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusNew",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
       "javaBlobSha": "4dd41a52c4d2516b1026f508f0086e1484bcbced",
@@ -710,7 +738,13 @@
           "name": "updateIssueStatusNew",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-17-updateissuestatusresolved",
@@ -728,10 +762,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueStatusResolved",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
       "javaBlobSha": "44e0427584266bd1de1e5784359c78663b1bacd7",
@@ -750,7 +780,13 @@
           "name": "updateIssueStatusResolved",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-18-updateissuesummary",
@@ -768,10 +804,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateIssueSummary",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
       "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
@@ -790,7 +822,13 @@
           "name": "updateIssueSummary",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-19-updateprojectstatus",
@@ -808,10 +846,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateProjectStatus",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
       "javaBlobSha": "bf506a62b66d967845bf635b56d5590fdf256677",
@@ -830,7 +864,13 @@
           "name": "updateProjectStatus",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-20-updateprojectdescription",
@@ -848,10 +888,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateProjectDescription",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
       "javaBlobSha": "5c91e393b0465d1bd85d2d806391500b3f0ba5c1",
@@ -870,7 +906,13 @@
           "name": "updateProjectDescription",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-21-updateprojectviewstatus",
@@ -888,10 +930,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "UpdateProjectViewStatus",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
       "javaBlobSha": "751318d96039f7c83c833e17c6eb508463626fc9",
@@ -910,7 +948,13 @@
           "name": "updateProjectViewStatus",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-22-updatecategory",
@@ -928,10 +972,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "UpdateCategory",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
       "javaBlobSha": "f1c773ba851b6a56d3f913669ede1179a2f8f733",
@@ -950,7 +990,13 @@
           "name": "updateCategory",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-23-updatecategoryempty",
@@ -968,10 +1014,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "UpdateCategoryEmpty",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
       "javaBlobSha": "74f5f75166386a0b419a299232b59af484816a31",
@@ -990,7 +1032,13 @@
           "name": "updateCategoryEmpty",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-24-updateuser",
@@ -1008,9 +1056,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "UpdateUser",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
       "javaBlobSha": "7b74a3fa60877b811369a8ef5fbe9761c473908d",
@@ -1029,7 +1074,12 @@
           "name": "updateUser",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-25-updateuserempty",
@@ -1047,10 +1097,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "authorization_boundary"
-      ],
       "javaClass": "UpdateUserEmpty",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
       "javaBlobSha": "49f98123a079617d9f686e6f4976b509a60e5ad5",
@@ -1069,7 +1115,13 @@
           "name": "updateUserEmpty",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-26-deleteissue",
@@ -1087,10 +1139,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "DeleteIssue",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
       "javaBlobSha": "7b5310b9b65462b4e39ebbce6091e2157fdffc13",
@@ -1109,7 +1157,13 @@
           "name": "deleteIssue",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-27-deletecategory",
@@ -1127,10 +1181,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteCategory",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
       "javaBlobSha": "188fff16a369c3773a1a473356f79ffdc6734940",
@@ -1149,7 +1199,13 @@
           "name": "deleteCategory",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-28-deleteproject",
@@ -1167,11 +1223,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
-      ],
       "javaClass": "DeleteProject",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
       "javaBlobSha": "7db612dd2d15074997c0aee1b0da7e22df0aeba1",
@@ -1190,7 +1241,14 @@
           "name": "deleteProject",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-29-deleteuser",
@@ -1208,10 +1266,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteUser",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
       "javaBlobSha": "265907b2586afc945d0ebc1c49a9c26673914763",
@@ -1230,7 +1284,13 @@
           "name": "deleteUser",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-30-badlogin",
@@ -1248,10 +1308,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "BadLogin",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
       "javaBlobSha": "1bc9545a1c54835bab609330e4c673f891214bd6",
@@ -1270,7 +1326,13 @@
           "name": "badLogin",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-31-addmultipleusers",
@@ -1296,9 +1358,6 @@
         }
       ],
       "stepCount": 40,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "AddMultipleUsers",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
       "javaBlobSha": "fb63df322dfc74da49530a8eccaad28d1e9552f0",
@@ -1329,7 +1388,12 @@
           "name": "addMultipleUsers",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-32-deletemultipleusers",
@@ -1355,10 +1419,6 @@
         }
       ],
       "stepCount": 20,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteMultipleUsers",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
       "javaBlobSha": "99d05a6a41272091fe6e35813e9f401ea9bbee84",
@@ -1377,7 +1437,13 @@
           "name": "deleteMultipleUsers",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-33-addmultiplesubprojects",
@@ -1399,10 +1465,6 @@
         }
       ],
       "stepCount": 24,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "AddMultipleSubprojects",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
       "javaBlobSha": "8796c9628a7b55df042b4e20822cd37a8e015a31",
@@ -1425,7 +1487,13 @@
           "name": "addMultipleSubprojects",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-34-unlinkmultiplesubprojects",
@@ -1447,10 +1515,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "UnlinkMultipleSubprojects",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
       "javaBlobSha": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
@@ -1473,7 +1537,13 @@
           "name": "unlinkMultipleSubprojects",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-35-linkmultiplesubprojects",
@@ -1495,10 +1565,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "javaClass": "LinkMultipleSubprojects",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
       "javaBlobSha": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
@@ -1521,7 +1587,13 @@
           "name": "linkMultipleSubprojects",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-36-deletemultipleprojects",
@@ -1547,11 +1619,6 @@
         }
       ],
       "stepCount": 17,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
-      ],
       "javaClass": "DeleteMultipleProjects",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
       "javaBlobSha": "af6d7f604d521e2e50b610d09df54f33252c2d62",
@@ -1570,7 +1637,14 @@
           "name": "deleteMultipleProjects",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-37-logout",
@@ -1588,9 +1662,6 @@
         }
       ],
       "stepCount": 3,
-      "behaviorTags": [
-        "identity_access"
-      ],
       "javaClass": "Logout",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java",
       "javaBlobSha": "7b621389f3e3e0f83a489943852762cafd9b046a",
@@ -1609,8 +1680,15 @@
           "name": "logout",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
-  "unmappedSuiteEvidence": []
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

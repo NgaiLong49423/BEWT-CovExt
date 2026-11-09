@@ -30,11 +30,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddUserTest.java",
       "javaBlobSha": "11dedfa2d1c33a1e93cd16bcc2c9f64aa6aff8a5",
@@ -53,7 +48,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-02-searchusertest",
@@ -75,12 +77,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchUserTest.java",
       "javaBlobSha": "c58a7e0e4fd1918410a5c7d132da2af590cb26e5",
@@ -107,7 +103,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-03-loginusertest",
@@ -129,11 +133,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_LoginUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_LoginUserTest.java",
       "javaBlobSha": "8ee244d2ded4f82e175dae792d2f39eb38f3ad54",
@@ -152,7 +151,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-04-addcoursetest",
@@ -174,11 +180,6 @@
         }
       ],
       "stepCount": 19,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
       "javaBlobSha": "09072853d6c3da7f76a0e79529d51da16fc58ca8",
@@ -197,7 +198,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-05-searchcoursetest",
@@ -219,12 +227,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchCourseTest.java",
       "javaBlobSha": "931a98ddce27f7edf2f1f6618426471429a404b7",
@@ -247,7 +249,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-06-enrolusertest",
@@ -269,12 +279,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_EnrolUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolUserTest.java",
       "javaBlobSha": "bda790d256697f98a5c9070444dbc844d0c59b68",
@@ -293,7 +297,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-07-addcourseeventtest",
@@ -315,11 +327,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddCourseEventTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
       "javaBlobSha": "045fbc815075f344cfaf227f017cb7f0aff56091",
@@ -338,7 +345,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-08-addcourseexercisetest",
@@ -360,11 +374,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddCourseExerciseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
       "javaBlobSha": "b41b7e337a98b10ff5c67cb681099bc4e1f54abd",
@@ -383,7 +392,14 @@
           "name": "runTest",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-09-makecourseexercisevisibletest",
@@ -409,10 +425,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "Claroline_MakeCourseExerciseVisibleTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_MakeCourseExerciseVisibleTest.java",
       "javaBlobSha": "285250652dd3651943b2a914daa1f1341d5d8977",
@@ -435,7 +447,13 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-10-addcourseexercisequestionstest",
@@ -457,11 +475,6 @@
         }
       ],
       "stepCount": 46,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddCourseExerciseQuestionsTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
       "javaBlobSha": "2ab6ab38542104b006ecbcbc54164038b6191374",
@@ -500,7 +513,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-11-docourseexercisequestionstest",
@@ -522,11 +542,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_DoCourseExerciseQuestionsTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
       "javaBlobSha": "5440af24a8b07245dbc0316742ebc83e9008c30c",
@@ -545,7 +560,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-12-viewprofilestatisticsusertest",
@@ -567,11 +589,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_ViewProfileStatisticsUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
       "javaBlobSha": "d6f287a8a7e27878f6201bea9e8c6113400f67e7",
@@ -594,7 +611,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-13-addmultipleuserstest",
@@ -616,11 +640,6 @@
         }
       ],
       "stepCount": 36,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddMultipleUsersTest.java",
       "javaBlobSha": "ba37e6f81b186635e024188d1dcd8d7243187d17",
@@ -647,7 +666,14 @@
           "name": "runTest",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-14-searchmultipleuserstest",
@@ -669,11 +695,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchMultipleUsersTest.java",
       "javaBlobSha": "d3410d0bf80458d6fd3a21ca8c229857bff8ceae",
@@ -700,7 +721,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-15-searchstudenttest",
@@ -722,12 +750,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchStudentTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchStudentTest.java",
       "javaBlobSha": "e3a762db272e94f78c711fde559c686b28c77ffb",
@@ -746,7 +768,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-16-searchteachertest",
@@ -768,12 +798,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchTeacherTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchTeacherTest.java",
       "javaBlobSha": "6e3f037256488fca3c1130f88525c1b32ccef222",
@@ -792,7 +816,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-17-searchadmintest",
@@ -814,11 +846,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchAdminTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAdminTest.java",
       "javaBlobSha": "d8e94dd4134a9388ecf98b5406fc401fcc812c66",
@@ -837,7 +864,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-18-enrolmultipleuserstest",
@@ -859,12 +893,6 @@
         }
       ],
       "stepCount": 38,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_EnrolMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolMultipleUsersTest.java",
       "javaBlobSha": "4e0832f02e52001c168a02b5c04a678f5cf65653",
@@ -891,7 +919,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-19-docourseexercisequestionsmultipleuserstest",
@@ -909,11 +945,6 @@
         }
       ],
       "stepCount": 49,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_DoCourseExerciseQuestionsMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsMultipleUsersTest.java",
       "javaBlobSha": "43bfe5f54b59d83dcbbb201a70d5e6274dbef2f6",
@@ -952,7 +983,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-20-removeenrolmultipleuserstest",
@@ -974,10 +1012,6 @@
         }
       ],
       "stepCount": 17,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "Claroline_RemoveEnrolMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolMultipleUsersTest.java",
       "javaBlobSha": "e1d0bc109ec717b10d3419d33fa5edc8d7862b0b",
@@ -1004,7 +1038,13 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-21-removemultipleuserstest",
@@ -1026,11 +1066,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_RemoveMultipleUsersTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveMultipleUsersTest.java",
       "javaBlobSha": "9b2eb1b2b863b1f2896ff9cb8e05b76fd69b833c",
@@ -1061,7 +1096,14 @@
           "name": "runTest",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-22-addemptyusertest",
@@ -1083,10 +1125,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "Claroline_AddEmptyUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyUserTest.java",
       "javaBlobSha": "3704e686af9ffceaa81cbdbe7f2ff40351276e88",
@@ -1105,7 +1143,13 @@
           "name": "runTest",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-23-addwrongemailusertest",
@@ -1127,12 +1171,6 @@
         }
       ],
       "stepCount": 17,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddWrongEmailUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongEmailUserTest.java",
       "javaBlobSha": "6e02a58e03412eba7f5cc9d8a126a7f25973c87b",
@@ -1151,7 +1189,15 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-24-addtwiceusertest",
@@ -1173,11 +1219,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddTwiceUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddTwiceUserTest.java",
       "javaBlobSha": "4f321f29bcb01929f67013ce3933b5103a4aa24f",
@@ -1196,7 +1237,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-25-addwrongpasswordusertest",
@@ -1218,11 +1266,6 @@
         }
       ],
       "stepCount": 17,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddWrongPasswordUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongPasswordUserTest.java",
       "javaBlobSha": "29d70ed1f6f5d8967333b825c6d155e4edd468d7",
@@ -1241,7 +1284,14 @@
           "name": "runTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-26-addemptycoursetest",
@@ -1263,11 +1313,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddEmptyCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyCourseTest.java",
       "javaBlobSha": "4a842fbfb98957a1f43db43d4c97ce137c2b99df",
@@ -1290,7 +1335,14 @@
           "name": "addEmptyCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-27-adddeniedcoursetest",
@@ -1312,12 +1364,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "authorization_boundary"
-      ],
       "javaClass": "Claroline_AddDeniedCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
       "javaBlobSha": "f05796e9fbf8935acde4bf18eeb0d559dc7c3205",
@@ -1336,7 +1382,15 @@
           "name": "addDeniedCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-28-enroldeniedcoursetest",
@@ -1358,12 +1412,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_EnrolDeniedCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
       "javaBlobSha": "efcc97769cb2bcdad1a6781644544e5b244e9a95",
@@ -1382,7 +1430,15 @@
           "name": "enrolDeniedCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-29-addpasswordcoursetest",
@@ -1404,11 +1460,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_AddPasswordCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddPasswordCourseTest.java",
       "javaBlobSha": "ad839b2d8f4a82c84beb74196f4dcf446110ba2f",
@@ -1427,7 +1478,14 @@
           "name": "addPasswordCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
@@ -1449,13 +1507,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search",
-        "authorization_boundary"
-      ],
       "javaClass": "Claroline_EnrolPasswordCourseWrongPasswordUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
       "javaBlobSha": "560fcd4fb112b01a9626e9b64015d335ee292d00",
@@ -1474,7 +1525,16 @@
           "name": "enrolPasswordCourseWrongPassword",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-31-enrolpasswordcoursegoodpasswordusertest",
@@ -1496,12 +1556,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_EnrolPasswordCourseGoodPasswordUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseGoodPasswordUserTest.java",
       "javaBlobSha": "20cb72dce4ad2969c49078ab8dcde84f016795bd",
@@ -1520,7 +1574,15 @@
           "name": "enrolPasswordCourseGoodPassword",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-32-searchallowedcoursetest",
@@ -1542,12 +1604,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchAllowedCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAllowedCourseTest.java",
       "javaBlobSha": "71b8cc5229b04573f3f63d114e8421644ed34703",
@@ -1566,7 +1622,15 @@
           "name": "searchAllowedCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-33-searchandremovepasswordcoursetest",
@@ -1592,12 +1656,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_SearchAndRemovePasswordCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemovePasswordCourseTest.java",
       "javaBlobSha": "aeaed60899868cea7d72cdc64522e347ab517d9b",
@@ -1620,7 +1678,15 @@
           "name": "searchAndRemovePasswordCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-34-searchandremovedeniedcoursetest",
@@ -1646,13 +1712,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search",
-        "authorization_boundary"
-      ],
       "javaClass": "Claroline_SearchAndRemoveDeniedCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemoveDeniedCourseTest.java",
       "javaBlobSha": "4e5662a6dc0dd2d10724721e0651f1b1eb8568cf",
@@ -1675,7 +1734,16 @@
           "name": "searchAndRemoveDeniedCourse",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-35-removecourseexercisequestionstest",
@@ -1697,11 +1765,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_RemoveCourseExerciseQuestionsTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseQuestionsTest.java",
       "javaBlobSha": "7ce018ee1b23f59c4cff0713cab7db9cfaa8f219",
@@ -1728,7 +1791,14 @@
           "name": "removeCourseExerciseQuestions",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-36-removecourseeventtest",
@@ -1750,11 +1820,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_RemoveCourseEventTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseEventTest.java",
       "javaBlobSha": "c0280329aabaaa632f5c0a4bda8992de2705eeb7",
@@ -1773,7 +1838,14 @@
           "name": "removeCourseEvent",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-37-removecourseexercisetest",
@@ -1795,11 +1867,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_RemoveCourseExerciseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseTest.java",
       "javaBlobSha": "70dcd56c1228a01a353e558c662302d35548d712",
@@ -1822,7 +1889,14 @@
           "name": "removeCourseExerciseTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-38-removeenrolusertest",
@@ -1844,11 +1918,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management"
-      ],
       "javaClass": "Claroline_RemoveEnrolUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolUserTest.java",
       "javaBlobSha": "dbe79017e407f713911e146e5e7668a626590fe7",
@@ -1867,7 +1936,14 @@
           "name": "removeEnrolUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-39-removeusertest",
@@ -1889,11 +1965,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_RemoveUserTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveUserTest.java",
       "javaBlobSha": "7f5e387912425f4aa38f218a6d961b48228ad8f7",
@@ -1916,7 +1987,14 @@
           "name": "removeUserTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "claroline-40-removecoursetest",
@@ -1938,12 +2016,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "learning_management",
-        "navigation_search"
-      ],
       "javaClass": "Claroline_RemoveCourseTest",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseTest.java",
       "javaBlobSha": "11f3486a405b11d0c64cb6109be2108ffea1b398",
@@ -1962,8 +2034,18 @@
           "name": "removeCourseTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "learning_management",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
-  "unmappedSuiteEvidence": []
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

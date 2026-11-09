@@ -26,7 +26,35 @@
     "suiteClassWithoutFeature": [],
     "notes": [
       "All 23 feature files at this source pin have no explicit Scenario header."
-    ]
+    ],
+    "versionLabelMismatch": {
+      "t02Issue": "M2_VERSION_TAG_MISMATCH",
+      "gherkinFolderLabel": "bludit-3.13.1",
+      "baselineSuiteLabel": "bludit-2.3.4",
+      "t02Note": "T02 records that the 23 Gherkin files appear to match the 2.3.4 Base despite the 3.13.1 folder label.",
+      "t04dDisposition": "LABEL_MISMATCH_RECORDED; this task does not establish application-version equivalence."
+    }
   },
-  "G1": "NOT_VERIFIED"
+  "G1": "NOT_VERIFIED",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "versionLabelMismatch": {
+    "t02Issue": "M2_VERSION_TAG_MISMATCH",
+    "gherkinFolderLabel": "bludit-3.13.1",
+    "baselineSuiteLabel": "bludit-2.3.4",
+    "t02Note": "T02 records that the 23 Gherkin files appear to match the 2.3.4 Base despite the 3.13.1 folder label.",
+    "t04dDisposition": "LABEL_MISMATCH_RECORDED; this task does not establish application-version equivalence."
+  },
+  "behaviorTagInterpretation": {
+    "status": "HEURISTIC_INFERENCE_ONLY",
+    "basis": "Keyword heuristic over pinned Gherkin step text; not verified app behavior.",
+    "usedAsRQ2Denominator": false
+  }
 }

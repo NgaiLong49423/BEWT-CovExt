@@ -30,5 +30,19 @@
       "0_Login.feature has no matching TestSuite business class; T02 describes login as fixture/setup behavior."
     ]
   },
-  "G1": "NOT_VERIFIED"
+  "G1": "NOT_VERIFIED",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "behaviorTagInterpretation": {
+    "status": "HEURISTIC_INFERENCE_ONLY",
+    "basis": "Keyword heuristic over pinned Gherkin step text; not verified app behavior.",
+    "usedAsRQ2Denominator": false
+  }
 }

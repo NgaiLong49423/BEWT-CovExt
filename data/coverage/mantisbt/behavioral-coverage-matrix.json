@@ -14,9 +14,6 @@
       "scenarioTitles": [
         "Add a new user"
       ],
-      "observedBehaviorTags": [
-        "identity_access"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 12,
@@ -43,15 +40,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-02-addexistinguserfails",
       "scenarioTitles": [
         "Tries to add an already existing user and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access"
       ],
       "expectedOutcomeRefs": [
         {
@@ -67,15 +66,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-03-addemptyuserfails",
       "scenarioTitles": [
         "Tries to add an empty user and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access"
       ],
       "expectedOutcomeRefs": [
         {
@@ -91,16 +92,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-04-addproject",
       "scenarioTitles": [
         "Adds a new project"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -128,16 +130,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-05-addexistingprojectfails",
       "scenarioTitles": [
         "Tries to add an existing project and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -153,16 +157,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-06-addcategory",
       "scenarioTitles": [
         "Adds a category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -178,16 +184,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-07-addexistingcategoryfails",
       "scenarioTitles": [
         "Tries to add an existing category and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -203,17 +211,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-08-addissue",
       "scenarioTitles": [
         "Adds a new issue"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -237,16 +246,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-09-assignissue",
       "scenarioTitles": [
         "Assigns an issue to the administrator"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -262,16 +274,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-0-login",
       "scenarioTitles": [
         "Logs in as the administrator"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -282,17 +296,19 @@
       "javaAssertionRefs": [],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-10-updateissuepriority",
       "scenarioTitles": [
         "Changes the priorrity of an issue"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -307,17 +323,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-11-updateissueseverity",
       "scenarioTitles": [
         "Changes the severity of an issue"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -332,17 +350,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-12-updateissuestatusacknowledged",
       "scenarioTitles": [
         "Changes the status of an issue to \"acknowledged\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -357,17 +377,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-13-updateissuestatusassigned",
       "scenarioTitles": [
         "Changes the status of an issue to \"assigned\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -382,17 +404,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-14-updateissuestatusconfirmed",
       "scenarioTitles": [
         "Changes the status of an issue to \"confirmed\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -407,17 +431,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-15-updateissuestatusfeedback",
       "scenarioTitles": [
         "Changes the status of an issue to \"feedback\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -432,17 +458,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-16-updateissuestatusnew",
       "scenarioTitles": [
         "Changes the status of an issue to \"new\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -457,17 +485,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-17-updateissuestatusresolved",
       "scenarioTitles": [
         "Changes the status of an issue to \"resolved\""
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -482,17 +512,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-18-updateissuesummary",
       "scenarioTitles": [
         "Changes the summary of an issue"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 8,
@@ -507,17 +539,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-19-updateprojectstatus",
       "scenarioTitles": [
         "Changes the status of a project"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 8,
@@ -532,17 +566,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-20-updateprojectdescription",
       "scenarioTitles": [
         "Changes the description of a project"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -557,16 +593,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-21-updateprojectviewstatus",
       "scenarioTitles": [
         "Changes the view status (visibility) of a project"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -582,16 +620,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-22-updatecategory",
       "scenarioTitles": [
         "Changes a category's name"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -607,16 +647,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-23-updatecategoryempty",
       "scenarioTitles": [
         "Tries to change a category's name with an empty string and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -632,15 +674,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-24-updateuser",
       "scenarioTitles": [
         "Changes a user's real name"
-      ],
-      "observedBehaviorTags": [
-        "identity_access"
       ],
       "expectedOutcomeRefs": [
         {
@@ -656,16 +701,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-25-updateuserempty",
       "scenarioTitles": [
         "Tries to change a username with an empty string and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -681,16 +727,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-26-deleteissue",
       "scenarioTitles": [
         "Deletes an issue"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -706,16 +754,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-27-deletecategory",
       "scenarioTitles": [
         "Deletes a category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -731,17 +781,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-28-deleteproject",
       "scenarioTitles": [
         "Deletes a project"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -757,16 +808,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-29-deleteuser",
       "scenarioTitles": [
         "Deletes a user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -782,16 +836,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-30-badlogin",
       "scenarioTitles": [
         "Tries to login with invalid credentials and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -807,15 +863,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-31-addmultipleusers",
       "scenarioTitles": [
         "Adds three new users"
-      ],
-      "observedBehaviorTags": [
-        "identity_access"
       ],
       "expectedOutcomeRefs": [
         {
@@ -851,16 +910,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-32-deletemultipleusers",
       "scenarioTitles": [
         "Deletes three users"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -884,16 +944,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-33-addmultiplesubprojects",
       "scenarioTitles": [
         "Adds a new project and then adds two subprojects"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -917,16 +979,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-34-unlinkmultiplesubprojects",
       "scenarioTitles": [
         "Unlinks two subprojects from their parent project"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -950,16 +1014,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-35-linkmultiplesubprojects",
       "scenarioTitles": [
         "Links two subprojects to another project"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -983,17 +1049,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-36-deletemultipleprojects",
       "scenarioTitles": [
         "Deletes three projects"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1017,15 +1084,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mantisbt-37-logout",
       "scenarioTitles": [
         "Add a new user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access"
       ],
       "expectedOutcomeRefs": [
         {
@@ -1041,7 +1112,14 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

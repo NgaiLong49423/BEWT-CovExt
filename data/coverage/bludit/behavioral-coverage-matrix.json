@@ -12,10 +12,6 @@
     {
       "caseId": "bludit-01-addcontenttest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -30,15 +26,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-02-changeurltest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 13,
@@ -53,15 +51,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-03-changepositiontest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 15,
@@ -76,15 +76,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-04-changeparenttest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 14,
@@ -99,15 +101,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-05-addasdrafttest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -122,16 +126,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-06-setstickyposttest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 12,
@@ -146,15 +151,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-07-deleteposttest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 10,
@@ -169,15 +177,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-08-addusertest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 14,
@@ -192,15 +202,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-09-changepasswordtest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 12,
@@ -215,15 +227,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-10-addsocialstest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 13,
@@ -242,15 +256,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-11-changehometest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -265,15 +281,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-12-orderbypositiontest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -288,15 +306,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-13-addsitesocialtest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -311,15 +331,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-14-setfootertest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -334,15 +356,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-15-changelanguagetest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -365,15 +389,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-16-deleteusertest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 10,
@@ -388,15 +414,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-17-changepostdatetest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 14,
@@ -411,15 +439,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-18-badloginfailstest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 6,
@@ -438,15 +468,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-19-addcategorytest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 10,
@@ -461,15 +493,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-20-assigncategorytest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 14,
@@ -484,15 +518,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-21-seecategoryarticlestest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 8,
@@ -507,15 +543,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-22-deletecategorytest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 9,
@@ -530,15 +568,17 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-23-emptyloginfailstest",
       "scenarioTitles": [],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 4,
@@ -557,7 +597,15 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

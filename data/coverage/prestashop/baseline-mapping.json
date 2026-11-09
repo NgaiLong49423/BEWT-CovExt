@@ -29,11 +29,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewProduct",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
       "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
@@ -52,7 +47,14 @@
           "name": "test_add_new_product",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-02-addemptyproduct",
@@ -70,11 +72,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyProduct",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyProduct.java",
       "javaBlobSha": "a169d273ecd72dad41d6f78084a2e37e42737830",
@@ -93,7 +90,14 @@
           "name": "test_add_empty_product",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-03-editproduct",
@@ -111,11 +115,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "EditProduct",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditProduct.java",
       "javaBlobSha": "d8359b013b900364cbd32881f31b0b29734c06f9",
@@ -134,7 +133,14 @@
           "name": "test_edit_product",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-04-addnewstate",
@@ -152,11 +158,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewState",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewState.java",
       "javaBlobSha": "e88edcfa0303634df301bb2abf0c28f08847a587",
@@ -175,7 +176,14 @@
           "name": "test_add_new_state",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-05-addemptystate",
@@ -193,11 +201,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyState",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyState.java",
       "javaBlobSha": "89e8c3f2c2c6e3466046296be8be28f12a4da91f",
@@ -216,7 +219,14 @@
           "name": "test_add_empty_state",
           "line": 18
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-06-addnewproductwithtax",
@@ -234,11 +244,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewProductWithTax",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax.java",
       "javaBlobSha": "bdc76bd28ed0d43e381faf467e5a670a0cfa4b5d",
@@ -257,7 +262,14 @@
           "name": "test_add_new_product_with_tax",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-07-addnewproductwithtax10",
@@ -275,11 +287,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewProductWithTax10",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProductWithTax10.java",
       "javaBlobSha": "b6a2a30b1eedf6398129357457ea6d2eb6b710ad",
@@ -298,7 +305,14 @@
           "name": "test_add_new_product_with_tax10",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-08-addnewfeatures",
@@ -316,11 +330,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewFeatures",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewFeatures.java",
       "javaBlobSha": "e8976841f04690385937135fa2936b8fe99fceb5",
@@ -339,7 +348,14 @@
           "name": "test_add_features",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-09-addemptyfeature",
@@ -357,11 +373,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyFeature",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyFeature.java",
       "javaBlobSha": "7b8768decbf784d336797cc794f05df3c9f5eaf1",
@@ -380,7 +391,14 @@
           "name": "test_add_empty_feature",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-10-addnewattribute",
@@ -398,11 +416,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewAttribute",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAttribute.java",
       "javaBlobSha": "a6389eba2b71a5fc81956fffc804911398119386",
@@ -421,7 +434,14 @@
           "name": "test_add_attributes",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-11-addemptyattribute",
@@ -439,11 +459,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyAttribute",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAttribute.java",
       "javaBlobSha": "e5fe547b2a0629a976f6ef672383e5c498c9d996",
@@ -462,7 +477,14 @@
           "name": "test_add_empty_attributes",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-12-addnewaddress",
@@ -480,11 +502,6 @@
         }
       ],
       "stepCount": 19,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewAddress",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
       "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
@@ -503,7 +520,14 @@
           "name": "test_add_address",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-13-addemptyaddress",
@@ -521,11 +545,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyAddress",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyAddress.java",
       "javaBlobSha": "c49fa5fcbb7d95710aa19105e7249f4545b9ca3e",
@@ -544,7 +563,14 @@
           "name": "test_add_empty_address",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-14-addnewcategory",
@@ -562,11 +588,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewCategory",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java",
       "javaBlobSha": "63798a29081b1fea9164c435c5a2ab06102f1565",
@@ -585,7 +606,14 @@
           "name": "test_add_category",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-15-addemptycategory",
@@ -603,11 +631,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyCategory",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCategory.java",
       "javaBlobSha": "23e02167acc9ee0b72b708ab6dac2ca9016f8151",
@@ -626,7 +649,14 @@
           "name": "test_add_empty_category",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-16-editcategory",
@@ -644,11 +674,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "EditCategory",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditCategory.java",
       "javaBlobSha": "b0e16a27c8f1461bfe9644f8e5fe9d43ed1adb24",
@@ -667,7 +692,14 @@
           "name": "test_edit_category",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-17-addnewmanufacturer",
@@ -685,11 +717,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewManufacturer",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewManufacturer.java",
       "javaBlobSha": "010c47ac6c1114cff6b3c4f63ef9727531047353",
@@ -708,7 +735,14 @@
           "name": "test_add_manufacturer",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-18-addemptymanufacturer",
@@ -726,11 +760,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyManufacturer",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyManufacturer.java",
       "javaBlobSha": "e30a7dd933f755bcd15f0adc1caf978e90c88b11",
@@ -749,7 +778,14 @@
           "name": "test_add_empty_manufacturer",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-19-editmanufacturer",
@@ -767,11 +803,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "EditManufacturer",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditManufacturer.java",
       "javaBlobSha": "c37096378daf888d2e69dad11401faef164574e7",
@@ -790,7 +821,14 @@
           "name": "test_edit_manufacturer_address",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-20-addnewsupplier",
@@ -808,11 +846,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewSupplier",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewSupplier.java",
       "javaBlobSha": "51211f9b677b7a4a54a7b1fbbfd41c8e074765a3",
@@ -831,7 +864,14 @@
           "name": "test_add_supplier",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-21-addemptysupplier",
@@ -849,11 +889,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptySupplier",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptySupplier.java",
       "javaBlobSha": "922af046e3fbee755b508924a2106c595a8c9c1a",
@@ -872,7 +907,14 @@
           "name": "test_add_empty_supplier",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-22-removesupplier",
@@ -890,11 +932,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "RemoveSupplier",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RemoveSupplier.java",
       "javaBlobSha": "5044e24ccae97f827a94a0e976d14402777013b8",
@@ -913,7 +950,14 @@
           "name": "test_remove_supplier",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-23-registeremployee",
@@ -931,12 +975,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "RegisterEmployee",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee.java",
       "javaBlobSha": "5483550b2bff28d2e479ec57f40f57f37503b463",
@@ -955,7 +993,15 @@
           "name": "test_register_employee",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-24-registeremployee-noname",
@@ -973,12 +1019,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "RegisterEmployee_NoName",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoName.java",
       "javaBlobSha": "646863fb74198454803ec61d5871a6d8f7879233",
@@ -997,7 +1037,15 @@
           "name": "test_register_employee_no_name",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-25-registeremployee-noemail",
@@ -1015,12 +1063,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "RegisterEmployee_NoEmail",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoEmail.java",
       "javaBlobSha": "defc8f4b43c6197fc2397d17f550f48120d62fde",
@@ -1039,7 +1081,15 @@
           "name": "test_register_employee_no_email",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-26-registeremployee-nopassword",
@@ -1057,12 +1107,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "RegisterEmployee_NoPassword",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPassword.java",
       "javaBlobSha": "6033f76715e5a53021a75c026e0779d3c4523e54",
@@ -1081,7 +1125,15 @@
           "name": "test_register_employee_no_passsword",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-27-registeremployee-nopermission",
@@ -1099,11 +1151,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "RegisterEmployee_NoPermission",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/RegisterEmployee_NoPermission.java",
       "javaBlobSha": "1ff519319642b4464cded6a7a700f1450686b522",
@@ -1122,7 +1169,14 @@
           "name": "test_register_employee_no_permission",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-28-outofstockvalidity",
@@ -1140,12 +1194,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "navigation_search"
-      ],
       "javaClass": "OutOfStockValidity",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
       "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
@@ -1164,7 +1212,15 @@
           "name": "test_outofstock",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-29-addtag",
@@ -1182,11 +1238,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddTag",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddTag.java",
       "javaBlobSha": "f3896862716f11b86d6201ee4867b16226ce202d",
@@ -1205,7 +1256,14 @@
           "name": "test_add_tag",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-30-addcurrency",
@@ -1223,11 +1281,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddCurrency",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddCurrency.java",
       "javaBlobSha": "9342941f84514859ff02af985ed4a61e9a58079f",
@@ -1246,7 +1299,14 @@
           "name": "test_add_currency",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-31-addemptycurrency",
@@ -1264,11 +1324,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyCurrency",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddEmptyCurrency.java",
       "javaBlobSha": "388e2b10b084a8b184106bb68ed55e97007a38ee",
@@ -1287,7 +1342,14 @@
           "name": "test_add_empty_currency",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-32-editaddress",
@@ -1305,11 +1367,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "EditAddress",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditAddress.java",
       "javaBlobSha": "e12c5ed10c4360bac7d2bd65901c28eb9664daff",
@@ -1328,7 +1385,14 @@
           "name": "test_edit_address",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "prestashop-33-editemployee",
@@ -1346,11 +1410,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "EditEmployee",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/EditEmployee.java",
       "javaBlobSha": "120296b27843b7f112c5160706392f8d3d197b38",
@@ -1369,7 +1428,14 @@
           "name": "test_update_employee",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
   "unmappedSuiteEvidence": [
@@ -1407,5 +1473,7 @@
         }
       ]
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

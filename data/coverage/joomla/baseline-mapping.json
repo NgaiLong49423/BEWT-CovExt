@@ -30,10 +30,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AdminLoginTest",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AdminLoginTest.java",
       "javaBlobSha": "cfc5b4b4d9ac3aafe5f3579eb0e3a6e9e5051d67",
@@ -52,7 +48,13 @@
           "name": "adminLoginTest",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-02-badlogin",
@@ -70,10 +72,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "BadLogin",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/BadLogin.java",
       "javaBlobSha": "27e2632fa62014837375161ef41bf2d1e51d6241",
@@ -92,7 +90,13 @@
           "name": "badLogin",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-03-emptylogin",
@@ -110,10 +114,6 @@
         }
       ],
       "stepCount": 4,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "EmptyLogin",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EmptyLogin.java",
       "javaBlobSha": "7d4d4f2adbc58eac03f7a8da5817188771088ed8",
@@ -132,7 +132,13 @@
           "name": "emptyLogin",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-04-adduser",
@@ -150,10 +156,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddUser",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddUser.java",
       "javaBlobSha": "b9640a0eada0018ebef26bb2bf060e95cbcd09f5",
@@ -180,7 +182,13 @@
           "name": "addUser",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-05-loginasnewuser",
@@ -202,10 +210,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "LoginAsNewUser",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/LoginAsNewUser.java",
       "javaBlobSha": "db571c5c883ee41c09204a4225916251224e77f9",
@@ -224,7 +228,13 @@
           "name": "loginAsNewUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-06-badsiteadminlogin",
@@ -242,10 +252,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "BadSiteAdminLogin",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/BadSiteAdminLogin.java",
       "javaBlobSha": "aa8dc4b47685536e6b69e5ed4fe241e8771158d5",
@@ -264,7 +270,13 @@
           "name": "badSiteAdminLogin",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-07-emptysiteadminlogin",
@@ -282,10 +294,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "EmptySiteAdminLogin",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EmptySiteAdminLogin.java",
       "javaBlobSha": "fa08064017803d584a316c4bcef65da126d5ad70",
@@ -304,7 +312,13 @@
           "name": "emptySiteAdminLogin",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-08-addnewarticle",
@@ -326,10 +340,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddNewArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java",
       "javaBlobSha": "1efef561273aa9cc7172f6a52f92adf851df2c30",
@@ -352,7 +362,13 @@
           "name": "addNewArticle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-09-addemptyarticle",
@@ -370,11 +386,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
-      ],
       "javaClass": "AddEmptyArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddEmptyArticle.java",
       "javaBlobSha": "d90bdf75d29bd902d9116872c64e9665b5a0a9c0",
@@ -393,7 +404,14 @@
           "name": "addEmptyArticle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-10-editarticle",
@@ -411,10 +429,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "EditArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
       "javaBlobSha": "007c1453cbeb54d336117498613c5d36fa51d260",
@@ -433,7 +447,13 @@
           "name": "editArticle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-11-deletearticle",
@@ -451,10 +471,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteArticle.java",
       "javaBlobSha": "fd4854cef88bd89e5f6ab70053a1b24e5db23ee6",
@@ -477,7 +493,13 @@
           "name": "deleteArticle",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-12-addcategory",
@@ -495,10 +517,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddCategory",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddCategory.java",
       "javaBlobSha": "34b0256f976696bc3d8497ce2903e76afa20f9fb",
@@ -517,7 +535,13 @@
           "name": "addCategory",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-13-addemptycategory",
@@ -535,11 +559,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
-      ],
       "javaClass": "AddEmptyCategory",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddEmptyCategory.java",
       "javaBlobSha": "b751bb7077c7182084132da7f55208c26b630198",
@@ -558,7 +577,14 @@
           "name": "addEmptyCategory",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-14-assigncategory",
@@ -576,10 +602,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AssignCategory",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AssignCategory.java",
       "javaBlobSha": "15900398c307ed4b0d9a8c63ea99fa2200e202da",
@@ -598,7 +620,13 @@
           "name": "assignCategory",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-15-changepassword",
@@ -616,10 +644,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangePassword",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/ChangePassword.java",
       "javaBlobSha": "5ee8d7ac39c2f26c770de692bd54d8216671910a",
@@ -638,7 +662,13 @@
           "name": "changePassword",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-16-changepassworddontmatch",
@@ -656,10 +686,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangePasswordDontMatch",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/ChangePasswordDontMatch.java",
       "javaBlobSha": "80522483a24a7d044c79eb723ae860acef45dafe",
@@ -678,7 +704,13 @@
           "name": "changePasswordDontMatch",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-17-addmenuitem",
@@ -696,11 +728,6 @@
         }
       ],
       "stepCount": 20,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "AddMenuItem",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddMenuItem.java",
       "javaBlobSha": "b748ed7591d32e1cde7db1a5b2bc1b1263d8918d",
@@ -723,7 +750,14 @@
           "name": "addMenuItem",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-18-addmenuitem-emptytitle",
@@ -741,12 +775,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
-      ],
       "javaClass": "AddMenuItem_EmptyTitle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddMenuItem_EmptyTitle.java",
       "javaBlobSha": "2dda990639c562d343f4df3ca3b55a456a6f22a0",
@@ -765,7 +793,15 @@
           "name": "addMenuItem_EmptyTitle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-19-addmenuitem-menunotselected",
@@ -783,12 +819,6 @@
         }
       ],
       "stepCount": 18,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
-      ],
       "javaClass": "AddMenuItem_MenuNotSelected",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddMenuItem_MenuNotSelected.java",
       "javaBlobSha": "0aa90e63b1700179ca8e39d47a91fc0c202f9657",
@@ -807,7 +837,15 @@
           "name": "addMenuItem_MenuNotSelected",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-20-addmenuitem-emptymenutype",
@@ -825,12 +863,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
-      ],
       "javaClass": "AddMenuItem_EmptyMenuType",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddMenuItem_EmptyMenuType.java",
       "javaBlobSha": "03b2bd825ebb6f4969f03d12e3db5522e530b77b",
@@ -849,7 +881,15 @@
           "name": "addMenuItem_EmptyMenuType",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-21-archivearticle",
@@ -867,10 +907,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ArchiveArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java",
       "javaBlobSha": "cf604e6c5992e4df752c3d50abb0fdfd5b514684",
@@ -889,7 +925,13 @@
           "name": "archiveArticle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-22-seearchivedarticle",
@@ -907,11 +949,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "SeeArchivedArticle",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/SeeArchivedArticle.java",
       "javaBlobSha": "083719abe898177c9808c354a36c199f4e5f8781",
@@ -930,7 +967,14 @@
           "name": "seeArchivedArticle",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-23-addgroup",
@@ -948,10 +992,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java",
       "javaBlobSha": "4cadf1469cea444f08fbfa799576a4f87236a908",
@@ -970,7 +1010,13 @@
           "name": "addGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-24-addemptygroup",
@@ -988,11 +1034,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
-      ],
       "javaClass": "AddEmptyGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddEmptyGroup.java",
       "javaBlobSha": "6f49f7a08866754152ca0781d3b56977504b92de",
@@ -1011,7 +1052,14 @@
           "name": "addEmptyGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-25-assignusertogroup",
@@ -1029,10 +1077,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AssignUserToGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java",
       "javaBlobSha": "50a5ca5cb7bce8b651dc8fcb4cb679bbdd8c039e",
@@ -1051,7 +1095,13 @@
           "name": "assignUserToGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-26-addfield",
@@ -1069,10 +1119,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddField",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddField.java",
       "javaBlobSha": "34cc1f1947cf9536e1b2bededb55095768e65eb9",
@@ -1091,7 +1137,13 @@
           "name": "addField",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-27-addemptyfield",
@@ -1109,11 +1161,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
-      ],
       "javaClass": "AddEmptyField",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddEmptyField.java",
       "javaBlobSha": "c3776894ceaff35a40c26d11cdc9d76eefc39a44",
@@ -1132,7 +1179,14 @@
           "name": "addEmptyField",
           "line": 10
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-28-addfieldgroup",
@@ -1150,10 +1204,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddFieldGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddFieldGroup.java",
       "javaBlobSha": "3e949e65c5abaa30b09b37b7c6f2e8f2bb1f59a8",
@@ -1172,7 +1222,13 @@
           "name": "addFieldGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-29-addemptyfieldgroup",
@@ -1190,11 +1246,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
-      ],
       "javaClass": "AddEmptyFieldGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddEmptyFieldGroup.java",
       "javaBlobSha": "5754c483d093cbf7c15db91ff31d82aebe43e5ec",
@@ -1213,7 +1264,14 @@
           "name": "addEmptyFieldGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-30-assignfieldtogroup",
@@ -1231,10 +1289,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AssignFieldToGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AssignFieldToGroup.java",
       "javaBlobSha": "e4c83233c0543ce05ba1e7961cdef9958e8afc3b",
@@ -1253,7 +1307,13 @@
           "name": "assignFieldToGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-31-deleteusergroup",
@@ -1271,10 +1331,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteUserGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteUserGroup.java",
       "javaBlobSha": "42e31089701f150f0832bc727ae74091fa9a6609",
@@ -1293,7 +1349,13 @@
           "name": "deleteUserGroup",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-32-deletefield",
@@ -1311,10 +1373,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteField",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteField.java",
       "javaBlobSha": "ac3422d4c5d99606312e7b30b26f28ee3f5dc536",
@@ -1333,7 +1391,13 @@
           "name": "deleteField",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-33-deletefieldgroup",
@@ -1351,10 +1415,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteFieldGroup",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteFieldGroup.java",
       "javaBlobSha": "7c66b6ef789df7cfc5cb6cabc84a2c866926af5b",
@@ -1377,7 +1437,13 @@
           "name": "deleteFieldGroup",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-34-deleteuser",
@@ -1395,10 +1461,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteUser",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteUser.java",
       "javaBlobSha": "8549d255e283e090d7bcadf48f2b83a78ae022f2",
@@ -1421,7 +1483,13 @@
           "name": "deleteUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-35-deletecategory",
@@ -1439,10 +1507,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteCategory",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/DeleteCategory.java",
       "javaBlobSha": "1caf264955de84acd3c0c6a836ad6d2a3bd75a28",
@@ -1465,8 +1529,16 @@
           "name": "deleteCategory",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
-  "unmappedSuiteEvidence": []
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

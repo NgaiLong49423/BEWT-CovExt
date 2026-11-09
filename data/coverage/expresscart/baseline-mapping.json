@@ -30,11 +30,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddUserTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddUserTest.java",
       "javaBlobSha": "7832e8498ea7eeb6d811ee392e685fc25f6f98ed",
@@ -53,7 +48,14 @@
           "name": "testExpressCartNewUser",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-02-addemptyusertest",
@@ -75,11 +77,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyUserTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyUserTest.java",
       "javaBlobSha": "6a5bdf0f433f1bc7922a8f3e093e53fe9248355e",
@@ -110,7 +107,14 @@
           "name": "testExpressCartEmptyUser",
           "line": 14
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-03-loginusertest",
@@ -132,11 +136,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "LoginUserTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/LoginUserTest.java",
       "javaBlobSha": "1aa75ac6fa4231b8a917cc5471df5dc3487a85a2",
@@ -155,7 +154,14 @@
           "name": "testExpressCartLoginUser",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-04-addexistinguserfailstest",
@@ -177,11 +183,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddExistingUserFailsTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddExistingUserFailsTest.java",
       "javaBlobSha": "718028acf41888df456524cb48549cef9d40c34f",
@@ -200,7 +201,14 @@
           "name": "testExpressCartExistingUserFails",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-05-addproducttest",
@@ -218,11 +226,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddProductTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java",
       "javaBlobSha": "55f346f86ae9c447606339a387aad167c04296bb",
@@ -241,7 +244,14 @@
           "name": "testExpressCartAddProduct",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-06-addemptyproducttest",
@@ -259,11 +269,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyProductTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyProductTest.java",
       "javaBlobSha": "73c8505a91f3ea66013adec4d1fdcbdb94657b9b",
@@ -286,7 +291,14 @@
           "name": "testExpressCartAddEmptyProduct",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-07-addnewprodtocarttest",
@@ -308,11 +320,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddNewProdToCartTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java",
       "javaBlobSha": "42acb2364b1b7d56a2682391dfc73d085eb8611d",
@@ -335,7 +342,14 @@
           "name": "testExpressCartAddNewProdToCart",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-08-searchproducttest",
@@ -353,12 +367,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "navigation_search"
-      ],
       "javaClass": "SearchProductTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchProductTest.java",
       "javaBlobSha": "13d016c7dbe7b0ffcf0928180a9233643895e2c6",
@@ -381,7 +389,15 @@
           "name": "testExpressCartSearchProduct",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-09-addreviewtest",
@@ -399,11 +415,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddReviewTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddReviewTest.java",
       "javaBlobSha": "4b04152c6e642a887400a5f51c098ffb6eb2f1f5",
@@ -430,7 +441,14 @@
           "name": "testExpressCartAddReview",
           "line": 18
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-10-addemptyreviewtest",
@@ -448,11 +466,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyReviewTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyReviewTest.java",
       "javaBlobSha": "163c821183568445cd35a7afe8b39692e6b0d0a5",
@@ -471,7 +484,14 @@
           "name": "testExpressCartAddEmptyReview",
           "line": 18
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-11-seereviewtest",
@@ -489,10 +509,6 @@
         }
       ],
       "stepCount": 6,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "SeeReviewTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SeeReviewTest.java",
       "javaBlobSha": "ae04ee53b189ff8bf8bc869521c7e057f52312e4",
@@ -519,7 +535,13 @@
           "name": "testExpressCartSeeReview",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-12-adddiscountcodeamounttest",
@@ -537,11 +559,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddDiscountCodeAmountTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java",
       "javaBlobSha": "9e5c94e7dd356f9946bcaa1df5dba29141aa0cc9",
@@ -560,7 +577,14 @@
           "name": "testExpressCartAddDiscountCodeAmount",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-13-adddiscountcodepercenttest",
@@ -578,11 +602,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddDiscountCodePercentTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java",
       "javaBlobSha": "f513de2a2fb94bbd3832aece5998f60f350fbc6c",
@@ -601,7 +620,14 @@
           "name": "testExpressCartAddDiscountCodePercent",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-14-addemptydiscountcodetest",
@@ -619,11 +645,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddEmptyDiscountCodeTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddEmptyDiscountCodeTest.java",
       "javaBlobSha": "675c49d8f28b3d5c005758560ef863344d0c53eb",
@@ -646,7 +667,14 @@
           "name": "testExpressCartAddEmptyDiscountCode",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-15-usediscountcodeamounttest",
@@ -664,11 +692,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "UseDiscountCodeAmountTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
       "javaBlobSha": "aa0202618a35a66e4434292b2ee21f914c03da3a",
@@ -687,7 +710,14 @@
           "name": "testExpressCartUseDiscountCodeAmount",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-16-usediscountcodepercenttest",
@@ -705,11 +735,6 @@
         }
       ],
       "stepCount": 16,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "UseDiscountCodePercentTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
       "javaBlobSha": "29d04655f474bfce0ca07335c422119763688cf0",
@@ -728,7 +753,14 @@
           "name": "testExpressCartUseDiscountCodePercent",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-17-addproducttagtest",
@@ -746,11 +778,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "AddProductTagTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTagTest.java",
       "javaBlobSha": "80b3179b2d95529c13911adb9e0841a67baeeef3",
@@ -769,7 +796,14 @@
           "name": "testExpressCartAddProductTag",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-18-searchproducttagtest",
@@ -787,12 +821,6 @@
         }
       ],
       "stepCount": 4,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "navigation_search"
-      ],
       "javaClass": "SearchProductTagTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchProductTagTest.java",
       "javaBlobSha": "834528faf63cf202a0c38641ca5b09c5eea94e04",
@@ -811,7 +839,15 @@
           "name": "testExpressCartSearchProductTag",
           "line": 18
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-19-addmenutest",
@@ -829,12 +865,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "navigation_search"
-      ],
       "javaClass": "AddMenuTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddMenuTest.java",
       "javaBlobSha": "9c868f8d7315ece9bc5f03bcfd8dbadbe4727f38",
@@ -853,7 +883,15 @@
           "name": "testExpressCartAddMenu",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-20-openmenutest",
@@ -871,12 +909,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "navigation_search"
-      ],
       "javaClass": "OpenMenuTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/OpenMenuTest.java",
       "javaBlobSha": "35b9068520796aca2f5b21e8a5c2ffd6871e3705",
@@ -899,7 +931,15 @@
           "name": "testExpressCartOpenMenu",
           "line": 19
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-21-deletediscountcodeamounttest",
@@ -917,11 +957,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteDiscountCodeAmountTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteDiscountCodeAmountTest.java",
       "javaBlobSha": "a9469ad551caf5ad20055518d28f62ab6dd3f48f",
@@ -940,7 +975,14 @@
           "name": "testExpressCartAddDiscountCodeAmount",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-22-deletediscountcodepercenttest",
@@ -958,11 +1000,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteDiscountCodePercentTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteDiscountCodePercentTest.java",
       "javaBlobSha": "bf6209433cd090f6d4643071b5e1347d66c3430e",
@@ -981,7 +1018,14 @@
           "name": "testExpressCartAddDiscountCodePercent",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-23-deleteddiscountcodefailsamounttest",
@@ -999,12 +1043,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "DeletedDiscountCodeFailsAmountTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeletedDiscountCodeFailsAmountTest.java",
       "javaBlobSha": "0689b82c475ae386cb166ca6e18a5af7e5a5f77a",
@@ -1023,7 +1061,15 @@
           "name": "testExpressCartDeletedDiscountCodeFailsAmount",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-24-deleteddiscountcodefailspercenttest",
@@ -1041,12 +1087,6 @@
         }
       ],
       "stepCount": 15,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog",
-        "authorization_boundary"
-      ],
       "javaClass": "DeletedDiscountCodeFailsPercentTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeletedDiscountCodeFailsPercentTest.java",
       "javaBlobSha": "8dfb7d6794f91e4209feabdeda6b57e7aa1767cf",
@@ -1065,7 +1105,15 @@
           "name": "testExpressCartDeletedDiscountCodeFailsPercent",
           "line": 16
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-25-deleteusertest",
@@ -1083,11 +1131,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteUserTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteUserTest.java",
       "javaBlobSha": "27c513d662fb41b573ba42e7e58c2cf6fa9e9f41",
@@ -1106,7 +1149,14 @@
           "name": "testExpressCartDeleteUser",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-26-logindeleteduserfailstest",
@@ -1124,11 +1174,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "LoginDeletedUserFailsTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/LoginDeletedUserFailsTest.java",
       "javaBlobSha": "df8b2c24c49a1320cf0ead9ec5520aedae8177f2",
@@ -1147,7 +1192,14 @@
           "name": "testExpressCartLoginUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-27-deletereviewtest",
@@ -1165,11 +1217,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteReviewTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteReviewTest.java",
       "javaBlobSha": "447b0aaadba47cbf79fc1db1f1febcdf8f675e12",
@@ -1188,7 +1235,14 @@
           "name": "testExpressCartDeleteReview",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-28-deleteproducttagtest",
@@ -1206,11 +1260,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteProductTagTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteProductTagTest.java",
       "javaBlobSha": "5824492c7538478176609a53143fdf070ceb28f6",
@@ -1229,7 +1278,14 @@
           "name": "testExpressCartDeleteProductTag",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-29-searchdeletedproducttagfailstest",
@@ -1247,11 +1303,6 @@
         }
       ],
       "stepCount": 4,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "SearchDeletedProductTagFailsTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchDeletedProductTagFailsTest.java",
       "javaBlobSha": "4501ddeadd1974e2165722da2bdad11ab27258d4",
@@ -1270,7 +1321,14 @@
           "name": "testExpressCartSearchDeletedProductTagFails",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-30-deleteproducttest",
@@ -1288,11 +1346,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
-      ],
       "javaClass": "DeleteProductTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/DeleteProductTest.java",
       "javaBlobSha": "df8f5a56465f69fbbd01a54cdfc47d17c16c77eb",
@@ -1311,7 +1364,14 @@
           "name": "testExpressCartDeleteProduct",
           "line": 17
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "expresscart-31-searchdeletedproductfailstest",
@@ -1329,11 +1389,6 @@
         }
       ],
       "stepCount": 4,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
-      ],
       "javaClass": "SearchDeletedProductFailsTest",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/SearchDeletedProductFailsTest.java",
       "javaBlobSha": "ea10444e4e9a07884ac7dc8d83708b4665622c48",
@@ -1352,8 +1407,17 @@
           "name": "testExpressCartSearchDeletedProductFails",
           "line": 15
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
-  "unmappedSuiteEvidence": []
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

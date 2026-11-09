@@ -22,10 +22,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddContentTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
       "javaBlobSha": "73b873db1386fc18dddee653910edb5efba38300",
@@ -44,7 +40,13 @@
           "name": "addContentTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-02-changeurltest",
@@ -58,10 +60,6 @@
         }
       ],
       "stepCount": 12,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangeUrlTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java",
       "javaBlobSha": "68453163efaecaa6f1bd99dde0b32ed15f04e2ce",
@@ -80,7 +78,13 @@
           "name": "changeUrlTest",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-03-changepositiontest",
@@ -94,10 +98,6 @@
         }
       ],
       "stepCount": 14,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangePositionTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePositionTest.java",
       "javaBlobSha": "3d3f9fd76cb6c2e3a749dbb838c3651e8f7103e0",
@@ -116,7 +116,13 @@
           "name": "changePosition",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-04-changeparenttest",
@@ -130,10 +136,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangeParentTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java",
       "javaBlobSha": "a96fa2fd48001377ab9132f197ad4f3a3462f24d",
@@ -152,7 +154,13 @@
           "name": "changeParent",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-05-addasdrafttest",
@@ -166,10 +174,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddAsDraftTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddAsDraftTest.java",
       "javaBlobSha": "0d23d5678569a745de5f3e14570037b42e077421",
@@ -188,7 +192,13 @@
           "name": "addAsDraft",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-06-setstickyposttest",
@@ -202,11 +212,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "issue_project"
-      ],
       "javaClass": "SetStickyPostTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetStickyPostTest.java",
       "javaBlobSha": "12b7717e51c24353000421bd8ee1d7f4a95a2b3a",
@@ -225,7 +230,14 @@
           "name": "setStickyPost",
           "line": 11
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-07-deleteposttest",
@@ -239,10 +251,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeletePostTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeletePostTest.java",
       "javaBlobSha": "baffc67613f2dd49044a297c969ce0a71162b857",
@@ -261,7 +269,13 @@
           "name": "deletePost",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-08-addusertest",
@@ -275,10 +289,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddUserTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java",
       "javaBlobSha": "819dce4095fddf828c1ff93bf70c8559144bd492",
@@ -297,7 +307,13 @@
           "name": "addUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-09-changepasswordtest",
@@ -311,10 +327,6 @@
         }
       ],
       "stepCount": 11,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangePasswordTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java",
       "javaBlobSha": "2a5294b1b7c75098233b380f023e944cc6bb8605",
@@ -333,7 +345,13 @@
           "name": "changePassword",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-10-addsocialstest",
@@ -347,10 +365,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddSocialsTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSocialsTest.java",
       "javaBlobSha": "b8b20e1c73e59d67027644c62c4a1e67a67372ff",
@@ -373,7 +387,13 @@
           "name": "addSocials",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-11-changehometest",
@@ -387,10 +407,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangeHomeTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeHomeTest.java",
       "javaBlobSha": "9499d5a968a6b0cec2205f95f68e011e5868e6cf",
@@ -409,7 +425,13 @@
           "name": "changeHome",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-12-orderbypositiontest",
@@ -423,10 +445,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "OrderByPositionTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/OrderByPositionTest.java",
       "javaBlobSha": "98240273b249277d206b9f33ae8c0994c6f3a48b",
@@ -445,7 +463,13 @@
           "name": "orderByPosition",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-13-addsitesocialtest",
@@ -459,10 +483,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddSiteSocialTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSiteSocialTest.java",
       "javaBlobSha": "267c2125386c8725bba206979a37a1128abfecc0",
@@ -481,7 +501,13 @@
           "name": "addSiteSocial",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-14-setfootertest",
@@ -495,10 +521,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "SetFooterTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetFooterTest.java",
       "javaBlobSha": "88537681a813604c780a652e8b291628fa28fddc",
@@ -517,7 +539,13 @@
           "name": "setFooter",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-15-changelanguagetest",
@@ -535,10 +563,6 @@
         }
       ],
       "stepCount": 10,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangeLanguageTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeLanguageTest.java",
       "javaBlobSha": "7c229f8e7e5a111c7dcdf468c8b953efd1bc21ac",
@@ -561,7 +585,13 @@
           "name": "changeLanguage",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-16-deleteusertest",
@@ -575,10 +605,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteUserTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java",
       "javaBlobSha": "eb1e404aa92c4ab7df48ad40e1ce85560a0c88d2",
@@ -597,7 +623,13 @@
           "name": "deleteUser",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-17-changepostdatetest",
@@ -611,10 +643,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "ChangePostDateTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java",
       "javaBlobSha": "6bfc5cd008cec03ea62b0bd37aa2caea063f0ab3",
@@ -633,7 +661,13 @@
           "name": "changePostDate",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-18-badloginfailstest",
@@ -647,10 +681,6 @@
         }
       ],
       "stepCount": 5,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "BadLoginFailsTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/BadLoginFailsTest.java",
       "javaBlobSha": "c1ab15e4f7a6380ce6f5bfee2d6e9bb3de123d56",
@@ -673,7 +703,13 @@
           "name": "badLogin_Fails",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-19-addcategorytest",
@@ -687,10 +723,6 @@
         }
       ],
       "stepCount": 9,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AddCategoryTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddCategoryTest.java",
       "javaBlobSha": "a95739ebba04fa80e564637fc703b10a106fc1c4",
@@ -709,7 +741,13 @@
           "name": "addCategory",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-20-assigncategorytest",
@@ -723,10 +761,6 @@
         }
       ],
       "stepCount": 13,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "AssignCategoryTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AssignCategoryTest.java",
       "javaBlobSha": "49e7833535d9a1730e525d052049b5b1da5ebb70",
@@ -745,7 +779,13 @@
           "name": "assignCategory",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-21-seecategoryarticlestest",
@@ -759,10 +799,6 @@
         }
       ],
       "stepCount": 7,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "SeeCategoryArticlesTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SeeCategoryArticlesTest.java",
       "javaBlobSha": "f81f5504f1642be77386acee2438f6bf7b23280f",
@@ -781,7 +817,13 @@
           "name": "seeCategoryArticles",
           "line": 12
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-22-deletecategorytest",
@@ -795,10 +837,6 @@
         }
       ],
       "stepCount": 8,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "DeleteCategoryTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteCategoryTest.java",
       "javaBlobSha": "65461925672604aae8102864f5b529dd9d59c892",
@@ -817,7 +855,13 @@
           "name": "deleteCategory",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "bludit-23-emptyloginfailstest",
@@ -831,10 +875,6 @@
         }
       ],
       "stepCount": 3,
-      "behaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "javaClass": "EmptyLoginFailsTest",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/EmptyLoginFailsTest.java",
       "javaBlobSha": "5773e28b4b2029b46e5f619b052fe9ca0e6b0642",
@@ -857,8 +897,23 @@
           "name": "emptyLogin_Fails",
           "line": 13
         }
-      ]
+      ],
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
   ],
-  "unmappedSuiteEvidence": []
+  "unmappedSuiteEvidence": [],
+  "behaviorTagInterpretation": "Every tag is heuristic inference from pinned Gherkin steps; it is not verified application functionality and must not be used as an RQ2 denominator.",
+  "behaviorTagsUsedForRQ2Denominator": false,
+  "versionLabelMismatch": {
+    "t02Issue": "M2_VERSION_TAG_MISMATCH",
+    "gherkinFolderLabel": "bludit-3.13.1",
+    "baselineSuiteLabel": "bludit-2.3.4",
+    "t02Note": "T02 records that the 23 Gherkin files appear to match the 2.3.4 Base despite the 3.13.1 folder label.",
+    "t04dDisposition": "LABEL_MISMATCH_RECORDED; this task does not establish application-version equivalence."
+  }
 }

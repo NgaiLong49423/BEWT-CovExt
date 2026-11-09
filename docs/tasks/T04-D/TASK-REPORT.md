@@ -15,9 +15,10 @@ See TEST-RESULTS.md and evidence/verification/verify-inventory.txt. Static sourc
 
 ## Research impact
 
-- Proposal labels: 228; physical features: 227; explicit Scenario headers: 204; TestSuite business entries: 228; structural mappings: 226.
+- T02 proposal label counts for the seven-app slice sum to 228; independently measured pinned-source denominators: 227 feature files, 204 explicit Scenario headers, 228 TestSuite business entries, 226 structural filename/class mappings. These are distinct metrics; heuristic tags are not used as the RQ2 denominator.
 - Feature-only: 1 (MantisBT login feature); suite-only: 2 (PrestaShop).
-- Static Java inspection found 228 @Test methods and 316 assertion-call source lines across TestSuite classes; exact method/assertion line references are in the mapping records. This is static evidence, not runtime validation.\n- Gap candidates and human decisions: none asserted/created; novelty, oracle alignment and RQ2 denominator NOT_EVALUATED.
+- Static Java inspection found 228 @Test methods and 316 assertion-call source lines across TestSuite classes; exact method/assertion line references are in the mapping records. This is static evidence, not runtime validation.
+- Gap candidates and human decisions: none asserted/created; novelty, oracle alignment and RQ2 denominator NOT_EVALUATED.
 - All seven G1 gates remain NOT_VERIFIED.
 
 ## Integrity and limits
@@ -25,3 +26,9 @@ See TEST-RESULTS.md and evidence/verification/verify-inventory.txt. Static sourc
 bewt-original absent and untouched. Source was fetched at a pinned public GitHub commit using the connector; shell clone was blocked by DNS, so local git cat-file verification was NOT_RUN. No raw source content is redistributed. Docker/Gemini NONE. Shared STATUS and Kanboard decision data unchanged. Review the source mappings and decide whether exact application source can be supplied for follow-up gap analysis.
 
 - Secret/scope scan: PASS; zero known credential-token-prefix matches; staged paths limited to T04-D and the seven assigned apps. Evidence: docs/tasks/T04-D/evidence/verification/secret-and-scope-scan.txt.
+
+## T02 cross-audit comparison
+
+T02 reports 257 business Java test classes overall, or 258 TestSuite entries including the Bludit Installer helper. Its seven-app table rows imply 229 Java entries including Installer, or 228 business classes after excluding it; subtracting Kanboard (30) from the T02 aggregate gives 227. T04-D independently measured 228 business TestSuite entries from BEWT commit 0501249ff3e9a5ea83a06155cd2971dc36197056, excluding the Installer helper. The aggregate projection and row arithmetic therefore differ by one; this report preserves the discrepancy instead of reconciling or substituting denominators. Proposal labels also sum to 228 but are not class counts.
+
+T02 records Bludit M2: Gherkin folder label bludit-3.13.1 versus baseline suite label bludit-2.3.4. That label mismatch is recorded in the Bludit artifacts and does not establish version equivalence. All filename-based class links are structural only, not semantic equivalence. Behavior tags are heuristic inference from Gherkin step keywords, not verified application functionality, and are not the RQ2 denominator.

@@ -65,5 +65,15 @@
       "candidateCount": 0
     }
   },
-  "note": "Proposal only; do not copy into docs/program/STATUS.json without integration review."
+  "note": "Proposal only; do not copy into docs/program/STATUS.json without integration review. All behavior tags are heuristic; G1 remains NOT_VERIFIED and no candidate/human decision is assessed.",
+  "crossAuditComparison": {
+    "t02ReportedOverallBusinessTestClasses": 257,
+    "t02ReportedIncludingBluditInstaller": 258,
+    "t02KanboardBusinessEntries": 30,
+    "t02SevenAppAggregateProjection": 227,
+    "t02SevenAppPerRowBusinessSum": 228,
+    "t04dPinnedSevenAppMeasuredBusinessTestSuiteEntries": 228,
+    "reconciliation": "UNRESOLVED_CROSS_AUDIT_DENOMINATOR_DIFFERENCE; preserve source values and do not normalize"
+  },
+  "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY_NOT_RQ2_DENOMINATOR"
 }

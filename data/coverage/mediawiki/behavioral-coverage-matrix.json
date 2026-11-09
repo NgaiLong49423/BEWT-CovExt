@@ -14,10 +14,6 @@
       "scenarioTitles": [
         "Creates a new user"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 14,
@@ -32,17 +28,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-02-closeinitialeditorpopuptest",
       "scenarioTitles": [
         "Closes the pop-up that is shown the first time the editor is opened. Required for a successful execution of other tests"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -62,17 +59,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-03-createpagetest",
       "scenarioTitles": [
         "Creates a new page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -92,17 +91,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-04-createandlinkpagetest",
       "scenarioTitles": [
         "Creates a new page containing an hyperlink to another page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -130,17 +131,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-05-searchpagetest",
       "scenarioTitles": [
         "Searches a page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -160,17 +163,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-06-editpagetest",
       "scenarioTitles": [
         "Edits a page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -190,17 +195,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-07-createtemplatetest",
       "scenarioTitles": [
         "Creates a new template"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -220,17 +227,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-08-createpagefromsourcetest",
       "scenarioTitles": [
         "Creates a new page using the source editor"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -250,17 +259,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-09-applytemplatetest",
       "scenarioTitles": [
         "Creates a new page using the source editor"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -280,17 +291,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-10-addcategorytest",
       "scenarioTitles": [
         "Adds a new category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -310,17 +323,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-11-protectpagetest",
       "scenarioTitles": [
         "Protects a page from being edited by non-admin users"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -336,17 +351,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-12-admineditprotectedpage-getswarningtest",
       "scenarioTitles": [
         "Checks that the admin gets a warning message when editing a protected page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -362,17 +379,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-13-editprotectedpage-forbiddentest",
       "scenarioTitles": [
         "A non-admin user tries to edit a protected page and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -392,16 +411,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-14-promotetoadmintest",
       "scenarioTitles": [
         "Promotes a standard user to administrator"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -421,17 +443,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-15-editprotectedpage-newadmin-successtest",
       "scenarioTitles": [
         "A newly promoted admin successfully edits a protected page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -451,17 +474,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-16-revertlastcommittest",
       "scenarioTitles": [
         "The last edit made to a page is reverted"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -489,16 +514,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-17-createuserpagetest",
       "scenarioTitles": [
         "Creates a new user page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -518,17 +546,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-18-blockusertest",
       "scenarioTitles": [
         "Blocks a user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "commerce_catalog"
       ],
       "expectedOutcomeRefs": [
         {
@@ -544,16 +573,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-19-blockeduser-cantedit",
       "scenarioTitles": [
         "A blocked user tries to edit a page and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -573,17 +605,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-20-deletepagetest",
       "scenarioTitles": [
         "Deletes a page"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -599,17 +632,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-21-createredirecttest",
       "scenarioTitles": [
         "Creates a new redirect"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -625,17 +660,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-22-followredirecttest",
       "scenarioTitles": [
         "Searches a keyword for which a redirect has been defined"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -655,17 +692,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-23-changepassword-tooshorttest",
       "scenarioTitles": [
         "Tries to change a user's password with a too short one and fails"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 13,
@@ -680,17 +720,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-24-changepassword-toocommontest",
       "scenarioTitles": [
         "Tries to change a user's password with a too common one and fails"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 13,
@@ -705,17 +747,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-25-changepassword-ok",
       "scenarioTitles": [
         "Tries to change a user's password with a too common one and fails"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 13,
@@ -730,17 +774,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-26-createblankpage-getswarning",
       "scenarioTitles": [
         "Tries to create a blank page and gets a warning"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -756,16 +801,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "mediawiki-27-createemptyuser-fails",
       "scenarioTitles": [
         "Tries to create an empty user and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -781,7 +829,15 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }

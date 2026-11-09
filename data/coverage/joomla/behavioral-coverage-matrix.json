@@ -14,10 +14,6 @@
       "scenarioTitles": [
         "Logins as admin"
       ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
-      ],
       "expectedOutcomeRefs": [
         {
           "line": 7,
@@ -36,16 +32,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-02-badlogin",
       "scenarioTitles": [
         "Tries to login with wrong credentials and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -61,16 +59,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-03-emptylogin",
       "scenarioTitles": [
         "Tries to login with empty credentials and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -86,16 +86,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-04-adduser",
       "scenarioTitles": [
         "Adds a new user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -119,16 +121,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-05-loginasnewuser",
       "scenarioTitles": [
         "Logins as the newly added user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -148,16 +152,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-06-badsiteadminlogin",
       "scenarioTitles": [
         "Tries to login to the site administration area with wrong credentials and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -173,16 +179,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-07-emptysiteadminlogin",
       "scenarioTitles": [
         "Tries to login to the site administration area with wrong credentials and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -198,16 +206,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-08-addnewarticle",
       "scenarioTitles": [
         "Adds a new article"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -231,17 +241,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-09-addemptyarticle",
       "scenarioTitles": [
         "Tries to add an empty article and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -257,16 +268,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-10-editarticle",
       "scenarioTitles": [
         "Edits an article"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -282,16 +296,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-11-deletearticle",
       "scenarioTitles": [
         "Deletes an article"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -311,16 +327,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-12-addcategory",
       "scenarioTitles": [
         "Adds a category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -336,17 +354,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-13-addemptycategory",
       "scenarioTitles": [
         "Adds a category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -362,16 +381,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-14-assigncategory",
       "scenarioTitles": [
         "Assigns a category to an article"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -387,16 +409,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-15-changepassword",
       "scenarioTitles": [
         "Changes the password of a user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -412,16 +436,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-16-changepassworddontmatch",
       "scenarioTitles": [
         "Tries to change the password of a user with two non matching passwords and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -437,17 +463,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-17-addmenuitem",
       "scenarioTitles": [
         "Adds a menu item"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -467,18 +494,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-18-addmenuitem-emptytitle",
       "scenarioTitles": [
         "Tries to add a menu item with empty title and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -494,18 +522,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-19-addmenuitem-menunotselected",
       "scenarioTitles": [
         "Tries to add a menu item without selecting a menu and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -521,18 +551,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-20-addmenuitem-emptymenutype",
       "scenarioTitles": [
         "Tries to add a menu item without selecting a menu item type and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -548,16 +580,20 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-21-archivearticle",
       "scenarioTitles": [
         "Archives an article"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -573,17 +609,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-22-seearchivedarticle",
       "scenarioTitles": [
         "Opens the previously created menu to see the archived articles"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "navigation_search"
       ],
       "expectedOutcomeRefs": [
         {
@@ -599,16 +636,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-23-addgroup",
       "scenarioTitles": [
         "Adds a group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -624,17 +664,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-24-addemptygroup",
       "scenarioTitles": [
         "Adds a group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -650,16 +691,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-25-assignusertogroup",
       "scenarioTitles": [
         "Assigns a user to a group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -675,16 +719,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-26-addfield",
       "scenarioTitles": [
         "Adds a field"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -700,17 +746,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-27-addemptyfield",
       "scenarioTitles": [
         "Tries to add a field without specifying the title and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -726,16 +773,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-28-addfieldgroup",
       "scenarioTitles": [
         "Adds a field group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -751,17 +801,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-29-addemptyfieldgroup",
       "scenarioTitles": [
         "Tries to add an empty field group and fails"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring",
-        "authorization_boundary"
       ],
       "expectedOutcomeRefs": [
         {
@@ -777,16 +828,19 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "authorization_boundary"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-30-assignfieldtogroup",
       "scenarioTitles": [
         "Assigns a group to a field"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -802,16 +856,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-31-deleteusergroup",
       "scenarioTitles": [
         "Deletes a user group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -827,16 +883,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-32-deletefield",
       "scenarioTitles": [
         "Deletes a field"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -852,16 +910,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-33-deletefieldgroup",
       "scenarioTitles": [
         "Deletes a field group"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -881,16 +941,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-34-deleteuser",
       "scenarioTitles": [
         "Deletes a user"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -910,16 +972,18 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     },
     {
       "caseId": "joomla-35-deletecategory",
       "scenarioTitles": [
         "Deletes a category"
-      ],
-      "observedBehaviorTags": [
-        "identity_access",
-        "content_authoring"
       ],
       "expectedOutcomeRefs": [
         {
@@ -939,7 +1003,15 @@
       ],
       "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
       "semanticOracleAlignment": "NOT_EVALUATED",
-      "humanDecision": null
+      "humanDecision": null,
+      "heuristicBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "behaviorTagStatus": "HEURISTIC_INFERENCE_ONLY",
+      "behaviorTagsUsedForRQ2Denominator": false
     }
-  ]
+  ],
+  "behaviorTagInterpretation": "Heuristic inference from Gherkin step keywords only; not verified functionality.",
+  "behaviorTagsUsedForRQ2Denominator": false
 }
