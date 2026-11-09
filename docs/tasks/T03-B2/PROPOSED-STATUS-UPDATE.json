@@ -4,12 +4,12 @@
   "proposedStatus": "PARTIAL",
   "runtimeStatus": "BLOCKED_PORT_BINDING_MISMATCH",
   "businessTestStatus": "NOT_RUN",
-  "rootCauseR5Exit137": "FORCED_STOP_ESCALATION_VERIFIED; initiating caller and underlying shutdown cause NOT_VERIFIED; OOM NOT_VERIFIED",
+  "rootCauseR5Exit137": "Docker Desktop port-forwarder failure verified; Docker stop-to-force escalation verified during teardown; initiating caller and app shutdown reason unknown; OOM not verified",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Host memory gate passed for one app-only diagnostic (6.331-6.356 GiB free). Docker accepted create/start, but NetworkSettings.Ports was empty despite the exact recorded loopback HostConfig port, so the diagnostic was BLOCKED before readiness. Cleanup-only recovery and independent residual checks PASS. G0 Run A remains BLOCKED and Run B NOT_RUN; Maven, Selenium, business assertions, and DB reset remain NOT_RUN. Docker logs verify force-stop escalation for r5 but not why the app failed to exit gracefully or who initiated the stop; OOM is not verified. Pinned image still contains one unattributed patch pending Team Lead review.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Cleanup recovery and independent residual checks PASS. Full G0 A/B remain stopped after the diagnostic failure. No alternate local Linux Engine is available. Preserving isolation requires either a compatible runtime or a Team Lead approved network design change. OOM is not verified; pinned image derivative still awaits Team Lead review.",
   "statusJsonChanged": true,
   "archiveCandidates": [
     {
@@ -42,6 +42,8 @@
     "evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json",
     "evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json",
     "evidence/t03b2-d-20261109-r1/post-cleanup-independent-check.json",
-    "evidence/offline-verification-20261109-r38/"
-  ]
+    "evidence/offline-verification-20261109-r38/",
+    "evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json"
+  ],
+  "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE"
 }

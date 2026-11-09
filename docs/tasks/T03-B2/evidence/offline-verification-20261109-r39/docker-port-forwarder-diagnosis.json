@@ -1,0 +1,63 @@
+{
+  "dockerDesktopVersion": "29.8.0",
+  "sourceLog": "Docker Desktop host/com.docker.backend.exe.log",
+  "sourceLogSha256": "NOT_AVAILABLE_FILE_LOCKED_DURING_CHECK",
+  "attempts": [
+    {
+      "selectedPort": "127.0.0.1:0",
+      "warningTimesUtc": [
+        "2026-11-09T10:31:37.0308144Z",
+        "2026-11-09T10:31:37.0380974Z",
+        "2026-11-09T10:31:37.0465389Z"
+      ],
+      "add": "exposer.Add returned empty mapping",
+      "resyncerWarnings": 3,
+      "approver": "exposer.Approve returned requested mapping",
+      "role": "app",
+      "containerId": "035ab7b27441dde6ffe7232b88fb07e4ab145c0dbe09e4e7930bc02ea0bb0d03",
+      "runId": "t03b2-a-20261109-r5"
+    },
+    {
+      "selectedPort": "127.0.0.1:0",
+      "warningTimesUtc": [
+        "2026-11-09T10:31:37.3096091Z",
+        "2026-11-09T10:31:37.3175202Z",
+        "2026-11-09T10:31:37.3287536Z"
+      ],
+      "add": "exposer.Add returned empty mapping",
+      "resyncerWarnings": 3,
+      "approver": "exposer.Approve returned requested mapping",
+      "role": "selenium",
+      "containerId": "8776be009d081f179f796c0e1749e41d57550b950466f56c6f16b184ba918c99",
+      "runId": "t03b2-a-20261109-r5"
+    },
+    {
+      "resyncerWarnings": 3,
+      "warningTimesUtc": [
+        "2026-11-09T12:00:58.1431422Z",
+        "2026-11-09T12:00:58.1479282Z",
+        "2026-11-09T12:00:58.1532482Z"
+      ],
+      "containerId": "42805458366d485d58c57e0cd8176a1523e78de6662ecbe093c7eabf6d71a113",
+      "runId": "t03b2-d-20261109-r1",
+      "role": "app",
+      "approver": "exposer.Approve accepted selected host mapping",
+      "containerEndpointIpPresent": true,
+      "selectedPort": "127.0.0.1:52508",
+      "add": "forward target was 127.0.0.1:0, then forward was removed",
+      "containerEndpointGatewayPresent": false,
+      "networkInternal": true
+    }
+  ],
+  "interpretation": {
+    "backendWarning": "container has port bindings but no suitable container IP found",
+    "portAllocatorConflict": "NOT_INDICATED_IN_RETAINED_LOGS",
+    "runtimeNetworkSettingsPorts": "80/tcp is empty in pre-cleanup inspect",
+    "diagnosis": "DOCKER_DESKTOP_PORT_FORWARDER_NO_SUITABLE_CONTAINER_IP_VERIFIED",
+    "internalNetworkAssociation": "Observed on internal bridge attempts; exact backend suitability rule not identified",
+    "r5Exit137": "Docker stop request followed by force escalation; mechanism consistent with teardown after the port-forwarding failure, OOM not verified",
+    "fullG0Runs": "STOPPED_PER_DIAGNOSTIC_GATE",
+    "nextDecision": "Do not relax internal-network isolation without Team Lead approval; otherwise use a Docker Engine/runtime path that supports host forwarding for this internal bridge"
+  },
+  "capturedAtUtc": "2026-11-09T12:34:36.5285207Z"
+}
