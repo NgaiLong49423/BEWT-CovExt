@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: one bounded Gemini Gherkin request through the shared LangGraph to the real review checkpoint; stop before Java until a reviewer accepts the exact revision.
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb` (fetched and verified 2026-11-10).
 - Working branch: `feature/t05b-expresscart-live-generation`.
-- Head commit (full 40-char SHA): pending task commit.
-- PR: pending.
-- Push status: pending.
+- Head commit (full 40-char SHA, task content commit): `048f9830616565358ea82d181cb276374a7ce537`.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15 (draft; review gate only).
+- Push status: PUSHED; remote branch matched `048f9830616565358ea82d181cb276374a7ce537` before PR creation. See current PR head after handoff metadata update.
 - Runtime/commit/version tested: offline framework at T05-B task head; ExpressCart source pin `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19` (benchmark label `1.19`). No app runtime used.
 - Status proposed by Agent: `BLOCKED_AUTHORIZATION` for live generation; offline readiness evidence is provided. No candidate was generated.
 
@@ -38,7 +38,7 @@
 - `bewt-original/` touched? NO.
 - Docker/project resources touched? NONE; no Docker commands were run.
 - Existing unrelated local dirty files preserved? YES. Eleven pre-existing modified files under `experiments/expresscart/agent/dist/` were left untouched and excluded.
-- Secret scan / staged diff review result: pending before commit; no secret value was read or written. Environment variable presence does not establish credential validity.
+- Secret-pattern scan: no key/token patterns found. The staged diff was limited to the 10 listed T05-B files and `git diff --cached --check` passed. No secret value was read or written; environment variable presence does not establish credential validity.
 - Failed/blocked tasks and honest reasons: live provider call blocked pending fresh approval; no Gemini retry/probe. Full Docker integration not run because Agent 1 owns the runtime lease.
 
 ## 5. Evidence and reproduction
@@ -53,4 +53,4 @@
 
 - What the Team Lead needs to decide: approve or deny the precisely bounded live-call proposal; if approved, confirm it remains within the model/cost/time limits and that the credential is supplied through the secret channel. A separate human reviewer decision is needed only if a real candidate/checkpoint is produced.
 - Suggested next task if accepted: execute at most one authorized Gherkin invocation and stop at `HUMAN_REVIEW_PENDING` if successful.
-- GitHub PR diff URL and file paths: pending; inspect the six files under `docs/tasks/T05-B/`.
+- GitHub PR diff URL and file paths: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15/files; inspect the six task docs and four verification logs under `docs/tasks/T05-B/`.
