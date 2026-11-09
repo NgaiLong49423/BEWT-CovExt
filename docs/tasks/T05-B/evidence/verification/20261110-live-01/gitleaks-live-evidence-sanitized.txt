@@ -1,0 +1,6 @@
+TARGET=C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt\docs\tasks\T05-B\evidence\verification\20261110-live-01 EXIT=0
+3:05AM INF scanned ~23471 bytes (23.47 KB) in 22.9ms
+3:05AM INF no leaks found
+TARGET=C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt\docs\tasks\T01-C\evidence\t01c-866fcff6-aca1-4110-8ad6-bff250d9c521 EXIT=0
+3:05AM INF scanned ~28559 bytes (28.56 KB) in 11.9ms
+3:05AM INF no leaks found

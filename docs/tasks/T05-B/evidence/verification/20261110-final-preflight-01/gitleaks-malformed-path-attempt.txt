@@ -1,0 +1,2 @@
+NOT_EXECUTED
+PowerShell could not resolve the temporary Gitleaks executable because the path was malformed. No Gitleaks process ran and no scanner exit code exists. A stale PowerShell LASTEXITCODE was not used as a result.

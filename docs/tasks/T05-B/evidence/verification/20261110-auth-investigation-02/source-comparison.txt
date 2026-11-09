@@ -1,0 +1,21 @@
+Source and installed dependency facts (offline)
+
+Mâm Xanh source:
+- Repository: NgaiLong49423/vegetarian-support-system (local source checkout; read-only inspection only)
+- File: app/mamxanh-backend/src/main/java/tech/mamxanh/integration/ai/adk/AdkConfiguration.java
+- Spring input: @Value("${GEMINI_API_KEY:}"); fallback to System.getenv("GEMINI_API_KEY") only when configured value is blank.
+- SDK boundary: Client.builder().apiKey(apiKey.strip()).
+- Client config: HttpOptions timeout and retry options; no explicit base URL or vertexAI flag in this construction.
+- Declared model: app/mamxanh-backend/src/main/java/tech/mamxanh/integration/ai/AiTokenUsage.java => gemini-3.8-flash.
+- Declared Java SDK dependency: com.google.genai:google-genai:1.76.0 in app/mamxanh-backend/pom.xml.
+- Read-only bytecode inspection of Client.Builder.apiKey(String) shows the already-supplied string stored directly in Optional; Mâm Xanh's application `.strip()` occurs before this SDK boundary.
+- Compose source injects host ${GEMINI_API_KEY:-} into the service environment. No Docker command/container inspection was made.
+
+BEWT source:
+- framework/src/runtime/model-provider.ts resolves options.apiKey ?? process.env.GEMINI_API_KEY in both Gemini providers.
+- Installed @langchain/google-genai version: 2.3.4. Its constructor prefers fields.apiKey and assigns that value without trim/strip.
+- Installed @google/generative-ai version: 0.24.1. The inspected constructor stores apiKey unchanged; getHeaders appends it as x-goog-api-key with no trim/strip in that path.
+- No application baseUrl override. Optional LangSmith gateway configuration reads LANGSMITH_GATEWAY and can set routing; absent in current Process, historical process unknown.
+- Historical request model and endpoint: gemini-3.1-flash-lite at https://generativelanguage.googleapis.com/v1beta/... (from preserved sanitized failure evidence).
+
+No Mâm Xanh runtime key, environment file, container environment, or unrelated secret was read.

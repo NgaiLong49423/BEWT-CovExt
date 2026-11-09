@@ -18,8 +18,40 @@ export type GenerationOutput = z.infer<typeof ModelOutput>;
 export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
 export function parseGenerationOutput(input: unknown): GenerationOutput { return ModelOutput.parse(input); }
 export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { return JavaOutput.parse(input); }
+/** Match the Java GenAI client boundary: trim accidental surrounding secret whitespace without logging it. */
+export function normalizeGeminiApiKey(apiKey: string | undefined): string | undefined {
+  const normalized = apiKey?.trim();
+  return normalized || undefined;
+}
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
-export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
+export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; estimatedCostUsd?: number; }
+
+/** Estimate list-price cost from token usage; this is not account billing data. */
+export function estimateTokenCostUsd(inputTokens: number, outputTokens: number): number {
+  if (!Number.isSafeInteger(inputTokens) || inputTokens < 0 || !Number.isSafeInteger(outputTokens) || outputTokens < 0) {
+    throw new Error("token usage must be non-negative safe integers");
+  }
+  return (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000;
+}
+
+function successfulGeminiTelemetry(input: {
+  model: string;
+  startedAt: number;
+  promptCharacters: number;
+  estimatedMaxCostUsd: number;
+  requestEvidence: NonNullable<ModelTelemetry["requestEvidence"]>;
+  raw?: unknown;
+}): ModelTelemetry {
+  const raw = input.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
+  const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
+  const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
+  const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
+  const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
+  return { provider: "Gemini", model: input.model, calls: 1, attempts: 1, elapsedMs: Date.now() - input.startedAt, status: "PASS",
+    promptCharacters: input.promptCharacters, estimatedMaxCostUsd: input.estimatedMaxCostUsd, requestEvidence: input.requestEvidence,
+    ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
+}
+
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
 export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; repairJava?(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string, validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput>; }
 
@@ -325,7 +357,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   private readonly costCeilingUsd: number;
   constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
-    const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
+    const apiKey = normalizeGeminiApiKey(options.apiKey ?? process.env.GEMINI_API_KEY);
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
     if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
     this.maxOutputTokens = options.maxOutputTokens ?? 4_000;
@@ -395,13 +427,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const output = parseGeneratedJavaOutput(response.parsed);
       const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
       validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
-      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
-      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
-      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
-      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+      this.lastTelemetry = successfulGeminiTelemetry({ model: this.model, startedAt, promptCharacters, estimatedMaxCostUsd, requestEvidence, raw: response.raw });
       return output;
     } catch (error) {
       const category = classifyModelError(error);
@@ -421,7 +447,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
   private readonly costCeilingUsd: number;
   constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
-    const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
+    const apiKey = normalizeGeminiApiKey(options.apiKey ?? process.env.GEMINI_API_KEY);
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
     if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
     this.maxOutputTokens = options.maxOutputTokens ?? 2_000;
@@ -456,13 +482,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
     try {
       const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
       const output = parseGenerationOutput(response.parsed);
-      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
-      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
-      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
-      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+      this.lastTelemetry = successfulGeminiTelemetry({ model: this.model, startedAt, promptCharacters, estimatedMaxCostUsd, requestEvidence, raw: response.raw });
       return output;
     } catch (error) {
       const category = classifyModelError(error);

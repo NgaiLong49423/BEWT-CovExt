@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "sourcePinVerified": true,
+  "baselineCases": 31,
+  "gapId": "gap-customer.password.reset.invalid-or-expired-token",
+  "sourceContextCharacters": 4532,
+  "promptCharacters": 7900,
+  "promptSha256": "ee28b2bfd6511190eec2b2fb70d14204894141664be538fe0834c74b5c85abc6",
+  "outputTokens": 2000,
+  "estimatedCostUsd": 0.0109,
+  "approvedMaxPromptCharacters": 8000,
+  "approvedMaxEstimatedCostUsd": 0.02,
+  "withinApprovedBounds": true,
+  "historicalNovelty": "UNVERIFIED"
+}

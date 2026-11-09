@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { readFile } from "node:fs/promises";
+import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, estimateTokenCostUsd, FakeGenerationProvider, GeminiGenerationProvider, GeminiJavaGenerationProvider, invokeWithTimeout, newCandidateId, normalizeGeminiApiKey, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -21,6 +22,13 @@ test("Gemini provider refuses construction without explicit live-model authoriza
   assert.throws(() => new GeminiGenerationProvider("gemini-test", { authorized: false, apiKey: "test" }), /LIVE_MODEL_AUTHORIZATION_REQUIRED/);
 });
 
+test("Gemini API key normalization strips surrounding whitespace and rejects whitespace-only keys", () => {
+  assert.equal(normalizeGeminiApiKey("  synthetic-dummy-key\t\r\n"), "synthetic-dummy-key");
+  assert.equal(normalizeGeminiApiKey(" \t\r\n "), undefined);
+  assert.throws(() => new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: " \t\r\n " }), /GEMINI_API_KEY is required/);
+  assert.throws(() => new GeminiJavaGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: " \t\r\n " }), /GEMINI_API_KEY is required/);
+});
+
 test("model error classifier does not mistake generateContent for rate limiting", () => {
   assert.equal(classifyModelError(new Error("400 Bad Request API_KEY_INVALID")), "AUTHORIZATION");
   assert.equal(classifyModelError(new Error("429 RESOURCE_EXHAUSTED")), "RATE_LIMIT");
@@ -32,6 +40,19 @@ test("model request evidence is hashed and redacts secrets and private identifie
   assert.match(evidence.promptSha256, /^[a-f0-9]{64}$/);
   assert.doesNotMatch(evidence.sanitizedPrompt, /person@example\.test|hunter2|secret-value/);
   assert.match(evidence.sanitizedPrompt, /REDACTED/);
+});
+
+test("token-usage cost telemetry is a list-price estimate, never labeled as billed actual cost", () => {
+  assert.equal(estimateTokenCostUsd(1_000, 2_000), 0.00325);
+  assert.throws(() => estimateTokenCostUsd(-1, 2_000), /non-negative safe integers/);
+  assert.throws(() => estimateTokenCostUsd(Number.MAX_SAFE_INTEGER + 1, 2_000), /non-negative safe integers/);
+});
+
+test("T01-C reset-token coverage claim asserts only source-confirmed redirect behavior", async () => {
+  const cli = await readFile(new URL("../src/t01c-cli.ts", import.meta.url), "utf8");
+  assert.match(cli, /sets session message keys and redirects to \/forgot without rendering the reset form/);
+  assert.match(cli, /this claim asserts only the redirect destination, not page existence or message visibility/);
+  assert.doesNotMatch(cli, /redirects to the forgot-password page and displays the invalid-or-expired message/);
 });
 
 test("structured generation parser rejects incomplete model output", () => {

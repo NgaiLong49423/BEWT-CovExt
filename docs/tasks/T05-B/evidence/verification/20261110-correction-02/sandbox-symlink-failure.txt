@@ -1,0 +1,12 @@
+Command:
+npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/t01c-offline-approved-java-pipeline.test.ts test/integration/workflow.test.ts test/integration/tool-boundaries.test.ts
+
+Execution: managed sandbox
+Process exit: 1
+Summary: 10 PASS / 1 FAIL / 0 skipped
+Failure: `real-path resolver rejects traversal and junction/symlink components`
+Error: `EPERM: operation not permitted, symlink <SANDBOX_TEMP>\bewt-t01b-outside-r6r82i -> <SANDBOX_TEMP>\bewt-t01b-path-FYizPx\linked`
+Location: `framework/test/integration/tool-boundaries.test.ts:32:5`
+Classification: sandbox filesystem permission failure while the test creates its symlink fixture. This was not classified as a workflow failure. An outside-sandbox retry of the same command passed 11/11; see `focused-offline-integration.txt`.
+
+Private absolute sandbox paths were redacted; test name, error category, exit code and test location are retained.

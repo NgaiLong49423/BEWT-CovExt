@@ -1,0 +1,93 @@
+{
+  "taskId": "T05-B",
+  "statusProposedByAgent": "AWAITING_HUMAN_REVIEW_CANDIDATE_PROPOSED",
+  "programStatusFileChanged": false,
+  "authorization": {
+    "priorOneCallAuthorization": "CONSUMED",
+    "newPayloadDestinationApproval": "APPROVED_ONE_ATTEMPT_CONSUMED",
+    "automaticRetries": 0,
+    "updatedCredentialAttempt": "APPROVED_ONE_ATTEMPT_CONSUMED"
+  },
+  "liveGeminiInvocations": 4,
+  "retryCount": 0,
+  "providerResult": {
+    "provider": "Google Gemini Developer API",
+    "model": "gemini-3.1-flash-lite",
+    "status": "PASS",
+    "calls": 1,
+    "runId": "t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9"
+  },
+  "candidateCount": 1,
+  "candidateStatus": "PROPOSED",
+  "proposedBehaviorScope": "invalid or expired reset token redirects to /forgot; page existence and visible message are not asserted",
+  "researchNovelty": "UNVERIFIED",
+  "humanReview": "AWAITING_HUMAN_REVIEW",
+  "javaGenerated": false,
+  "seleniumExecuted": false,
+  "dockerExecuted": false,
+  "billedCostUsd": null,
+  "billedCostStatus": "UNKNOWN",
+  "estimatedMaxCostUsd": 0.0109,
+  "credentialConfiguration": {
+    "variableName": "GEMINI_API_KEY",
+    "processEnvironmentPresenceObserved": true,
+    "currentProcessUserEquality": "EQUAL_IN_MEMORY_CURRENT_INVESTIGATION_ONLY",
+    "currentNodeChildInheritedVariablePresence": true,
+    "currentProcessAndNodeSurroundingWhitespace": "ABSENT",
+    "secretValueReadOrDisplayed": "NOT_DISPLAYED; current process value used in memory solely to redact captured output",
+    "credentialType": "UNKNOWN_NOT_INSPECTED",
+    "historicalInvocationCredentialEqualityToKnownWorkingContext": "UNKNOWN",
+    "rootCauseClassification": "CURRENT_PROCESS_DIFFERS_FROM_DESIGNATED_ENV_FILE; CHILD_FILE_CREDENTIAL_WORKFLOW_PASSED",
+    "normalizationCorrection": "APPLIED_TO_BOTH_GEMINI_PROVIDERS; HISTORICAL_CAUSALITY_UNPROVEN",
+    "lastRequestOutcome": "PASS_WITH_CHILD_FILE_CREDENTIAL",
+    "readyForFreshAuthorizationDecision": false,
+    "possibleStandardKeyCutoverCause": "UNCONFIRMED"
+  },
+  "requiredToProceed": [
+    "Human reviewer decides current candidate oracle, novelty and revision before Java",
+    "Durable explicit opt-in credential loading requires tests and engineering review; do not modify .env"
+  ],
+  "offlineRootCauseInvestigation": "docs/tasks/T05-B/evidence/verification/20261110-auth-investigation-01/root-cause-investigation.md",
+  "targetedCrossProjectInvestigation": "docs/tasks/T05-B/evidence/verification/20261110-auth-investigation-02/cross-project-auth-investigation.md",
+  "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
+  "costTelemetry": "List-price token usage is an estimate, not independently verified billed cost",
+  "dockerRuntime": "NOT_RUN",
+  "historicalT01CResultsReusedAsNew": false,
+  "newAuthorizedAttempt": {
+    "runId": "t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3",
+    "executionHead": "036e3d4ce6b6bf583e479fb1177ffe9943cdff0a",
+    "calls": 1,
+    "attempts": 1,
+    "providerStatus": "BLOCKED",
+    "httpStatus": 400,
+    "reason": "API_KEY_INVALID",
+    "candidateCount": 0,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md",
+    "supersededByRunId": "t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b"
+  },
+  "updatedCredentialAttempt": {
+    "runId": "t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+    "executionHead": "b9fd984a4d8c94e175e1a96e47c03f3537e00a09",
+    "calls": 1,
+    "attempts": 1,
+    "providerStatus": "BLOCKED",
+    "httpStatus": 400,
+    "reason": "API_KEY_INVALID",
+    "candidateCount": 0,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/OUTCOME.md"
+  },
+  "controlledWorkflow": {
+    "candidateId": "CAND-2a8b318d-6753-43ab-b6cc-174d50ea3408",
+    "revision": 1,
+    "checkpointId": "246a9076-38f2-4a59-b6c7-e672fe5954ac",
+    "review": "PENDING",
+    "oracleAndNovelty": "HUMAN_REVIEW_REQUIRED",
+    "inputTokens": 1977,
+    "outputTokens": 222,
+    "estimatedCostUsd": 0.00082725,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/OUTCOME.md"
+  }
+}

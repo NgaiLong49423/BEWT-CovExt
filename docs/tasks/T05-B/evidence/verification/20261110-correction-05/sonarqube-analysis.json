@@ -1,0 +1,52 @@
+{
+  "project": "NgaiLong49423_BEWT-CovExt",
+  "pullRequest": 15,
+  "dashboard": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15",
+  "finding": {
+    "analyzedCommit": "72103d17bc4005a661d6fa03d862e1364c283a88",
+    "qualityGate": "FAIL",
+    "newDuplicatedLinesDensity": "9.75609756097561%",
+    "newDuplicatedLines": 4,
+    "newDuplicatedBlocks": 2,
+    "file": "framework/src/runtime/model-provider.ts",
+    "duplicateBlocks": [
+      {
+        "size": 11,
+        "endLine": 416,
+        "startLine": 406
+      },
+      {
+        "size": 11,
+        "endLine": 477,
+        "startLine": 467
+      }
+    ],
+    "classification": "production code; duplicated successful-provider token usage and telemetry mapping; no test, docs, or analysis configuration finding"
+  },
+  "correction": "Extracted successfulGeminiTelemetry helper to share usage parsing and estimatedCostUsd construction between Gemini Gherkin and Java providers.",
+  "reanalysis": {
+    "analyzedCommit": "ffa19f6f1d890269cd20397fbaa66ba1ed66963e",
+    "checkName": "SonarCloud Code Analysis",
+    "qualityGate": "PASS",
+    "newIssues": 0,
+    "acceptedIssues": 0,
+    "securityHotspots": 0,
+    "newCoverage": "0.0%",
+    "newDuplicatedLinesDensity": "0.0%",
+    "checkRunId": 129363223709,
+    "analysisLink": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15"
+  },
+  "latestCompletedPrAnalysisAtVerification": {
+    "analyzedCommit": "696659818f7947eddaf8e6a54f9ce08f830a1384",
+    "checkName": "SonarCloud Code Analysis",
+    "checkRunId": 129375200727,
+    "qualityGate": "PASS",
+    "newIssues": 0,
+    "acceptedIssues": 0,
+    "securityHotspots": 0,
+    "newCoverage": "0.0%",
+    "newDuplicatedLinesDensity": "0.0%",
+    "componentTree": "all four reported TypeScript files had 0 new duplicated lines and 0 new duplicated blocks",
+    "analysisLink": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15"
+  }
+}

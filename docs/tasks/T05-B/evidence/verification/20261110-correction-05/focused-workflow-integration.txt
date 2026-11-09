@@ -1,0 +1,15 @@
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (63.1238ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (103.1306ms)
+✔ REJECT terminates before Java preparation (24.0504ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (28.2869ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (36.2402ms)
+✔ application-behavior E2E failure is recorded without repairing generated Java (25.5928ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3193.8071ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5128.0607

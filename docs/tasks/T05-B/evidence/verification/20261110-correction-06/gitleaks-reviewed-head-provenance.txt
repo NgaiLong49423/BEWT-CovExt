@@ -1,0 +1,10 @@
+scanner=Gitleaks 8.30.1
+executable_sha256=17157e2ee8b76fc8b1d8bee607a250e34b8a8023c8bc81822d4b5ee4d78fcb7c
+archive_sha256=d29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e
+head=0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c
+merge_base=af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb
+scope=committed PR history in merge-base..HEAD
+redaction=100%
+command=gitleaks git --no-banner --redact=100 --report-format json --report-path docs\tasks\T05-B\evidence\verification\20261110-correction-06\gitleaks-reviewed-head-report.json --log-opts af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..HEAD C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt
+exit_code=0
+result=2:35AM INF 13 commits scanned. 2:35AM INF scanned ~106186 bytes (106.19 KB) in 247ms 2:35AM INF no leaks found

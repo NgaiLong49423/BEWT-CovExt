@@ -1,0 +1,32 @@
+T05-B offline environment comparison
+Date: 2026-11-10
+Execution: current restricted PowerShell process and one harmless Node child; no Gemini code invoked.
+Secret values: never printed, persisted, hashed, fingerprinted, or passed on a command line.
+
+Variable                         Process  User  Machine  Process-vs-User
+GEMINI_API_KEY                  present  present absent   EQUAL (ordinal, in memory)
+GOOGLE_API_KEY                  absent   absent  absent   NOT_COMPARABLE
+GOOGLE_GENAI_USE_VERTEXAI       absent   absent  absent   NOT_COMPARABLE
+GOOGLE_CLOUD_PROJECT            absent   absent  absent   NOT_COMPARABLE
+GOOGLE_CLOUD_LOCATION           absent   absent  absent   NOT_COMPARABLE
+HTTP_PROXY                      absent   absent  absent   NOT_COMPARABLE
+HTTPS_PROXY                     absent   absent  absent   NOT_COMPARABLE
+ALL_PROXY                       absent   absent  absent   NOT_COMPARABLE
+NO_PROXY                        absent   absent  absent   NOT_COMPARABLE
+NODE_OPTIONS                    absent   absent  absent   NOT_COMPARABLE
+NODE_EXTRA_CA_CERTS             absent   absent  absent   NOT_COMPARABLE
+
+Harmless Node child inherited these presence facts:
+GEMINI_API_KEY=true
+GOOGLE_API_KEY=false
+GOOGLE_GENAI_USE_VERTEXAI=false
+GOOGLE_CLOUD_PROJECT=false
+GOOGLE_CLOUD_LOCATION=false
+HTTP_PROXY=false
+HTTPS_PROXY=false
+ALL_PROXY=false
+NO_PROXY=false
+NODE_OPTIONS=false
+NODE_EXTRA_CA_CERTS=false
+
+Current process facts do not establish the historical elevated invocation's values or the Team Lead's known-working application's values. Project identity, key type, auth mode, SDK version in the other application, proxy/VPN route, and equality of credentials across contexts are unknown.

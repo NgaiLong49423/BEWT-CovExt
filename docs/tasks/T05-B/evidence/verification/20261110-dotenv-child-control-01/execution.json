@@ -1,0 +1,8 @@
+{
+  "retries": 0,
+  "startedAtUtc": "2026-11-09T23:38:25.9676694Z",
+  "exitCode": 0,
+  "finishedAtUtc": "2026-11-09T23:38:31.5768611Z",
+  "maxRequests": 1,
+  "credentialSource": "child-process environment from specified .env"
+}

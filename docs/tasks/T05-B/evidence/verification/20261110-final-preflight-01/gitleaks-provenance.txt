@@ -1,0 +1,40 @@
+T05-B Gitleaks verification — 2026-11-10
+
+Scanner: Gitleaks 8.30.1
+Official release tag: v8.30.1
+Release archive SHA-256: d29144deff3a68aa93ced33dddf84b7fdc26070add4aa0f4513094c8332afc4e
+Executable SHA-256: 17157e2ee8b76fc8b1d8bee607a250e34b8a8023c8bc81822d4b5ee4d78fcb7c
+Redaction: 100%; report format: JSON; no credential values displayed.
+
+Committed PR history scan:
+- PR HEAD: `5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9`
+- Merge base: `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`
+- Scope: all 21 commits in `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9`; approximately 266,351 bytes.
+- Command: `gitleaks git --no-banner --redact=100 --report-format json --report-path docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-pr-history-report.json --log-opts af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9 <repository-root>`
+- Exit: 0; result: no leaks found; report is an empty JSON array.
+- Sanitized log and exit: `gitleaks-pr-history.txt`, `gitleaks-pr-history-exit.txt`.
+
+Current T05-B working-tree scan:
+- Scope: `docs/tasks/T05-B` including the newly captured offline test logs and evidence present at scan time.
+- Command: `gitleaks dir --no-banner --redact=100 --report-format json --report-path docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-task-docs-report.json docs/tasks/T05-B`
+- Exit: 0; result: no leaks found; report is an empty JSON array.
+- Sanitized log and exit: `gitleaks-task-docs.txt`, `gitleaks-task-docs-exit.txt`.
+
+The task-docs scan preceded the final report/provenance additions; a separate final docs scan is recorded after those additions. Neither scan inspects process environment variables. No findings or false positives were reported.
+
+Final task-document scan after report and provenance additions:
+command=gitleaks dir --no-banner --redact=100 --report-format json --report-path docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-docs-report.json docs/tasks/T05-B
+exit=0
+result=no leaks found; 100% redaction; no findings or false positives
+
+Pre-push docs scan after the final report, index and SHA-256 manifest were assembled:
+command=gitleaks dir --no-banner --redact=100 --report-format json --report-path docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-prepush-docs-report.json docs/tasks/T05-B
+exit=0
+result=no leaks found; 100% redaction; no findings or false positives
+log_sha256=2c65d3ce864d59ba9ab950fa8b4267d92d6dec4f0761adfb8a33cadb180e1d0f
+report_sha256=37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570
+
+Scanner invocation audit: the first `gitleaks-final-docs` scan itself completed with exit 0; its sanitized log and empty JSON report are retained with `gitleaks-final-docs-exit.txt`. A later redundant attempt used a malformed executable path and did not start; that separate attempt is recorded as NOT_EXECUTED in `gitleaks-malformed-path-attempt.txt`. No stale PowerShell LASTEXITCODE is treated as a scan result.
+Verified follow-up: Gitleaks 8.30.1 ran successfully with --redact=100 over docs/tasks/T05-B, exit 0, no leaks.
+verified_log_sha256=9d17ccba9a0b691f04e700a93314dca01f3cea150aa46f10f261e13de5125289
+verified_report_sha256=37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570

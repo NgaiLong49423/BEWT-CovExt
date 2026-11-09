@@ -1,0 +1,9 @@
+16bb381d8d37969abc41cb7bd89c5390803cdaaca24c4812895eef93f3287fdc  docs/tasks/T01-C/evidence/t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b/model-calls/call-01-reserved.json
+5fc2b3a069d53a567c8a83df6ad80fe11112c3da8a1c3b186ef4e2c626dc7546  docs/tasks/T01-C/evidence/t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b/model-calls/call-01-result.json
+3dfbb89d5a7c3627bf4156f533dfefb9bb5686dff16410604d2eb08aa8a0ab17  docs/tasks/T01-C/evidence/t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b/model-generation-failure.json
+f0929e218dc7555847e1d261403c6036a10746f4179ca6f882ff0c0fddc7b9f0  docs/tasks/T01-C/evidence/t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b/model-run-budget.json
+dae538d2e04c8d568f6fc115e2ed53d5e04d3f6c9df28d0fb36d6ba2ede38117  docs/tasks/T01-C/evidence/t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b/source-coverage-analysis.json
+166634382c1e01e4d038265a4df502f611ea1c4c47c82903fbb6ed9e5c0533fa  docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/cli-output-sanitized.txt
+00678e8d3a3e2429bf0a2224748b1dbc664d251cd1623efafc11247d7ebfc445  docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/execution.json
+27dc212837608b2b9c2543b798016925e3980572f0b1e77d3aa58ae56f0c79aa  docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/OUTCOME.md
+dec9ba76839a94f746b680bfc31aa7ac7462ec3c3c74191b94147fb5c071c809  docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/preflight.md

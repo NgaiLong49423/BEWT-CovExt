@@ -1,0 +1,6 @@
+# Updated-credential attempt outcome
+
+- After the Team Lead reported a private credential update and authorized one new attempt, the Gherkin command ran once on source HEAD `b9fd984a4d8c94e175e1a96e47c03f3537e00a09`. CLI exit 1, provider HTTP 400 `API_KEY_INVALID`; status `BLOCKED`/`AUTHORIZATION`.
+- Run `t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b` has one reservation and one result; telemetry `calls=1`, `attempts=1`, zero retries. Prompt 7,900 characters, SHA-256 `65d7c1ff78b2504b2e5aed2ef92fe58f77dff61d5bea939361d1db67edaf6e2f`, estimated maximum USD 0.0109. Token usage and actual billed cost UNKNOWN.
+- Process and User environment values were present and compared equal in memory before the run; this does not prove that the agent inherited the newly updated value, nor does it establish equality with prior failed credentials. No credential value or fingerprint was printed or recorded. Team Lead should privately verify the environment and restart the launching process if needed; no further call, retry, model switching or key probing took place.
+- No candidate, human checkpoint, reviewer decision, Java/Selenium or Docker run. Novelty and G0–G4 remain unverified. Existing 11 dirty `dist/` files and three synthetic directories remained outside scope.

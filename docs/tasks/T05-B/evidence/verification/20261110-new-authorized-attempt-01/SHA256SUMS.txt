@@ -1,0 +1,11 @@
+94ca41e084cf2b863b589a84a140615c1f206067c4b40507ba710cdc936c363c  docs/tasks/T01-C/evidence/t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3/model-calls/call-01-reserved.json
+31ae0063219df0c375a5a475d9a10ffac2c82ff294d6071f9ed99708ea7f8197  docs/tasks/T01-C/evidence/t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3/model-calls/call-01-result.json
+65f11df640ec0b5bd7f4d92632481bdc15de6890f24732a6983f7bdbbf66a32e  docs/tasks/T01-C/evidence/t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3/model-generation-failure.json
+b452d9b91b904061cb38608d5240bacb4130c06000ab81efbd5f28098de0e65b  docs/tasks/T01-C/evidence/t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3/model-run-budget.json
+3738e2e54f8bd064868c9d365f7efa525d8b1df90a0bff304e15c5d84fde17ef  docs/tasks/T01-C/evidence/t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3/source-coverage-analysis.json
+166634382c1e01e4d038265a4df502f611ea1c4c47c82903fbb6ed9e5c0533fa  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/cli-output-sanitized.txt
+bbc7a537e76f2475191fd8810cf628288c30bece76d0bdd4c6f4acb2662a94fb  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/execution.json
+994eb51d9f4e3675f93269484cb103c4e99b21a9f4d9a47ae474043a40b47f20  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md
+6e054de67560e7c26a976bfefb70565f63f0e6cc968ac02d6014706a27c6772e  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/preflight.md
+5f16138ebd9b0ab2b82078f83b46eda02aef268ff4011d49da6b0a6d1403aef3  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/render-payload.mts
+ee28b2bfd6511190eec2b2fb70d14204894141664be538fe0834c74b5c85abc6  docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/review-payload.txt

@@ -1,0 +1,11 @@
+T05-B read-only Google Cloud preflight — 2026-11-10
+
+Requested command:
+gcloud compute instances describe bewt-covext-runner --project=gen-lang-client-0311012609 --zone=asia-southeast1-a --format="json(name,id,status,machineType,scheduling,resourceStatus.scheduling)"
+
+Result: NOT_RUN because `Get-Command gcloud` found no Google Cloud CLI executable in this environment. A previous exact invocation also failed because `gcloud` was not recognized; the CLI is unavailable. This is not evidence that the VM is stopped or expired.
+
+VM state, instance ID, machine type, scheduling fields, termination timestamp, health/disk state, and remaining runtime window: NOT_VERIFIED.
+Disposition: `CLOUD_PREFLIGHT_BLOCKED_GCLOUD_NOT_INSTALLED`; do not classify the VM as `CLOUD_RUNTIME_UNAVAILABLE` or `CLOUD_RUNTIME_EXPIRED` from this evidence.
+
+No Docker command, VM start/stop, resize, replacement, lease transfer, or remote workload was performed. Agent 1's Docker runtime lease was not transferred. T05-B is still before candidate generation; any later Docker-backed validation remains blocked pending the required explicit runtime lease and cloud/security approvals.
