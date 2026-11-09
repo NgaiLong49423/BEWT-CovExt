@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "joomla",
+  "sourcePin": {
+    "repository": "joomla/joomla-cms",
+    "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+    "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "status": "PROPOSED_REVIEW_ORDER_ONLY",
+  "humanDecisionStatus": "NOT_REVIEWED",
+  "decisionLedger": "UNCHANGED",
+  "topCandidates": [
+    {
+      "candidateId": "JO-GAP-001",
+      "priorityOrder": 1,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "JO-GAP-002",
+      "priorityOrder": 2,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "JO-GAP-003",
+      "priorityOrder": 3,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "claroline",
+  "applicationVersion": "1.11.10",
+  "sourcePin": {
+    "repository": "zefredz/claroline",
+    "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+    "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+    "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 4,
+  "shortlistCount": 3,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "CL-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Course document upload, move and delete lifecycle",
+      "actor": "Teacher",
+      "role": "Course editor",
+      "preconditions": "Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.",
+      "fixture": "Upload the file, rename it, then delete it through the document tool.",
+      "oracle": {
+        "observable": "Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.",
+        "sourceRefs": [
+          "CL-S01"
+        ]
+      },
+      "sourceRefs": [
+        "CL-S01"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Student without edit permission attempts rename/delete; content remains unchanged.",
+      "testabilityRisk": "Legacy file UI and filesystem cleanup need an isolated course fixture.",
+      "uncertainty": "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Upload a synthetic file, move it to a different course-folder path, then delete it.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Group space is inaccessible to a non-member student",
+      "actor": "Teacher and student",
+      "role": "Teacher manages; student is not in target group",
+      "preconditions": "Course with two groups and one enrolled student assigned only to group A; group B has private content.",
+      "fixture": "As the student, open group B directly, then join only if the interface permits self-registration.",
+      "oracle": {
+        "observable": "Unauthorized group content is not rendered; self-registration changes access only for the configured open group.",
+        "sourceRefs": [
+          "CL-S03"
+        ]
+      },
+      "sourceRefs": [
+        "CL-S03"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "claroline-27-adddeniedcoursetest",
+          "claroline-28-enroldeniedcoursetest",
+          "claroline-30-enrolpasswordcoursewrongpasswordusertest"
+        ],
+        "rationale": "Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Repeat against the student's assigned group A and verify access succeeds.",
+      "testabilityRisk": "Group membership fixture and legacy session isolation are required.",
+      "uncertainty": "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Group space is inaccessible to a non-member student.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Teacher imports an exercise package into a course",
+      "actor": "Teacher",
+      "role": "Course editor",
+      "preconditions": "Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question.",
+      "fixture": "Use the exercise import command to import the fixture.",
+      "oracle": {
+        "observable": "Import reports success and the new exercise/questions appear exactly once in the course list.",
+        "sourceRefs": [
+          "CL-S02"
+        ]
+      },
+      "sourceRefs": [
+        "CL-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline creates exercises and questions manually; it does not cover package import.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Baseline creates exercises and questions manually; it does not cover package import.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Submit a malformed package and verify no partial exercise is created.",
+      "testabilityRisk": "Requires a valid legacy package fixture and transactional cleanup.",
+      "uncertainty": "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Teacher imports an exercise package into a course.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Tracking controls are teacher-only while exercise attempts remain student-facing",
+      "actor": "Teacher and student",
+      "role": "Teacher may edit/track; student may attempt",
+      "preconditions": "Tracking enabled; one exercise with a deterministic answer and a separate student account.",
+      "fixture": "Submit the exercise as student, then inspect tracking as teacher and as student.",
+      "oracle": {
+        "observable": "Student receives the attempt outcome; teacher tracking is available only to an editor when tracking is enabled.",
+        "sourceRefs": [
+          "CL-S02"
+        ]
+      },
+      "sourceRefs": [
+        "CL-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "claroline-11-docourseexercisequestionstest",
+          "claroline-12-viewprofilestatisticsusertest"
+        ],
+        "rationale": "Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
+      "testabilityRisk": "Tracking setting and legacy permission model make the oracle configuration-sensitive.",
+      "uncertainty": "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Tracking controls are teacher-only while exercise attempts remain student-facing.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    }
+  ]
+}

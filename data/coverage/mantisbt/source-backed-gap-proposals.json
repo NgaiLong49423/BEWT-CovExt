@@ -1,0 +1,197 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "applicationVersion": "1.2.0",
+  "sourcePin": {
+    "repository": "mantisbt/mantisbt",
+    "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+    "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+    "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
+  "candidateCount": 4,
+  "shortlistCount": 3,
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "rq2Contribution": "NOT_EVALUATED",
+  "candidates": [
+    {
+      "candidateId": "MB-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "User monitors and stops monitoring an issue for their own account",
+      "actor": "Reporter or developer",
+      "role": "Authenticated issue viewer with monitor permission",
+      "preconditions": "Issue in accessible project; user initially not monitoring; separate account available for isolation.",
+      "fixture": "Enable monitoring, reload, disable monitoring, reload.",
+      "oracle": {
+        "observable": "Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged.",
+        "sourceRefs": [
+          "MB-S02"
+        ]
+      },
+      "sourceRefs": [
+        "MB-S02"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Second account must not inherit the first user's monitor state.",
+      "testabilityRisk": "Email notification configuration may obscure the UI oracle.",
+      "uncertainty": "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: User monitors and stops monitoring an issue for their own account.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Private issue note is hidden from users below the private-note threshold",
+      "actor": "Reporter and viewer",
+      "role": "Reporter has add-note right; viewer lacks private-note view threshold",
+      "preconditions": "Issue accessible to both; note fixture contains a unique synthetic marker; privacy enabled.",
+      "fixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
+      "oracle": {
+        "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker.",
+        "sourceRefs": [
+          "MB-S01",
+          "MB-S05"
+        ]
+      },
+      "sourceRefs": [
+        "MB-S01",
+        "MB-S05"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Add a public note control; both users should see it.",
+      "testabilityRisk": "Threshold defaults and permission settings require explicit pinning in fixture.",
+      "uncertainty": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Private issue note is hidden from users below the private-note threshold.",
+      "priorityReviewOrder": null,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Issue relationship rejects self-link and duplicate links",
+      "actor": "Developer",
+      "role": "Can update source and destination issues",
+      "preconditions": "Two accessible issues with no relationship; unique pair in isolated project.",
+      "fixture": "Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.",
+      "oracle": {
+        "observable": "First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows.",
+        "sourceRefs": [
+          "MB-S03"
+        ]
+      },
+      "sourceRefs": [
+        "MB-S03"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [
+          "mantisbt-33-addmultiplesubprojects",
+          "mantisbt-34-unlinkmultiplesubprojects",
+          "mantisbt-35-linkmultiplesubprojects"
+        ],
+        "rationale": "Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "Try a destination issue the actor cannot view; no relationship details should leak.",
+      "testabilityRisk": "Relationship type-specific constraints and duplicate handling need separate assertions.",
+      "uncertainty": "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Exercise: Issue relationship rejects self-link and duplicate links.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Issue attachment upload is persisted and rejects invalid input",
+      "actor": "Reporter",
+      "role": "Can update an issue and upload files",
+      "preconditions": "Issue in isolated project; small synthetic text attachment with unique filename/content marker.",
+      "fixture": "Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.",
+      "oracle": {
+        "observable": "The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment.",
+        "sourceRefs": [
+          "MB-S04"
+        ]
+      },
+      "sourceRefs": [
+        "MB-S04"
+      ],
+      "novelty": {
+        "assessment": "POTENTIAL_GAP",
+        "rationale": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
+        "decisionOwner": "Team Lead / human reviewer",
+        "humanDecision": null,
+        "status": "NOT_VERIFIED"
+      },
+      "baselineOverlap": {
+        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
+        "baselineCases": [],
+        "rationale": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
+        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+      },
+      "negativeControl": "As a user without update access, attempt upload and verify no attachment is created.",
+      "testabilityRisk": "Filesystem vs database attachment mode changes storage cleanup.",
+      "uncertainty": "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified.",
+      "behavioralCoverageStatus": "NOT_VERIFIED",
+      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
+      "action": "Upload a small synthetic attachment, reload the issue, then submit an oversized or missing-file control.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    }
+  ]
+}

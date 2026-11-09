@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "expresscart",
+  "sourcePin": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+    "status": "PINNED_SOURCE_AVAILABLE"
+  },
+  "status": "PROPOSED_REVIEW_ORDER_ONLY",
+  "humanDecisionStatus": "NOT_REVIEWED",
+  "decisionLedger": "UNCHANGED",
+  "topCandidates": [
+    {
+      "candidateId": "EC-GAP-001",
+      "priorityOrder": 1,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "EC-GAP-002",
+      "priorityOrder": 2,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "priorityOrder": 3,
+      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+    }
+  ]
+}
