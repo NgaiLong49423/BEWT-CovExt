@@ -284,3 +284,11 @@ Regression coverage includes exit 0 with unreachable stderr, exit 127 with unrea
 Post-commit verification ran on `992db57c3320320d68b69a64547a6784c89c237f`: seven syntax checks PASS (all exit 0); Claroline cleanup/fault tests PASS (36/36, exit 0). Provenance and hashes are in `evidence/offline-verification-20261110-r68/verification-summary.json`; source/test files matched HEAD before and after. The later report/evidence commit does not change Claroline source/test content.
 
 Runtime is `NOT_RUN`. Last recorded RAM samples remain 3.089/3.109/3.110 GiB, below the unchanged 6 GiB gate. No Docker or TCP diagnostic ran. Privileged execution remains disabled pending independently authenticated Team Lead authorization design and network-level deny-by-default design. G0 remains `PARTIAL/BLOCKED`; r1-r67 evidence, `bewt-original/`, and `docs/program/STATUS.json` remain unchanged.
+
+## Targeted correction round 4 — 2026-11-10 (r69)
+
+Fixed the two requested defects only. `classifyTcpProbe` now handles timeout status 124 and timeout evidence before unreachable evidence; any timeout/unreachable combination is `INCONCLUSIVE` or `PROBE_TIMEOUT`, never `NETWORK_UNREACHABLE`. It still requires a matching marker and consistent probe status, and only consistent explicit network-unreachable output can pass the egress isolation classifier. `probeTcpTarget` now tags its timeout result with `source: 'node-socket'`, matching connect and socket-error results.
+
+A deterministic fake-socket test exercises the timeout callback without opening any socket or making an external request, and confirms host timeout classification is `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`. Tests also assert both TCP and egress classifiers reject status 124 with a matching marker plus unreachable stderr, and combined timeout/unreachable evidence.
+
+Post-commit verification ran on `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`: all seven Node syntax checks PASS (exit 0); cleanup/fault tests PASS (37/37, exit 0). Source/test hashes and Git blobs matched tested HEAD. Evidence is `evidence/offline-verification-20261110-r69/`. No runtime or external network request ran. Last recorded RAM remains below the unchanged 6 GiB gate; privileged execution remains disabled. G0 stays `PARTIAL/BLOCKED`; historical evidence r1-r68 remains unchanged.

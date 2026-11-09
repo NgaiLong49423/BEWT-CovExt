@@ -150,3 +150,13 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
 - Probe wrapper now emits a structured inner exit marker and returns that status. The classifier only treats network-unreachable as valid when the marker exists, outer and inner statuses agree, and no success/contradictory evidence exists. Docker process startup errors cannot be mistaken for socket errors from a container.
 - Evidence: `evidence/offline-verification-20261110-r68/verification-summary.json` plus seven syntax logs and the test log, exact commands, exit codes, SHA-256 logs/source and Git blob IDs.
 - Docker, live TCP, Selenium Base, DB reset, Maven/business runtime and cleanup: `NOT_RUN`; no privileged execution. The unchanged 6 GiB gate is below the last recorded RAM samples.
+
+## Targeted correction round 4 — offline verification r69 (2026-11-10)
+
+- Tested source HEAD: `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`; source/test tree clean and Git blob IDs matched HEAD.
+- Seven Node syntax checks: **7/7 PASS**, all exit 0.
+- Claroline cleanup/fault suite: **37 passed, 0 failed**, exit 0.
+- Regression cases added: matching process/probe exit 124 plus unreachable stderr is non-PASS in both classifiers; combined timeout and unreachable text is non-PASS in both classifiers; fake Node socket timeout retains `source: node-socket` and maps to `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`.
+- The fake socket is injected into `probeTcpTarget`; no external/local network request was made.
+- Provenance: `evidence/offline-verification-20261110-r69/verification-summary.json` includes exact commands, exit codes, counts, source/test SHA-256 and Git blob IDs, and log hashes.
+- Runtime/Docker/TCP diagnostic: `NOT_RUN`; RAM and authorization gates remain unmet.

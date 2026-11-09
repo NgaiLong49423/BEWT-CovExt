@@ -217,3 +217,11 @@ r67 offline evidence: source HEAD `2625bc618c1cbaabf7267f9d7594cedd71c0426e`; se
 Deterministic regression tests cover all reviewer-required cases. r68 ran against source HEAD `992db57c3320320d68b69a64547a6784c89c237f`: 7/7 syntax checks and 36/36 cleanup/fault tests passed, exit 0. Provenance is in `evidence/offline-verification-20261110-r68/`.
 
 Runtime and real TCP behavior were not tested. The 6 GiB RAM gate and independent privileged authorization gate remain unmet. Privileged execution remains disabled; network-level egress denial is still required before any route-isolation runtime. G0 remains `PARTIAL/BLOCKED`, not accepted.
+
+## Targeted correction round 4 — timeout fail-closed (r69)
+
+The process classifier now gives timeout status 124 and timeout evidence precedence over unreachable evidence. A matching probe marker with status 124 plus `Network is unreachable`, or combined timeout/unreachable messages, remains `INCONCLUSIVE`/`PROBE_TIMEOUT`; neither becomes isolation PASS. Only a matching, internally consistent probe result with explicit unreachable evidence and no timeout/connection contradiction may classify as `NETWORK_UNREACHABLE`.
+
+`probeTcpTarget` attaches `source: 'node-socket'` to the timeout callback result, as it already did for connect/error callbacks. An injected fake socket proves the timeout result retains that source and maps to `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`, without a network call.
+
+r69 tested source commit `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`: 7/7 syntax checks and 37/37 cleanup/fault tests PASS (exit 0). Evidence: `evidence/offline-verification-20261110-r69/`. Runtime remains `NOT_RUN`; 6 GiB and independent authorization/network isolation gates remain unmet. G0 remains `PARTIAL/BLOCKED`.
