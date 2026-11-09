@@ -383,7 +383,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/17_ChangePostDateTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/17_ChangePostDateTest.feature#L14",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java",
       "javaBlobSha": "6bfc5cd008cec03ea62b0bd37aa2caea063f0ab3",
       "javaAssertionLineRefs": [
@@ -392,7 +392,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java#L27",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -408,7 +408,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature#L9",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
       "javaBlobSha": "73b873db1386fc18dddee653910edb5efba38300",
       "javaAssertionLineRefs": [
@@ -417,7 +417,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java#L22",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -433,7 +433,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature#L9",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
       "javaBlobSha": "73b873db1386fc18dddee653910edb5efba38300",
       "javaAssertionLineRefs": [
@@ -442,7 +442,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java#L22",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -458,7 +458,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/02_ChangeUrlTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/02_ChangeUrlTest.feature#L13",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java",
       "javaBlobSha": "68453163efaecaa6f1bd99dde0b32ed15f04e2ce",
       "javaAssertionLineRefs": [
@@ -467,7 +467,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java#L25",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -483,7 +483,7 @@
           "kind": "VISIBLE_CONTENT"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/04_ChangeParentTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/04_ChangeParentTest.feature#L14",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java",
       "javaBlobSha": "a96fa2fd48001377ab9132f197ad4f3a3462f24d",
       "javaAssertionLineRefs": [
@@ -492,7 +492,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java#L27",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -508,7 +508,7 @@
           "kind": "PAGE_OR_ELEMENT_STATE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/08_AddUserTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/08_AddUserTest.feature#L14",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java",
       "javaBlobSha": "819dce4095fddf828c1ff93bf70c8559144bd492",
       "javaAssertionLineRefs": [
@@ -517,7 +517,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java#L27",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -533,7 +533,7 @@
           "kind": "REJECTION_EXPECTATION"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/16_DeleteUserTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/16_DeleteUserTest.feature#L10",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java",
       "javaBlobSha": "eb1e404aa92c4ab7df48ad40e1ce85560a0c88d2",
       "javaAssertionLineRefs": [
@@ -542,7 +542,7 @@
           "kind": "assertFalse"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java#L22",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -558,7 +558,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/09_ChangePasswordTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/gherkin/bludit-3.13.1/09_ChangePasswordTest.feature#L12",
       "javaPath": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java",
       "javaBlobSha": "2a5294b1b7c75098233b380f023e944cc6bb8605",
       "javaAssertionLineRefs": [
@@ -567,7 +567,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java#L25",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -587,7 +587,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/27_AddDeniedCourseTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/27_AddDeniedCourseTest.feature#L14-L17",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
       "javaBlobSha": "f05796e9fbf8935acde4bf18eeb0d559dc7c3205",
       "javaAssertionLineRefs": [
@@ -596,7 +596,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java#L20",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -616,7 +616,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/28_EnrolDeniedCourseTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/28_EnrolDeniedCourseTest.feature#L12-L15",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
       "javaBlobSha": "efcc97769cb2bcdad1a6781644544e5b244e9a95",
       "javaAssertionLineRefs": [
@@ -625,7 +625,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java#L20",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -645,7 +645,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature#L14-L17",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
       "javaBlobSha": "560fcd4fb112b01a9626e9b64015d335ee292d00",
       "javaAssertionLineRefs": [
@@ -654,7 +654,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java#L20",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -674,7 +674,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/11_DoCourseExerciseQuestionsTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/11_DoCourseExerciseQuestionsTest.feature#L13-L16",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
       "javaBlobSha": "5440af24a8b07245dbc0316742ebc83e9008c30c",
       "javaAssertionLineRefs": [
@@ -683,7 +683,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -703,7 +703,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/12_ViewProfileStatisticsUserTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/12_ViewProfileStatisticsUserTest.feature#L9-L13",
       "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
       "javaBlobSha": "d6f287a8a7e27878f6201bea9e8c6113400f67e7",
       "javaAssertionLineRefs": [
@@ -716,7 +716,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java#L20-L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -732,7 +732,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/05_AddProductTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/05_AddProductTest.feature#L12",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java",
       "javaBlobSha": "55f346f86ae9c447606339a387aad167c04296bb",
       "javaAssertionLineRefs": [
@@ -741,7 +741,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java#L30",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -761,7 +761,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/07_AddNewProdToCartTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/07_AddNewProdToCartTest.feature#L6-L8",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java",
       "javaBlobSha": "42acb2364b1b7d56a2682391dfc73d085eb8611d",
       "javaAssertionLineRefs": [
@@ -774,7 +774,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java#L24-L26",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -790,7 +790,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/12_AddDiscountCodeAmountTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/12_AddDiscountCodeAmountTest.feature#L15",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java",
       "javaBlobSha": "9e5c94e7dd356f9946bcaa1df5dba29141aa0cc9",
       "javaAssertionLineRefs": [
@@ -799,7 +799,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodeAmountTest.java#L30",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -815,7 +815,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/13_AddDiscountCodePercentTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/13_AddDiscountCodePercentTest.feature#L16",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java",
       "javaBlobSha": "f513de2a2fb94bbd3832aece5998f60f350fbc6c",
       "javaAssertionLineRefs": [
@@ -824,7 +824,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/AddDiscountCodePercentTest.java#L30",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -840,7 +840,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/15_UseDiscountCodeAmountTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/15_UseDiscountCodeAmountTest.feature#L18",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
       "javaBlobSha": "aa0202618a35a66e4434292b2ee21f914c03da3a",
       "javaAssertionLineRefs": [
@@ -849,7 +849,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodeAmountTest.java#L33",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -865,7 +865,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/16_UseDiscountCodePercentTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/gherkin/16_UseDiscountCodePercentTest.feature#L18",
       "javaPath": "expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
       "javaBlobSha": "29d04655f474bfce0ca07335c422119763688cf0",
       "javaAssertionLineRefs": [
@@ -874,7 +874,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/expresscart/baseline/expresscart-1.19/src/test/java/tests/UseDiscountCodePercentTest.java#L33",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -894,7 +894,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/08_AddNewArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/08_AddNewArticle.feature#L11-L16",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java",
       "javaBlobSha": "1efef561273aa9cc7172f6a52f92adf851df2c30",
       "javaAssertionLineRefs": [
@@ -907,7 +907,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java#L22-L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -923,7 +923,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature#L13",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
       "javaBlobSha": "007c1453cbeb54d336117498613c5d36fa51d260",
       "javaAssertionLineRefs": [
@@ -932,7 +932,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -948,7 +948,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/21_ArchiveArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/21_ArchiveArticle.feature#L15",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java",
       "javaBlobSha": "cf604e6c5992e4df752c3d50abb0fdfd5b514684",
       "javaAssertionLineRefs": [
@@ -957,7 +957,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -977,7 +977,7 @@
           "kind": "MANUAL_CLASSIFICATION_REQUIRED"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/08_AddNewArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/08_AddNewArticle.feature#L11-L16",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java",
       "javaBlobSha": "1efef561273aa9cc7172f6a52f92adf851df2c30",
       "javaAssertionLineRefs": [
@@ -990,7 +990,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java#L22-L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1006,7 +1006,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature#L13",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
       "javaBlobSha": "007c1453cbeb54d336117498613c5d36fa51d260",
       "javaAssertionLineRefs": [
@@ -1015,7 +1015,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1031,7 +1031,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/21_ArchiveArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/21_ArchiveArticle.feature#L15",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java",
       "javaBlobSha": "cf604e6c5992e4df752c3d50abb0fdfd5b514684",
       "javaAssertionLineRefs": [
@@ -1040,7 +1040,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1056,7 +1056,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/23_AddGroup.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/23_AddGroup.feature#L17",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java",
       "javaBlobSha": "4cadf1469cea444f08fbfa799576a4f87236a908",
       "javaAssertionLineRefs": [
@@ -1065,7 +1065,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java#L24",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1081,7 +1081,7 @@
           "kind": "VISIBLE_CONTENT"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/25_AssignUserToGroup.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/25_AssignUserToGroup.feature#L17",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java",
       "javaBlobSha": "50a5ca5cb7bce8b651dc8fcb4cb679bbdd8c039e",
       "javaAssertionLineRefs": [
@@ -1090,7 +1090,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java#L26",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1106,7 +1106,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature#L13",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
       "javaBlobSha": "007c1453cbeb54d336117498613c5d36fa51d260",
       "javaAssertionLineRefs": [
@@ -1115,7 +1115,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1131,7 +1131,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/gherkin/10_EditArticle.feature#L13",
       "javaPath": "joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
       "javaBlobSha": "007c1453cbeb54d336117498613c5d36fa51d260",
       "javaAssertionLineRefs": [
@@ -1140,7 +1140,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1160,7 +1160,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/33_AddMultipleSubprojects.feature#L18-L26",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
       "javaBlobSha": "8796c9628a7b55df042b4e20822cd37a8e015a31",
       "javaAssertionLineRefs": [
@@ -1173,7 +1173,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java#L35-L43",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1193,7 +1193,7 @@
           "kind": "REJECTION_EXPECTATION"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature#L8-L13",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
       "javaBlobSha": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
       "javaAssertionLineRefs": [
@@ -1206,7 +1206,7 @@
           "kind": "assertFalse"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java#L20-L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1226,7 +1226,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/35_LinkMultipleSubprojects.feature#L9-L15",
       "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
       "javaBlobSha": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
       "javaAssertionLineRefs": [
@@ -1239,7 +1239,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java#L23-L29",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1255,7 +1255,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature#L15",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
       "javaBlobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
       "javaAssertionLineRefs": [
@@ -1268,7 +1268,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1284,7 +1284,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
       "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
       "javaAssertionLineRefs": [
@@ -1297,7 +1297,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1313,7 +1313,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/21_CreateRedirectTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/21_CreateRedirectTest.feature#L14",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java",
       "javaBlobSha": "eb5837980b3be8aad60679f6ddf5d451c47cc116",
       "javaAssertionLineRefs": [
@@ -1322,7 +1322,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java#L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1338,7 +1338,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/22_FollowRedirectTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/22_FollowRedirectTest.feature#L5",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java",
       "javaBlobSha": "92edb4fea62757ca7aee08a36a79b68c5108fac1",
       "javaAssertionLineRefs": [
@@ -1351,7 +1351,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java#L16-L17",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1367,7 +1367,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
       "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
       "javaAssertionLineRefs": [
@@ -1380,7 +1380,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1400,7 +1400,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/16_RevertLastCommitTest.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/16_RevertLastCommitTest.feature#L11-L15",
       "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
       "javaBlobSha": "2a8e87f31cfbc09637190bf7a15d246870689d9b",
       "javaAssertionLineRefs": [
@@ -1417,7 +1417,7 @@
           "kind": "assertEquals"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java#L19-L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1433,7 +1433,7 @@
           "kind": "REJECTION_EXPECTATION"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
       "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
       "javaAssertionLineRefs": [
@@ -1442,7 +1442,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1458,7 +1458,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature#L11",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
       "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
       "javaAssertionLineRefs": [
@@ -1467,7 +1467,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1483,7 +1483,7 @@
           "kind": "VISIBLE_MESSAGE"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature#L11",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
       "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
       "javaAssertionLineRefs": [
@@ -1492,7 +1492,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     },
@@ -1508,7 +1508,7 @@
           "kind": "REJECTION_EXPECTATION"
         }
       ],
-      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature",
+      "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
       "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
       "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
       "javaAssertionLineRefs": [
@@ -1517,7 +1517,7 @@
           "kind": "assertTrue"
         }
       ],
-      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+      "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
       "assessment": "REVIEWED_AT_PIN",
       "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof."
     }

@@ -14,4 +14,7 @@ Prepared semantic overlap, oracle, fixture, and gap-sufficiency assessments for 
 
 ## Validation and publication
 
-See `TEST-RESULTS.md` for commands and results. Commit, branch, and PR metadata are completed after final validation/publication.
+See `TEST-RESULTS.md` for commands and results. - Branch: `feature/t04f-seven-app-novelty-oracle-review`.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/17 (open; not merged).
+- Tested commit: `c5ced518774bc4c807f4f8289972c266ef5eaf24`; final PR head is reported in the task handoff after publication.
+- Changed-file inventory: the nine files under this directory, including the seven required review/evidence artifacts, validation log, and validator.

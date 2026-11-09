@@ -13,4 +13,4 @@ Validator stdout: `Candidates: 27; unique: 27; shortlisted input: 20; source ref
 
 Validator scope stdout: `Changed paths: 1 (all T04-F)` (the directory is untracked before commit).
 
-Runtime, Docker, Selenium/E2E, Gemini, and application tests were not run by task constraint. RQ2 remains NOT_EVALUATED. Commit SHA will be recorded after commit; results above are against the pre-commit worktree based on `bd9b3b15fca28419ada9862b8a65bac910edf169`.
+Runtime, Docker, Selenium/E2E, Gemini, and application tests were not run by task constraint. RQ2 remains NOT_EVALUATED. Validated content commit: `c5ced518774bc4c807f4f8289972c266ef5eaf24` (same packet/report content; this file records the completed validation evidence). Base: `bd9b3b15fca28419ada9862b8a65bac910edf169`. PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/17.
