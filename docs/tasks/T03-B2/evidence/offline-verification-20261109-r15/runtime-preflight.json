@@ -1,0 +1,19 @@
+{
+  "capturedAt": "2026-11-09T07:10:53.8075037Z",
+  "freePhysicalMemoryGiB": 0.95,
+  "totalPhysicalMemoryGiB": 13.79,
+  "minimumRequiredFreeGiB": 4.0,
+  "dockerContext": "desktop-linux",
+  "dockerVersion": "29.8.0",
+  "dockerResources": {
+    "ownedT03B2Volumes": 0,
+    "ownedT03B2Containers": 0,
+    "runningContainers": 2,
+    "volumes": 24,
+    "networks": 11,
+    "containers": 32,
+    "ownedT03B2Networks": 0
+  },
+  "resourcesCreatedOrChangedByThisCheck": 0,
+  "runtimeDisposition": "BLOCKED"
+}

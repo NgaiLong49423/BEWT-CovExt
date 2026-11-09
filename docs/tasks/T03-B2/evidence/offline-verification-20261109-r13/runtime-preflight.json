@@ -1,0 +1,12 @@
+{
+  "evidenceType": "Read-only runtime preflight",
+  "capturedAt": "2026-11-09T13:35:51.8380657+07:00",
+  "freePhysicalMemoryGiB": 3.36,
+  "totalPhysicalMemoryGiB": 13.79,
+  "minimumRequiredFreeGiB": 4.0,
+  "dockerVersionCommand": "docker version --format {{.Server.Version}}",
+  "dockerExitCode": 1,
+  "dockerError": "Docker Engine named pipe is unavailable",
+  "resourcesCreatedOrChanged": 0,
+  "runtimeDisposition": "BLOCKED"
+}

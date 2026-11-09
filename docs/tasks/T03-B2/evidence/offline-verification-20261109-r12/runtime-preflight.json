@@ -1,0 +1,12 @@
+{
+  "evidenceType": "Read-only runtime preflight",
+  "capturedAt": "2026-11-09T13:28:01.5081783+07:00",
+  "freePhysicalMemoryGiB": 3.46,
+  "totalPhysicalMemoryGiB": 13.79,
+  "minimumRequiredFreeGiB": 4.0,
+  "dockerVersionCommand": "docker version --format {{.Server.Version}}",
+  "dockerExitCode": 1,
+  "dockerError": "failed to connect to the Docker API at npipe:////./pipe/dockerDesktopLinuxEngine; the system cannot find the file specified",
+  "resourcesCreatedOrChanged": 0,
+  "runtimeDisposition": "BLOCKED"
+}

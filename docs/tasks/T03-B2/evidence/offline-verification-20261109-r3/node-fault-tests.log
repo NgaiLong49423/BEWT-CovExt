@@ -1,0 +1,25 @@
+✔ partial-startup cleanup handles 0 recorded Claroline container(s) (2.2434ms)
+✔ partial-startup cleanup handles 1 recorded Claroline container(s) (0.8709ms)
+✔ partial-startup cleanup handles 2 recorded Claroline container(s) (0.9132ms)
+✔ failed network initialization without a returned ID blocks on an unrecorded same-run resource (0.2141ms)
+✔ create ID is persisted before nonzero status is classified for network/app/Selenium failures (0.4622ms)
+✔ fault injection: Selenium start failure cleans both containers because their IDs were recorded at create (0.436ms)
+✔ exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block (0.4142ms)
+✔ stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation (0.4878ms)
+✔ unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted (0.378ms)
+✔ partial teardown and network removal failure return BLOCKED/nonzero; no false PASS (0.4691ms)
+✔ fully absent previously recorded resources are an idempotent PASS (0.291ms)
+✔ network-only partial run and no-resource network-create failure are safe (0.3148ms)
+✔ containers without a recorded network block before any stop or rm (0.1115ms)
+✔ Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML (0.4552ms)
+✔ Surefire sanitization removes machine properties/output and local workspace paths (0.4009ms)
+✔ run ID validation rejects unsafe and duplicate-shape identities (0.1423ms)
+✔ evidence directory creation is write-once for each run ID (1.9131ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 88.4439

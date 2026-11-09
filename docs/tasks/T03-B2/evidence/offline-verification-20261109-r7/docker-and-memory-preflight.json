@@ -1,0 +1,11 @@
+{
+  "dockerCliPath": "<SIGNED_DOCKER_CLI>",
+  "dockerServerExitCode": 1,
+  "dockerServerVersion": null,
+  "dockerError": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+  "resourceMutation": false,
+  "freeMemoryBytes": 3904360448,
+  "freeGiB": 3.64,
+  "memoryThresholdGiB": 4,
+  "memoryError": null
+}

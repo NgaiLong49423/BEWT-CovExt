@@ -1,0 +1,26 @@
+{
+  "evidenceType": "Composite Claroline 1.11.10 release source comparison",
+  "capturedAt": "2026-11-09T13:35:51.8380657+07:00",
+  "coreSourceRepository": "https://github.com/zefredz/claroline",
+  "coreSourceRef": "refs/tags/1.11.10",
+  "coreSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "officialApplicationArchiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
+  "companionModuleArchive": "https://downloads.sourceforge.net/project/claroline-pack/Modules%20for%20Claroline%201.10/CLCHAT.zip",
+  "companionModuleArchiveBytes": 18234,
+  "companionModuleArchiveSha256": "14f02d486896eb63433c8c6a843f8f6fd06bfd413a3c4e0759aada163a9cda36",
+  "comparison": {
+    "coreArchiveFiles": 1630,
+    "coreBinaryByteMismatches": 0,
+    "coreBinaryFilesByteCompared": 323,
+    "coreSharedFiles": 1613,
+    "coreGitFiles": 1613,
+    "clchatReleaseFiles": 17,
+    "coreSharedContentMismatchesAfterCrlfAndCvsKeywordNormalization": 0,
+    "combinedReleaseFilesAccountedFor": 1630,
+    "clchatPackageFiles": 17,
+    "clchatPackageOnlyFiles": 0,
+    "clchatFileMismatches": 0,
+    "clchatReleaseOnlyFiles": 0
+  },
+  "interpretation": "Official 1.11.10 release archive content is accounted for by the historical Git tag plus the separately published CLCHAT companion package. The pinned Docker image has not been compared with that release."
+}

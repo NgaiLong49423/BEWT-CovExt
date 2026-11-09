@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-09T12:37:48+07:00",
+  "officialReleaseDirectory": "https://sourceforge.net/projects/claroline/files/Claroline/Claroline_1.11.10/",
+  "retrievalMethod": "HTTPS SourceForge download endpoint; downloaded to temporary storage only",
+  "archives": [
+    {
+      "version": "1.11.10",
+      "fileName": "claroline-1.11.10.tar.gz",
+      "downloadUrl": "https://sourceforge.net/projects/claroline/files/Claroline/Claroline_1.11.10/claroline-1.11.10.tar.gz/download",
+      "httpStatus": 200,
+      "contentType": "application/x-gzip",
+      "bytes": 5855725,
+      "sha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
+      "independentRetrievals": 2,
+      "matchingHashes": null,
+      "gzipMagic": null,
+      "tarListingExitCode": 0
+    },
+    {
+      "version": "1.11.10-1",
+      "fileName": "claroline-1.11.10-1.tar.gz",
+      "downloadUrl": "https://sourceforge.net/projects/claroline/files/Claroline/Claroline_1.11.10/claroline-1.11.10-1.tar.gz/download",
+      "httpStatus": 200,
+      "contentType": "application/x-gzip",
+      "bytes": 5855704,
+      "sha256": "9e887be39f6de9306ad7c197b723554484eb96d5a1e7aca0abc7d63d8b1d007e",
+      "independentRetrievals": 2,
+      "matchingHashes": null,
+      "gzipMagic": null,
+      "tarListingExitCode": 0
+    }
+  ],
+  "archiveBytesRetained": null,
+  "sourceCommitVerified": null,
+  "imageContentComparison": "NOT_RUN_DOCKER_UNAVAILABLE",
+  "runtimeManifestPromoted": null,
+  "provenanceStatus": "PROVENANCE_BLOCKED",
+  "limitation": "Hashes are measured from retrieved HTTPS bytes; no publisher signature/checksum is claimed. The image-to-archive version/content match is not established.",
+  "gitReferenceSearch": {
+    "remote": "https://github.com/claroline/Claroline",
+    "checkedAt": "2026-11-09",
+    "matchingTagRefsQuery": "git/matching-refs/tags/1.11.10",
+    "matchingTagRefs": [],
+    "matchingBranchRefsQuery": "git/matching-refs/heads/1.11",
+    "matchingBranchRefs": [],
+    "limitation": "No matching refs returned; this does not prove that no historical commit exists."
+  }
+}

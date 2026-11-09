@@ -1,0 +1,43 @@
+{
+  "evidenceType": "Pinned Docker image source-layer comparison",
+  "capturedAt": "2026-11-09",
+  "imageManifestDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "officialReleaseArchiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
+  "sourceGitCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "baseSourceLayerOrdinal": 8,
+  "baseLayerFiles": 1630,
+  "releaseArchiveFiles": 1630,
+  "baseLayerRawByteComparison": {
+    "commonFiles": 1630,
+    "imageOnlyFiles": 0,
+    "archiveOnlyFiles": 0,
+    "rawByteMismatches": 0
+  },
+  "laterImageLayers": {
+    "runtimeFilesAbsentFromReleaseArchive": 24,
+    "runtimeFilePathCounts": {
+      "platform": 23,
+      "tmp": 1,
+      "other": 0
+    },
+    "whiteouts": [
+      {
+        "layerOrdinal": 11,
+        "path": "claroline/.wh.install",
+        "effect": "remove matching prior path or subtree"
+      }
+    ],
+    "releaseSourceFileChanges": [
+      {
+        "layerOrdinal": 13,
+        "path": "claroline/inc/lib/add_course.lib.inc.php",
+        "releaseSha256": "fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1",
+        "imageSha256": "c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8",
+        "bytes": 23040,
+        "changeSummary": "Comments out the 128-attempt limit, warning, and false return in the repeated course-identifier allocation guard."
+      }
+    ],
+    "otherReleaseSourceChanges": 0
+  },
+  "conclusion": "The pinned image base source layer is byte-for-byte identical to the official Claroline 1.11.10 archive. Later layers add generated runtime configuration/cache, remove the installer directory, and alter one source file by commenting out a retry limit guard. The source release is verified; the final image is a derived/customized image with one unattributed application-code patch. Do not describe the image as a pristine release build."
+}

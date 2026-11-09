@@ -1,0 +1,5 @@
+PASS experiments/claroline/tools/run-claroline-g0.mjs
+PASS experiments/claroline/tools/claroline-g0.mjs
+PASS experiments/claroline/tools/cleanup-claroline-g0.mjs
+PASS experiments/claroline/tools/cleanup-run.mjs
+PASS experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs

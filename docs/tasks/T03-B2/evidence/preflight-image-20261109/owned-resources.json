@@ -1,0 +1,17 @@
+{
+  "runId": "t03b2-preflight-20261109-r1",
+  "createdAt": "2026-11-08T22:25:52.6256688Z",
+  "role": "image-inspection-only",
+  "id": "201cf3b95e496bfa03724aa2f782d896d015df3668de4d3ab1490648165e9475",
+  "name": "bewt-covext-claroline-t03b2-preflight-20261109-r1-app",
+  "imageRef": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "labels": {
+    "managed-by": "bewt-covext-agent",
+    "project": "bewt-covext",
+    "runId": "t03b2-preflight-20261109-r1",
+    "task": "t03b2-g0",
+    "app": "claroline",
+    "owner": "bewt-covext"
+  },
+  "dockerCreateExitCode": 0
+}

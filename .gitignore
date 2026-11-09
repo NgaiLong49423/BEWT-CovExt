@@ -22,6 +22,7 @@ target/
 # Reviewed, sanitized T01-B execution evidence (other logs remain ignored)
 !docs/tasks/T01-B/evidence/**/*.log
 !docs/tasks/T01-B/evidence/**/*.txt
+!docs/tasks/T03-B2/evidence/**/*.log
 
 # Local workflow checkpoint databases (never publish durable state)
 .local-state/

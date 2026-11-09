@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-11-09T13:56:33.2193101+07:00",
+  "freePhysicalMemoryGiB": 3.9,
+  "totalPhysicalMemoryGiB": 13.79,
+  "minimumRequiredFreeGiB": 4.0,
+  "dockerVersionExitCode": 1,
+  "dockerError": "Docker Desktop Linux-engine named pipe is unavailable",
+  "dockerResourcesCreatedOrChanged": 0,
+  "runtimeDisposition": "BLOCKED"
+}

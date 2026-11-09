@@ -1,0 +1,18 @@
+{
+  "capturedAt": "2026-11-09T13:40:10.5760268+07:00",
+  "runnerUnitAndFaultTests": {
+    "summary": "✔ Surefire sanitization removes machine properties/output and local workspace paths (0.4729ms)\n✔ run ID validation rejects unsafe and duplicate-shape identities (0.1442ms)\n✔ evidence directory creation is write-once for each run ID (2.0465ms)\n✔ native tools resolve to explicit paths and child PATH excludes user-writable AppData (0.3725ms)\nℹ tests 18\nℹ suites 0\nℹ pass 18\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 839.9991",
+    "exitCode": 0,
+    "result": "PASS",
+    "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+  },
+  "syntaxChecks": {
+    "commandCount": 5,
+    "log": "node-syntax-check.log",
+    "result": "PASS",
+    "exitCode": 0,
+    "machineLocalPathsSanitized": true
+  },
+  "mavenCleanTestCompile": "NOT_RERUN_CODE_UNCHANGED",
+  "dockerOrRuntime": "NOT_RUN"
+}
