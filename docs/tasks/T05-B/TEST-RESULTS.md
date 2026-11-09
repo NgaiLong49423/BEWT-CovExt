@@ -171,3 +171,7 @@ Exact execution provenance, relevant source Git blob IDs/SHA-256 values, per-log
 Fetched `origin/main` is `ef8e5597c4ca7359ccd0e1241d079832024048a9`; PR #15 is OPEN/DRAFT/MERGEABLE and GitHub `mergeStateStatus=CLEAN`. The merge base is `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`. The latest T04-F/G/C and PR #18 review-package changes have no overlapping T05-B source/data/schema/task paths. `EC-GAP-002/003/004` remain proposals, not decisions; the T05-B redirect-only proposal remains distinct, with historical `EC-C04` still an unresolved novelty cue. See `evidence/verification/20261110-final-preflight-01/current-main-reconciliation.md`.
 
 The prior single live attempt remains failed with HTTP 400 `API_KEY_INVALID`; its D-C1 was consumed, retry count is zero, candidate count is zero, no human-review checkpoint exists, and billed cost remains unknown. Current retry state is `BLOCKED_AUTHORIZATION`; no additional call is authorized. Historical provider failure is not reclassified as a successful live result.
+
+## New bounded invocation
+
+PR #15 source HEAD `036e3d4ce6b6bf583e479fb1177ffe9943cdff0a`: offline provider/ledger tests 15/15 PASS, build and source identity exit 0, prompt preflight exit 0. One newly approved live request exited 1 with HTTP 400 `API_KEY_INVALID`; no retry, candidate, checkpoint or token usage. See `evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md` and its native ledger. No Docker or Java/Selenium ran. Billed cost unknown.

@@ -3,12 +3,11 @@
   "statusProposedByAgent": "LIVE_GENERATION_FAILED",
   "programStatusFileChanged": false,
   "authorization": {
-    "decision": "APPROVED_FOR_ONE_INVOCATION",
-    "authorizedInvocationLimit": 1,
-    "consumed": true,
+    "priorOneCallAuthorization": "CONSUMED",
+    "newPayloadDestinationApproval": "APPROVED_ONE_ATTEMPT_CONSUMED",
     "automaticRetries": 0
   },
-  "liveGeminiInvocations": 1,
+  "liveGeminiInvocations": 2,
   "retryCount": 0,
   "providerResult": {
     "provider": "Google Gemini Developer API",
@@ -33,7 +32,7 @@
     "currentProcessUserEquality": "EQUAL_IN_MEMORY_CURRENT_INVESTIGATION_ONLY",
     "currentNodeChildInheritedVariablePresence": true,
     "currentProcessAndNodeSurroundingWhitespace": "ABSENT",
-    "secretValueReadOrDisplayed": false,
+    "secretValueReadOrDisplayed": "NOT_DISPLAYED; current process value used in memory solely to redact captured output",
     "credentialType": "UNKNOWN_NOT_INSPECTED",
     "historicalInvocationCredentialEqualityToKnownWorkingContext": "UNKNOWN",
     "rootCauseClassification": "UNDETERMINED",
@@ -51,5 +50,17 @@
   "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
   "costTelemetry": "List-price token usage is an estimate, not independently verified billed cost",
   "dockerRuntime": "NOT_RUN",
-  "historicalT01CResultsReusedAsNew": false
+  "historicalT01CResultsReusedAsNew": false,
+  "newAuthorizedAttempt": {
+    "runId": "t01c-4de6bb42-2c8f-4a6d-8b73-054861ea9ce3",
+    "executionHead": "036e3d4ce6b6bf583e479fb1177ffe9943cdff0a",
+    "calls": 1,
+    "attempts": 1,
+    "providerStatus": "BLOCKED",
+    "httpStatus": 400,
+    "reason": "API_KEY_INVALID",
+    "candidateCount": 0,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md"
+  }
 }
