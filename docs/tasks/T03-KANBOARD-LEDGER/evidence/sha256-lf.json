@@ -1,0 +1,14 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/kanboard/tools/maven-evidence.mjs": "60b3f9b81a4e8cb75cd8111b96d4e84aeff5c40590b9a179fcc33f5a127e5699",
+    "experiments/kanboard/tools/test/maven-evidence.test.mjs": "65fb4d03f96fd599bbada24ec84b430e2ea809aa1078de4def31b68ce5a64570",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests-current-main-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests-current-main.txt": "69d8578849349aa284adabc406c36c47b7135b94b29c950184510522f080c021",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests-final-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests-final.txt": "dfd408692f42e1191cd5fec339f7d477733bfc780ec6c5b37eef317502ee5bce",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/offline-tests.txt": "81fe133733c07754c0bb89d9245d3b0264ef5c717850555e0036e74c73d58685"
+  }
+}
