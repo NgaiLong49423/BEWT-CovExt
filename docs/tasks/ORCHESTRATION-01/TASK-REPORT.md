@@ -24,3 +24,7 @@ PR #25 HEAD `ea28d3093dab173d8e93d42a7cf31cec95a1f898`: inspected validator/test
 PR #26 HEAD `90289e103dde97d3ce70680fa8c16194e64dd0da`: inspected helper and tests; independently reran 29/29 offline tests and verified four normalized Git blob hashes. ENGINEERING_PASS for mount-inventory hardening; original XML and exact Maven command remain missing in a bounded four-worktree search and G0 remains BLOCKED_EVIDENCE.
 
 Branch `task/t04i-address-review` HEAD `34812340917c6bf6d37c48535ce55c828f990dff`: independently inspected order and instore source, reran pinned extractor tests with matching evidence JSON, verified four Git blob hashes. ENGINEERING_PASS for the review packet; actor, oracle and novelty need human decisions. Integration waits for the open-PR phase.
+
+## PR #19 final integration
+
+PR #19 HEAD `c7901908ad8d32cb11c87aeaca3fd45860c20216` passed SonarCloud and was merged as `22d3813bd92cc6ec0c5b2d0d766b6ba3fcb72170`. Independently checked 18 evidence hashes and 255 input blobs for clean builds on tested source `59df094130eadc9d6634d04b70e3b4906bb55bd0`; an additional limited token-pattern scan across 350 changed files had no matches. Post-merge 34/34 focused offline safety tests passed. Automated assertion-line screening found no differences, but cannot establish semantic equivalence; the manual review documents fixture and browser changes. The four G0 runtimes and E2E remain unverified.

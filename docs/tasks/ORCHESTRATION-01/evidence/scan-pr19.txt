@@ -1,0 +1,1 @@
+{"filesScanned": 350, "patternMatchedPaths": []}
