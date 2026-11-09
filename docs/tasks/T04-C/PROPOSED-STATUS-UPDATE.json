@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "task": "T04-C",
+  "authority": "PROPOSAL_ONLY_NOT_APPLIED",
+  "basedOnCommit": "ae149842185877bcd4a97cf99ebdb3fc099e040b",
+  "taskStatus": "PENDING_APPROVAL",
+  "application": "kanboard",
+  "g0": {
+    "currentProgramStatus": "NOT_VERIFIED",
+    "recommendation": "DEFER_G0_ACCEPTANCE_BLOCKED_EVIDENCE",
+    "reason": "Run A and Run B recorded original Surefire SHA-256 values do not match their preserved XML after LF normalization; exact Maven command was reconstructed, not captured."
+  },
+  "g1": {
+    "status": "NOT_VERIFIED",
+    "reason": "Five candidates remain PROPOSED/PENDING, human decision ledger is empty, and no G1 acceptance is inferred from G0 evidence."
+  },
+  "humanReview": {
+    "candidateCount": 5,
+    "decisionCount": 0,
+    "ledgerModified": false
+  },
+  "t05": {
+    "status": "NOT_READY",
+    "entryCriteria": "docs/tasks/T04-C/T05-ENTRY-CRITERIA.md"
+  },
+  "requiresTeamLeadApproval": true,
+  "appliedToDocsProgramStatus": false
+}
