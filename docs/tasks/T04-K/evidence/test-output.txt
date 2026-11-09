@@ -1,0 +1,11 @@
+test_reject_decision (__main__.BatchTests.test_reject_decision) ... ok
+test_reject_missing_candidate (__main__.BatchTests.test_reject_missing_candidate) ... ok
+test_reject_missing_packet (__main__.BatchTests.test_reject_missing_packet) ... fatal: path 'missing-packet.md' does not exist in '5e09e93407f3abd622e73af40c367eabb1a0dd5f'
+ok
+test_reject_stale_revision (__main__.BatchTests.test_reject_stale_revision) ... ok
+test_valid_manifest (__main__.BatchTests.test_valid_manifest) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.385s
+
+OK

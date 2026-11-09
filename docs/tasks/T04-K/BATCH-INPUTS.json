@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "baselineCommit": "99811537e81d01f25f9210939a78800251662981",
+  "candidateCanonicalization": "UTF-8 JSON object, sorted keys, compact separators, unescaped Unicode",
+  "reviewPolicy": "PENDING_HUMAN_REVIEW_NO_DECISIONS",
+  "candidates": [
+    {"id":"MW-GAP-004","app":"mediawiki","version":1,"fileSha256":"4013f169968f27f540fdd0317ba75c0de995ec855b5acc15f85ec7ceccd6437a","candidateSha256":"5f5fcbda89777227ed91537a8ef100c350c4d54aaaf7cdabdf3605b8e1ab1ca7","packetCommit":"5e09e93407f3abd622e73af40c367eabb1a0dd5f","packetPath":"docs/tasks/T04-H/MW-GAP-004-REVIEW.md","packetEngineeringReview":"ENGINEERING_PASS_REPORTED_BY_LEAD","humanDecision":null},
+    {"id":"EC-GAP-003","app":"expresscart","version":1,"fileSha256":"52dba6fb9f817c82cf5f5dd8b69603c567cbeb0791c10b4d5c7ae0708e0d0d46","candidateSha256":"85ee047a535ad369647db563acdf3395b0af80bc592bf9325269cee9ab287732","packetCommit":"34812340917c6bf6d37c48535ce55c828f990dff","packetPath":"docs/tasks/T04-I/EC-GAP-003-REVIEW.md","packetEngineeringReview":"PENDING_INDEPENDENT_REVIEW","humanDecision":null},
+    {"id":"CL-GAP-002","app":"claroline","version":1,"fileSha256":"d11c368d88e99c9b011f434e963f0ff4c8dd9c36eb5667562b2b1c403e05bcaf","candidateSha256":"0cf749b43a953bc35fe0eb0d5a63a65b5b8b2f0eb428b27fe6f982b24f43db08","packetCommit":"f023d7a66a4a33ce52874f140ab159d68d3ca721","packetPath":"docs/tasks/T04-J/CL-GAP-002-REVIEW.md","packetEngineeringReview":"PENDING_INDEPENDENT_REVIEW","humanDecision":null}
+  ]
+}

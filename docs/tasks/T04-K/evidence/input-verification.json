@@ -1,0 +1,7 @@
+{
+  "result": "PASS",
+  "candidateCount": 3,
+  "decisionCount": 0,
+  "baselineCommit": "99811537e81d01f25f9210939a78800251662981",
+  "scope": "inputs and refs only; no semantic, engineering or human approval"
+}

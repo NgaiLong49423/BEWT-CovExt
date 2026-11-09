@@ -1,0 +1,8 @@
+# T04-K — Human review batch, three candidate revisions
+
+- Base `origin/main` `99811537e81d01f25f9210939a78800251662981`; branch `task/t04k-review-batch`; exact commit and remote status in handoff. No PR opened by default.
+- Engineering status proposed READY_FOR_REVIEW. [Batch table](HUMAN-DECISION-BATCH.md) contains three alternatives for each candidate and unfilled independent-review fields. No option selected, no decision issued.
+- `BATCH-INPUTS.json` binds original candidate files and canonical candidate revision hashes to T04-H/I/J packet commits. T04-H engineering pass is reported by Lead; T04-I/J were still pending independent review at snapshot. Their commit permalinks are immutable and do not imply those branches are merged.
+- Verification: `python docs/tasks/T04-K/tools/verify_batch.py` PASS exit 0; it checks source blobs at the baseline commit, candidate identity/version/status and packet Git-object existence; `evidence/input-verification.json`. `python docs/tasks/T04-K/tools/test_verify_batch.py` PASS exit 0, 5/5 tests including stale revision, false decision, absent packet and candidate-set rejection; `evidence/test-output.txt` and `test-exit.txt`. These checks do not verify semantic novelty, source truth or engineering review.
+- No Docker, browser, provider, app runtime or cloud action; no resources to clean. No `STATUS.json`, historical evidence, candidate input or human ledger changed. All three human decisions remain pending; G0–G4 and RQ2 unchanged.
+- Reviewer action: independently inspect packet diffs, candidate revisions, source and fixture; record real individual outcomes in the accepted decision workflow. Lead should reconcile packet engineering status before distribution.
