@@ -148,15 +148,30 @@ test('append-only history preserves decisions, links revisions and flags stale c
   } finally { fs.rmSync(temp,{recursive:true,force:true}); }
 });
 
-test('regenerating static review data leaves the separate official decision ledger unchanged',()=>{
-  const ledgerBefore=fs.readFileSync(ledgerPath);
-  const hashesBefore=dataset.candidates.map(x=>x.candidateVersionSha256);
-  const build=spawnSync(process.execPath,[path.join(root,'docs/tasks/T04-B/tools/build-review-dataset.mjs')],{cwd:root,encoding:'utf8'});
-  assert.equal(build.status,0,build.stderr);
-  assert.deepEqual(fs.readFileSync(ledgerPath),ledgerBefore);
-  const after=JSON.parse(fs.readFileSync(datasetPath,'utf8'));
-  assert.deepEqual(after.candidates.map(x=>x.candidateVersionSha256),hashesBefore);
-  assert.deepEqual(fs.readFileSync(ledgerPath),Buffer.alloc(0));
+test('regeneration uses isolated outputs and preserves the official review artifacts',()=>{
+  const temp=fs.mkdtempSync(path.join(os.tmpdir(),'t04b-review-build-test-'));
+  const packets=path.join(root,'docs/tasks/T04-B/review-packets');
+  const protectedPaths=[ledgerPath,datasetPath,...ids.map(id=>path.join(packets,`${id}.md`))];
+  const before=protectedPaths.map(p=>hash(fs.readFileSync(p)));
+  try {
+    const sourceDir=path.join(root,'data/coverage/kanboard');
+    const tempSourceDir=path.join(temp,'data/coverage/kanboard');
+    fs.mkdirSync(tempSourceDir,{recursive:true});
+    for(const name of ['inventory.json','gap-candidates.json','provenance-index.json','shortlist.json']) {
+      fs.copyFileSync(path.join(sourceDir,name),path.join(tempSourceDir,name));
+    }
+    const tempLedger=path.join(temp,'data/reviews/kanboard/human-review-decisions.jsonl');
+    fs.mkdirSync(path.dirname(tempLedger),{recursive:true});
+    const sentinel='synthetic ledger sentinel: do not overwrite\n';
+    fs.writeFileSync(tempLedger,sentinel);
+    const build=spawnSync(process.execPath,[path.join(root,'docs/tasks/T04-B/tools/build-review-dataset.mjs')],{cwd:temp,encoding:'utf8'});
+    assert.equal(build.status,0,build.stderr);
+    assert.equal(fs.readFileSync(tempLedger,'utf8'),sentinel);
+    const generated=JSON.parse(fs.readFileSync(path.join(temp,'data/reviews/kanboard/t04b-review-dataset.json'),'utf8'));
+    assert.deepEqual(generated.candidates.map(x=>x.candidateVersionSha256),dataset.candidates.map(x=>x.candidateVersionSha256));
+    assert.deepEqual(fs.readdirSync(path.join(temp,'docs/tasks/T04-B/review-packets')).sort(),ids.map(id=>`${id}.md`).sort());
+    assert.deepEqual(protectedPaths.map(p=>hash(fs.readFileSync(p))),before);
+  } finally { fs.rmSync(temp,{recursive:true,force:true}); }
 });
 
 test('pinned T04-A oracle corrections remain in the accepted inventory',()=>{
