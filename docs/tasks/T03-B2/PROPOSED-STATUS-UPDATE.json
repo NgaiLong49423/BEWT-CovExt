@@ -9,7 +9,7 @@
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. The Team Lead approved an egress-limited bridge profile with IP masquerading disabled. Its code and offline tests pass, but runtime behavior remains unverified; latest host RAM samples were 3.484, 2.845, and 2.518 GiB, below the stable 6 GiB diagnostic gate. Task-owned container/network/volume residual counts are zero. Diagnostic r2 and G0 A/B remain NOT_RUN. Cleanup recovery and independent residual checks PASS. OOM is not verified; pinned image derivative still awaits Team Lead review.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. The Team Lead approved an egress-limited bridge profile with IP masquerading disabled. Its code and offline tests pass, but runtime behavior remains unverified; latest host RAM samples were 1.162, 1.180, and 1.194 GiB, below the stable 6 GiB diagnostic gate. Task-owned container/network/volume residual counts are zero. Diagnostic r2 and G0 A/B remain NOT_RUN. Cleanup recovery and independent residual checks PASS. OOM is not verified; pinned image derivative still awaits Team Lead review.",
   "statusJsonChanged": true,
   "archiveCandidates": [
     {
@@ -49,5 +49,5 @@
   "approvedNetworkPolicy": "egress-limited-bridge-no-masquerade-v1",
   "networkPolicyRuntimeStatus": "NOT_RUN_MEMORY_GATE",
   "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r41/",
-  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r42/runtime-gate-recheck.json"
+  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r43/runtime-gate-recheck.json"
 }
