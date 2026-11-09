@@ -4,7 +4,7 @@
 
 This task prepares an evidence-linked static review of the five shortlisted Kanboard candidates against all 30 accepted T04-A baseline cases. It does not make a Team Lead decision, run UI tests, alter the shared program status, or qualify G1. All five remain `PROPOSED`; every official human decision field is null.
 
-The deterministic dataset at `data/reviews/kanboard/t04b-review-dataset.json` contains 5 candidates and 150 candidate/baseline comparisons, an 80-entry evidence/provenance index, pair-specific rationales, candidate oracle/fixture conditions, a risk register, and a qualitative non-aggregating rubric. Current pair classification is 142 `DISTINCT_BEHAVIOR_SUPPORTED` and 8 `PARTIAL_SEMANTIC_OVERLAP`; these are static comparison labels, not novelty acceptance. Candidate-by-candidate packets are under `docs/tasks/T04-B/review-packets/`. Recommendations are engineering opinions, not official candidate decisions.
+The deterministic dataset at `data/reviews/kanboard/t04b-review-dataset.json` contains 5 candidates and 150 candidate/baseline comparisons, an 80-entry evidence/provenance index, pair-specific rationales, candidate oracle/fixture conditions, a risk register, and a qualitative non-aggregating rubric. Rule-based screening flags 8 `PARTIAL_SEMANTIC_OVERLAP` pairs; 142 receive `NO_DIRECT_OVERLAP_FLAGGED`. All 150 remain pending independent semantic review, so none of those 142 is asserted to be distinct. Candidate-by-candidate packets are under `docs/tasks/T04-B/review-packets/`. Recommendations are engineering opinions, not official candidate decisions.
 
 ## Source and evidence basis
 
@@ -26,7 +26,9 @@ The deterministic dataset at `data/reviews/kanboard/t04b-review-dataset.json` co
 | KB-GAP-004 | RECOMMEND_REVISE | Partial role/membership overlap with KB-013; pin actor role, same-project active target, fixture and negative role control. Forged non-member `owner_id` rejection is `INSUFFICIENT_EVIDENCE`. |
 | KB-GAP-008 | RECOMMEND_ACCEPT | Existing-column update is distinct from baseline create-column cases KB-006/007. |
 
-These opinions must not be read as candidate decisions or novelty acceptance.
+These opinions must not be read as candidate decisions or novelty acceptance. The static review dataset is immutable with respect to human decisions: the append-only decision ledger is separate at `data/reviews/kanboard/human-review-decisions.jsonl`, and the deterministic builder never writes to it. The ledger is currently empty.
+
+Human decisions use `data/reviews/kanboard/human-review-decision.schema.json` and the tested validator/append-only utility `docs/tasks/T04-B/tools/human-review-decisions.mjs`. Each record binds candidate version, reviewed dataset bytes and a commit containing those exact bytes and candidate definition, reviewer-supplied identity/date, rationale, oracle/novelty assessment and evidence. Prior decisions are retained and hash-linked; changed candidate or dataset hashes require a new review. No decision record was created in this task; the official JSONL ledger remains zero bytes.
 
 ## Verification
 

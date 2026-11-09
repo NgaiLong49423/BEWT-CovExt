@@ -4,9 +4,9 @@
 
 Command: `node docs/tasks/T04-B/tools/build-review-dataset.mjs` followed by `node --test docs/tasks/T04-B/test/review-dataset.test.mjs`.
 
-The builder reads accepted T04-A data and emits five shortlisted candidates with all 150 candidate/baseline pairs. The test validates exact shortlist membership, pair uniqueness/cardinality, source commit/path/hash/permalink consistency, candidate hashes, all rubric and review fields, risk/oracle/fixture data, pending human decisions, all named qualification stages, PROPOSED state, G1 not verified, KB-004 boundary wording, and accepted KB-023/026 observed interpretations. Result: **6 passed, 0 failed, 0 skipped**. Dataset regeneration is byte-identical; see `evidence/verification/review-dataset-determinism.txt`.
+The builder reads accepted T04-A data and emits five shortlisted candidates with all 150 candidate/baseline pairs. Rule-based screening flags eight pairs; the other 142 are labeled `NO_DIRECT_OVERLAP_FLAGGED` and remain pending independent semantic review. Tests validate counts/labels, evidence on all flagged pairs, no novelty inference for unflagged pairs, exact shortlist membership, source pins/hash/links, reviewer-decision schema behavior, candidate hash mismatch rejection, append-only history and stale-version detection. The official decision ledger remains empty across regeneration. Latest focused test count is recorded in `evidence/verification/review-dataset-tests.txt`.
 
-An earlier test iteration had a shortlist field-name assumption; it was corrected to use the accepted schema's `candidateId` before final verification. A later compile-time schema parse issue was also fixed before final JSON and test verification. Superseded iteration output is not treated as final evidence.
+The human-decision contract is enforced by `docs/tasks/T04-B/tools/human-review-decisions.mjs` and tested with test-only payloads in temporary files; no synthetic test payload is written into the official ledger. The JSON Schema is paired with the runtime validator for cross-object checks (candidate/dataset hashes, commit content binding, evidence links, sequence and hash chain). Latest focused tests: **12 passed, 0 failed, 0 skipped**; T04-A source/oracle regressions: **16 passed, 0 failed, 0 skipped**. Fresh command output is stored under `evidence/review-fixes/`.
 
 ## Provenance checks
 

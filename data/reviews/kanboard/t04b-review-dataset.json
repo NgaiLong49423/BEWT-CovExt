@@ -1,7 +1,8 @@
 {
-  "schemaVersion": "1.0",
+  "schemaVersion": "1.1",
   "application": "Kanboard",
-  "reviewScope": "T04-B static semantic inventory review",
+  "reviewScope": "T04-B rule-based overlap screening; independent semantic review pending",
+  "screeningMethod": "RULE_BASED_SCREENING",
   "sourcePins": {
     "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "kanboardCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
@@ -12,10 +13,11 @@
   "candidateCount": 5,
   "baselineCaseCount": 30,
   "pairCount": 150,
-  "classificationCounts": {
-    "DISTINCT_BEHAVIOR_SUPPORTED": 142,
+  "screeningCounts": {
+    "NO_DIRECT_OVERLAP_FLAGGED": 142,
     "PARTIAL_SEMANTIC_OVERLAP": 8
   },
+  "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
   "candidates": [
     {
       "id": "KB-GAP-001",
@@ -1054,8 +1056,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-001 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1127,8 +1133,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-002 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1203,8 +1213,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-003 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1278,8 +1292,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-004 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1355,8 +1373,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-005 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1432,8 +1454,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-006 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1508,8 +1534,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-007 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1585,8 +1615,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-008 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1661,8 +1695,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-009 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1738,8 +1776,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-010 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1814,8 +1856,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-011 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1893,8 +1939,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-012 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -1967,8 +2017,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-013 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2044,8 +2098,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-014 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2128,8 +2186,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-015 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2208,8 +2270,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-016 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2283,6 +2349,10 @@
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both involve the open-task filter; baseline KB-017 asserts search results, while the proposal must assert the closed-to-open state transition.",
       "evidence": [
         {
@@ -2358,6 +2428,10 @@
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both exercise task status lifecycle in opposite directions; baseline closes a task, while the proposal opens a previously closed task.",
       "evidence": [
         {
@@ -2441,8 +2515,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-019 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2526,8 +2604,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-020 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2606,8 +2688,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-021 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2685,8 +2771,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-022 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2766,8 +2856,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-023 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2845,8 +2939,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-024 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -2925,8 +3023,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-025 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3004,8 +3106,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-026 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3078,6 +3184,10 @@
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both involve closed/open status filtering; baseline searches closed tasks, while the proposed primary behavior is reopening the entity.",
       "evidence": [
         {
@@ -3152,8 +3262,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-028 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3230,8 +3344,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-029 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3309,8 +3427,12 @@
       ],
       "candidateBehavior": "Reopen a closed task.",
       "candidateOracle": "Visible Open status and status:open search returns the task.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-030 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3385,8 +3507,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-001 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3482,8 +3608,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-002 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3582,8 +3712,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-003 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3681,8 +3815,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-004 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3782,8 +3920,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-005 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3883,8 +4025,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-006 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -3983,8 +4129,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-007 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4084,8 +4234,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-008 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4184,8 +4338,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-009 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4285,8 +4443,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-010 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4385,8 +4547,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-011 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4488,8 +4654,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-012 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4586,8 +4756,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-013 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4687,8 +4861,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-014 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4795,8 +4973,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-015 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4899,8 +5081,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-016 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -4997,8 +5183,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-017 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5096,8 +5286,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-018 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5204,8 +5398,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-019 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5313,8 +5511,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-020 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5417,8 +5619,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-021 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5520,8 +5726,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-022 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5625,8 +5835,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-023 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5728,8 +5942,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-024 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5832,8 +6050,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-025 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -5935,8 +6157,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-026 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6032,8 +6258,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-027 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6131,8 +6361,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-028 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6233,8 +6467,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-029 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6336,8 +6574,12 @@
       ],
       "candidateBehavior": "Create and view a task comment.",
       "candidateOracle": "Exact new comment appears in that task's comment history.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-030 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6436,8 +6678,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-001 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6525,8 +6771,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-002 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6618,6 +6868,10 @@
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both create a task-like title; baseline creates a top-level task, while the candidate must assert a child-to-parent relationship.",
       "evidence": [
         {
@@ -6709,6 +6963,10 @@
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both touch task title entry/required-title validation; baseline checks blank top-level task rejection, not parent-scoped child creation.",
       "evidence": [
         {
@@ -6801,8 +7059,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-005 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6894,8 +7156,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-006 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -6986,8 +7252,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-007 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7079,8 +7349,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-008 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7171,8 +7445,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-009 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7264,8 +7542,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-010 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7356,8 +7638,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-011 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7451,8 +7737,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-012 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7541,8 +7831,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-013 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7634,8 +7928,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-014 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7734,8 +8032,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-015 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7830,8 +8132,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-016 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -7920,8 +8226,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-017 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8011,8 +8321,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-018 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8111,8 +8425,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-019 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8212,8 +8530,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-020 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8308,8 +8630,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-021 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8403,8 +8729,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-022 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8500,8 +8830,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-023 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8595,8 +8929,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-024 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8691,8 +9029,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-025 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8786,8 +9128,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-026 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8875,8 +9221,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-027 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -8966,8 +9316,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-028 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9060,8 +9414,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-029 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9155,8 +9513,12 @@
       ],
       "candidateBehavior": "Create a subtask under a task.",
       "candidateOracle": "Child title appears in the parent's subtask section.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-030 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9247,8 +9609,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-001 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9336,8 +9702,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-002 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9428,8 +9798,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-003 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9519,8 +9893,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-004 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9612,8 +9990,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-005 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9705,8 +10087,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-006 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9797,8 +10183,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-007 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9890,8 +10280,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-008 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -9982,8 +10376,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-009 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10075,8 +10473,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-010 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10167,8 +10569,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-011 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10262,8 +10668,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-012 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10353,6 +10763,10 @@
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both involve project membership/roles; KB-013 checks the authorized-user list, while the proposal changes and verifies an existing task assignee.",
       "evidence": [
         {
@@ -10445,8 +10859,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-014 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10545,8 +10963,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-015 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10641,8 +11063,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-016 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10731,8 +11157,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-017 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10822,8 +11252,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-018 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -10922,8 +11356,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-019 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11023,8 +11461,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-020 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11119,8 +11561,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-021 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11214,8 +11660,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-022 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11311,8 +11761,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-023 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11406,8 +11860,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-024 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11502,8 +11960,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-025 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11597,8 +12059,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-026 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11686,8 +12152,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-027 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11777,8 +12247,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-028 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11871,8 +12345,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-029 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -11966,8 +12444,12 @@
       ],
       "candidateBehavior": "Change an existing task assignee.",
       "candidateOracle": "Modification form retains target assignee after save/reopen.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-030 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12058,8 +12540,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-001 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12115,8 +12601,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-002 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12175,8 +12665,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-003 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12234,8 +12728,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-004 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12295,8 +12793,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-005 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12357,6 +12859,10 @@
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both concern columns and titles; baseline creates a new column, while the candidate updates the title of the same existing column identity.",
       "evidence": [
         {
@@ -12417,6 +12923,10 @@
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
       "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "EXPLICIT_OVERLAP_REVIEW_LIST",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
       "rationale": "Both concern column title validation; baseline rejects a blank title on creation, while the candidate updates an existing column.",
       "evidence": [
         {
@@ -12477,8 +12987,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-008 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12537,8 +13051,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-009 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12598,8 +13116,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-010 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12658,8 +13180,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-011 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12721,8 +13247,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-012 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12779,8 +13309,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-013 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12840,8 +13374,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-014 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12908,8 +13446,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-015 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -12972,8 +13514,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-016 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13030,8 +13576,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-017 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13089,8 +13639,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-018 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13157,8 +13711,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-019 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13226,8 +13784,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-020 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13290,8 +13852,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-021 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13353,8 +13919,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-022 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13418,8 +13988,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-023 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13481,8 +14055,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-024 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13545,8 +14123,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-025 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13608,8 +14190,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-026 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13665,8 +14251,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-027 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13724,8 +14314,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-028 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13786,8 +14380,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-029 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",
@@ -13849,8 +14447,12 @@
       ],
       "candidateBehavior": "Edit an existing column.",
       "candidateOracle": "Board/list shows changed title after save.",
-      "classification": "DISTINCT_BEHAVIOR_SUPPORTED",
-      "rationale": "Compared KB-030 observed action/oracle/assertion with candidate action and expected outcome; no same primary behavior was identified in this static pair. This supports a review distinction only, not dataset-wide novelty.",
+      "classification": "NO_DIRECT_OVERLAP_FLAGGED",
+      "screeningMethod": "RULE_BASED_SCREENING",
+      "screeningRuleId": "NO_DIRECT_OVERLAP_RULE_MATCH",
+      "semanticReviewStatus": "PENDING_INDEPENDENT_REVIEW",
+      "humanNoveltyDecision": null,
+      "rationale": "No explicit overlap rule flagged this pair. This is not a finding of distinct behavior: independent semantic review is pending. Review the paired baseline action, oracle, Java assertion and pinned sources before assigning any novelty result.",
       "evidence": [
         {
           "type": "BEWT_GHERKIN",

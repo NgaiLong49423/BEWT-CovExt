@@ -49,7 +49,7 @@ See [T04-B Human Review Rubric](../HUMAN-REVIEW-RUBRIC.md). These qualitative st
 
 ## Baseline comparison
 
-All 30 baseline cases were compared; see the machine-readable 150-row dataset. Partial overlaps: KB-017 (Searches for open tasks in a project); KB-018 (Closes a task); KB-027 (Searches for closed tasks in a project). This static mapping is not proof of dataset-wide novelty.
+All 30 baseline cases were compared by rule-based screening; see the machine-readable 150-row dataset. Overlap flags: KB-017 (Searches for open tasks in a project); KB-018 (Closes a task); KB-027 (Searches for closed tasks in a project). Pairs labeled NO_DIRECT_OVERLAP_FLAGGED have not received independent semantic review and are not novelty findings.
 
 ## Technical recommendation
 

@@ -1,6 +1,6 @@
 # Baseline Overlap Matrix
 
-The full 5 × 30 matrix is machine-readable at `data/reviews/kanboard/t04b-review-dataset.json`. It preserves case IDs, raw titles, observed behavior, test action, expected oracle, Java assertions, classification, pair-specific rationale, and commit-pinned source links and hashes for each pair.
+The full 5 × 30 matrix is machine-readable at `data/reviews/kanboard/t04b-review-dataset.json`. It preserves case IDs, raw titles, observed behavior, test action, expected oracle, Java assertions, screening label/rule, pair rationale, semantic-review state, and commit-pinned source links and hashes for each pair.
 
 | Candidate | Related baseline cases | Relationship |
 |---|---|---|
@@ -10,4 +10,4 @@ The full 5 × 30 matrix is machine-readable at `data/reviews/kanboard/t04b-revie
 | KB-GAP-004 | KB-013 | Partial overlap: baseline checks project authorized-user visibility/roles; the proposal changes and verifies an existing task assignee. Forged non-member `owner_id` rejection remains `INSUFFICIENT_EVIDENCE`. |
 | KB-GAP-008 | KB-006, KB-007 | Same entity type and title field, but baseline creates a new column; proposal updates an existing one. |
 
-The remaining 142 pairs are recorded `DISTINCT_BEHAVIOR_SUPPORTED` as a static mapping observation only. Eight pairs are partial overlaps, each with a pair-specific explanation in the dataset. No pair was called a duplicate based on titles. Do not interpret this matrix as dataset-wide novelty or G1 acceptance.
+The screening process flagged 8 pairs for partial overlap and found no direct overlap flag for the remaining 142. `NO_DIRECT_OVERLAP_FLAGGED` means only that the configured rule list did not flag that pair; it is **not** a finding of distinct behavior. All 150 pairs remain `PENDING_INDEPENDENT_REVIEW`, and no pair is marked novel or duplicate. The eight flagged pairs retain specific rationales and baseline/candidate evidence. Do not interpret the matrix as dataset-wide novelty or G1 acceptance.
