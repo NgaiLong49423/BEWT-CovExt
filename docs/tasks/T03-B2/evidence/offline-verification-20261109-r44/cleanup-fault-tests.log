@@ -1,0 +1,38 @@
+✔ partial-startup cleanup handles 0 recorded Claroline container(s) (8.3166ms)
+✔ partial-startup cleanup handles 1 recorded Claroline container(s) (2.3536ms)
+✔ partial-startup cleanup handles 2 recorded Claroline container(s) (1.0566ms)
+✔ approved egress-limited bridge profile is checked and legacy internal runs remain cleanable (3.3236ms)
+✔ external egress probe distinguishes blocked, reachable, and inconclusive outcomes (1.4139ms)
+✔ failed network initialization without a returned ID blocks on an unrecorded same-run resource (0.3953ms)
+✔ create ID is persisted before nonzero status is classified for network/app/Selenium failures (1.3661ms)
+✔ Docker create port bind race is classified after any returned ID is recorded (0.3708ms)
+✔ fault injection: Selenium start failure cleans both containers because their IDs were recorded at create (0.9835ms)
+✔ pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints (1.1189ms)
+✔ running containers with an explicitly unallocated host port are safely cleaned by recorded ownership (0.7396ms)
+✔ an empty HostConfig port is blocked if Docker reports an assigned external port (0.3344ms)
+✔ stopped exit-137 container with detached endpoint and no published port is safely removed (0.6893ms)
+✔ exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block (0.47ms)
+✔ stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation (1.9039ms)
+✔ unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted (0.7551ms)
+✔ partial teardown and network removal failure return BLOCKED/nonzero; no false PASS (0.7673ms)
+✔ fully absent previously recorded resources are an idempotent PASS (0.7895ms)
+✔ network-only partial run and no-resource network-create failure are safe (0.4667ms)
+✔ app-only diagnostic can safely clean an exact loopback record when Docker omits the active port report (0.489ms)
+✔ selected port mismatch or active external binding blocks cleanup without mutation (0.7117ms)
+✔ containers without a recorded network block before any stop or rm (0.1657ms)
+✔ Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML (7.5793ms)
+✔ Surefire sanitization removes machine properties/output and local workspace paths (2.2597ms)
+✔ run ID validation rejects unsafe and duplicate-shape identities (0.2649ms)
+✔ evidence directory creation is write-once for each run ID (4.4324ms)
+✔ native tools resolve to explicit paths and child PATH excludes user-writable AppData (0.41ms)
+✔ loopback port selector returns an available host-only ephemeral port (38.867ms)
+✔ selected loopback port probe detects occupied port and does not claim reservation (4.8029ms)
+✔ Docker port verification requires exact loopback HostConfig and NetworkSettings match (0.4774ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1207.2107

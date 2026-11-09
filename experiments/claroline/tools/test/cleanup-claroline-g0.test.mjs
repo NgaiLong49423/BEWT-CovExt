@@ -43,7 +43,7 @@ function makeContainer(role, overrides = {}) {
 
 function makeNetwork(endpointIds = [], policy = EGRESS_LIMITED_NETWORK_POLICY) {
   const internal = policy === INTERNAL_NETWORK_POLICY;
-  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
+  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, EnableIPv6: false, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
 function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun = true, inspectError = null, endpointMismatch = false, labelMismatch = false, imageMetadataMismatch = false, mountMismatch = false, badBinding = false, createdUnstarted = false, residualContainer = false, residualNetwork = false, residualVolume = false, staleName = false, failRemoveRole = null, failNetworkRemove = false } = {}) {
@@ -143,6 +143,8 @@ test('approved egress-limited bridge profile is checked and legacy internal runs
   assert.equal(cleanup(correct).outcome, 'PASS');
   for (const mutate of [
     network => { network.Internal = true; },
+    network => { network.EnableIPv6 = true; },
+    network => { delete network.EnableIPv6; },
     network => { network.Options['com.docker.network.bridge.enable_ip_masquerade'] = 'true'; },
     network => { delete network.Options['com.docker.network.bridge.enable_ip_masquerade']; },
   ]) {

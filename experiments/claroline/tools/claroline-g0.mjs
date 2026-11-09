@@ -14,6 +14,7 @@ export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerad
 
 export function assertNetworkPolicy(network, policy) {
   if (!network || network.Driver !== 'bridge') throw new Error('network policy requires a user-defined bridge');
+  if (network.EnableIPv6 !== false) throw new Error('network policy mismatch: IPv6 must be explicitly disabled');
   if (policy === INTERNAL_NETWORK_POLICY) {
     if (network.Internal !== true) throw new Error('network policy mismatch: expected internal bridge');
     return network;

@@ -147,7 +147,7 @@ try {
   finally { if (record.network) dockerChanged = true; }
   const network = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
   assertNetworkPolicy(network, EGRESS_LIMITED_NETWORK_POLICY);
-  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: EGRESS_LIMITED_NETWORK_POLICY, driver: network.Driver, internal: network.Internal, ipMasquerade: network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] });
+  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: EGRESS_LIMITED_NETWORK_POLICY, driver: network.Driver, internal: network.Internal, ipv6Enabled: network.EnableIPv6, ipMasquerade: network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] });
   const appCreate = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', `127.0.0.1:${appPort}:80`, '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
   try { recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreate, record, onRecord: saveRecord }); }
   finally { if (record.containers.length) dockerChanged = true; }
