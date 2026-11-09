@@ -1,13 +1,14 @@
-✔ contains exact shortlist and every baseline pairing once (1.5109ms)
-✔ pinned evidence, proposal state and human review fields are explicit (0.3112ms)
-✔ assignee forged-owner boundary remains unproven; KB-023/026 use observed behavior (1.0394ms)
-✔ all pair records carry oracle, assertions and evidence references (0.2574ms)
-✔ accepted input hashes are present and valid (0.7905ms)
-ℹ tests 5
+✔ contains exact shortlist and every baseline pairing once (1.8642ms)
+✔ pinned evidence, proposal state and human review fields are explicit (3.2756ms)
+✔ assignee forged-owner boundary remains unproven; KB-023/026 use observed behavior (1.2453ms)
+✔ all pair records carry oracle, assertions and evidence references (3.8119ms)
+✔ accepted input hashes are present and valid (0.8786ms)
+✔ schema and review packet set define all five decisions without filling them (7.7423ms)
+ℹ tests 6
 ℹ suites 0
-ℹ pass 5
+ℹ pass 6
 ℹ fail 0
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 81.1498
+ℹ duration_ms 127.5523

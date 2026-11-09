@@ -2,7 +2,7 @@
 
 ## Scope and evidence
 
-Status: `PROPOSED`; official human decision: `PENDING`. Candidate version SHA-256: `dfe8dff468d00146a44903447911894447ed57c29174e9e74475d8b0d67af598`. Kanboard source pin: `00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b`.
+Status: `PROPOSED`; official human decision: `PENDING`. Candidate definition SHA-256: `dfe8dff468d00146a44903447911894447ed57c29174e9e74475d8b0d67af598` (canonical record from `data/coverage/kanboard/gap-candidates.json`). Kanboard source pin: `00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b`.
 
 Expected observable result: Modification form retains target assignee after save/reopen.
 
@@ -21,9 +21,44 @@ Source evidence:
 - [`app/Model/ProjectUserRoleModel.php` L163-L197](https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Model/ProjectUserRoleModel.php#L163-L197) — SHA-256 `1a42ab03aa99c71340f2b83455891d90c8fd753dcb20b294cbc98b1f6b725bd3`
 - [`app/Helper/ProjectRoleHelper.php` L186-L214](https://github.com/kanboard/kanboard/blob/00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b/app/Helper/ProjectRoleHelper.php#L186-L214) — SHA-256 `b117f44dd9c608e7be0d69805a6a9fe3b10ba316f2f45f8aa66ed87b3b8b629d`
 
+## Technical review
+
+**Baseline cases reviewed:** KB-013
+
+**Oracle review:** With an authorized actor, assign one active same-project Manager/Member target and verify that exact assignee remains selected after save and reload; separately assert a role without change permission cannot perform the update.
+
+**Implementation conditions:**
+- Seed stable project, task, actor and one active direct same-project Manager/Member target.
+- Verify the actor role permits both task update and assignee change.
+- Keep target membership and role stable across repeats; do not treat Viewer as eligible.
+- Include unauthorized-role negative control.
+- Do not claim forged non-member owner_id rejection without a focused runtime test.
+
+**Known risks:**
+- UI selectors, fixture isolation, and repeatability are not runtime-verified.
+- The inspected source builds the selectable list from active non-viewer project members and checks actor permissions; server-side enforcement of a forged non-member owner_id has not been established.
+
+**Unresolved questions:**
+- Does the UI save path enforce the proposed actor/target constraints under the pinned build?
+- Does the unauthorized-role control fail at the UI boundary consistently?
+- Is server-side rejection of forged non-member owner_id implemented? This remains INSUFFICIENT_EVIDENCE.
+
+**Evidence for reviewer:** see pinned links above and pairwise entries for all 30 baseline cases. No live execution evidence was created.
+
+## Fixture, reset and cleanup
+
+- Fixture: Seed project/task/actor and one active direct same-project Manager/Member target; retain an unauthorized actor control.
+- Reset: Fresh isolated DB/volume with membership and roles restored from the same fixture seed.
+- Cleanup: Teardown only the owned instance; preserve no assumptions about forged owner_id server rejection.
+- Runtime status: NOT_RUN
+
+## Rubric assessment
+
+See [T04-B Human Review Rubric](../HUMAN-REVIEW-RUBRIC.md). These qualitative statuses do not aggregate into acceptance.
+
 ## Baseline comparison
 
-All 30 baseline cases were compared; see the machine-readable 150-row dataset. Partial overlaps: none identified. This static mapping is not proof of dataset-wide novelty.
+All 30 baseline cases were compared; see the machine-readable 150-row dataset. Partial overlaps: KB-013 (Check the users permissions on a project). This static mapping is not proof of dataset-wide novelty.
 
 ## Technical recommendation
 
@@ -40,5 +75,8 @@ This is not a Team Lead decision.
 - Rationale: null
 - Oracle confirmation: null
 - Novelty assessment: null
+
+- Conditions for implementation: null (human reviewer to complete)
+- Reviewer evidence: null (human reviewer to attach)
 
 G1 readiness: false. Runtime behavior, selectors, fixture/reset, and cleanup are not verified by this static review.

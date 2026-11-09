@@ -1,0 +1,11 @@
+{
+  "candidates": 5,
+  "baselines": 30,
+  "pairs": 150,
+  "provenance": 80,
+  "risks": 6,
+  "classification": {
+    "DISTINCT_BEHAVIOR_SUPPORTED": 142,
+    "PARTIAL_SEMANTIC_OVERLAP": 8
+  }
+}
