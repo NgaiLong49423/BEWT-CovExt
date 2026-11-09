@@ -1,0 +1,11 @@
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (82.0058ms)
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (4510.5693ms)
+✔ offline production-shaped repair loop preserves the first Java artifact and records two real isolated Maven attempts (8710.0653ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15406.7143

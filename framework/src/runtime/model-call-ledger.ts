@@ -16,8 +16,10 @@ async function writeUnique(root: string, relativePath: string, content: string):
 export async function readModelRunBudget(root: string, evidenceRoot: string, runId: string): Promise<ModelRunBudget> {
   const path = await resolveContainedExistingPath(root, `${evidenceRoot}/${runId}/model-run-budget.json`);
   const value = JSON.parse(await readFile(path, "utf8")) as Partial<ModelRunBudget>;
-  if (!Number.isInteger(value.apiRequestsAllowed) || value.apiRequestsAllowed! < 1 || !Number.isFinite(value.runCostCeilingUsd) ||
-      !Number.isFinite(value.perCallCostCeilingUsd) || value.perCallCostCeilingUsd! * value.apiRequestsAllowed! > value.runCostCeilingUsd! + 1e-9) {
+  if (!Number.isSafeInteger(value.apiRequestsAllowed) || value.apiRequestsAllowed! < 1 || value.apiRequestsAllowed! > 4 ||
+      !Number.isFinite(value.runCostCeilingUsd) || value.runCostCeilingUsd! <= 0 ||
+      !Number.isFinite(value.perCallCostCeilingUsd) || value.perCallCostCeilingUsd! < 0.001 || value.perCallCostCeilingUsd! > 0.02 ||
+      value.perCallCostCeilingUsd! * value.apiRequestsAllowed! > value.runCostCeilingUsd! + 1e-9) {
     throw new Error("T01-C model run budget ledger is invalid");
   }
   return value as ModelRunBudget;
