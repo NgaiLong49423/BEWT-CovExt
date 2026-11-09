@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, sanitizeSurefireXml, validateRunId } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -13,12 +13,16 @@ const names = namesForRun(runId);
 const labels = labelsForRun(runId);
 const imageDigest = APP_IMAGE_REF.split('@')[1];
 const browserImageDigest = BROWSER_IMAGE_REF.split('@')[1];
+const imageLabels = {
+  app: {},
+  browser: { authors: 'SeleniumHQ', 'org.opencontainers.image.ref.name': 'ubuntu', 'org.opencontainers.image.source': 'https://github.com/SeleniumHQ/docker-selenium', 'org.opencontainers.image.version': '24.04' },
+};
 const err = (message, status = 1) => Object.assign(new Error(message), { status, stderr: Buffer.from(message) });
 const unrelatedLabels = { project: 'other-task', owner: 'other-task' };
 
 function record(roles = ['app', 'browser'], includeNetwork = true) {
   return {
-    runId, imageDigest, browserImageDigest,
+    runId, imageDigest, browserImageDigest, imageLabels,
     containers: roles.map(role => ({ role, id: ids[role], name: names[role], imageRef: role === 'app' ? APP_IMAGE_REF : BROWSER_IMAGE_REF })),
     network: includeNetwork ? { id: ids.network, name: names.network } : null,
   };
@@ -29,10 +33,10 @@ function makeContainer(role, overrides = {}) {
   const hostPort = role === 'app' ? '80/tcp' : '4444/tcp';
   return {
     Id: ids[role], Name: `/${names[role]}`,
-    Config: { Image: image, Labels: { ...labels } },
+    Config: { Image: image, Labels: { ...imageLabels[role], ...labels } },
     State: { Running: true }, Mounts: [],
     HostConfig: { Privileged: false, NetworkMode: names.network, Binds: [], PortBindings: { [hostPort]: [{ HostIp: '127.0.0.1', HostPort: role === 'app' ? '51001' : '51002' }] } },
-    NetworkSettings: { Networks: { [names.network]: { NetworkID: ids.network } } },
+    NetworkSettings: { Networks: { [names.network]: { NetworkID: ids.network, EndpointID: `${role}-endpoint` } } },
     ...overrides,
   };
 }
@@ -41,7 +45,7 @@ function makeNetwork(endpointIds = []) {
   return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: true, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
-function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun = true, inspectError = null, endpointMismatch = false, labelMismatch = false, mountMismatch = false, badBinding = false, residualContainer = false, residualNetwork = false, residualVolume = false, staleName = false, failRemoveRole = null, failNetworkRemove = false } = {}) {
+function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun = true, inspectError = null, endpointMismatch = false, labelMismatch = false, imageMetadataMismatch = false, mountMismatch = false, badBinding = false, createdUnstarted = false, residualContainer = false, residualNetwork = false, residualVolume = false, staleName = false, failRemoveRole = null, failNetworkRemove = false } = {}) {
   const state = {
     containers: new Map([[ids.other, { Id: ids.other, Name: '/expresscart-other-task', Config: { Image: 'expresscart:test', Labels: unrelatedLabels }, State: { Running: true }, Mounts: [] }]]),
     networks: new Map([[ids.otherNetwork, { Id: ids.otherNetwork, Name: 'kanboard-other-task', Driver: 'bridge', Internal: false, Labels: unrelatedLabels, Containers: {} }]]),
@@ -56,13 +60,17 @@ function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun 
   if (addRun) {
     const runContainers = roles.map(role => {
       const overrides = {};
-      if (labelMismatch && role === 'app') overrides.Config = { Image: APP_IMAGE_REF, Labels: { ...labels, owner: 'incorrect-owner' } };
+      if (createdUnstarted) overrides.State = { Status: 'created', Running: false };
+      if (createdUnstarted) overrides.HostConfig = { Privileged: false, NetworkMode: names.network, Binds: [], PortBindings: { [role === 'app' ? '80/tcp' : '4444/tcp']: [{ HostIp: '127.0.0.1', HostPort: '' }] } };
+      if (createdUnstarted) overrides.NetworkSettings = { Networks: { [names.network]: { NetworkID: '', EndpointID: '', IPAddress: '', Gateway: '', MacAddress: '' } } };
+      if (labelMismatch && role === 'app') overrides.Config = { Image: APP_IMAGE_REF, Labels: { ...imageLabels.app, ...labels, owner: 'incorrect-owner' } };
+      if (imageMetadataMismatch && role === 'browser') overrides.Config = { Image: BROWSER_IMAGE_REF, Labels: { ...imageLabels.browser, ...labels, authors: 'unknown' } };
       if (mountMismatch && role === 'app') overrides.Mounts = [{ Type: 'bind', Source: 'C:\\outside', Destination: '/home/claroline', RW: true }];
       if (badBinding && role === 'app') overrides.HostConfig = { Privileged: false, NetworkMode: names.network, Binds: [], PortBindings: { '80/tcp': [{ HostIp: '0.0.0.0', HostPort: '51001' }] } };
       return makeContainer(role, overrides);
     });
     for (const item of runContainers) state.containers.set(item.Id, item);
-    const endpoints = endpointMismatch ? [ids.other] : runContainers.map(item => item.Id);
+    const endpoints = endpointMismatch ? [ids.other] : createdUnstarted ? [] : runContainers.map(item => item.Id);
     if (includeNetwork) state.networks.set(ids.network, makeNetwork(endpoints));
   }
   if (residualContainer) state.containers.set('f'.repeat(64), makeContainer('app', { Id: 'f'.repeat(64), Name: `/unrecorded-${runId}` }));
@@ -158,6 +166,59 @@ test('fault injection: Selenium start failure cleans both containers because the
   assert.equal(fake.state.containers.has(ids.app), false); assert.equal(fake.state.containers.has(ids.browser), false);
 });
 
+test('pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints', () => {
+  for (const roles of [['app'], ['app', 'browser']]) {
+    const fake = fakeDocker({ roles, createdUnstarted: true });
+    const result = cleanup(fake, record(roles));
+    assert.equal(result.outcome, 'PASS');
+    assert.equal(result.removedContainerIds.length, roles.length);
+    assert.equal(fake.state.containers.has(ids.other), true, 'unrelated ExpressCart container is preserved');
+    assert.equal(fake.state.networks.has(ids.otherNetwork), true, 'unrelated Kanboard network is preserved');
+    assert.equal(fake.state.volumes.has('unrelated-volume'), true, 'unrelated project volume is preserved');
+  }
+});
+
+test('running containers with an explicitly unallocated host port are safely cleaned by recorded ownership', () => {
+  const fake = fakeDocker();
+  for (const role of ['app', 'browser']) {
+    const item = fake.state.containers.get(ids[role]);
+    const key = role === 'app' ? '80/tcp' : '4444/tcp';
+    item.HostConfig.PortBindings[key][0].HostPort = '';
+    item.NetworkSettings.Ports = { [key]: [] };
+  }
+  const result = cleanup(fake);
+  assert.equal(result.outcome, 'PASS');
+  assert.equal(fake.state.containers.has(ids.app), false);
+  assert.equal(fake.state.containers.has(ids.browser), false);
+  assert.equal(fake.state.containers.has(ids.other), true, 'unrelated ExpressCart container is preserved');
+  assert.equal(fake.state.networks.has(ids.otherNetwork), true, 'unrelated Kanboard network is preserved');
+  assert.equal(fake.state.volumes.has('unrelated-volume'), true, 'unrelated project volume is preserved');
+});
+
+test('an empty HostConfig port is blocked if Docker reports an assigned external port', () => {
+  const fake = fakeDocker();
+  const app = fake.state.containers.get(ids.app);
+  app.HostConfig.PortBindings['80/tcp'][0].HostPort = '';
+  app.NetworkSettings.Ports = { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51001' }] };
+  assert.throws(() => cleanup(fake), CleanupBlockedError);
+  assert.deepEqual(fake.state.mutations, []);
+});
+test('stopped OOM container with detached endpoint and no published port is safely removed', () => {
+  const fake = fakeDocker();
+  const app = fake.state.containers.get(ids.app);
+  app.State = { Status: 'exited', Running: false, ExitCode: 137 };
+  app.HostConfig.PortBindings['80/tcp'][0].HostPort = '';
+  app.NetworkSettings.Ports = {};
+  app.NetworkSettings.Networks[names.network] = { NetworkID: ids.network, EndpointID: '', IPAddress: '', Gateway: '', MacAddress: '' };
+  fake.state.networks.get(ids.network).Containers = { [ids.browser]: {} };
+  const result = cleanup(fake);
+  assert.equal(result.outcome, 'PASS');
+  assert.equal(fake.state.containers.has(ids.app), false);
+  assert.equal(fake.state.containers.has(ids.browser), false);
+  assert.equal(fake.state.networks.has(ids.network), false);
+  assert.equal(fake.state.containers.has(ids.other), true, 'unrelated ExpressCart container is preserved');
+  assert.equal(fake.state.networks.has(ids.otherNetwork), true, 'unrelated Kanboard network is preserved');
+});
 test('exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block', () => {
   assert.equal(isExactNotFound(err(`Error: No such object: ${ids.app}`), 'container', ids.app), true);
   assert.equal(isExactNotFound(err(`Error response from daemon: network ${names.network} not found`), 'network', names.network), true);
@@ -173,7 +234,7 @@ test('stale IDs, wrong images, labels, mounts, bindings, and extra endpoints blo
   const stale = fakeDocker();
   const staleRecord = record(); staleRecord.containers[0].id = '1'.repeat(64);
   assert.throws(() => cleanup(stale, staleRecord), CleanupBlockedError);
-  for (const options of [{ labelMismatch: true }, { mountMismatch: true }, { badBinding: true }, { endpointMismatch: true }]) {
+  for (const options of [{ labelMismatch: true }, { imageMetadataMismatch: true }, { mountMismatch: true }, { badBinding: true }, { endpointMismatch: true }]) {
     const fake = fakeDocker(options);
     assert.throws(() => cleanup(fake), CleanupBlockedError);
     assert.deepEqual(fake.state.mutations, []);
@@ -268,4 +329,12 @@ test('native tools resolve to explicit paths and child PATH excludes user-writab
   assert.equal(MAVEN_ENV.TMP, undefined, 'child environment must not inherit a publicly writable TMP path');
   assert.equal(DOCKER_ENV.TEMP, undefined);
   assert.equal(DOCKER_ENV.TMP, undefined);
+});
+test('loopback port selector returns an available host-only ephemeral port', async () => {
+  const port = await selectLoopbackPort();
+  assert.ok(Number.isInteger(port) && port > 0 && port <= 65535);
+  const { createServer } = await import('node:net');
+  const server = createServer();
+  await new Promise((resolvePort, reject) => { server.once('error', reject); server.listen(port, '127.0.0.1', resolvePort); });
+  await new Promise((resolvePort, reject) => server.close(error => error ? reject(error) : resolvePort()));
 });

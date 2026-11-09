@@ -1,3 +1,4 @@
+import { createServer } from 'node:net';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -150,6 +151,17 @@ export function sanitizeSurefireXml(xml, localRoots = []) {
   return output;
 }
 
+export function selectLoopbackPort() {
+  return new Promise((resolvePort, reject) => {
+    const server = createServer();
+    server.once('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const address = server.address();
+      if (!address || typeof address === 'string') { server.close(); reject(new Error('could not select a loopback port')); return; }
+      server.close(error => error ? reject(error) : resolvePort(address.port));
+    });
+  });
+}
 export function snapshotInventory(dockerExec = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim()) {
   try {
     const list = args => { const text = dockerExec(args); return text ? text.split(/\r?\n/).map(line => line.trim()).filter(Boolean).sort((left, right) => left.localeCompare(right, 'en')) : []; };
@@ -166,7 +178,9 @@ export function snapshotInventory(dockerExec = args => execFileSync(DOCKER_CLI_P
 
 export function assertOwnedContainer(resource, expected) {
   const labels = resource?.Config?.Labels;
-  if (resource?.Id !== expected.id || normalizedName(resource?.Name) !== expected.name || resource?.Config?.Image !== expected.imageRef || !sameLabels(labels, expected.labels)) {
+  const imageLabels = expected.imageLabels || {};
+  const expectedLabels = { ...imageLabels, ...expected.labels };
+  if (resource?.Id !== expected.id || normalizedName(resource?.Name) !== expected.name || resource?.Config?.Image !== expected.imageRef || !sameLabels(labels, expectedLabels)) {
     throw new CleanupBlockedError(`recorded ${expected.role || 'container'} identity, image, or complete ownership labels do not match`);
   }
   if (!Array.isArray(resource.Mounts) || resource.Mounts.length !== 0) {

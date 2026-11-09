@@ -34,3 +34,23 @@ Free RAM measured **3.90 GiB of 13.79 GiB**, still below the 4 GiB threshold. do
 ## Post-start recheck — 2026-11-09 (r15)
 
 Docker Desktop was started for the requested runtime. Docker Engine 29.8.0 is reachable, but free host RAM is **0.95 GiB of 13.79 GiB**, below the required 4 GiB; the runtime harness was not started. Read-only Docker inventory counted 32 containers (2 running), 11 networks, and 24 volumes. No resource carried both T03-B2 ownership labels. No individual Docker resource was created or removed during this preflight. Evidence: `evidence/offline-verification-20261109-r15/runtime-preflight.json`.
+
+## Post-recovery verification — 2026-11-09 (r16)
+
+Docker Engine 29.8.0 is reachable. A fresh host reading measured **4.013 GiB free of 13.79 GiB**. This is only marginally above the runner's hard 4 GiB threshold; no new runtime run was started because prior in-process readings dipped below the gate. Existing r4 resource recovery is documented as BLOCKED due a baseline network identity delta; there are no resources matching the full T03-B2 ownership labels. See `evidence/offline-verification-20261109-r16/verification-summary.json` and `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
+
+## Latest read-only gate — r17
+
+At 2026-11-09 10:28:58 UTC, free host RAM was **4.017 GiB of 13.79 GiB** and Docker Engine 29.8.0 was reachable. The harness was not started because the reading is marginal and prior in-process checks fell below the 4 GiB hard threshold. No Docker resource was changed. Evidence: `evidence/offline-verification-20261109-r17/runtime-preflight.json`.
+
+## r5 runtime and cleanup recovery — 2026-11-09
+
+Runner exit code 1; preflight PASS at 4,353,576,960 bytes. Docker did not allocate either requested host port; app container later exited 137. No readiness, Maven, Selenium, business test, or DB reset ran. Initial cleanup BLOCKED; corrected cleanup-only exited 0/PASS for exact recorded r5 resources. Independent postcheck: zero r5 residuals and no missing baseline IDs. Run A remains BLOCKED; Run B NOT_RUN. Current host RAM 3.809 GiB, so runtime is stopped at the preflight gate. Evidence: `evidence/t03b2-a-20261109-r5/` and `evidence/offline-verification-20261109-r21/`.
+
+## Latest post-r5 runtime gate — 2026-11-09
+
+At 11/09/2026 10:45:05, host RAM was **4.192 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. The harness was not started because memory remains marginal after r5 app exit 137. No resources changed in this read-only check. Evidence: docs/tasks/T03-B2/evidence/offline-verification-20261109-r23/runtime-preflight.json.
+
+## Latest read-only gate — r25
+
+At 2026-11-09T10:49:31Z, host RAM was **4.409 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. No runtime was started after r5 app OOM exit 137; current memory remains below the safe retry margin. Evidence: docs/tasks/T03-B2/evidence/offline-verification-20261109-r25/runtime-preflight.json.

@@ -3,12 +3,16 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
+const runnerDir = dirname(fileURLToPath(import.meta.url));
+const root = resolve(runnerDir, '../../..');
 const repo = root;
+const suite = resolve(runnerDir, '../bewt-suite');
+const suitePom = resolve(suite, 'pom.xml');
+if (!statSync(suitePom).isFile()) throw new Error(`Claroline benchmark POM not found: ${suitePom}`);
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digest = ref => ref.slice(ref.indexOf('@') + 1);
 const sha256 = value => createHash('sha256').update(value).digest('hex');
@@ -18,7 +22,7 @@ const evidenceDir = createEvidenceDirectory(resolve(repo, 'docs/tasks/T03-B2/evi
 const names = namesForRun(runId);
 const labels = labelsForRun(runId);
 const labelArgs = Object.entries(labels).flatMap(([key, value]) => ['--label', `${key}=${value}`]);
-const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), containers: [], network: null };
+const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, containers: [], network: null };
 let exitCode = 1;
 
 function dockerCall(args, evidenceName, throwOnError = true) {
@@ -38,21 +42,28 @@ try {
   const appInspect = JSON.parse(docker(['image', 'inspect', APP_IMAGE_REF]))[0];
   const browserInspect = JSON.parse(docker(['image', 'inspect', BROWSER_IMAGE_REF]))[0];
   if (appInspect.Os !== 'linux' || appInspect.Architecture !== 'amd64' || browserInspect.Os !== 'linux' || browserInspect.Architecture !== 'amd64') throw new Error('pinned images must both be linux/amd64');
+  record.imageLabels = { app: appInspect.Config.Labels || {}, browser: browserInspect.Config.Labels || {} };
+  let appPort = await selectLoopbackPort();
+  let browserPort = await selectLoopbackPort();
+  while (browserPort === appPort) browserPort = await selectLoopbackPort();
+  record.selectedHostPorts = { app: appPort, browser: browserPort };
+  writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
+  writeOnce(resolve(evidenceDir, 'host-port-allocation.json'), { app: appPort, browser: browserPort, bindAddress: '127.0.0.1', allocation: 'host ephemeral loopback ports selected before Docker create' });
   const safeConfig = config => ({ Entrypoint: config.Entrypoint, Cmd: config.Cmd, WorkingDir: config.WorkingDir, User: config.User, Labels: config.Labels, ExposedPorts: config.ExposedPorts });
   writeOnce(resolve(evidenceDir, 'image-inspect.json'), { app: { Id: appInspect.Id, RepoDigests: appInspect.RepoDigests, Os: appInspect.Os, Architecture: appInspect.Architecture, Created: appInspect.Created, Config: safeConfig(appInspect.Config), RootFS: appInspect.RootFS }, browser: { Id: browserInspect.Id, RepoDigests: browserInspect.RepoDigests, Os: browserInspect.Os, Architecture: browserInspect.Architecture, Created: browserInspect.Created } });
   const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
-  const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1::80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
+  const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1:' + appPort + ':80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
-  const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1::4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, BROWSER_IMAGE_REF], 'selenium-create.json', false);
+  const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1:' + browserPort + ':4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, BROWSER_IMAGE_REF], 'selenium-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'browser', name: names.browser, imageRef: BROWSER_IMAGE_REF, result: browserCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
-  const appInfo = JSON.parse(docker(['inspect', names.app]))[0];
-  const appPort = appInfo.NetworkSettings.Ports['80/tcp']?.[0]?.HostPort;
-  const browserInfo = JSON.parse(docker(['inspect', names.browser]))[0];
-  const browserPort = browserInfo.NetworkSettings.Ports['4444/tcp']?.[0]?.HostPort;
-  if (!appPort || !browserPort) throw new Error('dynamic loopback port assignment missing');
   dockerCall(['start', names.app], 'app-start.json');
   dockerCall(['start', names.browser], 'selenium-start.json');
+  const appInfo = JSON.parse(docker(['inspect', names.app]))[0];
+  const assignedAppPort = appInfo.NetworkSettings.Ports['80/tcp']?.[0]?.HostPort;
+  const browserInfo = JSON.parse(docker(['inspect', names.browser]))[0];
+  const assignedBrowserPort = browserInfo.NetworkSettings.Ports['4444/tcp']?.[0]?.HostPort;
+  if (assignedAppPort !== String(appPort) || assignedBrowserPort !== String(browserPort)) throw new Error('Docker did not bind the selected loopback ports');
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify({ ...record, appPort, browserPort }, null, 2)}\n`);
   const waitHttp = async (url, label, validate = () => true) => {
     const deadline = Date.now() + 180000;
@@ -83,7 +94,6 @@ try {
   const beforeUserCount = readUserCount();
   writeOnce(resolve(evidenceDir, 'database-before.json'), { schemaObserved: 'claroline', userTable: table, fixtureUsername: 'user001', matchingRows: beforeUserCount });
   if (beforeUserCount !== 0) throw new Error('FIXTURE_FAILURE: user001 already exists before the smoke test');
-  const suite = resolve(root, 'bewt-suite');
   const mavenStartedAt = Date.now();
   const mavenArgs = ['-B', '-Dtest=' + APP_TEST_CLASS, `-Dapp.url=${appUrl}`, `-Dwebdriver.remote.url=http://127.0.0.1:${browserPort}/wd/hub`, 'clean', 'test'];
   const psQuote = value => `'${String(value).replaceAll("'", "''")}'`;

@@ -1,0 +1,30 @@
+✔ partial-startup cleanup handles 0 recorded Claroline container(s) (2.6145ms)
+✔ partial-startup cleanup handles 1 recorded Claroline container(s) (1.5277ms)
+✔ partial-startup cleanup handles 2 recorded Claroline container(s) (0.5478ms)
+✔ failed network initialization without a returned ID blocks on an unrecorded same-run resource (0.2078ms)
+✔ create ID is persisted before nonzero status is classified for network/app/Selenium failures (0.4997ms)
+✔ fault injection: Selenium start failure cleans both containers because their IDs were recorded at create (0.4937ms)
+✔ pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints (0.6615ms)
+✔ running containers with an explicitly unallocated host port are safely cleaned by recorded ownership (0.4771ms)
+✔ an empty HostConfig port is blocked if Docker reports an assigned external port (0.238ms)
+✔ stopped OOM container with detached endpoint and no published port is safely removed (0.4707ms)
+✔ exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block (0.3062ms)
+✔ stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation (0.5606ms)
+✔ unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted (0.373ms)
+✔ partial teardown and network removal failure return BLOCKED/nonzero; no false PASS (0.4785ms)
+✔ fully absent previously recorded resources are an idempotent PASS (0.2817ms)
+✔ network-only partial run and no-resource network-create failure are safe (0.2714ms)
+✔ containers without a recorded network block before any stop or rm (0.106ms)
+✔ Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML (1.8249ms)
+✔ Surefire sanitization removes machine properties/output and local workspace paths (0.4402ms)
+✔ run ID validation rejects unsafe and duplicate-shape identities (0.1134ms)
+✔ evidence directory creation is write-once for each run ID (1.6735ms)
+✔ native tools resolve to explicit paths and child PATH excludes user-writable AppData (0.2236ms)
+ℹ tests 22
+ℹ suites 0
+ℹ pass 22
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 596.2631

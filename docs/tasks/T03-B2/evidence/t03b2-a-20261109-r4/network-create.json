@@ -1,0 +1,27 @@
+{
+  "command": [
+    "docker",
+    "network",
+    "create",
+    "--driver",
+    "bridge",
+    "--internal",
+    "--label",
+    "project=bewt-covext",
+    "--label",
+    "owner=bewt-covext",
+    "--label",
+    "managed-by=bewt-covext-agent",
+    "--label",
+    "app=claroline",
+    "--label",
+    "task=t03b2-g0",
+    "--label",
+    "runId=t03b2-a-20261109-r4",
+    "bewt-covext-claroline-t03b2-a-20261109-r4-net"
+  ],
+  "status": 0,
+  "stdout": "7507ef9ff85e49eb296ed80c7a024e83f6e38e9362d5b5bfa3f8c07d41817c49\n",
+  "stderr": "",
+  "error": null
+}

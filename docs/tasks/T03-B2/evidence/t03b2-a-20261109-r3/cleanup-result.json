@@ -1,0 +1,15 @@
+{
+  "outcome": "PASS",
+  "result": {
+    "runId": "t03b2-a-20261109-r3",
+    "outcome": "PASS",
+    "removedContainerIds": [],
+    "removedNetworkId": null,
+    "residuals": {
+      "containers": 0,
+      "networks": 0,
+      "volumes": 0
+    },
+    "protectedExistingResources": "PRESERVED"
+  }
+}

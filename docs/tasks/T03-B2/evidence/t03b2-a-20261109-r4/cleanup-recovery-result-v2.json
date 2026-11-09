@@ -1,0 +1,4 @@
+{
+  "outcome": "BLOCKED",
+  "reason": "pre-existing Docker networks disappeared: 221f788f703a39ce3261f817edbd0654525bcd943a509d3cf621bfa4b22cb811"
+}

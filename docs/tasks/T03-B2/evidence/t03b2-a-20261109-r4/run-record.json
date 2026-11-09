@@ -1,0 +1,25 @@
+{
+  "runId": "t03b2-a-20261109-r4",
+  "benchmarkRepositoryCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "applicationSourceCommit": null,
+  "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "browserImageDigest": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+  "containers": [
+    {
+      "role": "app",
+      "id": "dcf1327ba1618eeda7b05bbffaefbc906641f4dc57ec126e3111ac0920f3dd33",
+      "name": "bewt-covext-claroline-t03b2-a-20261109-r4-app",
+      "imageRef": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+    },
+    {
+      "role": "browser",
+      "id": "f4dfc113c041afd5681ae08fb40653277db22a95fe1a5a08dfb117edefcd2be5",
+      "name": "bewt-covext-claroline-t03b2-a-20261109-r4-selenium",
+      "imageRef": "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f"
+    }
+  ],
+  "network": {
+    "id": "7507ef9ff85e49eb296ed80c7a024e83f6e38e9362d5b5bfa3f8c07d41817c49",
+    "name": "bewt-covext-claroline-t03b2-a-20261109-r4-net"
+  }
+}

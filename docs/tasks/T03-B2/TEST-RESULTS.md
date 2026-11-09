@@ -53,3 +53,31 @@ The parser result validates a candidate object only. It does not establish runti
 | Docker inventory | 32 containers (2 running), 11 networks, 24 volumes; zero resources with both T03-B2 ownership labels | `evidence/offline-verification-20261109-r15/runtime-preflight.json` |
 
 No Claroline/Selenium runtime was started and no individual Docker resource was created or removed in this preflight.
+
+## Current verifier correction — r16
+
+| Command/check | Result | Evidence |
+|---|---|---|
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 19 passed, 0 failed; exit 0 | `evidence/offline-verification-20261109-r16/cleanup-fault-tests.log` |
+| Four changed JavaScript modules/tests `node --check` | PASS, all exit 0 | `evidence/offline-verification-20261109-r16/syntax-check.log` |
+| Maven `clean test-compile` | NOT_RERUN in r16; last verified PASS remains r9 (22 main + 42 test sources); Java suite unchanged | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |
+| Run A r1/r2 | BLOCKED by exact runner memory gate before Docker operations | `evidence/t03b2-a-20261109-r1/`, `evidence/t03b2-a-20261109-r2/` |
+| Run A r3 | BLOCKED: pinned browser image missing locally; cleanup PASS | `evidence/t03b2-a-20261109-r3/` |
+| Run A r4 | BLOCKED before app/browser start due dynamic port inspection ordering; no Maven/Selenium/business tests ran | `evidence/t03b2-a-20261109-r4/` |
+| r4 recovery | Run-owned containers/network absent; cleanup overall BLOCKED by pre-existing network ID delta | `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json` |
+| Fresh RAM/Docker check | 4.013 GiB free, Engine 29.8.0 reachable; no fresh run started at marginal threshold | `evidence/offline-verification-20261109-r17/runtime-preflight.json` |
+
+A/B successful Selenium runs remain NOT_RUN. Historical verification results and run records are immutable.
+
+## r5 current correction status — 2026-11-09
+
+| Check | Result | Evidence |
+|---|---|---|
+| Cleanup ownership fault suite | PASS, 23 passed, 0 failed, exit 0 | `evidence/offline-verification-20261109-r24/cleanup-fault-tests.log` |
+| Cleanup module and test syntax | PASS, exit 0 | `evidence/offline-verification-20261109-r24/syntax-check.log` |
+| Run A r5 runner | BLOCKED, exit 1; host-port assignment missing; no Maven/Selenium/business tests ran; app exited 137 | `evidence/t03b2-a-20261109-r5/` |
+| r5 cleanup-only recovery | PASS, exit 0; exact recorded resources removed | `evidence/t03b2-a-20261109-r5/cleanup-recovery-r21.json` |
+| Independent r5 postcheck | PASS; zero run residuals; zero missing baseline IDs | `evidence/t03b2-a-20261109-r5/cleanup-recovery-postcheck-r21.json` |
+| Run B | NOT_RUN | `G0-RUNTIME-RESULTS.md` |
+| Maven clean test-compile | Last verified PASS remains r9; not rerun; no Java changes | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |
+| Latest RAM check | 4.409 GiB; no new run started after r5 app OOM exit 137; below safe retry margin | `evidence/offline-verification-20261109-r25/runtime-preflight.json` |

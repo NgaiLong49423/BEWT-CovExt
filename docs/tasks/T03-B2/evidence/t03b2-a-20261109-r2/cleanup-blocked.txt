@@ -1,0 +1,1 @@
+Error: ENOENT: no such file or directory, open 'D:\Github-Projects\BEWT-CovExt-worktrees\t03b2-claroline-g0\docs\tasks\T03-B2\evidence\t03b2-a-20261109-r2\docker-before.json'

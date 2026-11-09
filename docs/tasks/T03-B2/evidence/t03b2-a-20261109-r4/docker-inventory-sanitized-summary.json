@@ -1,0 +1,39 @@
+{
+  "runId": "t03b2-a-20261109-r4",
+  "derivedFrom": [
+    "docker-before.json",
+    "docker-after.json"
+  ],
+  "publicSanitization": "SHA-256 fingerprints replace raw resource IDs and names; unrelated local project names are not published",
+  "inventory": {
+    "containers": {
+      "beforeCount": 32,
+      "afterCount": 34,
+      "missingBaselineFingerprints": [],
+      "newFingerprints": [
+        "6415330ca066a613e0259f479571acb1facc7aa60fbdbd5b0c9b41afb0e2e56d",
+        "d42d22c74709414d5024d3e6796928e35fbe81cf1f9b4bbc23bcc8d2e2bde1d7"
+      ]
+    },
+    "networks": {
+      "beforeCount": 11,
+      "afterCount": 12,
+      "missingBaselineFingerprints": [],
+      "newFingerprints": [
+        "2361aa0e859c447348a1463ff7ec45c27d9fce04f5914d82c80f45a554c69863"
+      ]
+    },
+    "volumes": {
+      "beforeCount": 24,
+      "afterCount": 24,
+      "missingBaselineFingerprints": [],
+      "newFingerprints": []
+    },
+    "images": {
+      "beforeCount": 25,
+      "afterCount": 25,
+      "missingBaselineFingerprints": [],
+      "newFingerprints": []
+    }
+  }
+}

@@ -4,11 +4,11 @@
 - Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
 - Working branch: `feature/t03b2-claroline-g0`.
 - Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
-- Current reviewed/pushed HEAD before this evidence follow-up: `a34e14c586e9a2d38d7c9839387adf2ec92224d0`; this follow-up requires a new commit and final remote verification.
+- PR #9 was merged by the repository owner at merge commit `ae149842185877bcd4a97cf99ebdb3fc099e040b`. This follow-up began from branch HEAD `c68eafcf34b7fc1ee9282661c68e640fc1aa34b5`; current code/evidence changes are not yet committed or pushed.
 - PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
-- Push status: `PUSHED`; final branch, remote ref, and PR head are verified together after this report update.
+- Prior PR #9 push was verified; no follow-up PR has been opened yet because runtime A/B remain incomplete.
 - Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source release verified by historical tag/archive comparison; runtime image base matches source archive with one unattributed code patch; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
-- Status proposed by Agent: `PARTIAL` / provenance `PARTIAL` (base verified; one image-only patch unattributed); runtime `NOT_RUN` because the latest user-authorized RAM check measured 3.90 GiB free (<4 GiB preflight requirement) and the Docker Desktop engine pipe was unavailable.
+- Status proposed by Agent: `PARTIAL` / provenance `PARTIAL` (base verified; one image-only patch unattributed); runtime remains `NOT_RUN`. The latest host reading was 3.06 GiB free (<4 GiB); Docker Engine 29.8.0 is available.
 
 ## 1. What changed
 
@@ -17,6 +17,10 @@
 | `experiments/claroline/bewt-suite/` | Isolated 75-file baseline suite; only `BaseTest.java` environment adaptation | Retain baseline oracle while supporting remote headless Selenium |
 | `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once wrapper, runtime harness, explicit signed-tool/path policy | Reproducible, ownership-safe, and avoids PATH search in child processes |
 | `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | Cleanup fault injection and Surefire/run identity/sanitization tests | Verify failure paths without touching Docker |
+| `experiments/claroline/tools/run-claroline-g0.mjs` | Fixes Maven suite path, validates POM before resource creation, starts app/browser before reading dynamic ports, and records pinned image labels | Prevent wrong-cwd compile and pre-allocation port failures |
+| `experiments/claroline/tools/cleanup-claroline-g0.mjs` | Validates exact merged pinned-image and run labels; accepts unallocated ports only for created containers with no endpoint | Safely clean verified partial startup without relaxing ownership checks |
+| `docs/tasks/T03-B2/evidence/t03b2-a-20261109-r1..r4/` | Immutable preflight/runtime attempts and recovery evidence | Preserve every blocked/failing run and cleanup state |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r16/` | Actual 19-test cleanup suite and four syntax checks | Verify the current source changes |
 | `docs/tasks/T03-B2/` | Provenance, image risk, preflight, adaptation, cleanup and partial result reports | Preserve auditable current state and limitations |
 | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` | Image-only inspection and preflight resource evidence | Preserve actual read-only image inspection and stopped-container cleanup records |
 | `.gitignore` | Narrow allow rule for T03-B2 sanitized evidence `.log` files | Allow sanitized future Maven output while retaining general log ignore |
@@ -34,7 +38,10 @@ No `config/apps/claroline.json` was added: although the official release source 
 | In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | [parser negative check](evidence/offline-verification-20261109-r2/manifest-parser-negative.json); `framework/src/contracts.ts` unchanged |
 | Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | [image preflight evidence](evidence/preflight-image-20261109/) |
 | Read-only Docker CLI/RAM preflight after last check | 1 for Docker daemon query; RAM query 0 | BLOCKED — daemon pipe unavailable; free RAM 3.64 GiB | [preflight result](evidence/offline-verification-20261109-r7/docker-and-memory-preflight.json) |
-| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 3.90 GiB (<4 GiB) and daemon pipe unavailable | [runtime status](G0-RUNTIME-RESULTS.md) |
+| Node cleanup/fault suite after current runner/cleanup fixes | 0 | PASS — 19 passed, 0 failed | `evidence/offline-verification-20261109-r16/cleanup-fault-tests.log` |
+| Four changed Node modules/tests `--check` | 0 | PASS | `evidence/offline-verification-20261109-r16/syntax-check.log` |
+| Run A r4 | 1 | BLOCKED before app/browser start: ports were read before container start; no Maven/Selenium/business test ran; cleanup recovery verifies no run residuals but remains BLOCKED by baseline network ID replacement | `evidence/t03b2-a-20261109-r4/` |
+| Independent successful Run A and B | — | NOT_RUN; latest free RAM 3.06 GiB (<4 GiB) | [runtime status](G0-RUNTIME-RESULTS.md) |
 
 ## 3. Research impact
 
@@ -48,11 +55,11 @@ No `config/apps/claroline.json` was added: although the official release source 
 ## 4. Safety & integrity
 
 - `bewt-original/` touched? NO. Exact BEWT source was fetched to a temporary location and copied into the isolated working copy; original research source remains read-only.
-- Docker/project resources touched? One preflight-only Claroline container was created stopped with unique task labels and no mounts/network, inspected, removed, and confirmed absent by exact NOT_FOUND follow-up. App/Selenium service containers were NOT started. No other Docker resources were removed.
-- Final read-only T03-B2 ownership scan: zero containers, networks, or volumes; evidence is `docs/tasks/T03-B2/evidence/preflight-image-20261109/final-resource-scan.json`.
+- Docker/project resources touched? Docker Desktop was started; the pinned Selenium image was pulled by digest. Run A r4 created two exact task-labeled containers (both stayed `created`, not running) and one internal per-run network. They are now absent by exact IDs/names/run labels. The cleanup classifier remains `BLOCKED` because a baseline default-network ID was replaced. No volumes or images were removed, no global prune ran, and the two ExpressCart containers remain running.
+- Final read-only T03-B2 run-label scan: zero containers, networks, or volumes. Baseline preservation is not PASS because network ID `221f...` is absent and `11ce...` is present; see `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
 - Existing unrelated local dirty files preserved? YES; this is a dedicated clean task worktree.
 - Secret scan / staged diff review result: pending final review; runner sanitizes local paths, fixture-like secret strings, Surefire properties and console output. No credentials are stored in the evidence.
-- Failed/blocked tasks: runtime A/B is BLOCKED by the measured RAM gate; runtime manifest is withheld pending image-to-release source comparison.
+- Failed/blocked tasks: successful A/B remain `NOT_RUN`; Run A r4 is `BLOCKED` before Selenium/application tests, and teardown evidence is `BLOCKED` on a baseline network identity change. Runtime manifest remains unpromoted pending review of the unattributed image patch.
 
 ## 5. Evidence and reproduction
 
@@ -61,6 +68,16 @@ No `config/apps/claroline.json` was added: although the official release source 
 - Fixture/database before/after and cleanup: no app database was started. Preflight-container cleanup evidence is retained with its initial blocked checker record and exact NOT_FOUND follow-up.
 - Reproducible commands: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; Maven `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile`; runtime requires a fresh never-used `t03b2-<letter>-YYYYMMDD-rN` ID and ≥4 GiB free memory.
 - Known limitations: Both official SourceForge archive candidate hashes are recorded; runtime image-to-archive match and upstream Claroline Git commit remain unverified; runtime and DB reset not evaluated; image is legacy and has unknown build provenance.
+
+## Runtime and verifier correction follow-up — 2026-11-09 (r16)
+
+- Run A attempts r1 and r2 were blocked by the runner’s measured free-memory gate before Docker operations. Run A r3 passed memory preflight but was blocked because the pinned Selenium image digest was missing locally; cleanup PASS and before/after counts were unchanged. The exact pinned image was then pulled by digest.
+- Run A r4 passed memory preflight, created two not-started containers and an internal network, then failed before container start because dynamic ports were inspected too early. No Maven, HTTP, MySQL, Selenium, AddUser or DB reset check ran.
+- Cleanup fixes now validate run labels merged with metadata labels from the exact pinned image and permit an empty dynamic port only for a `created`, non-running container with no initialized endpoint. The runner starts both containers before inspecting assigned ports.
+- Current unit/fault tests: 19/19 PASS, exit 0; four Node syntax checks PASS, exit 0. Evidence: `evidence/offline-verification-20261109-r16/`.
+- r4 run-owned containers/network are absent after recovery. Cleanup remains `BLOCKED` because global inventory found one pre-existing network ID missing and a replacement ID present. All baseline containers, volumes and images match. No unrelated Docker resource was removed; the default-network identity change’s cause is unknown. Evidence: `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
+- Latest r16 host RAM: 3.06 GiB; fresh r17 RAM: 4.017 GiB of 13.79 GiB with Docker Engine 29.8.0 reachable. The fresh reading was marginal, so no new run was started. Maven `clean test-compile` remains the previously verified r9 PASS; Java source has not changed.
+- PR #9 was merged by the repository owner. This follow-up is not yet pushed; publish it for review without merging, and continue the two runtime runs only after the host gate passes.
 
 ## 6. Review request
 
@@ -112,3 +129,14 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 - Docker Desktop was started after the user-authorized recheck. Docker Engine 29.8.0 responds, but host free RAM is 0.95 GiB (<4 GiB); the runtime harness was not invoked.
 - Read-only inventory: 32 containers (2 running), 11 networks, 24 volumes; zero containers, networks, or volumes matched both `project=bewt-covext` and `task=t03b2-g0` ownership labels. No individual Docker resources were created or removed in this preflight.
 - Runtime A/B remains `NOT_RUN`; evidence: `evidence/offline-verification-20261109-r15/runtime-preflight.json`.
+
+## Final correction verification — r24/r25
+
+- The runner now selects and records two host loopback ephemeral ports before Docker creation, requests explicit bindings, and verifies Docker assigned those exact ports. The port selector availability test passes; this code change has not been exercised in Docker runtime.
+- Cleanup now permits no host-port assignment only when Docker reports no external binding, and handles an exited container with a detached incomplete endpoint while preserving strict ID/name/image/label/mount/network checks. The latest combined unit/fault suite passes 23/23; syntax checks for helper, runner and test pass. Evidence: `evidence/offline-verification-20261109-r24/`.
+- Run A r5 passed runner RAM preflight but Docker assigned no host ports; the app later exited 137. Runner exit 1; Maven/Selenium/AddUser/reset did not run. Exact cleanup recovery PASS and independent before/after/residual postcheck PASS. Run B remains NOT_RUN. Evidence: `evidence/t03b2-a-20261109-r5/`.
+- Latest read-only RAM check: 4.409 GiB; Docker 29.8.0 reachable. No new runtime started after r5 OOM. Evidence: `evidence/offline-verification-20261109-r25/runtime-preflight.json`.
+- Maven `clean test-compile` remains the previously verified r9 PASS (22 main + 42 test sources); application/test Java sources are unchanged. No new Maven console evidence is claimed.
+- G0 remains PARTIAL / not accepted; the runtime manifest remains withheld pending source-patch provenance and completed A/B runs.
+
+- Public evidence sanitization: raw Docker inventories were excluded because they contain unrelated local project resource names. Sanitized r3-r5 inventory summaries retain counts and resource conservation/deltas using SHA-256 fingerprints. Raw files remain local only; no runtime outcome was altered.

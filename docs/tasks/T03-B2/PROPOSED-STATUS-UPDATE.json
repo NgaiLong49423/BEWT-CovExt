@@ -2,12 +2,12 @@
   "task": "T03-B2",
   "application": "Claroline",
   "proposedStatus": "PARTIAL",
-  "runtimeStatus": "NOT_RUN",
+  "runtimeStatus": "PARTIAL",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "The pinned image base layer exactly matches the verified official Claroline 1.11.10 source archive. One later image layer modifies course-identifier allocation guard without identified source commit. Docker Engine is available, but latest post-start free RAM is 0.95 GiB, below the 4 GiB runtime gate; runtime remains NOT_RUN.",
+  "reason": "Official Claroline 1.11.10 source base is verified, but the pinned image contains one unattributed application-code patch. Run A r5 passed the memory gate and created the exact isolated resources, but Docker assigned no published host ports; the app later exited 137. Maven, Selenium, business assertions, and DB reset did not run. The runner exited nonzero. Cleanup-only recovery passed for the recorded resources; independent postcheck found no run residuals or missing baseline IDs. Latest RAM is 4.409 GiB; no retry was started after the app OOM exit, and the explicit-port runner correction still needs Docker runtime verification. Run B is NOT_RUN. G0 remains PARTIAL and not accepted.",
   "statusJsonChanged": false,
   "archiveCandidates": [
     {

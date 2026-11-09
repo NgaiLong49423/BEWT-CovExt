@@ -1,0 +1,8 @@
+{
+  "capturedAt": "2026-11-09T10:22:25Z",
+  "query": "docker events --since 2026-11-09T10:00:00Z --until current UTC --filter type=network",
+  "observedEvents": [
+    "1794219483 destroy 7507ef9ff85e49eb296ed80c7a024e83f6e38e9362d5b5bfa3f8c07d41817c49 {\"name\":\"bewt-covext-claroline-t03b2-a-20261109-r4-net\",\"type\":\"bridge\"}"
+  ],
+  "note": "Only r4 internal network destroy event was returned; this does not explain the baseline default bridge identity change."
+}

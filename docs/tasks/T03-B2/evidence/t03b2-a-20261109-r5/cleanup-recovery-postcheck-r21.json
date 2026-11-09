@@ -1,0 +1,37 @@
+{
+  "checkedAtUtc": "2026-11-09T10:38:48Z",
+  "runId": "t03b2-a-20261109-r5",
+  "runLabelResiduals": {
+    "byRunId": {
+      "containers": [],
+      "networks": [],
+      "volumes": []
+    },
+    "byFullOwnershipLabels": {
+      "containers": [],
+      "networks": [],
+      "volumes": []
+    }
+  },
+  "exactRecordedIdsStillExist": {
+    "containers": [
+      "",
+      ""
+    ],
+    "network": [
+      ""
+    ]
+  },
+  "inventoryCounts": {
+    "containers": 32,
+    "networks": 11,
+    "volumes": 24,
+    "images": 25
+  },
+  "baselineIdsMissing": {
+    "containers": [],
+    "networks": [],
+    "volumes": [],
+    "images": []
+  }
+}

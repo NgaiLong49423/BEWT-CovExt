@@ -1,0 +1,14 @@
+{
+  "memory": {
+    "checkedAtUtc": "2026-11-09T10:28:58Z",
+    "freeBytes": 4313497600,
+    "freeGiB": 4.017,
+    "totalGiB": 13.79,
+    "runtimeStarted": false
+  },
+  "dockerEngine": {
+    "version": "29.8.0",
+    "exitCode": 0
+  },
+  "decision": "NOT_STARTED_MARGINAL_MEMORY"
+}

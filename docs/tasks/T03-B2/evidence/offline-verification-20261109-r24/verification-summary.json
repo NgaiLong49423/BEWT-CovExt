@@ -1,0 +1,30 @@
+{
+  "capturedAtUtc": "2026-11-09T10:47:43Z",
+  "syntaxChecks": [
+    {
+      "exitCode": 0,
+      "file": "experiments/claroline/tools/claroline-g0.mjs"
+    },
+    {
+      "exitCode": 0,
+      "file": "experiments/claroline/tools/cleanup-claroline-g0.mjs"
+    },
+    {
+      "exitCode": 0,
+      "file": "experiments/claroline/tools/run-claroline-g0.mjs"
+    },
+    {
+      "exitCode": 0,
+      "file": "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+    }
+  ],
+  "unitFaultTests": {
+    "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+    "tests": 23,
+    "passed": 23,
+    "failed": 0,
+    "exitCode": 0
+  },
+  "mavenCleanTestCompile": "NOT_RERUN; previous verified PASS r9; Java sources unchanged",
+  "runtime": "NOT_RUN_AFTER_R5_BLOCKED_AND_OOM"
+}

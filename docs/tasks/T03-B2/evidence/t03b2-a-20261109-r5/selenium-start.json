@@ -1,0 +1,11 @@
+{
+  "command": [
+    "docker",
+    "start",
+    "bewt-covext-claroline-t03b2-a-20261109-r5-selenium"
+  ],
+  "status": 0,
+  "stdout": "bewt-covext-claroline-t03b2-a-20261109-r5-selenium\n",
+  "stderr": "",
+  "error": null
+}

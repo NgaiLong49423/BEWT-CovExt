@@ -1,0 +1,33 @@
+{
+  "capturedAt": "2026-11-09T10:24:45.7479610Z",
+  "cleanupFaultTests": {
+    "log": "cleanup-fault-tests.log",
+    "passed": 19,
+    "failed": 0,
+    "exitCode": 0,
+    "tests": 19,
+    "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+  },
+  "syntaxChecks": {
+    "log": "syntax-check.log",
+    "files": [
+      "experiments/claroline/tools/claroline-g0.mjs",
+      "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+      "experiments/claroline/tools/run-claroline-g0.mjs",
+      "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+    ],
+    "exitCode": 0,
+    "count": 4
+  },
+  "mavenCleanTestCompile": "NOT_RERUN_JAVA_SOURCES_UNCHANGED_PREVIOUS_PASS_R9",
+  "runtimeA": "BLOCKED_R1_R2_PREFLIGHT_R3_PINNED_IMAGE_MISSING_R4_PORT_ORDERING_AND_CLEANUP",
+  "runtimeB": "NOT_RUN",
+  "dockerResources": {
+    "volumesOrImagesRemoved": 0,
+    "cleanupPostCheck": "BLOCKED: exact run resources absent but baseline default-network ID changed",
+    "createdDuringRun": "r4 exact two not-running containers and one internal network"
+  },
+  "latestFreeRamGiB": 3.059,
+  "dockerEngine": "29.8.0",
+  "g0Disposition": "PARTIAL_NOT_ACCEPTED"
+}
