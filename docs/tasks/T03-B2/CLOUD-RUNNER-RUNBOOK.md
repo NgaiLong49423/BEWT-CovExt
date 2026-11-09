@@ -14,7 +14,7 @@ Configured in `experiments/claroline/tools/cloud-controller.mjs` (`CLOUD_VM_CONF
 - **Zone**: `asia-southeast1-a`
 - **Machine Type**: `c4d-highmem-8` (8 vCPU, 63 GiB RAM, 200 GB Hyperdisk Balanced)
 - **Remote Repository Path**: `/home/runner/BEWT-CovExt`
-- **Auto-Stop Policy**: `maxRunDuration=21600s` (6 hours), `instanceTerminationAction=STOP`
+- **Auto-Stop Policy**: `maxRunDuration=21600s` (6 hours), `instanceTerminationAction=STOP` (`creationTimestamp = 2026-11-09T12:18:54.625-08:00`, `terminationTimestampUtc = 2026-11-10T02:18:54.625Z`)
 
 > **Governance Rule**: Never recreate the VM, never create a duplicate VM, and never extend or reset `maxRunDuration` without explicit user approval. If `status !== 'RUNNING'`, `cloud-controller.mjs` stops fail-closed.
 
@@ -23,14 +23,14 @@ Configured in `experiments/claroline/tools/cloud-controller.mjs` (`CLOUD_VM_CONF
 ## 2. Step-by-Step Operations
 
 ### 2.1. Run Cloud Preflight
-Verifies `gcloud` authentication, project ID, VM `RUNNING` state, instance ID, `maxRunDuration=21600s`, `instanceTerminationAction=STOP`, remaining runtime before `terminationTimestamp`, remote RAM (`>= 6 GiB`), free disk space, Docker Engine health, active containers, and remote Git branch/HEAD:
+Verifies `gcloud` authentication, project ID, VM `RUNNING` state, instance ID, `maxRunDuration=21600s`, `instanceTerminationAction=STOP`, remaining runtime before `terminationTimestamp`, dynamic `natIP`, remote RAM (`>= 6 GiB`), free disk space, Docker Engine health, active containers, and remote Git branch/HEAD. Pass an optional `<evidenceId>` (validated by `validateEvidenceId` and confined under `docs/tasks/T03-B2/evidence/<evidenceId>/cloud-preflight.json`):
 
 ```powershell
-node experiments/claroline/tools/cloud-controller.mjs preflight docs/tasks/T03-B2/evidence/<evidence-folder>/cloud-preflight.json
+node experiments/claroline/tools/cloud-controller.mjs preflight offline-verification-20261110-r75
 ```
 
 ### 2.2. Run Syntax & Unit Test Suite on Cloud VM (`unit-tests`)
-Runs all `node --check` syntax checks and the 41-test unit/fault suite (`cleanup-claroline-g0.test.mjs`) on the Ubuntu 24.04 Cloud VM:
+Runs all `node --check` syntax checks and the 44-test unit/fault suite (`cleanup-claroline-g0.test.mjs`) on the Ubuntu 24.04 Cloud VM:
 
 ```powershell
 node experiments/claroline/tools/cloud-controller.mjs exec unit-tests
@@ -82,15 +82,15 @@ node experiments/claroline/tools/cloud-controller.mjs sync-evidence <runId>
 ```
 
 ### 3.2. Write / Refresh `sha256-manifest.json` (`write-manifest`)
-Computes and writes `sha256-manifest.json` for a local evidence directory:
+Computes and writes `sha256-manifest.json` for a validated evidence folder ID (`t03b2-*` or `offline-verification-*`) under `docs/tasks/T03-B2/evidence`:
 
 ```powershell
-node experiments/claroline/tools/cloud-controller.mjs write-manifest docs/tasks/T03-B2/evidence/<runId>
+node experiments/claroline/tools/cloud-controller.mjs write-manifest <evidenceId>
 ```
 
 ### 3.3. Run Deterministic Evidence Validator (`validate-evidence.mjs`)
-Validates run ID format, source commit hash, pinned image digests, chronological timestamps, exit code vs outcome consistency, Surefire XML test reports (when business tests run), DB assertions, Docker isolation records, zero-residual cleanup, `sha256-manifest.json`, and secret/path scrubbing:
+Validates `runId` format, source commit hash, pinned image digests, chronological timestamps, exit code vs outcome consistency, Surefire XML test reports (when business tests run), DB assertions, Docker isolation records, zero-residual cleanup, `sha256-manifest.json`, and secret/path scrubbing for a validated `<evidenceId>` under `docs/tasks/T03-B2/evidence`:
 
 ```powershell
-node experiments/claroline/tools/validate-evidence.mjs docs/tasks/T03-B2/evidence/<runId>
+node experiments/claroline/tools/validate-evidence.mjs <evidenceId>
 ```

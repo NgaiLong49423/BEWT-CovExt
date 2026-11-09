@@ -9,7 +9,8 @@
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest Windows memory samples were below 6 GiB (3.089-5.460 GiB). On 2026-11-10, execution moved to Google Cloud Compute Engine Ubuntu 24.04 VM bewt-covext-runner (c4d-highmem-8, 8 vCPU, 63 GiB RAM, Docker Engine 29.9.3, maxRunDuration=21600s, instanceTerminationAction=STOP). Cross-platform Linux support, cloud-controller.mjs, validate-evidence.mjs, and pre-start created-container cleanup fix were committed at 183668bc18e89b4e04212be510b971a9f79c7f65 and verified on both Windows (r72: 9/9 syntax PASS, 41/41 tests PASS) and Ubuntu 24.04 Cloud VM (r73: 9/9 syntax PASS, 41/41 tests PASS, Maven test-compile PASS). Cloud runtime runs t03b2-d-20261110-r4, t03b2-d-20261110-r5, and t03b2-a-20261110-r6 passed the 6 GiB memory preflight (~60.54 GiB available), selected non-overlapping subnet 172.26.254.0/24, created the isolated bridge network and dormant container(s), recorded the route-isolation authorization request(s), stopped fail-closed at BLOCKED_APPROVAL_REQUIRED before docker start, and completed verified zero-residual cleanup (automatic first-pass PASS in d-r5 and a-r6; recovery PASS in d-r4). Synced evidence directories passed validate-evidence.mjs and sha256-manifest.json verification. G0 remains PARTIAL/BLOCKED awaiting Team Lead approval for route/network isolation, GCE IPV4_ONLY host-control policy, and image provenance delta.",
+  "browserImageDigest": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest Windows memory samples were below 6 GiB (3.089-5.460 GiB). On 2026-11-10, execution moved to Google Cloud Compute Engine Ubuntu 24.04 VM bewt-covext-runner (c4d-highmem-8, 8 vCPU, 63 GiB RAM, Docker Engine 29.9.3, maxRunDuration=21600s, instanceTerminationAction=STOP). Cross-platform Linux support, cloud-controller.mjs, validate-evidence.mjs, and pre-start created-container cleanup fix were committed at 183668bc18e89b4e04212be510b971a9f79c7f65. Cloud runtime runs t03b2-d-20261110-r4, t03b2-d-20261110-r5, and t03b2-a-20261110-r6 passed the 6 GiB memory preflight (~60.54 GiB available), selected non-overlapping subnet 172.26.254.0/24, created the isolated bridge network and dormant container(s), recorded the route-isolation authorization request(s), stopped fail-closed at BLOCKED_APPROVAL_REQUIRED before docker start, and completed verified zero-residual cleanup (automatic first-pass PASS in d-r5 and a-r6; recovery PASS in d-r4). Following PR #12 review (REQUEST_CHANGES), commit 2e31e1a0a2aa6681047817bcee17e25405d5ba84 resolved all 15 SonarCloud security findings on new code (S8707, S4036, S1313) and added Ubuntu host bridge firewall specification/verification helpers and tests. SonarCloud Quality Gate is now OK (PASSED, Security Rating A), and post-commit offline verification passed 9/9 syntax checks and 44/44 unit/fault tests on both Windows (r74) and Ubuntu 24.04 Cloud VM (r75). G0 remains PARTIAL/BLOCKED awaiting Team Lead approval for host-firewall/route isolation, GCE IPV4_ONLY host-control policy, and image provenance delta.",
   "statusJsonChanged": false,
   "archiveCandidates": [
     {
@@ -30,7 +31,7 @@
   },
   "imageSourceDelta": {
     "file": "claroline/inc/lib/add_course.lib.inc.php",
-    "effect": "Comments out the 128-attempt course-identifier allocation guard",
+    "effect": "Comments out the 128-attempt course-identifier allocation guard in define_course_keys() (lines 188-200)",
     "sourceCommit": "NOT_IDENTIFIED",
     "releaseSha256": "fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1",
     "imageSha256": "c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8"
@@ -69,38 +70,50 @@
     "evidence/offline-verification-20261110-r69/",
     "evidence/offline-verification-20261110-r72/",
     "evidence/offline-verification-20261110-r73/",
+    "evidence/offline-verification-20261110-r74/",
+    "evidence/offline-verification-20261110-r75/",
     "evidence/t03b2-d-20261110-r4/diagnostic-result.json",
     "evidence/t03b2-d-20261110-r4/cleanup-recovery-r1.json",
     "evidence/t03b2-d-20261110-r4/post-cleanup-independent-check.json",
     "evidence/t03b2-d-20261110-r5/diagnostic-result.json",
     "evidence/t03b2-d-20261110-r5/cleanup-result.json",
-    "evidence/t03b2-a-20261110-r6/run-summary.json",
+    "evidence/t03b2-a-20261110-r6/run-record.json",
     "evidence/t03b2-a-20261110-r6/cleanup-result.json"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
   "networkPolicyRuntimeStatus": "PRE_START_CREATED_AND_CLEANED_ON_CLOUD_VM_BLOCKED_AT_APPROVAL_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r73/",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r75/",
   "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/t03b2-d-20261110-r5/memory-preflight.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",
     "method": "container-netns-default-route-drop-v1",
+    "hostFirewallAlternativeMethod": "linux-docker-user-bridge-reject-v1",
     "status": "DISABLED_FAIL_CLOSED_NO_INDEPENDENT_AUTHORIZER",
     "privilegedExecInvoked": false,
     "privilegedExecApprovalMode": "NO_TRUSTED_TEAM_LEAD_VERIFIER_CONFIGURED"
   },
   "latestContinuation": {
     "dateLocal": "2026-11-10",
-    "previousReviewedHead": "0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674",
-    "testedSourceCommit": "183668bc18e89b4e04212be510b971a9f79c7f65",
+    "previousReviewedHead": "a38b667e468170bfe3ed799a5c043ad99ef2d88e",
+    "testedSourceCommit": "2e31e1a0a2aa6681047817bcee17e25405d5ba84",
     "branch": "feature/t03b2-claroline-g0",
     "pr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/12",
+    "sonarCloudQualityGate": {
+      "status": "OK",
+      "newSecurityRating": "A (1)",
+      "newReliabilityRating": "A (1)",
+      "newMaintainabilityRating": "A (1)",
+      "newDuplicatedLinesDensity": "0.0%",
+      "newSecurityHotspotsReviewed": "100.0%"
+    },
     "cloudVm": {
       "project": "gen-lang-client-0311012609",
       "instanceName": "bewt-covext-runner",
       "instanceId": "3042402845209891905",
       "zone": "asia-southeast1-a",
       "machineType": "c4d-highmem-8",
+      "creationTimestamp": "2026-11-09T12:18:54.625-08:00",
       "maxRunDurationSeconds": 21600,
       "instanceTerminationAction": "STOP",
       "terminationTimestampUtc": "2026-11-10T02:18:54.625Z"
@@ -111,13 +124,15 @@
       60.541
     ],
     "ramGate": "PASS_GREATER_THAN_6_GIB_ON_CLOUD_VM",
-    "syntaxChecks": "9/9 PASS, exit 0 (Windows r72 and Linux r73)",
-    "cleanupFaultTests": "41/41 PASS, exit 0 (Windows r72 and Linux r73)",
+    "syntaxChecks": "9/9 PASS, exit 0 (Windows r74 and Linux r75)",
+    "cleanupFaultTests": "44/44 PASS, exit 0 (Windows r74 and Linux r75)",
     "mavenCompile": "PASS, exit 0 (22 main + 42 test classes compiled on Cloud VM)",
-    "provenance": "Source/test hashes and Git blob IDs match tested HEAD 183668bc18e89b4e04212be510b971a9f79c7f65",
+    "provenance": "Source/test hashes and Git blob IDs match tested HEAD 2e31e1a0a2aa6681047817bcee17e25405d5ba84",
     "evidence": [
       "evidence/offline-verification-20261110-r72/",
       "evidence/offline-verification-20261110-r73/",
+      "evidence/offline-verification-20261110-r74/",
+      "evidence/offline-verification-20261110-r75/",
       "evidence/t03b2-d-20261110-r4/",
       "evidence/t03b2-d-20261110-r5/",
       "evidence/t03b2-a-20261110-r6/"

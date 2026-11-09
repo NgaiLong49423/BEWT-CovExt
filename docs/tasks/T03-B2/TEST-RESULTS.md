@@ -188,3 +188,18 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
 
 - **Business / Selenium / DB reset status**: `NOT_RUN` (blocked fail-closed at `requestRouteIsolationApproval()` before `docker start`).
 
+### 3. Post-SonarCloud security hardening & host-firewall spec verification (`r74` Windows & `r75` Ubuntu 24.04 Cloud VM — `2e31e1a0a2aa6681047817bcee17e25405d5ba84`)
+
+- **Tested source HEAD**: `2e31e1a0a2aa6681047817bcee17e25405d5ba84` (`sourceMatchesHeadAtTest: true`, `sourceWorkingTreeDirtyAtTest: false` on both platforms).
+- **Node syntax checks (9 modules)**: **9/9 PASS (exit 0)** on both Windows (`r74`) and Ubuntu 24.04 Cloud VM (`r75`).
+- **Unit, fault-injection, and cross-platform test suite**: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` — **44/44 PASS, 0 FAIL (exit 0)** on both Windows (`r74`) and Ubuntu 24.04 Cloud VM (`r75`).
+- **New test coverage (tests 42–44)**:
+  - Protected `GIT_CLI_PATH` and `NODE_CLI_PATH` resolution and `validateEvidenceId` / `resolveEvidenceDirectoryById` rejection of path-traversal payloads (`../`, relative/absolute paths, non-existent IDs).
+  - Dynamic VM `natIP` lookup (`resolveVmExternalIp`) and fail-closed rejection when `natIP` is missing.
+  - Ubuntu host bridge firewall (`DOCKER-USER` iptables `REJECT --reject-with icmp-net-unreachable`) specification, active rule verification, negative fault cases, and zero-residual rollback verification.
+- **SonarCloud Quality Gate**: **`OK` (`PASSED`)** on PR #12 (`new_security_rating = 1 / A`, `new_reliability_rating = 1 / A`, `new_maintainability_rating = 1 / A`, `0` vulnerabilities).
+- **Evidence**:
+  - Windows: `evidence/offline-verification-20261110-r74/` (`sha256-manifest.json` verified, 11 files).
+  - Ubuntu 24.04 Cloud VM: `evidence/offline-verification-20261110-r75/` (`sha256-manifest.json` verified, 12 files including `cloud-preflight.json`).
+- **Runtime note**: `44/44` unit tests and `validate-evidence.mjs` `VALID` do **not** establish G0 runtime `PASS`; `Claroline_AddUserTest` and DB reset remain `NOT_RUN`.
+

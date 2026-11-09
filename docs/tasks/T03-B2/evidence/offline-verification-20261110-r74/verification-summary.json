@@ -1,0 +1,252 @@
+{
+  "runId": "offline-verification-20261110-r74",
+  "capturedAtUtc": "2026-11-09T21:38:10.022Z",
+  "headAtTest": "2e31e1a0a2aa6681047817bcee17e25405d5ba84",
+  "sourceFiles": [
+    "experiments/claroline/tools/claroline-g0.mjs",
+    "experiments/claroline/tools/run-claroline-diagnostic.mjs",
+    "experiments/claroline/tools/run-claroline-g0.mjs",
+    "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+    "experiments/claroline/tools/child-process-policy.mjs",
+    "experiments/claroline/tools/cloud-controller.mjs",
+    "experiments/claroline/tools/validate-evidence.mjs",
+    "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+    "experiments/claroline/tools/record-offline-verification.mjs"
+  ],
+  "sourceHashesBefore": {
+    "experiments/claroline/tools/claroline-g0.mjs": {
+      "workingTreeSha256": "3e6b0d6c74421a399bb1bdd63428adc5c9ebe95c76df683efdec0202cc3b10a8",
+      "headBlobOid": "a318d4b9d20fbb8783210911e25de4cd79c8a740",
+      "workingTreeBlobOid": "a318d4b9d20fbb8783210911e25de4cd79c8a740",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/run-claroline-diagnostic.mjs": {
+      "workingTreeSha256": "9d0eac4bcf231d6ee58662886c9b89422341255e2f7678ea1162fc73216eb370",
+      "headBlobOid": "0bff6cca8035e869d746d5bf30be096deba7c300",
+      "workingTreeBlobOid": "0bff6cca8035e869d746d5bf30be096deba7c300",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/run-claroline-g0.mjs": {
+      "workingTreeSha256": "7427ddce97c7003c14ecbc7ee5574015415415ae6f6533aa767b3622396849b4",
+      "headBlobOid": "4e64c03d7b2b29dca20ca65f28ea7e930c41fd9f",
+      "workingTreeBlobOid": "4e64c03d7b2b29dca20ca65f28ea7e930c41fd9f",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/cleanup-claroline-g0.mjs": {
+      "workingTreeSha256": "f4db8cd455203b9d785b8708431f12b5c28b7625b8d894704ad5a9eb26a2f584",
+      "headBlobOid": "d01adac841275328da3151dd5dc68c26bbca8f3d",
+      "workingTreeBlobOid": "d01adac841275328da3151dd5dc68c26bbca8f3d",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/child-process-policy.mjs": {
+      "workingTreeSha256": "416d2be1dd9982bf6098fea6840b1410caf77b2b4abb73f124e20d01bacf70f6",
+      "headBlobOid": "9ea1b538de1f4efca2d8a21968f2f05435dcc01e",
+      "workingTreeBlobOid": "9ea1b538de1f4efca2d8a21968f2f05435dcc01e",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/cloud-controller.mjs": {
+      "workingTreeSha256": "eed0b3cc75ea52cbf1b13e2c22be3c069c6d325ccb2ed247a0b12ae796bb83ce",
+      "headBlobOid": "3bc36731e16fe3a626e391bfdc1ac3bb98bd9e8f",
+      "workingTreeBlobOid": "3bc36731e16fe3a626e391bfdc1ac3bb98bd9e8f",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/validate-evidence.mjs": {
+      "workingTreeSha256": "55359f2759095c7536a10f2ce7fdce641c59ec2899ec610b84a175c2f597a8bb",
+      "headBlobOid": "02aaeee7cfc9e22abd54d7d48ce4f0b84846625e",
+      "workingTreeBlobOid": "02aaeee7cfc9e22abd54d7d48ce4f0b84846625e",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs": {
+      "workingTreeSha256": "3746fb73b8616a4111dbadf922cd092017b81d92bc5633e9e566b257326fda06",
+      "headBlobOid": "228d7b17e428e2099f876243d7c9154e36ad835c",
+      "workingTreeBlobOid": "228d7b17e428e2099f876243d7c9154e36ad835c",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/record-offline-verification.mjs": {
+      "workingTreeSha256": "53232f17d2085c2d1b6a792412b3c2eaf267dce90ac0c3999a6cc91ad6c7d8a8",
+      "headBlobOid": "64fc5b65f014cb001c89dd903cb8157f66b96a77",
+      "workingTreeBlobOid": "64fc5b65f014cb001c89dd903cb8157f66b96a77",
+      "matchesHead": true
+    }
+  },
+  "sourceHashesAfter": {
+    "experiments/claroline/tools/claroline-g0.mjs": {
+      "workingTreeSha256": "3e6b0d6c74421a399bb1bdd63428adc5c9ebe95c76df683efdec0202cc3b10a8",
+      "headBlobOid": "a318d4b9d20fbb8783210911e25de4cd79c8a740",
+      "workingTreeBlobOid": "a318d4b9d20fbb8783210911e25de4cd79c8a740",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/run-claroline-diagnostic.mjs": {
+      "workingTreeSha256": "9d0eac4bcf231d6ee58662886c9b89422341255e2f7678ea1162fc73216eb370",
+      "headBlobOid": "0bff6cca8035e869d746d5bf30be096deba7c300",
+      "workingTreeBlobOid": "0bff6cca8035e869d746d5bf30be096deba7c300",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/run-claroline-g0.mjs": {
+      "workingTreeSha256": "7427ddce97c7003c14ecbc7ee5574015415415ae6f6533aa767b3622396849b4",
+      "headBlobOid": "4e64c03d7b2b29dca20ca65f28ea7e930c41fd9f",
+      "workingTreeBlobOid": "4e64c03d7b2b29dca20ca65f28ea7e930c41fd9f",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/cleanup-claroline-g0.mjs": {
+      "workingTreeSha256": "f4db8cd455203b9d785b8708431f12b5c28b7625b8d894704ad5a9eb26a2f584",
+      "headBlobOid": "d01adac841275328da3151dd5dc68c26bbca8f3d",
+      "workingTreeBlobOid": "d01adac841275328da3151dd5dc68c26bbca8f3d",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/child-process-policy.mjs": {
+      "workingTreeSha256": "416d2be1dd9982bf6098fea6840b1410caf77b2b4abb73f124e20d01bacf70f6",
+      "headBlobOid": "9ea1b538de1f4efca2d8a21968f2f05435dcc01e",
+      "workingTreeBlobOid": "9ea1b538de1f4efca2d8a21968f2f05435dcc01e",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/cloud-controller.mjs": {
+      "workingTreeSha256": "eed0b3cc75ea52cbf1b13e2c22be3c069c6d325ccb2ed247a0b12ae796bb83ce",
+      "headBlobOid": "3bc36731e16fe3a626e391bfdc1ac3bb98bd9e8f",
+      "workingTreeBlobOid": "3bc36731e16fe3a626e391bfdc1ac3bb98bd9e8f",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/validate-evidence.mjs": {
+      "workingTreeSha256": "55359f2759095c7536a10f2ce7fdce641c59ec2899ec610b84a175c2f597a8bb",
+      "headBlobOid": "02aaeee7cfc9e22abd54d7d48ce4f0b84846625e",
+      "workingTreeBlobOid": "02aaeee7cfc9e22abd54d7d48ce4f0b84846625e",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs": {
+      "workingTreeSha256": "3746fb73b8616a4111dbadf922cd092017b81d92bc5633e9e566b257326fda06",
+      "headBlobOid": "228d7b17e428e2099f876243d7c9154e36ad835c",
+      "workingTreeBlobOid": "228d7b17e428e2099f876243d7c9154e36ad835c",
+      "matchesHead": true
+    },
+    "experiments/claroline/tools/record-offline-verification.mjs": {
+      "workingTreeSha256": "53232f17d2085c2d1b6a792412b3c2eaf267dce90ac0c3999a6cc91ad6c7d8a8",
+      "headBlobOid": "64fc5b65f014cb001c89dd903cb8157f66b96a77",
+      "workingTreeBlobOid": "64fc5b65f014cb001c89dd903cb8157f66b96a77",
+      "matchesHead": true
+    }
+  },
+  "sourceWorkingTreeDirtyAtTest": false,
+  "sourceMatchesHeadAtTest": true,
+  "sourceDiffPathsAtTest": [],
+  "commands": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/claroline-g0.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-01.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/run-claroline-diagnostic.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-02.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/run-claroline-g0.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-03.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/cleanup-claroline-g0.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-04.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/child-process-policy.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-05.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/cloud-controller.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-06.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/validate-evidence.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-07.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-08.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "experiments/claroline/tools/record-offline-verification.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-09.log",
+      "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "log": "command-10.log",
+      "logSha256": "2f9720cc67dc5fd7983dd5221b9bfbc4aa04150f86021023008e41883d885a82"
+    }
+  ],
+  "testCounts": {
+    "tests": 44,
+    "pass": 44,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "overallExitCode": 0
+}
