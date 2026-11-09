@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-11-09T12:37:48+07:00",
+  "freeGiB": 2.98,
+  "totalGiB": 13.79,
+  "minimumGiB": 4,
+  "dockerServerVersion": null,
+  "dockerExitCode": 1,
+  "dockerError": "Docker Desktop desktop-linux named pipe unavailable",
+  "dockerResourcesChanged": false,
+  "runtimeGate": "BLOCKED"
+}

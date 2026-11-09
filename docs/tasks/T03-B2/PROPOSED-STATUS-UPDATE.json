@@ -3,10 +3,22 @@
   "application": "Claroline",
   "proposedStatus": "PROVENANCE_BLOCKED",
   "runtimeStatus": "NOT_RUN",
-  "sourceVersion": "1.11.10 (not independently verified against source bytes)",
+  "sourceVersion": "1.11.10 and 1.11.10-1 official archive candidates hashed; runtime image match not verified",
   "sourceCommit": null,
   "archiveSha256": null,
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "No Claroline source commit or official archive bytes/hash verified; host free RAM is below the runtime safety threshold.",
-  "statusJsonChanged": false
+  "reason": "Official archive bytes for both release variants are hashed, but the runtime image match and source Git commit remain unverified; the current parser requires source.commit and the host runtime gate is below threshold.",
+  "statusJsonChanged": false,
+  "archiveCandidates": [
+    {
+      "fileName": "claroline-1.11.10.tar.gz",
+      "bytes": 5855725,
+      "sha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6"
+    },
+    {
+      "fileName": "claroline-1.11.10-1.tar.gz",
+      "bytes": 5855704,
+      "sha256": "9e887be39f6de9306ad7c197b723554484eb96d5a1e7aca0abc7d63d8b1d007e"
+    }
+  ]
 }

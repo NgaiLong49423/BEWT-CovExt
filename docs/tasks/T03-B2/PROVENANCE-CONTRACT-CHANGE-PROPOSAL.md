@@ -2,7 +2,7 @@
 
 **Status: `PROVENANCE_DECISION_REQUIRED`; proposal only.** No contract or framework change is made in this task.
 
-Claroline 1.11.10 is distributed as historical SourceForge archives, while no matching upstream Git commit and no downloadable archive bytes/hash have been verified. The current `parseApplicationManifest()` contract requires `source.commit` to be a full Git SHA and cannot represent an archive-only source honestly.
+Claroline 1.11.10 is distributed as historical SourceForge archives; SHA-256 values for both official 1.11.10 archive variants are now recorded in `CLAROLINE-SOURCE-PROVENANCE.md`. No matching upstream Git commit has been verified, and the exact image-to-archive match remains unknown. The current `parseApplicationManifest()` contract requires `source.commit` to be a full Git SHA and cannot represent an archive-only source honestly.
 
 Proposed future contract option, subject to Team Lead approval:
 

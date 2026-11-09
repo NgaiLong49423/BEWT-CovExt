@@ -19,3 +19,7 @@ When the host gate allows a run, only app TCP 80 and Selenium TCP 4444 are dynam
 ## Review follow-up recheck — 2026-11-09 12:25 +07:00
 
 A fresh read-only check measured **2.35 GiB free of 13.79 GiB**. `docker version` exited 1 because the `desktop-linux` named pipe is unavailable. The machine/runtime gate remains `BLOCKED`; no Docker resource was created, inspected, removed, or otherwise changed in this recheck. See `evidence/offline-verification-20261109-r9/runtime-preflight.json`.
+
+## Latest recheck — 2026-11-09 12:37 +07:00
+
+The fresh host reading was **2.98 GiB free of 13.79 GiB**; Docker CLI exit 1 reported the unavailable `desktop-linux` pipe. Runtime remains `BLOCKED` below the 4 GiB threshold, with no Docker resources changed. See `evidence/offline-verification-20261109-r10/runtime-preflight.json`.
