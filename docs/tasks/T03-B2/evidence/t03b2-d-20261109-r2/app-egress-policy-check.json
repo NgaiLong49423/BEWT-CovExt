@@ -1,0 +1,8 @@
+{
+  "target": "1.1.1.1:443",
+  "outcome": "FAIL",
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "stdin: is not a tty\n",
+  "error": ""
+}

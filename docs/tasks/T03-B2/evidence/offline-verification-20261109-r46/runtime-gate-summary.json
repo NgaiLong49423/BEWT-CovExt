@@ -1,0 +1,11 @@
+{
+  "gate": "PASS",
+  "requiredStableFreeGiB": 6,
+  "samplesGiB": [
+    6.744,
+    6.589,
+    6.601
+  ],
+  "dockerInfoExitCode": 0,
+  "noDockerMutation": true
+}

@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-d-20261109-r2",
+  "outcome": "BLOCKED",
+  "reason": "EGRESS_POLICY_VIOLATION: container reached an external TCP target",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

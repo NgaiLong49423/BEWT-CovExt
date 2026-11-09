@@ -1,0 +1,41 @@
+{
+  "before": {
+    "containers": {
+      "count": 32,
+      "sha256": "3fa3f9751be9eea149765d405378b3e0c4c21eb43655199db89dd8fc4679ae28"
+    },
+    "networks": {
+      "count": 11,
+      "sha256": "390e1383066182e775d1f1accd6e98db64ef0bfba08a2c27ad49a6eb036d3156"
+    },
+    "volumes": {
+      "count": 24,
+      "sha256": "87a14c65e573f5d0463b898942a5bd7bc166ba0353c37aa5aa411b2dc6759274"
+    },
+    "images": {
+      "count": 25,
+      "sha256": "97d0f4913c99212427bacbe54c53ee45b1f253571a64d2520140c26bd82ca4f7"
+    }
+  },
+  "after": {
+    "containers": {
+      "count": 32,
+      "sha256": "3fa3f9751be9eea149765d405378b3e0c4c21eb43655199db89dd8fc4679ae28"
+    },
+    "networks": {
+      "count": 11,
+      "sha256": "390e1383066182e775d1f1accd6e98db64ef0bfba08a2c27ad49a6eb036d3156"
+    },
+    "volumes": {
+      "count": 24,
+      "sha256": "87a14c65e573f5d0463b898942a5bd7bc166ba0353c37aa5aa411b2dc6759274"
+    },
+    "images": {
+      "count": 25,
+      "sha256": "97d0f4913c99212427bacbe54c53ee45b1f253571a64d2520140c26bd82ca4f7"
+    }
+  },
+  "countsEqual": true,
+  "fingerprintsEqual": true,
+  "rawInventoriesExcludedFromGit": true
+}

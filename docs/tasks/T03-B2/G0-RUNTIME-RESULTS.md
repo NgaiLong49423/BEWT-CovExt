@@ -152,4 +152,12 @@ Three new samples measured 1.162, 1.180, and 1.194 GiB free. Docker Desktop Engi
 
 ## Offline network-policy hardening — r44
 
-The approved egress-limited bridge verifier now requires IPv6 to be explicitly disabled, closing the unprobed IPv6 egress path. Offline fault-injection tests pass 30/30 and five syntax checks pass (exit 0); evidence is under `evidence/offline-verification-20261109-r44/`. This policy change has not been runtime-tested. Latest read-only recheck r45 measured 1.660, 1.659, and 1.663 GiB free, below the stable 6 GiB gate. Docker Engine 29.8.0 responded, and complete task-label inventory counts were zero for containers, networks, and volumes. Evidence: `evidence/offline-verification-20261109-r45/`. No Docker resources were created, changed, stopped, or removed. Diagnostic r2 and G0 Runs A/B remain `NOT_RUN`; G0 remains `PARTIAL`/`BLOCKED`.
+The approved egress-limited bridge verifier requires IPv6 explicitly disabled; offline fault-injection tests pass 30/30 and five syntax checks pass (exit 0) under `evidence/offline-verification-20261109-r44/`.
+
+## Runtime gate and diagnostic r2 — 2026-11-09
+
+Read-only preflight r46 passed the stable 6 GiB gate with samples 6.744, 6.589, and 6.601 GiB; Docker Engine responded and full task-label container/network/volume counts were zero. Evidence: `evidence/offline-verification-20261109-r46/`.
+
+App-only diagnostic `t03b2-d-20261109-r2` ran on the approved profile. Docker network inspection verified bridge mode, IP masquerading disabled, and IPv6 disabled; loopback port forwarding also verified. The host TCP control to `1.1.1.1:443` passed, but the Claroline container connected to that external TCP target, so the runner correctly returned `BLOCKED` (exit 1) for `EGRESS_POLICY_VIOLATION`. Application readiness, Maven, Selenium, business assertions, and database reset were `NOT_RUN`. Cleanup returned PASS for the recorded container/network, with zero run-labeled residual containers/networks/volumes. Independent before/after inventory counts and fingerprints match. No other Docker resource changed. Evidence: `evidence/t03b2-d-20261109-r2/`.
+
+Do not start G0 Runs A/B until the egress policy is revised and safely verified. G0 remains `PARTIAL`/`BLOCKED`.

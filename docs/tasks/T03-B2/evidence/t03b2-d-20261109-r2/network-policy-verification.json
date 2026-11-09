@@ -1,0 +1,8 @@
+{
+  "outcome": "PASS",
+  "policy": "egress-limited-bridge-no-masquerade-v1",
+  "driver": "bridge",
+  "internal": false,
+  "ipv6Enabled": false,
+  "ipMasquerade": "false"
+}

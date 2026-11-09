@@ -1,0 +1,21 @@
+{
+  "app": {
+    "id": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+    "repoDigests": [
+      "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+    ],
+    "os": "linux",
+    "architecture": "amd64",
+    "created": "2025-04-08T14:56:55.063602543Z",
+    "rootFsLayers": 15
+  },
+  "browser": {
+    "id": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+    "repoDigests": [
+      "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f"
+    ],
+    "os": "linux",
+    "architecture": "amd64",
+    "created": "2025-09-28T18:25:29.594091407Z"
+  }
+}
