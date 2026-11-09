@@ -149,3 +149,7 @@ Both Docker contexts resolve to Docker Desktop 4.92.0 / Engine 29.8.0; there is 
 ## Latest runtime gate recheck — r43
 
 Three new samples measured 1.162, 1.180, and 1.194 GiB free. Docker Desktop Engine 29.8.0 and task-owned inventory queries responded successfully; containers, networks, and volumes matching the complete Claroline task labels were zero. The 6 GiB gate remains BLOCKED, so diagnostic r2 and G0 A/B were not started. No Docker resources were created, stopped, or removed. Evidence: evidence/offline-verification-20261109-r43/runtime-gate-recheck.json.
+
+## Offline network-policy hardening — r44
+
+The approved egress-limited bridge verifier now requires IPv6 to be explicitly disabled, closing the unprobed IPv6 egress path. Offline fault-injection tests pass 30/30 and five syntax checks pass (exit 0); evidence is under `evidence/offline-verification-20261109-r44/`. This policy change has not been runtime-tested. The r43 memory gate remains the latest preflight; diagnostic r2 and G0 Runs A/B are still `NOT_RUN`, and G0 remains `PARTIAL`/`BLOCKED`.
