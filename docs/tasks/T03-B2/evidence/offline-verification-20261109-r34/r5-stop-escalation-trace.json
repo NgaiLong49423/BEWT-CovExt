@@ -1,0 +1,24 @@
+{
+  "sourceLog": "Docker Desktop vm/init.log",
+  "sourceLogSha256": "NOT_AVAILABLE_FILE_LOCKED_DURING_CHECK",
+  "records": [
+    {
+      "taskDeleteUtc": "2026-11-09T10:35:39.864037954Z",
+      "forceEscalationUtc": "2026-11-09T10:35:39.748687486Z",
+      "containerId": "035ab7b27441dde6ffe7232b88fb07e4ab145c0dbe09e4e7930bc02ea0bb0d03",
+      "userAgent": "Docker-Client/29.8.0 (windows)",
+      "runId": "t03b2-a-20261109-r5",
+      "stopRequestUtc": "2026-11-09T10:35:36.713137456Z",
+      "role": "app"
+    },
+    {
+      "taskDeleteUtc": "2026-11-09T10:38:21.407963272Z",
+      "forceEscalationUtc": "2026-11-09T10:38:21.358793271Z",
+      "containerId": "8776be009d081f179f796c0e1749e41d57550b950466f56c6f16b184ba918c99",
+      "userAgent": "Docker-Client/29.8.0 (windows)",
+      "runId": "t03b2-a-20261109-r5",
+      "stopRequestUtc": "2026-11-09T10:38:18.323091433Z",
+      "role": "selenium"
+    }
+  ]
+}

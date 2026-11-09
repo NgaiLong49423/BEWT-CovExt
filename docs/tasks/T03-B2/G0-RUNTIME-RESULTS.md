@@ -133,3 +133,9 @@ Three samples measured 2.959, 2.971, and 2.965 GiB free, below the runner's hard
 ## Public evidence redaction note
 
 Raw Docker before/after inventories for r3-r5 contain identifiers/names of unrelated local projects. They remain in the local evidence directories and are excluded from the public commit. Sanitized summaries preserve inventory counts and before/after resource equality/deltas using SHA-256 fingerprints without disclosing those names: `evidence/t03b2-a-20261109-r3/docker-inventory-sanitized-summary.json`, and likewise in r4 and r5. r5 cleanup recovery and independent zero-residual checks are published separately.
+
+## Current diagnostic outcome — 2026-11-09
+
+App-only diagnostic `t03b2-d-20261109-r1` is `BLOCKED`: Docker accepted container creation/start (exit 0), but despite exact requested/HostConfig loopback mapping `127.0.0.1:52508`, `NetworkSettings.Ports` was `{"80/tcp":[]}`. Runtime port verification failed before readiness; HTTP/MySQL, Selenium, Maven, business assertions, and DB reset are `NOT_RUN`. App snapshot was running with exit code 0 and `OOMKilled=false`. Exact resource cleanup recovery and independent residual checks PASS. Since the diagnostic did not pass, do not run G0 A/B. G0 remains `PARTIAL`, pending runtime port behavior and Team Lead provenance decision. See `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json`, `cleanup-recovery-r1.json`, and `post-cleanup-independent-check.json`.
+
+For r5, locally retained Docker Desktop logs verify Docker-Client stop requests followed by force escalation after three seconds for both app and Selenium. The exit-137 termination mechanism is therefore consistent with forced stop; the initiating caller and reason the app did not exit after signal 15 are unknown. OOM is not verified. See sanitized `evidence/offline-verification-20261109-r34/r5-stop-escalation-trace.json`.

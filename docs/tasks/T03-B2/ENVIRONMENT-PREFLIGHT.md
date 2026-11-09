@@ -62,3 +62,7 @@ Three host RAM samples at 2026-11-09T11:23:43Z, 11:23:48Z, and 11:23:53Z measure
 ## Latest runtime gate — r32
 
 At 2026-11-09T11:45:53Z, 11:45:59Z, and 11:46:04Z, host free RAM was **2.959, 2.971, and 2.965 GiB**, below the runner's hard 4 GiB gate. Docker Engine 29.8.0 was reachable; Docker VM memory limit was 7,157,477,376 bytes and WSL VM process working set was 655,040,512 bytes. Read-only ownership filters found zero T03-B2 containers, networks, and volumes. No diagnostic or G0 runtime was started and no T03-B2 Docker resources were changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.
+
+## User-confirmed memory recovery and diagnostic gate — 2026-11-09
+
+Three consecutive samples measured 6.331, 6.350, and 6.356 GiB free, exceeding the 6 GiB diagnostic threshold; Docker Engine was available. App-only diagnostic `t03b2-d-20261109-r1` was attempted. It failed closed because Docker's active port report was empty despite the recorded loopback HostConfig mapping. No HTTP/MySQL readiness or business test was attempted. The diagnostic resources were subsequently removed by exact recorded ownership cleanup; independent full-label checks show zero residuals and the cleanup verifier preserved existing resources. No project-other Docker resources were touched. Evidence: `evidence/t03b2-d-20261109-r1/memory-preflight.json`, `diagnostic-assessment-r1.json`, and `post-cleanup-independent-check.json`.

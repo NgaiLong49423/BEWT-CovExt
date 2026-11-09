@@ -91,3 +91,13 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 | Port probe, exact HostConfig/NetworkSettings helper, port-conflict classifier | PASS, 26/26 tests; 4 syntax checks exit 0; offline only | `evidence/offline-verification-20261109-r31/` |
 | Docker runtime port binding | `PORT_BINDING_RUNTIME_NOT_VERIFIED`; no container started | `G0-RUNTIME-RESULTS.md` |
 | Claroline/Selenium diagnostic and G0 A/B | `HOST_MEMORY_BLOCKED`; business tests remain `NOT_RUN` | `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json` |
+
+## Current cleanup correction — 2026-11-09 (r34)
+
+| Command/check | Result | Evidence |
+|---|---|---|
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | PASS, 28 tests, 0 failures, exit 0 | `evidence/offline-verification-20261109-r37/cleanup-fault-tests.log` |
+| `node --check` for all six `experiments/claroline/tools/*.mjs` modules | PASS, all exit 0 | `evidence/offline-verification-20261109-r37/syntax-check.log` |
+| Diagnostic `t03b2-d-20261109-r1` | BLOCKED: `NetworkSettings.Ports` empty despite requested/HostConfig loopback port; no readiness/Maven/Selenium/business test ran | `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` |
+| Cleanup-only recovery for diagnostic r1 | PASS; independent full-label residual scans zero and exact recorded IDs absent | `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`, `post-cleanup-independent-check.json` |
+| Maven `clean test-compile` | NOT_RERUN; Java sources unchanged; previous successful compile evidence remains applicable | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |

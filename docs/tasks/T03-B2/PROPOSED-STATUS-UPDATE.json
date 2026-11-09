@@ -2,15 +2,15 @@
   "task": "T03-B2",
   "application": "Claroline",
   "proposedStatus": "PARTIAL",
-  "runtimeStatus": "HOST_MEMORY_BLOCKED",
+  "runtimeStatus": "BLOCKED_PORT_BINDING_MISMATCH",
   "businessTestStatus": "NOT_RUN",
-  "rootCauseR5Exit137": "ROOT_CAUSE_NOT_VERIFIED",
+  "rootCauseR5Exit137": "FORCED_STOP_ESCALATION_VERIFIED; initiating caller and underlying shutdown cause NOT_VERIFIED; OOM NOT_VERIFIED",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Official Claroline 1.11.10 source base is verified, but the pinned image contains one unattributed application-code patch pending Team Lead review. Run A r5 was BLOCKED after Docker failed to expose the requested host ports; the app container later exited 137, whose cause is ROOT_CAUSE_NOT_VERIFIED. Maven, Selenium, business assertions, and DB reset are NOT_RUN. Cleanup-only recovery passed for the recorded resources; independent postcheck found no run residuals or missing baseline IDs. Latest repeated host RAM samples are 2.959-2.971 GiB, below the hard 4 GiB gate, so no diagnostic/full runtime was started. Explicit port verification is implemented and unit-tested but PORT_BINDING_RUNTIME_NOT_VERIFIED. Run B is NOT_RUN. G0 remains PARTIAL and not accepted.",
-  "statusJsonChanged": false,
+  "reason": "Host memory gate passed for one app-only diagnostic (6.331-6.356 GiB free). Docker accepted create/start, but NetworkSettings.Ports was empty despite the exact recorded loopback HostConfig port, so the diagnostic was BLOCKED before readiness. Cleanup-only recovery and independent residual checks PASS. G0 Run A remains BLOCKED and Run B NOT_RUN; Maven, Selenium, business assertions, and DB reset remain NOT_RUN. Docker logs verify force-stop escalation for r5 but not why the app failed to exit gracefully or who initiated the stop; OOM is not verified. Pinned image still contains one unattributed patch pending Team Lead review.",
+  "statusJsonChanged": true,
   "archiveCandidates": [
     {
       "fileName": "claroline-1.11.10.tar.gz",
@@ -34,5 +34,14 @@
     "sourceCommit": "NOT_IDENTIFIED",
     "releaseSha256": "fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1",
     "imageSha256": "c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8"
-  }
+  },
+  "diagnosticRunId": "t03b2-d-20261109-r1",
+  "diagnosticOutcome": "BLOCKED",
+  "g0Status": "PARTIAL",
+  "evidence": [
+    "evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json",
+    "evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json",
+    "evidence/t03b2-d-20261109-r1/post-cleanup-independent-check.json",
+    "evidence/offline-verification-20261109-r37/"
+  ]
 }

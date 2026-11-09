@@ -55,9 +55,20 @@ function assertContainerSecurity(container, item, networkName, record) {
     throw new CleanupBlockedError(`${item.role} port is not a valid dynamic loopback binding for its container state`);
   }
   const selectedPort = record.selectedHostPorts?.[item.role];
-  if (allocatedPort && selectedPort !== undefined) {
-    try { assertPublishedLoopbackPort(container, expectedHostPort, selectedPort); }
-    catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
+  if (selectedPort !== undefined && allocatedPort) {
+    if (hostBinding[0].HostPort !== String(selectedPort)) {
+      throw new CleanupBlockedError(`${item.role} HostConfig port does not match the recorded selected port`);
+    }
+    const reported = reportedPorts[expectedHostPort];
+    const noActiveBinding = !Object.hasOwn(reportedPorts, expectedHostPort) || reported === null || (Array.isArray(reported) && reported.length === 0);
+    const otherActivePorts = Object.entries(reportedPorts).filter(([port, mappings]) => port !== expectedHostPort && Array.isArray(mappings) && mappings.length > 0);
+    if (otherActivePorts.length > 0) throw new CleanupBlockedError(`${item.role} has an unexpected active Docker port report`);
+    if (!noActiveBinding) {
+      try { assertPublishedLoopbackPort(container, expectedHostPort, selectedPort); }
+      catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
+    }
+    // Cleanup may proceed only for the exact recorded, loopback-only container when Docker omitted its active port report.
+    // The run itself remains BLOCKED; this exception authorizes safe teardown, never runtime verification.
   }
   if (item.role === 'app' && Object.keys(bindings).some(key => key.startsWith('3306/'))) {
     throw new CleanupBlockedError('Claroline MySQL port must not be published to the host');
@@ -94,8 +105,12 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (networkRecord && (networkRecord.name !== names.network || !/^[a-f0-9]{64}$/i.test(networkRecord.id || ''))) throw new CleanupBlockedError('recorded network ID/name does not match the run identity');
   if (!networkRecord && containers.length > 0) throw new CleanupBlockedError('recorded containers exist without a recorded network; endpoint ownership cannot be verified');
   if (record.selectedHostPorts !== undefined) {
-    const { app, browser } = record.selectedHostPorts || {};
-    if (![app, browser].every(port => Number.isInteger(port) && port >= 1024 && port <= 65535) || app === browser) throw new CleanupBlockedError('recorded selected host ports must be distinct valid loopback ports');
+    const selected = record.selectedHostPorts || {};
+    const entries = Object.entries(selected);
+    const ports = entries.map(([, port]) => port);
+    if (!entries.length || entries.some(([role, port]) => !['app', 'browser'].includes(role) || !Number.isInteger(port) || port < 1024 || port > 65535) || new Set(ports).size !== ports.length) {
+      throw new CleanupBlockedError('recorded selected host ports must be distinct valid loopback ports for recorded roles');
+    }
   }
 
   const foundContainers = [];

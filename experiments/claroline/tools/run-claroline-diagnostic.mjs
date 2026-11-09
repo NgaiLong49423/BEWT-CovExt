@@ -1,0 +1,205 @@
+import { execFileSync, spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { writeFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import {
+  APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertContainerPortNotPublished,
+  assertPublishedLoopbackPort, createEvidenceDirectory, labelsForRun, namesForRun,
+  probeLoopbackPort, recordCreatedResource, selectLoopbackPort, snapshotInventory,
+  validateRunId,
+} from './claroline-g0.mjs';
+import { DOCKER_CLI_PATH, DOCKER_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
+import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
+
+const toolDir = dirname(fileURLToPath(import.meta.url));
+const root = resolve(toolDir, '../../..');
+const evidenceRoot = resolve(root, 'docs/tasks/T03-B2/evidence');
+const runId = validateRunId(process.argv[2] || '');
+const evidenceDir = createEvidenceDirectory(evidenceRoot, runId);
+const names = namesForRun(runId);
+const labels = labelsForRun(runId);
+const labelArgs = Object.entries(labels).flatMap(([key, value]) => ['--label', `${key}=${value}`]);
+const writeOnce = (name, value) => writeFileSync(resolve(evidenceDir, name), `${JSON.stringify(value, null, 2)}\n`, { flag: 'wx' });
+const writeTextOnce = (name, value) => writeFileSync(resolve(evidenceDir, name), `${value}\n`, { flag: 'wx' });
+const scrub = value => String(value ?? '')
+  .replaceAll(root, '<WORKTREE>')
+  .replace(/(password|passwd|token|secret|authorization|cookie)(\s*[=:]\s*)[^\s,;]+/gi, '$1$2[REDACTED]')
+  .replace(/\b[A-Z]:\\(?:[^\s"']+\\)*[^\s"']*/gi, '<LOCAL_PATH>');
+const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+const digestOf = ref => ref.slice(ref.indexOf('@') + 1);
+const record = {
+  runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null,
+  imageDigest: digestOf(APP_IMAGE_REF), browserImageDigest: digestOf(BROWSER_IMAGE_REF),
+  imageLabels: {}, containers: [], network: null, selectedHostPorts: {},
+};
+let baseline = null;
+let outcome = 'BLOCKED';
+let reason = 'diagnostic did not complete';
+let dockerChanged = false;
+
+function saveRecord() { writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`); }
+
+function dockerCall(args, evidenceName, throwOnError = true) {
+  const result = spawnSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+  writeOnce(evidenceName, {
+    command: ['docker', ...args], status: result.status,
+    stdout: scrub(result.stdout || ''), stderr: scrub(result.stderr || ''), error: scrub(result.error?.message || ''),
+  });
+  if (throwOnError && (result.error || result.status !== 0)) {
+    const detail = (result.stderr || result.error?.message || '').trim();
+    const portConflict = /port is already allocated|address already in use|failed to bind|bind:.*(address|port)/i.test(detail);
+    throw new Error(`${portConflict ? 'PORT_BIND_CONFLICT: ' : ''}docker ${args[0]} failed (${result.status}): ${scrub(detail)}`);
+  }
+  return result;
+}
+
+function safeInspect(resource) {
+  const endpointMap = resource.NetworkSettings?.Networks || {};
+  return {
+    id: resource.Id, name: String(resource.Name || '').replace(/^\//, ''), image: resource.Config?.Image,
+    labels: resource.Config?.Labels || {},
+    state: {
+      status: resource.State?.Status, running: resource.State?.Running,
+      exitCode: resource.State?.ExitCode, oomKilled: resource.State?.OOMKilled,
+      error: scrub(resource.State?.Error), startedAt: resource.State?.StartedAt, finishedAt: resource.State?.FinishedAt,
+    },
+    hostConfig: { privileged: resource.HostConfig?.Privileged, networkMode: resource.HostConfig?.NetworkMode, binds: resource.HostConfig?.Binds || [], portBindings: resource.HostConfig?.PortBindings || {} },
+    networkSettings: {
+      ports: resource.NetworkSettings?.Ports || {},
+      networks: Object.fromEntries(Object.entries(endpointMap).map(([key, value]) => [key, {
+        networkId: value.NetworkID, endpointId: value.EndpointID, ipAddress: value.IPAddress,
+        gateway: value.Gateway, macAddress: value.MacAddress,
+      }])),
+    },
+    mounts: resource.Mounts || [],
+  };
+}
+
+function inspectOwned(item) { return JSON.parse(docker(['inspect', item.id]))[0]; }
+
+function inventorySummary(before, after) {
+  const summarize = inventory => Object.fromEntries(Object.entries(inventory).map(([kind, values]) => [kind, {
+    count: values.length,
+    sha256: createHash('sha256').update([...values].sort().join('\n')).digest('hex'),
+  }]));
+  return {
+    before: summarize(before), after: summarize(after),
+    countsEqual: Object.keys(before).every(kind => before[kind].length === after[kind].length),
+    fingerprintsEqual: Object.keys(before).every(kind => summarize(before)[kind].sha256 === summarize(after)[kind].sha256),
+    rawInventoriesExcludedFromGit: true,
+  };
+}
+
+function capturePreTeardownEvidence() {
+  for (const item of record.containers) {
+    try { writeOnce(`${item.role}-inspect-before-cleanup.json`, safeInspect(inspectOwned(item))); }
+    catch (error) { try { writeTextOnce(`${item.role}-inspect-before-cleanup-error.txt`, scrub(error.message)); } catch {} }
+    const logs = spawnSync(DOCKER_CLI_PATH, ['logs', '--timestamps', '--tail', '200', item.id], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+    const logText = `${scrub(logs.stdout || '')}${logs.stderr ? `\n[stderr]\n${scrub(logs.stderr)}` : ''}`;
+    try { writeTextOnce(`${item.role}-logs-sanitized.log`, logText); } catch {}
+    try { writeOnce(`${item.role}-logs-metadata.json`, { exitCode: logs.status, error: scrub(logs.error?.message || ''), sha256: createHash('sha256').update(logText).digest('hex'), redactionPolicy: 'local paths replaced; credential-like fields redacted' }); } catch {}
+    const stats = spawnSync(DOCKER_CLI_PATH, ['stats', '--no-stream', '--format', '{{json .}}', item.id], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+    try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, rows: String(stats.stdout || '').trim().split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line)) }); } catch { try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, output: scrub(stats.stdout || stats.stderr) }); } catch {} }
+  }
+  const since = record.startedAtUtc || record.createdAtUtc;
+  if (since && record.containers.length) {
+    for (const item of record.containers) {
+      const events = spawnSync(DOCKER_CLI_PATH, ['events', '--since', since, '--until', new Date().toISOString(), '--filter', `container=${item.id}`, '--format', '{{json .}}'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+      try { writeOnce(`${item.role}-events-before-cleanup.json`, { exitCode: events.status, events: String(events.stdout || '').trim().split(/\r?\n/).filter(Boolean).map(line => JSON.parse(scrub(line))), error: scrub(events.stderr || '') }); } catch { try { writeOnce(`${item.role}-events-before-cleanup.json`, { exitCode: events.status, output: scrub(events.stdout || events.stderr) }); } catch {} }
+    }
+  }
+}
+
+try {
+  saveRecord();
+  const samples = [];
+  for (let index = 0; index < 3; index += 1) {
+    const free = Number(execFileSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8', env: DOCKER_ENV }).trim()) * 1024;
+    samples.push({ capturedAtUtc: new Date().toISOString(), freeBytes: free, freeGiB: Number((free / 1024 ** 3).toFixed(3)) });
+    if (index < 2) await new Promise(resolvePromise => setTimeout(resolvePromise, 5000));
+  }
+  writeOnce('memory-preflight.json', { samples, minimumBytes: Math.min(...samples.map(sample => sample.freeBytes)), minimumGiB: Number((Math.min(...samples.map(sample => sample.freeBytes)) / 1024 ** 3).toFixed(3)), requiredBytes: 6 * 1024 ** 3, outcome: Math.min(...samples.map(sample => sample.freeBytes)) >= 6 * 1024 ** 3 ? 'PASS' : 'BLOCKED' });
+  if (Math.min(...samples.map(sample => sample.freeBytes)) < 6 * 1024 ** 3) throw new Error('HOST_MEMORY_BLOCKED: diagnostic requires stable 6 GiB host free RAM');
+  baseline = snapshotInventory();
+  writeOnce('docker-before-private.json', baseline);
+  const appImage = JSON.parse(docker(['image', 'inspect', APP_IMAGE_REF]))[0];
+  const browserImage = JSON.parse(docker(['image', 'inspect', BROWSER_IMAGE_REF]))[0];
+  if (appImage.Os !== 'linux' || appImage.Architecture !== 'amd64' || browserImage.Os !== 'linux' || browserImage.Architecture !== 'amd64') throw new Error('pinned app and browser images must both be linux/amd64');
+  record.imageLabels = { app: appImage.Config.Labels || {}, browser: browserImage.Config.Labels || {} };
+  writeOnce('image-inspect-sanitized.json', {
+    app: { id: appImage.Id, repoDigests: appImage.RepoDigests, os: appImage.Os, architecture: appImage.Architecture, created: appImage.Created, rootFsLayers: appImage.RootFS?.Layers?.length },
+    browser: { id: browserImage.Id, repoDigests: browserImage.RepoDigests, os: browserImage.Os, architecture: browserImage.Architecture, created: browserImage.Created },
+  });
+  const appPort = await selectLoopbackPort();
+  const probe = await probeLoopbackPort(appPort);
+  record.selectedHostPorts = { app: appPort };
+  writeOnce('port-precreate-check.json', { bindAddress: '127.0.0.1', app: probe, capturedAtUtc: new Date().toISOString(), reservationHeld: false });
+  if (!probe.available) throw new Error('PORT_BIND_CONFLICT: selected app port was unavailable before Docker create');
+  writeOnce('host-port-allocation.json', { app: appPort, bindAddress: '127.0.0.1', purpose: 'app-only diagnostic; browser not started', reservationHeld: false });
+  saveRecord();
+  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', ...labelArgs, names.network], 'network-create.json', false);
+  try { recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: saveRecord }); }
+  finally { if (record.network) dockerChanged = true; }
+  const appCreate = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', `127.0.0.1:${appPort}:80`, '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
+  try { recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreate, record, onRecord: saveRecord }); }
+  finally { if (record.containers.length) dockerChanged = true; }
+  record.createdAtUtc = new Date().toISOString();
+  saveRecord();
+  dockerCall(['start', record.containers[0].id], 'app-start.json');
+  record.startedAtUtc = new Date().toISOString();
+  saveRecord();
+  const app = inspectOwned(record.containers[0]);
+  const appSafe = safeInspect(app);
+  assertPublishedLoopbackPort(app, '80/tcp', appPort);
+  assertContainerPortNotPublished(app, '3306/tcp');
+  writeOnce('host-port-verification.json', { outcome: 'PASS', requestedHostPort: appPort, hostConfig: appSafe.hostConfig.portBindings['80/tcp'], networkSettings: appSafe.networkSettings.ports['80/tcp'], mysql3306Published: false, reservationHeld: false });
+  writeOnce('app-inspect-after-start.json', appSafe);
+  const deadline = Date.now() + 180000;
+  let http = { outcome: 'BLOCKED', reason: 'readiness timeout' };
+  while (Date.now() < deadline) {
+    try {
+      const response = await fetch(`http://127.0.0.1:${appPort}/claroline11110/claroline/index.php`, { signal: AbortSignal.timeout(3000) });
+      const body = await response.text();
+      if (response.ok) { http = { outcome: 'PASS', status: response.status, bodyBytes: Buffer.byteLength(body) }; break; }
+      http = { outcome: 'BLOCKED', status: response.status };
+    } catch (error) { http = { outcome: 'BLOCKED', lastError: scrub(error.message) }; }
+    await new Promise(resolvePromise => setTimeout(resolvePromise, 2000));
+  }
+  writeOnce('http-readiness.json', http);
+  if (http.outcome !== 'PASS') throw new Error(`HTTP_READINESS_BLOCKED: ${http.reason || http.lastError || http.status}`);
+  const processCheck = spawnSync(DOCKER_CLI_PATH, ['exec', record.containers[0].id, 'bash', '-lc', 'pgrep -a apache2; pgrep -a mysqld'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+  writeOnce('service-processes.json', { exitCode: processCheck.status, output: scrub(processCheck.stdout || ''), error: scrub(processCheck.stderr || '') });
+  if (processCheck.status !== 0 || !/mysqld/i.test(processCheck.stdout || '')) throw new Error('MYSQL_READINESS_BLOCKED: mysqld process not verified');
+  const database = spawnSync(DOCKER_CLI_PATH, ['exec', record.containers[0].id, 'mysql', '-NBe', 'SHOW DATABASES'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+  const databases = String(database.stdout || '').trim().split(/\r?\n/).filter(Boolean);
+  writeOnce('database-readiness.json', { exitCode: database.status, databaseNames: databases, expectedDatabasePresent: databases.some(name => name.toLowerCase() === 'claroline') });
+  if (database.status !== 0 || !databases.some(name => name.toLowerCase() === 'claroline')) throw new Error('MYSQL_READINESS_BLOCKED: Claroline database not verified');
+  outcome = 'PASS';
+  reason = 'app-only diagnostic verified exact loopback port, HTTP and MySQL readiness; no Selenium or Maven test was run';
+} catch (error) {
+  outcome = 'BLOCKED';
+  reason = scrub(error?.message || String(error));
+  try { writeTextOnce('run-failure.txt', `${error?.name || 'Error'}: ${reason}`); } catch {}
+} finally {
+  if (record.containers.length) capturePreTeardownEvidence();
+  if (baseline && (record.network || record.containers.length)) {
+    const cleanup = runCleanupWithExitCode({ record, baseline });
+    try { writeOnce('cleanup-result.json', cleanup.outcome === 'PASS' ? cleanup.result : { outcome: 'BLOCKED', reason: scrub(cleanup.reason) }); } catch {}
+    if (cleanup.outcome !== 'PASS') { outcome = 'BLOCKED'; reason = `cleanup BLOCKED: ${scrub(cleanup.reason)}`; }
+  }
+  if (baseline) {
+    try {
+      const after = snapshotInventory();
+      writeOnce('docker-after-private.json', after);
+      writeOnce('docker-inventory-sanitized-summary.json', inventorySummary(baseline, after));
+    } catch (error) {
+      outcome = 'BLOCKED'; reason = `post-cleanup inventory BLOCKED: ${scrub(error.message)}`;
+      try { writeTextOnce('docker-after-blocked.txt', reason); } catch {}
+    }
+  }
+  try { writeOnce('diagnostic-result.json', { runId, outcome, reason, businessTest: 'NOT_RUN', selenium: 'NOT_RUN', dbReset: 'NOT_RUN', dockerResourcesChanged: dockerChanged, cleanup: 'see cleanup-result.json' }); } catch {}
+}
+
+if (outcome !== 'PASS') process.exitCode = 1;
+console.log(JSON.stringify({ runId, outcome, reason, evidenceDir }));

@@ -1,0 +1,32 @@
+{
+  "runId": "t03b2-d-20261109-r1",
+  "runType": "APP_ONLY_DIAGNOSTIC_NOT_G0_A_OR_B",
+  "outcome": "BLOCKED",
+  "failure": "PORT_BINDING_MISMATCH",
+  "dockerCreateExitCode": 0,
+  "dockerStartExitCode": 0,
+  "requestedBinding": "127.0.0.1:52508:80",
+  "hostConfigBinding": "127.0.0.1:52508",
+  "networkSettingsPorts": [
+    "80/tcp: []"
+  ],
+  "runtimePortVerification": "FAIL",
+  "containerSnapshot": {
+    "exitCode": 0,
+    "oomKilled": false,
+    "running": true
+  },
+  "httpReadiness": "NOT_RUN",
+  "mysqlReadiness": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "maven": "NOT_RUN",
+  "businessTest": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "initialCleanup": "BLOCKED",
+  "cleanupRecovery": "PASS",
+  "cleanupPostcheck": "PASS",
+  "runA": "BLOCKED",
+  "runB": "NOT_RUN",
+  "g0": "PARTIAL_NOT_ACCEPTED",
+  "verifiedAtUtc": "2026-11-09T12:13:22.5277873Z"
+}

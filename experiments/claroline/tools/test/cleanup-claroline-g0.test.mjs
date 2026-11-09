@@ -286,6 +286,34 @@ test('network-only partial run and no-resource network-create failure are safe',
   assert.equal(cleanup(noResources, record([], false)).outcome, 'PASS');
 });
 
+test('app-only diagnostic can safely clean an exact loopback record when Docker omits the active port report', () => {
+  const fake = fakeDocker({ roles: ['app'] });
+  const value = record(['app']);
+  value.selectedHostPorts = { app: 51001 };
+  const item = fake.state.containers.get(ids.app);
+  item.NetworkSettings.Ports['80/tcp'] = [];
+  const result = cleanup(fake, value);
+  assert.equal(result.outcome, 'PASS');
+  assert.equal(fake.state.containers.has(ids.other), true, 'unrelated ExpressCart container is preserved');
+  assert.equal(fake.state.networks.has(ids.otherNetwork), true, 'unrelated Kanboard network is preserved');
+  assert.equal(fake.state.volumes.has('unrelated-volume'), true);
+});
+
+test('selected port mismatch or active external binding blocks cleanup without mutation', () => {
+  for (const change of [
+    item => { item.HostConfig.PortBindings['80/tcp'][0].HostPort = '51003'; },
+    item => { item.NetworkSettings.Ports['80/tcp'] = [{ HostIp: '0.0.0.0', HostPort: '51001' }]; },
+    item => { item.NetworkSettings.Ports['3306/tcp'] = [{ HostIp: '0.0.0.0', HostPort: '3306' }]; },
+  ]) {
+    const fake = fakeDocker({ roles: ['app'] });
+    const value = record(['app']);
+    value.selectedHostPorts = { app: 51001 };
+    change(fake.state.containers.get(ids.app));
+    assert.throws(() => cleanup(fake, value), /HostConfig port|does not match|unexpected active Docker port/);
+    assert.deepEqual(fake.state.mutations, []);
+  }
+});
+
 test('containers without a recorded network block before any stop or rm', () => {
   const fake = fakeDocker(); const value = record(['app'], false);
   assert.throws(() => cleanup(fake, value), /without a recorded network/);

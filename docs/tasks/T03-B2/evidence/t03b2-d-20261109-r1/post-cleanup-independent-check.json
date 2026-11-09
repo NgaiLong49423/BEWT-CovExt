@@ -1,0 +1,30 @@
+{
+  "runId": "t03b2-d-20261109-r1",
+  "fullOwnershipLabels": {
+    "task": "t03b2-g0",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "project": "bewt-covext",
+    "runId": "t03b2-d-20261109-r1",
+    "app": "claroline"
+  },
+  "containerFilterExitCode": 0,
+  "containerResidualIds": [],
+  "networkFilterExitCode": 0,
+  "networkResidualIds": [],
+  "volumeFilterExitCode": 0,
+  "volumeResidualNames": [],
+  "recordedContainerInspectExitCode": 1,
+  "recordedContainerAbsent": true,
+  "recordedNetworkInspectExitCode": 1,
+  "recordedNetworkAbsent": true,
+  "cleanupRecoveryOutcome": "PASS",
+  "cleanupResiduals": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "protectedExistingResources": "PRESERVED",
+  "outcome": "PASS",
+  "verifiedAtUtc": "2026-11-09T12:13:22.8571677Z"
+}
