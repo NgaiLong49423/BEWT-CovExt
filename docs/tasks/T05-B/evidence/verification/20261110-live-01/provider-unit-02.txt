@@ -1,0 +1,19 @@
+✔ fake provider creates a schema-valid proposed candidate with source pins (2.4104ms)
+✔ Gemini provider refuses construction without explicit live-model authorization (0.2971ms)
+✔ model error classifier does not mistake generateContent for rate limiting (0.2537ms)
+✔ model request evidence is hashed and redacts secrets and private identifiers (0.5347ms)
+✔ token-usage cost telemetry is a list-price estimate, never labeled as billed actual cost (0.1404ms)
+✔ T01-C reset-token coverage claim asserts only source-confirmed redirect behavior (9.2466ms)
+✔ structured generation parser rejects incomplete model output (0.7503ms)
+✔ model timeout aborts the in-flight invocation and classifies as TIMEOUT (7.7916ms)
+✔ generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution (1.439ms)
+✔ generated Java contract bounds class identifiers and validates package, class, and APIs with deterministic scanning (0.8022ms)
+✔ bounded Gemini provider pins model and refuses oversized prompts before network access (3.5648ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1367.2944

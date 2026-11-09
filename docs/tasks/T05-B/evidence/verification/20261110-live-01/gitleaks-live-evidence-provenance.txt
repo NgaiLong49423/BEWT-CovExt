@@ -1,0 +1,7 @@
+scanner=Gitleaks 8.30.1
+redaction=100%
+scope=T05-B live-01 evidence directory and the single new native T01-C run directory only
+result=no leaks found
+exit=0
+log_sha256=7e06d2374d27fe975a743a2202e32acff197558e42149624ebe240f771792575
+report_sha256=37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570

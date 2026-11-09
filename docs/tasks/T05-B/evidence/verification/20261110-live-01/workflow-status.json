@@ -1,0 +1,19 @@
+{
+  "sourceCommand": "npm.cmd run agent:t01c -- status t01c-866fcff6-aca1-4110-8ad6-bff250d9c521",
+  "exitCode": 0,
+  "sanitizedOutputPath": "workflow-status-cli-output-sanitized.txt",
+  "sanitizedOutputSha256": "1ec2e521cc63b6d74a4e17e7c355f4c3c5d42d8c2dcb4d25784d36ca0d5652d3",
+  "runId": "t01c-866fcff6-aca1-4110-8ad6-bff250d9c521",
+  "workflowStatus": "FAILED",
+  "workflowErrorCategory": "GHERKIN_GENERATION_FAILED",
+  "providerErrorCategory": "AUTHORIZATION",
+  "providerResponse": "HTTP 400 API_KEY_INVALID",
+  "reviewInterruptionReached": false,
+  "candidateGenerated": false,
+  "candidateId": null,
+  "humanReviewCheckpointCreated": false,
+  "reviewDecisions": [],
+  "javaGenerated": false,
+  "dockerOrSeleniumRun": false,
+  "note": "Sanitized summary of the read-only CLI status output. The durable LangGraph state is FAILED; there is no human-review checkpoint identity or review packet."
+}

@@ -1,0 +1,12 @@
+execution_commit=367de0545221d8521e5bd49e5cb8a6bb5d99a932
+command=npm.cmd run agent:t01c -- start expresscart --live-authorized --max-api-requests=1 --max-cost-usd=0.02
+credential_present_in_execution_context=true; value withheld
+started_utc=2026-11-09T19:59:54.5011168Z
+completed_utc=2026-11-09T19:59:59.3203601Z
+cli_exit=1
+authorized_provider_invocation_limit=1
+automatic_retries=0
+provider_validation_probe=none
+java_or_docker=not invoked
+sanitized_stdout_stderr=live-cli-output-sanitized.txt
+output_sha256=696b41bf0a0d9ce8310a0c17cb06467b24033a50fc56dcb5faf44e0a631c1ff6

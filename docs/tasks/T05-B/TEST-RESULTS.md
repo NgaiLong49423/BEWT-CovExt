@@ -10,7 +10,7 @@ Date: 2026-11-10. Node `v24.19.0`, npm `11.17.0`. Commands were run from `framew
 | `npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/t01c-offline-approved-java-pipeline.test.ts test/integration/workflow.test.ts test/integration/tool-boundaries.test.ts` | 0 (outside sandbox) | PASS, 11/11 offline integration tests. Includes fake provider, review checkpoint and synthetic Java/Maven paths; not a live provider result. | `evidence/verification/20261110-offline-01/focused-offline-integration.txt` |
 | Same focused command in managed sandbox | 1 | Initial attempt: 10 PASS / 1 FAIL; symlink test got `EPERM`. Correctly separated from subsequent outside-sandbox PASS. | `evidence/verification/20261110-correction-02/sandbox-symlink-failure.txt` |
 | Full `npm run test:integration` | NOT_RUN | BLOCKED by Agent 1 exclusive Docker ownership; intentionally not invoked. | — |
-| Gemini live Gherkin generation | NOT_RUN | BLOCKED_AUTHORIZATION; no new request made | — |
+| Gemini live Gherkin generation in initial task execution | NOT_RUN | Historical result before fresh D-C1 authorization; current authorized invocation and outcome are recorded in the section below. | — |
 
 The focused test run created three offline Maven result directories under `docs/tasks/T01-C/evidence/` (IDs `t01c-offline-approved-5ab89cc3-40c7-4ad8-b239-b967a679a213`, `t01c-offline-approved-63a0eedd-d5fc-45af-86f0-c20ab456e263`, and `t01c-offline-approved-ab51c2cd-0404-44e5-ab37-9ef7eb45c596`). They are untracked, outside T05-B scope, preserved, and excluded from the commit. No Docker runtime or provider was used.
 
@@ -74,6 +74,7 @@ Secret scan: official Gitleaks `8.30.1`, release archive checksum verified again
 | correction-04 | Redirect-only oracle narrowing and its build/provider/framework/focused offline workflow regression results. | `evidence/verification/20261110-correction-04/` |
 | correction-05 | Provenance for execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; sanitized logs and earlier Sonar/secret-scan records. | `evidence/verification/20261110-correction-05/` |
 | correction-06 | Exact Git-blob versus local SHA-256 audit; reviewed-HEAD secret scan; current-main/T04-E reconciliation. | `evidence/verification/20261110-correction-06/` |
+| live-01 | D-C1 approval receipt, offline preflight, one authorized live request, native ledger/failure evidence and persisted workflow status. | `evidence/verification/20261110-live-01/` and additive native run directory under `docs/tasks/T01-C/evidence/` |
 
 ## Independent review correction round 3
 
@@ -95,4 +96,23 @@ Fetched `origin/main` at `bd9b3b15fca28419ada9862b8a65bac910edf169` (merge-base 
 
 ### Live-generation and scope gate
 
-D-C1 remains `NOT_APPROVED`; live generation stays `BLOCKED_AUTHORIZATION`. No Gemini invocation, credential probe, candidate fabrication, human decision, Java/Selenium/Docker run, `docs/program/STATUS.json` edit, or historical evidence rewrite occurred. No CI PASS is claimed. Full Docker integration remains `NOT_RUN` because the runtime is not to be started for this task.
+D-C1 was explicitly approved for one bounded invocation and recorded at receipt time. Exactly one production CLI/LangGraph Gemini request was made; it returned HTTP 400 `API_KEY_INVALID`, with telemetry `calls=1`, `attempts=1`, `errorCategory=AUTHORIZATION`, provider status `BLOCKED`, and workflow status `FAILED`. The one-call authorization is consumed; no retry or separate credential probe occurred. No candidate or human-review checkpoint was produced, so the status is `LIVE_GENERATION_FAILED`, not `HUMAN_REVIEW_PENDING`. Java/Selenium/Docker were not run; `docs/program/STATUS.json` and historical evidence were not modified. Full Docker integration remains `NOT_RUN`.
+
+## D-C1 preflight and single live invocation
+
+Offline preflight ran on execution HEAD `367de0545221d8521e5bd49e5cb8a6bb5d99a932` with Node `v24.19.0` / npm `11.17.0`, current `origin/main` `bd9b3b15fca28419ada9862b8a65bac910edf169`, and PR #15 OPEN/DRAFT/MERGEABLE. The key-presence check returned true without reading or displaying its value; no separate provider validation was performed. Official Google docs listed stable model `gemini-3.1-flash-lite` at Standard Paid Tier text rates $0.25/M input and $1.50/M output. The source identity verifier passed for pinned ExpressCart commit `b31302f4e99c3293bd742c6d076a721e168118b0` / package `1.1.19`; the route assertion remains redirect-only and novelty `UNVERIFIED`.
+
+| Command (from `framework/`) | Exit | Result | Sanitized evidence |
+|---|---:|---|---|
+| `npm.cmd run build` | 0 | PASS | `evidence/verification/20261110-live-01/framework-build-02.txt` |
+| `npx.cmd tsx --test test/model-provider.test.ts` | 0 | PASS, 11/11 | `evidence/verification/20261110-live-01/provider-unit-02.txt` |
+| `npm.cmd test` | 0 | PASS, 47/47 | `evidence/verification/20261110-live-01/framework-unit-02.txt` |
+| `npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts` | 0 | PASS, 7/7; offline fake provider plus real LangGraph checkpoint behavior | `evidence/verification/20261110-live-01/focused-workflow-integration-02.txt` |
+| `npx.cmd tsx ../docs/tasks/T05-B/tools/verify-expresscart-source-identity.mts` | 0 | PASS; 197 source files and pinned build-context digest | `evidence/verification/20261110-live-01/source-identity-02.txt` |
+| `npx.cmd tsx ../docs/tasks/T05-B/evidence/verification/20261110-live-01/prompt-preflight.mts` | 0 | Offline exact prompt-structure reproduction using a same-length placeholder run UUID; 7,900 chars, SHA-256 `ee28b2bfd6511190eec2b2fb70d14204894141664be538fe0834c74b5c85abc6`, estimated maximum USD 0.0109 | `evidence/verification/20261110-live-01/prompt-preflight-output-02.txt` |
+
+The production provider enforces 8,000 input characters, max 2,000 output tokens, 60-second timeout and `maxRetries: 0`; CLI budget was explicitly set to 1 request / USD 0.02. The actual invocation command was `npm.cmd run agent:t01c -- start expresscart --live-authorized --max-api-requests=1 --max-cost-usd=0.02`. It began `2026-11-09T19:59:54.5011168Z` and completed `2026-11-09T19:59:59.3203601Z`; execution commit was `367de0545221d8521e5bd49e5cb8a6bb5d99a932`. Actual prompt was 7,900 characters, SHA-256 `b558e0640e0003de25e136075aabd73bca3b45da01356e5d4095f9e3afad0fbc`; telemetry estimated maximum cost USD 0.0109. Google returned HTTP 400 `API_KEY_INVALID`. No input/output token usage was reported and actual billed cost is unknown. A 60-second timeout did not occur.
+
+The append-only ledger reserved `call-01` before the provider request and recorded one terminal result; retries allowed were zero. CLI exited 1 because the graph finished `FAILED` before the review interruption. No `model-generation.json`, candidate ID, Gherkin candidate, human-review request/checkpoint, review decision, or Java output exists. Read-only CLI status returned `FAILED` with no checkpoint and no decisions. Native run ID `t01c-866fcff6-aca1-4110-8ad6-bff250d9c521` is recorded under `docs/tasks/T01-C/evidence/`; this is a new additive run directory. Its failure and reservation are not retried or rewritten. Full result and hashes: `evidence/verification/20261110-live-01/live-call-outcome.md` and `live-call-provenance.txt`.
+
+Disposition is `LIVE_GENERATION_FAILED`. The approved call is consumed. Any future attempt requires fresh explicit Team Lead authorization. This is a live provider failure, not an offline fake-provider result and not CI.

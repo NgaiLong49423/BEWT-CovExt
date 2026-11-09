@@ -1,0 +1,34 @@
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { ExpressCartExperimentAdapter } from '../../../../../../adapters/expresscart/experiment.js';
+import { parseApplicationManifest } from '../../../../../../framework/src/contracts.js';
+import { analyzeSourceBackedCoverage } from '../../../../../../framework/src/runtime/coverage-analysis.js';
+import { assertBaselineMatchesManifest } from '../../../../../../framework/src/policy.js';
+import { verifyExpressCartSourceInputs } from '../../../../../../adapters/expresscart/source-identity.js';
+import { readHistoricalBehaviorIndex } from '../../../../../../adapters/expresscart/historical-behavior-index.js';
+const root = resolve(process.cwd(), '..');
+const sourceCommit = 'b31302f4e99c3293bd742c6d076a721e168118b0';
+const sourceVersion = '1.1.19';
+const manifest = parseApplicationManifest(JSON.parse(await readFile(resolve(root,'config/apps/expresscart.json'),'utf8')));
+const adapter = new ExpressCartExperimentAdapter(root, manifest);
+const historical = await readHistoricalBehaviorIndex(root,'data/coverage/expresscart/historical-candidate-behavior-index.json');
+const baseline = await adapter.readBaseline();
+assertBaselineMatchesManifest(manifest,baseline);
+const pin = await verifyExpressCartSourceInputs(root,manifest);
+if(pin.sourceCommit!==sourceCommit || pin.packageVersion!==sourceVersion) throw new Error('source pin mismatch');
+const routePath='experiments/expresscart/source/routes/customer.js';
+const route=await readFile(resolve(root,routePath),'utf8');
+const start=route.indexOf('// reset password form'), end=route.indexOf('// reset password action',start+1);
+if(start<0||end<0) throw new Error('reset route excerpt not found');
+const reference={repositoryCommit:sourceCommit,sourceVersion,runId:'t01c-source-t01c-00000000-0000-0000-0000-000000000000',artifactPath:routePath};
+const results=analyzeSourceBackedCoverage({baseline,historicalProposalBehaviorIds:historical.candidates.map(item=>item.behaviorId),sourceClaims:[{behaviorId:'customer.password.reset.invalid-or-expired-token',behavioralCategory:'Account recovery and reset-token security',behavior:'A GET to /customer/reset/:token with no customer matching the token and future expiry sets session message keys and redirects to /forgot without rendering the reset form.',evidenceSummary:'The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.',sourceReferences:[reference]}]});
+const gap=results.find(item=>item.disposition==='CANDIDATE_GAP')?.gap;
+if(!gap) throw new Error('no source-backed candidate gap: '+results.map(item=>item.disposition).join(','));
+const sourceContext=[`Pinned application source excerpt (${routePath}):\n${route.slice(start,end).trim()}`,`Baseline observed scenarios: ${baseline.cases.map(item=>`${item.caseId}: ${item.scenarioName}`).slice(0,31).join('; ')}`,`Historical Sprint 01–05 candidate behavior topics: ${JSON.stringify(historical.candidates.map(({candidateId,behaviorId})=>({candidateId,behaviorId})))}. Do not present overlapping behavior as novel; full source records are pinned in source-coverage-analysis.json.`,`Coverage assessment: ${JSON.stringify(results.map(({behaviorId,behavioralCategory,baselineComparison,candidateConfidence,uncertainties,rationale})=>({behaviorId,behavioralCategory,baselineComparison,candidateConfidence,uncertainties,rationale})))}.`,`Coverage gap status is a candidate only; technical behavior, oracle, testability, and novelty remain subject to human review.`];
+const request={baseline,gaps:[gap],candidateId:'CAND-00000000-0000-0000-0000-000000000000',revision:1,sourceContext};
+const prompt=["Generate one Gherkin browser-test candidate grounded only in the supplied source-backed gap and baseline summary.","Do not generate Java yet; Java generation is a separate post-ACCEPT stage. Do not claim novelty is verified.","Do not invent selectors, methods, source facts, test evidence, or behavior. Return only the required structured candidate fields.",JSON.stringify({sourceContext:(request.sourceContext??[]).slice(0,8).map(item=>item.slice(0,650))}),JSON.stringify({appId:request.baseline.appId,sourceCommit:request.baseline.sourceCommit,sourceVersion:request.baseline.sourceVersion,gaps:request.gaps.slice(0,10).map(({gapId,behavior,rationale,sourceReferences})=>({gapId,behavior,rationale,sourceReferences:sourceReferences.slice(0,3)})),baselineCases:request.baseline.cases.slice(0,40).map(({caseId,scenarioName,behaviorTags})=>({caseId,scenarioName:scenarioName.slice(0,120),behaviorTags:behaviorTags.slice(0,5)}))})].join('\n\n');
+const chars=Array.from(prompt).length, outputTokens=2000, estimatedCostUsd=(chars*4*0.25+outputTokens*1.5)/1_000_000;
+console.log(JSON.stringify({sourceCommit,sourceVersion,sourcePinVerified:true,baselineCases:baseline.cases.length,gapId:gap.gapId,sourceContextCharacters:sourceContext.reduce((n,s)=>n+Array.from(s).length,0),promptCharacters:chars,promptSha256:createHash('sha256').update(prompt).digest('hex'),outputTokens,estimatedCostUsd,approvedMaxPromptCharacters:8000,approvedMaxEstimatedCostUsd:0.02,withinApprovedBounds:chars<=8000&&estimatedCostUsd<=0.02,historicalNovelty:'UNVERIFIED'},null,2));
+
+

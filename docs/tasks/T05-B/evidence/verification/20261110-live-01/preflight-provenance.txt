@@ -1,0 +1,28 @@
+T05-B offline preflight provenance; no Gemini request occurred during these checks.
+execution_commit=367de0545221d8521e5bd49e5cb8a6bb5d99a932
+commit_tree=cd8fa8e40f09fa5acd18795d1668431aab47b404
+origin_main=bd9b3b15fca28419ada9862b8a65bac910edf169
+origin_task_branch=367de0545221d8521e5bd49e5cb8a6bb5d99a932
+node_version=v24.19.0
+npm_version=11.17.0
+relevant_source_worktree_diff=clean (git diff --quiet HEAD -- provider/CLI/tests returned 0; current dirty changes are documentation/evidence plus preserved unrelated pre-existing items)
+source=framework/src/runtime/model-provider.ts git_blob=f21f66bf244bca23f954f6d2960cf456d0c22bc9 local_sha256=24506406ea30be0fd51af381041a3c9b75a7ae99e4a5e0d9b504cb452fe28f0a
+source=framework/src/t01c-cli.ts git_blob=04c348d1500e02639011694a5e3afaedf175c9d4 local_sha256=9d5a93c09ac912974c24789f6bb94ec1a2817b76b23be03e54807ddb0da52c12
+source=framework/src/runtime/model-call-ledger.ts git_blob=28c9b143ae548ef5c8b30a4e43e7151c58b55153 local_sha256=4568663e773e75ef1f41ed0f400ade104ddccf72fd7e61808e3bc7fe10d106a5
+source=framework/src/runtime/workflow.ts git_blob=f929c26dd2751da404ff1f069b3352429ed87a25 local_sha256=ff57d29a479ea5c6bdfb38bcdbcfafdba254a826c8573cac6ccc64ee7eaece02
+source=framework/test/model-provider.test.ts git_blob=aaeb4e740499726ab9a4b2ab1ba8aea5b99b8c10 local_sha256=94f9958423d7ac4738e91ddff646b145936f8a82e31e7fba5a339ff6d3ad9c79
+command=npm.cmd run build (framework/); exit=0; captured run framework-build-02.txt
+command=npx.cmd tsx --test test/model-provider.test.ts (framework/); exit=0; 11 tests, 11 pass; captured run provider-unit-02.txt
+command=npm.cmd test (framework/); exit=0; 47 tests, 47 pass; captured run framework-unit-02.txt
+command=npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts (framework/); exit=0; 7 tests, 7 pass; offline fake provider and real LangGraph checkpoint interruption; captured run focused-workflow-integration-02.txt
+command=npx.cmd tsx ../docs/tasks/T05-B/tools/verify-expresscart-source-identity.mts (framework/); exit=0; 197 pinned source files; captured source-identity-02.txt
+first_build_capture=build printed compiler invocation but wrapper failed to write exit file; its exit is not asserted; repeat captured as framework-build-02 with exit 0
+provider_unit_log_sha256=cdf58dbd02d9c8f4debd6797156fa9302f44c688e215ecc3b59d3a141daac8a6
+framework_unit_log_sha256=9fdaaa2cbc9717a378e065346820e2aa9d67bebd127e5790077b1fae834a2546
+focused_integration_log_sha256=5431fb47be8fdc205eee3617c8e0002018da4d8397b9adb7661524910ed76efd
+build_log_sha256=1d088a3c0b81d0d9d8544fbef8db267f35a63d1e563ff8cea0f73e6944b5d3e8
+source_identity_sha256=b85a5d6ddf7c4e5eb8264255316ba24636035e2f64b887214d9884911161663c
+credential_presence=true; credential value not read; no provider probe
+model availability/pricing official sources checked 2026-11-10: https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite and https://ai.google.dev/gemini-api/docs/pricing
+prompt-preflight command=npx.cmd tsx ../docs/tasks/T05-B/evidence/verification/20261110-live-01/prompt-preflight.mts (framework/); exit=0; output contains measured prompt chars/hash/cost and same-length placeholder run UUID caveat
+prompt_preflight_output_sha256=daddb8d65fe686cf990026732f283115c1fabb1d8f79f593913ab5c357e7a2c9

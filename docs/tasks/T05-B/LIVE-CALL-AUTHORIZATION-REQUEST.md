@@ -26,14 +26,34 @@ As of 2026-11-10, Google's model documentation lists `gemini-3.1-flash-lite` as 
 Pricing source: [Google Gemini Developer API pricing](https://ai.google.dev/gemini-api/docs/pricing), accessed 2026-11-10.
 Model source: [Google Gemini 3.1 Flash-Lite model page](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite), accessed 2026-11-10.
 
-## Approval record — intentionally blank
+## Approval record
 
-- Team Lead / approver:
-- Approval decision and timestamp:
-- Approved model and exact call limit:
-- Approved cost ceiling and expiry:
-- Credential channel confirmed without sharing its value:
+- Team Lead / approver: Team Lead, as identified in the user-provided D-C1 approval text attached to this task. No signature or separate external approval artifact was supplied.
+- Approval decision and receipt timestamp: `APPROVED`; received and recorded at `2026-11-10 02:52:59 Asia/Ho_Chi_Minh` (`2026-11-09 19:52:59 UTC`). This is the agent's actual receipt/recording time, not an asserted Team Lead signing time.
+- Approved model and exact call limit: Google Gemini Developer API `gemini-3.1-flash-lite`; maximum one live invocation total; automatic/manual retries zero; 60-second timeout; 2,000 generated output-token cap; 8,000 Unicode-character prompt cap.
+- Approved cost ceiling and expiry: USD 0.02 configured preflight estimate, explicitly not a provider-enforced billing ceiling; expires `2026-11-11 23:59 Asia/Ho_Chi_Minh` or earlier on revocation or an approved source/request/model/limit change.
+- Credential channel confirmed without sharing its value: `GEMINI_API_KEY` was present in the current local process environment. Its value was not displayed or read, and no provider validation/probe was made; validity remains unknown until the single authorized generation request.
+- Approval source: the user-provided D-C1 approval text in this task. No signature, provider response, credential-verification result, or external approval artifact is claimed.
 
-Unless this record is completed with a fresh Team Lead decision, the required result is `MODEL_AUTHORIZATION_REQUIRED`; do not probe the credential or provider.
+The live request remains contingent on successful offline preflight below. D-C1 approval does not approve candidate novelty, oracle validity beyond the source-backed redirect, or a human review decision.
+
+## Offline preflight — 2026-11-10 02:57 Asia/Ho_Chi_Minh
+
+- Repository state: fetched `origin/main` at `bd9b3b15fca28419ada9862b8a65bac910edf169`; branch and PR #15 HEAD are the approved `367de0545221d8521e5bd49e5cb8a6bb5d99a932`. PR is OPEN/DRAFT and reported MERGEABLE. No live-run source or request-scope changes are present; prior correction-06 reconciles T04-E and its distinct proposals.
+- Model/pricing: Google lists stable model ID `gemini-3.1-flash-lite`. Current official Standard Paid Tier text rates are $0.25/M input and $1.50/M output. Sources: [model documentation](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite) and [pricing](https://ai.google.dev/gemini-api/docs/pricing), checked 2026-11-10.
+- Credential channel: `GEMINI_API_KEY` presence check returned true. Its value was not displayed/read, and no credential/provider probe was made. Validity is unknown before the authorized generation request.
+- Source pin/oracle: offline ExpressCart identity verifier passed for source commit `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19`, 197 source files, build-context digest `3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a`; reset route SHA-256 `74c7ecfdf38e6ad9038ae0f2cc8f89969331f4420bfa491348c5e8b2f6d26abe`. Claim remains redirect to `/forgot` only; novelty `UNVERIFIED`.
+- Offline verification on the source at execution HEAD `367de0545221d8521e5bd49e5cb8a6bb5d99a932`: build exit 0; provider unit 11/11; framework unit 47/47; focused LangGraph workflow/model generation integration 7/7 (offline fake provider/checkpoint); source identity verifier exit 0. Node `v24.19.0`, npm `11.17.0`. Full sanitized logs and exits: `evidence/verification/20261110-live-01/`.
+- Exact production prompt construction was reproduced offline with identical pinned baseline/gap/source-context logic and a same-length placeholder run UUID. It measured 7,900 Unicode characters and SHA-256 `ee28b2bfd6511190eec2b2fb70d14204894141664be538fe0834c74b5c85abc6`; actual per-run hash will be recorded by production telemetry because the real run UUID is generated at execution. At the approved 2,000 output-token cap and conservative 4 input tokens/character, estimated maximum is `(7,900 × 4 × $0.25 + 2,000 × $1.50)/1,000,000 = $0.0109`, below $0.02. Prompt-preflight script/output are under the same evidence directory.
+- Call controls verified in production code: CLI budget will be explicitly set to one request and USD 0.02; Gherkin provider defaults to 2,000 output tokens, enforces 8,000 prompt characters and 60 seconds, and configures `maxRetries: 0`. The append-only model-call ledger reserves before provider invocation. `start` runs through the actual LangGraph and expects `AWAITING_HUMAN_REVIEW`; Java provider is only constructed in the separate post-review command. The real interrupt/checkpoint path is covered by focused offline integration tests.
+- Planned single invocation command (run from `framework/`): `npm.cmd run agent:t01c -- start expresscart --live-authorized --max-api-requests=1 --max-cost-usd=0.02`. If it fails for any reason, the reservation remains consumed and no retry will be made.
+
+## Authorized execution result
+
+The single authorized command was executed at `2026-11-09T19:59:54.5011168Z` on source execution commit `367de0545221d8521e5bd49e5cb8a6bb5d99a932`. It made one Gemini request (`calls=1`, `attempts=1`) and received HTTP 400 `API_KEY_INVALID`. Provider status is `BLOCKED` / `AUTHORIZATION`; LangGraph workflow status is `FAILED`; CLI exit code is 1. The one-call authorization is consumed. No retry or credential probe followed.
+
+Prompt was 7,900 characters; actual prompt SHA-256 `b558e0640e0003de25e136075aabd73bca3b45da01356e5d4095f9e3afad0fbc`; estimated maximum cost USD 0.0109. Token usage was not returned and actual billed cost is unknown. No candidate, candidate ID, human-review interruption/checkpoint or review packet was created; Java/Selenium/Docker were not run. Novelty stays `UNVERIFIED`. Status: `LIVE_GENERATION_FAILED`. Full details and immutable logs/ledger paths are in `evidence/verification/20261110-live-01/live-call-outcome.md` and the native run directory recorded there.
+
+Any further call requires new explicit Team Lead authorization; do not retry this consumed call.
 
 The source-backed proposal is deliberately limited to asserting the redirect destination `/forgot`; it does not assert that the destination page exists or that a message is visible. Novelty remains unverified. No fresh D-C1 approval is recorded, so the live call remains blocked. Cost approval alone does not establish a reviewer decision on the candidate.

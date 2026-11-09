@@ -1,0 +1,9 @@
+First capture wrapper note: the initial build command completed and printed the TypeScript compiler command, but the wrapper errored while writing its exit file; its exit was not recorded. A second captured execution is recorded below.
+node=
+v24.19.0
+npm=
+11.17.0
+execution_head=
+367de0545221d8521e5bd49e5cb8a6bb5d99a932
+execution_tree=
+cd8fa8e40f09fa5acd18795d1668431aab47b404

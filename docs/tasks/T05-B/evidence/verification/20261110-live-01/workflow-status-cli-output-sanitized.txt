@@ -1,0 +1,27 @@
+
+> agent:t01c
+> tsx src/t01c-cli.ts status t01c-***
+
+{
+  "threadId": "t01c-866fcff6-aca1-4110-8ad6-bff250d9c521",
+  "workflow": {
+    "appId": "expresscart",
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "sourceVersion": "1.1.19",
+    "runId": "t01c-866fcff6-aca1-4110-8ad6-bff250d9c521",
+    "currentRole": "coverage_analysis",
+    "status": "FAILED",
+    "reviewDecisions": [],
+    "appliedDecisionIds": [],
+    "artifacts": [],
+    "repairAttempts": 0,
+    "lastError": {
+      "category": "GHERKIN_GENERATION_FAILED",
+      "message": "MODEL_CALL_FAILED:AUTHORIZATION:[GoogleGenerativeAI Error]: Error fetching from http[REDACTED_ABSOLUTE_PATH]:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\",\"reason\":\"API_KEY_INVALID\",\"domain\":\"g"
+    }
+  },
+  "terminalError": {
+    "category": "GHERKIN_GENERATION_FAILED",
+    "message": "MODEL_CALL_FAILED:AUTHORIZATION:[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent: [400 Bad Request] API key not valid. Please pass a valid API key. [{\"@type\":\"type.googleapis.com/google.rpc.ErrorInfo\",\"reason\":\"API_KEY_INVALID\",\"domain\":\"g"
+  }
+}

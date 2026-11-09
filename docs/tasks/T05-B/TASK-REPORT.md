@@ -5,13 +5,13 @@
 - Working branch: `feature/t05b-expresscart-live-generation`.
 - Execution commit (source fix; exact local tests ran against this commit): `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`.
 - Reviewed PR HEAD entering correction round 3: `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`.
-- Current PR HEAD: the latest documentation-only report/evidence commit on the existing branch (exact full SHA is stated in the round-3 handoff and verified against origin and PR metadata). It is distinct from source execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`, correction-06 evidence commit below, and reviewed Sonar SHA `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`.
+- Current PR HEAD at round-3 handoff: `367de0545221d8521e5bd49e5cb8a6bb5d99a932`; round-4 auth/live evidence updates are documentation/evidence-only. Exact final SHA is provided in the handoff and verified against origin and PR metadata.
 - Evidence commit: `01496c2a449fb320df90e8fba5cdfe964d460857` (`docs(t05b): reconcile correction round three evidence`), containing correction-06 hash audit, reviewed-HEAD Gitleaks scan, Sonar verification and current-main/T04-E reconciliation. Earlier correction-05 evidence commit `06c163b747efebd1ce4cfc5f509b2012d132586c` remains preserved.
 - Exact reviewed PR HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`: SonarCloud check run `129377220205`, conclusion success, Quality Gate PASS, verified by the independent reviewer. Earlier exact-head status was `NOT_VERIFIED` at the prior snapshot; this is superseded for the reviewed SHA by the newly verified exact-HEAD PASS. Any later documentation-only commit is a different SHA and is not represented as having this check.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15 (draft; review gate only).
 - Push status: source fix and evidence/report follow-ups pushed to existing branch PR #15. No new PR was created.
 - Runtime/commit/version tested: offline framework at execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; ExpressCart source pin `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19` (benchmark label `1.19`). No app runtime used.
-- Status proposed by Agent: `BLOCKED_AUTHORIZATION`. The proposed assertion is limited to the source-backed `/forgot` redirect; page/message visibility and research novelty remain unverified. No Gemini candidate was generated.
+- Status after the authorized attempt: `LIVE_GENERATION_FAILED`. The single approved Gemini invocation returned HTTP 400 `API_KEY_INVALID`; no candidate or human-review checkpoint was produced. The source-backed proposal remains limited to the redirect destination `/forgot`; page/message visibility and novelty remain unverified.
 
 ## 1. What changed
 
@@ -31,16 +31,16 @@
 
 ## 2. Actual verification
 
-The independent review identified 9.8% new-code duplication on commit `72103d17bc4005a661d6fa03d862e1364c283a88`, from two production-code blocks in `model-provider.ts` (Sonar lines 406–416 and 467–477). `successfulGeminiTelemetry` removed that repeated production logic; no threshold, exclusion, or suppression was changed. The exact reviewed PR HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c` now has independently verified SonarCloud check run `129377220205`, conclusion success and Quality Gate PASS (0.0% new-code duplication). The earlier `NOT_VERIFIED` note described the prior observation and is superseded for this exact reviewed SHA. A later evidence-only commit, if present, has a different SHA and is not claimed to have this exact-head check. On source execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`, build PASS (exit 0), provider unit 11/11, framework unit 47/47, and focused offline workflow integration 7/7. Node/npm versions, commit/tree/source hashes, exact commands/exits, status snapshots, and per-log SHA-256 digests are in correction-05 evidence. This is local evidence, not CI. Earlier correction-02/03/04 results and the original sandbox symlink failure remain recorded. Full integration was intentionally not invoked while Agent 1 holds the Docker lease. Gemini was not called.
+The independent review identified 9.8% new-code duplication on commit `72103d17bc4005a661d6fa03d862e1364c283a88`, from two production-code blocks in `model-provider.ts` (Sonar lines 406–416 and 467–477). `successfulGeminiTelemetry` removed that repeated production logic; no threshold, exclusion, or suppression was changed. The exact reviewed PR HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c` has independently verified SonarCloud check run `129377220205`, conclusion success and Quality Gate PASS (0.0% new-code duplication). Earlier `NOT_VERIFIED` notes are superseded for this exact reviewed SHA only; later documentation-only commits are not claimed to have this exact-head check. On source execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`, build PASS (exit 0), provider unit 11/11, framework unit 47/47, and focused offline workflow integration 7/7. Before the live attempt, build, provider unit 11/11, framework unit 47/47, focused offline integration 7/7, and source identity verification also passed on source execution HEAD `367de0545221d8521e5bd49e5cb8a6bb5d99a932`; details and SHA-256 logs are in `evidence/verification/20261110-live-01/`. These are local results, not CI. Full Docker integration was not run. One approved Gemini attempt is now recorded below; it failed authorization and was not retried.
 
 ## 3. Research impact
 
 - Apps affected, source/version pins: ExpressCart only for this task, upstream commit `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19`; no change to the 8-app / 40-case program scope.
-- Candidate IDs and statuses before → after: no T05-B candidate → not generated; proposed scope is redirect-only and source-backed, while research novelty remains unverified.
-- RQ1/RQ2/RQ3/RQ4 measurable changes: none. RQ1/RQ2/RQ3 unchanged; no new live model usage to add to RQ4.
-- Gate status before → proposed after: no program gate update proposed. T05-B live call is `BLOCKED_AUTHORIZATION`; generation and human review are `NOT_RUN`.
+- Candidate IDs and statuses before → after: no candidate before → generation failed before a candidate ID or Gherkin was produced; human review remains not reached. The source-backed assertion is still redirect-only and novelty remains unverified.
+- RQ1/RQ2/RQ3/RQ4 measurable changes: no candidate or coverage result. One failed live invocation; no token usage returned, no billed cost evidence, and no result to add as model-generated candidate output.
+- Gate status: task result `LIVE_GENERATION_FAILED`; the D-C1 authorization for one call is consumed. Human review is not pending because no candidate/checkpoint exists. No program gate update proposed.
 - Dataset/metrics artifacts updated: none.
-- Denominator and sampling caveats: zero live invocations, zero candidates; offline/fake tests are implementation checks only.
+- Denominator and sampling caveats: one authorized provider invocation failed with `API_KEY_INVALID`; zero generated candidates; offline/fake tests remain implementation checks only.
 
 ## 4. Safety & integrity
 
@@ -48,18 +48,18 @@ The independent review identified 9.8% new-code duplication on commit `72103d17b
 - Docker/project resources touched? NONE; no Docker commands were run.
 - Existing unrelated local dirty files preserved? YES. Eleven pre-existing modified files under `experiments/expresscart/agent/dist/` were left untouched and excluded.
 - Secret scan at reviewed HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`: official Gitleaks `8.30.1`, verified executable and archive hashes, 100% redaction, merge-base-to-HEAD committed history; exit 0, no leaks. Sanitized logs/report and full provenance are in correction-06. Earlier correction-05 reports remain preserved and cover their then-current scopes only. Scanner did not inspect process environment; no credential value was read or written. No false positives required justification.
-- Failed/blocked tasks and honest reasons: live provider call blocked pending fresh approval. `/forgot` page existence and visible-message behavior remain unverified and are excluded from the redirect-only proposal. No Gemini retry/probe. Full Docker integration not run because Agent 1 owns the runtime lease.
+- Failed/blocked tasks and honest reasons: the one approved live invocation returned HTTP 400 `API_KEY_INVALID` and consumed authorization. No retry or separate credential probe occurred. `/forgot` page existence and visible-message behavior remain unverified and excluded. Full Docker integration was not run; no Docker, Selenium or Java action occurred.
 
 ## 5. Evidence and reproduction
 
 - Source/test paths: `framework/src/t01c-cli.ts`, `framework/src/runtime/model-provider.ts`, `framework/src/runtime/model-call-ledger.ts`, `framework/src/runtime/workflow.ts`, `framework/test/model-provider.test.ts`.
-- Raw run/log/XML/screenshot paths: earlier logs at `docs/tasks/T05-B/evidence/verification/20261110-offline-01/` and correction-02/03/04; exact final-source execution logs, provenance, and digests at `docs/tasks/T05-B/evidence/verification/20261110-correction-05/`; committed-blob hash reconciliation, reviewed-HEAD secret scan, Sonar verification and current-main/T04-E comparison at `docs/tasks/T05-B/evidence/verification/20261110-correction-06/`.
+- Raw run/log/XML/screenshot paths: earlier logs at `docs/tasks/T05-B/evidence/verification/20261110-offline-01/` and correction-02/03/04; exact final-source test logs at correction-05; hash/Sonar/secret-scan/main reconciliation at correction-06; D-C1 receipt, offline preflight, exact one-call CLI log, outcome and workflow status at `docs/tasks/T05-B/evidence/verification/20261110-live-01/`. Native immutable production budget/ledger/failure/request evidence is in `docs/tasks/T01-C/evidence/t01c-866fcff6-aca1-4110-8ad6-bff250d9c521/`; earlier T01-C evidence folders were not changed.
 - Input data fixture and cleanup: no runtime fixture created.
 - Exact reproducible commands and actual exits: see `TEST-RESULTS.md`.
-- Known limitations/risks: credential validity, provider connectivity/quota/billing, successful generation and actual human review remain unverified. The route redirects to `/forgot`; the generic route requires an enabled DB page slug and no fixture establishes it, so the proposal does not assert page/message visibility. Do not infer current errors from historical T01-C failures.
+- Known limitations/risks: the one request received an invalid-key response; no token usage or provider invoice data was returned, so billed cost is unknown. Successful generation and human review did not occur. The route redirects to `/forgot`; the generic route requires an enabled DB page slug and no fixture establishes it, so no page/message visibility claim is made. This is the current T05-B invocation result, distinct from historical T01-C failures.
 
 ## 6. Review request
 
-- What the Team Lead needs to decide: approve or deny the one bounded live call using the redirect-only assertion. Novelty and the behavior's research value still require review. The USD 0.02 limit is a preflight estimate, not a guaranteed billed maximum.
-- Suggested next task if accepted: provide fresh D-C1 authorization; if one real call succeeds, stop at the durable human review checkpoint and await a revision-bound reviewer decision.
+- What the Team Lead needs to decide: review the failed-call evidence and determine whether to issue fresh authorization for another single attempt. The consumed authorization cannot be reused. Novelty and behavior research value remain undecided. USD 0.02 is a preflight estimate, not a provider-enforced billed maximum.
+- Candidate/reviewer gate: there is no candidate revision to accept/reject and no human-review checkpoint. If a future newly authorized request succeeds, stop at the real checkpoint for a revision-bound human decision.
 - GitHub PR diff URL and file paths: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15/files; inspect task-scoped docs/evidence and the focused production change in `framework/src/runtime/model-provider.ts`. No unrelated dirty files are included.
