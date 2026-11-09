@@ -1,0 +1,42 @@
+✔ evidence index binds the two requested runs to pinned source and image (2.8469ms)
+✔ Surefire XML is bound to the exact reported class and the hash mismatch stays blocked (9.0915ms)
+✔ Run A and B have independent reset and sentinel evidence (6.0835ms)
+✔ cleanup result is distinguished by run, including missing Run A idempotent repeat (9.7275ms)
+✔ CDP warning is reported without overriding the recorded assertion result (1.5183ms)
+✔ T04-B candidates remain proposed and the official human decision ledger remains empty (13.824ms)
+✔ G0 proposal does not imply G1 acceptance or mutate shared program status (3.1221ms)
+✔ audit artifacts parse as JSON, contain no common token patterns, and preserve source scope (19.1447ms)
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (4.2038ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.2953ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (1.124ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (1.0116ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.5322ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.686ms)
+  ✔ network (0.4531ms)
+  ✔ volume (0.4599ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (2.2847ms)
+✔ promoted config/apps Kanboard manifest parses as runtime and preserves pinned source/image (3.0829ms)
+✔ draft-to-runtime promotion validates the Docker image digest and removes only draft-only fields (1.2962ms)
+✔ Docker container, volume, and network identity require the recorded IDs and ownership labels (0.7117ms)
+✔ cleanup refuses bind mounts and resources outside the run-owned volume inventory (0.4457ms)
+✔ container inspection requires explicit and complete distinct volume mounts (0.2954ms)
+✔ Docker port publication requests a dynamic loopback binding and accepts only a valid assigned port (0.7635ms)
+✔ baseline URL is property-driven and preserves the original default URL (1.5595ms)
+✔ Maven selection targets only the original AddNewProject Base class and receives the allocated URL (0.2506ms)
+✔ JUnit parsing detects empty selection, PASS, skipped, assertion failure, browser setup, and application connection failure (0.7252ms)
+✔ Run B must start with distinct resources and no Run A data, after Run A cleanup PASS (0.3403ms)
+✔ cleanup plan is scoped to recorded resources, succeeds idempotently, and checks post-cleanup absence (0.2878ms)
+✔ resource comparison protects all pre-existing Docker resources (0.2135ms)
+✔ captures hashes, exact fixed arguments and explicit limitations without storing raw bytes (13.8019ms)
+✔ refuses duplicate run IDs and duplicate evidence without overwriting (9.0382ms)
+✔ rejects invalid identities, command mutations, incomplete output and invalid status before writing (8.3261ms)
+✔ records failed invocations without XML rather than presenting them as passed (5.2451ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 240.4163
