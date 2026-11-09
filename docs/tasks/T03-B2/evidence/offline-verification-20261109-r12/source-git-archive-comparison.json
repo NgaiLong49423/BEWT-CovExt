@@ -1,0 +1,27 @@
+{
+  "evidenceType": "Claroline release archive versus historical Git tag comparison",
+  "capturedAt": "2026-11-09T13:28:01.5081783+07:00",
+  "sourceRepository": "https://github.com/zefredz/claroline",
+  "sourceRef": "refs/tags/1.11.10",
+  "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "sourceCommitDate": "2014-02-18T07:56:57Z",
+  "sourceCommitSubject": "merge rev 14718-14723 on release 1.11.10",
+  "officialReleaseArchive": "https://downloads.sourceforge.net/project/claroline/Claroline/Claroline_1.11.10/claroline-1.11.10.tar.gz",
+  "officialArchiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
+  "comparison": {
+    "normalization": [
+      "CRLF normalized to LF",
+      "Expanded CVS keywords normalized to unexpanded placeholders"
+    ],
+    "archiveOnlyFiles": 17,
+    "binaryFilesByteCompared": 323,
+    "sharedNormalizedContentMismatches": 0,
+    "gitOnlyFiles": 0,
+    "gitTreeFiles": 1613,
+    "archiveFiles": 1630,
+    "binaryByteMismatches": 0,
+    "sharedFiles": 1613
+  },
+  "archiveOnlyPrefix": "module/CLCHAT/",
+  "conclusion": "Candidate Git source tag is strongly matched to all common files; full release tree equivalence remains unverified because 17 CLCHAT module files occur only in the official archive. Do not promote as fully verified source or image provenance."
+}
