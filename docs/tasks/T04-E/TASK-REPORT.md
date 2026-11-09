@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Static source-backed gap proposals for Bludit, Claroline, ExpressCart, Joomla, MantisBT, MediaWiki and PrestaShop; no shared status update or G1 acceptance.
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`.
 - Working branch: `feature/t04e-seven-app-source-gaps`.
-- Head commit (full SHA): final full SHA is reported after remote verification in the task handoff response.
-- PR: to be recorded after creation; no merge requested or performed.
-- Push status: pending remote verification.
+- Head commit (full SHA): `9b895854c7a6853c167542fb3ff6923dcdc9f463` (initial research commit; final report update is committed separately).
+- PR: [#16](https://github.com/NgaiLong49423/BEWT-CovExt/pull/16), open against `main`; no merge requested or performed.
+- Push status: PUSHED; GitHub PR metadata confirmed head `9b895854c7a6853c167542fb3ff6923dcdc9f463` before this report-only follow-up commit.
 - Runtime/commit/version tested: static application source pins listed in `SOURCE-AVAILABILITY.md`; BEWT baseline `0501249ff3e9a5ea83a06155cd2971dc36197056`. Runtime NOT_RUN.
 - Status proposed by Agent: READY_FOR_REVIEW_WITH_LIMITATIONS. All G1 gates remain NOT_VERIFIED.
 
