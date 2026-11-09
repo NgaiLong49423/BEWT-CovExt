@@ -1,0 +1,20 @@
+✔ keeps the exact five candidates and 150 candidate-baseline records (1.0725ms)
+✔ preserves all eight explicit overlap flags and their pair evidence (0.2379ms)
+✔ unflagged pairs remain screening results and never claim semantic novelty (0.323ms)
+✔ screening counts exactly match the 150 records (0.1496ms)
+✔ static candidate and provenance records remain pinned and human fields blank (4.0725ms)
+✔ all 150 records retain both baseline and candidate action/oracle/assertion evidence (2.9784ms)
+✔ review packet set and machine schemas are valid, and official decision ledger remains empty (7.6037ms)
+✔ custom decision validator accepts a complete reviewer payload and rejects missing reviewer/evidence fields (8.2824ms)
+✔ candidate-version or dataset-hash mismatch rejects a decision for stale review input (12.8059ms)
+✔ append-only history preserves decisions, links revisions and flags stale candidate versions (39.9704ms)
+✔ regenerating static review data leaves the separate official decision ledger unchanged (90.1193ms)
+✔ pinned T04-A oracle corrections remain in the accepted inventory (1.4749ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 260.5709
