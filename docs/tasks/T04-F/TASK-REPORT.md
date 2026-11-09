@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: prepare source-pinned review packets for Gherkin, assertion oracle and novelty of seven-app source-backed G1 proposals; no human approval, no G1 PASS.
 - Base branch + base SHA: `origin/main` / `bd9b3b15fca28419ada9862b8a65bac910edf169`.
 - Working branch: `feature/offline-g1-review-prep`.
-- Head commit: to be filled after commit; exact tested source is the base SHA above plus this task's docs/verifier changes.
-- PR: to be opened against `main` after final verification.
-- Push status: pending verification.
+- Head commit (review-package/evidence commit): `b430f6af02f64d8e8ada22ffcf87ca7a91482846`; the final PR head is verified from GitHub after the report-only handoff update.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/18 (open against `main`; no merge requested).
+- Push status: PUSHED. `origin/feature/offline-g1-review-prep` was verified at `b430f6af02f64d8e8ada22ffcf87ca7a91482846`; a report-only handoff commit is being added to this same PR.
 - Runtime/commit/version tested: static data from T04-D and T04-E at this main; pinned app source refs are recorded in `docs/tasks/T04-E/source-reference-index.json`.
 - Status proposed by Agent: CODE_READY_FOR_MERGE for the review-preparation artifacts after independent review; all app G1 gates remain NOT_VERIFIED.
 
@@ -22,7 +22,7 @@ No T04-D/T04-E input, historical dataset, Kanboard file, or shared program statu
 
 ## 2. Actual verification
 
-See `TEST-RESULTS.md` and `evidence/verification/`.
+See `TEST-RESULTS.md` and `evidence/verification/t04f-g1-20261110-r4/`.
 
 ## 3. Research impact
 
