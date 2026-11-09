@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, classifyEgressProbe, INTERNAL_IPAM_NETWORK_POLICY, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
@@ -16,13 +16,14 @@ if (!statSync(suitePom).isFile()) throw new Error(`Claroline benchmark POM not f
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digest = ref => ref.slice(ref.indexOf('@') + 1);
 const sha256 = value => createHash('sha256').update(value).digest('hex');
+const sanitizeEvidenceText = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
 const writeOnce = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, { flag: 'wx' });
 const runId = validateRunId(process.argv[2] || '');
 const evidenceDir = createEvidenceDirectory(resolve(repo, 'docs/tasks/T03-B2/evidence'), runId); // Existing run IDs fail closed.
 const names = namesForRun(runId);
 const labels = labelsForRun(runId);
 const labelArgs = Object.entries(labels).flatMap(([key, value]) => ['--label', `${key}=${value}`]);
-const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, networkPolicy: INTERNAL_IPAM_NETWORK_POLICY, containers: [], network: null };
+const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, networkPolicy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, egressIsolationMethod: ROUTE_ISOLATION_METHOD, containers: [], network: null };
 let exitCode = 1;
 
 function dockerCall(args, evidenceName, throwOnError = true) {
@@ -80,29 +81,41 @@ try {
   writeOnce(resolve(evidenceDir, 'host-egress-control.json'), { target: '1.1.1.1:443', exitCode: hostEgressControl.status, outcome: hostEgressControl.status === 0 ? 'PASS' : 'BLOCKED', error: hostEgressControl.error?.message || '' });
   if (hostEgressControl.status !== 0) throw new Error('EGRESS_CONTROL_BLOCKED: host could not reach the external TCP control target');
   const networkIpam = selectNetworkIpam();
-  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, ...labelArgs, names.network], 'network-create.json', false);
+  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--ipv6=false', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const networkInfo = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
-  assertNetworkPolicy(networkInfo, INTERNAL_IPAM_NETWORK_POLICY);
+  assertNetworkPolicy(networkInfo, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
   const actualIpam = assertRecordedNetworkIpam(networkInfo, networkIpam);
   record.network.subnet = actualIpam.Subnet;
   record.network.gateway = actualIpam.Gateway;
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
-  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), { outcome: 'PASS', policy: INTERNAL_IPAM_NETWORK_POLICY, driver: networkInfo.Driver, internal: networkInfo.Internal, ipv6Enabled: networkInfo.EnableIPv6, subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
-  const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1:' + appPort + ':80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
+  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), { outcome: 'PASS', policy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, egressIsolationMethod: ROUTE_ISOLATION_METHOD, driver: networkInfo.Driver, internal: networkInfo.Internal, ipv6Enabled: networkInfo.EnableIPv6, ipMasquerade: networkInfo.Options?.['com.docker.network.bridge.enable_ip_masquerade'], subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
+  const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1:' + appPort + ':80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, '--entrypoint', '/bin/sh', APP_IMAGE_REF, '-c', 'sleep infinity'], 'app-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
-  const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1:' + browserPort + ':4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, BROWSER_IMAGE_REF], 'selenium-create.json', false);
+  const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1:' + browserPort + ':4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, '--entrypoint', '/bin/sh', BROWSER_IMAGE_REF, '-c', 'sleep infinity'], 'selenium-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'browser', name: names.browser, imageRef: BROWSER_IMAGE_REF, result: browserCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
-  dockerCall(['start', names.app], 'app-start.json');
-  dockerCall(['start', names.browser], 'selenium-start.json');
-  const appInfo = JSON.parse(docker(['inspect', names.app]))[0];
-  const browserInfo = JSON.parse(docker(['inspect', names.browser]))[0];
+  const appRecord = record.containers.find(item => item.role === 'app');
+  const browserRecord = record.containers.find(item => item.role === 'browser');
+  dockerCall(['start', appRecord.id], 'app-start.json');
+  dockerCall(['start', browserRecord.id], 'selenium-start.json');
+  const appInfo = JSON.parse(docker(['inspect', appRecord.id]))[0];
+  const browserInfo = JSON.parse(docker(['inspect', browserRecord.id]))[0];
+  assertOwnedContainer(appInfo, { ...appRecord, labels, imageLabels: record.imageLabels.app });
+  assertOwnedContainer(browserInfo, { ...browserRecord, labels, imageLabels: record.imageLabels.browser });
+  assertRouteIsolationContainer(appInfo, names.network);
+  assertRouteIsolationContainer(browserInfo, names.network);
   assertPublishedLoopbackPort(appInfo, '80/tcp', appPort);
   assertPublishedLoopbackPort(browserInfo, '4444/tcp', browserPort);
   assertContainerPortNotPublished(appInfo, '3306/tcp');
   assertContainerNetworkGateway(appInfo, names.network, record.network.gateway, record.network.id);
   assertContainerNetworkGateway(browserInfo, names.network, record.network.gateway, record.network.id);
-  for (const [role, container] of [['app', record.containers.find(item => item.role === 'app')], ['browser', record.containers.find(item => item.role === 'browser')]]) {
+  for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
+    const routeRemoval = dockerCall(routeIsolationExecArgs(container.id), `${role}-route-isolation.json`);
+    const routeOutput = docker(['exec', container.id, '/bin/sh', '-c', 'set -e; ip route show default; ip -6 route show default']);
+    assertNoDefaultRoutes(routeOutput);
+    writeOnce(resolve(evidenceDir, `${role}-route-verification.json`), { outcome: 'PASS', method: ROUTE_ISOLATION_METHOD, routeRemovalExitCode: routeRemoval.status, ipv4AndIpv6DefaultRoutesAbsent: true, routeTableOutput: routeOutput });
+  }
+  for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
     const probe = spawnSync(DOCKER_CLI_PATH, ['exec', container.id, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
     const probeOutcome = classifyEgressProbe(probe);
     writeOnce(resolve(evidenceDir, `${role}-egress-policy-check.json`), { target: '1.1.1.1:443', outcome: probeOutcome, exitCode: probe.status, stdout: probe.stdout || '', stderr: probe.stderr || '', error: probe.error?.message || '' });
@@ -114,6 +127,8 @@ try {
     mysql3306Published: false, reservationHeld: false,
   });
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify({ ...record, appPort, browserPort }, null, 2)}\n`);
+  dockerCall(['exec', '--detach', '--user', '0', appRecord.id, '/bin/sh', '-c', './run-services-docker.sh bash > /tmp/t03b2-claroline-services.log 2>&1'], 'app-services-start.json');
+  dockerCall(['exec', '--detach', '--user', '1200', browserRecord.id, '/bin/sh', '-c', '/opt/bin/entry_point.sh > /tmp/t03b2-selenium-services.log 2>&1'], 'selenium-services-start.json');
   const waitHttp = async (url, label, validate = () => true) => {
     const deadline = Date.now() + 180000;
     let last = '';
@@ -148,7 +163,7 @@ try {
   const psQuote = value => `'${String(value).replaceAll("'", "''")}'`;
   const mavenScript = `& ${psQuote(MAVEN_CLI_PATH)} ${mavenArgs.map(psQuote).join(' ')}; exit $LASTEXITCODE`;
   const maven = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', mavenScript], { cwd: suite, encoding: 'utf8', env: MAVEN_ENV, windowsHide: true });
-  const sanitize = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
+  const sanitize = sanitizeEvidenceText;
   writeFileSync(resolve(evidenceDir, 'maven.stdout.log'), sanitize(maven.stdout), { flag: 'wx' });
   writeFileSync(resolve(evidenceDir, 'maven.stderr.log'), sanitize(maven.stderr), { flag: 'wx' });
   writeOnce(resolve(evidenceDir, 'maven-exit.json'), { command: 'mvn -B -Dtest=test.Claroline_AddUserTest -Dapp.url=<loopback-dynamic> -Dwebdriver.remote.url=<loopback-dynamic>/wd/hub test', exitCode: maven.status, signal: maven.signal, stdoutSha256: sha256(sanitize(maven.stdout || '')), stderrSha256: sha256(sanitize(maven.stderr || '')) });
@@ -165,6 +180,15 @@ try {
 } catch (error) {
   writeFileSync(resolve(evidenceDir, 'run-failure.txt'), `${error.name}: ${error.message}\n`, { flag: 'wx' });
 } finally {
+  if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD) {
+    for (const item of record.containers) {
+      const logPath = item.role === 'app' ? '/tmp/t03b2-claroline-services.log' : '/tmp/t03b2-selenium-services.log';
+      const result = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logPath}`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+      const output = sanitizeEvidenceText(result.stdout || result.stderr || '');
+      try { writeFileSync(resolve(evidenceDir, `${item.role}-service-startup-sanitized.log`), output, { flag: 'wx' }); } catch {}
+      try { writeOnce(resolve(evidenceDir, `${item.role}-service-startup-metadata.json`), { exitCode: result.status, error: sanitizeEvidenceText(result.error?.message || ''), sha256: sha256(output), redactionPolicy: 'local paths and fixture credentials sanitized' }); } catch {}
+    }
+  }
   try {
     const baseline = readFileSync(resolve(evidenceDir, 'docker-before.json'), 'utf8');
     const result = runCleanupWithExitCode({ record, baseline: JSON.parse(baseline) });

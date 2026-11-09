@@ -12,6 +12,8 @@ export const APP_TEST_CLASS = 'test.Claroline_AddUserTest';
 export const INTERNAL_NETWORK_POLICY = 'internal-bridge-v1';
 export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerade-v1';
 export const INTERNAL_IPAM_NETWORK_POLICY = 'internal-bridge-explicit-ipam-v1';
+export const ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY = 'published-bridge-default-route-removed-v1';
+export const ROUTE_ISOLATION_METHOD = 'container-netns-default-route-drop-v1';
 export const INTERNAL_IPAM_SUBNET_CANDIDATES = Object.freeze([
   '172.26.254.0/24', '172.27.254.0/24', '172.28.254.0/24',
   '172.29.254.0/24', '172.30.254.0/24', '172.31.254.0/24',
@@ -66,6 +68,12 @@ export function assertNetworkPolicy(network, policy) {
     }
     return network;
   }
+  if (policy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (network.Internal !== false || network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] !== 'false') {
+      throw new Error('network policy mismatch: expected published-port bridge with IP masquerading disabled');
+    }
+    return network;
+  }
   throw new Error('unknown or missing recorded network policy');
 }
 
@@ -83,6 +91,34 @@ export function assertContainerNetworkGateway(container, networkName, gateway, n
     throw new Error('container endpoint network ID or gateway does not match the recorded isolated network');
   }
   return endpoint;
+}
+
+/** Build the one-shot route removal command for an exact task-owned container ID. */
+export function routeIsolationExecArgs(containerId) {
+  if (typeof containerId !== 'string' || !/^[a-f0-9]{64}$/i.test(containerId)) {
+    throw new Error('route isolation requires a recorded full container ID');
+  }
+  return ['exec', '--privileged', '--user', '0', containerId, '/bin/sh', '-c', 'ip route del default'];
+}
+
+/** Fail closed unless the inspected IPv4 and IPv6 route tables contain no default route. */
+export function assertNoDefaultRoutes(routeOutput) {
+  if (typeof routeOutput !== 'string') throw new Error('route isolation verification output is missing');
+  if (/^\s*default(?:\s|$)/mi.test(routeOutput)) throw new Error('EGRESS_ROUTE_PRESENT: container still has a default route');
+  return true;
+}
+
+/** Ensure the container remains unprivileged; only the exact one-shot route command uses elevated exec. */
+export function assertRouteIsolationContainer(container, networkName) {
+  const host = container?.HostConfig || {};
+  const entrypoint = container?.Config?.Entrypoint;
+  const command = container?.Config?.Cmd;
+  if (host.Privileged === true || (host.CapAdd || []).length !== 0 || host.NetworkMode !== networkName || (host.Binds || []).length !== 0 ||
+      !Array.isArray(entrypoint) || entrypoint.length !== 1 || entrypoint[0] !== '/bin/sh' ||
+      !Array.isArray(command) || command.length !== 2 || command[0] !== '-c' || command[1] !== 'sleep infinity') {
+    throw new Error('route-isolation container must use the recorded dormant bootstrap with no persistent capabilities, mounts, or privileged mode');
+  }
+  return true;
 }
 
 /** Classify a no-payload outbound TCP probe; a host control probe must pass first. */

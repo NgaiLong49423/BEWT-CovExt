@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
-import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
+import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertRouteIsolationContainer, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
 
 const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
@@ -43,6 +43,11 @@ function assertContainerSecurity(container, item, networkName, record) {
   if (host.Privileged === true || host.NetworkMode !== networkName || (host.Binds || []).length !== 0) {
     throw new CleanupBlockedError(`${item.role} container has privileged, host-network, or bind-mount configuration`);
   }
+  if (record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (record.egressIsolationMethod !== ROUTE_ISOLATION_METHOD) throw new CleanupBlockedError(`${item.role} recorded egress isolation method does not match`);
+    try { assertRouteIsolationContainer(container, networkName); }
+    catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
+  }
   if (publishedKeys.length !== 1 || publishedKeys[0] !== expectedHostPort) {
     throw new CleanupBlockedError(`${item.role} container has an unexpected host port mapping`);
   }
@@ -78,7 +83,7 @@ function assertContainerSecurity(container, item, networkName, record) {
     throw new CleanupBlockedError(`${item.role} is attached to an unexpected network`);
   }
   const endpoint = container.NetworkSettings.Networks[networkName] || {};
-  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
     try { assertContainerNetworkGateway(container, networkName, record.network?.gateway, record.network?.id); }
     catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
   }
@@ -139,7 +144,7 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (networkById) {
     try { assertNetworkPolicy(networkById, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
-    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
       try { assertRecordedNetworkIpam(networkById, networkRecord); }
       catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
     }
@@ -176,7 +181,7 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     if (!current) throw new CleanupBlockedError('recorded network disappeared before verified removal');
     try { assertNetworkPolicy(current, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(`network configuration changed before removal: ${error.message}`, { cause: error }); }
-    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
       try { assertRecordedNetworkIpam(current, networkRecord); }
       catch (error) { throw new CleanupBlockedError(`network IPAM changed before removal: ${error.message}`, { cause: error }); }
     }

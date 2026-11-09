@@ -66,3 +66,7 @@ At 2026-11-09T11:45:53Z, 11:45:59Z, and 11:46:04Z, host free RAM was **2.959, 2.
 ## User-confirmed memory recovery and diagnostic gate — 2026-11-09
 
 Three consecutive samples measured 6.331, 6.350, and 6.356 GiB free, exceeding the 6 GiB diagnostic threshold; Docker Engine was available. App-only diagnostic `t03b2-d-20261109-r1` was attempted. It failed closed because Docker's active port report was empty despite the recorded loopback HostConfig mapping. No HTTP/MySQL readiness or business test was attempted. The diagnostic resources were subsequently removed by exact recorded ownership cleanup; independent full-label checks show zero residuals and the cleanup verifier preserved existing resources. No project-other Docker resources were touched. Evidence: `evidence/t03b2-d-20261109-r1/memory-preflight.json`, `diagnostic-assessment-r1.json`, and `post-cleanup-independent-check.json`.
+
+## Latest user-confirmed memory recheck — r53 (2026-11-09)
+
+Three free-memory samples measured 4.848, 4.904, and 4.863 GiB, below the 6 GiB runtime gate. Docker Engine 29.8.0 responded; full project/task ownership-label queries returned zero task containers, networks, and volumes (all queries exited 0). Runtime status is `HOST_MEMORY_BLOCKED`; no task Docker resource was created, started, stopped, or removed by this check. The exact route-isolation `docker exec` authorization remains unused. Evidence: `evidence/offline-verification-20261109-r53/runtime-gate-recheck.json`.

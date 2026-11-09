@@ -2,14 +2,14 @@
   "task": "T03-B2",
   "application": "Claroline",
   "proposedStatus": "PARTIAL",
-  "runtimeStatus": "BLOCKED_INTERNAL_BRIDGE_PORT_FORWARDING",
+  "runtimeStatus": "BLOCKED_HOST_MEMORY_GATE_ROUTE_ISOLATION_CANDIDATE_NOT_RUNTIME_VERIFIED",
   "businessTestStatus": "NOT_RUN",
   "rootCauseR5Exit137": "Docker Desktop port-forwarder failure verified; Docker stop-to-force escalation verified during teardown; initiating caller and app shutdown reason unknown; OOM not verified",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Diagnostic r2 on the non-internal no-masquerade bridge showed that app egress reached 1.1.1.1:443. Diagnostic r3 tested an Internal=true IPv6-disabled bridge with collision-checked explicit IPAM, but Docker Desktop again left NetworkSettings.Ports empty despite the exact loopback HostConfig binding; the egress probe, readiness, and business tests did not run. Runner exit 1. Initial cleanup blocked on the omitted endpoint Gateway; the tested correction removed only the exact recorded app/network, and independent resource fingerprints/residual checks PASS. G0 A/B remain NOT_RUN. OOM is not verified; pinned image derivative still awaits Team Lead review. Latest user-confirmed r53 memory samples were 4.848, 4.904, and 4.863 GiB (<6 GiB); Docker was reachable and no task resources were present. The route-isolated published-bridge candidate has only offline verification and was not run. r55 fault suite 34/34 and five syntax checks passed; historical r2/r3/r5 results remain unchanged.",
   "statusJsonChanged": true,
   "archiveCandidates": [
     {
@@ -55,11 +55,20 @@
     "evidence/t03b2-d-20261109-r1/post-cleanup-independent-check.json",
     "evidence/offline-verification-20261109-r38/",
     "evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json",
-    "evidence/offline-verification-20261109-r51/"
+    "evidence/offline-verification-20261109-r51/",
+    "evidence/offline-verification-20261109-r53/runtime-gate-recheck.json",
+    "evidence/offline-verification-20261109-r55/verification-summary.json"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
-  "approvedNetworkPolicy": "internal-bridge-explicit-ipam-v1",
-  "networkPolicyRuntimeStatus": "BLOCKED_INTERNAL_BRIDGE_PORT_FORWARDING",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r51/",
-  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r51/runtime-gate-recheck.json"
+  "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
+  "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r55/",
+  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r53/runtime-gate-recheck.json",
+  "routeIsolationCandidate": {
+    "networkPolicy": "published-bridge-default-route-removed-v1",
+    "method": "container-netns-default-route-drop-v1",
+    "status": "OFFLINE_VERIFIED_RUNTIME_NOT_RUN",
+    "privilegedExecApproved": true,
+    "privilegedExecInvoked": false
+  }
 }

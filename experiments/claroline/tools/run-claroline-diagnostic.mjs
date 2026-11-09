@@ -4,9 +4,10 @@ import { writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertContainerPortNotPublished,
+  APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertRouteIsolationContainer, assertContainerPortNotPublished,
   assertPublishedLoopbackPort, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway,
-  classifyEgressProbe, INTERNAL_IPAM_NETWORK_POLICY, selectInternalBridgeIpam,
+  classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD,
+  routeIsolationExecArgs, assertNoDefaultRoutes, selectInternalBridgeIpam,
   createEvidenceDirectory, labelsForRun, namesForRun,
   probeLoopbackPort, recordCreatedResource, selectLoopbackPort, snapshotInventory,
   validateRunId,
@@ -31,7 +32,8 @@ const scrub = value => String(value ?? '')
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digestOf = ref => ref.slice(ref.indexOf('@') + 1);
 const record = {
-  runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, networkPolicy: INTERNAL_IPAM_NETWORK_POLICY,
+  runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, networkPolicy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY,
+  egressIsolationMethod: ROUTE_ISOLATION_METHOD,
   imageDigest: digestOf(APP_IMAGE_REF), browserImageDigest: digestOf(BROWSER_IMAGE_REF),
   imageLabels: {}, containers: [], network: null, selectedHostPorts: {},
 };
@@ -115,6 +117,13 @@ function capturePreTeardownEvidence() {
     try { writeOnce(`${item.role}-logs-metadata.json`, { exitCode: logs.status, error: scrub(logs.error?.message || ''), sha256: createHash('sha256').update(logText).digest('hex'), redactionPolicy: 'local paths replaced; credential-like fields redacted' }); } catch {}
     const stats = spawnSync(DOCKER_CLI_PATH, ['stats', '--no-stream', '--format', '{{json .}}', item.id], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
     try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, rows: String(stats.stdout || '').trim().split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line)) }); } catch { try { writeOnce(`${item.role}-stats-before-cleanup.json`, { exitCode: stats.status, output: scrub(stats.stdout || stats.stderr) }); } catch {} }
+    if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD) {
+      const logPath = item.role === 'app' ? '/tmp/t03b2-claroline-services.log' : '/tmp/t03b2-selenium-services.log';
+      const startup = spawnSync(DOCKER_CLI_PATH, ['exec', item.id, '/bin/sh', '-c', `cat ${logPath}`], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
+      const startupLog = scrub(startup.stdout || startup.stderr || '');
+      try { writeTextOnce(`${item.role}-service-startup-sanitized.log`, startupLog); } catch {}
+      try { writeOnce(`${item.role}-service-startup-metadata.json`, { exitCode: startup.status, error: scrub(startup.error?.message || ''), sha256: createHash('sha256').update(startupLog).digest('hex'), redactionPolicy: 'local paths replaced; credential-like fields redacted' }); } catch {}
+    }
   }
   const since = record.startedAtUtc || record.createdAtUtc;
   if (since && record.containers.length) {
@@ -156,17 +165,17 @@ try {
   writeOnce('host-port-allocation.json', { app: appPort, bindAddress: '127.0.0.1', purpose: 'app-only diagnostic; browser not started', reservationHeld: false });
   saveRecord();
   const networkIpam = selectNetworkIpam();
-  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, ...labelArgs, names.network], 'network-create.json', false);
+  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--ipv6=false', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
   try { recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: saveRecord }); }
   finally { if (record.network) dockerChanged = true; }
   const network = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
-  assertNetworkPolicy(network, INTERNAL_IPAM_NETWORK_POLICY);
+  assertNetworkPolicy(network, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
   const actualIpam = assertRecordedNetworkIpam(network, networkIpam);
   record.network.subnet = actualIpam.Subnet;
   record.network.gateway = actualIpam.Gateway;
   saveRecord();
-  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: INTERNAL_IPAM_NETWORK_POLICY, driver: network.Driver, internal: network.Internal, ipv6Enabled: network.EnableIPv6, subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
-  const appCreate = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', `127.0.0.1:${appPort}:80`, '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
+  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, egressIsolationMethod: ROUTE_ISOLATION_METHOD, driver: network.Driver, internal: network.Internal, ipv6Enabled: network.EnableIPv6, ipMasquerade: network.Options?.['com.docker.network.bridge.enable_ip_masquerade'], subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
+  const appCreate = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', `127.0.0.1:${appPort}:80`, '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, '--entrypoint', '/bin/sh', APP_IMAGE_REF, '-c', 'sleep infinity'], 'app-create.json', false);
   try { recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreate, record, onRecord: saveRecord }); }
   finally { if (record.containers.length) dockerChanged = true; }
   record.createdAtUtc = new Date().toISOString();
@@ -175,16 +184,23 @@ try {
   record.startedAtUtc = new Date().toISOString();
   saveRecord();
   const app = inspectOwned(record.containers[0]);
+  assertOwnedContainer(app, { ...record.containers[0], labels, imageLabels: record.imageLabels.app });
+  assertRouteIsolationContainer(app, names.network);
   const appSafe = safeInspect(app);
   assertPublishedLoopbackPort(app, '80/tcp', appPort);
   assertContainerPortNotPublished(app, '3306/tcp');
   assertContainerNetworkGateway(app, names.network, record.network.gateway, record.network.id);
   writeOnce('host-port-verification.json', { outcome: 'PASS', requestedHostPort: appPort, hostConfig: appSafe.hostConfig.portBindings['80/tcp'], networkSettings: appSafe.networkSettings.ports['80/tcp'], mysql3306Published: false, reservationHeld: false });
   writeOnce('app-inspect-after-start.json', appSafe);
+  const routeRemoval = dockerCall(routeIsolationExecArgs(record.containers[0].id), 'app-route-isolation.json');
+  const routeOutput = docker(['exec', record.containers[0].id, '/bin/sh', '-c', 'set -e; ip route show default; ip -6 route show default']);
+  assertNoDefaultRoutes(routeOutput);
+  writeOnce('app-route-verification.json', { outcome: 'PASS', method: ROUTE_ISOLATION_METHOD, routeRemovalExitCode: routeRemoval.status, ipv4AndIpv6DefaultRoutesAbsent: true, routeTableOutput: scrub(routeOutput) });
   const egressProbe = spawnSync(DOCKER_CLI_PATH, ['exec', record.containers[0].id, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
   const egressOutcome = classifyEgressProbe(egressProbe);
   writeOnce('app-egress-policy-check.json', { target: '1.1.1.1:443', outcome: egressOutcome, exitCode: egressProbe.status, stdout: scrub(egressProbe.stdout || ''), stderr: scrub(egressProbe.stderr || ''), error: scrub(egressProbe.error?.message || '') });
   if (egressOutcome !== 'PASS') throw new Error(egressOutcome === 'FAIL' ? 'EGRESS_POLICY_VIOLATION: container reached an external TCP target' : 'EGRESS_POLICY_UNVERIFIED: container egress probe was inconclusive');
+  dockerCall(['exec', '--detach', '--user', '0', record.containers[0].id, '/bin/sh', '-c', './run-services-docker.sh bash > /tmp/t03b2-claroline-services.log 2>&1'], 'app-services-start.json');
   const deadline = Date.now() + 180000;
   let http = { outcome: 'BLOCKED', reason: 'readiness timeout' };
   while (Date.now() < deadline) {
@@ -206,7 +222,7 @@ try {
   writeOnce('database-readiness.json', { exitCode: database.status, databaseNames: databases, expectedDatabasePresent: databases.some(name => name.toLowerCase() === 'claroline') });
   if (database.status !== 0 || !databases.some(name => name.toLowerCase() === 'claroline')) throw new Error('MYSQL_READINESS_BLOCKED: Claroline database not verified');
   outcome = 'PASS';
-  reason = 'app-only diagnostic verified exact loopback port, HTTP and MySQL readiness; no Selenium or Maven test was run';
+  reason = 'app-only diagnostic verified route isolation, exact loopback port, HTTP and MySQL readiness; no Selenium or Maven test was run';
 } catch (error) {
   outcome = 'BLOCKED';
   reason = scrub(error?.message || String(error));

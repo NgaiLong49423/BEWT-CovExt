@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, assertNetworkPolicy, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -43,7 +43,7 @@ function makeContainer(role, overrides = {}) {
 
 function makeNetwork(endpointIds = [], policy = EGRESS_LIMITED_NETWORK_POLICY) {
   const internal = policy === INTERNAL_NETWORK_POLICY || policy === INTERNAL_IPAM_NETWORK_POLICY;
-  const ipam = policy === INTERNAL_IPAM_NETWORK_POLICY ? [{ Subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], Gateway: '172.26.254.1' }] : [];
+  const ipam = [INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY].includes(policy) ? [{ Subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], Gateway: '172.26.254.1' }] : [];
   return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, EnableIPv6: false, IPAM: { Config: ipam }, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
@@ -199,6 +199,54 @@ test('external egress probe distinguishes blocked, reachable, and inconclusive o
   assert.equal(classifyEgressProbe({ status: 1, stdout: '', stderr: 'Connection refused' }), 'FAIL');
   assert.equal(classifyEgressProbe({ status: 127, stdout: '', stderr: 'timeout: command not found' }), 'BLOCKED');
   assert.equal(classifyEgressProbe({ status: null, error: new Error('spawn timeout') }), 'BLOCKED');
+});
+
+test('published bridge route isolation requires an exact no-masquerade bridge and removes only recorded IDs', () => {
+  const correct = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
+  assert.equal(assertNetworkPolicy(correct, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), correct);
+  assert.deepEqual(routeIsolationExecArgs(ids.app), ['exec', '--privileged', '--user', '0', ids.app, '/bin/sh', '-c', 'ip route del default']);
+  assert.throws(() => routeIsolationExecArgs('bewt-covext-app'), /full container ID/);
+  assert.equal(assertNoDefaultRoutes('192.168.0.0/16 dev eth0 scope link\n'), true);
+  assert.equal(assertNoDefaultRoutes(''), true);
+  assert.throws(() => assertNoDefaultRoutes('default via 172.26.254.1 dev eth0'), /EGRESS_ROUTE_PRESENT/);
+  assert.throws(() => assertNoDefaultRoutes(undefined), /output is missing/);
+  for (const mutate of [network => { network.Internal = true; }, network => { network.EnableIPv6 = true; }, network => { network.Options['com.docker.network.bridge.enable_ip_masquerade'] = 'true'; }]) {
+    const network = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY); mutate(network);
+    assert.throws(() => assertNetworkPolicy(network, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), /network policy mismatch/);
+  }
+});
+
+test('cleanup of route-isolated containers requires exact bootstrap and no persistent capabilities', () => {
+  const value = record();
+  value.networkPolicy = ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY;
+  value.egressIsolationMethod = ROUTE_ISOLATION_METHOD;
+  value.network = { id: ids.network, name: names.network, subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], gateway: '172.26.254.1' };
+  const valid = fakeDocker();
+  valid.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY));
+  for (const role of ['app', 'browser']) {
+    const container = valid.state.containers.get(ids[role]);
+    container.Config.Entrypoint = ['/bin/sh']; container.Config.Cmd = ['-c', 'sleep infinity'];
+    container.HostConfig.CapAdd = [];
+    container.NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
+  }
+  assert.equal(cleanup(valid, value).outcome, 'PASS');
+  for (const mutate of [
+    fake => { fake.state.containers.get(ids.app).HostConfig.CapAdd = ['NET_ADMIN']; },
+    fake => { fake.state.containers.get(ids.browser).Config.Cmd = ['-c', 'unexpected']; },
+    fake => { fake.state.networks.get(ids.network).IPAM.Config[0].Gateway = '172.26.254.2'; },
+  ]) {
+    const fake = fakeDocker();
+    fake.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY));
+    for (const role of ['app', 'browser']) {
+      const container = fake.state.containers.get(ids[role]);
+      container.Config.Entrypoint = ['/bin/sh']; container.Config.Cmd = ['-c', 'sleep infinity'];
+      container.HostConfig.CapAdd = [];
+      container.NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
+    }
+    mutate(fake);
+    assert.throws(() => cleanup(fake, value), /dormant bootstrap|IPAM/);
+    assert.deepEqual(fake.state.mutations, [], 'invalid route/isolation ownership blocks before cleanup mutation');
+  }
 });
 
 test('failed network initialization without a returned ID blocks on an unrecorded same-run resource', () => {
