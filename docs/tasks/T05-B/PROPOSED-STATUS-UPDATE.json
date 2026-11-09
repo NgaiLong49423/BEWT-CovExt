@@ -30,16 +30,21 @@
   "credentialConfiguration": {
     "variableName": "GEMINI_API_KEY",
     "processEnvironmentPresenceObserved": true,
+    "currentProcessUserEquality": "EQUAL_IN_MEMORY_CURRENT_INVESTIGATION_ONLY",
+    "currentNodeChildInheritedVariablePresence": true,
     "secretValueReadOrDisplayed": false,
     "credentialType": "UNKNOWN_NOT_INSPECTED",
+    "historicalInvocationCredentialEqualityToKnownWorkingContext": "UNKNOWN",
+    "rootCauseClassification": "UNDETERMINED",
     "lastRequestOutcome": "HTTP_400_API_KEY_INVALID",
     "readyForFreshAuthorizationDecision": false,
     "possibleStandardKeyCutoverCause": "UNCONFIRMED"
   },
   "requiredToProceed": [
-    "Team Lead updates the local GEMINI_API_KEY secret to a current Auth key through a private secret channel; do not place it in chat or repository files",
+    "Team Lead may privately compare the known-working and BEWT launch contexts and review credential type/project/restrictions; do not replace the key unless that review demonstrates it is needed",
     "Any future live invocation requires a separate fresh explicit Team Lead D-C1 decision; the consumed approval cannot be reused"
   ],
+  "offlineRootCauseInvestigation": "docs/tasks/T05-B/evidence/verification/20261110-auth-investigation-01/root-cause-investigation.md",
   "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
   "costTelemetry": "List-price token usage is an estimate, not independently verified billed cost",
   "dockerRuntime": "NOT_RUN",

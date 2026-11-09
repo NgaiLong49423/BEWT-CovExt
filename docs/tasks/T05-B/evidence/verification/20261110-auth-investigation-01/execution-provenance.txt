@@ -1,0 +1,47 @@
+T05-B authentication investigation provenance
+Date: 2026-11-10 (Asia/Saigon)
+Investigation commit before documentation edits: 1527885bb0360cd444485089270fd36497e3216b
+Branch: feature/t05b-expresscart-live-generation
+Working directory: C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt
+Previous PR: #15; prior PR HEAD at inspection: 1527885bb0360cd444485089270fd36497e3216b
+Previous request execution commit: 367de0545221d8521e5bd49e5cb8a6bb5d99a932
+
+Historical live execution (read from immutable evidence; not repeated):
+command=npm.cmd run agent:t01c -- start expresscart --live-authorized --max-api-requests=1 --max-cost-usd=0.02
+working_directory=framework
+execution_mode=authorized outside-sandbox execution path (require_escalated)
+node=v24.19.0
+npm=11.17.0
+provider_requests=1
+retries=0
+http_status=400
+error=API_KEY_INVALID
+cli_exit=1
+authorization=D-C1 consumed; no further call authorized
+
+Current investigation process:
+PowerShell process ran in the current Codex workspace sandbox; no escalation requested or used.
+node=v24.19.0
+npm=11.17.0
+node_path=C:\Program Files\nodejs\node.exe
+npm_path=C:\Program Files\nodejs\npm.ps1 (npm.cmd is the Windows command wrapper used for the historical CLI)
+provider_requests=0
+credential_probes=0
+
+Read-only commands/checks and outcomes:
+- `git status --short --branch`: exit 0; branch was feature/t05b-expresscart-live-generation, HEAD matched origin branch; pre-existing unrelated dirty ExpressCart dist files and old T01-C evidence directories were preserved.
+- `git rev-parse HEAD`: exit 0; 1527885bb0360cd444485089270fd36497e3216b.
+- `node --version`: exit 0; v24.19.0.
+- `npm --version`: exit 0; 11.17.0.
+- PowerShell `.NET Environment.GetEnvironmentVariable` checks for User, Machine, and Process: completed; output recorded only variable presence and an in-memory ordinal equality result for current Process/User GEMINI_API_KEY. No value or metadata was emitted.
+- Harmless `node -e` child printed only presence booleans for the requested variable names: exit 0; GEMINI_API_KEY present, all other checked names absent.
+- `rg -n` inspected the selected framework source and package metadata for provider/env-loading references: exit 0 with matches; no `.env` loader was found in the inspected framework source/package path. This was not a whole-machine profile/launcher audit.
+- Inspected installed `@langchain/google-genai` 2.3.4 constructor and its gateway configuration source; no application `baseUrl` setting found.
+- `python -m json.tool docs/tasks/T05-B/PROPOSED-STATUS-UPDATE.json`: exit 0.
+- `git diff --check`: exit 0 before staging.
+
+Limitations:
+- No historical outside-sandbox process environment snapshot, Codex sandbox audit log, HTTP response headers, TLS peer certificate, or proxy trace is retained in the task evidence.
+- The Team Lead's known-working app/process was not identified or inspected; its credential equality, project, auth mode, SDK, and route remain unknown.
+- No network operation was performed during this investigation. The previous request's HTTP 400 demonstrates an HTTP response only; responder identity cannot be independently established from retained evidence.
+- Investigation evidence is additive. Original request logs, model-call ledger reservation/result, and native failure record were not changed.
