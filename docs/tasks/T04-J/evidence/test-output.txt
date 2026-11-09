@@ -1,0 +1,10 @@
+test_git_blob_hash_and_tamper (__main__.CheckGroupTests.test_git_blob_hash_and_tamper) ... ok
+test_locate_retains_all_hits_and_rejects_missing (__main__.CheckGroupTests.test_locate_retains_all_hits_and_rejects_missing) ... ok
+test_path_blob_mismatch_fails_closed (__main__.CheckGroupTests.test_path_blob_mismatch_fails_closed) ... ok
+test_truncated_tree_fails_closed (__main__.CheckGroupTests.test_truncated_tree_fails_closed) ... ok
+test_wrong_commit_tree_fails_closed (__main__.CheckGroupTests.test_wrong_commit_tree_fails_closed) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.001s
+
+OK

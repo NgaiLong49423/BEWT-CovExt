@@ -1,0 +1,128 @@
+{
+  "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "tree": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+  "files": [
+    {
+      "path": "claroline/group/group_space.php",
+      "gitBlob": "825d811e822c687968fc0c48c59dad7b8fae2261",
+      "sha256": "27d5c5fc52acfd536e1ed0fb166c3bbb5f628bd3a4b6b894ec734b87fa1627d6",
+      "anchors": [
+        {
+          "anchor": "claro_is_group_allowed()",
+          "lines": [
+            32,
+            41
+          ]
+        },
+        {
+          "anchor": "isset( $_REQUEST['selfReg'] )",
+          "lines": [
+            41
+          ]
+        },
+        {
+          "anchor": "$_groupProperties ['registrationAllowed']",
+          "lines": [
+            84
+          ]
+        },
+        {
+          "anchor": "groupMemberQuotaExceeded",
+          "lines": [
+            75,
+            85
+          ]
+        },
+        {
+          "anchor": "userGroupQuotaExceeded",
+          "lines": [
+            81,
+            86
+          ]
+        },
+        {
+          "anchor": "claro_is_course_member()",
+          "lines": [
+            93,
+            94,
+            115,
+            120,
+            166,
+            171
+          ]
+        },
+        {
+          "anchor": "$is_allowedToDocAccess",
+          "lines": [
+            96
+          ]
+        },
+        {
+          "anchor": "isset($_REQUEST['registration'])",
+          "lines": [
+            112
+          ]
+        },
+        {
+          "anchor": "isset($_REQUEST['doReg'])",
+          "lines": [
+            41,
+            117,
+            215
+          ]
+        }
+      ]
+    },
+    {
+      "path": "claroline/group/group.php",
+      "gitBlob": "f0832ad118f454b3cff38564c76075ba9c708b06",
+      "sha256": "82b6d07f4fdbe0012a73f270ea1893f0261d09872fc6b8258ee329e7fcc3861f",
+      "anchors": [
+        {
+          "anchor": "$_groupProperties['private']",
+          "lines": [
+            397,
+            686
+          ]
+        },
+        {
+          "anchor": "group_space.php?registration=1&selfReg=1&gidReq=",
+          "lines": [
+            751
+          ]
+        }
+      ]
+    },
+    {
+      "path": "claroline/group/group_properties.php",
+      "gitBlob": "22f6d1a4e1b045f673c8a7c1aa3429a387de395c",
+      "sha256": "9e7c55c85ece3b2b54e151f1f326a996628faebfb9258ee8ca12793ce4655446",
+      "anchors": [
+        {
+          "anchor": "claro_get_main_group_properties",
+          "lines": [
+            17,
+            34
+          ]
+        },
+        {
+          "anchor": "$_groupProperties ['registrationAllowed']",
+          "lines": [
+            51
+          ]
+        },
+        {
+          "anchor": "$_groupProperties ['private']",
+          "lines": [
+            62
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Static upstream blobs, not runtime or policy approval",
+  "candidate": "CL-GAP-002",
+  "decision": null,
+  "novelty": "NOT_VERIFIED",
+  "runtime": "NOT_RUN"
+}
