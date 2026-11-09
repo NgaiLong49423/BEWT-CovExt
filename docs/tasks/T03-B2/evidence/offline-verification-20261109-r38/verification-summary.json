@@ -1,0 +1,21 @@
+{
+  "suite": "cleanup-claroline-g0.test.mjs",
+  "testExitCode": 0,
+  "tests": 28,
+  "passed": 28,
+  "failed": 0,
+  "syntaxFiles": [
+    "child-process-policy.mjs",
+    "claroline-g0.mjs",
+    "cleanup-claroline-g0.mjs",
+    "cleanup-run.mjs",
+    "run-claroline-diagnostic.mjs",
+    "run-claroline-g0.mjs"
+  ],
+  "syntaxExitCode": 0,
+  "runtimeDiagnostic": "BLOCKED_PORT_BINDING_MISMATCH",
+  "runId": "t03b2-d-20261109-r1",
+  "maven": "NOT_RUN",
+  "sonarFindingFix": "EXPLICIT_ENGLISH_COMPARATOR",
+  "capturedAtUtc": "2026-11-09T12:28:17.8342310Z"
+}

@@ -81,7 +81,7 @@ function inspectOwned(item) { return JSON.parse(docker(['inspect', item.id]))[0]
 function inventorySummary(before, after) {
   const summarize = inventory => Object.fromEntries(Object.entries(inventory).map(([kind, values]) => [kind, {
     count: values.length,
-    sha256: createHash('sha256').update([...values].sort().join('\n')).digest('hex'),
+    sha256: createHash('sha256').update([...values].sort((left, right) => left.localeCompare(right, 'en')).join('\n')).digest('hex'),
   }]));
   return {
     before: summarize(before), after: summarize(after),

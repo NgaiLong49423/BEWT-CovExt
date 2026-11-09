@@ -1,0 +1,12 @@
+node --check experiments\claroline\tools\child-process-policy.mjs
+exitCode=0
+node --check experiments\claroline\tools\claroline-g0.mjs
+exitCode=0
+node --check experiments\claroline\tools\cleanup-claroline-g0.mjs
+exitCode=0
+node --check experiments\claroline\tools\cleanup-run.mjs
+exitCode=0
+node --check experiments\claroline\tools\run-claroline-diagnostic.mjs
+exitCode=0
+node --check experiments\claroline\tools\run-claroline-g0.mjs
+exitCode=0

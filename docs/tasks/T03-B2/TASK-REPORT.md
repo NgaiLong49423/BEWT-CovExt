@@ -18,6 +18,7 @@
 | `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once wrapper, runtime harness, explicit signed-tool/path policy | Reproducible, ownership-safe, and avoids PATH search in child processes |
 | `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | Cleanup fault injection and Surefire/run identity/sanitization tests | Verify failure paths without touching Docker |
 | `experiments/claroline/tools/run-claroline-g0.mjs` | Fixes Maven suite path, validates POM before resource creation, starts app/browser before reading dynamic ports, and records pinned image labels | Prevent wrong-cwd compile and pre-allocation port failures |
+| `experiments/claroline/tools/run-claroline-diagnostic.mjs` | Adds a write-once app-only diagnostic path with a 6 GiB gate and records exact runtime state before cleanup | Diagnose port/readiness blockers without starting Selenium or business tests |
 | `experiments/claroline/tools/cleanup-claroline-g0.mjs` | Validates exact merged pinned-image and run labels; permits teardown when Docker omits active port reporting only if recorded HostConfig loopback port matches exactly | Recover the exact diagnostic container safely without treating the runtime mismatch as PASS |
 | `docs/tasks/T03-B2/evidence/t03b2-a-20261109-r1..r5/` and `t03b2-d-20261109-r1/` | Immutable preflight/runtime/diagnostic attempts and cleanup recovery evidence | Preserve each blocked attempt without changing outcomes |
 | `docs/tasks/T03-B2/evidence/offline-verification-20261109-r16/` | Actual 19-test cleanup suite and four syntax checks | Verify the current source changes |
@@ -45,8 +46,8 @@ No `config/apps/claroline.json` was added: although the official release source 
 | App-only diagnostic r1 | 1 | BLOCKED — Docker active port report empty; no readiness or Maven/Selenium tests ran | `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` |
 | r5 Docker stop trace | 0 (source-log inspection) | Force-stop escalation verified; initiating caller and underlying non-graceful shutdown reason unknown; OOM not established | `evidence/offline-verification-20261109-r34/r5-stop-escalation-trace.json` |
 | Cleanup recovery r1 + independent postcheck | 0 | PASS — exact recorded resources removed; all full-label residual scans zero | `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`; `post-cleanup-independent-check.json` |
-| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 28 passed, 0 failed | `evidence/offline-verification-20261109-r37/cleanup-fault-tests.log` |
-| Six Claroline tool `node --check` commands | 0 | PASS | `evidence/offline-verification-20261109-r37/syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 28 passed, 0 failed | `evidence/offline-verification-20261109-r38/cleanup-fault-tests.log` |
+| Six Claroline tool `node --check` commands | 0 | PASS | `evidence/offline-verification-20261109-r38/syntax-check.log` |
 | Independent successful Run A and B | — | NOT_RUN; diagnostic r1 failed, so full runs stopped | [runtime status](G0-RUNTIME-RESULTS.md) |
 
 ## 3. Research impact
@@ -159,11 +160,11 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 
 - Public evidence sanitization: raw Docker inventories were excluded because they contain unrelated local project resource names. Sanitized r3-r5 inventory summaries retain counts and resource conservation/deltas using SHA-256 fingerprints. Raw files remain local only; no runtime outcome was altered.
 
-## Current diagnostic follow-up — 2026-11-09 (r37 / diagnostic r1)
+## Current diagnostic follow-up — 2026-11-09 (r38 / diagnostic r1)
 
 - New RAM preflight: three samples 6.331, 6.350, and 6.356 GiB free; hard 6 GiB diagnostic gate PASS. Docker Engine was reachable. Evidence: `evidence/t03b2-d-20261109-r1/memory-preflight.json`.
 - App-only diagnostic `t03b2-d-20261109-r1`: Docker create/start both exited 0. The request and `HostConfig.PortBindings` recorded `127.0.0.1:52508`, while `NetworkSettings.Ports` returned `{"80/tcp":[]}`. Runner correctly returned `BLOCKED` (`PORT_BINDING_MISMATCH`) before HTTP/MySQL readiness. Snapshot: app `Running=true`, `ExitCode=0`, `OOMKilled=false`. No Selenium, Maven, business test, or database reset ran. See `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` and immutable `run-failure.txt`.
 - Initial cleanup result stays unchanged (`BLOCKED`). A separate cleanup-only recovery using the exact recorded app ID, image, full labels, loopback mapping, network ID, and baseline returned `PASS`; independent exact-label filters found zero container/network/volume residuals, and both recorded IDs returned NOT_FOUND. Existing resources were preserved. Evidence: `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`, `post-cleanup-independent-check.json`.
 - Historical r5 Docker Desktop logs show Docker-Client stop requests followed about three seconds later by “using the force” and task-delete records for app and Selenium. This verifies force-stop escalation as the observed termination mechanism, not an OOM diagnosis or the initiating caller. The raw locked host log is not committed; sanitized trace: `evidence/offline-verification-20261109-r34/r5-stop-escalation-trace.json`.
-- Updated offline verification: 28/28 cleanup fault-injection tests and six syntax checks PASS, exit 0; evidence: `evidence/offline-verification-20261109-r37/`. Maven was not rerun because Java sources are unchanged.
+- Updated offline verification: 28/28 cleanup fault-injection tests and six syntax checks PASS, exit 0; evidence: `evidence/offline-verification-20261109-r38/`. Maven was not rerun because Java sources are unchanged.
 - Runtime status: diagnostic `BLOCKED`; Run A `BLOCKED`; Run B `NOT_RUN`; G0 remains `PARTIAL`, not accepted. No further runtime will be started after the diagnostic failed.
