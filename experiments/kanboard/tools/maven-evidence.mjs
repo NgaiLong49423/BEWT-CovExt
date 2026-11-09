@@ -1,5 +1,5 @@
-import { createHash } from 'node:crypto';
-import { mkdir, realpath, writeFile } from 'node:fs/promises';
+import { createHash, randomUUID } from 'node:crypto';
+import { link, mkdir, realpath, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { assertRunId, seleniumTestArguments, SOURCE_COMMIT, BEWT_SOURCE_COMMIT } from './kanboard-g0.mjs';
 
@@ -11,6 +11,7 @@ export async function reserveEvidenceRun(evidenceRoot, runId) {
   assertRunId(runId);
   if (!path.isAbsolute(evidenceRoot)) throw new Error('Evidence root must be an absolute path');
   const root = await realpath(evidenceRoot);
+  if (root.split(path.sep).some((part) => part.toLowerCase() === 'bewt-original')) throw new Error('Evidence root must not be in a BEWT read-only source tree');
   const dir = path.join(root, runId);
   await mkdir(dir, { mode: 0o700 });
   const run = Object.freeze({ root, runId, dir });
@@ -53,6 +54,15 @@ export async function recordMavenEvidence(run, input) {
     rawBytesPersisted: false, sanitizedBytesPersisted: false,
     sanitizationLinkVerified: false, executionVerified: false,
   };
-  await writeFile(path.join(run.dir, 'maven-evidence.json'), `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx', mode: 0o600 });
+  // Write the complete temporary file first, then publish via an exclusive hard link.
+  // A failed write before publication cannot leave a truncated final evidence record; this does not guarantee crash durability.
+  const temporary = path.join(run.dir, `.maven-evidence-${randomUUID()}.tmp`);
+  const final = path.join(run.dir, 'maven-evidence.json');
+  await writeFile(temporary, `${JSON.stringify(result, null, 2)}\n`, { flag: 'wx', mode: 0o600 });
+  try {
+    await link(temporary, final);
+  } finally {
+    await unlink(temporary);
+  }
   return result;
 }

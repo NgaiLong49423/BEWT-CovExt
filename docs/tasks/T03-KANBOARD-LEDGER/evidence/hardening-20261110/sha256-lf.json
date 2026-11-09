@@ -1,0 +1,11 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/kanboard/tools/maven-evidence.mjs": "ded5935c3011225955a67fb50e29ed4a4e7978dd33d20d8db637ca6a2efe1177",
+    "experiments/kanboard/tools/test/maven-evidence.test.mjs": "5af7b3bd0b6dda55a71547f93ac28dd9ca762478df989dfd29569ae2caf255e8",
+    "docs/tasks/T03-KANBOARD-LEDGER/HARDENING.md": "b2d378a92276d5d6db59c02e6bb2766b4b50c8d551d00e3e6e7d4864e0f0689f",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/hardening-20261110/offline-tests.txt": "36a0419473e881f84ac3fbe91c8e3816843413673d80d8a0151ef95ca1cf23c8",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/hardening-20261110/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa"
+  }
+}

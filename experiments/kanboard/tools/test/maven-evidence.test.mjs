@@ -40,3 +40,37 @@ test('records failed invocations without XML rather than presenting them as pass
   const record = await recordMavenEvidence(run, { ...data(), processStatus: 'TIMED_OUT', exitCode: null, rawXml: null, sanitizedXml: null });
   assert.equal(record.processStatus, 'TIMED_OUT'); assert.equal(record.sha256.rawXml, null); assert.equal(record.executionVerified, false);
 }));
+
+test('concurrent evidence publication creates exactly one immutable complete result', async () => fixture(async (root) => {
+  const run = await reserveEvidenceRun(root, 'kanboard-run-005');
+  const outcomes = await Promise.allSettled([recordMavenEvidence(run, data()), recordMavenEvidence(run, data())]);
+  assert.equal(outcomes.filter(x => x.status === 'fulfilled').length, 1);
+  assert.equal(outcomes.filter(x => x.status === 'rejected' && x.reason.code === 'EEXIST').length, 1);
+  assert.equal(JSON.parse(await fs.readFile(path.join(run.dir, 'maven-evidence.json'), 'utf8')).executionVerified, false);
+  assert.deepEqual(await fs.readdir(run.dir), ['maven-evidence.json']);
+}));
+
+test('refuses to reserve output inside a BEWT read-only source tree', async () => fixture(async (root) => {
+  const source = path.join(root, 'bewt-original');
+  await fs.mkdir(source);
+  await assert.rejects(reserveEvidenceRun(source, 'kanboard-run-006'), /read-only source tree/);
+  assert.deepEqual(await fs.readdir(source), []);
+}));
+
+test('publication failure preserves existing destination and removes its owned temporary file', async () => fixture(async (root) => {
+  const run = await reserveEvidenceRun(root, 'kanboard-run-007');
+  const existing = path.join(run.dir, 'maven-evidence.json');
+  await fs.mkdir(existing);
+  await assert.rejects(recordMavenEvidence(run, data()));
+  assert.equal((await fs.stat(existing)).isDirectory(), true);
+  assert.deepEqual(await fs.readdir(run.dir), ['maven-evidence.json']);
+}));
+
+test('resolves a directory alias before checking the read-only source boundary', async () => fixture(async (root) => {
+  const source = path.join(root, 'bewt-original');
+  const alias = path.join(root, 'alias');
+  await fs.mkdir(source);
+  await fs.symlink(source, alias, process.platform === 'win32' ? 'junction' : 'dir');
+  await assert.rejects(reserveEvidenceRun(alias, 'kanboard-run-008'), /read-only source tree/);
+  assert.deepEqual(await fs.readdir(source), []);
+}));
