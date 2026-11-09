@@ -1,0 +1,30 @@
+[
+  {
+    "app": "joomla",
+    "command": "mvn.cmd -B -o -f <TEMP_RUN>/<app>/pom.xml test-compile",
+    "cleanCopy": true,
+    "exitCode": 0,
+    "stderrBytes": 0
+  },
+  {
+    "app": "mantisbt",
+    "command": "mvn.cmd -B -o -f <TEMP_RUN>/<app>/pom.xml test-compile",
+    "cleanCopy": true,
+    "exitCode": 0,
+    "stderrBytes": 0
+  },
+  {
+    "app": "mediawiki",
+    "command": "mvn.cmd -B -o -f <TEMP_RUN>/<app>/pom.xml test-compile",
+    "cleanCopy": true,
+    "exitCode": 0,
+    "stderrBytes": 0
+  },
+  {
+    "app": "prestashop",
+    "command": "mvn.cmd -B -o -f <TEMP_RUN>/<app>/pom.xml test-compile",
+    "cleanCopy": true,
+    "exitCode": 0,
+    "stderrBytes": 0
+  }
+]

@@ -44,3 +44,7 @@ The final offline suite ran 33 tests (33 PASS, 0 FAIL, 0 skipped; exit 0), inclu
 ## SonarCloud follow-up
 
 After check 129504117186 failed on sort and Git PATH issues, the offline safety/adapter/provenance/cleanup suite passed 34/34 (exit 0), and provenance syntax exited 0. See `evidence/offline-verification-20261110-r10/`. The subsequent SonarCloud check is pending until observed; no CI PASS is claimed.
+
+## Independent clean-copy compilation
+
+On tested source `59df094130eadc9d6634d04b70e3b4906bb55bd0`, fresh offline Maven test-compile in four separate temporary copies exited 0 for all apps; javac actually compiled production/test sources and stderr was empty. Full sanitized logs, exit codes, source hashes, and limitations are in `evidence/offline-compile-20261110-r11/`. The r7 logs remain unchanged and report no recompilation.

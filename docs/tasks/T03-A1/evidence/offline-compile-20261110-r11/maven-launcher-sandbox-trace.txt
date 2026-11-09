@@ -1,0 +1,5 @@
+<WORKTREE>cd ..
+Access is denied.
+<WORKTREE>IF "<WORKTREE>" == "<WORKTREE>" goto baseDirNotFound
+Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5)
+Java version: 21.0.12, vendor: Oracle Corporation, runtime: C:\Program Files\Java\jdk-21.0.12
