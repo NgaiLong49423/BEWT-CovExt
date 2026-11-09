@@ -63,39 +63,46 @@
     "evidence/offline-verification-20261109-r60/runtime-gate-recheck.json",
     "evidence/offline-verification-20261110-r64/",
     "evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
-    "evidence/offline-verification-20261110-r66/"
+    "evidence/offline-verification-20261110-r66/",
+    "evidence/offline-verification-20261110-r67/"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
   "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r66/",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r67/",
   "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",
     "method": "container-netns-default-route-drop-v1",
-    "status": "OFFLINE_VERIFIED_RUNTIME_NOT_RUN",
+    "status": "DISABLED_FAIL_CLOSED_NO_INDEPENDENT_AUTHORIZER",
     "privilegedExecInvoked": false,
-    "privilegedExecApprovalMode": "PER_RUN_INTERACTIVE_OPERATOR_ATTESTATION_EXACT_CONTAINER_COMMAND_SCOPE_ROLLBACK"
+    "privilegedExecApprovalMode": "NO_TRUSTED_TEAM_LEAD_VERIFIER_CONFIGURED"
   },
   "latestContinuation": {
     "dateLocal": "2026-11-10",
-    "sourceHeadBeforeCommit": "6592e115b5213772ee82e41e05893b1d8116e033",
     "branch": "feature/t03b2-claroline-g0",
     "pr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/12",
-    "dockerEngine": "NOT_RECHECKED_BELOW_EXISTING_RAM_GATE",
-    "freeRamGiBSamples": [
+    "dockerEngine": "Last recorded Docker Engine 29.8.0 from r65; not rechecked this round",
+    "latestRecordedFreeRamGiBSamples": [
       3.089,
       3.109,
       3.11
     ],
     "ramGate": "BLOCKED_UNCHANGED_6_GIB",
-    "taskResourceInventory": "NOT_RECHECKED",
-    "offlineEvidence": "evidence/offline-verification-20261110-r66/",
-    "syntaxChecks": "4/4 PASS",
-    "offlineFaultTests": "35/35 PASS",
+    "resourceInventory": "NOT_RECHECKED",
+    "syntaxChecks": "7/7 PASS, all exit 0",
+    "cleanupFaultTests": "36/36 PASS, exit 0",
+    "evidence": "evidence/offline-verification-20261110-r67/",
+    "provenance": "Source/test working tree clean at test; SHA-256 and normalized Git blob IDs match tested HEAD",
     "runtime": "NOT_RUN",
-    "privilegedDockerExec": "NOT_INVOKED",
+    "privilegedDockerExec": "BLOCKED_APPROVAL_REQUIRED_NOT_INVOKED",
+    "independentTeamLeadDecision": "MISSING_AUTHORIZATION_MECHANISM_DESIGN_REQUIRED",
+    "temporalEgressRisk": "Future start-to-route-removal interval requires network-level deny-by-default before runtime",
     "dockerResourcesChanged": false,
-    "statusJsonChanged": false
+    "sharedStatusJsonChanged": false,
+    "reviewRoundStartCommit": "95abeaf0180d4e71552c6688244d461a6294367a",
+    "testedSourceCommit": "2625bc618c1cbaabf7267f9d7594cedd71c0426e",
+    "independentAuthorization": "NOT_CONFIGURED_FAIL_CLOSED_TEAM_LEAD_DESIGN_REQUIRED",
+    "sourceTestHashes": "evidence/offline-verification-20261110-r67/verification-summary.json"
   }
 }

@@ -130,3 +130,13 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
 - Coverage added for exact per-run/per-container one-use interactive approval and refusal/forgery/mismatch cases, `docker port` loopback output, omitted endpoint Gateway with exact NetworkID, wrong NetworkID/Gateway, and fixed IPv4/IPv6 TCP probe arguments.
 - Evidence: `evidence/offline-verification-20261110-r66/`.
 - Docker/runtime behavior, actual external IPv4/IPv6 probes, Selenium, Maven, business test, DB reset, and runtime cleanup: `NOT_RUN`; RAM gate is below 6 GiB. Offline tests do not establish runtime network isolation or port forwarding.
+
+## Independent reviewer correction round 2 — offline verification r67 (2026-11-10)
+
+- Source commit at test time: `2625bc618c1cbaabf7267f9d7594cedd71c0426e`.
+- Source/test worktree dirty: **false**. Seven source/test `.mjs` files were hashed before and after; each normalized working-tree Git blob ID matched `HEAD:<path>`. Raw file SHA-256 values are recorded in `verification-summary.json`.
+- Syntax: seven exact `node --check <path>` commands, **7/7 exit 0**.
+- Cleanup/fault suite: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`, **36/36 pass, 0 fail**, exit 0.
+- Regression cases: independent authorization unavailable/fail-closed (missing, forged, mismatched run/container/command/scope/rollback, expired/replay candidate); no container start before authorization block; host IPv6 unavailable distinct from container endpoint unreachable; TCP timeout, connection refusal/reachability, probe process failure and inconclusive output never count as blocked PASS.
+- Evidence: `evidence/offline-verification-20261110-r67/` contains exact commands, per-command output logs, exit codes, log SHA-256, source/test SHA-256, Git blob IDs, tested HEAD and test counts.
+- Runtime egress probes were not run. Building a probe command is not runtime evidence. Docker diagnostic, full G0, Selenium Base, DB reset and runtime cleanup remain `NOT_RUN` under the unchanged 6 GiB gate and independent authorization blocker.
