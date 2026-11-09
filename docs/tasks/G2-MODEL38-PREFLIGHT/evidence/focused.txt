@@ -1,0 +1,10 @@
+✔ versioned 3.8 preflight prices the source-backed prompt without claiming a billing cap (1.7397ms)
+✔ preflight fails closed for stale pricing, invalid bounds, and insufficient estimated budget (0.5962ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 129.5963
