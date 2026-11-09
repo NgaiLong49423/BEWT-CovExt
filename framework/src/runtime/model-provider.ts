@@ -28,6 +28,25 @@ export function estimateTokenCostUsd(inputTokens: number, outputTokens: number):
   }
   return (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000;
 }
+
+function successfulGeminiTelemetry(input: {
+  model: string;
+  startedAt: number;
+  promptCharacters: number;
+  estimatedMaxCostUsd: number;
+  requestEvidence: NonNullable<ModelTelemetry["requestEvidence"]>;
+  raw?: unknown;
+}): ModelTelemetry {
+  const raw = input.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
+  const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
+  const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
+  const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
+  const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
+  return { provider: "Gemini", model: input.model, calls: 1, attempts: 1, elapsedMs: Date.now() - input.startedAt, status: "PASS",
+    promptCharacters: input.promptCharacters, estimatedMaxCostUsd: input.estimatedMaxCostUsd, requestEvidence: input.requestEvidence,
+    ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
+}
+
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
 export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; repairJava?(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string, validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput>; }
 
@@ -403,13 +422,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const output = parseGeneratedJavaOutput(response.parsed);
       const requiresResetPageObject = candidate.sourceReferences.some((reference) => reference.artifactPath === "experiments/expresscart/source/routes/customer.js");
       validateGeneratedJavaContract(output, expectedClass, requiresResetPageObject ? "CustomerPasswordResetPage" : undefined);
-      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
-      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
-      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
-      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
+      this.lastTelemetry = successfulGeminiTelemetry({ model: this.model, startedAt, promptCharacters, estimatedMaxCostUsd, requestEvidence, raw: response.raw });
       return output;
     } catch (error) {
       const category = classifyModelError(error);
@@ -464,13 +477,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
     try {
       const response = await invokeWithTimeout((signal) => this.modelClient.invoke(prompt, { signal }), this.timeoutMs) as { parsed?: unknown; raw?: unknown };
       const output = parseGenerationOutput(response.parsed);
-      const raw = response.raw as { usage_metadata?: unknown; response_metadata?: { tokenUsage?: unknown } } | undefined;
-      const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
-      const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
-      const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
-      this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
+      this.lastTelemetry = successfulGeminiTelemetry({ model: this.model, startedAt, promptCharacters, estimatedMaxCostUsd, requestEvidence, raw: response.raw });
       return output;
     } catch (error) {
       const category = classifyModelError(error);
