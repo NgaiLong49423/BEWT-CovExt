@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-09",
+  "repository": "claroline/Claroline",
+  "matchingTagRefsQuery": "git/matching-refs/tags/1.11.10",
+  "matchingTagRefs": [],
+  "matchingBranchRefsQuery": "git/matching-refs/heads/1.11",
+  "matchingBranchRefs": [],
+  "historicalCommit": {
+    "sha": "e2d10fbfe2756263d0f0cfe2c72876eb7c6f5d35",
+    "authorDate": "2014-02-18T10:35:49Z",
+    "url": "https://github.com/claroline/Claroline/commit/e2d10fbfe2756263d0f0cfe2c72876eb7c6f5d35",
+    "composerFile": "https://raw.githubusercontent.com/claroline/Claroline/e2d10fbfe2756263d0f0cfe2c72876eb7c6f5d35/composer.json",
+    "composerName": "claroline/core-bundle",
+    "composerType": "claroline-core"
+  },
+  "decision": "NOT_A_FULL_APPLICATION_SOURCE_COMMIT",
+  "reason": "The examined repository snapshot identifies as a Claroline Core Bundle component, not a full Claroline 1.11.10 application source tree; it is not claimed as the runtime source commit.",
+  "limitation": "Empty matching refs and one nearby historical component commit do not prove that no untagged application source commit exists."
+}

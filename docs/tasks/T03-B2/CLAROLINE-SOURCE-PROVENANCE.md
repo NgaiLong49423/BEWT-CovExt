@@ -39,3 +39,7 @@ The official SourceForge directory lists two distinct candidates: the original `
 
 This establishes measured archive-byte hashes for both official candidates; it does not establish which variant is represented by the pinned runtime image. Docker was unavailable for image-content comparison, and neither a Claroline Git commit nor a parser-valid runtime manifest was established. The current `parseApplicationManifest()` contract still requires a verified full Git commit, so the task remains `PROVENANCE_BLOCKED`. No publisher signature or signed checksum is claimed.
 The follow-up GitHub API ref queries returned no entries for `git/matching-refs/tags/1.11.10` or `git/matching-refs/heads/1.11`; exact query metadata is in the r10 evidence. This narrows the available Git-reference evidence but does not prove that no historical commit exists.
+
+## GitHub repository probe — 2026-11-09
+
+GitHub returned no refs for the `1.11.10` tag prefix or `1.11` branch prefix. A nearby commit in the `claroline/Claroline` repository dated 2014-02-18 was inspected; its `composer.json` identifies the package as `claroline/core-bundle` / `claroline-core`, a component rather than a full Claroline 1.11.10 application source tree. That commit is therefore not used as `source.commit`. These results narrow the checked references but do not prove no untagged application commit exists. Evidence: `evidence/offline-verification-20261109-r11/github-source-ref-probe.json`.
