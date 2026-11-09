@@ -1,0 +1,8 @@
+# Child credential control — model-backed workflow outcome
+
+- Source execution HEAD `370bad8cee3a7b78ea134e465b6b20b444355452`; ExpressCart source `b31302f4e99c3293bd742c6d076a721e168118b0` / 1.1.19.
+- A single approved source-backed request to Gemini `gemini-3.1-flash-lite`, no retry, used the credential from the Team Lead's `.env` in the child process only. CLI exit 0. Workflow status `AWAITING_HUMAN_REVIEW`; local status readback exit 0 returned the same checkpoint.
+- Run ID `t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9`; checkpoint ID `246a9076-38f2-4a59-b6c7-e672fe5954ac`; candidate `CAND-2a8b318d-6753-43ab-b6cc-174d50ea3408`, revision 1, `PROPOSED`. No human decision, Java, Selenium or Docker.
+- Telemetry: 1 call, 1 attempt, 1,977 input and 222 output tokens; list-price estimate USD 0.00082725; actual billed cost UNKNOWN. Two additional synthetic controls preceding this workflow used Gemini 3.8 via REST and SDK, both passed, and their billed cost is also unknown. No token accounting from them was persisted.
+- Candidate review issue: the `oracle` field includes a session-message claim beyond the redirect-only browser assertion scope and not established as Selenium-observable; its novelty rationale is not proof of independent novelty. Human reviewer must decide whether to revise or reject; no autonomous decision or Java generation is performed.
+- Raw candidate and sanitized request telemetry are preserved under `docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/`. The SQLite checkpoint remains local ignored state, not committed; portability and cross-machine resume are not established.

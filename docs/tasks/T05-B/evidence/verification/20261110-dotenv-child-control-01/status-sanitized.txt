@@ -1,0 +1,51 @@
+
+> agent:t01c
+> tsx src/t01c-cli.ts status t01c-***
+
+{
+  "threadId": "t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9",
+  "workflow": {
+    "appId": "expresscart",
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "sourceVersion": "1.1.19",
+    "runId": "t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9",
+    "currentRole": "gherkin_generation",
+    "status": "AWAITING_HUMAN_REVIEW",
+    "candidate": {
+      "candidateId": "CAND-2a8b318d-6753-43ab-b6cc-174d50ea3408",
+      "appId": "expresscart",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "revision": 1,
+      "gherkin": "Feature: Password Reset Token Validation\n  Scenario: Attempt to access password reset with an invalid token\n    Given I navigate to the password reset page with an invalid token \"invalid-token-123\"\n    Then I should be redirected to the \"/forgot\" page",
+      "preconditions": [
+        "The application is running",
+        "No customer exists with the reset token 'invalid-token-123'"
+      ],
+      "oracle": [
+        "The browser URL should match the path '/forgot'",
+        "The session should contain a message indicating the token is invalid or expired"
+      ],
+      "noveltyRationale": "The current baseline test suite covers user management, product management, and cart workflows, but lacks coverage for the account recovery flow specifically regarding the validation of password reset tokens. This test addresses the gap where an invalid or expired token must trigger a redirect to the forgot password page, as defined in the source route handler for /customer/reset/:token.",
+      "sourceReferences": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "t01c-source-t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9",
+          "artifactPath": "experiments/expresscart/source/routes/customer.js"
+        }
+      ],
+      "reviewStatus": "PROPOSED"
+    },
+    "reviewDecisions": [],
+    "appliedDecisionIds": [],
+    "checkpoint": {
+      "threadId": "t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9",
+      "checkpointId": "246a9076-38f2-4a59-b6c7-e672fe5954ac",
+      "pausedAt": "2026-11-09T23:38:31.446Z",
+      "resumeStatus": "AWAITING_HUMAN_REVIEW"
+    },
+    "artifacts": [],
+    "repairAttempts": 0
+  }
+}

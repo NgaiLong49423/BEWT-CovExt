@@ -1,6 +1,6 @@
 {
   "taskId": "T05-B",
-  "statusProposedByAgent": "LIVE_GENERATION_FAILED",
+  "statusProposedByAgent": "AWAITING_HUMAN_REVIEW_CANDIDATE_PROPOSED",
   "programStatusFileChanged": false,
   "authorization": {
     "priorOneCallAuthorization": "CONSUMED",
@@ -8,19 +8,20 @@
     "automaticRetries": 0,
     "updatedCredentialAttempt": "APPROVED_ONE_ATTEMPT_CONSUMED"
   },
-  "liveGeminiInvocations": 3,
+  "liveGeminiInvocations": 4,
   "retryCount": 0,
   "providerResult": {
     "provider": "Google Gemini Developer API",
     "model": "gemini-3.1-flash-lite",
-    "httpStatus": 400,
-    "errorCategory": "API_KEY_INVALID"
+    "status": "PASS",
+    "calls": 1,
+    "runId": "t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9"
   },
-  "candidateCount": 0,
-  "candidateStatus": "NOT_CREATED",
+  "candidateCount": 1,
+  "candidateStatus": "PROPOSED",
   "proposedBehaviorScope": "invalid or expired reset token redirects to /forgot; page existence and visible message are not asserted",
   "researchNovelty": "UNVERIFIED",
-  "humanReview": "NOT_REACHED_NO_CHECKPOINT",
+  "humanReview": "AWAITING_HUMAN_REVIEW",
   "javaGenerated": false,
   "seleniumExecuted": false,
   "dockerExecuted": false,
@@ -36,15 +37,15 @@
     "secretValueReadOrDisplayed": "NOT_DISPLAYED; current process value used in memory solely to redact captured output",
     "credentialType": "UNKNOWN_NOT_INSPECTED",
     "historicalInvocationCredentialEqualityToKnownWorkingContext": "UNKNOWN",
-    "rootCauseClassification": "UNDETERMINED",
+    "rootCauseClassification": "CURRENT_PROCESS_DIFFERS_FROM_DESIGNATED_ENV_FILE; CHILD_FILE_CREDENTIAL_WORKFLOW_PASSED",
     "normalizationCorrection": "APPLIED_TO_BOTH_GEMINI_PROVIDERS; HISTORICAL_CAUSALITY_UNPROVEN",
-    "lastRequestOutcome": "HTTP_400_API_KEY_INVALID",
+    "lastRequestOutcome": "PASS_WITH_CHILD_FILE_CREDENTIAL",
     "readyForFreshAuthorizationDecision": false,
     "possibleStandardKeyCutoverCause": "UNCONFIRMED"
   },
   "requiredToProceed": [
-    "Team Lead may privately compare the known-working and BEWT launch contexts and review credential type/project/restrictions; do not replace the key unless that review demonstrates it is needed",
-    "Any future live invocation requires a separate fresh explicit Team Lead D-C1 decision; the consumed approval cannot be reused"
+    "Human reviewer decides current candidate oracle, novelty and revision before Java",
+    "Durable explicit opt-in credential loading requires tests and engineering review; do not modify .env"
   ],
   "offlineRootCauseInvestigation": "docs/tasks/T05-B/evidence/verification/20261110-auth-investigation-01/root-cause-investigation.md",
   "targetedCrossProjectInvestigation": "docs/tasks/T05-B/evidence/verification/20261110-auth-investigation-02/cross-project-auth-investigation.md",
@@ -76,5 +77,17 @@
     "candidateCount": 0,
     "billedCostStatus": "UNKNOWN",
     "evidence": "docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/OUTCOME.md"
+  },
+  "controlledWorkflow": {
+    "candidateId": "CAND-2a8b318d-6753-43ab-b6cc-174d50ea3408",
+    "revision": 1,
+    "checkpointId": "246a9076-38f2-4a59-b6c7-e672fe5954ac",
+    "review": "PENDING",
+    "oracleAndNovelty": "HUMAN_REVIEW_REQUIRED",
+    "inputTokens": 1977,
+    "outputTokens": 222,
+    "estimatedCostUsd": 0.00082725,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/OUTCOME.md"
   }
 }

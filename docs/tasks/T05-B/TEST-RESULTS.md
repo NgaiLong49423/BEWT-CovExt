@@ -179,3 +179,7 @@ PR #15 source HEAD `036e3d4ce6b6bf583e479fb1177ffe9943cdff0a`: offline provider/
 ## Attempt after private credential update
 
 Source HEAD `b9fd984a4d8c94e175e1a96e47c03f3537e00a09`: source/prompt offline preflight passed; one authorized live invocation exited 1 with HTTP 400 `API_KEY_INVALID`. One reservation, one result, zero retries; no candidate, checkpoint, token usage or known billed cost. See `evidence/verification/20261110-credential-updated-01/OUTCOME.md`.
+
+## File-credential controls and checkpoint
+
+Direct REST and SDK controls using the specified file credential on Gemini 3.8 both passed; original T01-C CLI using the same credential in a child process on Gemini 3.1 exited 0 with one call and paused at human review. Local status readback exited 0. Candidate remains PROPOSED and is not validated. The two controls and one workflow call may have incurred cost; billed amounts are unknown. See `evidence/verification/20261110-dotenv-child-control-01/`.

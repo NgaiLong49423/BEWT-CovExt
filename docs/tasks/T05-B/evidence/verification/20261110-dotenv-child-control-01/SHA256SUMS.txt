@@ -1,0 +1,12 @@
+e7b6372bf24605f637371c62faef6966dda2139f0b89c8737ef6f1c0ad1f1711  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/human-review-request.json
+dac451f724b1a40e5a83ab676af4cff54b76d621acee5ba130c324e3e10e8271  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/model-calls/call-01-reserved.json
+1f1458088d3dd383cb99bfe65934333aa6230250f32109d59333fc6f1e6be131  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/model-calls/call-01-result.json
+e0674a728f46fd24a3ec9a312d80224ed20b250bd661aa162500a3c2c903c60a  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/model-generation.json
+d9e0e941a637043e7c667d69c5166cefda772776a86300cdee1baa47da15b5c7  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/model-run-budget.json
+fc1fe29e26f8bff737b920612f25a36638301382f94a159e72e7805310f21d2f  docs/tasks/T01-C/evidence/t01c-ad5f15c2-90ea-4b55-9c67-2bec513640e9/source-coverage-analysis.json
+af10d4acf863d559db688ec9d9f349ca52dfaab742982d98c07d73fe18afe368  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/cli-output-sanitized.txt
+6862633001409d6b925816f5cec84e6108304a3f7b2b9a77aa93bb71710ae934  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/DIAGNOSIS.md
+c836186f1628ba508fe0ac5c392df56d7cae805fca45bd6a8be922bfe7449058  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/execution.json
+94cb65703b4e4851b6bd9220f08b3509dd28e604764d057558e7bf7807aea178  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/OUTCOME.md
+7c3b5294c0ae7c534ba35365369fc852c09c88cd73027daa5baacb3979b01697  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/preflight.md
+48a1ff9b3106cfb740c7a4d2cd73983586a578b369160442c126f2b6e1b7ac0d  docs/tasks/T05-B/evidence/verification/20261110-dotenv-child-control-01/status-sanitized.txt
