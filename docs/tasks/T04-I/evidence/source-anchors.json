@@ -1,0 +1,158 @@
+{
+  "app": "expresscart",
+  "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "tree": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+  "files": [
+    {
+      "path": "routes/customer.js",
+      "gitBlob": "fc57d7a52432da13e0cb819c4eb100e85ec5ee17",
+      "sha256": "463262e25fba2c9f8e156aecf8c6682e6caf0930d29d8e8bb167faac7a522123",
+      "anchors": [
+        {
+          "anchor": "router.post('/customer/update'",
+          "lines": [
+            158
+          ]
+        },
+        {
+          "anchor": "req.session.customerAddress1 = customerObj.address1",
+          "lines": [
+            119,
+            209
+          ]
+        },
+        {
+          "anchor": "router.post('/customer/login_action'",
+          "lines": [
+            442
+          ]
+        },
+        {
+          "anchor": "req.session.customerAddress1 = customer.address1",
+          "lines": [
+            411,
+            471
+          ]
+        }
+      ]
+    },
+    {
+      "path": "routes/order.js",
+      "gitBlob": "2c171c46d0b04cd690ec0b62cc4daddbe101a768",
+      "sha256": "2822408a4c96504f6aa9234e34bbc8de8efcbd007aaecb545d2e50fe942b20ef",
+      "anchors": [
+        {
+          "anchor": "router.get('/admin/order/create', restrict",
+          "lines": [
+            110
+          ]
+        },
+        {
+          "anchor": "router.post('/admin/order/create', async",
+          "lines": [
+            124
+          ]
+        },
+        {
+          "anchor": "orderAddr1: sanitize(req.body.address1 || req.session.customerAddress1)",
+          "lines": [
+            148
+          ]
+        },
+        {
+          "anchor": "sendEmail(req.session.paymentEmailAddr",
+          "lines": [
+            198
+          ]
+        }
+      ]
+    },
+    {
+      "path": "lib/payments/instore.js",
+      "gitBlob": "9527d3549382e63a4ee73f9e6d3925c0faa6bad3",
+      "sha256": "748b27f3d584b7f40e601b5adbbd2a236b1cb663d776e12b1096a732ca638f25",
+      "anchors": [
+        {
+          "anchor": "router.post('/checkout_action'",
+          "lines": [
+            9
+          ]
+        },
+        {
+          "anchor": "orderAddr1: req.session.customerAddress1",
+          "lines": [
+            27
+          ]
+        },
+        {
+          "anchor": "db.orders.insertOne(orderDoc)",
+          "lines": [
+            42
+          ]
+        },
+        {
+          "anchor": "sendEmail(req.session.paymentEmailAddr",
+          "lines": [
+            74
+          ]
+        }
+      ]
+    },
+    {
+      "path": "app.js",
+      "gitBlob": "e7615061e999b49ad4c743382856ca445e319a79",
+      "sha256": "f83962375e49031683ea18fb775ed7505447269d3519bcbfb3ef84f710811f56",
+      "anchors": [
+        {
+          "anchor": "app.use(`/${gateway}`, require(`./lib/payments/${gateway}`))",
+          "lines": [
+            419
+          ]
+        }
+      ]
+    },
+    {
+      "path": "public/javascripts/common.js",
+      "gitBlob": "a2a005607b8c47c8e822d4fa51bdd363e5bff7ff",
+      "sha256": "8de22c8e558fd8206d198e13b37b12b0f3ef5c3baa636b924cfd870c4fc8c103",
+      "anchors": [
+        {
+          "anchor": "$('#checkoutInstore')",
+          "lines": [
+            85
+          ]
+        },
+        {
+          "anchor": "url: '/instore/checkout_action'",
+          "lines": [
+            89
+          ]
+        }
+      ]
+    },
+    {
+      "path": "public/javascripts/expressCart.js",
+      "gitBlob": "66412d3cddc3cead434879d9a071d5e7a1dbeeea",
+      "sha256": "0d858d2b3bba00b52dc2cecb6e24acdd985a0277b2a14b0c40108e93f9c717c5",
+      "anchors": [
+        {
+          "anchor": "$('#customerSave')",
+          "lines": [
+            301
+          ]
+        },
+        {
+          "anchor": "url: '/customer/update'",
+          "lines": [
+            306
+          ]
+        }
+      ]
+    }
+  ],
+  "scope": "Static source anchors only; no behavior, authorization policy, or runtime outcome established",
+  "candidate": "EC-GAP-003",
+  "decision": null,
+  "novelty": "NOT_VERIFIED",
+  "runtime": "NOT_RUN"
+}

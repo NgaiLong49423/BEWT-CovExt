@@ -1,0 +1,1 @@
+PASS: deterministic output, six pinned source files, anchor presence, status boundary, missing-source rejection

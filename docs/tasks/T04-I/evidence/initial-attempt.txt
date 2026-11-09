@@ -1,0 +1,1 @@
+Initial extractor attempt: FAIL, exit 1. It incorrectly required the session-address assignment to be unique in routes/customer.js; that assignment also occurs in other handlers. The extractor was corrected to record all matching lines and the review must interpret handler boundaries. No app runtime was invoked.

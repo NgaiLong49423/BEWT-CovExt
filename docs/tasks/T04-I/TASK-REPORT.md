@@ -1,0 +1,9 @@
+# T04-I — ExpressCart address candidate route and oracle review
+
+- Base `origin/main`: `65c3f6ef92d7e4f4fdf202f65b70ed4198929261`; branch `task/t04i-address-review`; commit and PR identifiers supplied in handoff.
+- Proposed engineering status: READY_FOR_REVIEW. Candidate `EC-GAP-003` version 1 remains PROPOSED; no reviewer decision or acceptance is created.
+- [Review packet](EC-GAP-003-REVIEW.md) compares customer update/session, admin order request fallback and instore checkout, identifies the actor/oracle mismatch and email side effects, and poses bounded reviewer decisions. The candidate file and history are unchanged.
+- Source: ExpressCart `b31302f4e99c3293bd742c6d076a721e168118b0`, immutable tree `d98ab97ab9ea1b007104f485e36098fdd2c16b61`; six source blobs and SHA-256 recorded in `evidence/source-anchors.json`.
+- Actual verification: initial extractor attempt FAIL exit 1 because a session assignment was not unique; retained as `evidence/initial-attempt.txt`. Corrected extractor `python docs/tasks/T04-I/tools/check_ec_address.py <app-git-root>` PASS exit 0; regression `python docs/tasks/T04-I/tools/test_ec_address.py <app-git-root>` PASS exit 0 (six grouped checks; `evidence/test-output.txt` and `test-exit.txt`). Static source analysis only.
+- No Docker, browser, app, Gemini, email, database or cloud action; no cleanup needed for this task. Existing source checkout read via Git blobs only, `bewt-original/` and `STATUS.json` untouched. This task changes no scenario/oracle decision, implementation, denominator or G0–G4 status.
+- Review: independently verify paths, source/handler boundaries and side-effect claims; human reviewers choose an actor/flow and approve any candidate revision before Agent 3 can implement it. Existing T04-F novelty comparisons remain provisional.
