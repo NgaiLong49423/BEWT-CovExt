@@ -1,0 +1,23 @@
+T05-B final offline preflight provenance
+execution_commit=5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9
+execution_tree=3a4bc8a80213f8a775f2ef76ac18f5cdfed455c7
+origin_main=ef8e5597c4ca7359ccd0e1241d079832024048a9
+merge_base=af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb
+node_version=v24.19.0
+npm_version=11.17.0
+git_version=git version 2.55.0.windows.3
+execution_scope=offline local tests and source identity only; no Gemini, credential validation, Docker, Java, or Selenium
+command=framework-build exit=0 log_sha256=cf5a6bd9fae1d45bad906c2ca787025dba8b159327de5ad73b48425a495a0c05 path=docs\tasks\T05-B\evidence\verification\20261110-final-preflight-01\framework-build.txt
+command=provider-unit exit=0 log_sha256=8c1b67d10fd771c2adf6216dbe134af9f54fc13bcf260c931d1880aac4852312 path=docs\tasks\T05-B\evidence\verification\20261110-final-preflight-01\provider-unit.txt
+command=framework-unit exit=0 log_sha256=438edcf85005bd4a43fe90a61c4ebc24dcdd17af287fc30332d868d1e966da0f path=docs\tasks\T05-B\evidence\verification\20261110-final-preflight-01\framework-unit.txt
+command=focused-workflow-integration exit=0 log_sha256=71b93cbf5e4894e214325b525287c3ceb79407993e8b1dc1c1f3ad59fd0323f5 path=docs\tasks\T05-B\evidence\verification\20261110-final-preflight-01\focused-workflow-integration.txt
+command=expresscart-source-identity exit=0 log_sha256=b85a5d6ddf7c4e5eb8264255316ba24636035e2f64b887214d9884911161663c path=docs\tasks\T05-B\evidence\verification\20261110-final-preflight-01\expresscart-source-identity.txt
+source=framework/src/runtime/model-provider.ts git_blob=1e03c71adaf9ae985bc62241e2dfda68d5dda604 worktree_sha256=1a248ecd577ce74de6c98221aee072659d8669eb3f277f3a4ff6810d80ba0441
+source=framework/src/t01c-cli.ts git_blob=04c348d1500e02639011694a5e3afaedf175c9d4 worktree_sha256=9d5a93c09ac912974c24789f6bb94ec1a2817b76b23be03e54807ddb0da52c12
+source=framework/src/runtime/model-call-ledger.ts git_blob=28c9b143ae548ef5c8b30a4e43e7151c58b55153 worktree_sha256=4568663e773e75ef1f41ed0f400ade104ddccf72fd7e61808e3bc7fe10d106a5
+source=framework/src/runtime/workflow.ts git_blob=f929c26dd2751da404ff1f069b3352429ed87a25 worktree_sha256=ff57d29a479ea5c6bdfb38bcdbcfafdba254a826c8573cac6ccc64ee7eaece02
+source=framework/test/model-provider.test.ts git_blob=caca47708b836c87dcea8968a9ddbb101908d38d worktree_sha256=88bc8db8f32acedee3ea8456e2b9ad86450ba9c7b35a74754eb2e4f9034a3b47
+preexisting_out_of_scope_worktree_items=11 modified experiments/expresscart/agent/dist files and 3 untracked docs/tasks/T01-C offline evidence directories; preserved and excluded
+task_source_diff=clean at execution; no tracked framework source or test changes
+
+framework_build_log_capture_note=removed only one trailing blank line from sanitized stdout to satisfy git diff --check; command and exit remain unchanged

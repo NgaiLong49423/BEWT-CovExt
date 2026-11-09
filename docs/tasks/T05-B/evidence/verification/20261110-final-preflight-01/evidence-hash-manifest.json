@@ -1,0 +1,218 @@
+{
+  "executionCommit": "5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9",
+  "latestOriginMain": "ef8e5597c4ca7359ccd0e1241d079832024048a9",
+  "generatedAtUtc": "2026-11-09T22:13:43.4508993Z",
+  "hashBasis": "Raw working-tree SHA-256 plus Git clean-filter blob ID expectation. Manifest excludes itself; final verification output files are generated after this manifest.",
+  "files": [
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/current-main-reconciliation.md",
+      "worktreeSha256": "26ea8b4cc5519b2a9a8247e2c0fc6ef2a8570456dc6eba910a742684cb58866c",
+      "expectedGitBlob": "7ebcbc4ab773949739a0ebbeb464a1727140ac32"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/execution-provenance.txt",
+      "worktreeSha256": "bad5ebeca4a5bbcf2ac161915300c7f11c2452d20cc738ae7cddf92896285e87",
+      "expectedGitBlob": "7481264bd4735523e8b1283463650025594acd8e"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/expresscart-source-identity-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/expresscart-source-identity.txt",
+      "worktreeSha256": "b85a5d6ddf7c4e5eb8264255316ba24636035e2f64b887214d9884911161663c",
+      "expectedGitBlob": "c0c3e591cc34950dab7f529de2726b52a5785bc3"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/focused-workflow-integration-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/focused-workflow-integration.txt",
+      "worktreeSha256": "71b93cbf5e4894e214325b525287c3ceb79407993e8b1dc1c1f3ad59fd0323f5",
+      "expectedGitBlob": "b29bdcc93a56c1324a74c14893b84d3b2c8ad800"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/framework-build-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/framework-build.txt",
+      "worktreeSha256": "cf5a6bd9fae1d45bad906c2ca787025dba8b159327de5ad73b48425a495a0c05",
+      "expectedGitBlob": "ccd2ee666b30194a54116e94ca6e5ca8c2929402"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/framework-unit-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/framework-unit.txt",
+      "worktreeSha256": "438edcf85005bd4a43fe90a61c4ebc24dcdd17af287fc30332d868d1e966da0f",
+      "expectedGitBlob": "ff0801337136829d49075c60b60c01ba95c91448"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gcloud-preflight.txt",
+      "worktreeSha256": "aad98cf8ccf7d52b20e6957338671cffd698d9b092c0be42f0acdc6475853fec",
+      "expectedGitBlob": "4fc37b6f516110a9dd4908b0848d340e3c4d13b2"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-candidate-head-history-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-candidate-head-history-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-candidate-head-history.txt",
+      "worktreeSha256": "84a8e508d8ad01ad40dc0ed94332fcd17a18fcd0f725ca7ded194d0cee5678ef",
+      "expectedGitBlob": "a55e401191ff9c12acbe2c1958793004f9d2bdf1"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-docs-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-docs-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-docs.txt",
+      "worktreeSha256": "90708400cdea1ddafb3b20471f7840d8542bcc233e45216a4cd23e711b894b5a",
+      "expectedGitBlob": "35c496a24b5affb14f1c125b70c63cbcfbca3f8b"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-prepush-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-prepush-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-prepush.txt",
+      "worktreeSha256": "d448f0df9c33af6f2d1d52feffecbabb577127872b9cb543b43d730f4af7bafd",
+      "expectedGitBlob": "85fa92eec4d97f8f476b38358b8fc4dc49003df6"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-verified-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-verified-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-final-verified.txt",
+      "worktreeSha256": "bf1237abfe726406b687fda8d418c16ed3fa8735c516a2d97d8f4ee04b5f6100",
+      "expectedGitBlob": "f9eed950f9342d6e7f62bab779686ac1442a4b60"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-malformed-path-attempt.txt",
+      "worktreeSha256": "5705e04fefa8238dade7c8d129a14565eeeb05c43f8615bcee9a441f46108949",
+      "expectedGitBlob": "d41e425799c6842c03b0d4b0ff74839ca2821cab"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-pr-history-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-pr-history-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-pr-history.txt",
+      "worktreeSha256": "af3d6b070f9623a72d350c5870e0ba170a6b09d99c8e27dec9d8775cbfda317d",
+      "expectedGitBlob": "4b3dc58db78935accdace19fd39a452f0b6d21bf"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-prepush-docs-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-prepush-docs-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-prepush-docs.txt",
+      "worktreeSha256": "2c65d3ce864d59ba9ab950fa8b4267d92d6dec4f0761adfb8a33cadb180e1d0f",
+      "expectedGitBlob": "08c6f6344538ea38b3a993caf21cc8ca05216734"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-provenance.txt",
+      "worktreeSha256": "fcfa2d320ae9e3610d6f1156bc496a0e687bb463338ba90e149719e654073da2",
+      "expectedGitBlob": "6f561cfe6aac54c3c1156c87ffe3c4411acc6c0a"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-task-docs-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-task-docs-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-task-docs.txt",
+      "worktreeSha256": "5749cc48debc065a4fb5ecc540fae372245c2a11029bdee59a07204b2a5d38d5",
+      "expectedGitBlob": "6cac9f72be791add75a900008141e2b075ceb0bf"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-verified-final-docs-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-verified-final-docs-report.json",
+      "worktreeSha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "expectedGitBlob": "fe51488c7066f6687ef680d6bfaa4f7768ef205c"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/gitleaks-verified-final-docs.txt",
+      "worktreeSha256": "9d17ccba9a0b691f04e700a93314dca01f3cea150aa46f10f261e13de5125289",
+      "expectedGitBlob": "4dbc16bcc6733d9576a31e671d917ff756bd7221"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/provider-unit-exit.txt",
+      "worktreeSha256": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "expectedGitBlob": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/provider-unit.txt",
+      "worktreeSha256": "8c1b67d10fd771c2adf6216dbe134af9f54fc13bcf260c931d1880aac4852312",
+      "expectedGitBlob": "1e2726779554cada9e2b7a1a6b84d3d7f45d49b7"
+    },
+    {
+      "path": "docs/tasks/T05-B/evidence/verification/20261110-final-preflight-01/sonarqube-current-head.md",
+      "worktreeSha256": "dc255925590a58ea0d4c782b2e42a02993dfd9504df44b99bad88f98a05b7f3d",
+      "expectedGitBlob": "4e6085eec7ff731c20b79da47a1da51a251c3f6d"
+    },
+    {
+      "path": "docs/tasks/T05-B/TASK-REPORT.md",
+      "worktreeSha256": "87a1e1e0464004fdd6ba234bf4b10aab3777b039e77ae3ec8f0f1bf12be40225",
+      "expectedGitBlob": "d41e8ba3fb4d6f158a1a4e33c81b3d2549b02580"
+    },
+    {
+      "path": "docs/tasks/T05-B/TEST-RESULTS.md",
+      "worktreeSha256": "de176a4e7609bf07e5503fbdce9d1826d0a7fdc660144c5a48100dc44abc50fa",
+      "expectedGitBlob": "54ac34798e4f7c4fd5ebfe1067a8a49e1edf1412"
+    }
+  ]
+}

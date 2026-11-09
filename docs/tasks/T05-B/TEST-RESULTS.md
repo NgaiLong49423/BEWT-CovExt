@@ -75,6 +75,7 @@ Secret scan: official Gitleaks `8.30.1`, release archive checksum verified again
 | correction-05 | Provenance for execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; sanitized logs and earlier Sonar/secret-scan records. | `evidence/verification/20261110-correction-05/` |
 | correction-06 | Exact Git-blob versus local SHA-256 audit; reviewed-HEAD secret scan; current-main/T04-E reconciliation. | `evidence/verification/20261110-correction-06/` |
 | live-01 | D-C1 approval receipt, offline preflight, one authorized live request, native ledger/failure evidence and persisted workflow status. | `evidence/verification/20261110-live-01/` and additive native run directory under `docs/tasks/T01-C/evidence/` |
+| final-preflight-01 | Exact-current-source offline build/tests, current-main/T04-F/G reconciliation, exact-head Sonar check, redacted Gitleaks scans and blocked read-only GCE preflight. | `evidence/verification/20261110-final-preflight-01/` |
 
 ## Independent review correction round 3
 
@@ -144,3 +145,29 @@ Installed BEWT `@langchain/google-genai` 2.3.4 passes the explicit API key uncha
 | `npm.cmd test` | 0 | PASS, 48/48 | `evidence/verification/20261110-auth-investigation-02/framework-unit.txt` and `framework-unit-exit.txt` |
 
 Node `v24.19.0`, npm `11.17.0`. Changed source SHA-256 values and command provenance are in `execution-provenance.txt`. These are offline local results, not provider results or CI. No Gemini request, probe, Docker, Java generation, or Selenium action occurred. The one-call D-C1 remains consumed.
+
+## Final offline verification and PR preflight — 2026-11-10
+
+The following checks were re-executed against exact source execution commit `5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9` (tree `3a4bc8a80213f8a775f2ef76ac18f5cdfed455c7`), before adding this round's evidence-only documentation. Node `v24.19.0`, npm `11.17.0`, Git `2.55.0.windows.3`.
+
+| Command (from `framework/`) | Exit | Result | Immutable sanitized evidence |
+|---|---:|---|---|
+| `npm.cmd run build` | 0 | PASS | `evidence/verification/20261110-final-preflight-01/framework-build.txt` and `framework-build-exit.txt` |
+| `npx.cmd tsx --test test/model-provider.test.ts` | 0 | PASS, 12/12 | `evidence/verification/20261110-final-preflight-01/provider-unit.txt` and `provider-unit-exit.txt` |
+| `npm.cmd test` | 0 | PASS, 48/48 | `evidence/verification/20261110-final-preflight-01/framework-unit.txt` and `framework-unit-exit.txt` |
+| `npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts` | 0 | PASS, 7/7; offline fake provider and real LangGraph checkpoint behavior | `evidence/verification/20261110-final-preflight-01/focused-workflow-integration.txt` and `focused-workflow-integration-exit.txt` |
+| `npx.cmd tsx ../docs/tasks/T05-B/tools/verify-expresscart-source-identity.mts` | 0 | PASS; pinned ExpressCart commit `b31302f4e99c3293bd742c6d076a721e168118b0`, package 1.1.19, 197 files | `evidence/verification/20261110-final-preflight-01/expresscart-source-identity.txt` and `expresscart-source-identity-exit.txt` |
+
+Exact execution provenance, relevant source Git blob IDs/SHA-256 values, per-log SHA-256, and worktree caveat are in `evidence/verification/20261110-final-preflight-01/execution-provenance.txt`. Eleven pre-existing modified files under `experiments/expresscart/agent/dist/**` and three untracked offline T01-C evidence directories were left untouched and excluded. These are local checks, not CI. No live Gemini request, credential probe, Java, Selenium, or Docker was run.
+
+### Current PR quality/security checks
+
+- SonarCloud check run `129441487395` is success / Quality Gate PASS for exact PR HEAD `5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9` (0.0% new-code duplication). It must be rechecked for any later final pushed SHA. Details: `evidence/verification/20261110-final-preflight-01/sonarqube-current-head.md`.
+- Gitleaks 8.30.1, `--redact=100`: complete committed PR history `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb..5d16df06bac66f9f6ecb651f89ad4e3a0ae345e9` (21 commits; exit 0; no leaks), plus final pre-push T05-B working-tree directory scan after report/index/hash-manifest additions (exit 0; no leaks). Logs, empty JSON reports, exits and checksums are under `evidence/verification/20261110-final-preflight-01/`; final docs scan outputs are `gitleaks-prepush-docs.txt`, `gitleaks-prepush-docs-exit.txt`, and `gitleaks-prepush-docs-report.json`.
+- Full framework integration remains NOT_RUN. The `npm test` suite and focused integration above are offline. The prescribed Compute Engine read-only preflight could not run because `gcloud` is unavailable; VM status is NOT_VERIFIED. No Docker command was attempted, and no runtime lease was transferred.
+
+### Current-main and live authorization status
+
+Fetched `origin/main` is `ef8e5597c4ca7359ccd0e1241d079832024048a9`; PR #15 is OPEN/DRAFT/MERGEABLE and GitHub `mergeStateStatus=CLEAN`. The merge base is `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`. The latest T04-F/G/C and PR #18 review-package changes have no overlapping T05-B source/data/schema/task paths. `EC-GAP-002/003/004` remain proposals, not decisions; the T05-B redirect-only proposal remains distinct, with historical `EC-C04` still an unresolved novelty cue. See `evidence/verification/20261110-final-preflight-01/current-main-reconciliation.md`.
+
+The prior single live attempt remains failed with HTTP 400 `API_KEY_INVALID`; its D-C1 was consumed, retry count is zero, candidate count is zero, no human-review checkpoint exists, and billed cost remains unknown. Current retry state is `BLOCKED_AUTHORIZATION`; no additional call is authorized. Historical provider failure is not reclassified as a successful live result.
