@@ -1,0 +1,7 @@
+# Behavioral Baseline Unit Method
+
+Scope: Bludit, Claroline, ExpressCart, Joomla, MantisBT, MediaWiki, PrestaShop at pinned BEWT commit 0501249ff3e9a5ea83a06155cd2971dc36197056; Kanboard is excluded. For each feature preserve Gherkin steps and anchors, map to Java with T04-D, verify pinned blob SHA, and record Java assertions separately. Source text/hash establish provenance, not runtime behavior.
+
+Feature files, Scenario headers, Java suite entries, assertions, and behavioral units differ. Counts: 227 feature files, 204 explicit Scenario headers, 226 feature-to-Java mappings, one feature-only, 228 Java suite entries including two Java-only. The 227 mapped feature records contain 314 Java assertion calls; the two Java-only classes add two more, for 316 assertion-call lines total. These are not unique behavior counts. A unit is a distinct actor/precondition/action/observable/oracle; multiple cases may cover one. Split/merge only with semantic evidence. All records are provisional NEEDS_REVIEW; no denominator is established.
+
+Taxonomy: Normal flow, Negative/validation, Boundary condition, Authorization/role, State/lifecycle, Search/navigation. Keyword labels use pinned Gherkin only; T04-D heuristic tags do not verify behavior. Values are redacted. Runtime image, configuration, fixture/reset, cleanup and Selenium feasibility remain unverified. No official RQ2 denominator or gain is supported.

@@ -1,0 +1,978 @@
+{
+  "schemaVersion": "1.0.0",
+  "task": "T04-G",
+  "reviewOrderPolicy": "Shortlists first in per-app T04-F priority order, then remaining source order; not a global ranking.",
+  "counts": {
+    "candidates": 27,
+    "shortlisted": 20
+  },
+  "records": [
+    {
+      "candidateId": "BL-GAP-001",
+      "application": "bludit",
+      "candidateSummary": "Scheduled pages are promoted on a request after their due time",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-BLUDIT-17-CHANGEPOSTDATETEST"
+      ],
+      "baselineCaseIds": [
+        "bludit-17-changepostdatetest"
+      ],
+      "overlapAndPossibleDelta": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
+      "observable": "A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection.",
+      "fixture": {
+        "proposalFixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
+      "testabilityRisks": [
+        "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
+        "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification."
+      ],
+      "reviewerQuestions": [
+        "BL-017 changes a date; should scheduler promotion at request time remain a distinct observable?",
+        "Should the oracle assert stored status, public visibility, or both?",
+        "Can the fixture control time/cache and separate future-dated drafts?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-002",
+      "application": "bludit",
+      "candidateSummary": "Cover image selection persists and renders for content",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-BLUDIT-01-ADDCONTENTTEST"
+      ],
+      "baselineCaseIds": [
+        "bludit-01-addcontenttest"
+      ],
+      "overlapAndPossibleDelta": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
+      "observable": "Saved content references the selected image and the public page resolves that image in its cover slot.",
+      "fixture": {
+        "proposalFixture": "Select a local cover image while editing content, save, reload and open the public content page.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
+      "testabilityRisks": [
+        "Theme-specific rendering and image cleanup may affect reproducibility.",
+        "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted."
+      ],
+      "reviewerQuestions": [
+        "BL-001 creates content; is cover-image persistence/rendering sufficiently distinct from generic creation?",
+        "Which theme�s cover slot is the required oracle?",
+        "Can a synthetic image be uploaded and cleaned without shared media state?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-003",
+      "application": "bludit",
+      "candidateSummary": "Static status maps to page type and the static-page collection",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-BLUDIT-01-ADDCONTENTTEST",
+        "BU-BLUDIT-02-CHANGEURLTEST",
+        "BU-BLUDIT-04-CHANGEPARENTTEST"
+      ],
+      "baselineCaseIds": [
+        "bludit-01-addcontenttest",
+        "bludit-02-changeurltest",
+        "bludit-04-changeparenttest"
+      ],
+      "overlapAndPossibleDelta": "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification.",
+      "observable": "Setting static status sets type to page; the stored record appears in the static-page collection, while a published post remains in the published collection.",
+      "fixture": {
+        "proposalFixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Compare with a normal post under the same category/route context.",
+      "testabilityRisks": [
+        "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
+        "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification."
+      ],
+      "reviewerQuestions": [
+        "Is the observable sufficiently distinct from the exact baseline assertions?",
+        "Can the fixture and cleanup be isolated in the target deployment?",
+        "Does the human reviewer accept the source-to-oracle inference?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "application": "bludit",
+      "candidateSummary": "Administrator can change a non-admin user's role and retain it",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-BLUDIT-08-ADDUSERTEST",
+        "BU-BLUDIT-09-CHANGEPASSWORDTEST",
+        "BU-BLUDIT-16-DELETEUSERTEST"
+      ],
+      "baselineCaseIds": [
+        "bludit-08-addusertest",
+        "bludit-09-changepasswordtest",
+        "bludit-16-deleteusertest"
+      ],
+      "overlapAndPossibleDelta": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
+      "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route.",
+      "fixture": {
+        "proposalFixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
+      "testabilityRisks": [
+        "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
+        "View exposes role selector only for an Administrator; role persistence and privilege effect need validation."
+      ],
+      "reviewerQuestions": [
+        "BL-008 creates a user; does role editing/effective route access add distinct coverage?",
+        "Should the oracle assert persisted role, effective permissions, or both?",
+        "Which role/account can perform and verify the change safely?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-001",
+      "application": "claroline",
+      "candidateSummary": "Course document upload, move and delete lifecycle",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation.",
+      "observable": "Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.",
+      "fixture": {
+        "proposalFixture": "Upload the file, move it to a different course-folder path, then delete it through the document tool.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Student without edit permission attempts rename/delete; content remains unchanged.",
+      "testabilityRisks": [
+        "Legacy file UI and filesystem cleanup need an isolated course fixture.",
+        "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation."
+      ],
+      "reviewerQuestions": [
+        "CL-04 course creation and CL-07 event creation do not cover documents; should the absent upload/move/delete lifecycle remain a source-search lead?",
+        "Which file metadata, course resource link, and move/delete result does the pinned core actually guarantee, given the incomplete release and image patch provenance gap?",
+        "What course-role permissions, file-type/size config, and isolated storage/cleanup would make this fixture reproducible?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "application": "claroline",
+      "candidateSummary": "Group space is inaccessible to a non-member student",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "INSUFFICIENT_EVIDENCE",
+      "baselineUnitIds": [
+        "BU-CLAROLINE-27-ADDDENIEDCOURSETEST",
+        "BU-CLAROLINE-28-ENROLDENIEDCOURSETEST",
+        "BU-CLAROLINE-30-ENROLPASSWORDCOURSEWRONGPASSWORDUSERTEST"
+      ],
+      "baselineCaseIds": [
+        "claroline-27-adddeniedcoursetest",
+        "claroline-28-enroldeniedcoursetest",
+        "claroline-30-enrolpasswordcoursewrongpasswordusertest"
+      ],
+      "overlapAndPossibleDelta": "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation.",
+      "observable": "Unauthorized group content is not rendered; self-registration changes access only for the configured open group.",
+      "fixture": {
+        "proposalFixture": "As the student, open group B directly, then join only if the interface permits self-registration.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Repeat against the student's assigned group A and verify access succeeds.",
+      "testabilityRisks": [
+        "Group membership fixture and legacy session isolation are required.",
+        "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation."
+      ],
+      "reviewerQuestions": [
+        "Does the cited source actually enforce non-member denial, given the membership block appears commented?",
+        "Which observable is authoritative: HTTP response, UI denial, or protected resource absence?",
+        "Can image patch provenance and test account membership be fixed?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "application": "claroline",
+      "candidateSummary": "Teacher imports an exercise package into a course",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-CLAROLINE-08-ADDCOURSEEXERCISETEST",
+        "BU-CLAROLINE-10-ADDCOURSEEXERCISEQUESTIONSTEST"
+      ],
+      "baselineCaseIds": [
+        "claroline-08-addcourseexercisetest",
+        "claroline-10-addcourseexercisequestionstest"
+      ],
+      "overlapAndPossibleDelta": "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify.",
+      "observable": "Import reports success and the new exercise/questions appear exactly once in the course list.",
+      "fixture": {
+        "proposalFixture": "Use the exercise import command to import the fixture.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Submit a malformed package and verify no partial exercise is created.",
+      "testabilityRisks": [
+        "Requires a valid legacy package fixture and transactional cleanup.",
+        "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify."
+      ],
+      "reviewerQuestions": [
+        "CL-08/10 create exercises/questions manually; which import-specific metadata or state distinguishes this behavior?",
+        "Which imported fields and relationships must the oracle assert?",
+        "Is the package format and import permission stable in the target image?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "application": "claroline",
+      "candidateSummary": "Tracking controls are teacher-only while exercise attempts remain student-facing",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-CLAROLINE-11-DOCOURSEEXERCISEQUESTIONSTEST",
+        "BU-CLAROLINE-12-VIEWPROFILESTATISTICSUSERTEST"
+      ],
+      "baselineCaseIds": [
+        "claroline-11-docourseexercisequestionstest",
+        "claroline-12-viewprofilestatisticsusertest"
+      ],
+      "overlapAndPossibleDelta": "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred.",
+      "observable": "Student receives the attempt outcome; teacher tracking is available only to an editor when tracking is enabled.",
+      "fixture": {
+        "proposalFixture": "Submit the exercise as student, then inspect tracking as teacher and as student.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
+      "testabilityRisks": [
+        "Tracking setting and legacy permission model make the oracle configuration-sensitive.",
+        "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred."
+      ],
+      "reviewerQuestions": [
+        "Is the observable sufficiently distinct from the exact baseline assertions?",
+        "Can the fixture and cleanup be isolated in the target deployment?",
+        "Does the human reviewer accept the source-to-oracle inference?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "EC-GAP-002",
+      "application": "expresscart",
+      "candidateSummary": "Stock tracking rejects a cart quantity above available product or variant stock",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-EXPRESSCART-05-ADDPRODUCTTEST",
+        "BU-EXPRESSCART-07-ADDNEWPRODTOCARTTEST"
+      ],
+      "baselineCaseIds": [
+        "expresscart-05-addproducttest",
+        "expresscart-07-addnewprodtocarttest"
+      ],
+      "overlapAndPossibleDelta": "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted.",
+      "observable": "With stock tracking enabled and tracking not disabled for the item, attempting to set quantity above product/variant stock returns HTTP 400 with an insufficient-stock message and leaves the prior cart quantity unchanged.",
+      "fixture": {
+        "proposalFixture": "Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.",
+      "testabilityRisks": [
+        "The exact rejection path may depend on cart validation outside the inspected product routes.",
+        "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted."
+      ],
+      "reviewerQuestions": [
+        "Baseline cart tests cover ordinary add; under which stock-tracking guard does `/product/updatecart` reject a quantity change?",
+        "Should the oracle assert HTTP 400 and the insufficient-stock response, or also verify cart quantity remains unchanged?",
+        "Which product stock, global stock setting, session/cart state, and reset path control this negative case?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "application": "expresscart",
+      "candidateSummary": "Customer address update persists and is copied from session into order snapshot",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST",
+        "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST"
+      ],
+      "baselineCaseIds": [
+        "expresscart-15-usediscountcodeamounttest",
+        "expresscart-16-usediscountcodepercenttest"
+      ],
+      "overlapAndPossibleDelta": "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN.",
+      "observable": "Customer update writes address fields to the customer record and session; a subsequent order creation request that omits address fields falls back to those session values in the persisted order snapshot.",
+      "fixture": {
+        "proposalFixture": "Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Use a distinct request-body address and verify the order route prefers the request value over the session fallback.",
+      "testabilityRisks": [
+        "Session-cached address may mask persistence unless a new session/relogin is used.",
+        "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN."
+      ],
+      "reviewerQuestions": [
+        "EC-15/16 traverse shipping/payment but assert only discount text; which address persistence/order snapshot fields are absent?",
+        "Should the oracle compare address before checkout and persisted order snapshot after submission?",
+        "Which session/customer fixture and order cleanup/configuration are required?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "EC-GAP-004",
+      "application": "expresscart",
+      "candidateSummary": "Invalid discount date windows are rejected during admin update",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-EXPRESSCART-12-ADDDISCOUNTCODEAMOUNTTEST",
+        "BU-EXPRESSCART-13-ADDDISCOUNTCODEPERCENTTEST",
+        "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST",
+        "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST"
+      ],
+      "baselineCaseIds": [
+        "expresscart-12-adddiscountcodeamounttest",
+        "expresscart-13-adddiscountcodepercenttest",
+        "expresscart-15-usediscountcodeamounttest",
+        "expresscart-16-usediscountcodepercenttest"
+      ],
+      "overlapAndPossibleDelta": "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics.",
+      "observable": "Each invalid update returns the validation error and leaves the stored discount window unchanged.",
+      "fixture": {
+        "proposalFixture": "One unique discount record with a future valid window; no real customer data.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Submit a future start and an end later than start; the update should be accepted.",
+      "testabilityRisks": [
+        "Date parsing and timezone must be controlled; route-level validation can be asserted without relying on redemption behavior.",
+        "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics."
+      ],
+      "reviewerQuestions": [
+        "Is the observable sufficiently distinct from the exact baseline assertions?",
+        "Can the fixture and cleanup be isolated in the target deployment?",
+        "Does the human reviewer accept the source-to-oracle inference?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-001",
+      "application": "joomla",
+      "candidateSummary": "Featured article flag appears and is removed from the featured list",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-JOOMLA-08-ADDNEWARTICLE",
+        "BU-JOOMLA-10-EDITARTICLE",
+        "BU-JOOMLA-21-ARCHIVEARTICLE"
+      ],
+      "baselineCaseIds": [
+        "joomla-08-addnewarticle",
+        "joomla-10-editarticle",
+        "joomla-21-archivearticle"
+      ],
+      "overlapAndPossibleDelta": "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent.",
+      "observable": "Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.",
+      "fixture": {
+        "proposalFixture": "Toggle featured on, reload list, then toggle off.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Use a published but unfeatured article and verify it remains outside the featured list.",
+      "testabilityRisks": [
+        "Feature visibility can depend on front-end menu configuration.",
+        "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent."
+      ],
+      "reviewerQuestions": [
+        "Which mapped article lifecycle case is nearest, and what featured-state visibility is additional?",
+        "Is the expected oracle stored featured flag or frontend placement?",
+        "Which menu/module/configuration controls the visible result?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-002",
+      "application": "joomla",
+      "candidateSummary": "Publish-up and publish-down define the article visibility window",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-JOOMLA-08-ADDNEWARTICLE",
+        "BU-JOOMLA-10-EDITARTICLE",
+        "BU-JOOMLA-21-ARCHIVEARTICLE"
+      ],
+      "baselineCaseIds": [
+        "joomla-08-addnewarticle",
+        "joomla-10-editarticle",
+        "joomla-21-archivearticle"
+      ],
+      "overlapAndPossibleDelta": "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check.",
+      "observable": "Article is hidden before start, visible during the window, and hidden after end.",
+      "fixture": {
+        "proposalFixture": "Set future publish-up and future publish-down, then inspect before, within and after the window.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Keep a normal published article as a control at each observation time.",
+      "testabilityRisks": [
+        "Timezone, cache and server clock can make boundaries flaky.",
+        "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check."
+      ],
+      "reviewerQuestions": [
+        "Which article edits are covered, and are any publication-window boundaries asserted?",
+        "What exact boundary-time result should be judged?",
+        "Can timezone and scheduled publication settings be pinned?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-003",
+      "application": "joomla",
+      "candidateSummary": "Editor without edit-state permission cannot change publication state",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-JOOMLA-10-EDITARTICLE",
+        "BU-JOOMLA-23-ADDGROUP",
+        "BU-JOOMLA-25-ASSIGNUSERTOGROUP"
+      ],
+      "baselineCaseIds": [
+        "joomla-10-editarticle",
+        "joomla-23-addgroup",
+        "joomla-25-assignusertogroup"
+      ],
+      "overlapAndPossibleDelta": "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification.",
+      "observable": "Editor cannot persist state change and receives an authorization outcome; administrator can perform the change.",
+      "fixture": {
+        "proposalFixture": "Attempt to unpublish as editor, then as administrator.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Admin control confirms the test target is otherwise editable.",
+      "testabilityRisks": [
+        "ACL setup and cached sessions need clean users.",
+        "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification."
+      ],
+      "reviewerQuestions": [
+        "Which group/article access paths overlap, and what denied-edit state is distinct?",
+        "Should denial preserve version/content and expose a specific response?",
+        "Which user group/ACL setup is needed?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-004",
+      "application": "joomla",
+      "candidateSummary": "Editing an article increments its version counter",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-JOOMLA-10-EDITARTICLE"
+      ],
+      "baselineCaseIds": [
+        "joomla-10-editarticle"
+      ],
+      "overlapAndPossibleDelta": "Source model increments the article version on save; UI history visibility is a separate uncertainty.",
+      "observable": "Version counter increases once for one successful save and remains unchanged after a rejected save.",
+      "fixture": {
+        "proposalFixture": "Edit and save a single field, then reload version/history information.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Submit an invalid edit and verify version does not increment.",
+      "testabilityRisks": [
+        "Displayed version/history UI may require Joomla content-history configuration.",
+        "Source model increments the article version on save; UI history visibility is a separate uncertainty."
+      ],
+      "reviewerQuestions": [
+        "Which versioning cases are in the pinned baseline and what exact counter transition is absent?",
+        "Should the oracle assert version number, stored revision content, or both?",
+        "Which Joomla versioning/plugin/permission configuration controls this behavior?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-001",
+      "application": "mantisbt",
+      "candidateSummary": "User monitors and stops monitoring an issue for their own account",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded.",
+      "observable": "Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged.",
+      "fixture": {
+        "proposalFixture": "Enable monitoring, reload, disable monitoring, reload.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Second account must not inherit the first user's monitor state.",
+      "testabilityRisks": [
+        "Email notification configuration may obscure the UI oracle.",
+        "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded."
+      ],
+      "reviewerQuestions": [
+        "Issue add/assignment/status cases do not assert per-user monitor state; is an unseen equivalent behavior in the pinned inventory a concern?",
+        "Should the oracle assert monitor row/user association and that unmonitoring leaves other users� state unchanged?",
+        "Which reporter/viewer permissions and two-user fixture isolate account-scoped monitoring?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "application": "mantisbt",
+      "candidateSummary": "Private issue note is hidden from users below the private-note threshold",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
+      "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker.",
+      "fixture": {
+        "proposalFixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Add a public note control; both users should see it.",
+      "testabilityRisks": [
+        "Threshold defaults and permission settings require explicit pinning in fixture.",
+        "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture."
+      ],
+      "reviewerQuestions": [
+        "No baseline case currently asserts private-note visibility; what user-level threshold and note state should the oracle check?",
+        "Which permission threshold and UI/API-visible outcome is authoritative?",
+        "How will reporter/viewer roles and private test data be isolated?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-003",
+      "application": "mantisbt",
+      "candidateSummary": "Issue relationship rejects self-link and duplicate links",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-MANTISBT-33-ADDMULTIPLESUBPROJECTS",
+        "BU-MANTISBT-34-UNLINKMULTIPLESUBPROJECTS",
+        "BU-MANTISBT-35-LINKMULTIPLESUBPROJECTS"
+      ],
+      "baselineCaseIds": [
+        "mantisbt-33-addmultiplesubprojects",
+        "mantisbt-34-unlinkmultiplesubprojects",
+        "mantisbt-35-linkmultiplesubprojects"
+      ],
+      "overlapAndPossibleDelta": "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation.",
+      "observable": "First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows.",
+      "fixture": {
+        "proposalFixture": "Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Try a destination issue the actor cannot view; no relationship details should leak.",
+      "testabilityRisks": [
+        "Relationship type-specific constraints and duplicate handling need separate assertions.",
+        "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation."
+      ],
+      "reviewerQuestions": [
+        "Baseline subproject link/unlink is analogous; what issue-relation semantics are distinct?",
+        "Which persisted relation and reverse view should be asserted?",
+        "What project/issue permissions and cleanup are required?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-004",
+      "application": "mantisbt",
+      "candidateSummary": "Issue attachment upload is persisted and rejects invalid input",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified.",
+      "observable": "The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment.",
+      "fixture": {
+        "proposalFixture": "Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "As a user without update access, attempt upload and verify no attachment is created.",
+      "testabilityRisks": [
+        "Filesystem vs database attachment mode changes storage cleanup.",
+        "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified."
+      ],
+      "reviewerQuestions": [
+        "Issue create/update cases do not assert attachment handling; which invalid input and persisted file metadata are in scope?",
+        "Should the oracle check rejection without a database/file orphan as well as successful download/persistence?",
+        "Which upload size/type configuration, permissions, storage path, and cleanup policy affect the result?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-001",
+      "application": "mediawiki",
+      "candidateSummary": "Moving a page preserves content at the target and optionally creates a redirect",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-MEDIAWIKI-03-CREATEPAGETEST",
+        "BU-MEDIAWIKI-06-EDITPAGETEST",
+        "BU-MEDIAWIKI-21-CREATEREDIRECTTEST",
+        "BU-MEDIAWIKI-22-FOLLOWREDIRECTTEST"
+      ],
+      "baselineCaseIds": [
+        "mediawiki-03-createpagetest",
+        "mediawiki-06-editpagetest",
+        "mediawiki-21-createredirecttest",
+        "mediawiki-22-followredirecttest"
+      ],
+      "overlapAndPossibleDelta": "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation.",
+      "observable": "New title contains prior content; old title resolves as redirect when selected; move history records the operation.",
+      "fixture": {
+        "proposalFixture": "Move page to a new title with reason and redirect; open old and new titles.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Try an invalid occupied target and verify source page remains intact.",
+      "testabilityRisks": [
+        "Move permissions, title normalization and redirect suppression rights affect outcome.",
+        "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation."
+      ],
+      "reviewerQuestions": [
+        "Create/edit/redirect cases are adjacent; what move-specific title/history/redirect behavior is required?",
+        "Which source and destination page states form the oracle?",
+        "How will collisions and user rights be controlled?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-002",
+      "application": "mediawiki",
+      "candidateSummary": "Watch and unwatch state is scoped to the signed-in user",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Source includes a dedicated watch action and watchlist manager; UI labels require review.",
+      "observable": "User A's watchlist gains/removes the page; user B's watchlist remains unchanged.",
+      "fixture": {
+        "proposalFixture": "Watch the page as user A, inspect watchlist, then unwatch and inspect again.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Repeat with user B to verify isolation.",
+      "testabilityRisks": [
+        "Watchlist expiry settings and anonymous account behavior can vary.",
+        "Source includes a dedicated watch action and watchlist manager; UI labels require review."
+      ],
+      "reviewerQuestions": [
+        "Page create/edit cases do not assert watchlist state; should the candidate cover both watch and unwatch transitions for one user?",
+        "Which stored watch state and user-specific watchlist display constitute the expected oracle?",
+        "Which login rights, notification/preferences configuration, and second-user isolation are needed?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-003",
+      "application": "mediawiki",
+      "candidateSummary": "Upload validation rejects a disallowed or oversized file without creating a file page",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
+      "observable": "Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob.",
+      "fixture": {
+        "proposalFixture": "Upload allowed file, then attempt the invalid control file.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
+      "testabilityRisks": [
+        "Upload config, MIME detection and storage backend must be pinned.",
+        "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime."
+      ],
+      "reviewerQuestions": [
+        "Create-page/source-editor cases assert page text, not upload validation; which file types and size limits should distinguish the candidate?",
+        "Should the negative oracle assert no file page, no stored file, or both after rejection?",
+        "Which upload config, namespace permission, MIME detection, and cleanup policy can change the result?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-004",
+      "application": "mediawiki",
+      "candidateSummary": "A new edit creates a retrievable revision distinct from the prior revision",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-MEDIAWIKI-06-EDITPAGETEST",
+        "BU-MEDIAWIKI-16-REVERTLASTCOMMITTEST"
+      ],
+      "baselineCaseIds": [
+        "mediawiki-06-editpagetest",
+        "mediawiki-16-revertlastcommittest"
+      ],
+      "overlapAndPossibleDelta": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
+      "observable": "New revision has a later ID/timestamp and new content; old revision remains retrievable unchanged.",
+      "fixture": {
+        "proposalFixture": "Edit one sentence and open page history or revision API for both revisions.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
+      "testabilityRisks": [
+        "History display/API state and edit tokens need pinned config.",
+        "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification."
+      ],
+      "reviewerQuestions": [
+        "How does the pinned edit/revert behavior overlap, and what additional revision transition is proposed?",
+        "Which revision ID/content should remain current after the operation?",
+        "What user rights, editor mode, and revision history fixture are necessary?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "PS-GAP-001",
+      "application": "prestashop",
+      "candidateSummary": "Cart-rule per-customer usage limit is enforced",
+      "shortlisted": true,
+      "priorityReviewOrder": 1,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified.",
+      "observable": "First redemption is accepted; second is rejected or omitted and the order total reflects no second discount.",
+      "fixture": {
+        "proposalFixture": "Redeem once, reset cart and attempt to redeem again as the same customer.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "A different customer can redeem if global quantity remains available.",
+      "testabilityRisks": [
+        "Order state, cart rule caches and generated customer account need deterministic reset.",
+        "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified."
+      ],
+      "reviewerQuestions": [
+        "Product/address cases do not cover cart-rule redemption limits; is any baseline checkout comparator relevant beyond catalog/address setup?",
+        "Should the oracle check rejected second use, per-customer count, and whether the existing order remains valid?",
+        "Which customer identity, cart rule scope, guest/account settings, shop context, and order cleanup control the limit?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "PS-GAP-002",
+      "application": "prestashop",
+      "candidateSummary": "Carrier eligibility follows configured price/weight range",
+      "shortlisted": true,
+      "priorityReviewOrder": 2,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation.",
+      "observable": "The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies.",
+      "fixture": {
+        "proposalFixture": "Proceed to carrier selection with cart value/weight below, at and above configured ranges.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
+      "testabilityRisks": [
+        "Carrier module/config and tax inclusion influence calculated values.",
+        "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation."
+      ],
+      "reviewerQuestions": [
+        "Address and out-of-stock cases do not assert carrier selection; what exact carrier eligibility behavior is proposed?",
+        "Should the oracle assert eligible/ineligible carriers at both price and weight boundaries?",
+        "Which zone, currency, tax, carrier ranges, cart weight/price, shop and configuration need pinning?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "PS-GAP-003",
+      "application": "prestashop",
+      "candidateSummary": "Successful payment creates one order and applies stock synchronization",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-PRESTASHOP-01-ADDNEWPRODUCT",
+        "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
+      ],
+      "baselineCaseIds": [
+        "prestashop-01-addnewproduct",
+        "prestashop-28-outofstockvalidity"
+      ],
+      "overlapAndPossibleDelta": "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module.",
+      "observable": "Exactly one order/history entry exists and stock quantity changes according to configured stock-dependency mode.",
+      "fixture": {
+        "proposalFixture": "Complete checkout once; reload order confirmation and product stock.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Force payment validation failure and verify no completed order/stock decrement is falsely recorded.",
+      "testabilityRisks": [
+        "Payment module and stock dependency settings must be fixed; avoid real payment provider.",
+        "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module."
+      ],
+      "reviewerQuestions": [
+        "Product/out-of-stock tests are adjacent; which positive order/payment outcome is not covered?",
+        "Which order/payment status proves success?",
+        "Which shop/zone, carrier, stock, and payment configuration must be fixed?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "PS-GAP-004",
+      "application": "prestashop",
+      "candidateSummary": "Available quantity update stays consistent with product/combination stock",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-PRESTASHOP-01-ADDNEWPRODUCT",
+        "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
+      ],
+      "baselineCaseIds": [
+        "prestashop-01-addnewproduct",
+        "prestashop-28-outofstockvalidity"
+      ],
+      "overlapAndPossibleDelta": "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning.",
+      "observable": "Each combination retains its own expected quantity unless stock sharing is enabled; storefront availability follows the configured quantity.",
+      "fixture": {
+        "proposalFixture": "Update available quantity for each combination through admin and reload product availability.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": "Attempt a negative/non-integer quantity and verify validation rejects it.",
+      "testabilityRisks": [
+        "Product-combination and shop stock-sharing settings complicate reset and oracle.",
+        "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning."
+      ],
+      "reviewerQuestions": [
+        "Which stock-management comparator is adjacent, and what combination-level behavior is additional?",
+        "Should the oracle assert per-combination quantity and purchasability?",
+        "Which shop context, combinations, stock policy, and cleanup are needed?"
+      ],
+      "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    }
+  ]
+}

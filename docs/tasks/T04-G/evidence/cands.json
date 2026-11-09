@@ -1,0 +1,2465 @@
+[
+  {
+    "candidateId": "BL-GAP-001",
+    "application": "bludit",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Scheduled pages are promoted on a request after their due time",
+    "actor": "Administrator",
+    "preconditions": "A page with a future publish date; isolated clock-controlled fixture or bounded wait; no existing page with same slug.",
+    "sourceReferenceIds": [
+      "BL-S01",
+      "BL-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
+    "testabilityRisks": [
+      "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
+      "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "BL-017 changes a date; should scheduler promotion at request time remain a distinct observable?",
+      "Should the oracle assert stored status, public visibility, or both?",
+      "Can the fixture control time/cache and separate future-dated drafts?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "bludit-17-changepostdatetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "2.3.4",
+      "sourcePin": {
+        "repository": "bludit/bludit",
+        "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+        "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "BL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Bludit"
+  },
+  {
+    "candidateId": "BL-GAP-002",
+    "application": "bludit",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Cover image selection persists and renders for content",
+    "actor": "Administrator",
+    "preconditions": "Use a small synthetic PNG in the app-managed images area; choose a unique content slug.",
+    "sourceReferenceIds": [
+      "BL-S01",
+      "BL-S03",
+      "BL-S08",
+      "BL-S09"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Saved content references the selected image and the public page resolves that image in its cover slot."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Select a local cover image while editing content, save, reload and open the public content page.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
+    "testabilityRisks": [
+      "Theme-specific rendering and image cleanup may affect reproducibility.",
+      "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "BL-001 creates content; is cover-image persistence/rendering sufficiently distinct from generic creation?",
+      "Which theme�s cover slot is the required oracle?",
+      "Can a synthetic image be uploaded and cleaned without shared media state?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "bludit-01-addcontenttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "2.3.4",
+      "sourcePin": {
+        "repository": "bludit/bludit",
+        "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+        "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "BL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Bludit"
+  },
+  {
+    "candidateId": "BL-GAP-003",
+    "application": "bludit",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Static status maps to page type and the static-page collection",
+    "actor": "Administrator",
+    "preconditions": "Fresh static page and post with unique slugs; public home page is available.",
+    "sourceReferenceIds": [
+      "BL-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Setting static status sets type to page; the stored record appears in the static-page collection, while a published post remains in the published collection."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Compare with a normal post under the same category/route context.",
+    "testabilityRisks": [
+      "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
+      "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Is the observable sufficiently distinct from the exact baseline assertions?",
+      "Can the fixture and cleanup be isolated in the target deployment?",
+      "Does the human reviewer accept the source-to-oracle inference?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "bludit-01-addcontenttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "bludit-02-changeurltest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "bludit-04-changeparenttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "2.3.4",
+      "sourcePin": {
+        "repository": "bludit/bludit",
+        "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+        "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "BL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Bludit"
+  },
+  {
+    "candidateId": "BL-GAP-004",
+    "application": "bludit",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Administrator can change a non-admin user's role and retain it",
+    "actor": "Administrator",
+    "preconditions": "Seed a second non-admin user and record their current role; use synthetic credentials.",
+    "sourceReferenceIds": [
+      "BL-S04",
+      "BL-S06",
+      "BL-S07"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline add/delete user and password cases do not assert role editing or role-specific access.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
+    "testabilityRisks": [
+      "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
+      "View exposes role selector only for an Administrator; role persistence and privilege effect need validation."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "BL-008 creates a user; does role editing/effective route access add distinct coverage?",
+      "Should the oracle assert persisted role, effective permissions, or both?",
+      "Which role/account can perform and verify the change safely?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "bludit-08-addusertest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "bludit-16-deleteusertest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "bludit-09-changepasswordtest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "2.3.4",
+      "sourcePin": {
+        "repository": "bludit/bludit",
+        "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+        "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "BL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "BL-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Bludit"
+  },
+  {
+    "candidateId": "CL-GAP-001",
+    "application": "claroline",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Course document upload, move and delete lifecycle",
+    "actor": "Teacher",
+    "preconditions": "Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.",
+    "sourceReferenceIds": [
+      "CL-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Upload the file, move it to a different course-folder path, then delete it through the document tool.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Student without edit permission attempts rename/delete; content remains unchanged.",
+    "testabilityRisks": [
+      "Legacy file UI and filesystem cleanup need an isolated course fixture.",
+      "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation."
+    ],
+    "sourceLimitations": [
+      "Pinned source only; no runtime/image validation.",
+      "For Claroline, incomplete archived source and unattributed runtime image patch materially limit inference."
+    ],
+    "reviewerQuestions": [
+      "CL-04 course creation and CL-07 event creation do not cover documents; should the absent upload/move/delete lifecycle remain a source-search lead?",
+      "Which file metadata, course resource link, and move/delete result does the pinned core actually guarantee, given the incomplete release and image patch provenance gap?",
+      "What course-role permissions, file-type/size config, and isolated storage/cleanup would make this fixture reproducible?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "claroline-04-addcoursetest",
+      "claroline-07-addcourseeventtest"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.11.10",
+      "sourcePin": {
+        "repository": "zefredz/claroline",
+        "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+        "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+        "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "CL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Claroline"
+  },
+  {
+    "candidateId": "CL-GAP-002",
+    "application": "claroline",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Group space is inaccessible to a non-member student",
+    "actor": "Teacher and student",
+    "preconditions": "Course with two groups and one enrolled student assigned only to group A; group B has private content.",
+    "sourceReferenceIds": [
+      "CL-S03"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "observable": "Unauthorized group content is not rendered; self-registration changes access only for the configured open group."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "As the student, open group B directly, then join only if the interface permits self-registration.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Repeat against the student's assigned group A and verify access succeeds.",
+    "testabilityRisks": [
+      "Group membership fixture and legacy session isolation are required.",
+      "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation."
+    ],
+    "sourceLimitations": [
+      "Pinned source only; no runtime/image validation.",
+      "For Claroline, incomplete archived source and unattributed runtime image patch materially limit inference."
+    ],
+    "reviewerQuestions": [
+      "Does the cited source actually enforce non-member denial, given the membership block appears commented?",
+      "Which observable is authoritative: HTTP response, UI denial, or protected resource absence?",
+      "Can image patch provenance and test account membership be fixed?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "claroline-27-adddeniedcoursetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "claroline-28-enroldeniedcoursetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.11.10",
+      "sourcePin": {
+        "repository": "zefredz/claroline",
+        "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+        "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+        "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "CL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Claroline"
+  },
+  {
+    "candidateId": "CL-GAP-003",
+    "application": "claroline",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Teacher imports an exercise package into a course",
+    "actor": "Teacher",
+    "preconditions": "Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question.",
+    "sourceReferenceIds": [
+      "CL-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline creates exercises and questions manually; it does not cover package import.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Import reports success and the new exercise/questions appear exactly once in the course list."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Use the exercise import command to import the fixture.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Submit a malformed package and verify no partial exercise is created.",
+    "testabilityRisks": [
+      "Requires a valid legacy package fixture and transactional cleanup.",
+      "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify."
+    ],
+    "sourceLimitations": [
+      "Pinned source only; no runtime/image validation.",
+      "For Claroline, incomplete archived source and unattributed runtime image patch materially limit inference."
+    ],
+    "reviewerQuestions": [
+      "CL-08/10 create exercises/questions manually; which import-specific metadata or state distinguishes this behavior?",
+      "Which imported fields and relationships must the oracle assert?",
+      "Is the package format and import permission stable in the target image?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "claroline-08-addcourseexercisetest",
+        "note": "Gherkin performs manual New exercise creation and asserts the success message; Java asserts that message. It does not import a package or assert import fidelity, so it is an adjacent manual-authoring comparator.",
+        "directContentVerification": "PINNED_CONTENT_VERIFIED"
+      },
+      {
+        "caseId": "claroline-10-addcourseexercisequestionstest",
+        "note": "Gherkin creates three question types manually and asserts their displayed type/title; Java has six title/kind assertions. It does not test package import or imported question fidelity.",
+        "directContentVerification": "PINNED_CONTENT_VERIFIED"
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.11.10",
+      "sourcePin": {
+        "repository": "zefredz/claroline",
+        "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+        "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+        "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "CL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Claroline"
+  },
+  {
+    "candidateId": "CL-GAP-004",
+    "application": "claroline",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Tracking controls are teacher-only while exercise attempts remain student-facing",
+    "actor": "Teacher and student",
+    "preconditions": "Tracking enabled; one exercise with a deterministic answer and a separate student account.",
+    "sourceReferenceIds": [
+      "CL-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Student receives the attempt outcome; teacher tracking is available only to an editor when tracking is enabled."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Submit the exercise as student, then inspect tracking as teacher and as student.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
+    "testabilityRisks": [
+      "Tracking setting and legacy permission model make the oracle configuration-sensitive.",
+      "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred."
+    ],
+    "sourceLimitations": [
+      "Pinned source only; no runtime/image validation.",
+      "For Claroline, incomplete archived source and unattributed runtime image patch materially limit inference."
+    ],
+    "reviewerQuestions": [
+      "Is the observable sufficiently distinct from the exact baseline assertions?",
+      "Can the fixture and cleanup be isolated in the target deployment?",
+      "Does the human reviewer accept the source-to-oracle inference?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "claroline-11-docourseexercisequestionstest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "claroline-12-viewprofilestatisticsusertest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.11.10",
+      "sourcePin": {
+        "repository": "zefredz/claroline",
+        "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+        "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+        "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "CL-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Claroline"
+  },
+  {
+    "candidateId": "EC-GAP-002",
+    "application": "expresscart",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Stock tracking rejects a cart quantity above available product or variant stock",
+    "actor": "Customer and administrator",
+    "preconditions": "One product/variant with stock=1 and stock tracking enabled; start with empty cart.",
+    "sourceReferenceIds": [
+      "EC-S02",
+      "EC-S05"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Base AddProduct and AddNewProdToCart exercise creation/cart addition but do not assert stock quantity boundary.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "SOURCE_SUPPORTED",
+      "observable": "With stock tracking enabled and tracking not disabled for the item, attempting to set quantity above product/variant stock returns HTTP 400 with an insufficient-stock message and leaves the prior cart quantity unchanged."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.",
+    "testabilityRisks": [
+      "The exact rejection path may depend on cart validation outside the inspected product routes.",
+      "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Baseline cart tests cover ordinary add; under which stock-tracking guard does `/product/updatecart` reject a quantity change?",
+      "Should the oracle assert HTTP 400 and the insufficient-stock response, or also verify cart quantity remains unchanged?",
+      "Which product stock, global stock setting, session/cart state, and reset path control this negative case?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "expresscart-05-addproducttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "expresscart-07-addnewprodtocarttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.1.19 (BEWT label 1.19)",
+      "sourcePin": {
+        "repository": "mrvautin/expressCart",
+        "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+        "status": "PINNED_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "EC-GAP-002",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "ExpressCart"
+  },
+  {
+    "candidateId": "EC-GAP-003",
+    "application": "expresscart",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Customer address update persists and is copied from session into order snapshot",
+    "actor": "Customer",
+    "preconditions": "Synthetic customer session with customerPresent/customerId, populated cart, and address fields accepted by the customer update schema; omit address fields from order request to exercise session fallback.",
+    "sourceReferenceIds": [
+      "EC-S03",
+      "EC-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Base AddUser is admin user management; it does not cover storefront customer address persistence.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Customer update writes address fields to the customer record and session; a subsequent order creation request that omits address fields falls back to those session values in the persisted order snapshot."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Use a distinct request-body address and verify the order route prefers the request value over the session fallback.",
+    "testabilityRisks": [
+      "Session-cached address may mask persistence unless a new session/relogin is used.",
+      "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "EC-15/16 traverse shipping/payment but assert only discount text; which address persistence/order snapshot fields are absent?",
+      "Should the oracle compare address before checkout and persisted order snapshot after submission?",
+      "Which session/customer fixture and order cleanup/configuration are required?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "expresscart-15-usediscountcodeamounttest",
+        "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies an amount discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+        "directContentVerification": "PINNED_CONTENT_VERIFIED"
+      },
+      {
+        "caseId": "expresscart-16-usediscountcodepercenttest",
+        "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies a percentage discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+        "directContentVerification": "PINNED_CONTENT_VERIFIED"
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.1.19 (BEWT label 1.19)",
+      "sourcePin": {
+        "repository": "mrvautin/expressCart",
+        "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+        "status": "PINNED_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "EC-GAP-002",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "ExpressCart"
+  },
+  {
+    "candidateId": "EC-GAP-004",
+    "application": "expresscart",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Invalid discount date windows are rejected during admin update",
+    "actor": "Shop administrator",
+    "preconditions": "An existing synthetic discount code with known start/end values; controlled timezone and application clock.",
+    "sourceReferenceIds": [
+      "EC-S04"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Base discount cases create/use amount and percent codes and include empty/deleted-code paths, but do not assert invalid date-window validation. Historical EC-C01 tests discount removal, a separate behavior. This is a potential gap only.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Each invalid update returns the validation error and leaves the stored discount window unchanged."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "One unique discount record with a future valid window; no real customer data.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Submit a future start and an end later than start; the update should be accepted.",
+    "testabilityRisks": [
+      "Date parsing and timezone must be controlled; route-level validation can be asserted without relying on redemption behavior.",
+      "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Is the observable sufficiently distinct from the exact baseline assertions?",
+      "Can the fixture and cleanup be isolated in the target deployment?",
+      "Does the human reviewer accept the source-to-oracle inference?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "expresscart-12-adddiscountcodeamounttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "expresscart-13-adddiscountcodepercenttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "expresscart-15-usediscountcodeamounttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "expresscart-16-usediscountcodepercenttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.1.19 (BEWT label 1.19)",
+      "sourcePin": {
+        "repository": "mrvautin/expressCart",
+        "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+        "status": "PINNED_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "EC-GAP-002",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "ExpressCart"
+  },
+  {
+    "candidateId": "JO-GAP-001",
+    "application": "joomla",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Featured article flag appears and is removed from the featured list",
+    "actor": "Administrator",
+    "preconditions": "Unfeatured published article with unique title; featured-list baseline empty for that title.",
+    "sourceReferenceIds": [
+      "JO-S01",
+      "JO-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Toggle featured on, reload list, then toggle off.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Use a published but unfeatured article and verify it remains outside the featured list.",
+    "testabilityRisks": [
+      "Feature visibility can depend on front-end menu configuration.",
+      "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Which mapped article lifecycle case is nearest, and what featured-state visibility is additional?",
+      "Is the expected oracle stored featured flag or frontend placement?",
+      "Which menu/module/configuration controls the visible result?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "joomla-08-addnewarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-10-editarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-21-archivearticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "3.10.11",
+      "sourcePin": {
+        "repository": "joomla/joomla-cms",
+        "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+        "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "JO-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Joomla"
+  },
+  {
+    "candidateId": "JO-GAP-002",
+    "application": "joomla",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Publish-up and publish-down define the article visibility window",
+    "actor": "Administrator and guest",
+    "preconditions": "Published article with start/end timestamps in a controlled timezone; unique alias.",
+    "sourceReferenceIds": [
+      "JO-S03"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Article is hidden before start, visible during the window, and hidden after end."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Set future publish-up and future publish-down, then inspect before, within and after the window.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Keep a normal published article as a control at each observation time.",
+    "testabilityRisks": [
+      "Timezone, cache and server clock can make boundaries flaky.",
+      "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Which article edits are covered, and are any publication-window boundaries asserted?",
+      "What exact boundary-time result should be judged?",
+      "Can timezone and scheduled publication settings be pinned?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "joomla-08-addnewarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-10-editarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-21-archivearticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "3.10.11",
+      "sourcePin": {
+        "repository": "joomla/joomla-cms",
+        "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+        "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "JO-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Joomla"
+  },
+  {
+    "candidateId": "JO-GAP-003",
+    "application": "joomla",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Editor without edit-state permission cannot change publication state",
+    "actor": "Editor and administrator",
+    "preconditions": "Two accounts with same article access but different ACL; article is checked in.",
+    "sourceReferenceIds": [
+      "JO-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Editor cannot persist state change and receives an authorization outcome; administrator can perform the change."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Attempt to unpublish as editor, then as administrator.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Admin control confirms the test target is otherwise editable.",
+    "testabilityRisks": [
+      "ACL setup and cached sessions need clean users.",
+      "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Which group/article access paths overlap, and what denied-edit state is distinct?",
+      "Should denial preserve version/content and expose a specific response?",
+      "Which user group/ACL setup is needed?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "joomla-23-addgroup",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-25-assignusertogroup",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "joomla-10-editarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "3.10.11",
+      "sourcePin": {
+        "repository": "joomla/joomla-cms",
+        "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+        "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "JO-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Joomla"
+  },
+  {
+    "candidateId": "JO-GAP-004",
+    "application": "joomla",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Editing an article increments its version counter",
+    "actor": "Administrator",
+    "preconditions": "Existing article with known version counter and history enabled.",
+    "sourceReferenceIds": [
+      "JO-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Version counter increases once for one successful save and remains unchanged after a rejected save."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Edit and save a single field, then reload version/history information.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Submit an invalid edit and verify version does not increment.",
+    "testabilityRisks": [
+      "Displayed version/history UI may require Joomla content-history configuration.",
+      "Source model increments the article version on save; UI history visibility is a separate uncertainty."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Which versioning cases are in the pinned baseline and what exact counter transition is absent?",
+      "Should the oracle assert version number, stored revision content, or both?",
+      "Which Joomla versioning/plugin/permission configuration controls this behavior?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Source model increments the article version on save; UI history visibility is a separate uncertainty.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "joomla-10-editarticle",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "3.10.11",
+      "sourcePin": {
+        "repository": "joomla/joomla-cms",
+        "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+        "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "JO-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "JO-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "Joomla"
+  },
+  {
+    "candidateId": "MB-GAP-001",
+    "application": "mantisbt",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "User monitors and stops monitoring an issue for their own account",
+    "actor": "Reporter or developer",
+    "preconditions": "Issue in accessible project; user initially not monitoring; separate account available for isolation.",
+    "sourceReferenceIds": [
+      "MB-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Enable monitoring, reload, disable monitoring, reload.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Second account must not inherit the first user's monitor state.",
+    "testabilityRisks": [
+      "Email notification configuration may obscure the UI oracle.",
+      "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Issue add/assignment/status cases do not assert per-user monitor state; is an unseen equivalent behavior in the pinned inventory a concern?",
+      "Should the oracle assert monitor row/user association and that unmonitoring leaves other users� state unchanged?",
+      "Which reporter/viewer permissions and two-user fixture isolate account-scoped monitoring?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "mantisbt-08-addissue",
+      "mantisbt-18-updateissuesummary"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.2.0",
+      "sourcePin": {
+        "repository": "mantisbt/mantisbt",
+        "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+        "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MB-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MantisBT"
+  },
+  {
+    "candidateId": "MB-GAP-002",
+    "application": "mantisbt",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Private issue note is hidden from users below the private-note threshold",
+    "actor": "Reporter and viewer",
+    "preconditions": "Issue accessible to both; note fixture contains a unique synthetic marker; privacy enabled.",
+    "sourceReferenceIds": [
+      "MB-S01",
+      "MB-S05"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Add a public note control; both users should see it.",
+    "testabilityRisks": [
+      "Threshold defaults and permission settings require explicit pinning in fixture.",
+      "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "No baseline case currently asserts private-note visibility; what user-level threshold and note state should the oracle check?",
+      "Which permission threshold and UI/API-visible outcome is authoritative?",
+      "How will reporter/viewer roles and private test data be isolated?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "mantisbt-08-addissue",
+      "mantisbt-18-updateissuesummary"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.2.0",
+      "sourcePin": {
+        "repository": "mantisbt/mantisbt",
+        "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+        "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MB-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MantisBT"
+  },
+  {
+    "candidateId": "MB-GAP-003",
+    "application": "mantisbt",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Issue relationship rejects self-link and duplicate links",
+    "actor": "Developer",
+    "preconditions": "Two accessible issues with no relationship; unique pair in isolated project.",
+    "sourceReferenceIds": [
+      "MB-S03"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Try a destination issue the actor cannot view; no relationship details should leak.",
+    "testabilityRisks": [
+      "Relationship type-specific constraints and duplicate handling need separate assertions.",
+      "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Baseline subproject link/unlink is analogous; what issue-relation semantics are distinct?",
+      "Which persisted relation and reverse view should be asserted?",
+      "What project/issue permissions and cleanup are required?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "mantisbt-33-addmultiplesubprojects",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mantisbt-34-unlinkmultiplesubprojects",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mantisbt-35-linkmultiplesubprojects",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.2.0",
+      "sourcePin": {
+        "repository": "mantisbt/mantisbt",
+        "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+        "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MB-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MantisBT"
+  },
+  {
+    "candidateId": "MB-GAP-004",
+    "application": "mantisbt",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Issue attachment upload is persisted and rejects invalid input",
+    "actor": "Reporter",
+    "preconditions": "Issue in isolated project; small synthetic text attachment with unique filename/content marker.",
+    "sourceReferenceIds": [
+      "MB-S04"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "As a user without update access, attempt upload and verify no attachment is created.",
+    "testabilityRisks": [
+      "Filesystem vs database attachment mode changes storage cleanup.",
+      "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Issue create/update cases do not assert attachment handling; which invalid input and persisted file metadata are in scope?",
+      "Should the oracle check rejection without a database/file orphan as well as successful download/persistence?",
+      "Which upload size/type configuration, permissions, storage path, and cleanup policy affect the result?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "mantisbt-08-addissue",
+      "mantisbt-18-updateissuesummary"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.2.0",
+      "sourcePin": {
+        "repository": "mantisbt/mantisbt",
+        "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+        "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MB-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-003",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MB-GAP-004",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MantisBT"
+  },
+  {
+    "candidateId": "MW-GAP-001",
+    "application": "mediawiki",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Moving a page preserves content at the target and optionally creates a redirect",
+    "actor": "Editor with move permission",
+    "preconditions": "Existing source page with unique text; destination title unused; redirect option enabled.",
+    "sourceReferenceIds": [
+      "MW-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline creates/edits/deletes/redirects pages but does not map to page move.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "New title contains prior content; old title resolves as redirect when selected; move history records the operation."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Move page to a new title with reason and redirect; open old and new titles.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Try an invalid occupied target and verify source page remains intact.",
+    "testabilityRisks": [
+      "Move permissions, title normalization and redirect suppression rights affect outcome.",
+      "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Create/edit/redirect cases are adjacent; what move-specific title/history/redirect behavior is required?",
+      "Which source and destination page states form the oracle?",
+      "How will collisions and user rights be controlled?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "mediawiki-03-createpagetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mediawiki-06-editpagetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mediawiki-21-createredirecttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mediawiki-22-followredirecttest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.40.0",
+      "sourcePin": {
+        "repository": "wikimedia/mediawiki",
+        "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+        "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MW-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MediaWiki"
+  },
+  {
+    "candidateId": "MW-GAP-002",
+    "application": "mediawiki",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Watch and unwatch state is scoped to the signed-in user",
+    "actor": "Registered editor",
+    "preconditions": "Two registered users and one existing page; watchlist initially excludes the page for both.",
+    "sourceReferenceIds": [
+      "MW-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "User A's watchlist gains/removes the page; user B's watchlist remains unchanged."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Watch the page as user A, inspect watchlist, then unwatch and inspect again.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Repeat with user B to verify isolation.",
+    "testabilityRisks": [
+      "Watchlist expiry settings and anonymous account behavior can vary.",
+      "Source includes a dedicated watch action and watchlist manager; UI labels require review."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Page create/edit cases do not assert watchlist state; should the candidate cover both watch and unwatch transitions for one user?",
+      "Which stored watch state and user-specific watchlist display constitute the expected oracle?",
+      "Which login rights, notification/preferences configuration, and second-user isolation are needed?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Source includes a dedicated watch action and watchlist manager; UI labels require review.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "mediawiki-03-createpagetest",
+      "mediawiki-06-editpagetest",
+      "mediawiki-08-createpagefromsourcetest"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.40.0",
+      "sourcePin": {
+        "repository": "wikimedia/mediawiki",
+        "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+        "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MW-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MediaWiki"
+  },
+  {
+    "candidateId": "MW-GAP-003",
+    "application": "mediawiki",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Upload validation rejects a disallowed or oversized file without creating a file page",
+    "actor": "Uploader",
+    "preconditions": "Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config.",
+    "sourceReferenceIds": [
+      "MW-S04"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "T04-D baseline has no mapped upload case.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Upload allowed file, then attempt the invalid control file.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
+    "testabilityRisks": [
+      "Upload config, MIME detection and storage backend must be pinned.",
+      "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Create-page/source-editor cases assert page text, not upload validation; which file types and size limits should distinguish the candidate?",
+      "Should the negative oracle assert no file page, no stored file, or both after rejection?",
+      "Which upload config, namespace permission, MIME detection, and cleanup policy can change the result?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "mediawiki-03-createpagetest",
+      "mediawiki-06-editpagetest",
+      "mediawiki-08-createpagefromsourcetest"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.40.0",
+      "sourcePin": {
+        "repository": "wikimedia/mediawiki",
+        "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+        "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MW-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MediaWiki"
+  },
+  {
+    "candidateId": "MW-GAP-004",
+    "application": "mediawiki",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "A new edit creates a retrievable revision distinct from the prior revision",
+    "actor": "Editor",
+    "preconditions": "Existing page with stable baseline text and known revision ID.",
+    "sourceReferenceIds": [
+      "MW-S03",
+      "MW-S05"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "New revision has a later ID/timestamp and new content; old revision remains retrievable unchanged."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Edit one sentence and open page history or revision API for both revisions.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
+    "testabilityRisks": [
+      "History display/API state and edit tokens need pinned config.",
+      "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "How does the pinned edit/revert behavior overlap, and what additional revision transition is proposed?",
+      "Which revision ID/content should remain current after the operation?",
+      "What user rights, editor mode, and revision history fixture are necessary?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "mediawiki-06-editpagetest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "mediawiki-16-revertlastcommittest",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.40.0",
+      "sourcePin": {
+        "repository": "wikimedia/mediawiki",
+        "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+        "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "MW-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "MW-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "MediaWiki"
+  },
+  {
+    "candidateId": "PS-GAP-001",
+    "application": "prestashop",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 1,
+    "candidateSummary": "Cart-rule per-customer usage limit is enforced",
+    "actor": "Customer and shop administrator",
+    "preconditions": "Cart rule with quantity_per_user=1; customer account; eligible cart; rule unused by that customer.",
+    "sourceReferenceIds": [
+      "PS-S01"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline adds/edits products, customers and address data but has no mapped cart-rule redemption case.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "First redemption is accepted; second is rejected or omitted and the order total reflects no second discount."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Redeem once, reset cart and attempt to redeem again as the same customer.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "A different customer can redeem if global quantity remains available.",
+    "testabilityRisks": [
+      "Order state, cart rule caches and generated customer account need deterministic reset.",
+      "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Product/address cases do not cover cart-rule redemption limits; is any baseline checkout comparator relevant beyond catalog/address setup?",
+      "Should the oracle check rejected second use, per-customer count, and whether the existing order remains valid?",
+      "Which customer identity, cart rule scope, guest/account settings, shop context, and order cleanup control the limit?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "prestashop-01-addnewproduct",
+      "prestashop-12-addnewaddress",
+      "prestashop-28-outofstockvalidity"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.6.1.23",
+      "sourcePin": {
+        "repository": "PrestaShop/PrestaShop",
+        "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+        "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "PS-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "PrestaShop"
+  },
+  {
+    "candidateId": "PS-GAP-002",
+    "application": "prestashop",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 2,
+    "candidateSummary": "Carrier eligibility follows configured price/weight range",
+    "actor": "Customer and administrator",
+    "preconditions": "Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary.",
+    "sourceReferenceIds": [
+      "PS-S02"
+    ],
+    "semanticAssessment": {
+      "classification": "INSUFFICIENT_EVIDENCE",
+      "technicalAssessment": "Baseline address/category/product cases do not check shipping carrier selection or range boundaries.",
+      "reasoning": "No relevant baseline case was identified within this enumerated inventory and targeted nearby-case review. This absence is not evidence that the candidate is novel; classification remains INSUFFICIENT_EVIDENCE pending broader/manual reviewer search."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Proceed to carrier selection with cart value/weight below, at and above configured ranges.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
+    "testabilityRisks": [
+      "Carrier module/config and tax inclusion influence calculated values.",
+      "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Address and out-of-stock cases do not assert carrier selection; what exact carrier eligibility behavior is proposed?",
+      "Should the oracle assert eligible/ineligible carriers at both price and weight boundaries?",
+      "Which zone, currency, tax, carrier ranges, cart weight/price, shop and configuration need pinning?"
+    ],
+    "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
+    "technicalRationale": "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [],
+    "nearbyCaseIds": [
+      "prestashop-12-addnewaddress",
+      "prestashop-28-outofstockvalidity"
+    ],
+    "appMeta": {
+      "applicationVersion": "1.6.1.23",
+      "sourcePin": {
+        "repository": "PrestaShop/PrestaShop",
+        "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+        "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "PS-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "PrestaShop"
+  },
+  {
+    "candidateId": "PS-GAP-003",
+    "application": "prestashop",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": true,
+    "priorityReviewOrder": 3,
+    "candidateSummary": "Successful payment creates one order and applies stock synchronization",
+    "actor": "Customer",
+    "preconditions": "One available product, known initial stock, valid address and deterministic test payment module.",
+    "sourceReferenceIds": [
+      "PS-S03"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline out-of-stock validity concerns product state but does not exercise payment-to-order transition or stock delta.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Exactly one order/history entry exists and stock quantity changes according to configured stock-dependency mode."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Complete checkout once; reload order confirmation and product stock.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Force payment validation failure and verify no completed order/stock decrement is falsely recorded.",
+    "testabilityRisks": [
+      "Payment module and stock dependency settings must be fixed; avoid real payment provider.",
+      "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Product/out-of-stock tests are adjacent; which positive order/payment outcome is not covered?",
+      "Which order/payment status proves success?",
+      "Which shop/zone, carrier, stock, and payment configuration must be fixed?"
+    ],
+    "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+    "technicalRationale": "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "prestashop-28-outofstockvalidity",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "prestashop-01-addnewproduct",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.6.1.23",
+      "sourcePin": {
+        "repository": "PrestaShop/PrestaShop",
+        "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+        "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "PS-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "PrestaShop"
+  },
+  {
+    "candidateId": "PS-GAP-004",
+    "application": "prestashop",
+    "version": 1,
+    "originalStatus": "PROPOSED",
+    "shortlisted": false,
+    "priorityReviewOrder": null,
+    "candidateSummary": "Available quantity update stays consistent with product/combination stock",
+    "actor": "Shop administrator",
+    "preconditions": "Product with one default combination and a second combination; initial quantities recorded; stock sharing mode known.",
+    "sourceReferenceIds": [
+      "PS-S04"
+    ],
+    "semanticAssessment": {
+      "classification": "PARTIAL_SEMANTIC_OVERLAP",
+      "technicalAssessment": "Baseline adds products and tests out-of-stock validity but does not compare updates across combinations.",
+      "reasoning": "Candidate oracle is compared with pinned Gherkin and Java assertion references. Related workflow overlap is not treated as equivalence; where source/assertion evidence is missing the assessment remains insufficient."
+    },
+    "oracleAssessment": {
+      "classification": "PARTIALLY_SOURCE_SUPPORTED",
+      "observable": "Each combination retains its own expected quantity unless stock sharing is enabled; storefront availability follows the configured quantity."
+    },
+    "fixtureAssessment": {
+      "proposalFixture": "Update available quantity for each combination through admin and reload product availability.",
+      "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+      "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+    },
+    "negativeControl": "Attempt a negative/non-integer quantity and verify validation rejects it.",
+    "testabilityRisks": [
+      "Product-combination and shop stock-sharing settings complicate reset and oracle.",
+      "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning."
+    ],
+    "sourceLimitations": [
+      "Pinned source review only; no runtime validation."
+    ],
+    "reviewerQuestions": [
+      "Which stock-management comparator is adjacent, and what combination-level behavior is additional?",
+      "Should the oracle assert per-combination quantity and purchasability?",
+      "Which shop context, combinations, stock policy, and cleanup are needed?"
+    ],
+    "suggestedDisposition": "RECOMMEND_REVISION",
+    "technicalRationale": "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning.",
+    "humanDecision": null,
+    "humanDecisionOwner": "Team Lead / human reviewer",
+    "noveltyStatus": "NOT_VERIFIED",
+    "runtimeStatus": "NOT_RUN",
+    "baselineCaseComparisons": [
+      {
+        "caseId": "prestashop-01-addnewproduct",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      },
+      {
+        "caseId": "prestashop-28-outofstockvalidity",
+        "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+        "directContentVerification": null
+      }
+    ],
+    "nearbyCaseIds": [],
+    "appMeta": {
+      "applicationVersion": "1.6.1.23",
+      "sourcePin": {
+        "repository": "PrestaShop/PrestaShop",
+        "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+        "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+        "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+      },
+      "baselinePin": {
+        "repository": "OlianasD/BEWT",
+        "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+        "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+      },
+      "shortlist": [
+        {
+          "candidateId": "PS-GAP-001",
+          "priorityOrder": 1,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-002",
+          "priorityOrder": 2,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        },
+        {
+          "candidateId": "PS-GAP-003",
+          "priorityOrder": 3,
+          "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+        }
+      ]
+    },
+    "displayName": "PrestaShop"
+  }
+]

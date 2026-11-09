@@ -1,0 +1,19 @@
+{
+  "candidateId": null,
+  "candidateVersion": null,
+  "reviewerIdentity": null,
+  "reviewedAt": null,
+  "decision": "PENDING_HUMAN_REVIEW",
+  "dimensionAssessments": {
+    "functionality": null,
+    "novelty": null,
+    "oracle": null,
+    "fixtureAndReset": null,
+    "seleniumFeasibility": null
+  },
+  "evidenceReferences": [],
+  "rationale": null,
+  "conditions": [],
+  "disagreementReference": null,
+  "provenance": null
+}
