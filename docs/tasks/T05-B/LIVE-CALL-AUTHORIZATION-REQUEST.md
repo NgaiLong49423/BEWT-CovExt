@@ -1,6 +1,6 @@
 # T05-B — Gemini Live Call Authorization Request
 
-**Decision required:** Team Lead approval for one new Gemini Gherkin API request. This proposal is not authorization and no request has been made.
+**Current state:** The Team Lead's D-C1 approval for one bounded Gemini Gherkin API request was used. That request failed with HTTP 400 `API_KEY_INVALID`; the authorization is consumed and no further invocation is authorized.
 
 ## Proposed bounded request
 
@@ -56,4 +56,20 @@ Prompt was 7,900 characters; actual prompt SHA-256 `b558e0640e0003de25e136075aab
 
 Any further call requires new explicit Team Lead authorization; do not retry this consumed call.
 
-The source-backed proposal is deliberately limited to asserting the redirect destination `/forgot`; it does not assert that the destination page exists or that a message is visible. Novelty remains unverified. No fresh D-C1 approval is recorded, so the live call remains blocked. Cost approval alone does not establish a reviewer decision on the candidate.
+## Post-failure credential setup review — offline only
+
+- Application configuration: `framework/src/runtime/model-provider.ts` passes `options.apiKey ?? process.env.GEMINI_API_KEY` into `ChatGoogleGenerativeAI`; no `.env` file, credential value, key prefix, fingerprint, or key metadata was inspected. The `GEMINI_API_KEY` process variable was present at the time of this review, but the last authorized request returned `API_KEY_INVALID`.
+- The credential type and account/project status remain unknown. No provider validation probe was performed.
+- Google's [Gemini API key guidance](https://ai.google.dev/gemini-api/docs/api-key) says Gemini API requests from Standard keys will be rejected starting September 2026; new keys created in Google AI Studio are Auth keys by default. Because the failed request occurred after that scheduled cutover, a Standard key is a **possible, unconfirmed cause**. Revocation, a malformed/stale value, project/API configuration, or other key problems are not ruled out by this error.
+- Current credential readiness for a fresh authorization decision: **NOT READY** until the Team Lead privately reviews/configures a current Auth key. No new call is authorized by this status update.
+
+### Safe local replacement steps for the Team Lead
+
+1. Open Google AI Studio's API Keys page and check the key's type locally; do not share the key or a screenshot containing it.
+2. If needed, create a replacement key there. Google's guidance says newly created AI Studio keys are Auth keys by default; confirm the displayed type is Auth.
+3. On Windows, update the user-level `GEMINI_API_KEY` through **System Properties → Advanced → Environment Variables**, using a private local session. Do not put the key in chat, repository files, command-line arguments, shell history, or a committed `.env` file. Restart the terminal/Codex process that launches the agent so it inherits the updated environment.
+4. Do not validate the replacement by making an API request now. Any future request requires a separate fresh, explicit D-C1 approval with its own limits. After an authorized successful use, review usage in Google AI Studio/Cloud billing and revoke obsolete keys as appropriate.
+
+This setup guidance is based on official Google documentation and does not identify the rejected key's type or establish the root cause.
+
+The source-backed proposal is deliberately limited to asserting the redirect destination `/forgot`; it does not assert that the destination page exists or that a message is visible. Novelty remains unverified. The one approved call failed before candidate creation; no candidate review decision exists. Cost approval alone does not establish candidate acceptance.

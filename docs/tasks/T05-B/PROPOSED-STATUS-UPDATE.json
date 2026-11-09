@@ -1,19 +1,47 @@
 {
   "taskId": "T05-B",
-  "statusProposedByAgent": "BLOCKED_AUTHORIZATION",
+  "statusProposedByAgent": "LIVE_GENERATION_FAILED",
   "programStatusFileChanged": false,
-  "liveGeminiInvocations": 0,
+  "authorization": {
+    "decision": "APPROVED_FOR_ONE_INVOCATION",
+    "authorizedInvocationLimit": 1,
+    "consumed": true,
+    "automaticRetries": 0
+  },
+  "liveGeminiInvocations": 1,
+  "retryCount": 0,
+  "providerResult": {
+    "provider": "Google Gemini Developer API",
+    "model": "gemini-3.1-flash-lite",
+    "httpStatus": 400,
+    "errorCategory": "API_KEY_INVALID"
+  },
   "candidateCount": 0,
   "candidateStatus": "NOT_CREATED",
   "proposedBehaviorScope": "invalid or expired reset token redirects to /forgot; page existence and visible message are not asserted",
   "researchNovelty": "UNVERIFIED",
-  "humanReview": "NOT_RUN",
+  "humanReview": "NOT_REACHED_NO_CHECKPOINT",
+  "javaGenerated": false,
+  "seleniumExecuted": false,
+  "dockerExecuted": false,
+  "billedCostUsd": null,
+  "billedCostStatus": "UNKNOWN",
+  "estimatedMaxCostUsd": 0.0109,
+  "credentialConfiguration": {
+    "variableName": "GEMINI_API_KEY",
+    "processEnvironmentPresenceObserved": true,
+    "secretValueReadOrDisplayed": false,
+    "credentialType": "UNKNOWN_NOT_INSPECTED",
+    "lastRequestOutcome": "HTTP_400_API_KEY_INVALID",
+    "readyForFreshAuthorizationDecision": false,
+    "possibleStandardKeyCutoverCause": "UNCONFIRMED"
+  },
   "requiredToProceed": [
-    "Fresh Team Lead D-C1 approval bound to the model, one-call maximum, zero retries, timeout, output limit, cost ceiling, and expiry in LIVE-CALL-AUTHORIZATION-REQUEST.md",
-    "Credential validity confirmed through the approved secret channel without exposing its value"
+    "Team Lead updates the local GEMINI_API_KEY secret to a current Auth key through a private secret channel; do not place it in chat or repository files",
+    "Any future live invocation requires a separate fresh explicit Team Lead D-C1 decision; the consumed approval cannot be reused"
   ],
   "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
   "costTelemetry": "List-price token usage is an estimate, not independently verified billed cost",
-  "dockerRuntime": "NOT_USED_AGENT_1_OWNS_LEASE",
+  "dockerRuntime": "NOT_RUN",
   "historicalT01CResultsReusedAsNew": false
 }
