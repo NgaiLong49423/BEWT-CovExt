@@ -3,8 +3,21 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, routeIsolationApprovalRequest, requestRouteIsolationApproval, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, probeTcpTarget, classifyHostControlProbe, assertDockerPortOutput, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
-import { DOCKER_CLI_PATH, DOCKER_ENV, invokeMaven, readHostFreeMemoryBytes, readHostIpv4Routes } from './child-process-policy.mjs';
+import {
+  APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, APPLICATION_SOURCE_COMMIT, APPLICATION_SOURCE_VERSION,
+  IMAGE_PROVENANCE_CLASSIFICATION, PINNED_IMAGE_PATCH_RECORD, assertOwnedContainer, assertPrivateLogDirectory,
+  assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway,
+  EGRESS_PROBE_TARGETS, buildEgressProbeArgs, probeTcpTarget, classifyHostControlProbe, verifyHostEgressControlsForRun,
+  assertDockerPortOutput, classifyEgressProbe, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD,
+  buildHostBridgeFirewallSpec, hostFirewallApprovalRequest, requestHostFirewallApproval, installHostBridgeFirewallRule,
+  selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource,
+  sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort,
+  assertContainerPortNotPublished, validateRunId,
+} from './claroline-g0.mjs';
+import {
+  DOCKER_CLI_PATH, DOCKER_ENV, invokeMaven, readHostFreeMemoryBytes, readHostIpv4Routes,
+  readHostDefaultUplinkInterface, readHostIpv6DefaultRoutes, readHostIptablesBackend, verifyLinuxBridgeSysfs,
+} from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
 const runnerDir = dirname(fileURLToPath(import.meta.url));
@@ -23,7 +36,23 @@ const evidenceDir = createEvidenceDirectory(resolve(repo, 'docs/tasks/T03-B2/evi
 const names = namesForRun(runId);
 const labels = labelsForRun(runId);
 const labelArgs = Object.entries(labels).flatMap(([key, value]) => ['--label', `${key}=${value}`]);
-const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, networkPolicy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, egressIsolationMethod: ROUTE_ISOLATION_METHOD, containers: [], network: null };
+const record = {
+  runId,
+  benchmarkRepositoryCommit: SOURCE_COMMIT,
+  applicationSourceCommit: APPLICATION_SOURCE_COMMIT,
+  applicationSourceVersion: APPLICATION_SOURCE_VERSION,
+  imageProvenanceClassification: IMAGE_PROVENANCE_CLASSIFICATION,
+  imagePatch: PINNED_IMAGE_PATCH_RECORD,
+  imageDigest: digest(APP_IMAGE_REF),
+  browserImageDigest: digest(BROWSER_IMAGE_REF),
+  imageLabels: {},
+  networkPolicy: HOST_FIREWALL_PUBLISHED_NETWORK_POLICY,
+  egressIsolationMethod: HOST_FIREWALL_ISOLATION_METHOD,
+  containers: [],
+  network: null,
+  uplinkInterface: null,
+  firewallRuleInstalled: false,
+};
 let exitCode = 1;
 
 function dockerCall(args, evidenceName, throwOnError = true) {
@@ -88,22 +117,66 @@ try {
   if (!portProbes.app.available || !portProbes.browser.available || appPort === browserPort) throw new Error('PORT_BIND_CONFLICT: selected loopback ports are unavailable or not distinct before Docker create');
   const safeConfig = config => ({ Entrypoint: config.Entrypoint, Cmd: config.Cmd, WorkingDir: config.WorkingDir, User: config.User, Labels: config.Labels, ExposedPorts: config.ExposedPorts });
   writeOnce(resolve(evidenceDir, 'image-inspect.json'), { app: { Id: appInspect.Id, RepoDigests: appInspect.RepoDigests, Os: appInspect.Os, Architecture: appInspect.Architecture, Created: appInspect.Created, Config: safeConfig(appInspect.Config), RootFS: appInspect.RootFS }, browser: { Id: browserInspect.Id, RepoDigests: browserInspect.RepoDigests, Os: browserInspect.Os, Architecture: browserInspect.Architecture, Created: browserInspect.Created } });
+  const hostUplinkInterface = readHostDefaultUplinkInterface();
+  const hostIpv6DefaultRoutes = readHostIpv6DefaultRoutes();
+  const iptablesBackend = readHostIptablesBackend();
+  record.uplinkInterface = hostUplinkInterface;
   const hostEgressControls = {};
   for (const [family, target] of Object.entries(EGRESS_PROBE_TARGETS)) {
     const result = await probeTcpTarget(target.address, target.port, family);
     hostEgressControls[family] = { target: `${target.address}:${target.port}`, probeClass: classifyHostControlProbe(result, family), status: result.status, errorCode: result.error?.code || null, error: result.error?.message || '' };
   }
-  writeOnce(resolve(evidenceDir, 'host-egress-control.json'), hostEgressControls);
+  writeOnce(resolve(evidenceDir, 'host-egress-control.json'), {
+    ...hostEgressControls,
+    hostDefaultUplinkInterface: hostUplinkInterface,
+    hostIpv6DefaultRoutes,
+  });
   const networkIpam = selectNetworkIpam();
   const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--ipv6=false', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const networkInfo = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
-  assertNetworkPolicy(networkInfo, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
+  assertNetworkPolicy(networkInfo, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY);
   const actualIpam = assertRecordedNetworkIpam(networkInfo, networkIpam);
+  const bridgeSysfs = verifyLinuxBridgeSysfs(record.network.id);
   record.network.subnet = actualIpam.Subnet;
   record.network.gateway = actualIpam.Gateway;
+  record.network.bridgeInterface = bridgeSysfs.bridgeInterface;
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
-  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), { outcome: 'PASS', policy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, egressIsolationMethod: ROUTE_ISOLATION_METHOD, driver: networkInfo.Driver, internal: networkInfo.Internal, ipv6Enabled: networkInfo.EnableIPv6, ipMasquerade: networkInfo.Options?.['com.docker.network.bridge.enable_ip_masquerade'], subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
+  const firewallSpec = buildHostBridgeFirewallSpec(record.network.id, runId, bridgeSysfs.bridgeInterface, hostUplinkInterface);
+  writeOnce(resolve(evidenceDir, 'host-network-firewall-preflight.json'), {
+    outcome: 'PASS',
+    decisionId: 'A1',
+    method: HOST_FIREWALL_ISOLATION_METHOD,
+    runId,
+    networkId: record.network.id,
+    networkName: names.network,
+    bridgeInterface: bridgeSysfs.bridgeInterface,
+    uplinkInterface: hostUplinkInterface,
+    hostIpv6DefaultRoutes,
+    iptablesBackend,
+    firewallSpec: {
+      commentTag: firewallSpec.commentTag,
+      iptablesExecutable: firewallSpec.iptablesExecutable,
+      sudoExecutable: firewallSpec.sudoExecutable,
+      insertArgs: firewallSpec.insertArgs,
+      checkArgs: firewallSpec.checkArgs,
+      deleteArgs: firewallSpec.deleteArgs,
+      listArgs: firewallSpec.listArgs,
+    },
+  });
+  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), {
+    outcome: 'PASS',
+    policy: HOST_FIREWALL_PUBLISHED_NETWORK_POLICY,
+    egressIsolationMethod: HOST_FIREWALL_ISOLATION_METHOD,
+    driver: networkInfo.Driver,
+    internal: networkInfo.Internal,
+    ipv6Enabled: networkInfo.EnableIPv6,
+    ipMasquerade: networkInfo.Options?.['com.docker.network.bridge.enable_ip_masquerade'],
+    subnet: actualIpam.Subnet,
+    gateway: actualIpam.Gateway,
+    bridgeInterface: bridgeSysfs.bridgeInterface,
+    uplinkInterface: hostUplinkInterface,
+  });
   const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1:' + appPort + ':80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, '--entrypoint', '/bin/sh', APP_IMAGE_REF, '-c', 'sleep infinity'], 'app-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1:' + browserPort + ':4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, '--entrypoint', '/bin/sh', BROWSER_IMAGE_REF, '-c', 'sleep infinity'], 'selenium-create.json', false);
@@ -111,15 +184,20 @@ try {
   const appRecord = record.containers.find(item => item.role === 'app');
   const browserRecord = record.containers.find(item => item.role === 'browser');
   if (!appRecord || !browserRecord) throw new Error('RUN_RECORD_INCOMPLETE: expected recorded app and browser container IDs');
-  const routeRequests = {
-    app: routeIsolationApprovalRequest(appRecord.id, 'app', runId),
-    browser: routeIsolationApprovalRequest(browserRecord.id, 'browser', runId),
-  };
-  writeOnce(resolve(evidenceDir, 'app-route-isolation-authorization-request.json'), routeRequests.app);
-  writeOnce(resolve(evidenceDir, 'browser-route-isolation-authorization-request.json'), routeRequests.browser);
-  requestRouteIsolationApproval(routeRequests.app); // Fail closed before either attached container starts.
-  requestRouteIsolationApproval(routeRequests.browser);
-  if (Object.values(hostEgressControls).some(control => control.probeClass !== 'HOST_CONTROL_REACHABLE')) throw new Error(`HOST_EGRESS_CONTROL_INCONCLUSIVE: IPv4/IPv6 controls must both be reachable; ${JSON.stringify(hostEgressControls)}`);
+  verifyHostEgressControlsForRun({
+    ipv4: { classification: hostEgressControls.ipv4?.probeClass },
+    ipv6: { classification: hostEgressControls.ipv6?.probeClass },
+  }, {
+    networkIpv6Enabled: networkInfo.EnableIPv6,
+    hostIpv6DefaultRoutes,
+  });
+  const firewallRequest = hostFirewallApprovalRequest(firewallSpec);
+  writeOnce(resolve(evidenceDir, 'host-firewall-authorization-request.json'), firewallRequest);
+  const verifiedFirewallDecision = requestHostFirewallApproval(firewallSpec); // Fail closed before installing elevated DOCKER-USER rule or starting containers.
+  const firewallInstalled = installHostBridgeFirewallRule(firewallSpec, verifiedFirewallDecision);
+  record.firewallRuleInstalled = true;
+  writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
+  writeOnce(resolve(evidenceDir, 'host-firewall-installation.json'), { outcome: 'PASS', ...firewallInstalled });
   dockerCall(['start', appRecord.id], 'app-start.json');
   dockerCall(['start', browserRecord.id], 'selenium-start.json');
   const appInfo = JSON.parse(docker(['inspect', appRecord.id]))[0];
@@ -137,12 +215,6 @@ try {
   assertDockerPortOutput(dockerPortOutputs.app, '127.0.0.1', appPort);
   assertDockerPortOutput(dockerPortOutputs.browser, '127.0.0.1', browserPort);
   writeOnce(resolve(evidenceDir, 'docker-port-verification.json'), { outcome: 'PASS', app: { containerId: appRecord.id, output: dockerPortOutputs.app }, browser: { containerId: browserRecord.id, output: dockerPortOutputs.browser } });
-  for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
-    const routeRemoval = dockerCall(routeIsolationExecArgs(container.id, undefined, runId), `${role}-route-isolation.json`);
-    const routeOutput = docker(['exec', container.id, '/bin/sh', '-c', 'set -e; ip route show default; ip -6 route show default']);
-    assertNoDefaultRoutes(routeOutput);
-    writeOnce(resolve(evidenceDir, `${role}-route-verification.json`), { outcome: 'PASS', method: ROUTE_ISOLATION_METHOD, routeRemovalExitCode: routeRemoval.status, ipv4AndIpv6DefaultRoutesAbsent: true, routeTableOutput: routeOutput });
-  }
   for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
     for (const family of Object.keys(EGRESS_PROBE_TARGETS)) {
       const target = EGRESS_PROBE_TARGETS[family];
@@ -211,7 +283,7 @@ try {
 } catch (error) {
   writeFileSync(resolve(evidenceDir, 'run-failure.txt'), `${error.name}: ${error.message}\n`, { flag: 'wx' });
 } finally {
-  if (record.egressIsolationMethod === ROUTE_ISOLATION_METHOD) {
+  if (record.egressIsolationMethod === HOST_FIREWALL_ISOLATION_METHOD) {
     for (const item of record.containers) {
       if (!item.startupLogDirectory || !item.startupLogHome) continue;
       const logDirectory = assertPrivateLogDirectory(item.startupLogDirectory, item.startupLogHome);

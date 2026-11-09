@@ -4,7 +4,9 @@ import { fileURLToPath } from 'node:url';
 import {
   APP_IMAGE_REF,
   APP_TEST_CLASS,
+  APPLICATION_SOURCE_COMMIT,
   BROWSER_IMAGE_REF,
+  HOST_FIREWALL_PUBLISHED_NETWORK_POLICY,
   ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY,
   SOURCE_COMMIT,
   parseSurefireXml,
@@ -88,6 +90,9 @@ export function validateEvidenceDirectory(dirPath, { requireManifest = true } = 
     if (runRecord.benchmarkRepositoryCommit !== SOURCE_COMMIT) {
       contradictions.push(`EVIDENCE_CONTRADICTION: benchmarkRepositoryCommit (${runRecord.benchmarkRepositoryCommit}) !== ${SOURCE_COMMIT}`);
     }
+    if (runRecord.applicationSourceCommit !== null && runRecord.applicationSourceCommit !== undefined && runRecord.applicationSourceCommit !== APPLICATION_SOURCE_COMMIT) {
+      contradictions.push(`EVIDENCE_CONTRADICTION: applicationSourceCommit (${runRecord.applicationSourceCommit}) !== ${APPLICATION_SOURCE_COMMIT}`);
+    }
     if (runRecord.imageDigest !== EXPECTED_APP_DIGEST) {
       contradictions.push(`EVIDENCE_CONTRADICTION: app imageDigest (${runRecord.imageDigest}) !== ${EXPECTED_APP_DIGEST}`);
     }
@@ -129,7 +134,7 @@ export function validateEvidenceDirectory(dirPath, { requireManifest = true } = 
   // Network policy check
   const networkPolicy = readJsonIfPresent('network-policy-verification.json');
   if (networkPolicy) {
-    if (networkPolicy.policy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (networkPolicy.policy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY || networkPolicy.policy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
       if (networkPolicy.ipv6Enabled !== false || networkPolicy.ipMasquerade !== 'false') {
         contradictions.push('EVIDENCE_CONTRADICTION: network-policy-verification claims PASS without ipv6Enabled=false and ipMasquerade="false"');
       }

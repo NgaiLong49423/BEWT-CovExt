@@ -1,25 +1,49 @@
 import { createConnection, createServer } from 'node:net';
 import { execFileSync } from 'node:child_process';
+import { createPublicKey, verify as verifySignature } from 'node:crypto';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
+import { DOCKER_CLI_PATH, DOCKER_ENV, IPTABLES_CLI_PATH, SUDO_CLI_PATH, runCommand } from './child-process-policy.mjs';
 
 export const APP_IMAGE_REF = 'olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af';
 export const BROWSER_IMAGE_REF = 'selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f';
 export const SOURCE_COMMIT = '0501249ff3e9a5ea83a06155cd2971dc36197056';
 export const SOURCE_VERSION = '1.11.10';
+export const APPLICATION_SOURCE_COMMIT = '22d852f93081bc36b1d08b93f5e0c14b49a573f6';
+export const APPLICATION_SOURCE_VERSION = '1.11.10-bewt-derivative';
+export const IMAGE_PROVENANCE_CLASSIFICATION = 'BEWT_BENCHMARK_DERIVATIVE_PINNED';
+export const PINNED_IMAGE_PATCH_RECORD = Object.freeze({
+  decisionId: 'P1',
+  classification: IMAGE_PROVENANCE_CLASSIFICATION,
+  officialTarballLayerIndex: 8,
+  officialTarballLayerSha256: 'd33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f',
+  officialFileSha256: 'fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1',
+  officialFileBytes: 23010,
+  patchLayerIndex: 13,
+  patchLayerSha256: 'a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a',
+  patchedFilePath: 'var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php',
+  patchedFileSha256: 'c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8',
+  patchedFileBytes: 23040,
+  patchedFunctions: Object.freeze(['create_course_tables', 'fill_Db_course']),
+  patchSummary: 'Comments out course_description and course_properties table creation/seeding in add_course.lib.inc.php (lines 382-389, 557-562)',
+});
 export const APP_TEST_CLASS = 'test.Claroline_AddUserTest';
 export const INTERNAL_NETWORK_POLICY = 'internal-bridge-v1';
 export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerade-v1';
 export const INTERNAL_IPAM_NETWORK_POLICY = 'internal-bridge-explicit-ipam-v1';
 export const ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY = 'published-bridge-default-route-removed-v1';
 export const ROUTE_ISOLATION_METHOD = 'container-netns-default-route-drop-v1';
+export const HOST_FIREWALL_PUBLISHED_NETWORK_POLICY = 'published-bridge-host-firewall-reject-v1';
+export const HOST_FIREWALL_ISOLATION_METHOD = 'linux-docker-user-bridge-reject-v1';
 export const EGRESS_PROBE_TARGETS = Object.freeze({
   ipv4: Object.freeze({ family: 'ipv4', address: '1.1.1.1', port: 443 }),
   ipv6: Object.freeze({ family: 'ipv6', address: '2606:4700:4700::1111', port: 443 }),
 });
 const ROUTE_APPROVAL_SCOPE = 'one privileged exec in this exact container network namespace before services start; no host routing, Docker daemon, or other-container changes';
 const ROUTE_APPROVAL_ROLLBACK = 'if route removal or any probe fails, do not start services; remove only the exact recorded run-owned containers and network; discard the container rather than restoring its route';
+export const HOST_FIREWALL_APPROVAL_SCOPE = 'one DOCKER-USER rule scoped strictly to this run-owned bridge interface (-i br-<id12> ! -o br-<id12>) before any container starts; no container privileged exec, no host default route modification, no impact on sshd/ens3/docker0 or other bridges';
+export const HOST_FIREWALL_APPROVAL_ROLLBACK = 'delete the exact DOCKER-USER rule by full specification and verify zero residual rules for this run tag and bridge interface before removing the run-owned Docker network';
+export const HOST_FIREWALL_MAX_APPROVAL_TTL_MS = 15 * 60 * 1000;
 
 function approvalRequired(message) {
   const error = new Error(`BLOCKED_APPROVAL_REQUIRED: ${message}`);
@@ -103,7 +127,7 @@ export function assertNetworkPolicy(network, policy) {
     }
     return network;
   }
-  if (policy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+  if (policy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY || policy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
     if (network.Internal !== false || network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] !== 'false') {
       throw new Error('network policy mismatch: expected published-port bridge with IP masquerading disabled');
     }
@@ -518,7 +542,21 @@ export function recordCreatedResource({ kind, role, name, imageRef, result, reco
 }
 
 
-export const HOST_FIREWALL_ISOLATION_METHOD = 'linux-docker-user-bridge-reject-v1';
+export function verifyHostEgressControlsForRun(hostEgressControls, { networkIpv6Enabled = false, hostIpv6DefaultRoutes = [] } = {}) {
+  if (hostEgressControls?.ipv4?.classification !== 'HOST_CONTROL_REACHABLE') {
+    throw new Error('host control probe did not reach the external IPv4 target; container egress probe would be inconclusive');
+  }
+  if (hostEgressControls?.ipv6?.classification === 'HOST_CONTROL_REACHABLE') return true;
+  if (
+    hostEgressControls?.ipv6?.classification === 'HOST_IPV6_UNAVAILABLE' &&
+    networkIpv6Enabled === false &&
+    Array.isArray(hostIpv6DefaultRoutes) &&
+    hostIpv6DefaultRoutes.length === 0
+  ) {
+    return true;
+  }
+  throw new Error('host control probe did not reach the external IPv6 target and host IPv6 absence was not verified; container IPv6 egress probe would be inconclusive');
+}
 
 export function deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName = null) {
   if (typeof networkId !== 'string' || !/^[a-f0-9]{64}$/i.test(networkId)) {
@@ -533,9 +571,15 @@ export function deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName = 
   return expected;
 }
 
-export function buildHostBridgeFirewallSpec(networkId, runId, inspectedBridgeName = null) {
+export function buildHostBridgeFirewallSpec(networkId, runId, inspectedBridgeName = null, uplinkInterface = null) {
   const validRunId = validateRunId(runId);
   const bridgeInterface = deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName);
+  const normalizedUplink = uplinkInterface === null || uplinkInterface === undefined || uplinkInterface === ''
+    ? null
+    : String(uplinkInterface).trim();
+  if (normalizedUplink !== null && !/^[a-zA-Z0-9_.:-]{1,15}$/.test(normalizedUplink)) {
+    throw new Error(`HOST_FIREWALL_INVALID_UPLINK: invalid uplink interface '${normalizedUplink}'`);
+  }
   const commentTag = `bewt-t03b2-${validRunId}`;
   const ruleTail = [
     '-i', bridgeInterface,
@@ -547,18 +591,193 @@ export function buildHostBridgeFirewallSpec(networkId, runId, inspectedBridgeNam
     '-j', 'REJECT',
     '--reject-with', 'icmp-net-unreachable',
   ];
+  const insertArgs = Object.freeze(['-w', '5', '-I', 'DOCKER-USER', '1', ...ruleTail]);
+  const checkArgs = Object.freeze(['-w', '5', '-C', 'DOCKER-USER', ...ruleTail]);
+  const deleteArgs = Object.freeze(['-w', '5', '-D', 'DOCKER-USER', ...ruleTail]);
+  const listArgs = Object.freeze(['-w', '5', '-S', 'DOCKER-USER']);
+  const iptablesExecutable = IPTABLES_CLI_PATH || '/usr/sbin/iptables';
+  const sudoExecutable = SUDO_CLI_PATH || '/usr/bin/sudo';
   return Object.freeze({
     method: HOST_FIREWALL_ISOLATION_METHOD,
     runId: validRunId,
     networkId: networkId.toLowerCase(),
     bridgeInterface,
+    uplinkInterface: normalizedUplink,
     commentTag,
-    iptablesExecutable: '/usr/sbin/iptables',
-    insertArgs: Object.freeze(['-w', '5', '-I', 'DOCKER-USER', '1', ...ruleTail]),
-    checkArgs: Object.freeze(['-w', '5', '-C', 'DOCKER-USER', ...ruleTail]),
-    deleteArgs: Object.freeze(['-w', '5', '-D', 'DOCKER-USER', ...ruleTail]),
-    listArgs: Object.freeze(['-w', '5', '-S', 'DOCKER-USER']),
+    iptablesExecutable,
+    sudoExecutable,
+    insertArgs,
+    checkArgs,
+    deleteArgs,
+    listArgs,
+    sudoInsertArgs: Object.freeze(['-n', iptablesExecutable, ...insertArgs]),
+    sudoCheckArgs: Object.freeze(['-n', iptablesExecutable, ...checkArgs]),
+    sudoDeleteArgs: Object.freeze(['-n', iptablesExecutable, ...deleteArgs]),
+    sudoListArgs: Object.freeze(['-n', iptablesExecutable, ...listArgs]),
   });
+}
+
+export function hostFirewallApprovalRequest(spec) {
+  if (!spec || spec.method !== HOST_FIREWALL_ISOLATION_METHOD) {
+    throw approvalRequired('a valid host bridge firewall specification is required');
+  }
+  try { validateRunId(spec.runId); } catch { throw approvalRequired('a valid unique T03-B2 run ID is required'); }
+  if (typeof spec.networkId !== 'string' || !/^[a-f0-9]{64}$/.test(spec.networkId)) {
+    throw approvalRequired('a full 64-hex recorded Docker network ID is required');
+  }
+  if (typeof spec.bridgeInterface !== 'string' || spec.bridgeInterface !== `br-${spec.networkId.slice(0, 12)}`) {
+    throw approvalRequired('bridgeInterface must match br-<first12(networkId)>');
+  }
+  if (typeof spec.uplinkInterface !== 'string' || !/^[a-zA-Z0-9_.:-]{1,15}$/.test(spec.uplinkInterface)) {
+    throw approvalRequired('verified host default uplinkInterface is required');
+  }
+  const canonicalSpec = buildHostBridgeFirewallSpec(spec.networkId, spec.runId, spec.bridgeInterface, spec.uplinkInterface);
+  return Object.freeze({
+    decisionId: 'A1',
+    method: canonicalSpec.method,
+    runId: canonicalSpec.runId,
+    networkName: namesForRun(canonicalSpec.runId).network,
+    networkId: canonicalSpec.networkId,
+    bridgeInterface: canonicalSpec.bridgeInterface,
+    uplinkInterface: canonicalSpec.uplinkInterface,
+    commentTag: canonicalSpec.commentTag,
+    insertCommand: `${canonicalSpec.sudoExecutable} ${canonicalSpec.sudoInsertArgs.join(' ')}`,
+    checkCommand: `${canonicalSpec.sudoExecutable} ${canonicalSpec.sudoCheckArgs.join(' ')}`,
+    deleteCommand: `${canonicalSpec.sudoExecutable} ${canonicalSpec.sudoDeleteArgs.join(' ')}`,
+    maxExecutions: 1,
+    scope: HOST_FIREWALL_APPROVAL_SCOPE,
+    rollback: HOST_FIREWALL_APPROVAL_ROLLBACK,
+  });
+}
+
+export function canonicalHostFirewallDecisionPayload(payload) {
+  if (!payload || typeof payload !== 'object') {
+    throw approvalRequired('authorization decision payload is missing');
+  }
+  return JSON.stringify({
+    version: 'bewt-host-firewall-approval-v1',
+    decisionId: payload.decisionId,
+    approverId: payload.approverId,
+    approverRole: payload.approverRole,
+    method: payload.method,
+    runId: payload.runId,
+    networkId: payload.networkId,
+    bridgeInterface: payload.bridgeInterface,
+    uplinkInterface: payload.uplinkInterface,
+    commentTag: payload.commentTag,
+    insertCommand: payload.insertCommand,
+    deleteCommand: payload.deleteCommand,
+    maxExecutions: payload.maxExecutions,
+    scope: payload.scope,
+    rollback: payload.rollback,
+    issuedAtUtc: payload.issuedAtUtc,
+    expiresAtUtc: payload.expiresAtUtc,
+    nonce: payload.nonce,
+  });
+}
+
+export function verifyHostFirewallDecision(request, signedDecision, {
+  trustedPublicKeyPem,
+  nowMs = Date.now(),
+  consumedNonces = new Set(),
+} = {}) {
+  const checkedRequest = hostFirewallApprovalRequest(request);
+  if (typeof trustedPublicKeyPem !== 'string' || !trustedPublicKeyPem.includes('BEGIN PUBLIC KEY')) {
+    const error = approvalRequired('no trusted Team Lead Ed25519 public key is configured for independent host-firewall authorization verification');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (!signedDecision || typeof signedDecision !== 'object' || !signedDecision.payload || typeof signedDecision.signatureBase64 !== 'string') {
+    const error = approvalRequired('no cryptographically signed Team Lead host-firewall decision token was provided; prompt text or operator confirmation is not authorization');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  const { payload, signatureBase64 } = signedDecision;
+  if (typeof payload.approverId !== 'string' || payload.approverId.trim().length < 3 || payload.approverRole !== 'Team Lead') {
+    const error = approvalRequired('authorization decision must carry verified Team Lead identity and role');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (
+    payload.decisionId !== 'A1' ||
+    payload.method !== checkedRequest.method ||
+    payload.runId !== checkedRequest.runId ||
+    payload.networkId !== checkedRequest.networkId ||
+    payload.bridgeInterface !== checkedRequest.bridgeInterface ||
+    payload.uplinkInterface !== checkedRequest.uplinkInterface ||
+    payload.commentTag !== checkedRequest.commentTag ||
+    payload.insertCommand !== checkedRequest.insertCommand ||
+    payload.deleteCommand !== checkedRequest.deleteCommand ||
+    payload.maxExecutions !== 1 ||
+    payload.scope !== checkedRequest.scope ||
+    payload.rollback !== checkedRequest.rollback
+  ) {
+    const error = approvalRequired('authorization decision scope, runId, networkId, bridgeInterface, uplinkInterface, or exact command does not match request');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (typeof payload.nonce !== 'string' || !/^[a-f0-9]{32,128}$/i.test(payload.nonce)) {
+    const error = approvalRequired('authorization decision requires a 128-bit+ hex replay-protection nonce');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (!(consumedNonces instanceof Set) || consumedNonces.has(payload.nonce)) {
+    const error = approvalRequired('authorization decision nonce has already been consumed (replay rejected)');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  const issuedMs = Date.parse(payload.issuedAtUtc);
+  const expiresMs = Date.parse(payload.expiresAtUtc);
+  if (!Number.isFinite(issuedMs) || !Number.isFinite(expiresMs) || expiresMs <= issuedMs) {
+    const error = approvalRequired('authorization decision timestamps are missing or invalid');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (expiresMs - issuedMs > HOST_FIREWALL_MAX_APPROVAL_TTL_MS) {
+    const error = approvalRequired('authorization decision validity window exceeds the 15-minute maximum TTL');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  if (nowMs < issuedMs || nowMs > expiresMs) {
+    const error = approvalRequired('authorization decision token is expired or not yet valid');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  let verified = false;
+  try {
+    const publicKey = createPublicKey(trustedPublicKeyPem);
+    if (publicKey.asymmetricKeyType !== 'ed25519') {
+      throw new Error('public key must be Ed25519');
+    }
+    const messageBuffer = Buffer.from(canonicalHostFirewallDecisionPayload(payload), 'utf8');
+    const signatureBuffer = Buffer.from(signatureBase64, 'base64');
+    verified = verifySignature(null, messageBuffer, publicKey, signatureBuffer);
+  } catch {
+    verified = false;
+  }
+  if (!verified) {
+    const error = approvalRequired('Ed25519 cryptographic signature verification failed for host-firewall decision token');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
+  consumedNonces.add(payload.nonce);
+  return Object.freeze({
+    verified: true,
+    approverId: payload.approverId,
+    approverRole: payload.approverRole,
+    runId: checkedRequest.runId,
+    networkId: checkedRequest.networkId,
+    bridgeInterface: checkedRequest.bridgeInterface,
+    uplinkInterface: checkedRequest.uplinkInterface,
+    nonce: payload.nonce,
+    issuedAtUtc: payload.issuedAtUtc,
+    expiresAtUtc: payload.expiresAtUtc,
+  });
+}
+
+export function requestHostFirewallApproval(request, verificationOptions = {}) {
+  const checkedRequest = hostFirewallApprovalRequest(request);
+  return verifyHostFirewallDecision(checkedRequest, verificationOptions.signedDecision, verificationOptions);
 }
 
 export function assertHostBridgeFirewallRuleInstalled(iptablesListOutput, spec) {
@@ -598,4 +817,51 @@ export function assertHostBridgeFirewallRuleRemoved(iptablesListOutput, spec) {
     throw new Error(`HOST_FIREWALL_ROLLBACK_VERIFY_FAILED: ${residual.length} residual DOCKER-USER rule(s) remain for ${spec.bridgeInterface}`);
   }
   return true;
+}
+
+export function installHostBridgeFirewallRule(spec, verifiedDecision, execFn = (file, args) => runCommand(file, args, { env: DOCKER_ENV, timeout: 15000 })) {
+  if (!verifiedDecision || verifiedDecision.verified !== true || verifiedDecision.runId !== spec?.runId || verifiedDecision.networkId !== spec?.networkId || verifiedDecision.bridgeInterface !== spec?.bridgeInterface) {
+    throw approvalRequired('installHostBridgeFirewallRule requires a verified Team Lead decision matching runId, networkId, and bridgeInterface');
+  }
+  const insertResult = execFn(spec.sudoExecutable, spec.sudoInsertArgs);
+  if (insertResult.status !== 0) {
+    throw new Error(`HOST_FIREWALL_INSTALL_FAILED: ${insertResult.stderr || insertResult.stdout || 'sudo iptables -I DOCKER-USER failed'}`);
+  }
+  const checkResult = execFn(spec.sudoExecutable, spec.sudoCheckArgs);
+  if (checkResult.status !== 0) {
+    throw new Error(`HOST_FIREWALL_CHECK_FAILED: ${checkResult.stderr || checkResult.stdout || 'sudo iptables -C DOCKER-USER failed'}`);
+  }
+  const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
+  if (listResult.status !== 0) {
+    throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
+  }
+  const verifiedRule = assertHostBridgeFirewallRuleInstalled(listResult.stdout, spec);
+  return {
+    installed: true,
+    verifiedRule,
+    insertStatus: insertResult.status,
+    checkStatus: checkResult.status,
+    listOutput: listResult.stdout,
+  };
+}
+
+export function removeHostBridgeFirewallRule(spec, execFn = (file, args) => runCommand(file, args, { env: DOCKER_ENV, timeout: 15000 })) {
+  if (!spec || typeof spec.bridgeInterface !== 'string' || typeof spec.commentTag !== 'string') {
+    throw new Error('HOST_FIREWALL_ROLLBACK_VERIFY_FAILED: invalid host bridge firewall specification');
+  }
+  const deleteResult = execFn(spec.sudoExecutable, spec.sudoDeleteArgs);
+  if (deleteResult.status !== 0) {
+    throw new Error(`HOST_FIREWALL_DELETE_FAILED: ${deleteResult.stderr || deleteResult.stdout || 'sudo iptables -D DOCKER-USER failed'}`);
+  }
+  const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
+  if (listResult.status !== 0) {
+    throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
+  }
+  assertHostBridgeFirewallRuleRemoved(listResult.stdout, spec);
+  return {
+    removed: true,
+    deleteStatus: deleteResult.status,
+    listOutput: listResult.stdout,
+    residualFirewallRules: 0,
+  };
 }

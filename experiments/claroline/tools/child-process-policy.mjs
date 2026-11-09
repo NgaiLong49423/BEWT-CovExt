@@ -70,6 +70,54 @@ export function parseLinuxIpv4Routes(routeText) {
   return unique;
 }
 
+export function parseLinuxDefaultUplinkInterface(routeText) {
+  const lines = String(routeText || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  if (!lines.length) {
+    throw new Error('HOST_UPLINK_INTERFACE_UNRESOLVED: missing IPv4 default route output');
+  }
+  const defaultLines = lines.filter(line => /^default\b/.test(line));
+  if (defaultLines.length !== 1) {
+    throw new Error('HOST_UPLINK_INTERFACE_UNRESOLVED: failed to determine single default IPv4 uplink interface');
+  }
+  const tokens = defaultLines[0].split(/\s+/);
+  const devIndex = tokens.indexOf('dev');
+  const iface = devIndex !== -1 ? tokens[devIndex + 1] : '';
+  if (!iface || !/^[a-zA-Z0-9_.-]{1,15}$/.test(iface) || iface === 'lo' || iface.startsWith('br-') || iface === 'docker0') {
+    throw new Error(`HOST_UPLINK_INTERFACE_UNRESOLVED: invalid or bridge default interface '${iface || 'missing'}'`);
+  }
+  return iface;
+}
+
+export function verifyLinuxBridgeSysfs(networkId, sysfsNetRoot = '/sys/class/net') {
+  if (typeof networkId !== 'string' || !/^[a-f0-9]{64}$/i.test(networkId)) {
+    throw new Error('HOST_FIREWALL_BRIDGE_MISSING: full 64-hex Docker network ID is required');
+  }
+  const bridgeInterface = `br-${networkId.slice(0, 12).toLowerCase()}`;
+  const ifaceDir = join(sysfsNetRoot, bridgeInterface);
+  if (!existsSync(ifaceDir)) {
+    throw new Error(`HOST_FIREWALL_BRIDGE_MISSING: interface directory not found at ${ifaceDir}`);
+  }
+  const bridgeSubdir = join(ifaceDir, 'bridge');
+  if (!existsSync(bridgeSubdir)) {
+    throw new Error(`HOST_FIREWALL_BRIDGE_INVALID: ${bridgeInterface} is not a Linux kernel bridge (${bridgeSubdir} missing)`);
+  }
+  return { bridgeInterface, ifaceDir, bridgeSubdir };
+}
+
+export function runCommand(executable, args, options = {}) {
+  const result = spawnSync(executable, args, {
+    encoding: 'utf8',
+    windowsHide: true,
+    ...options,
+  });
+  return {
+    status: result.status,
+    stdout: String(result.stdout || ''),
+    stderr: String(result.stderr || ''),
+    error: result.error || null,
+  };
+}
+
 function protectedDirectory(path) {
   const candidate = resolve(path).toLowerCase();
   const root = resolve(programFiles).toLowerCase() + sep;
@@ -167,8 +215,24 @@ function findLinuxIpCommand() {
   throw new Error('Linux ip route utility was not found under /usr/sbin or /sbin');
 }
 
+function findLinuxIptablesCommand() {
+  for (const candidate of ['/usr/sbin/iptables', '/sbin/iptables']) {
+    if (existsSync(candidate)) return verifyLinuxRootExecutable(candidate);
+  }
+  throw new Error('Linux iptables utility was not found under /usr/sbin or /sbin');
+}
+
+function findLinuxSudoCommand() {
+  for (const candidate of ['/usr/bin/sudo', '/bin/sudo']) {
+    if (existsSync(candidate)) return verifyLinuxRootExecutable(candidate);
+  }
+  throw new Error('Linux sudo utility was not found under /usr/bin or /bin');
+}
+
 let resolvedPowershellPath = null;
 let resolvedIpCliPath = null;
+let resolvedIptablesCliPath = null;
+let resolvedSudoCliPath = null;
 let resolvedDockerCliPath;
 let resolvedMavenCliPath;
 let resolvedGitCliPath;
@@ -226,6 +290,8 @@ if (isWindows) {
   resolvedGitCliPath = verifyLinuxRootExecutable('/usr/bin/git');
   resolvedNodeCliPath = verifyLinuxRootExecutable(process.execPath);
   resolvedIpCliPath = findLinuxIpCommand();
+  resolvedIptablesCliPath = findLinuxIptablesCommand();
+  resolvedSudoCliPath = findLinuxSudoCommand();
 
   const safeHome = process.env.HOME && /^\/(root|home\/[a-zA-Z0-9._-]+)$/.test(process.env.HOME) ? process.env.HOME : '/root';
   const safeUser = process.env.USER && /^[a-zA-Z0-9._-]+$/.test(process.env.USER) ? process.env.USER : 'runner';
@@ -252,6 +318,8 @@ if (isWindows) {
 
 export const POWERSHELL_PATH = resolvedPowershellPath;
 export const IP_CLI_PATH = resolvedIpCliPath;
+export const IPTABLES_CLI_PATH = resolvedIptablesCliPath;
+export const SUDO_CLI_PATH = resolvedSudoCliPath;
 export const DOCKER_CLI_PATH = resolvedDockerCliPath;
 export const MAVEN_CLI_PATH = resolvedMavenCliPath;
 export const GIT_CLI_PATH = resolvedGitCliPath;
@@ -301,6 +369,56 @@ export function readHostIpv4Routes({
     return parseLinuxIpv4Routes(result.stdout);
   }
   throw new Error(`Unsupported platform for readHostIpv4Routes: ${platform}`);
+}
+
+export function readHostDefaultUplinkInterface({
+  platform = process.platform,
+  spawnSyncFn = spawnSync,
+  ipCliPath = IP_CLI_PATH,
+  dockerEnv = DOCKER_ENV,
+} = {}) {
+  if (platform !== 'linux') {
+    throw new Error(`HOST_FIREWALL_PLATFORM_UNSUPPORTED: Linux host firewall requires linux platform, got ${platform}`);
+  }
+  const result = spawnSyncFn(ipCliPath || '/usr/sbin/ip', ['-4', 'route', 'show', 'default'], { encoding: 'utf8', env: dockerEnv, windowsHide: true });
+  if (result.status !== 0) {
+    throw new Error(`HOST_UPLINK_INTERFACE_UNRESOLVED: ${String(result.stderr || result.stdout || '').trim()}`);
+  }
+  return parseLinuxDefaultUplinkInterface(result.stdout);
+}
+
+export function readHostIpv6DefaultRoutes({
+  platform = process.platform,
+  spawnSyncFn = spawnSync,
+  ipCliPath = IP_CLI_PATH,
+  dockerEnv = DOCKER_ENV,
+} = {}) {
+  if (platform !== 'linux') {
+    throw new Error(`HOST_FIREWALL_PLATFORM_UNSUPPORTED: Linux host IPv6 route check requires linux platform, got ${platform}`);
+  }
+  const result = spawnSyncFn(ipCliPath || '/usr/sbin/ip', ['-6', 'route', 'show', 'default'], { encoding: 'utf8', env: dockerEnv, windowsHide: true });
+  if (result.status !== 0) {
+    throw new Error(`HOST_IPV6_ROUTE_CHECK_FAILED: ${String(result.stderr || result.stdout || '').trim()}`);
+  }
+  return String(result.stdout || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+}
+
+export function readHostIptablesBackend({
+  platform = process.platform,
+  spawnSyncFn = spawnSync,
+  iptablesCliPath = IPTABLES_CLI_PATH,
+  dockerEnv = DOCKER_ENV,
+} = {}) {
+  if (platform !== 'linux') {
+    throw new Error(`HOST_FIREWALL_PLATFORM_UNSUPPORTED: Linux iptables backend check requires linux platform, got ${platform}`);
+  }
+  const executable = iptablesCliPath || '/usr/sbin/iptables';
+  const result = spawnSyncFn(executable, ['--version'], { encoding: 'utf8', env: dockerEnv, windowsHide: true });
+  const versionOutput = String(result.stdout || '').trim();
+  if (result.status !== 0 || !/^iptables\s+v\d+\.\d+/i.test(versionOutput)) {
+    throw new Error(`HOST_FIREWALL_BACKEND_UNAVAILABLE: ${String(result.stderr || result.stdout || '').trim()}`);
+  }
+  return { executable, versionOutput };
 }
 
 export function invokeMaven(mavenArgs, {

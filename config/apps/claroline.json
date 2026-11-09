@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "claroline",
+  "benchmarkBaseVersion": "1.11.10",
+  "source": {
+    "repository": "https://github.com/zefredz/claroline",
+    "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+    "packageVersion": "1.11.10-bewt-derivative"
+  },
+  "baseSuitePath": "experiments/claroline/bewt-suite",
+  "runtime": {
+    "kind": "docker",
+    "version": "1.11.10-bewt-derivative-php-5.5.9-apache-2.4.7-mysql-5.5.61",
+    "image": "olianasd/claroline-strongpsw",
+    "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-claroline",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Per-run labeled containers and isolated non-masquerading bridge with DOCKER-USER bridge-egress REJECT rule; loopback-only dynamic HTTP/WebDriver ports; MySQL 3306 never published; remove only verified run-owned containers, network, and firewall rule, then prove zero residuals.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

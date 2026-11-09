@@ -1,11 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { generateKeyPairSync, sign as signPayload } from 'node:crypto';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, GIT_CLI_PATH, NODE_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_ISOLATION_METHOD, deriveLinuxBridgeInterfaceName, buildHostBridgeFirewallSpec, assertHostBridgeFirewallRuleInstalled, assertHostBridgeFirewallRuleRemoved, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, GIT_CLI_PATH, NODE_CLI_PATH, IPTABLES_CLI_PATH, SUDO_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, parseLinuxDefaultUplinkInterface, verifyLinuxBridgeSysfs, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, APPLICATION_SOURCE_COMMIT, APPLICATION_SOURCE_VERSION, IMAGE_PROVENANCE_CLASSIFICATION, PINNED_IMAGE_PATCH_RECORD, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD, HOST_FIREWALL_APPROVAL_SCOPE, HOST_FIREWALL_APPROVAL_ROLLBACK, verifyHostEgressControlsForRun, deriveLinuxBridgeInterfaceName, buildHostBridgeFirewallSpec, hostFirewallApprovalRequest, canonicalHostFirewallDecisionPayload, verifyHostFirewallDecision, requestHostFirewallApproval, assertHostBridgeFirewallRuleInstalled, assertHostBridgeFirewallRuleRemoved, installHostBridgeFirewallRule, removeHostBridgeFirewallRule, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 import { assertAllowedRemoteAction, buildRemoteCommandScript, verifyTerminationSchedule, computeDirectorySha256Manifest, verifySha256Manifest, scrubCloudText, validateEvidenceId, resolveEvidenceDirectoryById, resolveVmExternalIp } from '../cloud-controller.mjs';
 import { validateEvidenceDirectory, scanEvidenceForSecretsAndLeaks } from '../validate-evidence.mjs';
@@ -46,7 +48,7 @@ function makeContainer(role, overrides = {}) {
 
 function makeNetwork(endpointIds = [], policy = EGRESS_LIMITED_NETWORK_POLICY) {
   const internal = policy === INTERNAL_NETWORK_POLICY || policy === INTERNAL_IPAM_NETWORK_POLICY;
-  const ipam = [INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY].includes(policy) ? [{ Subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], Gateway: '172.26.254.1' }] : [];
+  const ipam = [INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY].includes(policy) ? [{ Subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], Gateway: '172.26.254.1' }] : [];
   return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, EnableIPv6: false, IPAM: { Config: ipam }, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
@@ -908,4 +910,262 @@ test('Ubuntu host bridge firewall specification and verification enforce exact i
   // Rollback verification
   assert.equal(assertHostBridgeFirewallRuleRemoved('-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', spec), true);
   assert.throws(() => assertHostBridgeFirewallRuleRemoved(validIptablesOutput, spec), /HOST_FIREWALL_ROLLBACK_VERIFY_FAILED/);
+});
+
+test('Decision 1 (A1): host uplink, kernel bridge sysfs, GCE IPV4_ONLY egress control, cryptographic authorization verifier, install/remove, and cleanup rollback', () => {
+  // 1. Uplink interface parser
+  assert.equal(
+    parseLinuxDefaultUplinkInterface('default via 10.148.0.1 dev ens3 proto dhcp src 10.148.0.3 metric 100\n'),
+    'ens3',
+  );
+  assert.throws(() => parseLinuxDefaultUplinkInterface(''), /missing IPv4 default route output/);
+  assert.throws(() => parseLinuxDefaultUplinkInterface('10.148.0.0/20 dev ens3 proto kernel\n'), /failed to determine single default IPv4 uplink interface/);
+
+  // 2. Kernel bridge sysfs verification
+  const netId = '834b8a617a0e9f00112233445566778899aabbccddeeff001122334455667788';
+  const tempSysfs = mkdtempSync(join(tmpdir(), 'bewt-sysfs-'));
+  try {
+    assert.throws(() => verifyLinuxBridgeSysfs(netId, tempSysfs), /HOST_FIREWALL_BRIDGE_MISSING/);
+    const bridgeDir = join(tempSysfs, 'br-834b8a617a0e');
+    mkdirSync(bridgeDir, { recursive: true });
+    assert.throws(() => verifyLinuxBridgeSysfs(netId, tempSysfs), /not a Linux kernel bridge/);
+    mkdirSync(join(bridgeDir, 'bridge'), { recursive: true });
+    const sysfsVerified = verifyLinuxBridgeSysfs(netId, tempSysfs);
+    assert.equal(sysfsVerified.bridgeInterface, 'br-834b8a617a0e');
+  } finally {
+    rmSync(tempSysfs, { recursive: true, force: true });
+  }
+
+  // 3. GCE IPV4_ONLY host egress control verification
+  assert.equal(
+    verifyHostEgressControlsForRun({
+      ipv4: { classification: 'HOST_CONTROL_REACHABLE' },
+      ipv6: { classification: 'HOST_IPV6_UNAVAILABLE' },
+    }, {
+      networkIpv6Enabled: false,
+      hostIpv6DefaultRoutes: [],
+    }),
+    true,
+  );
+  assert.throws(
+    () => verifyHostEgressControlsForRun({
+      ipv4: { classification: 'HOST_CONTROL_REACHABLE' },
+      ipv6: { classification: 'HOST_IPV6_UNAVAILABLE' },
+    }, {
+      networkIpv6Enabled: true,
+      hostIpv6DefaultRoutes: [],
+    }),
+    /host IPv6 absence was not verified/,
+  );
+  assert.throws(
+    () => verifyHostEgressControlsForRun({
+      ipv4: { classification: 'HOST_CONTROL_REACHABLE' },
+      ipv6: { classification: 'HOST_IPV6_UNAVAILABLE' },
+    }, {
+      networkIpv6Enabled: false,
+      hostIpv6DefaultRoutes: ['default via fe80::1 dev ens3'],
+    }),
+    /host IPv6 absence was not verified/,
+  );
+  assert.throws(
+    () => verifyHostEgressControlsForRun({
+      ipv4: { classification: 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE' },
+      ipv6: { classification: 'HOST_CONTROL_REACHABLE' },
+    }),
+    /did not reach the external IPv4 target/,
+  );
+
+  // 4. Cryptographic Ed25519 Team Lead authorization verifier (positive + negative tests)
+  const spec = buildHostBridgeFirewallSpec(netId, runId, 'br-834b8a617a0e', 'ens3');
+  assert.equal(spec.uplinkInterface, 'ens3');
+  assert.equal(spec.sudoExecutable, SUDO_CLI_PATH || '/usr/bin/sudo');
+  assert.equal(spec.iptablesExecutable, IPTABLES_CLI_PATH || '/usr/sbin/iptables');
+  const authReq = hostFirewallApprovalRequest(spec);
+  assert.equal(authReq.decisionId, 'A1');
+  assert.equal(authReq.uplinkInterface, 'ens3');
+  assert.equal(authReq.bridgeInterface, 'br-834b8a617a0e');
+  assert.equal(authReq.scope, HOST_FIREWALL_APPROVAL_SCOPE);
+  assert.equal(authReq.rollback, HOST_FIREWALL_APPROVAL_ROLLBACK);
+
+  // Fail closed when no public key is configured (default runtime state)
+  assert.throws(
+    () => requestHostFirewallApproval(spec),
+    error => error?.code === 'BLOCKED_APPROVAL_REQUIRED' && /no trusted Team Lead Ed25519 public key is configured/.test(error.message),
+  );
+
+  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const publicKeyPem = publicKey.export({ type: 'spki', format: 'pem' }).toString();
+  const wrongKeyPair = generateKeyPairSync('ed25519');
+  const nowMs = Date.parse('2026-11-10T05:00:00.000Z');
+  const validPayload = {
+    version: 'bewt-host-firewall-approval-v1',
+    decisionId: 'A1',
+    approverId: 'team-lead-ngailong',
+    approverRole: 'Team Lead',
+    method: authReq.method,
+    runId: authReq.runId,
+    networkId: authReq.networkId,
+    bridgeInterface: authReq.bridgeInterface,
+    uplinkInterface: authReq.uplinkInterface,
+    commentTag: authReq.commentTag,
+    insertCommand: authReq.insertCommand,
+    deleteCommand: authReq.deleteCommand,
+    maxExecutions: 1,
+    scope: authReq.scope,
+    rollback: authReq.rollback,
+    issuedAtUtc: '2026-11-10T04:59:00.000Z',
+    expiresAtUtc: '2026-11-10T05:09:00.000Z',
+    nonce: '0123456789abcdef0123456789abcdef',
+  };
+  const signDecision = (payload, signerKey = privateKey) => ({
+    payload,
+    signatureBase64: signPayload(null, Buffer.from(canonicalHostFirewallDecisionPayload(payload), 'utf8'), signerKey).toString('base64'),
+  });
+
+  // Missing signed decision token fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, null, { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /no cryptographically signed Team Lead host-firewall decision token was provided/,
+  );
+
+  // Wrong role fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision({ ...validPayload, approverRole: 'Operator' }), { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /verified Team Lead identity and role/,
+  );
+
+  // Wrong uplinkInterface (e.g. ens4 instead of ens3) fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision({ ...validPayload, uplinkInterface: 'ens4' }), { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /does not match request/,
+  );
+
+  // Wrong runId or bridgeInterface fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision({ ...validPayload, runId: 't03b2-a-20261109-r2' }), { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /does not match request/,
+  );
+
+  // Expired token fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision(validPayload), {
+      trustedPublicKeyPem: publicKeyPem,
+      nowMs: Date.parse('2026-11-10T05:10:00.000Z'),
+    }),
+    /expired or not yet valid/,
+  );
+
+  // Excessive TTL (> 15 min) fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision({
+      ...validPayload,
+      expiresAtUtc: '2026-11-10T05:20:00.000Z',
+    }), { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /exceeds the 15-minute maximum TTL/,
+  );
+
+  // Signature from untrusted key fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision(validPayload, wrongKeyPair.privateKey), { trustedPublicKeyPem: publicKeyPem, nowMs }),
+    /Ed25519 cryptographic signature verification failed/,
+  );
+
+  // Valid signature succeeds and records nonce in replay ledger
+  const consumedNonces = new Set();
+  const verified = verifyHostFirewallDecision(authReq, signDecision(validPayload), {
+    trustedPublicKeyPem: publicKeyPem,
+    nowMs,
+    consumedNonces,
+  });
+  assert.equal(verified.verified, true);
+  assert.equal(verified.approverRole, 'Team Lead');
+  assert.equal(verified.uplinkInterface, 'ens3');
+  assert.equal(consumedNonces.has(validPayload.nonce), true);
+
+  // Replaying the exact same signed token fails closed
+  assert.throws(
+    () => verifyHostFirewallDecision(authReq, signDecision(validPayload), {
+      trustedPublicKeyPem: publicKeyPem,
+      nowMs,
+      consumedNonces,
+    }),
+    /replay rejected/,
+  );
+
+  // 5. Install and remove host firewall rule with mocked execFn
+  assert.throws(
+    () => installHostBridgeFirewallRule(spec, null),
+    /requires a verified Team Lead decision/,
+  );
+  const activeRulesLine = `-N DOCKER-USER\n-A DOCKER-USER -i br-834b8a617a0e ! -o br-834b8a617a0e -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j REJECT --reject-with icmp-net-unreachable\n-A DOCKER-USER -j RETURN\n`;
+  const installed = installHostBridgeFirewallRule(spec, verified, (_file, args) => {
+    if (args.includes('-S')) return { status: 0, stdout: activeRulesLine, stderr: '' };
+    return { status: 0, stdout: '', stderr: '' };
+  });
+  assert.equal(installed.installed, true);
+  assert.match(installed.verifiedRule, /-j REJECT/);
+
+  const removed = removeHostBridgeFirewallRule(spec, (_file, args) => {
+    if (args.includes('-S')) return { status: 0, stdout: '-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', stderr: '' };
+    return { status: 0, stdout: '', stderr: '' };
+  });
+  assert.equal(removed.removed, true);
+  assert.equal(removed.residualFirewallRules, 0);
+
+  // 6. Cleanup integration with HOST_FIREWALL_PUBLISHED_NETWORK_POLICY and firewall rollback
+  const fwFake = fakeDocker({ roles: ['app'], createdUnstarted: true });
+  fwFake.state.networks.set(ids.network, makeNetwork([], HOST_FIREWALL_PUBLISHED_NETWORK_POLICY));
+  const fwApp = fwFake.state.containers.get(ids.app);
+  fwApp.Config.Entrypoint = ['/bin/sh'];
+  fwApp.Config.Cmd = ['-c', 'sleep infinity'];
+  fwApp.HostConfig.CapAdd = [];
+  fwApp.HostConfig.PortBindings['80/tcp'][0].HostPort = '51001';
+  let rollbackCalled = 0;
+  const fwCleanupResult = runCleanup({
+    record: {
+      ...record(['app']),
+      networkPolicy: HOST_FIREWALL_PUBLISHED_NETWORK_POLICY,
+      egressIsolationMethod: HOST_FIREWALL_ISOLATION_METHOD,
+      selectedHostPorts: { app: 51001 },
+      uplinkInterface: 'ens3',
+      firewallRuleInstalled: true,
+      network: {
+        id: ids.network,
+        name: names.network,
+        subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0],
+        gateway: '172.26.254.1',
+        bridgeInterface: `br-${ids.network.slice(0, 12)}`,
+      },
+    },
+    baseline: fwFake.baseline,
+    dockerExec: fwFake.exec,
+    captureInventory: fwFake.captureInventory,
+    firewallCleanupFn: fwSpec => {
+      rollbackCalled += 1;
+      assert.equal(fwSpec.bridgeInterface, `br-${ids.network.slice(0, 12)}`);
+      assert.equal(fwSpec.uplinkInterface, 'ens3');
+      return { removed: true, deleteStatus: 0, residualFirewallRules: 0 };
+    },
+  });
+  assert.equal(rollbackCalled, 1);
+  assert.equal(fwCleanupResult.outcome, 'PASS');
+  assert.equal(fwCleanupResult.residuals.firewallRules, 0);
+});
+
+test('Decision 2 (P1): Claroline application manifest and pinned BEWT derivative patch metadata match contract', () => {
+  assert.equal(APPLICATION_SOURCE_COMMIT, '22d852f93081bc36b1d08b93f5e0c14b49a573f6');
+  assert.equal(APPLICATION_SOURCE_VERSION, '1.11.10-bewt-derivative');
+  assert.equal(IMAGE_PROVENANCE_CLASSIFICATION, 'BEWT_BENCHMARK_DERIVATIVE_PINNED');
+  assert.equal(PINNED_IMAGE_PATCH_RECORD.decisionId, 'P1');
+  assert.equal(PINNED_IMAGE_PATCH_RECORD.officialFileBytes, 23010);
+  assert.equal(PINNED_IMAGE_PATCH_RECORD.patchedFileBytes, 23040);
+  assert.equal(PINNED_IMAGE_PATCH_RECORD.officialFileSha256, 'fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1');
+  assert.equal(PINNED_IMAGE_PATCH_RECORD.patchedFileSha256, 'c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8');
+
+  const manifestPath = resolve(dirname(fileURLToPath(import.meta.url)), '../../../../config/apps/claroline.json');
+  const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+  assert.equal(manifest.appId, 'claroline');
+  assert.equal(manifest.source.commit, APPLICATION_SOURCE_COMMIT);
+  assert.equal(manifest.source.packageVersion, APPLICATION_SOURCE_VERSION);
+  assert.equal(manifest.runtime.imageDigest, APP_IMAGE_REF.split('@')[1]);
 });

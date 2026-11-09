@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
-import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertRouteIsolationContainer, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
+import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertRouteIsolationContainer, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD, buildHostBridgeFirewallSpec, removeHostBridgeFirewallRule, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
 
 const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
@@ -48,6 +48,11 @@ function assertContainerSecurity(container, item, networkName, record) {
     try { assertRouteIsolationContainer(container, networkName); }
     catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
   }
+  if (record.networkPolicy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
+    if (record.egressIsolationMethod !== HOST_FIREWALL_ISOLATION_METHOD) throw new CleanupBlockedError(`${item.role} recorded egress isolation method does not match`);
+    try { assertRouteIsolationContainer(container, networkName); }
+    catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
+  }
   if (publishedKeys.length !== 1 || publishedKeys[0] !== expectedHostPort) {
     throw new CleanupBlockedError(`${item.role} container has an unexpected host port mapping`);
   }
@@ -85,7 +90,7 @@ function assertContainerSecurity(container, item, networkName, record) {
   const endpoint = container.NetworkSettings.Networks[networkName] || {};
   const endpointFieldsPresent = Boolean(endpoint.EndpointID || endpoint.IPAddress || endpoint.Gateway || endpoint.MacAddress);
   if (preStart && endpointFieldsPresent) throw new CleanupBlockedError(`${item.role} created-state container unexpectedly has an initialized network endpoint`);
-  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY || record.networkPolicy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
     if (!record.network?.gateway || !record.network?.id) {
       throw new CleanupBlockedError(`${item.role} container endpoint network ID or gateway does not match the recorded isolated network`);
     }
@@ -106,7 +111,7 @@ function residualIds(exec, kind, runId) {
   return list(exec, ['volume', 'ls', '-q', '--filter', `label=runId=${runId}`]);
 }
 
-function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory = () => snapshotInventory(dockerExec) }) {
+function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory = () => snapshotInventory(dockerExec), firewallCleanupFn = removeHostBridgeFirewallRule }) {
   let labels; let names;
   try { labels = labelsForRun(record?.runId); names = namesForRun(record.runId); }
   catch (error) { throw new CleanupBlockedError(`invalid run identity: ${dockerErrorText(error)}`, { cause: error }); }
@@ -149,7 +154,7 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (networkById) {
     try { assertNetworkPolicy(networkById, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
-    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY || networkPolicy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
       try { assertRecordedNetworkIpam(networkById, networkRecord); }
       catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
     }
@@ -181,12 +186,23 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     if (inspect(dockerExec, 'container', item.id) || inspect(dockerExec, 'container', item.name)) throw new CleanupBlockedError(`recorded container ${item.name} remains after rm`);
   }
 
+  let firewallRollback = null;
+  if (record.firewallRuleInstalled === true) {
+    if (!networkRecord?.id) throw new CleanupBlockedError('firewallRuleInstalled is true but recorded network ID is missing; cannot roll back DOCKER-USER rule');
+    try {
+      const firewallSpec = buildHostBridgeFirewallSpec(networkRecord.id, record.runId, networkRecord.bridgeInterface || null, record.uplinkInterface || null);
+      firewallRollback = firewallCleanupFn(firewallSpec);
+    } catch (error) {
+      throw new CleanupBlockedError(`host firewall rollback failed: ${dockerErrorText(error)}`, { cause: error });
+    }
+  }
+
   if (networkRecord && networkById) {
     const current = inspect(dockerExec, 'network', networkRecord.id);
     if (!current) throw new CleanupBlockedError('recorded network disappeared before verified removal');
     try { assertNetworkPolicy(current, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(`network configuration changed before removal: ${error.message}`, { cause: error }); }
-    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY || networkPolicy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY) {
       try { assertRecordedNetworkIpam(current, networkRecord); }
       catch (error) { throw new CleanupBlockedError(`network IPAM changed before removal: ${error.message}`, { cause: error }); }
     }
@@ -214,7 +230,18 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     const absent = baseline[kind].filter(id => !after[kind].includes(id));
     if (absent.length) throw new CleanupBlockedError(`pre-existing Docker ${kind} disappeared: ${absent.join(',')}`);
   }
-  return { runId: record.runId, outcome: 'PASS', removedContainerIds: containers.map(x => x.id), removedNetworkId: networkById ? networkRecord.id : null, residuals: { containers: 0, networks: 0, volumes: 0 }, protectedExistingResources: 'PRESERVED' };
+  const residuals = networkPolicy === HOST_FIREWALL_PUBLISHED_NETWORK_POLICY
+    ? { containers: 0, networks: 0, volumes: 0, firewallRules: 0 }
+    : { containers: 0, networks: 0, volumes: 0 };
+  return {
+    runId: record.runId,
+    outcome: 'PASS',
+    removedContainerIds: containers.map(x => x.id),
+    removedNetworkId: networkById ? networkRecord.id : null,
+    ...(firewallRollback ? { firewallRollback } : {}),
+    residuals,
+    protectedExistingResources: 'PRESERVED',
+  };
 }
 
 export function runCleanup(options) {
