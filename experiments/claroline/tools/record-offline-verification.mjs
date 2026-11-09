@@ -18,6 +18,8 @@ const files = [
   'experiments/claroline/tools/run-claroline-g0.mjs',
   'experiments/claroline/tools/cleanup-claroline-g0.mjs',
   'experiments/claroline/tools/child-process-policy.mjs',
+  'experiments/claroline/tools/cloud-controller.mjs',
+  'experiments/claroline/tools/validate-evidence.mjs',
   'experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs',
   'experiments/claroline/tools/record-offline-verification.mjs',
 ];

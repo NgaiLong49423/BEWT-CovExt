@@ -4,7 +4,7 @@ import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, routeIsolationApprovalRequest, requestRouteIsolationApproval, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, probeTcpTarget, classifyHostControlProbe, assertDockerPortOutput, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
-import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
+import { DOCKER_CLI_PATH, DOCKER_ENV, invokeMaven, readHostFreeMemoryBytes, readHostIpv4Routes } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
 const runnerDir = dirname(fileURLToPath(import.meta.url));
@@ -16,7 +16,7 @@ if (!statSync(suitePom).isFile()) throw new Error(`Claroline benchmark POM not f
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digest = ref => ref.slice(ref.indexOf('@') + 1);
 const sha256 = value => createHash('sha256').update(value).digest('hex');
-const sanitizeEvidenceText = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
+const sanitizeEvidenceText = text => String(text || '').replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>').replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>').replace(/\/home\/[a-zA-Z0-9._-]+\/[^\r\n"'<>\s]*/g, '<LOCAL_PATH>').replaceAll(repo, '<REPOSITORY_ROOT>').replaceAll(repo.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
 const writeOnce = (path, data) => writeFileSync(path, `${JSON.stringify(data, null, 2)}\n`, { flag: 'wx' });
 const runId = validateRunId(process.argv[2] || '');
 const evidenceDir = createEvidenceDirectory(resolve(repo, 'docs/tasks/T03-B2/evidence'), runId); // Existing run IDs fail closed.
@@ -49,10 +49,12 @@ function createPrivateStartupLogDirectory(container, role) {
 function selectNetworkIpam() {
   const ids = docker(['network', 'ls', '-q']).split(/\r?\n/).filter(Boolean);
   const dockerCidrs = ids.flatMap(id => JSON.parse(docker(['network', 'inspect', id]))[0].IPAM?.Config?.map(item => item.Subnet).filter(Boolean) || []);
-  const routeResult = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="Stop"; $routes=@(Get-NetRoute -AddressFamily IPv4 | Select-Object -ExpandProperty DestinationPrefix); ConvertTo-Json -InputObject $routes -Compress'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
-  if (routeResult.error || routeResult.status !== 0) throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${routeResult.status})`);
-  const parsedRoutes = JSON.parse(routeResult.stdout || '[]');
-  const hostRoutes = Array.isArray(parsedRoutes) ? parsedRoutes : [parsedRoutes];
+  let hostRoutes;
+  try {
+    hostRoutes = readHostIpv4Routes();
+  } catch (error) {
+    throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${ sanitizeEvidenceText(error.message) })`);
+  }
   const selected = selectInternalBridgeIpam([...dockerCidrs, ...hostRoutes]);
   writeOnce(resolve(evidenceDir, 'network-ipam-selection.json'), { outcome: 'PASS', selected, dockerNetworkCount: ids.length, inspectedDockerSubnetCount: dockerCidrs.length, inspectedHostRouteCount: hostRoutes.length, overlapChecked: true });
   return selected;
@@ -62,7 +64,7 @@ try {
   writeOnce(resolve(evidenceDir, 'run-record.json'), record);
   const memorySamples = [];
   for (let index = 0; index < 3; index += 1) {
-    const freeBytes = Number(execFileSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8', env: DOCKER_ENV }).trim()) * 1024;
+    const freeBytes = readHostFreeMemoryBytes();
     memorySamples.push({ capturedAtUtc: new Date().toISOString(), freeBytes, freeGiB: Number((freeBytes / 1024 ** 3).toFixed(3)) });
     if (index < 2) await new Promise(resolvePromise => setTimeout(resolvePromise, 5000));
   }
@@ -92,7 +94,6 @@ try {
     hostEgressControls[family] = { target: `${target.address}:${target.port}`, probeClass: classifyHostControlProbe(result, family), status: result.status, errorCode: result.error?.code || null, error: result.error?.message || '' };
   }
   writeOnce(resolve(evidenceDir, 'host-egress-control.json'), hostEgressControls);
-  if (Object.values(hostEgressControls).some(control => control.probeClass !== 'HOST_CONTROL_REACHABLE')) throw new Error(`HOST_EGRESS_CONTROL_INCONCLUSIVE: IPv4/IPv6 controls must both be reachable; ${JSON.stringify(hostEgressControls)}`);
   const networkIpam = selectNetworkIpam();
   const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--ipv6=false', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
@@ -118,6 +119,7 @@ try {
   writeOnce(resolve(evidenceDir, 'browser-route-isolation-authorization-request.json'), routeRequests.browser);
   requestRouteIsolationApproval(routeRequests.app); // Fail closed before either attached container starts.
   requestRouteIsolationApproval(routeRequests.browser);
+  if (Object.values(hostEgressControls).some(control => control.probeClass !== 'HOST_CONTROL_REACHABLE')) throw new Error(`HOST_EGRESS_CONTROL_INCONCLUSIVE: IPv4/IPv6 controls must both be reachable; ${JSON.stringify(hostEgressControls)}`);
   dockerCall(['start', appRecord.id], 'app-start.json');
   dockerCall(['start', browserRecord.id], 'selenium-start.json');
   const appInfo = JSON.parse(docker(['inspect', appRecord.id]))[0];
@@ -191,9 +193,7 @@ try {
   if (beforeUserCount !== 0) throw new Error('FIXTURE_FAILURE: user001 already exists before the smoke test');
   const mavenStartedAt = Date.now();
   const mavenArgs = ['-B', '-Dtest=' + APP_TEST_CLASS, `-Dapp.url=${appUrl}`, `-Dwebdriver.remote.url=http://127.0.0.1:${browserPort}/wd/hub`, 'clean', 'test'];
-  const psQuote = value => `'${String(value).replaceAll("'", "''")}'`;
-  const mavenScript = `& ${psQuote(MAVEN_CLI_PATH)} ${mavenArgs.map(psQuote).join(' ')}; exit $LASTEXITCODE`;
-  const maven = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', mavenScript], { cwd: suite, encoding: 'utf8', env: MAVEN_ENV, windowsHide: true });
+  const maven = invokeMaven(mavenArgs, { cwd: suite });
   const sanitize = sanitizeEvidenceText;
   writeFileSync(resolve(evidenceDir, 'maven.stdout.log'), sanitize(maven.stdout), { flag: 'wx' });
   writeFileSync(resolve(evidenceDir, 'maven.stderr.log'), sanitize(maven.stderr), { flag: 'wx' });
@@ -230,7 +230,18 @@ try {
     try { writeFileSync(resolve(evidenceDir, 'cleanup-blocked.txt'), `${error.name}: ${error.message}\n`, { flag: 'wx' }); } catch {}
     exitCode = 1;
   }
-  try { const after = snapshotInventory(); writeOnce(resolve(evidenceDir, 'docker-after.json'), after); }
-  catch (error) { try { writeFileSync(resolve(evidenceDir, 'docker-after-blocked.txt'), `${error.message}\n`, { flag: 'wx' }); } catch {} exitCode = 1; }
+  try {
+    const after = snapshotInventory();
+    writeOnce(resolve(evidenceDir, 'docker-after.json'), after);
+    const beforeRaw = JSON.parse(readFileSync(resolve(evidenceDir, 'docker-before.json'), 'utf8'));
+    const summarize = inv => Object.fromEntries(Object.entries(inv).map(([k, v]) => [k, { count: v.length, sha256: sha256([...v].sort((a, b) => a.localeCompare(b, 'en')).join('\n')) }]));
+    writeOnce(resolve(evidenceDir, 'docker-inventory-sanitized-summary.json'), {
+      before: summarize(beforeRaw),
+      after: summarize(after),
+      countsEqual: Object.keys(beforeRaw).every(k => beforeRaw[k].length === after[k].length),
+      fingerprintsEqual: Object.keys(beforeRaw).every(k => summarize(beforeRaw)[k].sha256 === summarize(after)[k].sha256),
+      rawInventoriesExcludedFromGit: true,
+    });
+  } catch (error) { try { writeFileSync(resolve(evidenceDir, 'docker-after-blocked.txt'), `${error.message}\n`, { flag: 'wx' }); } catch {} exitCode = 1; }
 }
 process.exitCode = exitCode;

@@ -83,12 +83,17 @@ function assertContainerSecurity(container, item, networkName, record) {
     throw new CleanupBlockedError(`${item.role} is attached to an unexpected network`);
   }
   const endpoint = container.NetworkSettings.Networks[networkName] || {};
-  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
-    try { assertContainerNetworkGateway(container, networkName, record.network?.gateway, record.network?.id); }
-    catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
-  }
   const endpointFieldsPresent = Boolean(endpoint.EndpointID || endpoint.IPAddress || endpoint.Gateway || endpoint.MacAddress);
   if (preStart && endpointFieldsPresent) throw new CleanupBlockedError(`${item.role} created-state container unexpectedly has an initialized network endpoint`);
+  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY || record.networkPolicy === ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY) {
+    if (!record.network?.gateway || !record.network?.id) {
+      throw new CleanupBlockedError(`${item.role} container endpoint network ID or gateway does not match the recorded isolated network`);
+    }
+    if (!preStart || endpoint.NetworkID || endpointFieldsPresent) {
+      try { assertContainerNetworkGateway(container, networkName, record.network.gateway, record.network.id); }
+      catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
+    }
+  }
   const detachedStoppedEndpoint = container.State?.Running !== true && !endpoint.EndpointID && !endpoint.IPAddress && !endpoint.Gateway && !endpoint.MacAddress;
   if (endpointFieldsPresent && (!endpoint.EndpointID || !endpoint.NetworkID)) throw new CleanupBlockedError(`${item.role} has an incomplete network endpoint identity`);
   if (!endpointFieldsPresent && !preStart && !detachedStoppedEndpoint && endpoint.NetworkID) throw new CleanupBlockedError(`${item.role} has an incomplete network endpoint identity`);
@@ -223,4 +228,35 @@ export function runCleanup(options) {
 export function runCleanupWithExitCode(options, proc = process) {
   try { return { outcome: 'PASS', result: runCleanup(options) }; }
   catch (error) { proc.exitCode = 1; return { outcome: 'BLOCKED', reason: dockerErrorText(error) }; }
+}
+
+if (process.argv[1] && process.argv[1].endsWith('cleanup-claroline-g0.mjs') && process.argv[2]) {
+  const { readFileSync, writeFileSync, existsSync } = await import('node:fs');
+  const { createHash } = await import('node:crypto');
+  const { dirname, resolve } = await import('node:path');
+  const { fileURLToPath } = await import('node:url');
+  const { validateRunId } = await import('./claroline-g0.mjs');
+  const targetRunId = validateRunId(process.argv[2]);
+  const root = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
+  const dir = resolve(root, 'docs/tasks/T03-B2/evidence', targetRunId);
+  const record = JSON.parse(readFileSync(resolve(dir, 'run-record.json'), 'utf8'));
+  const beforeFile = existsSync(resolve(dir, 'docker-before-private.json'))
+    ? resolve(dir, 'docker-before-private.json')
+    : resolve(dir, 'docker-before.json');
+  const baseline = JSON.parse(readFileSync(beforeFile, 'utf8'));
+  const recovery = runCleanupWithExitCode({ record, baseline });
+  writeFileSync(resolve(dir, 'cleanup-recovery-r1.json'), `${JSON.stringify(recovery, null, 2)}\n`);
+  const after = snapshotInventory();
+  const summarize = inv => Object.fromEntries(Object.entries(inv).map(([k, v]) => [k, {
+    count: v.length,
+    sha256: createHash('sha256').update([...v].sort((a, b) => a.localeCompare(b, 'en')).join('\n')).digest('hex'),
+  }]));
+  writeFileSync(resolve(dir, 'post-cleanup-independent-check.json'), `${JSON.stringify({
+    before: summarize(baseline),
+    after: summarize(after),
+    countsEqual: Object.keys(baseline).every(k => baseline[k].length === after[k].length),
+    fingerprintsEqual: Object.keys(baseline).every(k => summarize(baseline)[k].sha256 === summarize(after)[k].sha256),
+    rawInventoriesExcludedFromGit: true,
+  }, null, 2)}\n`);
+  process.stdout.write(`${JSON.stringify(recovery)}\n`);
 }

@@ -12,7 +12,7 @@ import {
   probeLoopbackPort, recordCreatedResource, selectLoopbackPort, snapshotInventory,
   validateRunId,
 } from './claroline-g0.mjs';
-import { DOCKER_CLI_PATH, DOCKER_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
+import { DOCKER_CLI_PATH, DOCKER_ENV, readHostFreeMemoryBytes, readHostIpv4Routes } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
 const toolDir = dirname(fileURLToPath(import.meta.url));
@@ -28,7 +28,8 @@ const writeTextOnce = (name, value) => writeFileSync(resolve(evidenceDir, name),
 const scrub = value => String(value ?? '')
   .replaceAll(root, '<WORKTREE>')
   .replace(/(password|passwd|token|secret|authorization|cookie)(\s*[=:]\s*)[^\s,;]+/gi, '$1$2[REDACTED]')
-  .replace(/\b[A-Z]:\\(?:[^\s"']+\\)*[^\s"']*/gi, '<LOCAL_PATH>');
+  .replace(/\b[A-Z]:\\(?:[^\s"']+\\)*[^\s"']*/gi, '<LOCAL_PATH>')
+  .replace(/\/home\/[a-zA-Z0-9._-]+\/[^\s"']*/g, '<LOCAL_PATH>');
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digestOf = ref => ref.slice(ref.indexOf('@') + 1);
 const record = {
@@ -56,10 +57,12 @@ function createPrivateStartupLogDirectory(item) {
 function selectNetworkIpam() {
   const ids = docker(['network', 'ls', '-q']).split(/\r?\n/).filter(Boolean);
   const dockerCidrs = ids.flatMap(id => JSON.parse(docker(['network', 'inspect', id]))[0].IPAM?.Config?.map(item => item.Subnet).filter(Boolean) || []);
-  const routeResult = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="Stop"; $routes=@(Get-NetRoute -AddressFamily IPv4 | Select-Object -ExpandProperty DestinationPrefix); ConvertTo-Json -InputObject $routes -Compress'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
-  if (routeResult.error || routeResult.status !== 0) throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${routeResult.status})`);
-  const parsedRoutes = JSON.parse(routeResult.stdout || '[]');
-  const hostRoutes = Array.isArray(parsedRoutes) ? parsedRoutes : [parsedRoutes];
+  let hostRoutes;
+  try {
+    hostRoutes = readHostIpv4Routes();
+  } catch (error) {
+    throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${scrub(error.message)})`);
+  }
   const selected = selectInternalBridgeIpam([...dockerCidrs, ...hostRoutes]);
   writeOnce('network-ipam-selection.json', { outcome: 'PASS', selected, dockerNetworkCount: ids.length, inspectedDockerSubnetCount: dockerCidrs.length, inspectedHostRouteCount: hostRoutes.length, overlapChecked: true });
   return selected;
@@ -147,7 +150,7 @@ try {
   saveRecord();
   const samples = [];
   for (let index = 0; index < 3; index += 1) {
-    const free = Number(execFileSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '(Get-CimInstance Win32_OperatingSystem).FreePhysicalMemory'], { encoding: 'utf8', env: DOCKER_ENV }).trim()) * 1024;
+    const free = readHostFreeMemoryBytes();
     samples.push({ capturedAtUtc: new Date().toISOString(), freeBytes: free, freeGiB: Number((free / 1024 ** 3).toFixed(3)) });
     if (index < 2) await new Promise(resolvePromise => setTimeout(resolvePromise, 5000));
   }
@@ -169,7 +172,6 @@ try {
     hostEgressControls[family] = { target: `${target.address}:${target.port}`, probeClass: classifyHostControlProbe(result, family), status: result.status, errorCode: result.error?.code || null, error: scrub(result.error?.message || '') };
   }
   writeOnce('host-egress-control.json', hostEgressControls);
-  if (Object.values(hostEgressControls).some(control => control.probeClass !== 'HOST_CONTROL_REACHABLE')) throw new Error(`HOST_EGRESS_CONTROL_INCONCLUSIVE: IPv4/IPv6 controls must both be reachable; ${JSON.stringify(hostEgressControls)}`);
   const appPort = await selectLoopbackPort();
   const probe = await probeLoopbackPort(appPort);
   record.selectedHostPorts = { app: appPort };
@@ -194,6 +196,7 @@ try {
   const routeRequest = routeIsolationApprovalRequest(record.containers[0].id, 'app', runId);
   writeOnce('app-route-isolation-authorization-request.json', routeRequest);
   requestRouteIsolationApproval(routeRequest); // Fail closed before starting the attached container.
+  if (Object.values(hostEgressControls).some(control => control.probeClass !== 'HOST_CONTROL_REACHABLE')) throw new Error(`HOST_EGRESS_CONTROL_INCONCLUSIVE: IPv4/IPv6 controls must both be reachable; ${JSON.stringify(hostEgressControls)}`);
   record.createdAtUtc = new Date().toISOString();
   saveRecord();
   dockerCall(['start', record.containers[0].id], 'app-start.json');

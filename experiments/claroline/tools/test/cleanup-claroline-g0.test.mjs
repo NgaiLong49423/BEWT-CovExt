@@ -1,12 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { EventEmitter } from 'node:events';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
+import { assertAllowedRemoteAction, buildRemoteCommandScript, verifyTerminationSchedule, computeDirectorySha256Manifest, verifySha256Manifest, scrubCloudText } from '../cloud-controller.mjs';
+import { validateEvidenceDirectory, scanEvidenceForSecretsAndLeaks } from '../validate-evidence.mjs';
 
 const runId = 't03b2-a-20261109-r1';
 const ids = { app: 'a'.repeat(64), browser: 'b'.repeat(64), network: 'c'.repeat(64), other: 'd'.repeat(64), otherNetwork: 'e'.repeat(64) };
@@ -337,6 +339,18 @@ test('cleanup of route-isolated containers requires exact bootstrap and no persi
   }
   valid.state.containers.get(ids.app).NetworkSettings.Networks[names.network].Gateway = '';
   assert.equal(cleanup(valid, value).outcome, 'PASS', 'an omitted endpoint Gateway is accepted only with the exact NetworkID and inspected IPAM');
+  const preStartRouteIsolated = fakeDocker({ roles: ['app'], createdUnstarted: true });
+  preStartRouteIsolated.state.networks.set(ids.network, makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY));
+  const preStartApp = preStartRouteIsolated.state.containers.get(ids.app);
+  preStartApp.Config.Entrypoint = ['/bin/sh']; preStartApp.Config.Cmd = ['-c', 'sleep infinity'];
+  preStartApp.HostConfig.CapAdd = [];
+  preStartApp.HostConfig.PortBindings['80/tcp'][0].HostPort = '51001';
+  const preStartRecord = record(['app']);
+  preStartRecord.networkPolicy = ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY;
+  preStartRecord.egressIsolationMethod = ROUTE_ISOLATION_METHOD;
+  preStartRecord.network = { id: ids.network, name: names.network, subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], gateway: '172.26.254.1' };
+  preStartRecord.selectedHostPorts = { app: 51001 };
+  assert.equal(cleanup(preStartRouteIsolated, preStartRecord).outcome, 'PASS', 'created-state route-isolated container blocked before docker start cleans up cleanly');
   for (const mutate of [
     fake => { fake.state.containers.get(ids.app).HostConfig.CapAdd = ['NET_ADMIN']; },
     fake => { fake.state.containers.get(ids.browser).Config.Cmd = ['-c', 'unexpected']; },
@@ -579,11 +593,21 @@ test('evidence directory creation is write-once for each run ID', () => {
 });
 
 test('native tools resolve to explicit paths and child PATH excludes user-writable AppData', () => {
-  assert.match(DOCKER_CLI_PATH, /^[A-Z]:\\/i);
-  assert.match(MAVEN_CLI_PATH, /^[A-Z]:\\Program Files\\/i);
-  assert.doesNotMatch(MAVEN_ENV.PATH, /AppData|Users/i);
-  assert.match(MAVEN_ENV.PATH, /C:\\Windows\\System32/i);
-  assert.match(MAVEN_ENV.PATH, /Program Files/i);
+  if (process.platform === 'win32') {
+    assert.match(DOCKER_CLI_PATH, /^[A-Z]:\\/i);
+    assert.match(MAVEN_CLI_PATH, /^[A-Z]:\\Program Files\\/i);
+    assert.doesNotMatch(MAVEN_ENV.PATH, /AppData|Users/i);
+    assert.match(MAVEN_ENV.PATH, /C:\\Windows\\System32/i);
+    assert.match(MAVEN_ENV.PATH, /Program Files/i);
+    assert.equal(DOCKER_ENV.DOCKER_CONTEXT, 'desktop-linux');
+  } else {
+    assert.equal(DOCKER_CLI_PATH, '/usr/bin/docker');
+    assert.equal(MAVEN_CLI_PATH, '/usr/bin/mvn');
+    assert.doesNotMatch(MAVEN_ENV.PATH, /AppData|Users|\/home|\/tmp/i);
+    assert.match(MAVEN_ENV.PATH, /\/usr\/bin/);
+    assert.match(MAVEN_ENV.PATH, /\/usr\/lib\/jvm\/java-21-openjdk/);
+    assert.equal(DOCKER_ENV.DOCKER_CONTEXT, undefined);
+  }
   assert.equal(MAVEN_ENV.TEMP, undefined, 'child environment must not inherit a publicly writable TEMP path');
   assert.equal(MAVEN_ENV.TMP, undefined, 'child environment must not inherit a publicly writable TMP path');
   assert.equal(DOCKER_ENV.TEMP, undefined);
@@ -625,5 +649,156 @@ test('Docker port verification requires exact loopback HostConfig and NetworkSet
   assert.equal(isPortBindingConflict('Error starting proxy: listen tcp: address already in use'), true);
   assert.equal(isPortBindingConflict('container exited with status 137'), false);
   assert.equal(assertContainerPortNotPublished(sample, '3306/tcp'), true);
-  assert.throws(() => assertContainerPortNotPublished({ HostConfig: { PortBindings: { '3306/tcp': [{ HostIp: '127.0.0.1', HostPort: '3306' }] } } }, '3306/tcp'), /must not be published/);
+  assert.throws(() => assertContainerPortNotPublished({ HostConfig: { PortBindings: { '3306/tcp': [{ HostIp: '127.0.1', HostPort: '3306' }] } } }, '3306/tcp'), /must not be published/);
+});
+
+test('Linux executable verification enforces root ownership, trusted prefixes, and non-writable permissions', () => {
+  const validSt = { isFile: () => true, uid: 0, mode: 0o100755 };
+  const validDirSt = { isFile: () => false, uid: 0, mode: 0o40755 };
+  assert.equal(verifyLinuxRootExecutable('/usr/bin/docker', {
+    existsFn: () => true,
+    realpathFn: p => p,
+    statFn: p => (p === '/usr/bin' ? validDirSt : validSt),
+  }), '/usr/bin/docker');
+
+  assert.throws(() => verifyLinuxRootExecutable('relative/docker', { existsFn: () => true, realpathFn: p => p, statFn: () => validSt }), /non-absolute/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => false, realpathFn: p => p, statFn: () => validSt }), /not found/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => true, realpathFn: () => '/tmp/evil-docker', statFn: () => validSt }), /outside trusted system prefixes/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => true, realpathFn: p => p, statFn: p => (p === '/usr/bin' ? validDirSt : { ...validSt, uid: 1000 }) }), /non-root-owned/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => true, realpathFn: p => p, statFn: p => (p === '/usr/bin' ? validDirSt : { ...validSt, mode: 0o100777 }) }), /group\/world-writable/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => true, realpathFn: p => p, statFn: p => (p === '/usr/bin' ? validDirSt : { ...validSt, mode: 0o100644 }) }), /not executable/);
+  assert.throws(() => verifyLinuxRootExecutable('/usr/bin/docker', { existsFn: () => true, realpathFn: p => p, statFn: p => (p === '/usr/bin' ? { ...validDirSt, mode: 0o40777 } : validSt) }), /untrusted parent directory/);
+});
+
+test('cross-platform memory and IPv4 route readers parse Linux and Windows formats and fail closed on invalid input', () => {
+  const sampleMeminfo = 'MemTotal:       65947260 kB\nMemFree:        62100000 kB\nMemAvailable:   63604480 kB\n';
+  const parsedMem = parseLinuxMeminfoBytes(sampleMeminfo);
+  assert.equal(parsedMem.availableBytes, 63604480 * 1024);
+  assert.equal(parsedMem.totalBytes, 65947260 * 1024);
+  assert.throws(() => parseLinuxMeminfoBytes('MemTotal: 1000 kB\n'), /MemAvailable kB entry is missing/);
+  assert.throws(() => parseLinuxMeminfoBytes('MemAvailable: 0 kB\n'), /non-positive/);
+
+  assert.equal(readHostFreeMemoryBytes({ platform: 'linux', readFileSyncFn: () => sampleMeminfo }), 63604480 * 1024);
+  assert.equal(readHostFreeMemoryBytes({ platform: 'win32', powershellPath: 'powershell.exe', spawnSyncFn: () => ({ status: 0, stdout: '8388608\n' }) }), 8388608 * 1024);
+  assert.throws(() => readHostFreeMemoryBytes({ platform: 'win32', powershellPath: 'powershell.exe', spawnSyncFn: () => ({ status: 1, stdout: '' }) }), /HOST_MEMORY_QUERY_FAILED/);
+
+  const sampleLinuxRoutes = [
+    'default via 10.148.0.1 dev ens4 proto dhcp src 10.148.0.3 metric 100',
+    '10.148.0.1 dev ens4 proto dhcp scope link src 10.148.0.3 metric 100',
+    '172.17.0.0/16 dev docker0 proto kernel scope link src 172.17.0.1 linkdown',
+  ].join('\n');
+  assert.deepEqual(parseLinuxIpv4Routes(sampleLinuxRoutes), ['0.0.0.0/0', '10.148.0.1/32', '172.17.0.0/16']);
+  assert.throws(() => parseLinuxIpv4Routes(''), /no IPv4 route prefixes parsed/);
+
+  assert.deepEqual(readHostIpv4Routes({ platform: 'linux', ipCliPath: '/usr/sbin/ip', spawnSyncFn: () => ({ status: 0, stdout: sampleLinuxRoutes }) }), ['0.0.0.0/0', '10.148.0.1/32', '172.17.0.0/16']);
+  assert.deepEqual(readHostIpv4Routes({ platform: 'win32', powershellPath: 'powershell.exe', spawnSyncFn: () => ({ status: 0, stdout: '0.0.0.0/0\r\n172.26.254.0/24\r\n' }) }), ['0.0.0.0/0', '172.26.254.0/24']);
+  assert.throws(() => readHostIpv4Routes({ platform: 'linux', ipCliPath: '/usr/sbin/ip', spawnSyncFn: () => ({ status: 1, stderr: 'ip failed' }) }), /HOST_ROUTE_INVENTORY_FAILED/);
+
+  let linuxCall = null;
+  invokeMaven(['-B', 'clean', 'test-compile'], {
+    platform: 'linux',
+    mavenCliPath: '/usr/bin/mvn',
+    cwd: '/work',
+    spawnSyncFn: (cmd, args) => { linuxCall = { cmd, args }; return { status: 0 }; },
+  });
+  assert.deepEqual(linuxCall, { cmd: '/usr/bin/mvn', args: ['-B', 'clean', 'test-compile'] });
+  assert.throws(() => invokeMaven(['-B\nmalicious'], { platform: 'linux' }), /Unsafe or non-string Maven argument/);
+});
+
+test('Cloud Controller enforces allowlisted actions, VM termination schedule, and SHA-256 manifests', () => {
+  assert.equal(assertAllowedRemoteAction('preflight-probe').action, 'preflight-probe');
+  assert.equal(assertAllowedRemoteAction('run-diagnostic', { runId }).runId, runId);
+  assert.throws(() => assertAllowedRemoteAction('rm -rf /'), /UNALLOWED_REMOTE_ACTION/);
+  assert.throws(() => assertAllowedRemoteAction('run-diagnostic', { runId: '../bad' }), /runId must be a unique t03b2-\*/);
+  assert.throws(() => assertAllowedRemoteAction('preflight-probe', { runId }), /UNEXPECTED_RUN_ID/);
+  assert.match(buildRemoteCommandScript('run-diagnostic', { runId }), /run-claroline-diagnostic\.mjs t03b2-a-20261109-r1$/);
+
+  const validVm = {
+    id: '3042402845209891905',
+    name: 'bewt-covext-runner',
+    status: 'RUNNING',
+    machineType: 'zones/asia-southeast1-a/machineTypes/c4d-highmem-8',
+    zone: 'zones/asia-southeast1-a',
+    creationTimestamp: '2026-11-09T12:18:54.625-08:00',
+    scheduling: { maxRunDuration: { seconds: '21600' }, instanceTerminationAction: 'STOP' },
+  };
+  const createdMs = Date.parse(validVm.creationTimestamp);
+  const schedule = verifyTerminationSchedule(validVm, createdMs + 3600 * 1000);
+  assert.equal(schedule.remainingSeconds, 18000);
+  assert.equal(schedule.terminationTimestampUtc, '2026-11-10T02:18:54.625Z');
+  assert.throws(() => verifyTerminationSchedule({ ...validVm, status: 'TERMINATED' }, createdMs + 1000), /VM_STOPPED_OR_NOT_RUNNING/);
+  assert.throws(() => verifyTerminationSchedule(validVm, createdMs + 21500 * 1000), /VM_DEADLINE_INSUFFICIENT/);
+  assert.equal(scrubCloudText('token=ya29.a0AfH6SMBx and /home/runner/BEWT-CovExt/file'), 'token=[REDACTED] and <REMOTE_REPO>/file');
+});
+
+test('Deterministic Evidence Validator detects contradictions, secret leaks, and validates SHA-256 manifests', () => {
+  const base = mkdtempSync(join(tmpdir(), 't03b2-validator-test-'));
+  const dir = join(base, runId);
+  try {
+    createEvidenceDirectory(base, runId);
+    writeFileSync(join(dir, 'run-record.json'), JSON.stringify({
+      runId,
+      benchmarkRepositoryCommit: SOURCE_COMMIT,
+      imageDigest,
+      browserImageDigest,
+      networkPolicy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY,
+      containers: [{ role: 'app', id: ids.app, name: names.app, imageRef: APP_IMAGE_REF }],
+      network: { id: ids.network, name: names.network },
+    }, null, 2));
+    writeFileSync(join(dir, 'memory-preflight.json'), JSON.stringify({
+      samples: [
+        { capturedAtUtc: '2026-11-10T03:00:00.000Z', freeBytes: 60 * 1024 ** 3 },
+        { capturedAtUtc: '2026-11-10T03:00:05.000Z', freeBytes: 60 * 1024 ** 3 },
+      ],
+      outcome: 'PASS',
+    }, null, 2));
+    writeFileSync(join(dir, 'image-inspect-sanitized.json'), JSON.stringify({
+      app: { repoDigests: [APP_IMAGE_REF] },
+      browser: { repoDigests: [BROWSER_IMAGE_REF] },
+    }, null, 2));
+    writeFileSync(join(dir, 'network-policy-verification.json'), JSON.stringify({
+      outcome: 'PASS',
+      policy: ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY,
+      ipv6Enabled: false,
+      ipMasquerade: 'false',
+    }, null, 2));
+    writeFileSync(join(dir, 'cleanup-result.json'), JSON.stringify({
+      outcome: 'PASS',
+      residualCount: 0,
+      removedContainerIds: [ids.app],
+      removedNetworkId: ids.network,
+    }, null, 2));
+    writeFileSync(join(dir, 'docker-inventory-sanitized-summary.json'), JSON.stringify({
+      countsEqual: true,
+      fingerprintsEqual: true,
+    }, null, 2));
+    writeFileSync(join(dir, 'diagnostic-result.json'), JSON.stringify({
+      runId,
+      outcome: 'BLOCKED_APPROVAL_REQUIRED',
+      reason: 'awaiting approval',
+      selenium: 'NOT_RUN',
+    }, null, 2));
+    const manifest = computeDirectorySha256Manifest(dir, { runId });
+    writeFileSync(join(dir, 'sha256-manifest.json'), JSON.stringify(manifest, null, 2));
+
+    const validRes = validateEvidenceDirectory(dir);
+    assert.equal(validRes.valid, true);
+    assert.equal(validRes.status, 'VALID');
+    assert.equal(validRes.seleniumE2eStatus, 'NOT_RUN');
+    assert.equal(validRes.cleanupStatus, 'PASS');
+
+    // Inject DB contradiction: DB failed but diagnostic claims PASS
+    writeFileSync(join(dir, 'database-readiness.json'), JSON.stringify({ exitCode: 1, expectedDatabasePresent: false }, null, 2));
+    writeFileSync(join(dir, 'diagnostic-result.json'), JSON.stringify({ runId, outcome: 'PASS', selenium: 'NOT_RUN' }, null, 2));
+    const contradicted = validateEvidenceDirectory(dir, { requireManifest: false });
+    assert.equal(contradicted.valid, false);
+    assert.equal(contradicted.status, 'EVIDENCE_CONTRADICTION');
+
+    // Inject secret leak
+    writeFileSync(join(dir, 'leak.txt'), 'leaked token ya29.SecretToken12345');
+    const leakScan = scanEvidenceForSecretsAndLeaks(dir);
+    assert.equal(leakScan.outcome, 'FAIL');
+  } finally {
+    rmSync(base, { recursive: true, force: true });
+  }
 });
