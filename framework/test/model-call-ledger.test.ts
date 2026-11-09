@@ -39,8 +39,23 @@ test("model run budget rejects malformed or overcommitted limits", async () => {
   const runDirectory = join(root, evidenceRoot, "bad-budget");
   await mkdir(runDirectory, { recursive: true });
   try {
-    await writeFile(join(runDirectory, "model-run-budget.json"), JSON.stringify({ apiRequestsAllowed: 4, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: 0.01 }));
-    await assert.rejects(readModelRunBudget(root, evidenceRoot, "bad-budget"), /budget ledger is invalid/);
+    const invalidBudgets = [
+      { apiRequestsAllowed: 4, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: 0.01 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: -1, perCallCostCeilingUsd: -2 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: 0, perCallCostCeilingUsd: 0 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: -0.01 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: 0.0001 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: 0.04, perCallCostCeilingUsd: 0.04 },
+      { apiRequestsAllowed: 5, runCostCeilingUsd: 0.05, perCallCostCeilingUsd: 0.01 },
+      { apiRequestsAllowed: 100, runCostCeilingUsd: 1, perCallCostCeilingUsd: 0.01 },
+      { apiRequestsAllowed: 1.5, runCostCeilingUsd: 0.02, perCallCostCeilingUsd: 0.01 },
+      { apiRequestsAllowed: 1, runCostCeilingUsd: null, perCallCostCeilingUsd: 0.01 },
+    ];
+    for (const budget of invalidBudgets) {
+      await writeFile(join(runDirectory, "model-run-budget.json"), JSON.stringify(budget));
+      await assert.rejects(reserveModelCall(root, evidenceRoot, "bad-budget", "gherkin"), /budget ledger is invalid/);
+    }
+    await assert.rejects(readdir(join(runDirectory, "model-calls")), { code: "ENOENT" }, "invalid budgets must not create reservations");
   } finally {
     await rm(root, { recursive: true, force: true });
   }

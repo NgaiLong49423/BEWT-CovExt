@@ -1,0 +1,57 @@
+
+> test
+> tsx --test test/*.test.ts
+
+✔ valid application manifest accepts a pinned app-neutral schema (3.5822ms)
+✔ shared application adapter contract is implementable without app-specific framework types (2.5976ms)
+✔ invalid manifest rejects unknown app, short source pin, missing Docker image, unsafe paths, and unknown fields (0.5407ms)
+✔ locally built image identity is pinned by source inputs without posing as a registry digest (2.0863ms)
+✔ baseline inventory preserves declared count separately from observed scenario count (0.6433ms)
+✔ coverage gaps, candidate scenarios, and evidence references require provenance (0.7495ms)
+✔ state transitions follow the explicit flow and reject skipped or research-only states (1.8537ms)
+✔ human approval is bound to app/candidate/revision and required before Java generation (1.7616ms)
+✔ revision review accepts only the fresh checkpoint decision and current approved revision (1.6819ms)
+✔ multiple revise decisions remain append-only across revisions before final acceptance (1.6219ms)
+✔ decision IDs are single-use and checkpoint resume is bound to its thread/checkpoint/status (1.4737ms)
+✔ tool schema rejects unknown commands and traversal before authorization (1.2194ms)
+✔ Selenium execution is bound to the registered generated artifact, class and active revision (2.0447ms)
+✔ tool allowlist, exact source/app pin, approval, root, and experiment ownership are enforced (1.9818ms)
+✔ repair attempts are bounded at two in state and validation results (2.1888ms)
+✔ validation eligibility is computed from pinned run records and research acceptance stays separate (4.0837ms)
+✔ partial validation records NOT_RUN and BLOCKED without inventing stage run IDs or evidence (0.8757ms)
+✔ validation stage records share invocation identity and repeat invocations stay distinct (0.7232ms)
+✔ validation rejects missing, duplicate, stale, mismatched or unpinned run and cleanup evidence (2.2112ms)
+✔ tool results permit empty output and redact credentials, private host data, paths and email (0.5676ms)
+✔ missing configuration and inconsistent state/candidate data fail closed (0.4574ms)
+✔ source-backed analyzer distinguishes covered, novel-to-baseline candidate, historical overlap and insufficient evidence (2.1917ms)
+✔ analyzer refuses wrong source pins and duplicate behavior IDs (0.3974ms)
+✔ ExpressCart fixture selection requires the candidate's pinned behavior, not the historical EC-C04 class (0.7831ms)
+✔ isolated ExpressCart workspace contains only approved POM/PageObject/BaseTest and exact registered class (87.8397ms)
+✔ historical behavior index maps all Sprint 01–05 candidate topics to existing source records (20.8437ms)
+✔ historical behavior index rejects duplicate IDs and source paths outside the historical sprints (5.9986ms)
+✔ generated Java requires an executable assertion in an annotated test method (2.6005ms)
+✔ repair preserves executable assertion and oracle while allowing a Selenium locator correction (0.61ms)
+✔ registry accepts a repaired artifact with only a locator literal corrected (52.0151ms)
+✔ generated Java registration is immutable, candidate/revision-bound and requires current ACCEPT (44.5176ms)
+✔ repaired artifacts are immutable, assertion-preserving, and chained through both bounded attempts (121.439ms)
+✔ model run reservations enforce request budget across restart and keep failed calls consumed (71.0405ms)
+✔ model run budget rejects malformed or overcommitted limits (33.6423ms)
+✔ a crash after reservation is not replayed, while a persisted response completes its original call (29.6995ms)
+✔ fake provider creates a schema-valid proposed candidate with source pins (4.133ms)
+✔ Gemini provider refuses construction without explicit live-model authorization (0.4426ms)
+✔ model error classifier does not mistake generateContent for rate limiting (0.35ms)
+✔ model request evidence is hashed and redacts secrets and private identifiers (0.6421ms)
+✔ structured generation parser rejects incomplete model output (0.654ms)
+✔ model timeout aborts the in-flight invocation and classifies as TIMEOUT (7.8407ms)
+✔ generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution (2.0417ms)
+✔ generated Java contract bounds class identifiers and validates package, class, and APIs with deterministic scanning (1.2348ms)
+✔ bounded Gemini provider pins model and refuses oversized prompts before network access (6.7737ms)
+✔ independent validation attempts reserve distinct immutable evidence directories (39.4478ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2090.3816

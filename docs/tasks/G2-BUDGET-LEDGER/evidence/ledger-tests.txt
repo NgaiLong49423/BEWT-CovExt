@@ -1,0 +1,11 @@
+✔ model run reservations enforce request budget across restart and keep failed calls consumed (37.3329ms)
+✔ model run budget rejects malformed or overcommitted limits (20.4545ms)
+✔ a crash after reservation is not replayed, while a persisted response completes its original call (21.1249ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 223.0745
