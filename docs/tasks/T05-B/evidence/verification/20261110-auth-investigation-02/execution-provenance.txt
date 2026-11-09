@@ -1,12 +1,14 @@
 T05-B targeted cross-project authentication investigation provenance
 Base HEAD before correction: 7cefafd1b7f9c562c977f3af28d82503ce5b56e7
+Source commit containing the tested correction: f631ab2 (full: f631ab25ac5071c0dc10cd7b713fdd7c5ff01878)
 Branch: feature/t05b-expresscart-live-generation
 Working directory: C:\Users\Lenovo\.codex\worktrees\t05b-expresscart-live-generation\BEWT-CovExt
 Project: framework; source changes were present in the working tree after the base HEAD.
 
 Exact changed source snapshot (SHA-256, source files only; no credential values):
-framework/src/runtime/model-provider.ts=1a248ecd577ce74de6c98221aee072659d8669eb3f277f3a4ff6810d80ba0441
-framework/test/model-provider.test.ts=88bc8db8f32acedee3ea8456e2b9ad86450ba9c7b35a74754eb2e4f9034a3b47
+- Local working-tree bytes at test time: model-provider.ts=1a248ecd577ce74de6c98221aee072659d8669eb3f277f3a4ff6810d80ba0441; model-provider.test.ts=88bc8db8f32acedee3ea8456e2b9ad86450ba9c7b35a74754eb2e4f9034a3b47.
+- Committed Git blob bytes at source commit f631ab25ac5071c0dc10cd7b713fdd7c5ff01878: model-provider.ts=e881bb171a080ed03bdc80e69dd4c647baf9babc26213628b257a57f89b54ea6 (34,113 bytes); model-provider.test.ts=a3745d1e1e69b9b547dfd47f00e5490d3b64b0dbe846a218db43fe3bf2ece751 (9,367 bytes).
+- CRLF-to-LF normalized local bytes matched both committed Git blobs exactly.
 
 Environment:
 Node.js v24.19.0
@@ -28,4 +30,4 @@ Cross-project inspection sources:
 - Installed downstream Java artifact is declared as com.google.genai:google-genai:1.76.0; bytecode inspection was read-only. Mâm Xanh source already strips the key before constructing that client.
 - Read-only bytecode command: `javap.exe -classpath <local-maven-cache>/com/google/genai/google-genai/1.76.0/google-genai-1.76.0.jar -c -p 'com.google.genai.Client$Builder'`; the `apiKey(String)` setter stores the supplied string directly, while Mâm Xanh strips it before this call.
 
-The successful test evidence is local and offline. It is not a live provider result or CI result. Test execution preceded the final documentation commit; the source hashes above bind execution to the exact source content.
+The successful test evidence is local and offline. It is not a live provider result or CI result. Tests ran on the working tree before commit f631ab2 existed; after commit, a byte comparison confirmed both CRLF-to-LF normalized tested source files match the committed Git blobs exactly. Subsequent evidence-only commits do not alter these source files.
