@@ -3,368 +3,690 @@
     "candidateId": "BL-GAP-001",
     "application": "bludit",
     "baselineCaseId": "bludit-17-changepostdatetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-17-CHANGEPOSTDATETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-17-changepostdatetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-17-CHANGEPOSTDATETEST"
   },
   {
     "candidateId": "BL-GAP-002",
     "application": "bludit",
     "baselineCaseId": "bludit-01-addcontenttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-01-ADDCONTENTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-01-addcontenttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-01-ADDCONTENTTEST"
   },
   {
     "candidateId": "BL-GAP-003",
     "application": "bludit",
     "baselineCaseId": "bludit-01-addcontenttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-01-ADDCONTENTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-01-addcontenttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-01-ADDCONTENTTEST"
   },
   {
     "candidateId": "BL-GAP-003",
     "application": "bludit",
     "baselineCaseId": "bludit-02-changeurltest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-02-CHANGEURLTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-02-changeurltest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-02-CHANGEURLTEST"
   },
   {
     "candidateId": "BL-GAP-003",
     "application": "bludit",
     "baselineCaseId": "bludit-04-changeparenttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-04-CHANGEPARENTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-04-changeparenttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-04-CHANGEPARENTTEST"
   },
   {
     "candidateId": "BL-GAP-004",
     "application": "bludit",
     "baselineCaseId": "bludit-08-addusertest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-08-ADDUSERTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-08-addusertest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-08-ADDUSERTEST"
   },
   {
     "candidateId": "BL-GAP-004",
     "application": "bludit",
     "baselineCaseId": "bludit-16-deleteusertest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-16-DELETEUSERTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-16-deleteusertest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-16-DELETEUSERTEST"
   },
   {
     "candidateId": "BL-GAP-004",
     "application": "bludit",
     "baselineCaseId": "bludit-09-changepasswordtest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-BLUDIT-09-CHANGEPASSWORDTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "bludit:bludit-09-changepasswordtest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-BLUDIT-09-CHANGEPASSWORDTEST"
   },
   {
     "candidateId": "CL-GAP-002",
     "application": "claroline",
     "baselineCaseId": "claroline-27-adddeniedcoursetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-CLAROLINE-27-ADDDENIEDCOURSETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-27-adddeniedcoursetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-CLAROLINE-27-ADDDENIEDCOURSETEST"
   },
   {
     "candidateId": "CL-GAP-002",
     "application": "claroline",
     "baselineCaseId": "claroline-28-enroldeniedcoursetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-CLAROLINE-28-ENROLDENIEDCOURSETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-28-enroldeniedcoursetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-CLAROLINE-28-ENROLDENIEDCOURSETEST"
   },
   {
     "candidateId": "CL-GAP-002",
     "application": "claroline",
     "baselineCaseId": "claroline-30-enrolpasswordcoursewrongpasswordusertest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-CLAROLINE-30-ENROLPASSWORDCOURSEWRONGPASSWORDUSERTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-30-enrolpasswordcoursewrongpasswordusertest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-CLAROLINE-30-ENROLPASSWORDCOURSEWRONGPASSWORDUSERTEST"
   },
   {
     "candidateId": "CL-GAP-003",
     "application": "claroline",
     "baselineCaseId": "claroline-08-addcourseexercisetest",
-    "note": "Gherkin performs manual New exercise creation and asserts the success message; Java asserts that message. It does not import a package or assert import fidelity, so it is an adjacent manual-authoring comparator.",
-    "unitId": "BU-CLAROLINE-08-ADDCOURSEEXERCISETEST",
-    "directContentVerification": "PINNED_CONTENT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-08-addcourseexercisetest",
+    "semanticAssessment": "Gherkin performs manual New exercise creation and asserts the success message; Java asserts that message. It does not import a package or assert import fidelity, so it is an adjacent manual-authoring comparator.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "unitId": "BU-CLAROLINE-08-ADDCOURSEEXERCISETEST"
   },
   {
     "candidateId": "CL-GAP-003",
     "application": "claroline",
     "baselineCaseId": "claroline-10-addcourseexercisequestionstest",
-    "note": "Gherkin creates three question types manually and asserts their displayed type/title; Java has six title/kind assertions. It does not test package import or imported question fidelity.",
-    "unitId": "BU-CLAROLINE-10-ADDCOURSEEXERCISEQUESTIONSTEST",
-    "directContentVerification": "PINNED_CONTENT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-10-addcourseexercisequestionstest",
+    "semanticAssessment": "Gherkin creates three question types manually and asserts their displayed type/title; Java has six title/kind assertions. It does not test package import or imported question fidelity.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "unitId": "BU-CLAROLINE-10-ADDCOURSEEXERCISEQUESTIONSTEST"
   },
   {
     "candidateId": "CL-GAP-004",
     "application": "claroline",
     "baselineCaseId": "claroline-11-docourseexercisequestionstest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-CLAROLINE-11-DOCOURSEEXERCISEQUESTIONSTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-11-docourseexercisequestionstest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-CLAROLINE-11-DOCOURSEEXERCISEQUESTIONSTEST"
   },
   {
     "candidateId": "CL-GAP-004",
     "application": "claroline",
     "baselineCaseId": "claroline-12-viewprofilestatisticsusertest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-CLAROLINE-12-VIEWPROFILESTATISTICSUSERTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "claroline:claroline-12-viewprofilestatisticsusertest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-CLAROLINE-12-VIEWPROFILESTATISTICSUSERTEST"
   },
   {
     "candidateId": "EC-GAP-002",
     "application": "expresscart",
     "baselineCaseId": "expresscart-05-addproducttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-05-ADDPRODUCTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-05-addproducttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-05-ADDPRODUCTTEST"
   },
   {
     "candidateId": "EC-GAP-002",
     "application": "expresscart",
     "baselineCaseId": "expresscart-07-addnewprodtocarttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-07-ADDNEWPRODTOCARTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-07-addnewprodtocarttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-07-ADDNEWPRODTOCARTTEST"
   },
   {
     "candidateId": "EC-GAP-003",
     "application": "expresscart",
     "baselineCaseId": "expresscart-15-usediscountcodeamounttest",
-    "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies an amount discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
-    "unitId": "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST",
-    "directContentVerification": "PINNED_CONTENT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-15-usediscountcodeamounttest",
+    "semanticAssessment": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies an amount discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST"
   },
   {
     "candidateId": "EC-GAP-003",
     "application": "expresscart",
     "baselineCaseId": "expresscart-16-usediscountcodepercenttest",
-    "note": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies a percentage discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
-    "unitId": "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST",
-    "directContentVerification": "PINNED_CONTENT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-16-usediscountcodepercenttest",
+    "semanticAssessment": "The pinned scenario traverses checkout, continue to shipping, proceed to payment, applies a percentage discount and asserts only the displayed discount. Java chains checkout/shipping/payment and asserts the discount text. No address persistence or order snapshot assertion.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST"
   },
   {
     "candidateId": "EC-GAP-004",
     "application": "expresscart",
     "baselineCaseId": "expresscart-12-adddiscountcodeamounttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-12-ADDDISCOUNTCODEAMOUNTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-12-adddiscountcodeamounttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-12-ADDDISCOUNTCODEAMOUNTTEST"
   },
   {
     "candidateId": "EC-GAP-004",
     "application": "expresscart",
     "baselineCaseId": "expresscart-13-adddiscountcodepercenttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-13-ADDDISCOUNTCODEPERCENTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-13-adddiscountcodepercenttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-13-ADDDISCOUNTCODEPERCENTTEST"
   },
   {
     "candidateId": "EC-GAP-004",
     "application": "expresscart",
     "baselineCaseId": "expresscart-15-usediscountcodeamounttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-15-usediscountcodeamounttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-15-USEDISCOUNTCODEAMOUNTTEST"
   },
   {
     "candidateId": "EC-GAP-004",
     "application": "expresscart",
     "baselineCaseId": "expresscart-16-usediscountcodepercenttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "expresscart:expresscart-16-usediscountcodepercenttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-EXPRESSCART-16-USEDISCOUNTCODEPERCENTTEST"
   },
   {
     "candidateId": "JO-GAP-001",
     "application": "joomla",
     "baselineCaseId": "joomla-08-addnewarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-08-ADDNEWARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-08-addnewarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-08-ADDNEWARTICLE"
   },
   {
     "candidateId": "JO-GAP-001",
     "application": "joomla",
     "baselineCaseId": "joomla-10-editarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-10-EDITARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-10-editarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-10-EDITARTICLE"
   },
   {
     "candidateId": "JO-GAP-001",
     "application": "joomla",
     "baselineCaseId": "joomla-21-archivearticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-21-ARCHIVEARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-21-archivearticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-21-ARCHIVEARTICLE"
   },
   {
     "candidateId": "JO-GAP-002",
     "application": "joomla",
     "baselineCaseId": "joomla-08-addnewarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-08-ADDNEWARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-08-addnewarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-08-ADDNEWARTICLE"
   },
   {
     "candidateId": "JO-GAP-002",
     "application": "joomla",
     "baselineCaseId": "joomla-10-editarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-10-EDITARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-10-editarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-10-EDITARTICLE"
   },
   {
     "candidateId": "JO-GAP-002",
     "application": "joomla",
     "baselineCaseId": "joomla-21-archivearticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-21-ARCHIVEARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-21-archivearticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-21-ARCHIVEARTICLE"
   },
   {
     "candidateId": "JO-GAP-003",
     "application": "joomla",
     "baselineCaseId": "joomla-23-addgroup",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-23-ADDGROUP",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-23-addgroup",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-23-ADDGROUP"
   },
   {
     "candidateId": "JO-GAP-003",
     "application": "joomla",
     "baselineCaseId": "joomla-25-assignusertogroup",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-25-ASSIGNUSERTOGROUP",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-25-assignusertogroup",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-25-ASSIGNUSERTOGROUP"
   },
   {
     "candidateId": "JO-GAP-003",
     "application": "joomla",
     "baselineCaseId": "joomla-10-editarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-10-EDITARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-10-editarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-10-EDITARTICLE"
   },
   {
     "candidateId": "JO-GAP-004",
     "application": "joomla",
     "baselineCaseId": "joomla-10-editarticle",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-JOOMLA-10-EDITARTICLE",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "joomla:joomla-10-editarticle",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-JOOMLA-10-EDITARTICLE"
   },
   {
     "candidateId": "MB-GAP-003",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-33-addmultiplesubprojects",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MANTISBT-33-ADDMULTIPLESUBPROJECTS",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mantisbt:mantisbt-33-addmultiplesubprojects",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MANTISBT-33-ADDMULTIPLESUBPROJECTS"
   },
   {
     "candidateId": "MB-GAP-003",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-34-unlinkmultiplesubprojects",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MANTISBT-34-UNLINKMULTIPLESUBPROJECTS",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mantisbt:mantisbt-34-unlinkmultiplesubprojects",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MANTISBT-34-UNLINKMULTIPLESUBPROJECTS"
   },
   {
     "candidateId": "MB-GAP-003",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-35-linkmultiplesubprojects",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MANTISBT-35-LINKMULTIPLESUBPROJECTS",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mantisbt:mantisbt-35-linkmultiplesubprojects",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MANTISBT-35-LINKMULTIPLESUBPROJECTS"
   },
   {
     "candidateId": "MW-GAP-001",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-03-createpagetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-03-createpagetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST"
   },
   {
     "candidateId": "MW-GAP-001",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-06-editpagetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-06-editpagetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST"
   },
   {
     "candidateId": "MW-GAP-001",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-21-createredirecttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-21-CREATEREDIRECTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-21-createredirecttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-21-CREATEREDIRECTTEST"
   },
   {
     "candidateId": "MW-GAP-001",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-22-followredirecttest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-22-FOLLOWREDIRECTTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-22-followredirecttest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-22-FOLLOWREDIRECTTEST"
   },
   {
     "candidateId": "MW-GAP-004",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-06-editpagetest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-06-editpagetest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST"
   },
   {
     "candidateId": "MW-GAP-004",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-16-revertlastcommittest",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-MEDIAWIKI-16-REVERTLASTCOMMITTEST",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "mediawiki:mediawiki-16-revertlastcommittest",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-MEDIAWIKI-16-REVERTLASTCOMMITTEST"
   },
   {
     "candidateId": "PS-GAP-003",
     "application": "prestashop",
     "baselineCaseId": "prestashop-28-outofstockvalidity",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "prestashop:prestashop-28-outofstockvalidity",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
   },
   {
     "candidateId": "PS-GAP-003",
     "application": "prestashop",
     "baselineCaseId": "prestashop-01-addnewproduct",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "prestashop:prestashop-01-addnewproduct",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT"
   },
   {
     "candidateId": "PS-GAP-004",
     "application": "prestashop",
     "baselineCaseId": "prestashop-01-addnewproduct",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "prestashop:prestashop-01-addnewproduct",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT"
   },
   {
     "candidateId": "PS-GAP-004",
     "application": "prestashop",
     "baselineCaseId": "prestashop-28-outofstockvalidity",
-    "note": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
-    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
-    "directContentVerification": "NOT_VERIFIED"
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "evidenceId": "prestashop:prestashop-28-outofstockvalidity",
+    "semanticAssessment": "Mapping locates the pinned files; assertions/steps are interpreted in the candidate-specific analysis. Structural tags are not treated as behavioral proof.",
+    "comparisonStatus": "REVIEWED_AT_PIN",
+    "directContentVerification": "NOT_VERIFIED",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
   }
 ]

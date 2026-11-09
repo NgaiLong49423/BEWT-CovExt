@@ -3,133 +3,664 @@
     "candidateId": "CL-GAP-001",
     "application": "claroline",
     "baselineCaseId": "claroline-04-addcoursetest",
-    "unitId": "BU-CLAROLINE-04-ADDCOURSETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "claroline/gherkin/04_AddCourseTest.feature",
+    "featureBlobSha": "11f260aeb230d37f0c75cd9984f8ce9ca4e786a7",
+    "gherkinLineRefs": [
+      {
+        "line": 17,
+        "kind": "VISIBLE_MESSAGE"
+      },
+      {
+        "line": 20,
+        "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/04_AddCourseTest.feature#L17-L20",
+    "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
+    "javaBlobSha": "09072853d6c3da7f76a0e79529d51da16fc58ca8",
+    "javaAssertionLineRefs": [
+      {
+        "line": 21,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java#L21",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-CLAROLINE-04-ADDCOURSETEST"
   },
   {
     "candidateId": "CL-GAP-001",
     "application": "claroline",
     "baselineCaseId": "claroline-07-addcourseeventtest",
-    "unitId": "BU-CLAROLINE-07-ADDCOURSEEVENTTEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "claroline/gherkin/07_AddCourseEventTest.feature",
+    "featureBlobSha": "dc08c8b2f56cd6280a3b472d49d3df20ec7976cb",
+    "gherkinLineRefs": [
+      {
+        "line": 15,
+        "kind": "VISIBLE_MESSAGE"
+      },
+      {
+        "line": 18,
+        "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/gherkin/07_AddCourseEventTest.feature#L15-L18",
+    "javaPath": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
+    "javaBlobSha": "045fbc815075f344cfaf227f017cb7f0aff56091",
+    "javaAssertionLineRefs": [
+      {
+        "line": 20,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java#L20",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-CLAROLINE-07-ADDCOURSEEVENTTEST"
   },
   {
     "candidateId": "MB-GAP-001",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-08-addissue",
-    "unitId": "BU-MANTISBT-08-ADDISSUE",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+    "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+    "gherkinLineRefs": [
+      {
+        "line": 12,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+    "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+    "javaAssertionLineRefs": [
+      {
+        "line": 28,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 29,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 30,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-08-ADDISSUE"
   },
   {
     "candidateId": "MB-GAP-001",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-18-updateissuesummary",
-    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+    "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+    "gherkinLineRefs": [
+      {
+        "line": 8,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+    "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+    "javaAssertionLineRefs": [
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY"
   },
   {
     "candidateId": "MB-GAP-002",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-08-addissue",
-    "unitId": "BU-MANTISBT-08-ADDISSUE",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+    "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+    "gherkinLineRefs": [
+      {
+        "line": 12,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+    "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+    "javaAssertionLineRefs": [
+      {
+        "line": 28,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 29,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 30,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-08-ADDISSUE"
   },
   {
     "candidateId": "MB-GAP-002",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-18-updateissuesummary",
-    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+    "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+    "gherkinLineRefs": [
+      {
+        "line": 8,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+    "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+    "javaAssertionLineRefs": [
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY"
   },
   {
     "candidateId": "MB-GAP-004",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-08-addissue",
-    "unitId": "BU-MANTISBT-08-ADDISSUE",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/08_AddIssue.feature",
+    "featureBlobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+    "gherkinLineRefs": [
+      {
+        "line": 12,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/08_AddIssue.feature#L12",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+    "javaBlobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+    "javaAssertionLineRefs": [
+      {
+        "line": 28,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 29,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 30,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java#L28-L30",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-08-ADDISSUE"
   },
   {
     "candidateId": "MB-GAP-004",
     "application": "mantisbt",
     "baselineCaseId": "mantisbt-18-updateissuesummary",
-    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+    "featureBlobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+    "gherkinLineRefs": [
+      {
+        "line": 8,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/gherkin/18_UpdateIssueSummary.feature#L8",
+    "javaPath": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+    "javaBlobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+    "javaAssertionLineRefs": [
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java#L22",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MANTISBT-18-UPDATEISSUESUMMARY"
   },
   {
     "candidateId": "MW-GAP-002",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-03-createpagetest",
-    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/03_CreatePageTest.feature",
+    "featureBlobSha": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+    "gherkinLineRefs": [
+      {
+        "line": 15,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature#L15",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+    "javaBlobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
+    "javaAssertionLineRefs": [
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 23,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST"
   },
   {
     "candidateId": "MW-GAP-002",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-06-editpagetest",
-    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/06_EditPageTest.feature",
+    "featureBlobSha": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+    "gherkinLineRefs": [
+      {
+        "line": 14,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+    "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+    "javaAssertionLineRefs": [
+      {
+        "line": 20,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 21,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST"
   },
   {
     "candidateId": "MW-GAP-002",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
-    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+    "featureBlobSha": "cfa958801e8ff05f4f22d05b1b6f42d43d69d838",
+    "gherkinLineRefs": [
+      {
+        "line": 14,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/08_CreatePageFromSourceTest.feature#L14",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+    "javaBlobSha": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+    "javaAssertionLineRefs": [
+      {
+        "line": 21,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java#L21-L22",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST"
   },
   {
     "candidateId": "MW-GAP-003",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-03-createpagetest",
-    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/03_CreatePageTest.feature",
+    "featureBlobSha": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+    "gherkinLineRefs": [
+      {
+        "line": 15,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/03_CreatePageTest.feature#L15",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java",
+    "javaBlobSha": "a53d396a929387b2760f9db2f153200cfb07224e",
+    "javaAssertionLineRefs": [
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 23,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java#L22-L23",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-03-CREATEPAGETEST"
   },
   {
     "candidateId": "MW-GAP-003",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-06-editpagetest",
-    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/06_EditPageTest.feature",
+    "featureBlobSha": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+    "gherkinLineRefs": [
+      {
+        "line": 14,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/06_EditPageTest.feature#L14",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+    "javaBlobSha": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+    "javaAssertionLineRefs": [
+      {
+        "line": 20,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 21,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java#L20-L21",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-06-EDITPAGETEST"
   },
   {
     "candidateId": "MW-GAP-003",
     "application": "mediawiki",
     "baselineCaseId": "mediawiki-08-createpagefromsourcetest",
-    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "mediawiki/gherkin/08_CreatePageFromSourceTest.feature",
+    "featureBlobSha": "cfa958801e8ff05f4f22d05b1b6f42d43d69d838",
+    "gherkinLineRefs": [
+      {
+        "line": 14,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/gherkin/08_CreatePageFromSourceTest.feature#L14",
+    "javaPath": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+    "javaBlobSha": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+    "javaAssertionLineRefs": [
+      {
+        "line": 21,
+        "kind": "assertEquals"
+      },
+      {
+        "line": 22,
+        "kind": "assertEquals"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageFromSourceTest.java#L21-L22",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-MEDIAWIKI-08-CREATEPAGEFROMSOURCETEST"
   },
   {
     "candidateId": "PS-GAP-001",
     "application": "prestashop",
     "baselineCaseId": "prestashop-01-addnewproduct",
-    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "prestashop/gherkin/01_AddNewProduct.feature",
+    "featureBlobSha": "327a9cb0f3d57c4215fda0d73a36b5e52582bf8a",
+    "gherkinLineRefs": [
+      {
+        "line": 11,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/01_AddNewProduct.feature#L11",
+    "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java",
+    "javaBlobSha": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+    "javaAssertionLineRefs": [
+      {
+        "line": 20,
+        "kind": "assertTrue"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java#L20",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-PRESTASHOP-01-ADDNEWPRODUCT"
   },
   {
     "candidateId": "PS-GAP-001",
     "application": "prestashop",
     "baselineCaseId": "prestashop-12-addnewaddress",
-    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "prestashop/gherkin/12_AddNewAddress.feature",
+    "featureBlobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+    "gherkinLineRefs": [
+      {
+        "line": 20,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/12_AddNewAddress.feature#L20",
+    "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+    "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+    "javaAssertionLineRefs": [
+      {
+        "line": 21,
+        "kind": "assertTrue"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java#L21",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS"
   },
   {
     "candidateId": "PS-GAP-001",
     "application": "prestashop",
     "baselineCaseId": "prestashop-28-outofstockvalidity",
-    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "prestashop/gherkin/28_OutOfStockValidity.feature",
+    "featureBlobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+    "gherkinLineRefs": [
+      {
+        "line": 13,
+        "kind": "REJECTION_EXPECTATION"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
+    "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+    "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+    "javaAssertionLineRefs": [
+      {
+        "line": 23,
+        "kind": "assertTrue"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
   },
   {
     "candidateId": "PS-GAP-002",
     "application": "prestashop",
     "baselineCaseId": "prestashop-12-addnewaddress",
-    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "prestashop/gherkin/12_AddNewAddress.feature",
+    "featureBlobSha": "ce7de679b6a4229266a2b611ddccbecd7c235e9f",
+    "gherkinLineRefs": [
+      {
+        "line": 20,
+        "kind": "VISIBLE_MESSAGE"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/12_AddNewAddress.feature#L20",
+    "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java",
+    "javaBlobSha": "7163cf04381cd386ed7daae25ff7553866da3c86",
+    "javaAssertionLineRefs": [
+      {
+        "line": 21,
+        "kind": "assertTrue"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewAddress.java#L21",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-PRESTASHOP-12-ADDNEWADDRESS"
   },
   {
     "candidateId": "PS-GAP-002",
     "application": "prestashop",
     "baselineCaseId": "prestashop-28-outofstockvalidity",
-    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY",
-    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE"
+    "relationship": "SCREENED_NEARBY_BUT_NOT_RELEVANT_TO_CANDIDATE_ORACLE",
+    "baselinePin": {
+      "repository": "OlianasD/BEWT",
+      "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+    },
+    "featurePath": "prestashop/gherkin/28_OutOfStockValidity.feature",
+    "featureBlobSha": "3425e333df065b21cb68b9dc1d8b6b586faacd02",
+    "gherkinLineRefs": [
+      {
+        "line": 13,
+        "kind": "REJECTION_EXPECTATION"
+      }
+    ],
+    "gherkinPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/gherkin/28_OutOfStockValidity.feature#L13",
+    "javaPath": "prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java",
+    "javaBlobSha": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+    "javaAssertionLineRefs": [
+      {
+        "line": 23,
+        "kind": "assertTrue"
+      }
+    ],
+    "javaPermalink": "https://github.com/OlianasD/BEWT/blob/0501249ff3e9a5ea83a06155cd2971dc36197056/prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java#L23",
+    "directContentVerification": "PINNED_CONTENT_VERIFIED",
+    "reason": "Nearby workflow considered; its expected behavior/assertions do not establish the candidate-specific oracle.",
+    "unitId": "BU-PRESTASHOP-28-OUTOFSTOCKVALIDITY"
   }
 ]

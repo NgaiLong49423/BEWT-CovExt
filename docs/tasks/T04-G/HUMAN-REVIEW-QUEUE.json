@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "task": "T04-G",
-  "reviewOrderPolicy": "Shortlists first in per-app T04-F priority order, then remaining source order; not a global ranking.",
+  "reviewOrderPolicy": "Application order: Bludit, Claroline, ExpressCart, Joomla, MantisBT, MediaWiki, PrestaShop; within each app shortlist first by priorityReviewOrder, then remaining candidates in stable T04-F source order. Not a cross-app ranking.",
   "counts": {
     "candidates": 27,
     "shortlisted": 20
@@ -26,9 +26,15 @@
       "fixture": {
         "proposalFixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "A page with a future publish date; isolated clock-controlled fixture or bounded wait; no existing page with same slug."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
+      "negativeControl": {
+        "proposal": "Repeat with a future-dated draft; it must remain unpublished.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
         "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification."
@@ -61,17 +67,68 @@
       "fixture": {
         "proposalFixture": "Select a local cover image while editing content, save, reload and open the public content page.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Use a small synthetic PNG in the app-managed images area; choose a unique content slug."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
+      "negativeControl": {
+        "proposal": "Save without a cover image and verify no broken/placeholder URL is emitted.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Theme-specific rendering and image cleanup may affect reproducibility.",
         "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted."
       ],
       "reviewerQuestions": [
         "BL-001 creates content; is cover-image persistence/rendering sufficiently distinct from generic creation?",
-        "Which theme�s cover slot is the required oracle?",
+        "Which theme’s cover slot is the required oracle?",
         "Can a synthetic image be uploaded and cleaned without shared media state?"
+      ],
+      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "application": "bludit",
+      "candidateSummary": "Administrator can change a non-admin user's role and retain it",
+      "shortlisted": true,
+      "priorityReviewOrder": 3,
+      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [
+        "BU-BLUDIT-08-ADDUSERTEST",
+        "BU-BLUDIT-09-CHANGEPASSWORDTEST",
+        "BU-BLUDIT-16-DELETEUSERTEST"
+      ],
+      "baselineCaseIds": [
+        "bludit-08-addusertest",
+        "bludit-09-changepasswordtest",
+        "bludit-16-deleteusertest"
+      ],
+      "overlapAndPossibleDelta": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
+      "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route.",
+      "fixture": {
+        "proposalFixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Seed a second non-admin user and record their current role; use synthetic credentials."
+        ],
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": {
+        "proposal": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
+      "testabilityRisks": [
+        "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
+        "View exposes role selector only for an Administrator; role persistence and privilege effect need validation."
+      ],
+      "reviewerQuestions": [
+        "BL-008 creates a user; does role editing/effective route access add distinct coverage?",
+        "Should the oracle assert persisted role, effective permissions, or both?",
+        "Which role/account can perform and verify the change safely?"
       ],
       "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "implementationReadiness": "PENDING_HUMAN_REVIEW",
@@ -100,9 +157,15 @@
       "fixture": {
         "proposalFixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Fresh static page and post with unique slugs; public home page is available."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Compare with a normal post under the same category/route context.",
+      "negativeControl": {
+        "proposal": "Compare with a normal post under the same category/route context.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
         "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification."
@@ -113,45 +176,6 @@
         "Does the human reviewer accept the source-to-oracle inference?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
-      "implementationReadiness": "PENDING_HUMAN_REVIEW",
-      "humanDecision": null
-    },
-    {
-      "candidateId": "BL-GAP-004",
-      "application": "bludit",
-      "candidateSummary": "Administrator can change a non-admin user's role and retain it",
-      "shortlisted": true,
-      "priorityReviewOrder": 3,
-      "semanticAssessment": "PARTIAL_SEMANTIC_OVERLAP",
-      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
-      "baselineUnitIds": [
-        "BU-BLUDIT-08-ADDUSERTEST",
-        "BU-BLUDIT-09-CHANGEPASSWORDTEST",
-        "BU-BLUDIT-16-DELETEUSERTEST"
-      ],
-      "baselineCaseIds": [
-        "bludit-08-addusertest",
-        "bludit-09-changepasswordtest",
-        "bludit-16-deleteusertest"
-      ],
-      "overlapAndPossibleDelta": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
-      "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route.",
-      "fixture": {
-        "proposalFixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
-        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
-        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
-      },
-      "negativeControl": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
-      "testabilityRisks": [
-        "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
-        "View exposes role selector only for an Administrator; role persistence and privilege effect need validation."
-      ],
-      "reviewerQuestions": [
-        "BL-008 creates a user; does role editing/effective route access add distinct coverage?",
-        "Should the oracle assert persisted role, effective permissions, or both?",
-        "Which role/account can perform and verify the change safely?"
-      ],
-      "suggestedDisposition": "RECOMMEND_FOR_HUMAN_REVIEW",
       "implementationReadiness": "PENDING_HUMAN_REVIEW",
       "humanDecision": null
     },
@@ -170,9 +194,15 @@
       "fixture": {
         "proposalFixture": "Upload the file, move it to a different course-folder path, then delete it through the document tool.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Student without edit permission attempts rename/delete; content remains unchanged.",
+      "negativeControl": {
+        "proposal": "Student without edit permission attempts rename/delete; content remains unchanged.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Legacy file UI and filesystem cleanup need an isolated course fixture.",
         "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation."
@@ -209,9 +239,15 @@
       "fixture": {
         "proposalFixture": "As the student, open group B directly, then join only if the interface permits self-registration.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Course with two groups and one enrolled student assigned only to group A; group B has private content."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Repeat against the student's assigned group A and verify access succeeds.",
+      "negativeControl": {
+        "proposal": "Repeat against the student's assigned group A and verify access succeeds.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Group membership fixture and legacy session isolation are required.",
         "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation."
@@ -246,9 +282,15 @@
       "fixture": {
         "proposalFixture": "Use the exercise import command to import the fixture.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Submit a malformed package and verify no partial exercise is created.",
+      "negativeControl": {
+        "proposal": "Submit a malformed package and verify no partial exercise is created.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Requires a valid legacy package fixture and transactional cleanup.",
         "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify."
@@ -283,9 +325,15 @@
       "fixture": {
         "proposalFixture": "Submit the exercise as student, then inspect tracking as teacher and as student.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Tracking enabled; one exercise with a deterministic answer and a separate student account."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
+      "negativeControl": {
+        "proposal": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Tracking setting and legacy permission model make the oracle configuration-sensitive.",
         "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred."
@@ -320,9 +368,15 @@
       "fixture": {
         "proposalFixture": "Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "One product/variant with stock=1 and stock tracking enabled; start with empty cart."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.",
+      "negativeControl": {
+        "proposal": "With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "The exact rejection path may depend on cart validation outside the inspected product routes.",
         "Pinned routes/index.js implements a hard stock bound and separately aggregates quantities held in other carts; cart update UI feedback and configuration/variant edge cases remain unexecuted."
@@ -357,9 +411,15 @@
       "fixture": {
         "proposalFixture": "Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Synthetic customer session with customerPresent/customerId, populated cart, and address fields accepted by the customer update schema; omit address fields from order request to exercise session fallback."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Use a distinct request-body address and verify the order route prefers the request value over the session fallback.",
+      "negativeControl": {
+        "proposal": "Use a distinct request-body address and verify the order route prefers the request value over the session fallback.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Session-cached address may mask persistence unless a new session/relogin is used.",
         "Source shows DB update/session refresh and the order route explicit request-body-or-session fallback. The POST /admin/order/create handler lacks restrict/checkAccess; that auth defect is tracked separately. Runtime flow is NOT_RUN."
@@ -398,9 +458,15 @@
       "fixture": {
         "proposalFixture": "One unique discount record with a future valid window; no real customer data.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "An existing synthetic discount code with known start/end values; controlled timezone and application clock."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Submit a future start and an end later than start; the update should be accepted.",
+      "negativeControl": {
+        "proposal": "Submit a future start and an end later than start; the update should be accepted.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Date parsing and timezone must be controlled; route-level validation can be asserted without relying on redemption behavior.",
         "Pinned route source checks start-before-now and end-not-after-start on update. It does not establish checkout redemption semantics."
@@ -437,9 +503,15 @@
       "fixture": {
         "proposalFixture": "Toggle featured on, reload list, then toggle off.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Unfeatured published article with unique title; featured-list baseline empty for that title."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Use a published but unfeatured article and verify it remains outside the featured list.",
+      "negativeControl": {
+        "proposal": "Use a published but unfeatured article and verify it remains outside the featured list.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Feature visibility can depend on front-end menu configuration.",
         "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent."
@@ -476,9 +548,15 @@
       "fixture": {
         "proposalFixture": "Set future publish-up and future publish-down, then inspect before, within and after the window.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Published article with start/end timestamps in a controlled timezone; unique alias."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Keep a normal published article as a control at each observation time.",
+      "negativeControl": {
+        "proposal": "Keep a normal published article as a control at each observation time.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Timezone, cache and server clock can make boundaries flaky.",
         "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check."
@@ -515,9 +593,15 @@
       "fixture": {
         "proposalFixture": "Attempt to unpublish as editor, then as administrator.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Two accounts with same article access but different ACL; article is checked in."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Admin control confirms the test target is otherwise editable.",
+      "negativeControl": {
+        "proposal": "Admin control confirms the test target is otherwise editable.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "ACL setup and cached sessions need clean users.",
         "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification."
@@ -550,9 +634,15 @@
       "fixture": {
         "proposalFixture": "Edit and save a single field, then reload version/history information.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Existing article with known version counter and history enabled."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Submit an invalid edit and verify version does not increment.",
+      "negativeControl": {
+        "proposal": "Submit an invalid edit and verify version does not increment.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Displayed version/history UI may require Joomla content-history configuration.",
         "Source model increments the article version on save; UI history visibility is a separate uncertainty."
@@ -581,48 +671,23 @@
       "fixture": {
         "proposalFixture": "Enable monitoring, reload, disable monitoring, reload.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Issue in accessible project; user initially not monitoring; separate account available for isolation."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Second account must not inherit the first user's monitor state.",
+      "negativeControl": {
+        "proposal": "Second account must not inherit the first user's monitor state.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Email notification configuration may obscure the UI oracle.",
         "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded."
       ],
       "reviewerQuestions": [
         "Issue add/assignment/status cases do not assert per-user monitor state; is an unseen equivalent behavior in the pinned inventory a concern?",
-        "Should the oracle assert monitor row/user association and that unmonitoring leaves other users� state unchanged?",
+        "Should the oracle assert monitor row/user association and that unmonitoring leaves other users’ state unchanged?",
         "Which reporter/viewer permissions and two-user fixture isolate account-scoped monitoring?"
-      ],
-      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
-      "implementationReadiness": "PENDING_HUMAN_REVIEW",
-      "humanDecision": null
-    },
-    {
-      "candidateId": "MB-GAP-002",
-      "application": "mantisbt",
-      "candidateSummary": "Private issue note is hidden from users below the private-note threshold",
-      "shortlisted": false,
-      "priorityReviewOrder": null,
-      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
-      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
-      "baselineUnitIds": [],
-      "baselineCaseIds": [],
-      "overlapAndPossibleDelta": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
-      "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker.",
-      "fixture": {
-        "proposalFixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
-        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
-        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
-      },
-      "negativeControl": "Add a public note control; both users should see it.",
-      "testabilityRisks": [
-        "Threshold defaults and permission settings require explicit pinning in fixture.",
-        "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture."
-      ],
-      "reviewerQuestions": [
-        "No baseline case currently asserts private-note visibility; what user-level threshold and note state should the oracle check?",
-        "Which permission threshold and UI/API-visible outcome is authoritative?",
-        "How will reporter/viewer roles and private test data be isolated?"
       ],
       "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "implementationReadiness": "PENDING_HUMAN_REVIEW",
@@ -651,9 +716,15 @@
       "fixture": {
         "proposalFixture": "Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Two accessible issues with no relationship; unique pair in isolated project."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Try a destination issue the actor cannot view; no relationship details should leak.",
+      "negativeControl": {
+        "proposal": "Try a destination issue the actor cannot view; no relationship details should leak.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Relationship type-specific constraints and duplicate handling need separate assertions.",
         "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation."
@@ -682,9 +753,15 @@
       "fixture": {
         "proposalFixture": "Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Issue in isolated project; small synthetic text attachment with unique filename/content marker."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "As a user without update access, attempt upload and verify no attachment is created.",
+      "negativeControl": {
+        "proposal": "As a user without update access, attempt upload and verify no attachment is created.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Filesystem vs database attachment mode changes storage cleanup.",
         "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified."
@@ -695,6 +772,43 @@
         "Which upload size/type configuration, permissions, storage path, and cleanup policy affect the result?"
       ],
       "suggestedDisposition": "RECOMMEND_REVISION",
+      "implementationReadiness": "PENDING_HUMAN_REVIEW",
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "application": "mantisbt",
+      "candidateSummary": "Private issue note is hidden from users below the private-note threshold",
+      "shortlisted": false,
+      "priorityReviewOrder": null,
+      "semanticAssessment": "INSUFFICIENT_EVIDENCE",
+      "oracleAssessment": "PARTIALLY_SOURCE_SUPPORTED",
+      "baselineUnitIds": [],
+      "baselineCaseIds": [],
+      "overlapAndPossibleDelta": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
+      "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker.",
+      "fixture": {
+        "proposalFixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
+        "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Issue accessible to both; note fixture contains a unique synthetic marker; privacy enabled."
+        ],
+        "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
+      },
+      "negativeControl": {
+        "proposal": "Add a public note control; both users should see it.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
+      "testabilityRisks": [
+        "Threshold defaults and permission settings require explicit pinning in fixture.",
+        "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture."
+      ],
+      "reviewerQuestions": [
+        "No baseline case currently asserts private-note visibility; what user-level threshold and note state should the oracle check?",
+        "Which permission threshold and UI/API-visible outcome is authoritative?",
+        "How will reporter/viewer roles and private test data be isolated?"
+      ],
+      "suggestedDisposition": "NEEDS_MORE_EVIDENCE",
       "implementationReadiness": "PENDING_HUMAN_REVIEW",
       "humanDecision": null
     },
@@ -723,9 +837,15 @@
       "fixture": {
         "proposalFixture": "Move page to a new title with reason and redirect; open old and new titles.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Existing source page with unique text; destination title unused; redirect option enabled."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Try an invalid occupied target and verify source page remains intact.",
+      "negativeControl": {
+        "proposal": "Try an invalid occupied target and verify source page remains intact.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Move permissions, title normalization and redirect suppression rights affect outcome.",
         "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation."
@@ -754,9 +874,15 @@
       "fixture": {
         "proposalFixture": "Watch the page as user A, inspect watchlist, then unwatch and inspect again.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Two registered users and one existing page; watchlist initially excludes the page for both."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Repeat with user B to verify isolation.",
+      "negativeControl": {
+        "proposal": "Repeat with user B to verify isolation.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Watchlist expiry settings and anonymous account behavior can vary.",
         "Source includes a dedicated watch action and watchlist manager; UI labels require review."
@@ -785,9 +911,15 @@
       "fixture": {
         "proposalFixture": "Upload allowed file, then attempt the invalid control file.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
+      "negativeControl": {
+        "proposal": "Use a valid small file as positive control and verify only one file record exists.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Upload config, MIME detection and storage backend must be pinned.",
         "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime."
@@ -822,9 +954,15 @@
       "fixture": {
         "proposalFixture": "Edit one sentence and open page history or revision API for both revisions.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Existing page with stable baseline text and known revision ID."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
+      "negativeControl": {
+        "proposal": "Attempt a rejected edit and verify no new revision is added.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "History display/API state and edit tokens need pinned config.",
         "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification."
@@ -853,9 +991,15 @@
       "fixture": {
         "proposalFixture": "Redeem once, reset cart and attempt to redeem again as the same customer.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Cart rule with quantity_per_user=1; customer account; eligible cart; rule unused by that customer."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "A different customer can redeem if global quantity remains available.",
+      "negativeControl": {
+        "proposal": "A different customer can redeem if global quantity remains available.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Order state, cart rule caches and generated customer account need deterministic reset.",
         "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified."
@@ -884,9 +1028,15 @@
       "fixture": {
         "proposalFixture": "Proceed to carrier selection with cart value/weight below, at and above configured ranges.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
+      "negativeControl": {
+        "proposal": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Carrier module/config and tax inclusion influence calculated values.",
         "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation."
@@ -921,9 +1071,15 @@
       "fixture": {
         "proposalFixture": "Complete checkout once; reload order confirmation and product stock.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "One available product, known initial stock, valid address and deterministic test payment module."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Force payment validation failure and verify no completed order/stock decrement is falsely recorded.",
+      "negativeControl": {
+        "proposal": "Force payment validation failure and verify no completed order/stock decrement is falsely recorded.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Payment module and stock dependency settings must be fixed; avoid real payment provider.",
         "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module."
@@ -958,9 +1114,15 @@
       "fixture": {
         "proposalFixture": "Update available quantity for each combination through admin and reload product availability.",
         "independence": "Synthetic isolated data is proposed; independent repeatability not runtime-verified.",
+        "requirements": [
+          "Product with one default combination and a second combination; initial quantities recorded; stock sharing mode known."
+        ],
         "cleanup": "Plan isolated per-candidate records and remove only created records; exact cleanup path not verified."
       },
-      "negativeControl": "Attempt a negative/non-integer quantity and verify validation rejects it.",
+      "negativeControl": {
+        "proposal": "Attempt a negative/non-integer quantity and verify validation rejects it.",
+        "assessment": "Needs observable assertion and controlled authorization/configuration; do not assume source guarantees the proposed result."
+      },
       "testabilityRisks": [
         "Product-combination and shop stock-sharing settings complicate reset and oracle.",
         "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning."
