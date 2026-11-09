@@ -1,0 +1,28 @@
+{
+  "capturedAtUtc": "2026-11-09T13:14:47.7900619Z",
+  "labels": [
+    "project=bewt-covext",
+    "owner=bewt-covext",
+    "managed-by=bewt-covext-agent",
+    "app=claroline",
+    "task=t03b2-g0"
+  ],
+  "readOnlyCounts": {
+    "container": {
+      "ids": [],
+      "count": 0,
+      "exitCode": 0
+    },
+    "network": {
+      "ids": [],
+      "count": 0,
+      "exitCode": 0
+    },
+    "volume": {
+      "ids": [],
+      "count": 0,
+      "exitCode": 0
+    }
+  },
+  "note": "Filters require all listed task ownership labels; no resources were created, changed, stopped, or removed."
+}

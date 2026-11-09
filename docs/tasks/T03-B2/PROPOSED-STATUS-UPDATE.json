@@ -49,5 +49,5 @@
   "approvedNetworkPolicy": "egress-limited-bridge-no-masquerade-v1",
   "networkPolicyRuntimeStatus": "NOT_RUN_MEMORY_GATE",
   "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r44/",
-  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r43/runtime-gate-recheck.json"
+  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r45/"
 }
