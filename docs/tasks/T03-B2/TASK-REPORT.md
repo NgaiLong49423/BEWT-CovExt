@@ -72,13 +72,13 @@ No `config/apps/claroline.json` was added: although the official release source 
 
 - Narrow SonarCloud security follow-up: removed inherited `TEMP`/`TMP` from the child-process allowlist and shared Docker/Maven environment. The targeted test now asserts both variables are absent in both child environments. This avoids forwarding host-configured shared temporary paths; Windows temp resolution can fall back to `USERPROFILE`.
 - Verification: six syntax checks PASS; 18 cleanup/fault-injection tests PASS; Maven `clean test-compile` PASS (22 main and 42 test sources) with `TEMP`/`TMP` omitted. Sanitized logs and SHA-256 metadata: `evidence/offline-verification-20261109-r9/`.
-- Latest read-only runtime gate recheck: 2.35 GiB free of 13.79 GiB and Docker daemon query exit 1 because `desktop-linux` pipe is absent. No Docker resources were changed. Runtime A/B remains `NOT_RUN`; source provenance remains `PROVENANCE_BLOCKED`.
+- Historical r9 runtime gate recheck: 2.35 GiB free of 13.79 GiB and Docker daemon query exit 1 because `desktop-linux` pipe was absent. No Docker resources were changed. Runtime A/B remained `NOT_RUN`; source status was later superseded by r13/r14.
 - SonarCloud Quality Gate was verified PASS on code HEAD `0e98de03ae44c4e56760fa52cc5cd242b54a44ef`, with 0 new issues and 0 security hotspots. This result applies to that exact code commit.
 
 ## Provenance and gate follow-up — 2026-11-09
 
 - Retrieved both official SourceForge archives twice over HTTPS. The byte counts and SHA-256 values matched across each pair; gzip and tar listing checks passed. Only metadata is retained; temporary archive files were removed. Details: `evidence/offline-verification-20261109-r10/source-archive-verification.json`.
-- The two candidate archive hashes do not prove which release variant the pinned image contains. No Git commit was verified, and the parser still cannot represent archive-only provenance. Claroline remains `PROVENANCE_BLOCKED`; no runtime manifest was promoted.
+- Historical r10 assessment: the archive hashes alone did not identify the image source, no Git commit had been verified, and the parser could not represent archive-only provenance. This was superseded by the verified release tag/package and r14 image-layer comparison; no runtime manifest was promoted.
 - Latest read-only runtime preflight: 2.98 GiB free of 13.79 GiB; Docker daemon query exit 1 because the `desktop-linux` named pipe is unavailable. No Docker resources changed. Runs A/B remain `NOT_RUN`; evidence: `evidence/offline-verification-20261109-r10/runtime-preflight.json`.
 The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.10 refs. The examined historical snapshot identifies as the `claroline/core-bundle` component, so it is not claimed as the full application source commit. See `evidence/offline-verification-20261109-r11/github-source-ref-probe.json`.
 
