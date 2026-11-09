@@ -3,10 +3,11 @@
 - Task scope / acceptance gate: one bounded Gemini Gherkin request through the shared LangGraph to the real review checkpoint; stop before Java until a reviewer accepts the exact revision.
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb` (fetched and verified 2026-11-10).
 - Working branch: `feature/t05b-expresscart-live-generation`.
-- Head commit (full 40-char SHA, task content commit): `048f9830616565358ea82d181cb276374a7ce537`.
+- Execution commit (source fix; exact local tests ran against this commit): `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`.
+- Current PR HEAD at the start of this correction round: `72103d17bc4005a661d6fa03d862e1364c283a88`. The evidence/report commits are later documentation-only updates; the final PR HEAD is reported in the handoff and PR ref.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15 (draft; review gate only).
-- Push status: PUSHED; remote branch matched `048f9830616565358ea82d181cb276374a7ce537` before PR creation. See current PR head after handoff metadata update.
-- Runtime/commit/version tested: offline framework at T05-B task head; ExpressCart source pin `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19` (benchmark label `1.19`). No app runtime used.
+- Push status: source fix pushed to existing branch; evidence/report commits follow on PR #15. No new PR was created.
+- Runtime/commit/version tested: offline framework at execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; ExpressCart source pin `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19` (benchmark label `1.19`). No app runtime used.
 - Status proposed by Agent: `BLOCKED_AUTHORIZATION`. The proposed assertion is limited to the source-backed `/forgot` redirect; page/message visibility and research novelty remain unverified. No Gemini candidate was generated.
 
 ## 1. What changed
@@ -22,10 +23,12 @@
 | `framework/src/runtime/model-provider.ts`, `framework/test/model-provider.test.ts` | Renamed token-derived `actualCostUsd` telemetry to `estimatedCostUsd`; added numeric estimate guard and regression test | Token usage × list price is not independent billing evidence |
 | `framework/src/t01c-cli.ts` | Clarified that the configured USD limit is a preflight estimate, not a verified provider cost ceiling | Avoids overstating the budget guarantee |
 | `docs/tasks/T05-B/tools/verify-expresscart-source-identity.mts` | Reproducible offline source pin/build-context verifier | Captures independently rerun source identity evidence without Docker |
+| `framework/src/runtime/model-provider.ts` | Shared `successfulGeminiTelemetry` for both Gemini providers | Removes Sonar-confirmed duplicated token-usage and success telemetry mapping without changing thresholds or exclusions |
+| `docs/tasks/T05-B/evidence/verification/20261110-correction-05/**` | Execution provenance, sanitized command logs, SHA-256 digests and Sonar analysis record | Ties local verification and the Quality Gate result to exact commits |
 
 ## 2. Actual verification
 
-Baseline verification at `6c7a0a84dc7625c66f33f8ce00ada44399f43588`: `npm ci` exit 0; build exit 0; unit tests 45/45 PASS; focused offline integration 11/11 PASS outside sandbox. After the T05-B-only telemetry and source-claim corrections, build PASS, provider unit 11/11, framework unit 47/47, and focused workflow integration 7/7 all passed; exact logs are indexed in `TEST-RESULTS.md`. The initial sandbox attempt had 10 PASS / 1 EPERM symlink failure. Full integration was intentionally not invoked while Agent 1 holds the Docker lease. Gemini was not called.
+The independent review identified 9.8% new-code duplication on commit `72103d17bc4005a661d6fa03d862e1364c283a88`, from two production-code blocks in `model-provider.ts` (Sonar lines 406–416 and 467–477). A shared helper removed the duplication. On execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`, build PASS (exit 0), provider unit 11/11, framework unit 47/47, and focused offline workflow integration 7/7. Node/npm versions, commit/tree/source hashes, exact commands/exits, status snapshots, and per-log SHA-256 digests are in correction-05 evidence. This is local evidence, not CI. Earlier correction-02/03/04 results and the original sandbox symlink failure remain recorded in `TEST-RESULTS.md` and their evidence folders. Full integration was intentionally not invoked while Agent 1 holds the Docker lease. Gemini was not called.
 
 ## 3. Research impact
 
@@ -41,13 +44,13 @@ Baseline verification at `6c7a0a84dc7625c66f33f8ce00ada44399f43588`: `npm ci` ex
 - `bewt-original/` touched? NO.
 - Docker/project resources touched? NONE; no Docker commands were run.
 - Existing unrelated local dirty files preserved? YES. Eleven pre-existing modified files under `experiments/expresscart/agent/dist/` were left untouched and excluded.
-- Secret-pattern scan: to be repeated for this follow-up commit. No secret value was read or written; environment variable presence does not establish credential validity.
+- Secret scan: Gitleaks `8.30.1`, official release archive checksum verified; committed PR history and staged T05-B correction docs/evidence both scanned with `--redact=100`, exit 0, no leaks. Together these scans covered the complete proposed PR diff at evidence preparation. Scan command/version/scope/checksum, redacted logs and empty reports are under `docs/tasks/T05-B/evidence/verification/20261110-correction-05/`. Scanner did not inspect process environment; no credential value was read or written. No false positives required justification.
 - Failed/blocked tasks and honest reasons: live provider call blocked pending fresh approval. `/forgot` page existence and visible-message behavior remain unverified and are excluded from the redirect-only proposal. No Gemini retry/probe. Full Docker integration not run because Agent 1 owns the runtime lease.
 
 ## 5. Evidence and reproduction
 
 - Source/test paths: `framework/src/t01c-cli.ts`, `framework/src/runtime/model-provider.ts`, `framework/src/runtime/model-call-ledger.ts`, `framework/src/runtime/workflow.ts`, `framework/test/model-provider.test.ts`.
-- Raw run/log/XML/screenshot paths: sanitized offline command logs at `docs/tasks/T05-B/evidence/verification/20261110-offline-01/`.
+- Raw run/log/XML/screenshot paths: earlier logs at `docs/tasks/T05-B/evidence/verification/20261110-offline-01/` and correction-02/03/04; exact final-source execution logs, provenance, and digests at `docs/tasks/T05-B/evidence/verification/20261110-correction-05/`.
 - Input data fixture and cleanup: no runtime fixture created.
 - Exact reproducible commands and actual exits: see `TEST-RESULTS.md`.
 - Known limitations/risks: credential validity, provider connectivity/quota/billing, successful generation and actual human review remain unverified. The route redirects to `/forgot`; the generic route requires an enabled DB page slug and no fixture establishes it, so the proposal does not assert page/message visibility. Do not infer current errors from historical T01-C failures.
@@ -56,4 +59,4 @@ Baseline verification at `6c7a0a84dc7625c66f33f8ce00ada44399f43588`: `npm ci` ex
 
 - What the Team Lead needs to decide: approve or deny the one bounded live call using the redirect-only assertion. Novelty and the behavior's research value still require review. The USD 0.02 limit is a preflight estimate, not a guaranteed billed maximum.
 - Suggested next task if accepted: provide fresh D-C1 authorization; if one real call succeeds, stop at the durable human review checkpoint and await a revision-bound reviewer decision.
-- GitHub PR diff URL and file paths: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15/files; inspect the six task docs and four verification logs under `docs/tasks/T05-B/`.
+- GitHub PR diff URL and file paths: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15/files; inspect task-scoped docs/evidence and the focused production change in `framework/src/runtime/model-provider.ts`. No unrelated dirty files are included.

@@ -45,3 +45,22 @@ The route-oracle proposal and CLI claim were then narrowed to the source-establi
 | `npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts` | 0 | PASS, 7/7; offline fake-provider/checkpoint behavior only | `evidence/verification/20261110-correction-04/focused-workflow-integration.txt` |
 
 The original sandbox symlink failure is retained with private absolute paths redacted; command exit 1, 10 PASS / 1 FAIL, `EPERM` in `tool-boundaries.test.ts`. The justified outside-sandbox retry passed 11/11. Full Docker integration remains NOT_RUN while Agent 1 owns the runtime.
+
+## Independent review correction round 2
+
+SonarCloud's PR API and GitHub check-run API were inspected read-only. The failed analysis was for PR commit `72103d17bc4005a661d6fa03d862e1364c283a88` (check completed 2026-11-09 18:39:06Z): 9.7561% new-code duplication, 4 duplicated lines in 2 blocks. Sonar reported the blocks only in production file `framework/src/runtime/model-provider.ts`, at lines 406–416 and 467–477 in that analyzed revision. These were duplicate token-usage extraction and successful telemetry construction; no tests, documentation, or analysis configuration were implicated. `successfulGeminiTelemetry` now centralizes that repeated behavior. Thresholds and exclusions were not changed.
+
+The follow-up SonarCloud check analyzed execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e` and completed successfully: Quality Gate PASS, 0.0% duplication on new code, 0 new issues, and 0 security hotspots. The check details are at [SonarCloud PR analysis](https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15); the sanitized API/check evidence is `evidence/verification/20261110-correction-05/sonarqube-analysis.json`.
+
+All four requested commands were re-executed after the source fix was committed, against execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`. Node `v24.19.0`, npm `11.17.0`; commit tree `810ebbe42cdc123c908cd2e422badfad13ffef1f`; `framework/src/runtime/model-provider.ts` Git blob `f21f66bf244bca23f954f6d2960cf456d0c22bc9`, SHA-256 `24506406ea30be0fd51af381041a3c9b75a7ae99e4a5e0d9b504cb452fe28f0a`. The exact pre/post test `git status` is recorded in `execution-provenance.txt`; only previously existing ExpressCart dist edits and offline T01-C test artifacts were outside the task. Per-log SHA-256 digests make the sanitized logs tamper-evident.
+
+| Command (from `framework/`) | Exit | Result | Evidence |
+|---|---:|---|---|
+| `npm.cmd run build` | 0 | PASS | `evidence/verification/20261110-correction-05/framework-build.txt`; exit and SHA-256 in `execution-provenance.txt` |
+| `npx.cmd tsx --test test/model-provider.test.ts` | 0 | PASS, 11/11 | `evidence/verification/20261110-correction-05/provider-unit.txt`; exit and SHA-256 in `execution-provenance.txt` |
+| `npm.cmd test` | 0 | PASS, 47/47 | `evidence/verification/20261110-correction-05/framework-unit.txt`; exit and SHA-256 in `execution-provenance.txt` |
+| `npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts` | 0 | PASS, 7/7; offline fake-provider/checkpoint only | `evidence/verification/20261110-correction-05/focused-workflow-integration.txt`; exit and SHA-256 in `execution-provenance.txt` |
+
+These are local results, not CI results. Full Docker integration remains NOT_RUN because Agent 1 owns the runtime.
+
+Secret scan: official Gitleaks `8.30.1`, release archive checksum verified against the publisher's checksums file. The committed PR history and staged T05-B report/evidence were scanned with 100% redaction; both commands exited 0 with no leaks. Together these scans covered the complete proposed PR diff at evidence preparation. Exact commands, scope, scanner hash, logs and empty JSON reports are in `evidence/verification/20261110-correction-05/secret-scan-provenance.txt` and the adjacent `gitleaks-*` files. No findings or justified false positives were reported.

@@ -1,0 +1,52 @@
+execution_commit=ffa19f6f1d890269cd20397fbaa66ba1ed66963e
+commit_tree=810ebbe42cdc123c908cd2e422badfad13ffef1f
+model_provider_git_blob=f21f66bf244bca23f954f6d2960cf456d0c22bc9
+model_provider_sha256=24506406ea30be0fd51af381041a3c9b75a7ae99e4a5e0d9b504cb452fe28f0a
+node=v24.19.0
+npm=11.17.0
+commands:
+npm.cmd run build => exit 0
+npx.cmd tsx --test test/model-provider.test.ts => exit 0; 11 tests, 11 pass
+npm.cmd test => exit 0; 47 tests, 47 pass
+npx.cmd tsx --test test/integration/t01c-model-generation.test.ts test/integration/workflow.test.ts => exit 0; 7 tests, 7 pass (offline fake provider/checkpoint)
+git_status_before_test_run:
+ M experiments/expresscart/agent/dist/src/cli.js
+ M experiments/expresscart/agent/dist/src/collector.js
+ M experiments/expresscart/agent/dist/src/schema.js
+ M experiments/expresscart/agent/dist/src/sprint03-generator.js
+ M experiments/expresscart/agent/dist/src/sprint03-langgraph-repair.js
+ M experiments/expresscart/agent/dist/src/sprint03-langgraph-repair2.js
+ M experiments/expresscart/agent/dist/src/sprint03-repair.js
+ M experiments/expresscart/agent/dist/src/sprint03-repair2.js
+ M experiments/expresscart/agent/dist/src/validate.js
+ M experiments/expresscart/agent/dist/src/workflow.js
+ M experiments/expresscart/agent/dist/test/validate.test.js
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-5ab89cc3-40c7-4ad8-b239-b967a679a213/
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-63a0eedd-d5fc-45af-86f0-c20ab456e263/
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-ab51c2cd-0404-44e5-ab37-9ef7eb45c596/
+?? docs/tasks/T05-B/evidence/verification/20261110-correction-05/
+git_status_after_test_run:
+ M experiments/expresscart/agent/dist/src/cli.js
+ M experiments/expresscart/agent/dist/src/collector.js
+ M experiments/expresscart/agent/dist/src/schema.js
+ M experiments/expresscart/agent/dist/src/sprint03-generator.js
+ M experiments/expresscart/agent/dist/src/sprint03-langgraph-repair.js
+ M experiments/expresscart/agent/dist/src/sprint03-langgraph-repair2.js
+ M experiments/expresscart/agent/dist/src/sprint03-repair.js
+ M experiments/expresscart/agent/dist/src/sprint03-repair2.js
+ M experiments/expresscart/agent/dist/src/validate.js
+ M experiments/expresscart/agent/dist/src/workflow.js
+ M experiments/expresscart/agent/dist/test/validate.test.js
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-5ab89cc3-40c7-4ad8-b239-b967a679a213/
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-63a0eedd-d5fc-45af-86f0-c20ab456e263/
+?? docs/tasks/T01-C/evidence/t01c-offline-approved-ab51c2cd-0404-44e5-ab37-9ef7eb45c596/
+?? docs/tasks/T05-B/evidence/verification/20261110-correction-05/
+log_sha256:
+focused-workflow-integration-exit.txt=13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354
+focused-workflow-integration.txt=e475dd061fb14b675fc72e31862b591033425094a8603a84d12753c23a4b3ad3
+framework-build-exit.txt=13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354
+framework-build.txt=34fc8f532e8455212c5eeba2f44af8dd0d5a13e2138025e81ecd8272dd2f48fa
+framework-unit-exit.txt=13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354
+framework-unit.txt=9ad648384cd3f7c8119c3f2312acc2df6286cb1898713fbdd3f6aef6ff09450c
+provider-unit-exit.txt=13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354
+provider-unit.txt=cddf0d738a5db71c0c2bed9ce9b6fe82a88d1ebdebc74743d5eb216512c625a2
