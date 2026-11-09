@@ -1,0 +1,52 @@
+{
+  "task": "T04-F",
+  "proposedStatus": "PARTIAL_WITH_LIMITATIONS",
+  "handoffState": "PARTIAL_WITH_LIMITATIONS",
+  "candidateCounts": {
+    "proposalRecords": 27,
+    "shortlistRecords": 20,
+    "semanticOverlap": {
+      "PARTIAL_SEMANTIC_OVERLAP": 19,
+      "INSUFFICIENT_EVIDENCE": 8,
+      "LIKELY_DUPLICATE": 0,
+      "NO_DIRECT_SEMANTIC_OVERLAP": 0
+    },
+    "oracle": {
+      "PARTIALLY_SOURCE_SUPPORTED": 25,
+      "INSUFFICIENT_EVIDENCE": 1,
+      "SOURCE_SUPPORTED": 1
+    },
+    "insufficientEvidenceUnion": {
+      "count": 9,
+      "candidateIds": [
+        "CL-GAP-001",
+        "CL-GAP-002",
+        "MB-GAP-001",
+        "MB-GAP-002",
+        "MB-GAP-004",
+        "MW-GAP-002",
+        "MW-GAP-003",
+        "PS-GAP-001",
+        "PS-GAP-002"
+      ],
+      "definition": "Set union of candidates classified INSUFFICIENT_EVIDENCE on semantic overlap OR oracle axis; each candidate is counted once."
+    }
+  },
+  "baselineTraceability": {
+    "candidateBaselineLinks": 46,
+    "distinctBaselineCases": 35,
+    "priorComparisonRows": 42,
+    "priorDistinctCases": 33,
+    "boundedNoRelevantBaselineSearches": 8
+  },
+  "evidence": "Static source and pinned baseline review only; all runtimeStatus values remain NOT_RUN; human decisions remain null.",
+  "blockedLimitations": [
+    "Claroline source archive is incomplete and runtime image patch provenance is unknown.",
+    "Eight candidates have no relevant baseline case identified in bounded inventory search; novelty is not verified.",
+    "One candidate, CL-GAP-002, has insufficient oracle evidence because the reviewed membership denial block is commented.",
+    "No behavioral denominator is established; RQ2 is NOT_EVALUATED."
+  ],
+  "researchMetrics": "These counts describe proposed candidate review status only. They are not accepted/validated case counts and are not RQ1 or RQ2 outcomes.",
+  "humanApprovalRequired": true,
+  "applyToSharedStatus": false
+}
