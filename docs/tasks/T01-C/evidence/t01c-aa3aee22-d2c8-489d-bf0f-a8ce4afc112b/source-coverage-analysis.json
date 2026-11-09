@@ -1,0 +1,150 @@
+{
+  "runId": "t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+  "appId": "expresscart",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "baselineObservedScenarios": 31,
+  "sourceIdentity": {
+    "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "packageVersion": "1.1.19",
+    "packageJsonGitBlob": "ecdb41069f18e077c1f5aefe20e7182e79e5d236",
+    "packageLockGitBlob": "04a21b2e5843f2e4d3bff4b303a0fb9909529c8e",
+    "buildContextSha256": "3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a",
+    "dockerfileSha256": "17f5c4bc9f6b8751fc8e842e37f633ea398cbc1a0c6e865ceab27040fcc668e6",
+    "fileCount": 197
+  },
+  "coverageAnalysis": [
+    {
+      "behaviorId": "customer.password.reset.invalid-or-expired-token",
+      "behavioralCategory": "Account recovery and reset-token security",
+      "disposition": "CANDIDATE_GAP",
+      "baselineComparison": "NO_EXACT_BEHAVIOR_TAG_MATCH",
+      "candidateConfidence": "LOW",
+      "uncertainties": [
+        "Baseline comparison is exact-tag only; semantically equivalent behavior may exist under another tag or no tag.",
+        "Novelty and oracle are not independently reviewed."
+      ],
+      "sourceReferences": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "t01c-source-t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+          "artifactPath": "experiments/expresscart/source/routes/customer.js"
+        }
+      ],
+      "rationale": "Pinned source evidence supports this behavior (The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.); no exact behavior-ID mapping exists in the supplied baseline inventory. This is only a candidate gap, not a novelty decision.",
+      "gap": {
+        "gapId": "gap-customer.password.reset.invalid-or-expired-token",
+        "appId": "expresscart",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "behavior": "A GET to /customer/reset/:token with no customer matching the token and future expiry sets session message keys and redirects to /forgot without rendering the reset form.",
+        "rationale": "Pinned source evidence supports this behavior (The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.); no exact behavior-ID mapping exists in the supplied baseline inventory. This is only a candidate gap, not a novelty decision.",
+        "sourceReferences": [
+          {
+            "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "sourceVersion": "1.1.19",
+            "runId": "t01c-source-t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+            "artifactPath": "experiments/expresscart/source/routes/customer.js"
+          }
+        ]
+      }
+    }
+  ],
+  "candidateGaps": [
+    {
+      "gapId": "gap-customer.password.reset.invalid-or-expired-token",
+      "appId": "expresscart",
+      "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "sourceVersion": "1.1.19",
+      "behavior": "A GET to /customer/reset/:token with no customer matching the token and future expiry sets session message keys and redirects to /forgot without rendering the reset form.",
+      "rationale": "Pinned source evidence supports this behavior (The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.); no exact behavior-ID mapping exists in the supplied baseline inventory. This is only a candidate gap, not a novelty decision.",
+      "sourceReferences": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "t01c-source-t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+          "artifactPath": "experiments/expresscart/source/routes/customer.js"
+        }
+      ]
+    }
+  ],
+  "sourceClaims": [
+    {
+      "behaviorId": "customer.password.reset.invalid-or-expired-token",
+      "behavioralCategory": "Account recovery and reset-token security",
+      "disposition": "CANDIDATE_GAP",
+      "sourceReferences": [
+        {
+          "repositoryCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "sourceVersion": "1.1.19",
+          "runId": "t01c-source-t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+          "artifactPath": "experiments/expresscart/source/routes/customer.js"
+        }
+      ],
+      "rationale": "Pinned source evidence supports this behavior (The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.); no exact behavior-ID mapping exists in the supplied baseline inventory. This is only a candidate gap, not a novelty decision."
+    }
+  ],
+  "sourceArtifactSha256": "74c7ecfdf38e6ad9038ae0f2cc8f89969331f4420bfa491348c5e8b2f6d26abe",
+  "historicalBehaviorIndexPath": "data/coverage/expresscart/historical-candidate-behavior-index.json",
+  "historicalCandidates": [
+    {
+      "candidateId": "EC-C01",
+      "behaviorId": "cart.discount.remove",
+      "behavior": "Remove an applied discount code and verify the cart total returns to its original amount and the discount UI is cleared.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C01-discount-removal.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/DEFECT-VALIDATION.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C02",
+      "behaviorId": "cart.empty",
+      "behavior": "Empty a populated cart and verify the cart count and visible empty-cart state.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C02-empty-cart.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/DEFECT-VALIDATION.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C03",
+      "behaviorId": "product.publication.admin-state",
+      "behavior": "Change a product's publication state in the admin UI and verify the unchecked state persists after reload; the original public-search exclusion claim was revised because source contradicted it.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C03-publication-state.feature",
+        "docs/research-results/sprint-02/CANDIDATE-REVIEW.md",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/review/EC-C03-publication-state-review.feature",
+        "docs/research-results/sprint-04/review/EC-C03-teardown-contract.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C04",
+      "behaviorId": "customer.password.forgotten-request",
+      "behavior": "Submit a forgotten-password request for an unregistered email and verify the same generic success response rather than an account-not-found message.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C04-forgotten-password.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/RESEARCH-METRICS-CONSOLIDATED.md"
+      ]
+    },
+    {
+      "candidateId": "EC-C05",
+      "behaviorId": "admin.static-page.create-view",
+      "behavior": "Create and render an enabled static page through the admin UI, with a delete cleanup path.",
+      "sources": [
+        "docs/research-results/sprint-02/revised/EC-C05-static-page.feature",
+        "docs/research-results/sprint-03/research-ready-result-tables.md",
+        "docs/research-results/sprint-04/research-ready-result-tables.md",
+        "docs/research-results/sprint-05/RESEARCH-METRICS-CONSOLIDATED.md"
+      ]
+    }
+  ],
+  "historicApprovalReused": false,
+  "researchNovelty": "UNVERIFIED"
+}

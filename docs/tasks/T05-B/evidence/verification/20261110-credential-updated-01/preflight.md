@@ -1,0 +1,5 @@
+# Updated-credential single-call preflight
+
+Team Lead reported credential updated via a private channel and authorized one new attempt using the previously approved source-backed 7,900-character payload and Google Gemini `gemini-3.1-flash-lite`. Execution source HEAD `b9fd984a4d8c94e175e1a96e47c03f3537e00a09`; code unchanged since prior execution. Exact placeholder prompt SHA-256 `ee28b2bfd6511190eec2b2fb70d14204894141664be538fe0834c74b5c85abc6`. Actual run UUID changes prompt hash. Source identity verifier: ExpressCart b31302f4e99c3293bd742c6d076a721e168118b0 / 1.1.19, 197 files, build context SHA-256 3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a. Process and User environment keys present and compare equal in memory, not evidence of validity or comparison to historical value. No key value printed or saved.
+
+One API request, no automatic/manual retries, 60 seconds, max 2,000 output tokens, 8,000 input characters, USD 0.02 estimated per-run limit; preflight estimate USD 0.0109, actual billing unknown. No Java until a real revision-bound human approval. No Docker. Preserve prior failed attempts and unrelated worktree changes.

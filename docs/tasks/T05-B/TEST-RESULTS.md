@@ -175,3 +175,7 @@ The prior single live attempt remains failed with HTTP 400 `API_KEY_INVALID`; it
 ## New bounded invocation
 
 PR #15 source HEAD `036e3d4ce6b6bf583e479fb1177ffe9943cdff0a`: offline provider/ledger tests 15/15 PASS, build and source identity exit 0, prompt preflight exit 0. One newly approved live request exited 1 with HTTP 400 `API_KEY_INVALID`; no retry, candidate, checkpoint or token usage. See `evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md` and its native ledger. No Docker or Java/Selenium ran. Billed cost unknown.
+
+## Attempt after private credential update
+
+Source HEAD `b9fd984a4d8c94e175e1a96e47c03f3537e00a09`: source/prompt offline preflight passed; one authorized live invocation exited 1 with HTTP 400 `API_KEY_INVALID`. One reservation, one result, zero retries; no candidate, checkpoint, token usage or known billed cost. See `evidence/verification/20261110-credential-updated-01/OUTCOME.md`.

@@ -5,9 +5,10 @@
   "authorization": {
     "priorOneCallAuthorization": "CONSUMED",
     "newPayloadDestinationApproval": "APPROVED_ONE_ATTEMPT_CONSUMED",
-    "automaticRetries": 0
+    "automaticRetries": 0,
+    "updatedCredentialAttempt": "APPROVED_ONE_ATTEMPT_CONSUMED"
   },
-  "liveGeminiInvocations": 2,
+  "liveGeminiInvocations": 3,
   "retryCount": 0,
   "providerResult": {
     "provider": "Google Gemini Developer API",
@@ -61,6 +62,19 @@
     "reason": "API_KEY_INVALID",
     "candidateCount": 0,
     "billedCostStatus": "UNKNOWN",
-    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md"
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-new-authorized-attempt-01/OUTCOME.md",
+    "supersededByRunId": "t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b"
+  },
+  "updatedCredentialAttempt": {
+    "runId": "t01c-aa3aee22-d2c8-489d-bf0f-a8ce4afc112b",
+    "executionHead": "b9fd984a4d8c94e175e1a96e47c03f3537e00a09",
+    "calls": 1,
+    "attempts": 1,
+    "providerStatus": "BLOCKED",
+    "httpStatus": 400,
+    "reason": "API_KEY_INVALID",
+    "candidateCount": 0,
+    "billedCostStatus": "UNKNOWN",
+    "evidence": "docs/tasks/T05-B/evidence/verification/20261110-credential-updated-01/OUTCOME.md"
   }
 }
