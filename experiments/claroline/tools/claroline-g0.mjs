@@ -516,3 +516,86 @@ export function recordCreatedResource({ kind, role, name, imageRef, result, reco
   if (!hasId) throw new Error(`${kind} create did not return a full Docker resource ID`);
   return id;
 }
+
+
+export const HOST_FIREWALL_ISOLATION_METHOD = 'linux-docker-user-bridge-reject-v1';
+
+export function deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName = null) {
+  if (typeof networkId !== 'string' || !/^[a-f0-9]{64}$/i.test(networkId)) {
+    throw new Error('HOST_FIREWALL_INVALID_NETWORK_ID: full 64-hex Docker network ID is required');
+  }
+  const expected = `br-${networkId.slice(0, 12).toLowerCase()}`;
+  if (inspectedBridgeName !== null && inspectedBridgeName !== undefined && inspectedBridgeName !== '') {
+    if (inspectedBridgeName !== expected) {
+      throw new Error(`HOST_FIREWALL_BRIDGE_MISMATCH: expected ${expected}, got ${inspectedBridgeName}`);
+    }
+  }
+  return expected;
+}
+
+export function buildHostBridgeFirewallSpec(networkId, runId, inspectedBridgeName = null) {
+  const validRunId = validateRunId(runId);
+  const bridgeInterface = deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName);
+  const commentTag = `bewt-t03b2-${validRunId}`;
+  const ruleTail = [
+    '-i', bridgeInterface,
+    '!', '-o', bridgeInterface,
+    '-m', 'conntrack',
+    '!', '--ctstate', 'RELATED,ESTABLISHED',
+    '-m', 'comment',
+    '--comment', commentTag,
+    '-j', 'REJECT',
+    '--reject-with', 'icmp-net-unreachable',
+  ];
+  return Object.freeze({
+    method: HOST_FIREWALL_ISOLATION_METHOD,
+    runId: validRunId,
+    networkId: networkId.toLowerCase(),
+    bridgeInterface,
+    commentTag,
+    iptablesExecutable: '/usr/sbin/iptables',
+    insertArgs: Object.freeze(['-w', '5', '-I', 'DOCKER-USER', '1', ...ruleTail]),
+    checkArgs: Object.freeze(['-w', '5', '-C', 'DOCKER-USER', ...ruleTail]),
+    deleteArgs: Object.freeze(['-w', '5', '-D', 'DOCKER-USER', ...ruleTail]),
+    listArgs: Object.freeze(['-w', '5', '-S', 'DOCKER-USER']),
+  });
+}
+
+export function assertHostBridgeFirewallRuleInstalled(iptablesListOutput, spec) {
+  if (!spec || typeof spec.bridgeInterface !== 'string' || !/^br-[a-f0-9]{12}$/.test(spec.bridgeInterface) || typeof spec.commentTag !== 'string' || !/^bewt-t03b2-t03b2-[a-z0-9]{1,20}-\d{8}-r[1-9]\d*$/.test(spec.commentTag)) {
+    throw new Error('HOST_FIREWALL_VERIFY_FAILED: invalid host bridge firewall specification');
+  }
+  const lines = String(iptablesListOutput ?? '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  const matching = lines.filter(line => line.includes(spec.commentTag) || line.includes(spec.bridgeInterface));
+  if (matching.length !== 1) {
+    throw new Error(`HOST_FIREWALL_VERIFY_FAILED: expected exactly 1 DOCKER-USER rule for ${spec.bridgeInterface} (${spec.commentTag}), found ${matching.length}`);
+  }
+  const rule = matching[0];
+  const requiredTokens = [
+    '-A DOCKER-USER',
+    `-i ${spec.bridgeInterface}`,
+    `! -o ${spec.bridgeInterface}`,
+    '--ctstate RELATED,ESTABLISHED',
+    `--comment ${spec.commentTag}`,
+    '-j REJECT',
+    '--reject-with icmp-net-unreachable',
+  ];
+  for (const token of requiredTokens) {
+    if (!rule.includes(token)) {
+      throw new Error(`HOST_FIREWALL_VERIFY_FAILED: active DOCKER-USER rule missing required token '${token}'`);
+    }
+  }
+  return rule;
+}
+
+export function assertHostBridgeFirewallRuleRemoved(iptablesListOutput, spec) {
+  if (!spec || typeof spec.bridgeInterface !== 'string' || typeof spec.commentTag !== 'string') {
+    throw new Error('HOST_FIREWALL_ROLLBACK_VERIFY_FAILED: invalid host bridge firewall specification');
+  }
+  const lines = String(iptablesListOutput ?? '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+  const residual = lines.filter(line => line.includes(spec.commentTag) || line.includes(spec.bridgeInterface));
+  if (residual.length !== 0) {
+    throw new Error(`HOST_FIREWALL_ROLLBACK_VERIFY_FAILED: ${residual.length} residual DOCKER-USER rule(s) remain for ${spec.bridgeInterface}`);
+  }
+  return true;
+}

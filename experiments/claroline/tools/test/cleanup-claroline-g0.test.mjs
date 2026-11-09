@@ -4,10 +4,10 @@ import { EventEmitter } from 'node:events';
 import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, GIT_CLI_PATH, NODE_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_ISOLATION_METHOD, deriveLinuxBridgeInterfaceName, buildHostBridgeFirewallSpec, assertHostBridgeFirewallRuleInstalled, assertHostBridgeFirewallRuleRemoved, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
-import { assertAllowedRemoteAction, buildRemoteCommandScript, verifyTerminationSchedule, computeDirectorySha256Manifest, verifySha256Manifest, scrubCloudText } from '../cloud-controller.mjs';
+import { assertAllowedRemoteAction, buildRemoteCommandScript, verifyTerminationSchedule, computeDirectorySha256Manifest, verifySha256Manifest, scrubCloudText, validateEvidenceId, resolveEvidenceDirectoryById, resolveVmExternalIp } from '../cloud-controller.mjs';
 import { validateEvidenceDirectory, scanEvidenceForSecretsAndLeaks } from '../validate-evidence.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -801,4 +801,111 @@ test('Deterministic Evidence Validator detects contradictions, secret leaks, and
   } finally {
     rmSync(base, { recursive: true, force: true });
   }
+});
+
+
+test('protected Git/Node CLI paths and evidence ID path-traversal guards reject unsafe inputs', () => {
+  assert.equal(typeof GIT_CLI_PATH, 'string');
+  assert.ok(GIT_CLI_PATH.length > 0);
+  assert.equal(typeof NODE_CLI_PATH, 'string');
+  assert.ok(NODE_CLI_PATH.length > 0);
+
+  assert.equal(validateEvidenceId('t03b2-d-20261110-r5'), 't03b2-d-20261110-r5');
+  assert.equal(validateEvidenceId('offline-verification-20261110-r73'), 'offline-verification-20261110-r73');
+  for (const invalid of [
+    '',
+    '../t03b2-d-20261110-r5',
+    'docs/tasks/T03-B2/evidence/t03b2-d-20261110-r5',
+    't03b2-d-20261110-r5/../../etc/passwd',
+    'C:\\Windows\\System32',
+    'offline-verification-20261110-r0',
+  ]) {
+    assert.throws(() => validateEvidenceId(invalid), /evidenceId must be a unique/);
+    assert.throws(() => resolveEvidenceDirectoryById(invalid), /evidenceId must be a unique/);
+  }
+
+  const base = mkdtempSync(join(tmpdir(), 't03b2-evid-guard-'));
+  try {
+    createEvidenceDirectory(base, runId);
+    const resolved = resolveEvidenceDirectoryById(runId, base);
+    assert.equal(resolved, join(base, runId));
+    assert.throws(() => resolveEvidenceDirectoryById('t03b2-d-20991231-r99', base), /EVIDENCE_DIR_MISSING/);
+  } finally {
+    rmSync(base, { recursive: true, force: true });
+  }
+});
+
+test('resolveVmExternalIp dynamically queries gcloud natIP and fails closed when natIP is missing', () => {
+  const futureCreatedIso = new Date(Date.now() - 600 * 1000).toISOString();
+  const sampleVmWithIp = {
+    id: '3042402845209891905',
+    name: 'bewt-covext-runner',
+    status: 'RUNNING',
+    machineType: 'zones/asia-southeast1-a/machineTypes/c4d-highmem-8',
+    zone: 'zones/asia-southeast1-a',
+    creationTimestamp: futureCreatedIso,
+    scheduling: { maxRunDuration: { seconds: '21600' }, instanceTerminationAction: 'STOP' },
+    networkInterfaces: [{ accessConfigs: [{ natIP: '203.0.113.42' }] }],
+  };
+  assert.equal(
+    resolveVmExternalIp({ spawnSyncFn: () => ({ status: 0, stdout: JSON.stringify(sampleVmWithIp) }) }),
+    '203.0.113.42',
+  );
+  const sampleVmWithoutIp = { ...sampleVmWithIp, networkInterfaces: [{ accessConfigs: [{}] }] };
+  assert.throws(
+    () => resolveVmExternalIp({ spawnSyncFn: () => ({ status: 0, stdout: JSON.stringify(sampleVmWithoutIp) }) }),
+    /VM_EXTERNAL_IP_UNAVAILABLE/,
+  );
+});
+
+test('Ubuntu host bridge firewall specification and verification enforce exact interface, comment tag, REJECT target, and zero-residual rollback', () => {
+  const netId = '2ed133a9f5b8df0cd8292ec3f7595813e07270913dab7a26dd39feb321f4047e';
+  const expectedBridge = 'br-2ed133a9f5b8';
+  assert.equal(deriveLinuxBridgeInterfaceName(netId), expectedBridge);
+  assert.equal(deriveLinuxBridgeInterfaceName(netId, expectedBridge), expectedBridge);
+  assert.throws(() => deriveLinuxBridgeInterfaceName('short-id'), /HOST_FIREWALL_INVALID_NETWORK_ID/);
+  assert.throws(() => deriveLinuxBridgeInterfaceName(netId, 'br-000000000000'), /HOST_FIREWALL_BRIDGE_MISMATCH/);
+  assert.throws(() => deriveLinuxBridgeInterfaceName(netId, 'docker0'), /HOST_FIREWALL_BRIDGE_MISMATCH/);
+
+  const spec = buildHostBridgeFirewallSpec(netId, runId, expectedBridge);
+  assert.equal(spec.method, HOST_FIREWALL_ISOLATION_METHOD);
+  assert.equal(spec.bridgeInterface, expectedBridge);
+  assert.equal(spec.commentTag, `bewt-t03b2-${runId}`);
+  assert.deepEqual(spec.insertArgs, [
+    '-w', '5', '-I', 'DOCKER-USER', '1',
+    '-i', expectedBridge, '!', '-o', expectedBridge,
+    '-m', 'conntrack', '!', '--ctstate', 'RELATED,ESTABLISHED',
+    '-m', 'comment', '--comment', `bewt-t03b2-${runId}`,
+    '-j', 'REJECT', '--reject-with', 'icmp-net-unreachable',
+  ]);
+  assert.deepEqual(spec.deleteArgs, [
+    '-w', '5', '-D', 'DOCKER-USER',
+    '-i', expectedBridge, '!', '-o', expectedBridge,
+    '-m', 'conntrack', '!', '--ctstate', 'RELATED,ESTABLISHED',
+    '-m', 'comment', '--comment', `bewt-t03b2-${runId}`,
+    '-j', 'REJECT', '--reject-with', 'icmp-net-unreachable',
+  ]);
+
+  const validIptablesOutput = [
+    '-N DOCKER-USER',
+    `-A DOCKER-USER -i ${expectedBridge} ! -o ${expectedBridge} -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j REJECT --reject-with icmp-net-unreachable`,
+    '-A DOCKER-USER -j RETURN',
+  ].join('\n');
+  assert.ok(assertHostBridgeFirewallRuleInstalled(validIptablesOutput, spec));
+
+  // Negative cases: missing rule, duplicate rule, ACCEPT instead of REJECT, DROP without icmp-net-unreachable
+  assert.throws(() => assertHostBridgeFirewallRuleInstalled('-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', spec), /expected exactly 1 DOCKER-USER rule/);
+  assert.throws(() => assertHostBridgeFirewallRuleInstalled(`${validIptablesOutput}\n${validIptablesOutput}`, spec), /expected exactly 1 DOCKER-USER rule/);
+  assert.throws(
+    () => assertHostBridgeFirewallRuleInstalled(`-A DOCKER-USER -i ${expectedBridge} ! -o ${expectedBridge} -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j ACCEPT`, spec),
+    /missing required token '-j REJECT'/,
+  );
+  assert.throws(
+    () => assertHostBridgeFirewallRuleInstalled(`-A DOCKER-USER -i ${expectedBridge} ! -o ${expectedBridge} -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j DROP`, spec),
+    /missing required token '-j REJECT'/,
+  );
+
+  // Rollback verification
+  assert.equal(assertHostBridgeFirewallRuleRemoved('-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', spec), true);
+  assert.throws(() => assertHostBridgeFirewallRuleRemoved(validIptablesOutput, spec), /HOST_FIREWALL_ROLLBACK_VERIFY_FAILED/);
 });

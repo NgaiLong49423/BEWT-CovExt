@@ -210,6 +210,30 @@ export function isPrivateInventoryFile(fileName) {
   return /(?:^|\/)(?:docker-(?:before|after)(?:-private)?\.json|sha256-manifest\.json)$/i.test(fileName);
 }
 
+export function validateEvidenceId(evidenceId) {
+  if (
+    typeof evidenceId !== 'string' ||
+    !/^(?:t03b2-[a-z0-9]{1,20}-\d{8}-r[1-9]\d*|offline-verification-\d{8}-r[1-9]\d*)$/.test(evidenceId)
+  ) {
+    throw new Error('evidenceId must be a unique t03b2-* or offline-verification-* date/run identity');
+  }
+  return evidenceId;
+}
+
+export function resolveEvidenceDirectoryById(evidenceId, baseDir = resolve(repoRoot, 'docs/tasks/T03-B2/evidence')) {
+  const validId = validateEvidenceId(evidenceId);
+  const rootDir = resolve(baseDir);
+  if (!existsSync(rootDir) || !statSync(rootDir).isDirectory()) {
+    throw new Error(`EVIDENCE_ROOT_MISSING: ${rootDir}`);
+  }
+  const matched = readdirSync(rootDir, { withFileTypes: true })
+    .find(entry => entry.isDirectory() && entry.name === validId);
+  if (!matched) {
+    throw new Error(`EVIDENCE_DIR_MISSING: directory '${validId}' does not exist under ${rootDir}`);
+  }
+  return resolve(rootDir, matched.name);
+}
+
 export function computeDirectorySha256Manifest(dirPath, { includePrivate = false, runId = null } = {}) {
   if (!existsSync(dirPath) || !statSync(dirPath).isDirectory()) {
     throw new Error(`MANIFEST_TARGET_MISSING: directory does not exist: ${dirPath}`);
@@ -294,8 +318,37 @@ function resolveSshKeyPath() {
   return join(home, '.ssh', 'google_compute_engine');
 }
 
-export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSync, hostIp = '34.142.128.95' } = {}) {
+function runGcloudCommand(args, { spawnSyncFn = spawnSync } = {}) {
+  const gcloudBin = resolveGcloudPath();
+  const isCmd = gcloudBin.toLowerCase().endsWith('.cmd');
+  const res = isCmd
+    ? spawnSyncFn('cmd.exe', ['/d', '/s', '/c', gcloudBin, ...args], { encoding: 'utf8', windowsHide: true, timeout: 30000 })
+    : spawnSyncFn(gcloudBin, args, { encoding: 'utf8', windowsHide: true, timeout: 30000 });
+  if (res.status !== 0) {
+    throw new Error(`GCLOUD_PREFLIGHT_FAILED (${args[0]}): ${scrubCloudText(res.stderr || res.stdout || res.error?.message)}`);
+  }
+  return res.stdout.trim();
+}
+
+export function resolveVmExternalIp({ spawnSyncFn = spawnSync } = {}) {
+  const rawInstance = runGcloudCommand([
+    'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
+    `--zone=${CLOUD_VM_CONFIG.zone}`,
+    `--project=${CLOUD_VM_CONFIG.projectId}`,
+    '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,networkInterfaces)',
+  ], { spawnSyncFn });
+  const instanceJson = JSON.parse(rawInstance);
+  verifyTerminationSchedule(instanceJson);
+  const natIp = String(instanceJson.networkInterfaces?.[0]?.accessConfigs?.[0]?.natIP || '').trim();
+  if (!natIp) {
+    throw new Error('VM_EXTERNAL_IP_UNAVAILABLE: instance networkInterfaces[0].accessConfigs[0].natIP is empty');
+  }
+  return natIp;
+}
+
+export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSync, hostIp = null } = {}) {
   const { spec, runId } = assertAllowedRemoteAction(action, params);
+  const resolvedHostIp = hostIp || resolveVmExternalIp({ spawnSyncFn });
   const remoteScript = buildRemoteCommandScript(action, params);
   const sshKey = resolveSshKeyPath();
   const sshArgs = [
@@ -303,7 +356,7 @@ export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSy
     '-o', 'StrictHostKeyChecking=no',
     '-o', 'ConnectTimeout=15',
     '-i', sshKey,
-    `${CLOUD_VM_CONFIG.sshUser}@${hostIp}`,
+    `${CLOUD_VM_CONFIG.sshUser}@${resolvedHostIp}`,
     remoteScript,
   ];
   const startedAtUtc = new Date().toISOString();
@@ -332,31 +385,22 @@ export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSy
 }
 
 export function runCloudPreflight({ spawnSyncFn = spawnSync } = {}) {
-  const gcloudBin = resolveGcloudPath();
-  const runGcloud = args => {
-    const isCmd = gcloudBin.toLowerCase().endsWith('.cmd');
-    const res = isCmd
-      ? spawnSyncFn('cmd.exe', ['/d', '/s', '/c', gcloudBin, ...args], { encoding: 'utf8', windowsHide: true, timeout: 30000 })
-      : spawnSyncFn(gcloudBin, args, { encoding: 'utf8', windowsHide: true, timeout: 30000 });
-    if (res.status !== 0) {
-      throw new Error(`GCLOUD_PREFLIGHT_FAILED (${args[0]}): ${scrubCloudText(res.stderr || res.stdout || res.error?.message)}`);
-    }
-    return res.stdout.trim();
-  };
-
-  const project = runGcloud(['config', 'get-value', 'project']);
+  const project = runGcloudCommand(['config', 'get-value', 'project'], { spawnSyncFn });
   if (project !== CLOUD_VM_CONFIG.projectId) {
     throw new Error(`GCLOUD_PROJECT_MISMATCH: expected ${CLOUD_VM_CONFIG.projectId}, got ${project}`);
   }
-  const rawInstance = runGcloud([
+  const rawInstance = runGcloudCommand([
     'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
     `--zone=${CLOUD_VM_CONFIG.zone}`,
     `--project=${CLOUD_VM_CONFIG.projectId}`,
     '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,disks,networkInterfaces)',
-  ]);
+  ], { spawnSyncFn });
   const instanceJson = JSON.parse(rawInstance);
   const schedule = verifyTerminationSchedule(instanceJson);
-  const natIp = instanceJson.networkInterfaces?.[0]?.accessConfigs?.[0]?.natIP || '34.142.128.95';
+  const natIp = String(instanceJson.networkInterfaces?.[0]?.accessConfigs?.[0]?.natIP || '').trim();
+  if (!natIp) {
+    throw new Error('VM_EXTERNAL_IP_UNAVAILABLE: instance networkInterfaces[0].accessConfigs[0].natIP is empty');
+  }
   const stackType = instanceJson.networkInterfaces?.[0]?.stackType || 'UNKNOWN';
   const probe = executeRemoteAction('preflight-probe', {}, { spawnSyncFn, hostIp: natIp });
   if (probe.exitCode !== 0) {
@@ -407,12 +451,13 @@ export function runCloudPreflight({ spawnSyncFn = spawnSync } = {}) {
 }
 
 export function syncEvidenceFromCloud(runId, {
-  hostIp = '34.142.128.95',
+  hostIp = null,
   localEvidenceRoot = resolve(repoRoot, 'docs/tasks/T03-B2/evidence'),
   localPrivateArchiveRoot = resolve(repoRoot, '.local-state/cloud-private-evidence'),
   spawnSyncFn = spawnSync,
 } = {}) {
   const validId = validateRunId(runId);
+  const resolvedHostIp = hostIp || resolveVmExternalIp({ spawnSyncFn });
   const sshKey = resolveSshKeyPath();
   const remoteEvidenceDir = `${CLOUD_VM_CONFIG.remoteRepoPath}/docs/tasks/T03-B2/evidence/${validId}`;
   const localDir = resolve(localEvidenceRoot, validId);
@@ -425,7 +470,7 @@ export function syncEvidenceFromCloud(runId, {
     '-o', 'BatchMode=yes',
     '-o', 'StrictHostKeyChecking=no',
     '-i', sshKey,
-    `${CLOUD_VM_CONFIG.sshUser}@${hostIp}:${remoteEvidenceDir}`,
+    `${CLOUD_VM_CONFIG.sshUser}@${resolvedHostIp}:${remoteEvidenceDir}`,
     localEvidenceRoot,
   ];
   const scpResult = spawnSyncFn('scp', scpArgs, { encoding: 'utf8', windowsHide: true, timeout: 120000 });
@@ -466,8 +511,11 @@ if (isMain) {
   const subcommand = process.argv[2] || '';
   if (subcommand === 'preflight') {
     const report = runCloudPreflight();
-    const outPath = process.argv[3] ? resolve(process.argv[3]) : null;
-    if (outPath) writeFileSync(outPath, `${JSON.stringify(report, null, 2)}\n`);
+    const evidenceId = process.argv[3] ? validateEvidenceId(process.argv[3]) : null;
+    if (evidenceId) {
+      const targetDir = resolveEvidenceDirectoryById(evidenceId);
+      writeFileSync(join(targetDir, 'cloud-preflight.json'), `${JSON.stringify(report, null, 2)}\n`);
+    }
     process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
   } else if (subcommand === 'exec') {
     const action = process.argv[3] || '';
@@ -480,8 +528,9 @@ if (isMain) {
     const result = syncEvidenceFromCloud(runId);
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   } else if (subcommand === 'write-manifest') {
-    const targetDir = resolve(process.argv[3] || '');
-    const manifest = computeDirectorySha256Manifest(targetDir);
+    const evidenceId = validateEvidenceId(process.argv[3] || '');
+    const targetDir = resolveEvidenceDirectoryById(evidenceId);
+    const manifest = computeDirectorySha256Manifest(targetDir, { runId: evidenceId });
     writeFileSync(join(targetDir, 'sha256-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
     process.stdout.write(`${JSON.stringify(manifest, null, 2)}\n`);
   } else {

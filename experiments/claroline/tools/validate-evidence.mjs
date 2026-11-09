@@ -10,7 +10,7 @@ import {
   parseSurefireXml,
   validateRunId,
 } from './claroline-g0.mjs';
-import { isPrivateInventoryFile, verifySha256Manifest } from './cloud-controller.mjs';
+import { isPrivateInventoryFile, resolveEvidenceDirectoryById, validateEvidenceId, verifySha256Manifest } from './cloud-controller.mjs';
 
 const EXPECTED_APP_DIGEST = APP_IMAGE_REF.slice(APP_IMAGE_REF.indexOf('@') + 1);
 const EXPECTED_BROWSER_DIGEST = BROWSER_IMAGE_REF.slice(BROWSER_IMAGE_REF.indexOf('@') + 1);
@@ -260,7 +260,8 @@ export function validateEvidenceDirectory(dirPath, { requireManifest = true } = 
 
 const isMain = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
 if (isMain) {
-  const targetDir = resolve(process.argv[2] || '');
+  const evidenceId = validateEvidenceId(process.argv[2] || '');
+  const targetDir = resolveEvidenceDirectoryById(evidenceId);
   const requireManifest = !process.argv.includes('--no-manifest');
   const result = validateEvidenceDirectory(targetDir, { requireManifest });
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);

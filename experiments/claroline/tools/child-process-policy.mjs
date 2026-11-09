@@ -100,6 +100,21 @@ function findWindowsMavenCommand() {
   throw new Error('Maven was not found under protected Program Files');
 }
 
+function findWindowsGitCommand() {
+  const gitHome = join(programFiles, 'Git');
+  const command = join(gitHome, 'cmd', 'git.exe');
+  if (!existsSync(command)) throw new Error('Git CLI was not found under protected Program Files\\Git');
+  protectedDirectory(gitHome);
+  protectedDirectory(join(gitHome, 'cmd'));
+  return resolve(command);
+}
+
+function findWindowsNodeCommand() {
+  const nodeExe = resolve(process.execPath);
+  protectedDirectory(dirname(nodeExe));
+  return nodeExe;
+}
+
 function findWindowsDockerCommand(powershellPath) {
   const candidates = [
     join(programFiles, 'Docker', 'Docker', 'resources', 'bin', 'docker.exe'),
@@ -156,6 +171,8 @@ let resolvedPowershellPath = null;
 let resolvedIpCliPath = null;
 let resolvedDockerCliPath;
 let resolvedMavenCliPath;
+let resolvedGitCliPath;
+let resolvedNodeCliPath;
 let resolvedDockerEnv;
 let resolvedMavenEnv;
 
@@ -167,6 +184,8 @@ if (isWindows) {
   const mavenBin = protectedDirectory(join(maven.home, 'bin'));
   resolvedDockerCliPath = findWindowsDockerCommand(resolvedPowershellPath);
   resolvedMavenCliPath = resolve(maven.command);
+  resolvedGitCliPath = findWindowsGitCommand();
+  resolvedNodeCliPath = findWindowsNodeCommand();
 
   const basePath = [system32, mavenBin, javaBin].join(delimiter);
   const inheritedNames = [
@@ -204,6 +223,8 @@ if (isWindows) {
   const maven = findLinuxMavenCommand();
   resolvedDockerCliPath = verifyLinuxRootExecutable('/usr/bin/docker');
   resolvedMavenCliPath = maven.command;
+  resolvedGitCliPath = verifyLinuxRootExecutable('/usr/bin/git');
+  resolvedNodeCliPath = verifyLinuxRootExecutable(process.execPath);
   resolvedIpCliPath = findLinuxIpCommand();
 
   const safeHome = process.env.HOME && /^\/(root|home\/[a-zA-Z0-9._-]+)$/.test(process.env.HOME) ? process.env.HOME : '/root';
@@ -233,6 +254,8 @@ export const POWERSHELL_PATH = resolvedPowershellPath;
 export const IP_CLI_PATH = resolvedIpCliPath;
 export const DOCKER_CLI_PATH = resolvedDockerCliPath;
 export const MAVEN_CLI_PATH = resolvedMavenCliPath;
+export const GIT_CLI_PATH = resolvedGitCliPath;
+export const NODE_CLI_PATH = resolvedNodeCliPath;
 export const DOCKER_ENV = resolvedDockerEnv;
 export const MAVEN_ENV = resolvedMavenEnv;
 

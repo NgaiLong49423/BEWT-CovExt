@@ -3,6 +3,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import { DOCKER_ENV, GIT_CLI_PATH, NODE_CLI_PATH } from './child-process-policy.mjs';
 
 const toolDirectory = dirname(fileURLToPath(import.meta.url));
 const repositoryRoot = resolve(toolDirectory, '../../..');
@@ -25,7 +26,7 @@ const files = [
 ];
 const sha256 = value => createHash('sha256').update(value).digest('hex');
 const git = args => {
-  const result = spawnSync('git', args, { cwd: repositoryRoot, encoding: 'utf8', windowsHide: true });
+  const result = spawnSync(GIT_CLI_PATH, args, { cwd: repositoryRoot, encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
   if (result.status !== 0) throw new Error(`git ${args[0]} failed: ${result.stderr || result.error?.message || result.status}`);
   return result.stdout;
 };
@@ -43,7 +44,7 @@ const commands = [
 ];
 const results = [];
 for (const [index, command] of commands.entries()) {
-  const result = spawnSync(command[0], command.slice(1), { cwd: repositoryRoot, encoding: 'utf8', windowsHide: true, timeout: 120000 });
+  const result = spawnSync(NODE_CLI_PATH, command.slice(1), { cwd: repositoryRoot, encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 120000 });
   const output = `${result.stdout || ''}${result.stderr ? `${result.stdout ? '\n' : ''}${result.stderr}` : ''}`;
   const logName = `command-${String(index + 1).padStart(2, '0')}.log`;
   writeFileSync(resolve(evidenceDirectory, logName), output, { flag: 'wx' });
