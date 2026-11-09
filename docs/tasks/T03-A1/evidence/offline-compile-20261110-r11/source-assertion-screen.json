@@ -1,0 +1,79 @@
+{
+  "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "method": "Strip whitespace outside Java string, character, and comment literals; compare regex-collected assert statements; heuristic, not parser or semantic equivalence",
+  "applications": [
+    {
+      "app": "joomla",
+      "filesCompared": 71,
+      "tokenNormalizedChanged": [
+        "src/test/java/base/AddUser.java",
+        "src/test/java/base/BaseTest.java",
+        "src/test/java/base/ChangePassword.java",
+        "src/test/java/base/ChangePasswordDontMatch.java",
+        "src/test/java/base/Installer.java",
+        "src/test/java/base/LoginAsNewUser.java"
+      ],
+      "assertionDifferences": [],
+      "selectedBaseTest": {
+        "path": "src/test/java/base/AdminLoginTest.java",
+        "assertionsInOriginal": 1,
+        "assertionsInCopy": 1,
+        "assertionTextMatchesAfterExternalWhitespaceNormalization": true,
+        "wholeFileMatchesAfterNormalization": true
+      }
+    },
+    {
+      "app": "mantisbt",
+      "filesCompared": 60,
+      "tokenNormalizedChanged": [
+        "src/test/java/base/AddExistingUserFails.java",
+        "src/test/java/base/AddMultipleUsers.java",
+        "src/test/java/base/AddUser.java",
+        "src/test/java/base/BaseTest.java"
+      ],
+      "assertionDifferences": [],
+      "selectedBaseTest": {
+        "path": "src/test/java/base/AddUser.java",
+        "assertionsInOriginal": 4,
+        "assertionsInCopy": 4,
+        "assertionTextMatchesAfterExternalWhitespaceNormalization": true,
+        "wholeFileMatchesAfterNormalization": false
+      }
+    },
+    {
+      "app": "mediawiki",
+      "filesCompared": 47,
+      "tokenNormalizedChanged": [
+        "src/test/java/mediawiki/BaseTest.java",
+        "src/test/java/mediawiki/ChangePassword_OKTest.java",
+        "src/test/java/mediawiki/CreateUserTest.java",
+        "src/test/java/mediawiki/Installer.java"
+      ],
+      "assertionDifferences": [],
+      "selectedBaseTest": {
+        "path": "src/test/java/mediawiki/CreatePageTest.java",
+        "assertionsInOriginal": 2,
+        "assertionsInCopy": 2,
+        "assertionTextMatchesAfterExternalWhitespaceNormalization": true,
+        "wholeFileMatchesAfterNormalization": true
+      }
+    },
+    {
+      "app": "prestashop",
+      "filesCompared": 73,
+      "tokenNormalizedChanged": [
+        "src/test/java/tests/AddNewAddress.java",
+        "src/test/java/tests/BaseTest.java",
+        "src/test/java/tests/Installer.java"
+      ],
+      "assertionDifferences": [],
+      "selectedBaseTest": {
+        "path": "src/test/java/tests/AddNewCategory.java",
+        "assertionsInOriginal": 1,
+        "assertionsInCopy": 1,
+        "assertionTextMatchesAfterExternalWhitespaceNormalization": true,
+        "wholeFileMatchesAfterNormalization": true
+      }
+    }
+  ]
+}

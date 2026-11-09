@@ -1,0 +1,1272 @@
+{
+  "schemaVersion": "1.0.0",
+  "testedRepositoryHead": "bd9b3b15fca28419ada9862b8a65bac910edf169",
+  "workingTreeDirtyAtTest": true,
+  "sourceTestFiles": [
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/AddUserPage.java",
+      "sha256": "c958ede341321b03281e8d85e98a42cd3201bf54027be7e835b83453bf6c4946",
+      "gitBlob": "9f64f268f57fbcfdc1313b8758236a95828ada6e"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ArchivedArticlesPage.java",
+      "sha256": "5f2881f9ebc8bb2eb5993a3ff53c0dd9ff514ac0e298069fda3df2d9b6a75694",
+      "gitBlob": "d5b335d6da12c900f6e6d9a688075b0b88acd647"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/AssignedGroupPage.java",
+      "sha256": "9e5bad18d2eeb3c861bf7171677e563563cdd730a5cabfb52e02fac9b6576c94",
+      "gitBlob": "ce6138aebc78700e1339ec3c11e56cd09d23b4f0"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/AuthorLoginPage.java",
+      "sha256": "b00aaaddc0577ba31e13cf91d8fed503db297c5d7b59af7bde0acc537b0c2866",
+      "gitBlob": "c8d6ccc72bc246f5d145840142fabdc4d2141453"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/BaseNavBar.java",
+      "sha256": "2ea3f600759afab1ca2c1561af5679a79ebffe7959e56c3b3a7ed4104846307d",
+      "gitBlob": "cc928e389fcd1a8a3e04fb01c204b6b34b001e49"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ContentSidebar.java",
+      "sha256": "8e64c17cd8e3c989498eaae96c5e780c2ebb3acc7854a9dd031ac991fca22de3",
+      "gitBlob": "02e78b8cde498b7d19603b3d86913b1bdaf3da92"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/CreateCategoryPage.java",
+      "sha256": "51e2ce31670d69c58854ae991cbdd5eadffa023b6d28640d5ca72e0b9b1cf862",
+      "gitBlob": "cfdb7def660bbd1c49c9e9ed900391c4bdfefdbe"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/CreateFieldGroupPage.java",
+      "sha256": "c4408423cd2375d7b7850bc1276fa12a92c78098fff633ba721ba1b412c0a40f",
+      "gitBlob": "73a95d46ab2b3ea968f4f34f256d70082fb81d82"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/CreateGroupPage.java",
+      "sha256": "9b2d5feba50ea5269b40b9215eb611295f2cf8bbdb194c352216b139ba11c214",
+      "gitBlob": "35c145ae59983214cde7947588e7e26f51f1d282"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/CreateMenuItemPage.java",
+      "sha256": "fd22c56472fc51aa6efb817e89304d490eb7aa6d2c0c7cba83d07ef102d94684",
+      "gitBlob": "5af85b29a20b8b8d063515c323492178acd200b7"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/CreatePostPage.java",
+      "sha256": "95fed80eb85870cc2e25987f253df5fb4b644d9d7341f4e9d4548e22837da62b",
+      "gitBlob": "df36e7ad4d6c3ad14e0a1e7dc2180b7ee9fa4597"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/EditArticleSiteAdminPage.java",
+      "sha256": "98b88835790a7869900aadd0ba2aba2043d79550009aa546e4c1770a7c88326b",
+      "gitBlob": "9829b07dff9d29be243cf1b5d204685c29d5f971"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/EditFieldPage.java",
+      "sha256": "e62f299623bf83059979a1aaa0369ac0bab1dd5de85bf6ba50656e2760abcd8d",
+      "gitBlob": "4c3f1e3f79534ff6526ee33231f6e246da70a5e0"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/EditProfilePage.java",
+      "sha256": "39d45562e79cf3387cce999579ad73cad8f8a9bbe6183f7591689b7a6b001cb8",
+      "gitBlob": "ac37a124c3ecf9f4212fa8ce3fa5395470a6ccbd"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/EditUserPage.java",
+      "sha256": "c049bd97b53a94ef5f4c64c030750a1843aa7dbb4cd7f53cb7117a558a952819",
+      "gitBlob": "04abaa960b4368dcfd3732ab4e50bcab298ca5a4"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/LoggedHome.java",
+      "sha256": "bca636d5520af90dafc2ac64a5b4be24393b517d947ad0476227ef2b1dcee921",
+      "gitBlob": "26cfe58674ce63063d09bfea82d4dacffa9a2e69"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/LoggedNavBar.java",
+      "sha256": "bd2d827426005ff545ce7f7ac924609afa1d674c4d2ff00aa2d74dc2102dde20",
+      "gitBlob": "87b690fdde0c23f5783dbf3f0f2fd2b72edb544d"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageArticlesPage.java",
+      "sha256": "633fd70bcd3b2f3e32705dbeee4821a79158e09cc04ae77008b4a2d342880137",
+      "gitBlob": "5083101295d4b69d4258f23760ac932325860fea"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageCategoriesPage.java",
+      "sha256": "88dfc597d2d1acbbebf59139999c93f85dbe213f36027ab2478caac919c9b126",
+      "gitBlob": "a811c8ae37cc923569edc548ab64eee3d199a783"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageFieldGroupsPage.java",
+      "sha256": "9e2439a139c5708303001404d0c0ffee66b6183c7d28d9ef68bb3ac50f306c4f",
+      "gitBlob": "6eff1daf11173570eff6870542e36a681c46f524"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageFieldsPage.java",
+      "sha256": "da0edcc83fdb40287b7089724ac6b483521025fb457707b547fa6a5ee2f75671",
+      "gitBlob": "41a7428392dadbced3cde198a3aefc1e2c3866b0"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageGroupsPage.java",
+      "sha256": "4a7fbcf36c73c8e7e5b16ac7ac55c5c7985d8408bd04bf403a0f7d58cdc2aaf9",
+      "gitBlob": "f0b6346e8ec2695473a601fb8594251038c92611"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/ManageUsersPage.java",
+      "sha256": "02470a74c48759e8bca6c46626367db7b3d2291c2bfb07a0b8dc5d3789f63c13",
+      "gitBlob": "59391bbc4b3cea3fc887ec774947eefaf2b918b9"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/MenuItemsPage.java",
+      "sha256": "d5be2e2e104549ccae2ec020e4d3ceed5158e319867b52e249642055825463ac",
+      "gitBlob": "785568021b23293a1097e6f1abf0fdb8927884dd"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/MenuPage.java",
+      "sha256": "8026a8a220d736abbc386929928bd469d1b16a2c4e8fc79d2cc0bddcb6ae152a",
+      "gitBlob": "62663b336fd15c75f4492633c4d432aaa376c922"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/PageObject.java",
+      "sha256": "4eaded9addf99b10c109b17d0bc433048526bcc960e8d2eea889f0626142763f",
+      "gitBlob": "3c05b8f1f5a191dc47089af64b1c9063a3ec5f30"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/SiteAdminHome.java",
+      "sha256": "df5c5a9fd3e1ff81e5ffb79f3449b3a43c54e7fc59c0e907479f374ea653a051",
+      "gitBlob": "5115f60e989cc9b7ca9baabdf0334cb224661bdb"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/SiteAdminLogin.java",
+      "sha256": "5b07bd11b3559348387649d8aa3866355b9a50de02906e22e2b0b338c9eef121",
+      "gitBlob": "c92c86ebddb3807c4bd40c98babbcf5c8cc6fbce"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/SiteAdminPageObject.java",
+      "sha256": "04b60ce5b515654e6778a2cec8c9f812b525666745912a60e7abf17ed177c8ec",
+      "gitBlob": "f7833e4983931588442b574b64ed26ffba2eab90"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/po/UsersSidebar.java",
+      "sha256": "e93e6f497633571b62cb1287824391da485c8da42a0a78adf12eb7f37c69a60e",
+      "gitBlob": "0231838a3b34dcb03cd67fd26f5e01cd2cb28316"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/main/java/utils/JavascriptExecutor.java",
+      "sha256": "30c1449eec1cc8984079659e3190791afb2c43f5301a31771ac6b632d5b1a26d",
+      "gitBlob": "a0b80910f7c8613fec8289dfb5d9e83e9a8d0bd3"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddCategory.java",
+      "sha256": "c3a776a9d46b21e8450f32488664291da949b296b6c3e33a0bc3ae4afd6a44bd",
+      "gitBlob": "4e926ac3673e7792c81080bd54184dc72642fd8b"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddEmptyArticle.java",
+      "sha256": "633772707e5feaf9a761e095a778fb18207ddf5c2814fed67a06c5f1ef7e90af",
+      "gitBlob": "6210ab97fcd055a0bf15f884919133d211c3a9d5"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddEmptyCategory.java",
+      "sha256": "0bb59e21eb634b3759f327e592a7e1c8096a71ca37e224662c1986884d14f377",
+      "gitBlob": "7fdf3baea9071c0dd5124028f017c837a0f035de"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddEmptyField.java",
+      "sha256": "a517ecd31ff89116d55d30723f90c68cbc29cc92e78cde6dd91ce4833054214e",
+      "gitBlob": "7d1dd504af703f56ea359a3e52aaf0e008cf589c"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddEmptyFieldGroup.java",
+      "sha256": "69f561dc0b0dde07ef0f06b831f08a4854bc983a2ef983ae9fe7ba27b35497f9",
+      "gitBlob": "09a6b1d68344b2f9177307b34caf9749bb612f01"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddEmptyGroup.java",
+      "sha256": "a29f0c3709d566e0556abd6813791e2dab7d98d866d987562a60c03d8aa22b80",
+      "gitBlob": "f8b7afdbe8516d6d3e56176d439862ce9d589996"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddField.java",
+      "sha256": "0acee0be21b34d3b538c63d325d3edee99d84f1e8e452cb54ffdb2652089090c",
+      "gitBlob": "bd25ae06ff664203572f5ae69b9fac84b33605cc"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddFieldGroup.java",
+      "sha256": "2c17ead6f6bf225192255c8f9344479e871e08fa1cdf77f25b8cc2f4f2259dc0",
+      "gitBlob": "7539d0e49ed3abab379e555af5193467760777c2"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddGroup.java",
+      "sha256": "5c00818ed494cae6d78bb347b043553da627137fec0e7aac1e6e255d237bab15",
+      "gitBlob": "86fff4c84db8df601690f123cb45d840027482e4"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddMenuItem_EmptyMenuType.java",
+      "sha256": "f5a25c94e8550a0934ad5bc3ca6b665fe4c50733801ff138ed2a59f382b5afd2",
+      "gitBlob": "85a43ad620521df67cc8965d38e7f213daf34d7f"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddMenuItem_EmptyTitle.java",
+      "sha256": "dc0b96f8aea614a7446d1ba61efd677929a7a1acf36b119dfcf2f8a55ec6d7de",
+      "gitBlob": "564502f5f40240346b48e0869f536ca7dbac8b92"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddMenuItem_MenuNotSelected.java",
+      "sha256": "4852486c0def9ecb4452581162273e2ba247bbbe3365204c35db57c17a5658e2",
+      "gitBlob": "a495067d97f66cd3cce1bdca6519eb030b6fc02a"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddMenuItem.java",
+      "sha256": "c612b87f2eedacfb20fe9ffce5c5d0a34a298aff992c7d07971504eeb905bc75",
+      "gitBlob": "1da3964f234aae44d3f938e561ed964eacb003c1"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddNewArticle.java",
+      "sha256": "1e74c537a17346fbb09c991b828929dabecb54a4eb188cba653fcf1c2889f180",
+      "gitBlob": "6a2eb2e21110541a0056540e1cfb09b4a2604db6"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AddUser.java",
+      "sha256": "16b837a0ef39ac5a37ceeea359fbcb59dcbb5f2463b558b2462ea2cb8babb8be",
+      "gitBlob": "adb0171b7100afa91d79297bb446b812c912226b"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AdminLoginTest.java",
+      "sha256": "98454baecf4eb7953ef5d41f7077e8f2e756edcbb408b3ab48831438d2060f79",
+      "gitBlob": "b8bef1e3ee893c32091980844cf902459f55540d"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/ArchiveArticle.java",
+      "sha256": "f97624c9445dd140de1208b4e9a2c8c6e496d96710d7a038c4b45f285970beff",
+      "gitBlob": "416dfe6e25694dd8a7252ab4d474f6b1b93097c7"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AssignCategory.java",
+      "sha256": "bd9eff3a79469ce368a633501b677fdb0bc237e4ed56526d90681f1cb6ac3062",
+      "gitBlob": "9ed277ea54fa663bc471b86b7737f53139ae776d"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AssignFieldToGroup.java",
+      "sha256": "08cc9ac37606ae60f3c988cc5c211d7467440e8b192340293b4529a0a889dc2f",
+      "gitBlob": "b35d8a49d81daf3d9876b657895b2e6b3bdad7ac"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/AssignUserToGroup.java",
+      "sha256": "44513879ad1f8797be51dfacd63acb5dc65cb23468e91422fa3deb3d2b2d44b3",
+      "gitBlob": "63873845e34e8d080d71cb5622c99ad54ac40cd0"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/BadLogin.java",
+      "sha256": "c21627729201801f202bdad6049e55e9edf70ed54d191bd267af5441195f67a1",
+      "gitBlob": "3fa582856669ba35de2a83bc16c1843d547f3570"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/BadSiteAdminLogin.java",
+      "sha256": "ebe2f285ae8587b1ee5e18c673ba9a07a7b4749434ab7e4f4f78385043d46b3b",
+      "gitBlob": "12d06e1537c2894348139b7c23bde90b1cfcf2ec"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/BaseTest.java",
+      "sha256": "cadc58e1309812e139720d17d017b48bfd7488ab1efb10695f64af4da7bc64c2",
+      "gitBlob": "5a033f65493b9910d1a2828b8640c115b2d81b8d"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/ChangePassword.java",
+      "sha256": "f8d1f2a13c87ecf56a4f8cb3a890b0335250738487254d2b374e461cd5dc2833",
+      "gitBlob": "36b63323ec0719f4efd46289d9452d6f95305eec"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/ChangePasswordDontMatch.java",
+      "sha256": "94fc8abae41eca7708f68b34b3e7193b1569ff9e6d26f56bc2fc867b8f47aa2e",
+      "gitBlob": "5a484cb2e1694ed020f33b41c8775373a51632a2"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteArticle.java",
+      "sha256": "ad7f06b5fd60c7a01f5dd301e17129c4dac2f1760943580fb108bf06b46fba00",
+      "gitBlob": "1956bde59488a29ba9e15e76b5b8470e915499e7"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteCategory.java",
+      "sha256": "0e9906ad601f9d29eb35389f4b92bc951cfac1a31faf57fe157179da9f171888",
+      "gitBlob": "ea10d612f840aed06c676803c138618b48026d17"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteField.java",
+      "sha256": "1483915210533f1f22808d1a334a7d1e7f783d15660d77908eeb4ad3c7aad86d",
+      "gitBlob": "574017457ff870a89801530f15685464aa89da9a"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteFieldGroup.java",
+      "sha256": "ce53679b927de669d10020d658f2855d939322a573836582d991640a41a5a5dd",
+      "gitBlob": "51998bd1186fdd68979cb1775893c3e61faeef2b"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteUser.java",
+      "sha256": "a8f3d9bb281af6968bfdf582497cb0de7f2eea217b28fa2409889e2e3d026cd1",
+      "gitBlob": "e29b02215fb4d19c8a3ddce3eecc49a24e99429f"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/DeleteUserGroup.java",
+      "sha256": "04c4bb7b75f08e14aa8af1faa64184fdd0e816f1c7531fc3b70af6632da3053a",
+      "gitBlob": "aed5add19534509adf070d1b18a5e571a21293b7"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/EditArticle.java",
+      "sha256": "e574e7c0eb9f42f2aed7305223b1bc9236039ef24501df7ea64e425d9be511f2",
+      "gitBlob": "9de545829797d8c447cf5b032b47358a178af4ff"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/EmptyLogin.java",
+      "sha256": "53c6e2bf43f6ac3a4aa4eb561e20fac7891c06bad841b030a08d0c90ba25e667",
+      "gitBlob": "56771404bcf181049b1c5b7b8682b206ea9cae8d"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/EmptySiteAdminLogin.java",
+      "sha256": "386b66ec53e189e91e1894b81a40b2af3027e18d020659ce7ab814f5aa6637cf",
+      "gitBlob": "d0ecc40593ece909e6914dbcebb5ef7bb0b8a7ad"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/ExperimentConfig.java",
+      "sha256": "43325d4e5302ad7baed26256c7bc8fd1f5d8f122578b3765ee87fb87532b4fb9",
+      "gitBlob": "299999d077af0b51e335ac439169ff90408594fb"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/Installer.java",
+      "sha256": "1443217a4c893cb84bceb18622397f4a8e68b912a5c4c6b79bce1e60a6ded7e3",
+      "gitBlob": "190964eda4e394c4b375108d8280fb5289556745"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/LoginAsNewUser.java",
+      "sha256": "6076d0f9ad23e43674eaef133620f631b00797cb2da61258997dcf064c525949",
+      "gitBlob": "6512d7ce510033625bdb383ae02ac9ad4b58bf15"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/RemoveMessages.java",
+      "sha256": "c09200208f088722e2d740758775f085ef0351680a86886b5a7ceb4873cdaec5",
+      "gitBlob": "06c081f9dbfe09075a82838efde3ee966f7bb8ca"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/SeeArchivedArticle.java",
+      "sha256": "338468ab4ce6d8847db98e50cdbc4bd96c8bf1ecbc0c90ea4e72d1c7ac2bad20",
+      "gitBlob": "383b9b57a1d29f16f5ad997d704aac24d998ea00"
+    },
+    {
+      "path": "experiments/joomla/bewt-suite/src/test/java/base/TestSuite.java",
+      "sha256": "fef710d59ba9242fa0efa3f366be51a329fadfd3018af26417be9ef53d33ffe2",
+      "gitBlob": "dc0552978c47ee86dcfcd44fc28173542c395443"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/AssignIssuePage.java",
+      "sha256": "5f43d8cff4eeb0166b2e44bf90b9c9dee26158b83186e8456f8a74285176b260",
+      "gitBlob": "2f88a216b620c88e45ff29affc3edba8792192ef"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/BaseNavBar.java",
+      "sha256": "875a6534362d9c15d625e72962c2650a817a73fe8451882b49f1aae7d3597332",
+      "gitBlob": "ae1ee15defd98af7a57a40460896dfdeabfeeff3"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/CreateProjectPage.java",
+      "sha256": "d0f80dca3eb18435ea065a96384903398da039f14e7c3e594ef6cc7408ffd1df",
+      "gitBlob": "2a323e08386a606737859b2ece8fbe6805598772"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/CreateSubprojectPage.java",
+      "sha256": "c1d037328487e72be4f6dac5bcacd8502a967f2c59a89ddb6f31c8aaeeca0f6c",
+      "gitBlob": "c27c1f5d96c8c5a33f03bd7a235f639aa1500891"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/DeleteIssuePage.java",
+      "sha256": "58508b31316b15f1e69f0c85b8445e87cfa5cc6ff3c8b4bdd97a13ac772d7e17",
+      "gitBlob": "d99b9ef51cad2804ef10802ed8d22af9bcba2d64"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/DeleteProjectConfirmPage.java",
+      "sha256": "5dea3958e2920f613eec637f54887fab4bfd74a651ebc048003efc5de8c6939b",
+      "gitBlob": "1a21b9d56568c736d24e00fbc8f3a4964ec82c33"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/DeleteUserConfirmPage.java",
+      "sha256": "df81646b8e88394a3dcad7acc5948c8c7884acf9a38c20cec46aacb2933719e7",
+      "gitBlob": "7b5a8494622e05d6201f2bfcd18f90737c1dd424"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/EditCategoryPage.java",
+      "sha256": "4e9049e04b46d0ed074f679bec1ef3ea120ddadf664966a177ba56fdd0d26988",
+      "gitBlob": "21753e6e0082dad967f38445fef8f850a8650f62"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/EditIssuePage.java",
+      "sha256": "725937afe219db7e3c0e60cb399c5019477f247f4d5a7f46fef967a4f8c02be7",
+      "gitBlob": "e2b0f885a90a6864c3f7743b88b4b6e54275d858"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/EditProjectPage.java",
+      "sha256": "a74cf31514f38f4b9c548620265c265b463357d550cfe2ea996a322594be8ff2",
+      "gitBlob": "0fc082951d6556048c140b93898ceb1ce7aabdaa"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/EditUserPage.java",
+      "sha256": "747de33047c58adcbd18c601fcd504a38d2027d0c07c5b19d4e0823ba32f1f87",
+      "gitBlob": "6bb9a1afb6ae8082f98d1d9ced0bb9a7bb54038b"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/LoginPage.java",
+      "sha256": "c016bddfbe18f28c7ab7a92e7698ebf86ce6e4396119e5bbdf45cc218f4d38cd",
+      "gitBlob": "b18e55b9148e3621fde1f39c6efe9eeb76716a89"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ManageNavBar.java",
+      "sha256": "0d1ed7a07f7833c89fe869e5f34fee116e27738e52d078ca60ce425913b96cb5",
+      "gitBlob": "7546fc23bdf5b74c758d1a925d25c9e8c21ecc7a"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ManageProjectPage.java",
+      "sha256": "9c94936144df497fffef963d042b32bdf8f81603920fdb8da60e5f1f814b35d9",
+      "gitBlob": "9db6204775682ecd7ae5f636c50303f6f16eacd1"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ManageUsersPage.java",
+      "sha256": "1d1e828fdcdffea1061f9bb989cb152c3d0848a6578cc25bbac913e601dc369f",
+      "gitBlob": "12a7b329ff3168a863c9844221d747bdc2520f01"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/NewAccountPage.java",
+      "sha256": "28254130b31fd18c5d35cd62ccc394f963ef15c55f6b72986ff09ef5aab747ec",
+      "gitBlob": "479cddc48608a1c2fa997872aef519ad302aa201"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ReportIssuePage.java",
+      "sha256": "852eed6ef9ea24f3da0bd8cd7cf7178b750c5f67379a6a965112cbdcfd11bb1d",
+      "gitBlob": "63cdb14bc2c1140644c4206e7fdef835c7cc0b67"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ViewIssueDetailsPage.java",
+      "sha256": "f7c0ca3d7c63d4279b33cb92e88fb5842fcd835a6cf95be6e152ae53f27e6704",
+      "gitBlob": "24dc965b4a17715b0bc29c37a6168ea1b7354a56"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/po/ViewIssuesPage.java",
+      "sha256": "6eb36d8fe476e6b69ffb46f9577097d80472bc9ee259a9be9137f1569fb0456e",
+      "gitBlob": "88ff94b97d79f7c1b7fcddb826c0510df4b115f3"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/main/java/utils/Strings.java",
+      "sha256": "ffba3ef46e07f489eb1c6dfdb6713963be7f6a340d540e67993ddb5d38d12827",
+      "gitBlob": "ae1a5ebc79697db9748d07926b8ff01d17397e8d"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddCategory.java",
+      "sha256": "6fb9ad621474bc13519429377e5f52c090c70c9f2bbca091bc729f83cc67e402",
+      "gitBlob": "cff9aa644325e98660c731b4af00cca3d9cbec25"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddEmptyUserFails.java",
+      "sha256": "8159253d14189191698bc9ab4f922fc105afc4e9c9dd6ac2f4ac5da8ddc9a08d",
+      "gitBlob": "4da3fe7b01eeb257ada10cd76e05df0d7068d149"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddExistingCategoryFails.java",
+      "sha256": "9500fa144df0dfe796af6483206aec74cf5694e2886b7fbcf7ece9b0bf491af4",
+      "gitBlob": "1b617ae38518e3d2dd73eff8e3231448c9bf4ddd"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddExistingProjectFails.java",
+      "sha256": "223c12dc9488805c29085a17bd4a6b5e0f2d803d90998b44d77ec39c1a81d34f",
+      "gitBlob": "5059bc54a3681ba0764586104bde7f03091bc9bc"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddExistingUserFails.java",
+      "sha256": "573b53d2c9c1f763cb6d100a5f2a98eb5925c65e5229ec3f2b6c81f6638ca3af",
+      "gitBlob": "4a3074f02eb98b7378810edfa6af1824fd31622c"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddIssue.java",
+      "sha256": "4cf748f9c98e1e446cc9ddce4ed08cc585e752b2baa3741e3f512b07f775c022",
+      "gitBlob": "5fb1a7f1acae3c5969501c3eb3fc9bc9149348df"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddMultipleSubprojects.java",
+      "sha256": "91e1a28889af1e5808b395d30e20d1317ae44c616bbdddf2c73ed0170d6aaf6f",
+      "gitBlob": "4450552c512f9fe73802a054a70978a70ea91545"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddMultipleUsers.java",
+      "sha256": "42340f714bf93a20cfaf736369c694b8ee50bb3e740dc67cb541fbbbeeda1dc5",
+      "gitBlob": "6a9983bdafd4f5f7f35448f03a6c255089e645c3"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddProject.java",
+      "sha256": "8167b9c557f717a477cce85c62572c39dc23c84139da335ca9a792abb73bbbd2",
+      "gitBlob": "af10c18c19d8f607ea1ba7592a377dc5706e5c54"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddUser.java",
+      "sha256": "3d8ca7d1836a92edb3341bd503d344a7be911ed6a0f468b9e25b62c6df714a1d",
+      "gitBlob": "f1a0bd51d03cb67172667f78baa1ae0a57b4c243"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AssignIssue.java",
+      "sha256": "47a700a5ae7be3c25c4c2954661e916bc39ad8daf5659b9a6d87aa8cc3e60ad9",
+      "gitBlob": "8cb45614d1eb8e3a66eab94fc8b9c8eb62d34352"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/BadLogin.java",
+      "sha256": "b022e86485c5f67c2df0485a565ef9bab90951e9ac58bcfb3a23e77a5bb84baa",
+      "gitBlob": "7cd95c4233993a10873e1a7349560ff35864a7de"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/BaseTest.java",
+      "sha256": "fa292e648d295f68a70981f95c30b6e85434f9e9203028d18f8f1436949cfd4c",
+      "gitBlob": "7fdb6ca3605bcb26d2984a241d1671567aa2ec45"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteCategory.java",
+      "sha256": "0e0dfe7627f8005cc46db11c8c9cfb72ff76f8d9edf2ab0341a7f71e3db3fe78",
+      "gitBlob": "bdd05afa632bc261c5118e28d32674760187f2ad"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteIssue.java",
+      "sha256": "bfdba2403d9c7774800dd06b26346d79e07130614e3f77264f84c54885da0bf9",
+      "gitBlob": "4e2621618162a1f99516122208373c94f0430b81"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteMultipleProjects.java",
+      "sha256": "eb8657c12da291fb6b2d2e0dabe0edad9f43e97af3ca65cbbc4a1ed29a92bb9d",
+      "gitBlob": "dedb5c4d091f097afa89eb1329ee61807b748596"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteMultipleUsers.java",
+      "sha256": "476940cebce303685a56d9f25dc9ce24277f0f07a1c44ff2548d54436e02a7be",
+      "gitBlob": "4baf207c1e28c1f5768f374ab5abd81a7d90ad4a"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteProject.java",
+      "sha256": "5ab8cf1f2328b83957e08080a2ba0bdbb4ab6dbd5422ec36fd552ed4bc2b53de",
+      "gitBlob": "0323025cced424ad74bfa3cd8025686ffaf5a7c6"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/DeleteUser.java",
+      "sha256": "29f6b68fedddeb635886d356b499b813c971051a73b82f4489060dbd1fd32b60",
+      "gitBlob": "bddee9ffc35ee524706d0c2dceb537b51adaae0c"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/ExperimentConfig.java",
+      "sha256": "43325d4e5302ad7baed26256c7bc8fd1f5d8f122578b3765ee87fb87532b4fb9",
+      "gitBlob": "299999d077af0b51e335ac439169ff90408594fb"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/LinkMultipleSubprojects.java",
+      "sha256": "53b01fd461acb52962cd0256e4c97fd7fa0aacf2046c7f0d2f5f7ea09d042176",
+      "gitBlob": "8263accb092671d384db343d20aa78392489bcab"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/Logout.java",
+      "sha256": "172304541119207680a1f3f1ce93b42a90d07a61bf5fd74b32388e232a392038",
+      "gitBlob": "dd2720fb62ed0fde570fdbc586d910e519fbb75d"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/TestSuite.java",
+      "sha256": "317562d3fc6f53ceeae9207f565872e709d2daf664122210069eb56e76a85ebe",
+      "gitBlob": "906c15472c04f0077441b9975814659e1f63b84d"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UnlinkMultipleSubprojects.java",
+      "sha256": "1091ce481172d3e120787b4a31ca8d70645ed5a9f3a7b474efffd6c6f14b70df",
+      "gitBlob": "4f0ec4e3a2d7d0a313b26c5267604fb2977e5fd4"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateCategory.java",
+      "sha256": "2f10cfb9dd9645fce32ff21abe534d1ee2e10dc34bf8663dc8747258beac79c5",
+      "gitBlob": "e70291d526890dc9c8436c91a91da3c50facaed8"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateCategoryEmpty.java",
+      "sha256": "3dc5e212e74af7d4b5765c4c8a0e6447c6dca07a98543a00ebb83fa691609845",
+      "gitBlob": "2be33017c043a429fa5f6bc6d2f8b445e7dcd956"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssuePriority.java",
+      "sha256": "8cda7f5aa5195612eefe61e277b93ebd942b423ebaf7886d9f0832c48ca212d3",
+      "gitBlob": "3ccd2acc764f0e1906e0e1ae876bfa2549c879b9"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueSeverity.java",
+      "sha256": "bd6d3512d8b4c8585080c8095a067df25c784558acd161caccc43da88abf0412",
+      "gitBlob": "98b0c6db88bd4f33bad5c8b3264a2ae4a70fbc12"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+      "sha256": "d37d07309d4e336b3e1bd94df46b312a72d36583441ea04440e191944bfac331",
+      "gitBlob": "2fe981a47aa2920c26ddbbf4b304cc7a52f99c79"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusAssigned.java",
+      "sha256": "513577d762d464596e45d507b82c1dc8518d8bb856431fffd1a2381280c577ac",
+      "gitBlob": "296961699d86a3f245e6ef712f0e2b256dd8ce84"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusConfirmed.java",
+      "sha256": "10339e2c30eba99102f28b2442845916c7d2bac15a5e76576b9a4f904f35429f",
+      "gitBlob": "2ac6542f4c27f6a1592cfba43ede9a3056c0158c"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusFeedback.java",
+      "sha256": "0692c57e5917b3368177dacc234e25e40294a9525e115e940b57f5df8a61952f",
+      "gitBlob": "213e7015020ac5d6352cfad9167e247498b1ba50"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusNew.java",
+      "sha256": "9afdc0bca841f7a3e01f4418e809e117242f62172fda3fad54db96fad9e2288d",
+      "gitBlob": "24294da41874738f98847a26aa34668e1f4c750a"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueStatusResolved.java",
+      "sha256": "939e81554d50f7dd487fa2d9f6738ea9e94bd2dbf1ff9d0f9d966329448ef84c",
+      "gitBlob": "7833206864e61f067cac131b99a4b99e2e37a3ff"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateIssueSummary.java",
+      "sha256": "b1e538f98f934a21787546e6cd3f487bb34f9eac54042adf27c259796d9c9b46",
+      "gitBlob": "83a7ef421e223c81ba81632ea246e1a1a1ac0dec"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateProjectDescription.java",
+      "sha256": "ce249ca0ec67ec59f3a74184aa5eaf282ded247377328068f43f200f23474ef8",
+      "gitBlob": "c019e13986ec4dbdaa7e711c0d734b476088fc78"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateProjectStatus.java",
+      "sha256": "a7e15644e841f589bfaf1a4398e86b6fdcb8e2257144b22da3ddc623b5c9d669",
+      "gitBlob": "e5cd175a5d053daabf94c2e31b271038d1dbcf76"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateProjectViewStatus.java",
+      "sha256": "841936174b6b13c40540bf02404eb302a072da4f2b2d77b984463a5ad76cf580",
+      "gitBlob": "69468759a7e84baaa595ffe9896d4b2102122fe5"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateUser.java",
+      "sha256": "588f642ccd15d586aba613fffdf69bc47f2b820dafc3ec4c4c2ec50899bb2aef",
+      "gitBlob": "db464ce804566517a33c661f9473566eb6fb203a"
+    },
+    {
+      "path": "experiments/mantisbt/bewt-suite/src/test/java/base/UpdateUserEmpty.java",
+      "sha256": "c2f92ee91c8ab742a0b16b9d2250063f527098bd2a92320319b51af2d69d12ca",
+      "gitBlob": "3955d5a3874ef4622cc62b4bfe57082c0560054c"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/AddCategoryPage.java",
+      "sha256": "d20fb6ef40a5bb4a0db619c84622aaf179b418bce9fb84772b5d292fc7385255",
+      "gitBlob": "83dcc42d0ab8435a63b94c738ef576a6d6a33933"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/BlockUserPage.java",
+      "sha256": "196a5f82e492166522db973c62cd07b699c76879d2940c7bb0422770399d97d8",
+      "gitBlob": "4134701f2553a86c05af8d06b0f6e0d9d891aecf"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/ChangeCredentialsPage.java",
+      "sha256": "48c6b1369391e30838172b5add8e2e16b853d5c47039b954980f39e2b59dea2a",
+      "gitBlob": "1e4c7de0028a388561f9ed3d862962bb8a26dfda"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/CreateAccountPage.java",
+      "sha256": "39c938a1a862f8621d94de522a58eb2fd1843e866c89f33a52b22a1df8466d8f",
+      "gitBlob": "3ab5f59975e229c0d2cf53140b5b4823547c90bf"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/DeletePage.java",
+      "sha256": "28134fe18534b709a94b2cc182eb1c5625f7009f7fb6221d1cd191fa7842abbf",
+      "gitBlob": "dbf0428e3a11b5be608909b38c081595ddc195ad"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/EditSourcePage.java",
+      "sha256": "4e052e113b6b5e77cf97a30367c7f589396ba4ae1e4f88ee66f4b04e9a1ee05e",
+      "gitBlob": "d9b214092ad1fde7e6abe53165f9a8245ee643df"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/LoginPage.java",
+      "sha256": "771cd001b59f6d0e66060cb91bf2110d03a4990bc451000cf8c155dd3a5cfff9",
+      "gitBlob": "8317cbe254db66ab48b2427ca8907517a4f72bb3"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/MainPage.java",
+      "sha256": "54c13185e7104007f300f12fd42085c86dab211c70ce1b687dc88ad0e5a9ca03",
+      "gitBlob": "7340af64f973efcf6a54f98a6a278871742ecb83"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/PageCreationPage.java",
+      "sha256": "7afaf70adb76b94d84e679a2454e53ccb33d639c4a4a698a4490780b6822ac46",
+      "gitBlob": "06bda7045a450bd1b37051f5aebb10b9af020fb6"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/PageObject.java",
+      "sha256": "a69c0cf5cdb179b15053b69dd89d1abc8fa0e300a50bb8de0bafeb1d0144d734",
+      "gitBlob": "7ba56c675a697743585191fea180117729e67309"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/PageProtectPage.java",
+      "sha256": "3c8ff95fc58b0c0a3fc66a292805b8b0b337bc8a00ccf9e7b34537dbd08336f4",
+      "gitBlob": "9036435e71a8b29c75390b19ec645b1b122014fb"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/RevisionHistoryPage.java",
+      "sha256": "7588b78fb395ebd6669b4258037a59ee55f5280f514408f769803fb2157ab1e9",
+      "gitBlob": "d63bb996dfa3553d9465f41100a2668fc7f5540c"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/SearchResultsPage.java",
+      "sha256": "d6bb8bab15eeb680973cd9c9e1358e0844d6e1e7777178a8b00ed910eb3b759d",
+      "gitBlob": "0922754bbaa2caa0178941a77c5b359f9f4e7425"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/SpecialPagesPage.java",
+      "sha256": "ba50dbfc51149a72f843542d0a9893d7a80d24e895ad82c4eaa70ad1c8d25e5e",
+      "gitBlob": "3644255b04e1dc52de883b1146a45b485e2f622e"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/UserRightsPage.java",
+      "sha256": "601d0fc18f4bd2644aa4fb910a4eecd0b5f999f1dde7ee4834de8a3c46ad3a7d",
+      "gitBlob": "054ae77939dce3d2c0eef5a0893df9a56c69bd91"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/main/java/po/WikiPage.java",
+      "sha256": "21ce7d4c8edf65e20c4f3c1a5baea5c441ac4fd17c51922ffbd6a2dc1be935bd",
+      "gitBlob": "0a66e158661ec4d7cd442ffd427fab96b6c2db1d"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/AddCategoryTest.java",
+      "sha256": "1b27ee2fa80b722679db3b2b5a02d320ae11f23f4f161d71b31985f6ac30ccab",
+      "gitBlob": "cb3b0c71e8cac6930ad5b59a4b1f47cc9e211539"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+      "sha256": "e0e019821cfe11ed571567dcdc720f63c0495389b0e69f2d3d324c812b3abf0d",
+      "gitBlob": "83ce53220dbca40bc9877b0347e74268ce8dda66"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ApplyTemplateTest.java",
+      "sha256": "d1b5b82eccf10ed6bdc39a8cb0f9b65d85018c67576a1294719fa8ddc9d0ea5b",
+      "gitBlob": "502e40a045ce4094bfc5804a04349b8e6091ff11"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/BaseTest.java",
+      "sha256": "4e8141885ec2315c6db15cbcc38f0bd1d705854f59cc59bc376cd23076ada1b6",
+      "gitBlob": "307db457d1cd9be5164600e338e65a47d726e499"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+      "sha256": "dec9235dbfe6a1f7206a3e935fc2bd9aa9d06fd8701ed9f8a25a667c9a230508",
+      "gitBlob": "d8c18954a241f658c51624d02e40d7208b7b2c98"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/BlockUserTest.java",
+      "sha256": "bb315970b73dc633bcdede04319b71f5da773039ae72f47df9052bc86324fcfc",
+      "gitBlob": "2100c920251fcc092022b1b24fc0e2139dac3d39"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ChangePassword_OKTest.java",
+      "sha256": "c6771ea07023a39ae88a3ab3494e2243254b246aa646286692b90ec66de4e5fb",
+      "gitBlob": "a33e667a061d71c433615ffff52336817097784c"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+      "sha256": "6678d9126f1e18f330a4d88e224d2915a21ca27f1d0f76be8c96ecabc3a60f4c",
+      "gitBlob": "cf6407d41387a30fc1fa25a0a4276f54b589d675"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+      "sha256": "050aca46cfe14cbd410e52812b0299cc05d312da975d4d6dbee7f5d51b31a210",
+      "gitBlob": "fe4918324a660afcf2ae1b98754966934bf9700a"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+      "sha256": "3efdce2bcc4ff5ec34f4eb12b69d8f8c3aa0f71ce5ddbbae44cc7fc82f6e1f35",
+      "gitBlob": "639de061010aab5f40a34bf661013a8d20d88a7c"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateAndLinkPageTest.java",
+      "sha256": "fa17700d5ecea060c5755f823ecd7e3e8fd6476003de688a9b0fd16fd695bae8",
+      "gitBlob": "9cf3859659e1d50958c62a7ac97ae48449f79b9d"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+      "sha256": "d9aa440f85b67a6a310552fa7587c7d08b5fb2b4adbaa5b49c642135ac1f5c2f",
+      "gitBlob": "eec7d1a0697e64924742f99f7aa908a81e1e6ba8"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateEmptyUser_Fails.java",
+      "sha256": "8ef040761aa6577720cd7765ce145fd868a16a546ae2f102d8dad72c9a59ccd5",
+      "gitBlob": "d737d1711d72b0e3786e6a8f50d82c2ca458db92"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreatePageFromSourceTest.java",
+      "sha256": "7e605c144fd9c9dbdbb20b4ced4649c720fb9e0261000738aaccea26fced7ed6",
+      "gitBlob": "eda6eb853e308561a35c7b7da3f8fad8cc307bf5"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreatePageTest.java",
+      "sha256": "f8d5a6b7bbc73e225bf89d8c9d810c1aee300cb2071043fd1ab42cba600e7d84",
+      "gitBlob": "1b97b2dbb37a90e624ab7545cc51e6d029264bb2"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateRedirectTest.java",
+      "sha256": "a75418410caf5e839dd79591baedde44251efe716433ae76b652895ed1453c29",
+      "gitBlob": "190f5079b2493368f907f46044750840f2761ff9"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateTemplateTest.java",
+      "sha256": "09a13a0523399f26c90d4b63ba582675f7f72caad347e34efd896a59c531bbdc",
+      "gitBlob": "3476f90fb8756615e9a131ce61911e1560ee4ae2"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateUserPageTest.java",
+      "sha256": "b6f7826767a12ccd7258a176b0eb7b3de0ed89492362dfad59b44602875ef2ed",
+      "gitBlob": "71432e42e5740ed43f7acb6475ddb77c3fbe133a"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateUserTest.java",
+      "sha256": "d028cfa772886beae3420a1ebbb47077e1466990e36192debceede86b0d12154",
+      "gitBlob": "663ba90f0e403959898ba4859abdb25cebd6585d"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/DeletePageTest.java",
+      "sha256": "b8254357a086fa91b46775f52c15fd909b75e16b73c691a804e3c65887345afa",
+      "gitBlob": "b6e1ee7da9c44124120c31779258fc2aa849b28c"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/EditPageTest.java",
+      "sha256": "1177833c1bbaed200d0e51e56d0a2ad0f60f4fab1616f1e1fad3f6782f6ad15b",
+      "gitBlob": "6434333dac0a6c2b137e79b7394a0ba43f1b508b"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+      "sha256": "c3195f97cf0851c38cddc34a79adcff86b7d726d5db5118f79a305c0d11cafe2",
+      "gitBlob": "2daaba0d165da6bfe0d58261cfc963765008ce42"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+      "sha256": "c9309e143e06d6258492bb3494f1ac0330bf9544977ca7706e1126a933e668b1",
+      "gitBlob": "435db6d8043c4fd3708e9acf88459119e79ad795"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ExperimentConfig.java",
+      "sha256": "89fd34da5cda4801a25c8e173ca384e141839da846421291313e022e83196df8",
+      "gitBlob": "9b0bb67df418488b901bf368071dffe2557894f2"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/FollowRedirectTest.java",
+      "sha256": "dce7266c2049de9dcb73388523e66857bae0a8f36b905a87535f613639909c8f",
+      "gitBlob": "e23fcb61c81841df8a5ae9e0a168bf1bf8a41fd1"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/Installer.java",
+      "sha256": "b65dacf52ad757459b377df286d75d3c5053aae1d6fef438867d6beea290c383",
+      "gitBlob": "2eef78bab5fc49af62ccee8bf96696da9db586cb"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/PromoteToAdminTest.java",
+      "sha256": "67d3108882b5f73cb96798a6cb79c88b391c66412ae2f075211b261fb46867e3",
+      "gitBlob": "6581c791842c0e60312adf733594f922f9956715"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/ProtectPageTest.java",
+      "sha256": "b7a24ef06a3a10753ce996ed9c7c3b0c5ba5b4a82a950c72856a756d83cc5ead",
+      "gitBlob": "03a37932c80f98f4800401c75c86cb81549ec6ec"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/RevertLastCommitTest.java",
+      "sha256": "501ef43212f74eb38bb13bff62bf0c4fd99608f792457d55c43848ed7ebd4bd3",
+      "gitBlob": "fa72c35ba56861295898d8c1e18bb0d577b739cf"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/SearchPageTest.java",
+      "sha256": "25fc4e39b3c1e283e57fe097f3cc24558fdfbd969afe5c7be7ec26dead028ec2",
+      "gitBlob": "97700139e43384db2420eb07c7f2ed465ef80c42"
+    },
+    {
+      "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/TestSuite.java",
+      "sha256": "3fc4dfbb735e73482583935dbd0e53cd51df399fb924138c6390d7a5a5a71a80",
+      "gitBlob": "b8b428d50fb0de615651ae3f22a71ed56c9a54d9"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddAddressPage.java",
+      "sha256": "e76c68a6844b315b9cdf16a462fa93acc858cde1022709407d9a157ab81fb6a4",
+      "gitBlob": "d9f9cf3a2cd4c0d1f28b6ce19735e54a25586434"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddAttributePage.java",
+      "sha256": "817d1af162696aad5cdb47baf818efb7e48626fd6a4f67ccb8a1dd5770f11b69",
+      "gitBlob": "1e5181a2b16031f751e2dbb3a5298a5abcd808ec"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddCategoryPage.java",
+      "sha256": "f42aed7bdfc06c09d7186fd4b8a838cb3e55a1a44b6367574017802d79a70545",
+      "gitBlob": "def4754e57c46c6deec1ed17328956885ab04145"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddCurrencyPage.java",
+      "sha256": "c450c9dd282685ac30cc2662f0fedddd210c2fa68a7c4c5318f10e82054f377c",
+      "gitBlob": "3a5c27af3b1051c66cd4e9912096994a7db7387b"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddFeaturesPage.java",
+      "sha256": "7b1815dd3008f6f09452ad956c20aa8841540ec8854102c7a4d471b1ebefe410",
+      "gitBlob": "044b9b873895061f3b84ff884b7478ce8758fbe6"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddLanguageIsoCodeValidityPage.java",
+      "sha256": "29a9e6da6020b2147233c617cf53c937d2bf4861ec64f1acf6f9188cfdec17fa",
+      "gitBlob": "86424176252012a7b9a5b4001888997d7a8abd0f"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddManufacturerPage.java",
+      "sha256": "050186b9f13e1be39d18718b9266fbf1728e2f33d4064e77f3e5fc8ab84beb19",
+      "gitBlob": "96f686922f071a31bc9468d5ad3d56ca88d88a35"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddNewStatePage.java",
+      "sha256": "29542c63c9abeee719d09fdd6bce3ab2c409046c60617647ba824f3fd0494388",
+      "gitBlob": "fa9b1144897795ea17139ba7b2ae889a8406b7aa"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddProductPage.java",
+      "sha256": "e5697cf46ed7ad9ee4514ff94a0e849a12f52cdf96506be2d0e2ccd406673754",
+      "gitBlob": "b9cbc82422f3214ec99058e3afbe17ed7876115a"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddressesPage.java",
+      "sha256": "2a39fd23ccf24280a02bd28caf763c217bf3671d06be9d4862bc3f69a6ca778f",
+      "gitBlob": "0f82865e31e64d7cc485ffd07187a950922ceee1"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddSupplierPage.java",
+      "sha256": "50f87a5ae50302efa0df64b57b20cdea13049140d089fed24cbbb78969c6c9cd",
+      "gitBlob": "343ffe05402e92233b27c0904ee39b748ff6245e"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddTagPage.java",
+      "sha256": "64570419b224ac9ac996d4406921693b7c603e681cf89ae2d521af9006463e84",
+      "gitBlob": "eccc2bcd7edf1c091a69c4c7f24d89362a6cd9f6"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AddToCartPage.java",
+      "sha256": "5c11b90068efc096910aa832d478b59d8b97d8c6a301a7fddb934335f8565d4f",
+      "gitBlob": "3ad81aee3d4c23ddabf80c87215d4f3239440ec6"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AdminPage.java",
+      "sha256": "182e4d0a78ae00272d12997240413d48b568e767cf7cd69d534432fead5aeb75",
+      "gitBlob": "03fb6474ed0fddfb88e912a680b895b5e6b09994"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AdminSidebar.java",
+      "sha256": "6d71925126dba517afb90228af56b0eedbe3eb1fbe7114413ab2ab8980d8b156",
+      "gitBlob": "35fc2920888aeaf2c70835fad6dd000fefbfbe5b"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/AttributesPage.java",
+      "sha256": "54bc3193d75387e2bc7780c993af4538162ba31501c6eb11014aebef00981f5e",
+      "gitBlob": "d1592f6c676205a3e6b423deeb0dce8e538daa68"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/CategoriesPage.java",
+      "sha256": "47cded9182ae9ee7a780d25d46e91b0c2f9c28d9666e756edf6f22f38097260c",
+      "gitBlob": "cab3921f76efb212118376bf46330827df1d8076"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/CurrencyPage.java",
+      "sha256": "422fa94e78b629dfb8c9ec2ce386c3dbf4ffcd60ccce382aab000fce1c89f593",
+      "gitBlob": "badd5996a9a14124e575072ca7a49378d45331cd"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/ElementManagementPage.java",
+      "sha256": "f1c792e7ece4dd4020fe9c3f46bdfecc7c7bbd9e55509e78de612081585b6757",
+      "gitBlob": "5747276dd0b1145a00ae3ad21b0f6b98bad04fe3"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/EmployeesPage.java",
+      "sha256": "e31a3889d50339d9ca39517b4f16db86440d2827750c4e8a82acbe0cee8cac46",
+      "gitBlob": "d41d2e3e82aad0b5561957a8c47c175f52bb54f3"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/FeaturesPage.java",
+      "sha256": "eab3bd8920f056536ad301b27bf1580962bda7a7764b55e05a58a93496622969",
+      "gitBlob": "6f262396f9511eecd51ed5693e4c4f283922318b"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/LanguagesPage.java",
+      "sha256": "ece2d77c9cb0dba402dc6b1b6965a95ffdc4c4d3a80f869bbbd767121eac8a2f",
+      "gitBlob": "0c2cd5e457cbab2c3b98147b24def5668c2899a8"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/ManufacturerPage.java",
+      "sha256": "b3701f233f0114390a4fcee68a470b1d23ccae64181948b9760c346c05d4f0a2",
+      "gitBlob": "5167c7ef2a64932bbcf4e4f43d46d262e4a4d93f"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/OrdersPage.java",
+      "sha256": "57ffc81b588b87dae882bea5be2d3acfa65e21be284e54c1d157b981532a01f8",
+      "gitBlob": "46ac1495389246b8b6cd48a5bb5db216b48fbc34"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/PageObject.java",
+      "sha256": "c0415f80cb73601fbbe1a8410d9ba79aef968d75a0706f1fcbb7f78caf30a012",
+      "gitBlob": "bab8f09c796a81cf2decd94cd1eaa91b101bec5c"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/PrestaLogin.java",
+      "sha256": "ac1540c9685a8d80695a2a3355fc548e9dfa87c3e9e3c84e7edbfcd4c175c838",
+      "gitBlob": "da045ef701c118099402515bebc94b2fd30202d7"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/PricesPage.java",
+      "sha256": "faefd5be2c905cb04611c7a457520cb8915d33b179f13723aaf66c0502fd2b78",
+      "gitBlob": "d1e355397febde9b61bff8e51e3f41a6452c9184"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/ProductsPage.java",
+      "sha256": "ad126bf6b7100b44a81ec4aada909917623f3474848a12b9a261595eea25237b",
+      "gitBlob": "3b6d0c8a7772249f97361340fc09141d81846ca2"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/RegisterEmployeePage.java",
+      "sha256": "87851b4e69247adde18b65a7c134bc28df7ca94a1cb9bb5b0bd697a52c93e625",
+      "gitBlob": "07c2a895bb5d447255c5688d6fc3104458f5ebc3"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/StatesPage.java",
+      "sha256": "b4cfa4e5d9a23650938fdafe4eca47a7b6dee12c2f3906f63c0c318c4bd38562",
+      "gitBlob": "8108162060436569a90bff02db0788fd512c41a1"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/SupplierPage.java",
+      "sha256": "bf9c31e0db3c95ed611ffe7eebb4f925a71a4c4b1f44a2e8e1e9af59a4486f8a",
+      "gitBlob": "a9d03d9357515a9cfdec947349d21b928dc5d973"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/po/TagsPage.java",
+      "sha256": "ed970e89ef9a9f37dd8146d25634024f979855ff4652f9fd64dde01b78757715",
+      "gitBlob": "9efa876e52ff2f0659e24958c93b63ea3335395a"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/main/java/utils/JavascriptExecutor.java",
+      "sha256": "a4a178d9c0abab4512354f5e4002723574e169dc761f3fa87dabf486622060f3",
+      "gitBlob": "0455632c3d12b6754a11a5efc40325ac45336203"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddCurrency.java",
+      "sha256": "bb0c40755716173698ded2752cf56ef08cf7458a8c1e91f0c99a86f4bda4ff4c",
+      "gitBlob": "b3e8d1b248d7bff263530ec8268d2fafe00ae76e"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyAddress.java",
+      "sha256": "e201326dea7d7d64551e818c0fafe4263e7efc03ebf225a5ba2f4bae6edea630",
+      "gitBlob": "450f660b515b6fd72459d10a1514d0c79153fb21"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyAttribute.java",
+      "sha256": "d548afc78b1f03296ca7d7c36d0fd292d13b0e17818bb3484f6631090221f7fb",
+      "gitBlob": "eea063b6c711d060b9803bbebe86d2841bb3b684"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyCategory.java",
+      "sha256": "824722149b98340aa93e74dff1c855023ca109d2620810a7f9e3620fba0013e9",
+      "gitBlob": "2579bf4f4d4618c7e7e3f6a1fdd5126854c4d1fa"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyCurrency.java",
+      "sha256": "58f93bbf296530fc28cd7adff1e093178bfb0e803d2de09abb8dbc38aaa139a7",
+      "gitBlob": "74753c0426c309e0593541537de5922f4feb4e7c"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyFeature.java",
+      "sha256": "f7c872dc71c9b8264b4dcdb3e44e724a51ae8d530e36b8517e971d9296867d7c",
+      "gitBlob": "516df26f4e45b56f144ba0dcc0b5aaca860f6e92"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyManufacturer.java",
+      "sha256": "7a0337bc68ea4268e622d777e2faa2a3a2d2ee5e16f34eb98fb408aa66a5a783",
+      "gitBlob": "f7295319e948f187252143fad74c4f1caa5146de"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyProduct.java",
+      "sha256": "aa1002b26b47e8d4bcd1754263fec459be3f0596283c095cd270c4e381a92dd3",
+      "gitBlob": "abfb410f83996dc23c03353dba3e042245c04e81"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyState.java",
+      "sha256": "128005ee5104fe44d01252892a22361148e4e43ebfeb1af7c227664a35cf9957",
+      "gitBlob": "ea283d71e5d94d3465cf8ee517448fc84adadccc"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptySupplier.java",
+      "sha256": "adaaee1bd171d059cfaa5e1df4bf85f37766cfb010f01c3a556c14bc9a74b1a9",
+      "gitBlob": "2927bc49213ad6b3bc809bb72b8863b31c38ab67"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddEmptyTag.java",
+      "sha256": "85ecd6ecd7d04bd4801f2c4ff6abb451328d0097c855429a39c1d34612cf41c1",
+      "gitBlob": "8e17d8009d83b5f929dbbc10a1815a2ee24cc343"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddLanguageIsoCodeValidity.java",
+      "sha256": "692de3a686892d67eacc685d79de1b9e183fe1933b3f27a48e48f1bacf7f6d36",
+      "gitBlob": "1cf790a5d92a201c45988eea7177eb68fa2a8567"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewAddress.java",
+      "sha256": "4655776a118dbacefbc59c8919f4038c0c3ea9c8c4c67264590854a2ae81ff27",
+      "gitBlob": "f51082f43d9bc371b49aa861c3609b948beecc71"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewAttribute.java",
+      "sha256": "acc7981dc00f1831b282326c5eb3d123249321f65c56753a7912960b4f1d4785",
+      "gitBlob": "a323cab3575b2eb61b6fbe97ff529b297d98ca61"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewCategory.java",
+      "sha256": "6359e348e838b2edde689567c2951e85b8b7fe3345832dc91e24f4f986a3815e",
+      "gitBlob": "757ec3edfb8972a92ff3bd2fc495fac3d002f214"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewFeatures.java",
+      "sha256": "0a2ce6d8f1825ef180b0674c1dc835a9de5a3cb0d3ac6ab45d344e71085c6258",
+      "gitBlob": "8dace87fe668ffef3af677287af32778890dfeb2"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewManufacturer.java",
+      "sha256": "a66b119e7af64e68a0d519f6447041214c4f917797464d11dd1f38f81af7bd82",
+      "gitBlob": "9c19fbddf08a3dba83dfc629de4259f3b3055af8"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewProduct.java",
+      "sha256": "f1eb8f4311df1b611a4eaca8d544fc0ca9db40e887c942eeaf8498d548bfdf8e",
+      "gitBlob": "a34e61f632567225aee959ff10964535d24d47eb"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewProductWithTax.java",
+      "sha256": "7ea9df9a7f82b8342cc677f5ce3be36e22c1e69f0627eb009b613b1c24c976c0",
+      "gitBlob": "d2d3c59137dbfe6fee576984dfaeced1b96ec71a"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewProductWithTax10.java",
+      "sha256": "9d165fe46d5a591d48cd7d5584c6d982260612edc1eb8f8459b25a8ed0e4fd0d",
+      "gitBlob": "13ca56efd283941aa426139f9282b2242122c4df"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewState.java",
+      "sha256": "b848ce8e8e76436ff6c04b9852d25827218ea224bf9bbef598db43d19353fbc3",
+      "gitBlob": "a125c940c6cfdc7fa601c4e921460a7b697be1e3"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewSupplier.java",
+      "sha256": "34a888e2cb90be2915fd6e1029167fbf0d0cc261235d310b2ab1cab85042f004",
+      "gitBlob": "15631a2fe0388d13af6610b19da06c1a6e82f37a"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddTag.java",
+      "sha256": "2b5b2034893e014672b6ce4e76ca91a2097e9c3af9756d00e7540b1626f0301a",
+      "gitBlob": "930a347cbf452d929034c3eb91c4dbbd0d90c8a9"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/BaseTest.java",
+      "sha256": "21606a1690363ddd6617ddbc662585fb7779d84b359f25388e776c093f965e61",
+      "gitBlob": "eeecb0dcf05e1a990d5d55bf8c27be860852be60"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/EditAddress.java",
+      "sha256": "4f47581e3904a4a3a1d9c7493a8f171573abbbf00a74db702f26173a161d9b61",
+      "gitBlob": "7f3573a67902c4facd838fe18efa625c42fa6e5c"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/EditCategory.java",
+      "sha256": "249ffb9e60de00192d0004662697e576e2f36ce9bf9aee2fd6aa2cb852acc697",
+      "gitBlob": "be9c61b15314926d92ad46e6d9389674266c7400"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/EditEmployee.java",
+      "sha256": "9862c07ce0d5e7032e1ebd978b4e9c52aae0f71c96ba4fa8d809fe200a4c8b22",
+      "gitBlob": "f9197c60b216a372a7651c07938a0dbd6f03528b"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/EditManufacturer.java",
+      "sha256": "235fbf4147cec21054f88150967740d64ba0aaa6f3b0e7b508f15eb813e82d4e",
+      "gitBlob": "dd143d7e6a2f7e7d5e9e339c0dd1787f4f3804a3"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/EditProduct.java",
+      "sha256": "325a22dd69997031c5aec9de442fc68301fa64b6ef4f01621e8defef14bbcf4e",
+      "gitBlob": "35795f408a359c73b68130b74a1fd509bdd0b4cd"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/ExperimentConfig.java",
+      "sha256": "bb20cb4c228d77072d8f86b0e764177cf4c27a89fb1398519d4d13d485e8498c",
+      "gitBlob": "8591ea32ce4f316aa94ca5abef40df619305d04b"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/Installer.java",
+      "sha256": "53bed589df8cb2434506a6e0c2029b0028b009579609938be9a8746d697a2acd",
+      "gitBlob": "b4d05bfcd97965a8be1df5ff8219b44f2e90919d"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/OutOfStockValidity.java",
+      "sha256": "fa5e2e9f95aefc96be1ef303cc58774b18f03c6cc075f4e349f2c2ffeb05958f",
+      "gitBlob": "7179238c01e5c4925ce12c9db509da8e43c35bda"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RegisterEmployee_NoEmail.java",
+      "sha256": "936624e81f2ae17bcbdbb6371fe2087891f3141f32ba3705459fccdd5c807100",
+      "gitBlob": "980dba5fd7defe3ba40d607f7f16f48d1b6cc463"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RegisterEmployee_NoName.java",
+      "sha256": "b335c9e7b785531ca8ce77d0aa63571700f03b67d5d3cdf0e071e116e56dcee4",
+      "gitBlob": "d3d78d78a3eaa67b1fe160d8f6b57d084c38ae76"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RegisterEmployee_NoPassword.java",
+      "sha256": "28c296fbf7811cf0f41113134fd7d7f4009c3e2b50185be7f3d1fbc1e565e9b5",
+      "gitBlob": "be9f7470a58e65d84d686a23bf9627631a9c596c"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RegisterEmployee_NoPermission.java",
+      "sha256": "f032914a922369e87cac729041440a2204888a1f0e036551d06b5cadb42b173c",
+      "gitBlob": "4d70e8a0ff3d8cce40d09cfaf3307c0d2c79fd53"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RegisterEmployee.java",
+      "sha256": "40e26a8dc5015cf9bdf9b2e9af30b60fd9ccebc69965d6bae1fabecf7f6163b8",
+      "gitBlob": "c4ba31bbd11d1df72ed978fee9f8acaf45503310"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/RemoveSupplier.java",
+      "sha256": "c3ba77f148b7791497b7a380a6a17f1be351b49c328cedf60f5d70d30042bf88",
+      "gitBlob": "cf4f8703f8830779d0c56c635def52bc018b664d"
+    },
+    {
+      "path": "experiments/prestashop/bewt-suite/src/test/java/tests/TestSuite.java",
+      "sha256": "6fe30e4be472faeb3876527c35085e2513e313ea5f641d73efc1df4a7e3bcac5",
+      "gitBlob": "1f66290eb90249b177b59defb1899a328c4eb56b"
+    },
+    {
+      "path": "experiments/g0-safety/offline-runtime-safety.mjs",
+      "sha256": "f3febf1f7c7cda26a6b4312669c581f491157679861a10bb0cb6b66a6d8deb68",
+      "gitBlob": "85efe6f52d0f0f67ba2f54349d82c5b7a0bf6e7c"
+    },
+    {
+      "path": "experiments/g0-safety/test/baseline-adapter.test.mjs",
+      "sha256": "c0aea1ba66bf55b5ecb175f26a3b3b34e56c6e8c733a1a4ba9078c563ed57310",
+      "gitBlob": "eb2dd48012f9d7a9c60bcf79e59f61b9e3c6ba72"
+    },
+    {
+      "path": "experiments/g0-safety/test/offline-runtime-safety.test.mjs",
+      "sha256": "649e56a8c1b4e6652e741984baa39b4138d8631291a62ee7ce04021df3a8df55",
+      "gitBlob": "81a52c32f050bbf9e0578d0c27d859fbead510dd"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "planType": "OFFLINE_IMPLEMENTATION_RUNTIME_PENDING",
+  "application": "mantisbt",
+  "benchmarkBaseVersion": "1.2.0",
+  "source": {
+    "repository": "https://github.com/mantisbt/mantisbt",
+    "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+    "verification": "UPSTREAM_TAG_TO_COMMIT_VERIFIED_IN_T02",
+    "benchmarkSuiteCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "suitePath": "experiments/mantisbt/bewt-suite"
+  },
+  "runtime": {
+    "applicationImage": {
+      "digest": null,
+      "ref": "olianasd/mantisbt-strongpsw:1.2.0",
+      "status": "PIN_AND_IMAGE_PROVENANCE_REQUIRED"
+    },
+    "databaseImage": {
+      "digest": null,
+      "ref": null,
+      "status": "BUNDLED_DATABASE_IMAGE_NOT_SOURCE_ATTESTED"
+    },
+    "browserImage": {
+      "digest": null,
+      "ref": "selenium/standalone-chrome:127.0-chromedriver-127.0",
+      "status": "PIN_REQUIRED_BEFORE_RUNTIME"
+    },
+    "runtimeStatus": "RUNTIME_PENDING",
+    "imagePromotionAllowed": false,
+    "reason": "Image digests and app-specific runtime startup/cleanup have not been verified. Do not run or promote from this offline profile."
+  },
+  "network": {
+    "requiredDriver": "bridge",
+    "internal": true,
+    "ipv6Enabled": false,
+    "denyByDefaultBeforeWorkload": true,
+    "publishedPorts": "127.0.0.1 only, dynamic",
+    "databasePortPublished": false,
+    "dockerDesktopPortForwarding": "NOT_VERIFIED",
+    "evidence": "NOT_RUN"
+  },
+  "baseline": {
+    "baseTestClass": "base.AddUser",
+    "installerOrSeed": "prepopulated bundled database; baseline installer not present for 1.2.0",
+    "reset": "new container with no persistent mounts per run; verify seed counts and AddUser-created row before/after",
+    "testUrl": "http://127.0.0.1:<dynamic>/mantisbt",
+    "webdriverEndpoint": "BEWT_WEBDRIVER_URL",
+    "testCredentials": "Process environment only; required values fail closed when absent"
+  },
+  "ownership": {
+    "labels": [
+      "project",
+      "owner",
+      "managed-by",
+      "app",
+      "task",
+      "runId"
+    ],
+    "cleanupRequiresExactIdsNamesLabelsImagesMountsNetworkEndpoints": true,
+    "cleanupCommandExecution": "NOT_IMPLEMENTED",
+    "residualCheck": "REQUIRED_NOT_RUN"
+  },
+  "status": {
+    "implementation": "IMPLEMENTED",
+    "offlineVerification": "OFFLINE_VERIFIED",
+    "runtime": "RUNTIME_PENDING",
+    "runtimeOrchestration": "NOT_IMPLEMENTED",
+    "g0Acceptance": "NOT_VERIFIED"
+  }
+}

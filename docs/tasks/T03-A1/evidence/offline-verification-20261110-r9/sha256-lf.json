@@ -1,0 +1,18 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/g0-safety/offline-runtime-safety.mjs": "720f7183aa22e0e8a5e97f01839eb9b1e1327bb1085b06d559683ac357f99f18",
+    "experiments/g0-safety/test/offline-runtime-safety.test.mjs": "6b84578c6dce3fbfdd633601f1339060f9ce232364bdcf7795152cc3f520958b",
+    "experiments/g0-safety/test/provenance-output-safety.test.mjs": "73cb6844c609c83fb6704214a8c9bfca17e199bfdc16e39c928f096d9698e177",
+    "docs/tasks/T03-A1/tools/record-baseline-provenance.mjs": "225d984c0e72e8bc238e1f0f893938942087059b48bd1f9d20aba39b752ccfd6",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r8/node-check.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r8/node-check.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r8/node-tests.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r8/node-tests.stdout.txt": "d427468e508ef4c03982b75075f0e700245dbce67cd1c51c3d09b1c4c0f624d2",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r9/node-tests.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r9/node-tests.stdout.txt": "b7e0ee5cd8f1d93dd9cbdd2e4cb410534a89f5e5bd10fbfecfc2860224beb250",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r9/provenance-syntax.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r9/provenance-syntax.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

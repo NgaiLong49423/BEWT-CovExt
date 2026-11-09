@@ -1,0 +1,12 @@
+{
+  "stagedFiles": 284,
+  "protectedOrBuildPaths": 0,
+  "testedSourceTestBlobCount": 253,
+  "blobMismatches": 0,
+  "secretAssignmentMatches": 0,
+  "diffCheck": "PASS",
+  "nodeTests": "49/49",
+  "syntaxChecks": "3/3",
+  "mavenCompile": "4/4 exit 0",
+  "runtime": "NOT_RUN"
+}

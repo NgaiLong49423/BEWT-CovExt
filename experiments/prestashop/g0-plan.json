@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "1.0.0",
+  "planType": "OFFLINE_IMPLEMENTATION_RUNTIME_PENDING",
+  "application": "prestashop",
+  "benchmarkBaseVersion": "1.6.1.23",
+  "source": {
+    "repository": "https://github.com/PrestaShop/PrestaShop",
+    "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+    "verification": "UPSTREAM_TAG_TO_COMMIT_VERIFIED_IN_T02",
+    "benchmarkSuiteCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "suitePath": "experiments/prestashop/bewt-suite"
+  },
+  "runtime": {
+    "applicationImage": {
+      "digest": null,
+      "ref": "prestashop/prestashop:1.6.1.23",
+      "status": "PIN_REQUIRED_BEFORE_RUNTIME"
+    },
+    "databaseImage": {
+      "digest": null,
+      "ref": "mysql:5.7",
+      "status": "PIN_REQUIRED_BEFORE_RUNTIME"
+    },
+    "browserImage": {
+      "digest": null,
+      "ref": "selenium/standalone-chrome:127.0-chromedriver-127.0",
+      "status": "PIN_REQUIRED_BEFORE_RUNTIME"
+    },
+    "runtimeStatus": "RUNTIME_PENDING",
+    "imagePromotionAllowed": false,
+    "reason": "Image digests and app-specific runtime startup/cleanup have not been verified. Do not run or promote from this offline profile."
+  },
+  "network": {
+    "requiredDriver": "bridge",
+    "internal": true,
+    "ipv6Enabled": false,
+    "denyByDefaultBeforeWorkload": true,
+    "publishedPorts": "127.0.0.1 only, dynamic",
+    "databasePortPublished": false,
+    "dockerDesktopPortForwarding": "NOT_VERIFIED",
+    "evidence": "NOT_RUN"
+  },
+  "baseline": {
+    "baseTestClass": "tests.AddNewCategory",
+    "installerOrSeed": "original tests.Installer with runtime URL and env credentials; ownership-checked install-directory/admin-path finalization adapter not implemented",
+    "reset": "fresh run-scoped DB volume and app writable layer per run",
+    "testUrl": "http://127.0.0.1:<dynamic>/administrator/",
+    "webdriverEndpoint": "BEWT_WEBDRIVER_URL",
+    "testCredentials": "Process environment only; required values fail closed when absent"
+  },
+  "ownership": {
+    "labels": [
+      "project",
+      "owner",
+      "managed-by",
+      "app",
+      "task",
+      "runId"
+    ],
+    "cleanupRequiresExactIdsNamesLabelsImagesMountsNetworkEndpoints": true,
+    "cleanupCommandExecution": "NOT_IMPLEMENTED",
+    "residualCheck": "REQUIRED_NOT_RUN"
+  },
+  "status": {
+    "implementation": "IMPLEMENTED",
+    "offlineVerification": "OFFLINE_VERIFIED",
+    "runtime": "RUNTIME_PENDING",
+    "runtimeOrchestration": "NOT_IMPLEMENTED",
+    "g0Acceptance": "NOT_VERIFIED"
+  }
+}

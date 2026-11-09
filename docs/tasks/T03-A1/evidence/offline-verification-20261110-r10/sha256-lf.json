@@ -1,0 +1,13 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/g0-safety/offline-runtime-safety.mjs": "76dc71e3988bd3659e5628ff18e0b90a2aa23f27ece72fc6564543bd4fa10828",
+    "experiments/g0-safety/test/provenance-output-safety.test.mjs": "2698d850a642f42c5c78b69e731fe8ce1e5bb532678f63b8188207e16dbc8a9a",
+    "docs/tasks/T03-A1/tools/record-baseline-provenance.mjs": "90ba1a4cb303e12a0ee5888ac222c45d6975f0ac8d65c7f725a7d71268bbf414",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r10/node-tests.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r10/node-tests.stdout.txt": "9121b8315f4f624ce0a98bbaacf60ebf419d78748d67153d71fe9606abaf3f93",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r10/provenance-syntax.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-verification-20261110-r10/provenance-syntax.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

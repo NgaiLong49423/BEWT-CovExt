@@ -1,0 +1,80 @@
+package po;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+
+public class CreateProjectPage extends ManageNavBar {
+
+        @FindBy(name = "name")
+        protected WebElement name;
+
+        @FindBy(name = "status")
+        protected WebElement status;
+
+        @FindBy(name = "view_state")
+        protected WebElement visibility;
+
+        @FindBy(name = "description")
+        protected WebElement description;
+
+
+        public CreateProjectPage(WebDriver driver) {
+                super(driver);
+        }
+
+        public CreateProjectPage setName(String nameStr) {
+                try {
+                        Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+                name.clear();
+                name.sendKeys(nameStr);
+                return this;
+        }
+
+        public CreateProjectPage setStatus(String stat) {
+                new Select(status).selectByVisibleText(stat);
+                return this;
+        }
+
+        public CreateProjectPage setVisibility(String visib) {
+                new Select(visibility).selectByVisibleText(visib);
+                return this;
+        }
+
+        public CreateProjectPage setDescription(String descr) {
+                description.clear();
+                description.sendKeys(descr);
+                return this;
+        }
+
+        public BaseNavBar createProject() {
+                try {
+                        Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                        e.printStackTrace();
+                }
+                driver.findElement(By.xpath("/html/body/div[3]/form/table/tbody/tr[8]/td/input")).click();
+                return new BaseNavBar(driver);
+        }
+
+        public CreateProjectPage createProjectFails() {
+                try {
+                        Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                        e.printStackTrace();
+                }
+                driver.findElement(By.xpath("/html/body/div[3]/form/table/tbody/tr[8]/td/input")).click();
+                return new CreateProjectPage(driver);
+        }
+
+        public String getError() {
+                return driver.findElement(By.xpath("/html/body/div[2]/table/tbody/tr[2]/td/p")).getText();
+        }
+
+}

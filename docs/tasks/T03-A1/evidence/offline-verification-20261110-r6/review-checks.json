@@ -1,0 +1,22 @@
+{
+  "testedSourceCommit": "35452b416c86a3688b5cb63f804ea58282cd87c4",
+  "sourceTreeCleanAtStart": true,
+  "worktreeCleanAtStart": false,
+  "sourceTestFiles": 253,
+  "sourceBlobOrHashMismatches": 0,
+  "sanitizedTextLogFiles": 27,
+  "ignoredTextFiles": 0,
+  "workingSanitizedLogHashMismatches": 0,
+  "committedLogAndExitSha256Mismatches": 0,
+  "rawOutputHashesComputedAtCapture": true,
+  "historicalR2R3IntegrityMismatches": 0,
+  "protectedPaths": 0,
+  "credentialPatternMatches": 0,
+  "originMain": "0cba0eaf0fa416e90a5ac766bc604ee71d43818e",
+  "branchBehindMain": 5,
+  "mainDelta": "T04-F only, disjoint paths",
+  "statusFileTouched": 0,
+  "diffCheck": "PASS",
+  "runtime": "NOT_RUN",
+  "stagedFileCount": 34
+}

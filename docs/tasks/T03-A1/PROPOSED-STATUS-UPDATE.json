@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "task": "T03-A1",
+  "statusUpdateApplied": false,
+  "reason": "Team Lead request explicitly prohibits editing docs/program/STATUS.json.",
+  "apps": {
+    "joomla": { "implementation": "IMPLEMENTED", "offlineVerification": "OFFLINE_VERIFIED", "runtime": "RUNTIME_PENDING", "g0Acceptance": "NOT_VERIFIED" },
+    "mantisbt": { "implementation": "IMPLEMENTED", "offlineVerification": "OFFLINE_VERIFIED", "runtime": "RUNTIME_PENDING", "g0Acceptance": "NOT_VERIFIED" },
+    "mediawiki": { "implementation": "IMPLEMENTED", "offlineVerification": "OFFLINE_VERIFIED", "runtime": "RUNTIME_PENDING", "g0Acceptance": "NOT_VERIFIED" },
+    "prestashop": { "implementation": "IMPLEMENTED", "offlineVerification": "OFFLINE_VERIFIED", "runtime": "RUNTIME_PENDING", "g0Acceptance": "NOT_VERIFIED" }
+  },
+  "scopeNote": "Implementation means an isolated environment-driven Base suite and offline plan exist. Runtime orchestration, digest promotion, and G0 acceptance are not complete."
+}

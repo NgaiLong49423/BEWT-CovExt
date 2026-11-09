@@ -1,0 +1,43 @@
+✔ partial startup cleanup safely handles 0 recorded container(s) (4.0159ms)
+✔ partial startup cleanup safely handles 1 recorded container(s) (1.3858ms)
+✔ partial startup cleanup safely handles 2 recorded container(s) (0.6426ms)
+✔ fault injection: network initialization without a recorded ID blocks and never deletes an unverified network (0.3724ms)
+✔ fault injection: failed network initialization with a recorded network ID cleans the network-only partial run (0.4607ms)
+✔ fault injection: app container creation failure after network creation cleans the zero-container partial run (0.4346ms)
+✔ fault injection: Selenium container creation failure cleans only the recorded app container (0.4969ms)
+✔ fault injection: Selenium startup failure after create cleans both immediately recorded containers (0.5659ms)
+✔ only exact NOT_FOUND is idempotent; daemon, permission, transport and unknown inspect errors block without mutation (1.0954ms)
+✔ partial teardown and stale IDs block; cleanup never converts either into PASS (0.5878ms)
+✔ ownership label or endpoint mismatch blocks before any resource mutation (0.4713ms)
+✔ residual labeled resource prevents cleanup PASS (0.3991ms)
+✔ verified absence is idempotent for all recorded resources (0.4937ms)
+✔ blocked cleanup sets a nonzero process exit code (0.3081ms)
+✔ four Base suites use remote WebDriver, required process settings, and asserted original Base tests (17.1588ms)
+✔ copied app test suites contain no benchmark admin password, private workstation path, or fixed LAN endpoint (237.2232ms)
+✔ offline runtime plans pin upstream source and explicitly block unpinned image promotion (4.7638ms)
+✔ labels bind one run to a recognized app and fail malformed ids closed (0.9874ms)
+✔ internal IPv4-only network must be inspected before any endpoint exists (1.3337ms)
+✔ container ownership requires exact digest, labels, isolated network, and loopback-only ports (8.4616ms)
+✔ startup result never treats a successful CLI response alone as readiness (0.2152ms)
+✔ cleanup plan is emitted only for exact run-owned containers, network, and volumes (0.6774ms)
+✔ partial-start cleanup tolerates omitted port mappings but does not prove isolation or readiness (0.5724ms)
+✔ provenance recorder refuses output inside its read-only source tree before reading Git (133.0501ms)
+✔ provenance recorder does not find Git via the caller PATH (102.6845ms)
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (3.0288ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.311ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (0.9342ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (0.8576ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.4208ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.4577ms)
+  ✔ network (0.405ms)
+  ✔ volume (0.3774ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (1.8125ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 351.1053

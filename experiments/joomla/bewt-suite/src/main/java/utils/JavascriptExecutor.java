@@ -1,0 +1,42 @@
+package utils;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class JavascriptExecutor {
+
+    private org.openqa.selenium.JavascriptExecutor js;
+
+    public JavascriptExecutor(WebDriver driver){
+        this.js = (org.openqa.selenium.JavascriptExecutor) driver;
+    }
+
+    public void click(WebElement element) {
+        this.js.executeScript("arguments[0].click()", element);
+    }
+
+    public void scrollTo(WebElement element) {
+        this.js.executeScript("arguments[0].scrollIntoView(false);", element);
+        try {
+                        Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+    }
+
+    public void selectByText(WebElement element, String text) {
+        this.js.executeScript("const $select = arguments[0]; "
+                        + "const $options = Array.from($select.options); "
+                        + "const optionToSelect = $options.find(item => item.text ==="+text+"); "
+                        + "optionToSelect.selected = true;", element);
+    }
+
+    public void setVisible(WebElement element) {
+        this.js.executeScript("arguments[0].setAttribute('style','visibility:visible;');", element);
+    }
+
+    public void setVisibleById(String id) {
+        this.js.executeScript("document.getElementById('"+id+"').style.display = 'visible';");
+    }
+}

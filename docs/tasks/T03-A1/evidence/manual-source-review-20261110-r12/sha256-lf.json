@@ -1,0 +1,7 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "docs/tasks/T03-A1/evidence/manual-source-review-20261110-r12/MANUAL-REVIEW.md": "c427a4a50708922fec60ed8b6edb1094e666797d39b8e3bd4ae2db4d97883135"
+  }
+}

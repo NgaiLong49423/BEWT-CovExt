@@ -1,0 +1,24 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/compile-results.json": "fe8bd623e69be6cbef291c121523aefe5725762e20340a6986c43da8fc5e003f",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/INDEPENDENT-AUDIT.md": "bdd49da54da2413728b1f666a89a112c728d02719939acf5dfb31774200354a7",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/input-hashes.json": "682268f5d776d4d8f94b16eafd879921149f44f8ea9ec5d5a38e559e5c3020a0",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/joomla.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/joomla.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/joomla.stdout.txt": "a10231c13f41d3dc5b16f77264f21788f35799010f8a6108f580d08d5d22dc80",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mantisbt.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mantisbt.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mantisbt.stdout.txt": "2d3ac2f97439191c4a7fbbafb1f2b4fff121f01dc5d097e7b6de2bdf82ee87f3",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/maven-launcher-sandbox-trace.txt": "0dbc7ce907683c5a0a5d552896b6a8cc3e0874b2c856d5429f87698f023ac416",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/maven-version.txt": "ac5af1915dc0d5df3be24fbab62069f0ac7925524bc825a39607a887e2a1fb59",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mediawiki.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mediawiki.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/mediawiki.stdout.txt": "db654f56ab0b1d17c5084e618b2c004e6abd63a92115063fb6e88575fadc5878",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/prestashop.exit-code.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/prestashop.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/prestashop.stdout.txt": "40e9443e4bee998296ef1af5993ab6aa850a2b2c29b4629e91d93c3d1d838bc8",
+    "docs/tasks/T03-A1/evidence/offline-compile-20261110-r11/source-assertion-screen.json": "307352b608e13f26b4cd108faaf2b147fbe6c54ed7274c1646933b3de6bd1924"
+  }
+}

@@ -1,0 +1,32 @@
+✔ partial startup cleanup safely handles 0 recorded container(s) (2.3818ms)
+✔ partial startup cleanup safely handles 1 recorded container(s) (0.6306ms)
+✔ partial startup cleanup safely handles 2 recorded container(s) (0.4507ms)
+✔ fault injection: network initialization without a recorded ID blocks and never deletes an unverified network (0.2239ms)
+✔ fault injection: failed network initialization with a recorded network ID cleans the network-only partial run (0.3235ms)
+✔ fault injection: app container creation failure after network creation cleans the zero-container partial run (0.3174ms)
+✔ fault injection: Selenium container creation failure cleans only the recorded app container (0.3564ms)
+✔ fault injection: Selenium startup failure after create cleans both immediately recorded containers (0.4587ms)
+✔ only exact NOT_FOUND is idempotent; daemon, permission, transport and unknown inspect errors block without mutation (0.6097ms)
+✔ partial teardown and stale IDs block; cleanup never converts either into PASS (0.3122ms)
+✔ ownership label or endpoint mismatch blocks before any resource mutation (0.2444ms)
+✔ residual labeled resource prevents cleanup PASS (0.1931ms)
+✔ verified absence is idempotent for all recorded resources (0.264ms)
+✔ blocked cleanup sets a nonzero process exit code (0.1457ms)
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (3.5303ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.2529ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (0.9296ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (0.9231ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.4877ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.5793ms)
+  ✔ network (0.5003ms)
+  ✔ volume (0.4387ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (2.1045ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 173.1133

@@ -1,0 +1,24 @@
+[INFO] Scanning for projects...
+[INFO]
+[INFO] -------------< e2etestsuitebenchmark:prestashop-1.6.1.23 >--------------
+[INFO] Building prestashop-1.6.1.23 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- resources:3.4.0:resources (default-resources) @ prestashop-1.6.1.23 ---
+[INFO] skip non existing resourceDirectory C:\Users\Lenovo\.codex\worktrees\t03-offline-g0-agent1\BEWT-CovExt\experiments\prestashop\bewt-suite\src\main\resources
+[INFO]
+[INFO] --- compiler:3.15.0:compile (default-compile) @ prestashop-1.6.1.23 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO]
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ prestashop-1.6.1.23 ---
+[INFO] skip non existing resourceDirectory C:\Users\Lenovo\.codex\worktrees\t03-offline-g0-agent1\BEWT-CovExt\experiments\prestashop\bewt-suite\src\test\resources
+[INFO]
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ prestashop-1.6.1.23 ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.434 s
+[INFO] Finished at: 2026-11-10T04:11:19+07:00
+[INFO] ------------------------------------------------------------------------

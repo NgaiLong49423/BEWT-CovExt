@@ -1,0 +1,2562 @@
+{
+  "schemaVersion": "1.0.0",
+  "testedRepositoryHead": "bd9b3b15fca28419ada9862b8a65bac910edf169",
+  "benchmarkSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "generatedAt": "2026-11-09T20:25:37.525Z",
+  "sourceRootRecordedAs": "bewt-original/",
+  "filesAreReadOnlySourceCopies": true,
+  "applications": [
+    {
+      "app": "joomla",
+      "sourceVersionDirectory": "joomla/baseline/joomla-3.10.11",
+      "sourceDirtyForSuite": false,
+      "sourceDirtyStatus": "CLEAN",
+      "fileCount": 71,
+      "unchangedFiles": 2,
+      "adaptedFiles": [
+        "src/main/java/po/AddUserPage.java",
+        "src/main/java/po/ArchivedArticlesPage.java",
+        "src/main/java/po/AssignedGroupPage.java",
+        "src/main/java/po/AuthorLoginPage.java",
+        "src/main/java/po/BaseNavBar.java",
+        "src/main/java/po/ContentSidebar.java",
+        "src/main/java/po/CreateCategoryPage.java",
+        "src/main/java/po/CreateFieldGroupPage.java",
+        "src/main/java/po/CreateGroupPage.java",
+        "src/main/java/po/CreateMenuItemPage.java",
+        "src/main/java/po/CreatePostPage.java",
+        "src/main/java/po/EditArticleSiteAdminPage.java",
+        "src/main/java/po/EditFieldPage.java",
+        "src/main/java/po/EditProfilePage.java",
+        "src/main/java/po/EditUserPage.java",
+        "src/main/java/po/LoggedHome.java",
+        "src/main/java/po/LoggedNavBar.java",
+        "src/main/java/po/ManageArticlesPage.java",
+        "src/main/java/po/ManageCategoriesPage.java",
+        "src/main/java/po/ManageFieldGroupsPage.java",
+        "src/main/java/po/ManageFieldsPage.java",
+        "src/main/java/po/ManageGroupsPage.java",
+        "src/main/java/po/ManageUsersPage.java",
+        "src/main/java/po/MenuItemsPage.java",
+        "src/main/java/po/MenuPage.java",
+        "src/main/java/po/PageObject.java",
+        "src/main/java/po/SiteAdminHome.java",
+        "src/main/java/po/SiteAdminLogin.java",
+        "src/main/java/po/SiteAdminPageObject.java",
+        "src/main/java/po/UsersSidebar.java",
+        "src/main/java/utils/JavascriptExecutor.java",
+        "src/test/java/base/AddCategory.java",
+        "src/test/java/base/AddEmptyArticle.java",
+        "src/test/java/base/AddEmptyCategory.java",
+        "src/test/java/base/AddEmptyField.java",
+        "src/test/java/base/AddEmptyFieldGroup.java",
+        "src/test/java/base/AddEmptyGroup.java",
+        "src/test/java/base/AddField.java",
+        "src/test/java/base/AddFieldGroup.java",
+        "src/test/java/base/AddGroup.java",
+        "src/test/java/base/AddMenuItem.java",
+        "src/test/java/base/AddMenuItem_EmptyMenuType.java",
+        "src/test/java/base/AddMenuItem_EmptyTitle.java",
+        "src/test/java/base/AddMenuItem_MenuNotSelected.java",
+        "src/test/java/base/AddNewArticle.java",
+        "src/test/java/base/AddUser.java",
+        "src/test/java/base/AdminLoginTest.java",
+        "src/test/java/base/ArchiveArticle.java",
+        "src/test/java/base/AssignCategory.java",
+        "src/test/java/base/AssignFieldToGroup.java",
+        "src/test/java/base/AssignUserToGroup.java",
+        "src/test/java/base/BadLogin.java",
+        "src/test/java/base/BadSiteAdminLogin.java",
+        "src/test/java/base/BaseTest.java",
+        "src/test/java/base/ChangePassword.java",
+        "src/test/java/base/ChangePasswordDontMatch.java",
+        "src/test/java/base/DeleteArticle.java",
+        "src/test/java/base/DeleteCategory.java",
+        "src/test/java/base/DeleteField.java",
+        "src/test/java/base/DeleteFieldGroup.java",
+        "src/test/java/base/DeleteUser.java",
+        "src/test/java/base/DeleteUserGroup.java",
+        "src/test/java/base/EditArticle.java",
+        "src/test/java/base/EmptyLogin.java",
+        "src/test/java/base/EmptySiteAdminLogin.java",
+        "src/test/java/base/Installer.java",
+        "src/test/java/base/LoginAsNewUser.java",
+        "src/test/java/base/SeeArchivedArticle.java",
+        "src/test/java/base/TestSuite.java"
+      ],
+      "files": [
+        {
+          "path": "pom.xml",
+          "sourceSha256": "fe4a288ad9e66651dd2c80ec1b2d11d6818bfc44abcd1f85c240c965224449a8",
+          "sourceGitBlobAtHead": "ab1329c67cf2b0462eb94e8b55b899500f480c69",
+          "sourceWorkingGitBlob": "ab1329c67cf2b0462eb94e8b55b899500f480c69",
+          "workCopySha256": "fe4a288ad9e66651dd2c80ec1b2d11d6818bfc44abcd1f85c240c965224449a8",
+          "workCopyGitBlob": "ab1329c67cf2b0462eb94e8b55b899500f480c69",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/main/java/po/AddUserPage.java",
+          "sourceSha256": "1855d19afe36057e77e5f3a150d2d372cf2ad9c832a7bcc49e4e9da541655808",
+          "sourceGitBlobAtHead": "37720fd015fc36f1e961aaf4e22468a1e3f8a51c",
+          "sourceWorkingGitBlob": "37720fd015fc36f1e961aaf4e22468a1e3f8a51c",
+          "workCopySha256": "c958ede341321b03281e8d85e98a42cd3201bf54027be7e835b83453bf6c4946",
+          "workCopyGitBlob": "9f64f268f57fbcfdc1313b8758236a95828ada6e",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ArchivedArticlesPage.java",
+          "sourceSha256": "808cfb756ad1d5ed536daa731c98107d7fb4af5d0547cbdf2e5cbae240302b16",
+          "sourceGitBlobAtHead": "f924116aebefa7e89272426104e8c17b133b2cd6",
+          "sourceWorkingGitBlob": "f924116aebefa7e89272426104e8c17b133b2cd6",
+          "workCopySha256": "5f2881f9ebc8bb2eb5993a3ff53c0dd9ff514ac0e298069fda3df2d9b6a75694",
+          "workCopyGitBlob": "d5b335d6da12c900f6e6d9a688075b0b88acd647",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AssignedGroupPage.java",
+          "sourceSha256": "25b3956450617268a737bb441845542aa0626d6928018dfb750bbff5a162e3fb",
+          "sourceGitBlobAtHead": "3d5054f3fdda97d90757b99787d1c799b079606d",
+          "sourceWorkingGitBlob": "3d5054f3fdda97d90757b99787d1c799b079606d",
+          "workCopySha256": "9e5bad18d2eeb3c861bf7171677e563563cdd730a5cabfb52e02fac9b6576c94",
+          "workCopyGitBlob": "ce6138aebc78700e1339ec3c11e56cd09d23b4f0",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AuthorLoginPage.java",
+          "sourceSha256": "206be538745f9cbb282371ac8c3e56f777876569f2a646f97c5ad1e4a31c0f9c",
+          "sourceGitBlobAtHead": "7b3e5e20f37536a9b344088a36f5a8841d79b1f3",
+          "sourceWorkingGitBlob": "7b3e5e20f37536a9b344088a36f5a8841d79b1f3",
+          "workCopySha256": "b00aaaddc0577ba31e13cf91d8fed503db297c5d7b59af7bde0acc537b0c2866",
+          "workCopyGitBlob": "c8d6ccc72bc246f5d145840142fabdc4d2141453",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/BaseNavBar.java",
+          "sourceSha256": "b92f4c1b4d2a74bd35bdaa45f255421691767bf6355a093af8f559b4778ecf4c",
+          "sourceGitBlobAtHead": "04e69695131a1fe67af2e5edb4cbe9d85d1f11d4",
+          "sourceWorkingGitBlob": "04e69695131a1fe67af2e5edb4cbe9d85d1f11d4",
+          "workCopySha256": "2ea3f600759afab1ca2c1561af5679a79ebffe7959e56c3b3a7ed4104846307d",
+          "workCopyGitBlob": "cc928e389fcd1a8a3e04fb01c204b6b34b001e49",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ContentSidebar.java",
+          "sourceSha256": "d348865eb18bd478e4febd52121508ec02139c29487cc32257303dce319989aa",
+          "sourceGitBlobAtHead": "ef5b0a98dcb8b46cb6521877f9796d4cdaf0ea25",
+          "sourceWorkingGitBlob": "ef5b0a98dcb8b46cb6521877f9796d4cdaf0ea25",
+          "workCopySha256": "8e64c17cd8e3c989498eaae96c5e780c2ebb3acc7854a9dd031ac991fca22de3",
+          "workCopyGitBlob": "02e78b8cde498b7d19603b3d86913b1bdaf3da92",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateCategoryPage.java",
+          "sourceSha256": "5f771aaa5e618325411112c5cc6c928139977c26acc321e3a977f41bbd6b3734",
+          "sourceGitBlobAtHead": "3a8c3ee746cb1cc6d28883649336bd59c23e36ad",
+          "sourceWorkingGitBlob": "3a8c3ee746cb1cc6d28883649336bd59c23e36ad",
+          "workCopySha256": "51e2ce31670d69c58854ae991cbdd5eadffa023b6d28640d5ca72e0b9b1cf862",
+          "workCopyGitBlob": "cfdb7def660bbd1c49c9e9ed900391c4bdfefdbe",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateFieldGroupPage.java",
+          "sourceSha256": "e39dc8a0973e0269b4924022db149654e55c307a45f100b22f82029e3c436484",
+          "sourceGitBlobAtHead": "5fed2652e3188f9fc9ea91f901cf45d7f6f0b877",
+          "sourceWorkingGitBlob": "5fed2652e3188f9fc9ea91f901cf45d7f6f0b877",
+          "workCopySha256": "c4408423cd2375d7b7850bc1276fa12a92c78098fff633ba721ba1b412c0a40f",
+          "workCopyGitBlob": "73a95d46ab2b3ea968f4f34f256d70082fb81d82",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateGroupPage.java",
+          "sourceSha256": "b7cc35eefdd2b5955ea3e539b30bc96bcb168bf92a462736a2d83ddbe9c0d023",
+          "sourceGitBlobAtHead": "7b64986a4cc88e0bbfe45eaf2abf243595ab8a59",
+          "sourceWorkingGitBlob": "7b64986a4cc88e0bbfe45eaf2abf243595ab8a59",
+          "workCopySha256": "9b2d5feba50ea5269b40b9215eb611295f2cf8bbdb194c352216b139ba11c214",
+          "workCopyGitBlob": "35c145ae59983214cde7947588e7e26f51f1d282",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateMenuItemPage.java",
+          "sourceSha256": "f562a08abdc8874e44c9d5ec3ce57021448cd221d1fe3c8d7be2f4b4880f1a64",
+          "sourceGitBlobAtHead": "5060561f6a0d43d98bf3fe777a6d6cc93d0508fd",
+          "sourceWorkingGitBlob": "5060561f6a0d43d98bf3fe777a6d6cc93d0508fd",
+          "workCopySha256": "fd22c56472fc51aa6efb817e89304d490eb7aa6d2c0c7cba83d07ef102d94684",
+          "workCopyGitBlob": "5af85b29a20b8b8d063515c323492178acd200b7",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreatePostPage.java",
+          "sourceSha256": "bbd6054f3e8592a506203e2e462fa90bb5b8063ff159fe57660a28caf1ee818e",
+          "sourceGitBlobAtHead": "80db622ededf6ce55ffa0eba0337ccb6c7437856",
+          "sourceWorkingGitBlob": "80db622ededf6ce55ffa0eba0337ccb6c7437856",
+          "workCopySha256": "95fed80eb85870cc2e25987f253df5fb4b644d9d7341f4e9d4548e22837da62b",
+          "workCopyGitBlob": "df36e7ad4d6c3ad14e0a1e7dc2180b7ee9fa4597",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditArticleSiteAdminPage.java",
+          "sourceSha256": "2e45643d8935a025e7ad9745e7eba1ea3eeeb04ece76d9f764bcfb29790ad351",
+          "sourceGitBlobAtHead": "ea4cbd41892b4d5993996a566cb258e5c807631d",
+          "sourceWorkingGitBlob": "ea4cbd41892b4d5993996a566cb258e5c807631d",
+          "workCopySha256": "98b88835790a7869900aadd0ba2aba2043d79550009aa546e4c1770a7c88326b",
+          "workCopyGitBlob": "9829b07dff9d29be243cf1b5d204685c29d5f971",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditFieldPage.java",
+          "sourceSha256": "5b22d106eb9fc5e492d9429d62d58305775340b750e43a8beabea6805e80854b",
+          "sourceGitBlobAtHead": "3d96d34999a797bbbce915415322065173a36b37",
+          "sourceWorkingGitBlob": "3d96d34999a797bbbce915415322065173a36b37",
+          "workCopySha256": "e62f299623bf83059979a1aaa0369ac0bab1dd5de85bf6ba50656e2760abcd8d",
+          "workCopyGitBlob": "4c3f1e3f79534ff6526ee33231f6e246da70a5e0",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditProfilePage.java",
+          "sourceSha256": "e999a53d89d842415246ec3af8551d20f6cfcbfcb37225295e0cd30e6b9fe4b8",
+          "sourceGitBlobAtHead": "a99ad724d6d39de563618f3e46bb2d0f78ed4a46",
+          "sourceWorkingGitBlob": "a99ad724d6d39de563618f3e46bb2d0f78ed4a46",
+          "workCopySha256": "39d45562e79cf3387cce999579ad73cad8f8a9bbe6183f7591689b7a6b001cb8",
+          "workCopyGitBlob": "ac37a124c3ecf9f4212fa8ce3fa5395470a6ccbd",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditUserPage.java",
+          "sourceSha256": "eb3b743d305305c0630c3865ff2a84729efedde7b9b1fe8df7c6ece1cf69f08e",
+          "sourceGitBlobAtHead": "8447ba4b066f29f4c23553c0158f683c68cd4e75",
+          "sourceWorkingGitBlob": "8447ba4b066f29f4c23553c0158f683c68cd4e75",
+          "workCopySha256": "c049bd97b53a94ef5f4c64c030750a1843aa7dbb4cd7f53cb7117a558a952819",
+          "workCopyGitBlob": "04abaa960b4368dcfd3732ab4e50bcab298ca5a4",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/LoggedHome.java",
+          "sourceSha256": "20ec9c5d480b80dd916f7eec63cd8556a14656f5143496476490125eafc67af8",
+          "sourceGitBlobAtHead": "b5c1192c2b2f1683af69aa959dadc87b8be8b581",
+          "sourceWorkingGitBlob": "b5c1192c2b2f1683af69aa959dadc87b8be8b581",
+          "workCopySha256": "bca636d5520af90dafc2ac64a5b4be24393b517d947ad0476227ef2b1dcee921",
+          "workCopyGitBlob": "26cfe58674ce63063d09bfea82d4dacffa9a2e69",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/LoggedNavBar.java",
+          "sourceSha256": "e183a99bb17eace8aa590631ec0eff3cb82c7a5f19d41921fb797b90568c48e7",
+          "sourceGitBlobAtHead": "5ce18493a8a029430cb827a625662b8bf1753bd1",
+          "sourceWorkingGitBlob": "5ce18493a8a029430cb827a625662b8bf1753bd1",
+          "workCopySha256": "bd2d827426005ff545ce7f7ac924609afa1d674c4d2ff00aa2d74dc2102dde20",
+          "workCopyGitBlob": "87b690fdde0c23f5783dbf3f0f2fd2b72edb544d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageArticlesPage.java",
+          "sourceSha256": "6228bdeb3296ffa381836e0b5c03612632716b51b5541a62f13847ec4dffe26f",
+          "sourceGitBlobAtHead": "b2eab6ff87914d2a5b78ffb8399dcfa16590e5c3",
+          "sourceWorkingGitBlob": "b2eab6ff87914d2a5b78ffb8399dcfa16590e5c3",
+          "workCopySha256": "633fd70bcd3b2f3e32705dbeee4821a79158e09cc04ae77008b4a2d342880137",
+          "workCopyGitBlob": "5083101295d4b69d4258f23760ac932325860fea",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageCategoriesPage.java",
+          "sourceSha256": "857cf55340898b9a636a1eb434afa24e097ce7f95c17d9cf81ac790758dc8c4c",
+          "sourceGitBlobAtHead": "26c39cd89924e6afe890e65f0a51c2f79f596084",
+          "sourceWorkingGitBlob": "26c39cd89924e6afe890e65f0a51c2f79f596084",
+          "workCopySha256": "88dfc597d2d1acbbebf59139999c93f85dbe213f36027ab2478caac919c9b126",
+          "workCopyGitBlob": "a811c8ae37cc923569edc548ab64eee3d199a783",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageFieldGroupsPage.java",
+          "sourceSha256": "a89ff1090b31f9ae4f9392c9e28a115c690f4b84cfb7f9d458ce9322ad66eb2e",
+          "sourceGitBlobAtHead": "02e434653968f6f082c793a015303434a9daab08",
+          "sourceWorkingGitBlob": "02e434653968f6f082c793a015303434a9daab08",
+          "workCopySha256": "9e2439a139c5708303001404d0c0ffee66b6183c7d28d9ef68bb3ac50f306c4f",
+          "workCopyGitBlob": "6eff1daf11173570eff6870542e36a681c46f524",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageFieldsPage.java",
+          "sourceSha256": "cfaec07759e64c9f8f35ca83da92cb1b689852ceda78b20153591149030b1af2",
+          "sourceGitBlobAtHead": "529fd9edf5c06acb800cbdebf56a3d4f4975edd8",
+          "sourceWorkingGitBlob": "529fd9edf5c06acb800cbdebf56a3d4f4975edd8",
+          "workCopySha256": "da0edcc83fdb40287b7089724ac6b483521025fb457707b547fa6a5ee2f75671",
+          "workCopyGitBlob": "41a7428392dadbced3cde198a3aefc1e2c3866b0",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageGroupsPage.java",
+          "sourceSha256": "f78293e6685e5f3cdc21bc821e037c0636d7d68bd17f93f431f9c5839dc7801f",
+          "sourceGitBlobAtHead": "283bd5765896d50717ef1911452f811b16960f67",
+          "sourceWorkingGitBlob": "283bd5765896d50717ef1911452f811b16960f67",
+          "workCopySha256": "4a7fbcf36c73c8e7e5b16ac7ac55c5c7985d8408bd04bf403a0f7d58cdc2aaf9",
+          "workCopyGitBlob": "f0b6346e8ec2695473a601fb8594251038c92611",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageUsersPage.java",
+          "sourceSha256": "3ad3cb77151861eb5cc8dd40212f1ba678dadef206195634b9347749b6b4b08a",
+          "sourceGitBlobAtHead": "136b904166b3697351d02712ff8000f8e899fa91",
+          "sourceWorkingGitBlob": "136b904166b3697351d02712ff8000f8e899fa91",
+          "workCopySha256": "02470a74c48759e8bca6c46626367db7b3d2291c2bfb07a0b8dc5d3789f63c13",
+          "workCopyGitBlob": "59391bbc4b3cea3fc887ec774947eefaf2b918b9",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/MenuItemsPage.java",
+          "sourceSha256": "73e8d0112a3165588cbb81ceeae0f48118dbd571542c4732e16e9c7136997442",
+          "sourceGitBlobAtHead": "cd14fcc044f17fd1c5b1f4b2dfccf9c805f25ee0",
+          "sourceWorkingGitBlob": "cd14fcc044f17fd1c5b1f4b2dfccf9c805f25ee0",
+          "workCopySha256": "d5be2e2e104549ccae2ec020e4d3ceed5158e319867b52e249642055825463ac",
+          "workCopyGitBlob": "785568021b23293a1097e6f1abf0fdb8927884dd",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/MenuPage.java",
+          "sourceSha256": "7a833042db7ee1eb1ecaf643f4bdb2c214ac1ec9fab347a558b6ceb8a96d96f6",
+          "sourceGitBlobAtHead": "f8fee512ce12fb9cadafc5a1f07ae2c8427554aa",
+          "sourceWorkingGitBlob": "f8fee512ce12fb9cadafc5a1f07ae2c8427554aa",
+          "workCopySha256": "8026a8a220d736abbc386929928bd469d1b16a2c4e8fc79d2cc0bddcb6ae152a",
+          "workCopyGitBlob": "62663b336fd15c75f4492633c4d432aaa376c922",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PageObject.java",
+          "sourceSha256": "7508e3c055f79425cd6c6f7765233e5f81e1c5130be977a905684060c9bc834f",
+          "sourceGitBlobAtHead": "760d0ce302b4ec3cea6c022f61dd439633c56692",
+          "sourceWorkingGitBlob": "760d0ce302b4ec3cea6c022f61dd439633c56692",
+          "workCopySha256": "4eaded9addf99b10c109b17d0bc433048526bcc960e8d2eea889f0626142763f",
+          "workCopyGitBlob": "3c05b8f1f5a191dc47089af64b1c9063a3ec5f30",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SiteAdminHome.java",
+          "sourceSha256": "19c09b819cace1ca01a803835a2c4fd9dd07afd99ad8a390a56fb483caf4a1dc",
+          "sourceGitBlobAtHead": "46e5e82ed695e0abdeea880b4e1d1d58b483fcea",
+          "sourceWorkingGitBlob": "46e5e82ed695e0abdeea880b4e1d1d58b483fcea",
+          "workCopySha256": "df5c5a9fd3e1ff81e5ffb79f3449b3a43c54e7fc59c0e907479f374ea653a051",
+          "workCopyGitBlob": "5115f60e989cc9b7ca9baabdf0334cb224661bdb",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SiteAdminLogin.java",
+          "sourceSha256": "0d2716593de3898298dd62ec4d2306de34ff4fa86a46d1efb9854544195f48f9",
+          "sourceGitBlobAtHead": "df07a0f60ce864e7be048a9757a9f5836ab8cbe5",
+          "sourceWorkingGitBlob": "df07a0f60ce864e7be048a9757a9f5836ab8cbe5",
+          "workCopySha256": "5b07bd11b3559348387649d8aa3866355b9a50de02906e22e2b0b338c9eef121",
+          "workCopyGitBlob": "c92c86ebddb3807c4bd40c98babbcf5c8cc6fbce",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SiteAdminPageObject.java",
+          "sourceSha256": "d589ea73675455dc8ff1bd077baa2d299bede289bbc497c47cf551d67f0d1c38",
+          "sourceGitBlobAtHead": "6db1fe9e3401237e675dc0673f630eb6823b0d8e",
+          "sourceWorkingGitBlob": "6db1fe9e3401237e675dc0673f630eb6823b0d8e",
+          "workCopySha256": "04b60ce5b515654e6778a2cec8c9f812b525666745912a60e7abf17ed177c8ec",
+          "workCopyGitBlob": "f7833e4983931588442b574b64ed26ffba2eab90",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/UsersSidebar.java",
+          "sourceSha256": "138742b495d3652d87ecff1475ff4ad93fa2807720ebee11b3e4cefc60c0c94b",
+          "sourceGitBlobAtHead": "540fbfb743f4bffad646b735b49a187a9629b1c5",
+          "sourceWorkingGitBlob": "540fbfb743f4bffad646b735b49a187a9629b1c5",
+          "workCopySha256": "e93e6f497633571b62cb1287824391da485c8da42a0a78adf12eb7f37c69a60e",
+          "workCopyGitBlob": "0231838a3b34dcb03cd67fd26f5e01cd2cb28316",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/utils/JavascriptExecutor.java",
+          "sourceSha256": "16f986c8aeab3e7811f1ae0e25a8007f8157d5295d0a359a89b1ebaecba12d90",
+          "sourceGitBlobAtHead": "e5bd3f2fd1bb956844dcd85a7dedb737c668e644",
+          "sourceWorkingGitBlob": "e5bd3f2fd1bb956844dcd85a7dedb737c668e644",
+          "workCopySha256": "30c1449eec1cc8984079659e3190791afb2c43f5301a31771ac6b632d5b1a26d",
+          "workCopyGitBlob": "a0b80910f7c8613fec8289dfb5d9e83e9a8d0bd3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddCategory.java",
+          "sourceSha256": "b65a39d195fbb6cca0157401b26acc0c7f9cebbd6cd0eb5a9cbeca3ab26f1cf9",
+          "sourceGitBlobAtHead": "34b0256f976696bc3d8497ce2903e76afa20f9fb",
+          "sourceWorkingGitBlob": "34b0256f976696bc3d8497ce2903e76afa20f9fb",
+          "workCopySha256": "c3a776a9d46b21e8450f32488664291da949b296b6c3e33a0bc3ae4afd6a44bd",
+          "workCopyGitBlob": "4e926ac3673e7792c81080bd54184dc72642fd8b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyArticle.java",
+          "sourceSha256": "6479bb17075cece24d883f094296b00b5f8f33d52234b8a8eab043c1726a6e01",
+          "sourceGitBlobAtHead": "d90bdf75d29bd902d9116872c64e9665b5a0a9c0",
+          "sourceWorkingGitBlob": "d90bdf75d29bd902d9116872c64e9665b5a0a9c0",
+          "workCopySha256": "633772707e5feaf9a761e095a778fb18207ddf5c2814fed67a06c5f1ef7e90af",
+          "workCopyGitBlob": "6210ab97fcd055a0bf15f884919133d211c3a9d5",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyCategory.java",
+          "sourceSha256": "12a782ab53977e01cd69069a33565de16abb5407402075c4fd390533ba1b1b47",
+          "sourceGitBlobAtHead": "b751bb7077c7182084132da7f55208c26b630198",
+          "sourceWorkingGitBlob": "b751bb7077c7182084132da7f55208c26b630198",
+          "workCopySha256": "0bb59e21eb634b3759f327e592a7e1c8096a71ca37e224662c1986884d14f377",
+          "workCopyGitBlob": "7fdf3baea9071c0dd5124028f017c837a0f035de",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyField.java",
+          "sourceSha256": "8d4162a560fab5c3ffe3e58abbe3a35ae1e76bbc6eec9c4df8a6a2e12dbf6f1c",
+          "sourceGitBlobAtHead": "c3776894ceaff35a40c26d11cdc9d76eefc39a44",
+          "sourceWorkingGitBlob": "c3776894ceaff35a40c26d11cdc9d76eefc39a44",
+          "workCopySha256": "a517ecd31ff89116d55d30723f90c68cbc29cc92e78cde6dd91ce4833054214e",
+          "workCopyGitBlob": "7d1dd504af703f56ea359a3e52aaf0e008cf589c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyFieldGroup.java",
+          "sourceSha256": "175e401153f870fa2b4395de0d4bbf529aa311b4465c42dac08783870fba910f",
+          "sourceGitBlobAtHead": "5754c483d093cbf7c15db91ff31d82aebe43e5ec",
+          "sourceWorkingGitBlob": "5754c483d093cbf7c15db91ff31d82aebe43e5ec",
+          "workCopySha256": "69f561dc0b0dde07ef0f06b831f08a4854bc983a2ef983ae9fe7ba27b35497f9",
+          "workCopyGitBlob": "09a6b1d68344b2f9177307b34caf9749bb612f01",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyGroup.java",
+          "sourceSha256": "063cf3dced549c5ed5442709b5d569fb9a6bc5d6cfb0cfec0fcdd7a5c6815197",
+          "sourceGitBlobAtHead": "6f49f7a08866754152ca0781d3b56977504b92de",
+          "sourceWorkingGitBlob": "6f49f7a08866754152ca0781d3b56977504b92de",
+          "workCopySha256": "a29f0c3709d566e0556abd6813791e2dab7d98d866d987562a60c03d8aa22b80",
+          "workCopyGitBlob": "f8b7afdbe8516d6d3e56176d439862ce9d589996",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddField.java",
+          "sourceSha256": "012f98297d5541dc773bedcd1c648a5ed9c4cf489134a379b2245ccd83be5bc5",
+          "sourceGitBlobAtHead": "34cc1f1947cf9536e1b2bededb55095768e65eb9",
+          "sourceWorkingGitBlob": "34cc1f1947cf9536e1b2bededb55095768e65eb9",
+          "workCopySha256": "0acee0be21b34d3b538c63d325d3edee99d84f1e8e452cb54ffdb2652089090c",
+          "workCopyGitBlob": "bd25ae06ff664203572f5ae69b9fac84b33605cc",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddFieldGroup.java",
+          "sourceSha256": "a2299d84b81b0f1ce1be2fbbbf35ac57e907a2610e35896bdff8c63ed175115e",
+          "sourceGitBlobAtHead": "3e949e65c5abaa30b09b37b7c6f2e8f2bb1f59a8",
+          "sourceWorkingGitBlob": "3e949e65c5abaa30b09b37b7c6f2e8f2bb1f59a8",
+          "workCopySha256": "2c17ead6f6bf225192255c8f9344479e871e08fa1cdf77f25b8cc2f4f2259dc0",
+          "workCopyGitBlob": "7539d0e49ed3abab379e555af5193467760777c2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddGroup.java",
+          "sourceSha256": "9ecd36fdd86a61abc6080238cc433de6878aa4a149ef012ff98d32baff9047a5",
+          "sourceGitBlobAtHead": "4cadf1469cea444f08fbfa799576a4f87236a908",
+          "sourceWorkingGitBlob": "4cadf1469cea444f08fbfa799576a4f87236a908",
+          "workCopySha256": "5c00818ed494cae6d78bb347b043553da627137fec0e7aac1e6e255d237bab15",
+          "workCopyGitBlob": "86fff4c84db8df601690f123cb45d840027482e4",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMenuItem.java",
+          "sourceSha256": "513fa83688bc77b10f1f280e30f8733982c2b83c1e2f6866490817dd3542ad1c",
+          "sourceGitBlobAtHead": "b748ed7591d32e1cde7db1a5b2bc1b1263d8918d",
+          "sourceWorkingGitBlob": "b748ed7591d32e1cde7db1a5b2bc1b1263d8918d",
+          "workCopySha256": "c612b87f2eedacfb20fe9ffce5c5d0a34a298aff992c7d07971504eeb905bc75",
+          "workCopyGitBlob": "1da3964f234aae44d3f938e561ed964eacb003c1",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMenuItem_EmptyMenuType.java",
+          "sourceSha256": "68263291c41d1e898aae126aa959896b33d7283f534839f6025214b971261efe",
+          "sourceGitBlobAtHead": "03b2bd825ebb6f4969f03d12e3db5522e530b77b",
+          "sourceWorkingGitBlob": "03b2bd825ebb6f4969f03d12e3db5522e530b77b",
+          "workCopySha256": "f5a25c94e8550a0934ad5bc3ca6b665fe4c50733801ff138ed2a59f382b5afd2",
+          "workCopyGitBlob": "85a43ad620521df67cc8965d38e7f213daf34d7f",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMenuItem_EmptyTitle.java",
+          "sourceSha256": "477785f5d1545efa3ab46569a74919da2dc090f80a175e81dc501eb620985200",
+          "sourceGitBlobAtHead": "2dda990639c562d343f4df3ca3b55a456a6f22a0",
+          "sourceWorkingGitBlob": "2dda990639c562d343f4df3ca3b55a456a6f22a0",
+          "workCopySha256": "dc0b96f8aea614a7446d1ba61efd677929a7a1acf36b119dfcf2f8a55ec6d7de",
+          "workCopyGitBlob": "564502f5f40240346b48e0869f536ca7dbac8b92",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMenuItem_MenuNotSelected.java",
+          "sourceSha256": "80796fa6b18b157404bf69b87e4c5af1ff32ac0e4f97c3568a629f8d3c5baf4d",
+          "sourceGitBlobAtHead": "0aa90e63b1700179ca8e39d47a91fc0c202f9657",
+          "sourceWorkingGitBlob": "0aa90e63b1700179ca8e39d47a91fc0c202f9657",
+          "workCopySha256": "4852486c0def9ecb4452581162273e2ba247bbbe3365204c35db57c17a5658e2",
+          "workCopyGitBlob": "a495067d97f66cd3cce1bdca6519eb030b6fc02a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddNewArticle.java",
+          "sourceSha256": "565f7e4d4651bd993e53646ac57ad633513ff55e79e5bce42b7f9c9ccc9d7aee",
+          "sourceGitBlobAtHead": "1efef561273aa9cc7172f6a52f92adf851df2c30",
+          "sourceWorkingGitBlob": "1efef561273aa9cc7172f6a52f92adf851df2c30",
+          "workCopySha256": "1e74c537a17346fbb09c991b828929dabecb54a4eb188cba653fcf1c2889f180",
+          "workCopyGitBlob": "6a2eb2e21110541a0056540e1cfb09b4a2604db6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddUser.java",
+          "sourceSha256": "9056c3afaa6334da469c98628087c679ec2df9046832486bfa6831da895ca4fd",
+          "sourceGitBlobAtHead": "b9640a0eada0018ebef26bb2bf060e95cbcd09f5",
+          "sourceWorkingGitBlob": "b9640a0eada0018ebef26bb2bf060e95cbcd09f5",
+          "workCopySha256": "16b837a0ef39ac5a37ceeea359fbcb59dcbb5f2463b558b2462ea2cb8babb8be",
+          "workCopyGitBlob": "adb0171b7100afa91d79297bb446b812c912226b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AdminLoginTest.java",
+          "sourceSha256": "08e237f2a1ebaf323d96eb66292c3aff05ee930893d6c08424f94d982f0a2e80",
+          "sourceGitBlobAtHead": "cfc5b4b4d9ac3aafe5f3579eb0e3a6e9e5051d67",
+          "sourceWorkingGitBlob": "cfc5b4b4d9ac3aafe5f3579eb0e3a6e9e5051d67",
+          "workCopySha256": "98454baecf4eb7953ef5d41f7077e8f2e756edcbb408b3ab48831438d2060f79",
+          "workCopyGitBlob": "b8bef1e3ee893c32091980844cf902459f55540d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/ArchiveArticle.java",
+          "sourceSha256": "9cfb664c2b98a78211bb431e39c507ad771a36a72b5de896dc3f13d6e58e255e",
+          "sourceGitBlobAtHead": "cf604e6c5992e4df752c3d50abb0fdfd5b514684",
+          "sourceWorkingGitBlob": "cf604e6c5992e4df752c3d50abb0fdfd5b514684",
+          "workCopySha256": "f97624c9445dd140de1208b4e9a2c8c6e496d96710d7a038c4b45f285970beff",
+          "workCopyGitBlob": "416dfe6e25694dd8a7252ab4d474f6b1b93097c7",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AssignCategory.java",
+          "sourceSha256": "438b9073cf3a12770da9e9892d2b64b1db992dad0bfb6c73e86ee199b0665ec7",
+          "sourceGitBlobAtHead": "15900398c307ed4b0d9a8c63ea99fa2200e202da",
+          "sourceWorkingGitBlob": "15900398c307ed4b0d9a8c63ea99fa2200e202da",
+          "workCopySha256": "bd9eff3a79469ce368a633501b677fdb0bc237e4ed56526d90681f1cb6ac3062",
+          "workCopyGitBlob": "9ed277ea54fa663bc471b86b7737f53139ae776d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AssignFieldToGroup.java",
+          "sourceSha256": "2e93f225aebc8ad041a1c3ab93a0302f643fc84d0de9dd420dd77dab679781ff",
+          "sourceGitBlobAtHead": "e4c83233c0543ce05ba1e7961cdef9958e8afc3b",
+          "sourceWorkingGitBlob": "e4c83233c0543ce05ba1e7961cdef9958e8afc3b",
+          "workCopySha256": "08cc9ac37606ae60f3c988cc5c211d7467440e8b192340293b4529a0a889dc2f",
+          "workCopyGitBlob": "b35d8a49d81daf3d9876b657895b2e6b3bdad7ac",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AssignUserToGroup.java",
+          "sourceSha256": "eb32ae68a8e543ea84dc50265f93bd06af75676b02661f2fc3b2ac683e68dee6",
+          "sourceGitBlobAtHead": "50a5ca5cb7bce8b651dc8fcb4cb679bbdd8c039e",
+          "sourceWorkingGitBlob": "50a5ca5cb7bce8b651dc8fcb4cb679bbdd8c039e",
+          "workCopySha256": "44513879ad1f8797be51dfacd63acb5dc65cb23468e91422fa3deb3d2b2d44b3",
+          "workCopyGitBlob": "63873845e34e8d080d71cb5622c99ad54ac40cd0",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/BadLogin.java",
+          "sourceSha256": "fa2748f7afe0e4aa36b02151406934c5b1d786bb5f51d11122cb663b9d69bedc",
+          "sourceGitBlobAtHead": "27e2632fa62014837375161ef41bf2d1e51d6241",
+          "sourceWorkingGitBlob": "27e2632fa62014837375161ef41bf2d1e51d6241",
+          "workCopySha256": "c21627729201801f202bdad6049e55e9edf70ed54d191bd267af5441195f67a1",
+          "workCopyGitBlob": "3fa582856669ba35de2a83bc16c1843d547f3570",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/BadSiteAdminLogin.java",
+          "sourceSha256": "a2aa7bdc5e271951256ad2f07f3ccb774a14dfe5120d36d5f41a6189234cafd1",
+          "sourceGitBlobAtHead": "aa8dc4b47685536e6b69e5ed4fe241e8771158d5",
+          "sourceWorkingGitBlob": "aa8dc4b47685536e6b69e5ed4fe241e8771158d5",
+          "workCopySha256": "ebe2f285ae8587b1ee5e18c673ba9a07a7b4749434ab7e4f4f78385043d46b3b",
+          "workCopyGitBlob": "12d06e1537c2894348139b7c23bde90b1cfcf2ec",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/BaseTest.java",
+          "sourceSha256": "1f4c69fd79c707360a3ea97b69d966d631fff2cac8584f78fe9c3f842fc18260",
+          "sourceGitBlobAtHead": "56d45ed44e1e7c84ed36452db54304a0275a090f",
+          "sourceWorkingGitBlob": "56d45ed44e1e7c84ed36452db54304a0275a090f",
+          "workCopySha256": "cadc58e1309812e139720d17d017b48bfd7488ab1efb10695f64af4da7bc64c2",
+          "workCopyGitBlob": "5a033f65493b9910d1a2828b8640c115b2d81b8d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/ChangePassword.java",
+          "sourceSha256": "136e13ac2562abcf0d142666b84c3ad3090313c6694a9925995523097a2c86e3",
+          "sourceGitBlobAtHead": "5ee8d7ac39c2f26c770de692bd54d8216671910a",
+          "sourceWorkingGitBlob": "5ee8d7ac39c2f26c770de692bd54d8216671910a",
+          "workCopySha256": "f8d1f2a13c87ecf56a4f8cb3a890b0335250738487254d2b374e461cd5dc2833",
+          "workCopyGitBlob": "36b63323ec0719f4efd46289d9452d6f95305eec",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/ChangePasswordDontMatch.java",
+          "sourceSha256": "175832d9683216cb2ae90e746abbed9d7e1330326c6b7813611f9506a87c5c64",
+          "sourceGitBlobAtHead": "80522483a24a7d044c79eb723ae860acef45dafe",
+          "sourceWorkingGitBlob": "80522483a24a7d044c79eb723ae860acef45dafe",
+          "workCopySha256": "94fc8abae41eca7708f68b34b3e7193b1569ff9e6d26f56bc2fc867b8f47aa2e",
+          "workCopyGitBlob": "5a484cb2e1694ed020f33b41c8775373a51632a2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteArticle.java",
+          "sourceSha256": "d40da98b4e8ce9c511dc93b0486a861d4c0d0506bdd0d0f19594bd3ab728b2c2",
+          "sourceGitBlobAtHead": "fd4854cef88bd89e5f6ab70053a1b24e5db23ee6",
+          "sourceWorkingGitBlob": "fd4854cef88bd89e5f6ab70053a1b24e5db23ee6",
+          "workCopySha256": "ad7f06b5fd60c7a01f5dd301e17129c4dac2f1760943580fb108bf06b46fba00",
+          "workCopyGitBlob": "1956bde59488a29ba9e15e76b5b8470e915499e7",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteCategory.java",
+          "sourceSha256": "05f0851d2f75c020983d99ae13a9f5b4ed4125666aeab2563ce0818fead8509f",
+          "sourceGitBlobAtHead": "1caf264955de84acd3c0c6a836ad6d2a3bd75a28",
+          "sourceWorkingGitBlob": "1caf264955de84acd3c0c6a836ad6d2a3bd75a28",
+          "workCopySha256": "0e9906ad601f9d29eb35389f4b92bc951cfac1a31faf57fe157179da9f171888",
+          "workCopyGitBlob": "ea10d612f840aed06c676803c138618b48026d17",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteField.java",
+          "sourceSha256": "9772e9e828ac1bbc294636ff90bfa9542a5a870c8c95f184bacc9ed8c57bbeaa",
+          "sourceGitBlobAtHead": "ac3422d4c5d99606312e7b30b26f28ee3f5dc536",
+          "sourceWorkingGitBlob": "ac3422d4c5d99606312e7b30b26f28ee3f5dc536",
+          "workCopySha256": "1483915210533f1f22808d1a334a7d1e7f783d15660d77908eeb4ad3c7aad86d",
+          "workCopyGitBlob": "574017457ff870a89801530f15685464aa89da9a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteFieldGroup.java",
+          "sourceSha256": "2c648cd8fc33c1a3dd250c9d38bbbe62b24663812809b96c4423c9b14a8199ec",
+          "sourceGitBlobAtHead": "7c66b6ef789df7cfc5cb6cabc84a2c866926af5b",
+          "sourceWorkingGitBlob": "7c66b6ef789df7cfc5cb6cabc84a2c866926af5b",
+          "workCopySha256": "ce53679b927de669d10020d658f2855d939322a573836582d991640a41a5a5dd",
+          "workCopyGitBlob": "51998bd1186fdd68979cb1775893c3e61faeef2b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteUser.java",
+          "sourceSha256": "b5cf340a81ec1d6258b7d76ebbb8e6dbdd00233b4302fdb8fd397a87c8f11e5b",
+          "sourceGitBlobAtHead": "8549d255e283e090d7bcadf48f2b83a78ae022f2",
+          "sourceWorkingGitBlob": "8549d255e283e090d7bcadf48f2b83a78ae022f2",
+          "workCopySha256": "a8f3d9bb281af6968bfdf582497cb0de7f2eea217b28fa2409889e2e3d026cd1",
+          "workCopyGitBlob": "e29b02215fb4d19c8a3ddce3eecc49a24e99429f",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteUserGroup.java",
+          "sourceSha256": "4f52e84d372389c256d956afbb3197b36c3f888611b8538d5cea8eaa30e5b131",
+          "sourceGitBlobAtHead": "42e31089701f150f0832bc727ae74091fa9a6609",
+          "sourceWorkingGitBlob": "42e31089701f150f0832bc727ae74091fa9a6609",
+          "workCopySha256": "04c4bb7b75f08e14aa8af1faa64184fdd0e816f1c7531fc3b70af6632da3053a",
+          "workCopyGitBlob": "aed5add19534509adf070d1b18a5e571a21293b7",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/EditArticle.java",
+          "sourceSha256": "d63328d908a1cab797ef73b70dc73d81edb541d19e65dd210b3ad53ec4c8689f",
+          "sourceGitBlobAtHead": "007c1453cbeb54d336117498613c5d36fa51d260",
+          "sourceWorkingGitBlob": "007c1453cbeb54d336117498613c5d36fa51d260",
+          "workCopySha256": "e574e7c0eb9f42f2aed7305223b1bc9236039ef24501df7ea64e425d9be511f2",
+          "workCopyGitBlob": "9de545829797d8c447cf5b032b47358a178af4ff",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/EmptyLogin.java",
+          "sourceSha256": "6f47bbd2644c79ecd0afbcf981eafb66349f8a52548b8ae787fcea8f2741e772",
+          "sourceGitBlobAtHead": "7d4d4f2adbc58eac03f7a8da5817188771088ed8",
+          "sourceWorkingGitBlob": "7d4d4f2adbc58eac03f7a8da5817188771088ed8",
+          "workCopySha256": "53c6e2bf43f6ac3a4aa4eb561e20fac7891c06bad841b030a08d0c90ba25e667",
+          "workCopyGitBlob": "56771404bcf181049b1c5b7b8682b206ea9cae8d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/EmptySiteAdminLogin.java",
+          "sourceSha256": "76bfc566029852b22e458e1cf924db8aaaadccc27eb92b7f39a2aae274a55e74",
+          "sourceGitBlobAtHead": "fa08064017803d584a316c4bcef65da126d5ad70",
+          "sourceWorkingGitBlob": "fa08064017803d584a316c4bcef65da126d5ad70",
+          "workCopySha256": "386b66ec53e189e91e1894b81a40b2af3027e18d020659ce7ab814f5aa6637cf",
+          "workCopyGitBlob": "d0ecc40593ece909e6914dbcebb5ef7bb0b8a7ad",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/Installer.java",
+          "sourceSha256": "e64ae69b017747e77a5457122f89926181b77b73e26d36290aa39d9bda7fd277",
+          "sourceGitBlobAtHead": "7f708a7aa914cce6443c537a065c9c1c493e0c2b",
+          "sourceWorkingGitBlob": "7f708a7aa914cce6443c537a065c9c1c493e0c2b",
+          "workCopySha256": "1443217a4c893cb84bceb18622397f4a8e68b912a5c4c6b79bce1e60a6ded7e3",
+          "workCopyGitBlob": "190964eda4e394c4b375108d8280fb5289556745",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/LoginAsNewUser.java",
+          "sourceSha256": "514540ccbc16c3c4ff2b78d8632240ff0b32f6e9139aa34923cb29278c185fb9",
+          "sourceGitBlobAtHead": "db571c5c883ee41c09204a4225916251224e77f9",
+          "sourceWorkingGitBlob": "db571c5c883ee41c09204a4225916251224e77f9",
+          "workCopySha256": "6076d0f9ad23e43674eaef133620f631b00797cb2da61258997dcf064c525949",
+          "workCopyGitBlob": "6512d7ce510033625bdb383ae02ac9ad4b58bf15",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/RemoveMessages.java",
+          "sourceSha256": "c09200208f088722e2d740758775f085ef0351680a86886b5a7ceb4873cdaec5",
+          "sourceGitBlobAtHead": "06c081f9dbfe09075a82838efde3ee966f7bb8ca",
+          "sourceWorkingGitBlob": "06c081f9dbfe09075a82838efde3ee966f7bb8ca",
+          "workCopySha256": "c09200208f088722e2d740758775f085ef0351680a86886b5a7ceb4873cdaec5",
+          "workCopyGitBlob": "06c081f9dbfe09075a82838efde3ee966f7bb8ca",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/test/java/base/SeeArchivedArticle.java",
+          "sourceSha256": "f6aed6e179ec253a64f2b15615dc9937ef50909ecbb0fca4b5d0bd38b940f1fe",
+          "sourceGitBlobAtHead": "083719abe898177c9808c354a36c199f4e5f8781",
+          "sourceWorkingGitBlob": "083719abe898177c9808c354a36c199f4e5f8781",
+          "workCopySha256": "338468ab4ce6d8847db98e50cdbc4bd96c8bf1ecbc0c90ea4e72d1c7ac2bad20",
+          "workCopyGitBlob": "383b9b57a1d29f16f5ad997d704aac24d998ea00",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/TestSuite.java",
+          "sourceSha256": "a36839c175bf06f884c18685580af6a54e3f4a922f30558360e15ea14468dd11",
+          "sourceGitBlobAtHead": "c51fe6032e8239cfa40b188f9dec208a4f5d5e9c",
+          "sourceWorkingGitBlob": "c51fe6032e8239cfa40b188f9dec208a4f5d5e9c",
+          "workCopySha256": "fef710d59ba9242fa0efa3f366be51a329fadfd3018af26417be9ef53d33ffe2",
+          "workCopyGitBlob": "dc0552978c47ee86dcfcd44fc28173542c395443",
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "app": "mantisbt",
+      "sourceVersionDirectory": "mantisbt/baseline/mantisbt-1.2.0",
+      "sourceDirtyForSuite": false,
+      "sourceDirtyStatus": "CLEAN",
+      "fileCount": 60,
+      "unchangedFiles": 1,
+      "adaptedFiles": [
+        "src/main/java/po/AssignIssuePage.java",
+        "src/main/java/po/BaseNavBar.java",
+        "src/main/java/po/CreateProjectPage.java",
+        "src/main/java/po/CreateSubprojectPage.java",
+        "src/main/java/po/DeleteIssuePage.java",
+        "src/main/java/po/DeleteProjectConfirmPage.java",
+        "src/main/java/po/DeleteUserConfirmPage.java",
+        "src/main/java/po/EditCategoryPage.java",
+        "src/main/java/po/EditIssuePage.java",
+        "src/main/java/po/EditProjectPage.java",
+        "src/main/java/po/EditUserPage.java",
+        "src/main/java/po/LoginPage.java",
+        "src/main/java/po/ManageNavBar.java",
+        "src/main/java/po/ManageProjectPage.java",
+        "src/main/java/po/ManageUsersPage.java",
+        "src/main/java/po/NewAccountPage.java",
+        "src/main/java/po/ReportIssuePage.java",
+        "src/main/java/po/ViewIssueDetailsPage.java",
+        "src/main/java/po/ViewIssuesPage.java",
+        "src/main/java/utils/Strings.java",
+        "src/test/java/base/AddCategory.java",
+        "src/test/java/base/AddEmptyUserFails.java",
+        "src/test/java/base/AddExistingCategoryFails.java",
+        "src/test/java/base/AddExistingProjectFails.java",
+        "src/test/java/base/AddExistingUserFails.java",
+        "src/test/java/base/AddIssue.java",
+        "src/test/java/base/AddMultipleSubprojects.java",
+        "src/test/java/base/AddMultipleUsers.java",
+        "src/test/java/base/AddProject.java",
+        "src/test/java/base/AddUser.java",
+        "src/test/java/base/AssignIssue.java",
+        "src/test/java/base/BadLogin.java",
+        "src/test/java/base/BaseTest.java",
+        "src/test/java/base/DeleteCategory.java",
+        "src/test/java/base/DeleteIssue.java",
+        "src/test/java/base/DeleteMultipleProjects.java",
+        "src/test/java/base/DeleteMultipleUsers.java",
+        "src/test/java/base/DeleteProject.java",
+        "src/test/java/base/DeleteUser.java",
+        "src/test/java/base/LinkMultipleSubprojects.java",
+        "src/test/java/base/Logout.java",
+        "src/test/java/base/TestSuite.java",
+        "src/test/java/base/UnlinkMultipleSubprojects.java",
+        "src/test/java/base/UpdateCategory.java",
+        "src/test/java/base/UpdateCategoryEmpty.java",
+        "src/test/java/base/UpdateIssuePriority.java",
+        "src/test/java/base/UpdateIssueSeverity.java",
+        "src/test/java/base/UpdateIssueStatusAcknowledged.java",
+        "src/test/java/base/UpdateIssueStatusAssigned.java",
+        "src/test/java/base/UpdateIssueStatusConfirmed.java",
+        "src/test/java/base/UpdateIssueStatusFeedback.java",
+        "src/test/java/base/UpdateIssueStatusNew.java",
+        "src/test/java/base/UpdateIssueStatusResolved.java",
+        "src/test/java/base/UpdateIssueSummary.java",
+        "src/test/java/base/UpdateProjectDescription.java",
+        "src/test/java/base/UpdateProjectStatus.java",
+        "src/test/java/base/UpdateProjectViewStatus.java",
+        "src/test/java/base/UpdateUser.java",
+        "src/test/java/base/UpdateUserEmpty.java"
+      ],
+      "files": [
+        {
+          "path": "pom.xml",
+          "sourceSha256": "91f0245b9e7972281e386f8635bd3c5d8807e970e44a0787821bc6170b8a9e46",
+          "sourceGitBlobAtHead": "16d02467f3b23855b7f1006bdc56da89c768b59a",
+          "sourceWorkingGitBlob": "16d02467f3b23855b7f1006bdc56da89c768b59a",
+          "workCopySha256": "91f0245b9e7972281e386f8635bd3c5d8807e970e44a0787821bc6170b8a9e46",
+          "workCopyGitBlob": "16d02467f3b23855b7f1006bdc56da89c768b59a",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/main/java/po/AssignIssuePage.java",
+          "sourceSha256": "6364fc718a52e9b56cf0e0a6474f5874c9a30ca3333a6361b5f77dc767222864",
+          "sourceGitBlobAtHead": "2b6e70770cf5e405ae79b02cbcccd9c5435cf523",
+          "sourceWorkingGitBlob": "2b6e70770cf5e405ae79b02cbcccd9c5435cf523",
+          "workCopySha256": "5f43d8cff4eeb0166b2e44bf90b9c9dee26158b83186e8456f8a74285176b260",
+          "workCopyGitBlob": "2f88a216b620c88e45ff29affc3edba8792192ef",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/BaseNavBar.java",
+          "sourceSha256": "9c18c14713900ecf5aea385ee6684d95abd47f79494429d6227b4bcce5da9ee7",
+          "sourceGitBlobAtHead": "92ad116097b90c1a75292ef7f89c01f514f58b9e",
+          "sourceWorkingGitBlob": "92ad116097b90c1a75292ef7f89c01f514f58b9e",
+          "workCopySha256": "875a6534362d9c15d625e72962c2650a817a73fe8451882b49f1aae7d3597332",
+          "workCopyGitBlob": "ae1ee15defd98af7a57a40460896dfdeabfeeff3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateProjectPage.java",
+          "sourceSha256": "f62aac5753e4ad32a2b0800fb8a54837b706057775e306dfed8850d16b5d1763",
+          "sourceGitBlobAtHead": "3e863e7fa94e1c7765cf4506e0ddcf5e94bae661",
+          "sourceWorkingGitBlob": "3e863e7fa94e1c7765cf4506e0ddcf5e94bae661",
+          "workCopySha256": "d0f80dca3eb18435ea065a96384903398da039f14e7c3e594ef6cc7408ffd1df",
+          "workCopyGitBlob": "2a323e08386a606737859b2ece8fbe6805598772",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateSubprojectPage.java",
+          "sourceSha256": "42a7e15af9cbc9eacb5d8c126b9d9b6ef6c2d6e2081a5be2792fab5ac8554b9d",
+          "sourceGitBlobAtHead": "39750f1c1e4f55dd3b45ec56c324419b60e5e284",
+          "sourceWorkingGitBlob": "39750f1c1e4f55dd3b45ec56c324419b60e5e284",
+          "workCopySha256": "c1d037328487e72be4f6dac5bcacd8502a967f2c59a89ddb6f31c8aaeeca0f6c",
+          "workCopyGitBlob": "c27c1f5d96c8c5a33f03bd7a235f639aa1500891",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/DeleteIssuePage.java",
+          "sourceSha256": "cc65234f572f2769e4946f99c29c73daba154f1c232f8ce234e753b2925f4ed9",
+          "sourceGitBlobAtHead": "1c502f3306205192acdee15f5d5dda9e76bd0e99",
+          "sourceWorkingGitBlob": "1c502f3306205192acdee15f5d5dda9e76bd0e99",
+          "workCopySha256": "58508b31316b15f1e69f0c85b8445e87cfa5cc6ff3c8b4bdd97a13ac772d7e17",
+          "workCopyGitBlob": "d99b9ef51cad2804ef10802ed8d22af9bcba2d64",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/DeleteProjectConfirmPage.java",
+          "sourceSha256": "c9beaefcc64aded05a9457579618cd11ac8cfaf870849462f33d180993b52f65",
+          "sourceGitBlobAtHead": "c89057f7712f9ace48d9ab64bf495f9389c1bc9e",
+          "sourceWorkingGitBlob": "c89057f7712f9ace48d9ab64bf495f9389c1bc9e",
+          "workCopySha256": "5dea3958e2920f613eec637f54887fab4bfd74a651ebc048003efc5de8c6939b",
+          "workCopyGitBlob": "1a21b9d56568c736d24e00fbc8f3a4964ec82c33",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/DeleteUserConfirmPage.java",
+          "sourceSha256": "f377ec7f86bafc879b133ee33374b2ad110e5f6312abd0a65787886c72e5387b",
+          "sourceGitBlobAtHead": "76c2cf25c9f2da95d12cb9d3d61cd646d2112292",
+          "sourceWorkingGitBlob": "76c2cf25c9f2da95d12cb9d3d61cd646d2112292",
+          "workCopySha256": "df81646b8e88394a3dcad7acc5948c8c7884acf9a38c20cec46aacb2933719e7",
+          "workCopyGitBlob": "7b5a8494622e05d6201f2bfcd18f90737c1dd424",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditCategoryPage.java",
+          "sourceSha256": "36751e6ebbf4de302d1f466c927a0ffbffceabb4d05f667be1e9b22c74d29632",
+          "sourceGitBlobAtHead": "a5fc20aca55b609572717d8e6ee5e850246cd3da",
+          "sourceWorkingGitBlob": "a5fc20aca55b609572717d8e6ee5e850246cd3da",
+          "workCopySha256": "4e9049e04b46d0ed074f679bec1ef3ea120ddadf664966a177ba56fdd0d26988",
+          "workCopyGitBlob": "21753e6e0082dad967f38445fef8f850a8650f62",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditIssuePage.java",
+          "sourceSha256": "55ad5f2d9d36363667107ad5cf8e60cde2d7e7336df2703862fece1909d39f9e",
+          "sourceGitBlobAtHead": "ca0dbfb1c70fa6f84fbd8b778fd4753576d36382",
+          "sourceWorkingGitBlob": "ca0dbfb1c70fa6f84fbd8b778fd4753576d36382",
+          "workCopySha256": "725937afe219db7e3c0e60cb399c5019477f247f4d5a7f46fef967a4f8c02be7",
+          "workCopyGitBlob": "e2b0f885a90a6864c3f7743b88b4b6e54275d858",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditProjectPage.java",
+          "sourceSha256": "91f3c7c0dd3e3ff78c6d6b738799514a819b13cf10ba169cfc432eb9f1a6c142",
+          "sourceGitBlobAtHead": "dc81fe6cce01f0b6a2898e67de97e04ebe45da5a",
+          "sourceWorkingGitBlob": "dc81fe6cce01f0b6a2898e67de97e04ebe45da5a",
+          "workCopySha256": "a74cf31514f38f4b9c548620265c265b463357d550cfe2ea996a322594be8ff2",
+          "workCopyGitBlob": "0fc082951d6556048c140b93898ceb1ce7aabdaa",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditUserPage.java",
+          "sourceSha256": "a2392f4a72382ee40677e05fbb97149eda9fc2d5b19e2f67acf4518c977233ef",
+          "sourceGitBlobAtHead": "b6c13c8441181c56138f64c922e75c34cc0a3481",
+          "sourceWorkingGitBlob": "b6c13c8441181c56138f64c922e75c34cc0a3481",
+          "workCopySha256": "747de33047c58adcbd18c601fcd504a38d2027d0c07c5b19d4e0823ba32f1f87",
+          "workCopyGitBlob": "6bb9a1afb6ae8082f98d1d9ced0bb9a7bb54038b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/LoginPage.java",
+          "sourceSha256": "66690887785448de72f42f52da762a552a86730785eea9c35aa4a0f46a34e387",
+          "sourceGitBlobAtHead": "b3f658ab330228773a762290a41140c7055f8a9c",
+          "sourceWorkingGitBlob": "b3f658ab330228773a762290a41140c7055f8a9c",
+          "workCopySha256": "c016bddfbe18f28c7ab7a92e7698ebf86ce6e4396119e5bbdf45cc218f4d38cd",
+          "workCopyGitBlob": "b18e55b9148e3621fde1f39c6efe9eeb76716a89",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageNavBar.java",
+          "sourceSha256": "696d4a16239a0da0186016e437393b417df40e1c98d798611a939951854d6574",
+          "sourceGitBlobAtHead": "2b85a768474038197e9c53c5ce613d72187ca47a",
+          "sourceWorkingGitBlob": "2b85a768474038197e9c53c5ce613d72187ca47a",
+          "workCopySha256": "0d1ed7a07f7833c89fe869e5f34fee116e27738e52d078ca60ce425913b96cb5",
+          "workCopyGitBlob": "7546fc23bdf5b74c758d1a925d25c9e8c21ecc7a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageProjectPage.java",
+          "sourceSha256": "33836b50151076736bcd5b07f37a43f332e0886615a2987d9c0c7081c9dfbbe8",
+          "sourceGitBlobAtHead": "e504ee2a3d8327545df9804b637706c26253e324",
+          "sourceWorkingGitBlob": "e504ee2a3d8327545df9804b637706c26253e324",
+          "workCopySha256": "9c94936144df497fffef963d042b32bdf8f81603920fdb8da60e5f1f814b35d9",
+          "workCopyGitBlob": "9db6204775682ecd7ae5f636c50303f6f16eacd1",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManageUsersPage.java",
+          "sourceSha256": "5904a516dde72f490d7ec517ab64ed1e68f88fa004e953bbd04aa2d750947b85",
+          "sourceGitBlobAtHead": "4c1c8aa36f6817ac127b5f441ad36d1c7f1ef7a2",
+          "sourceWorkingGitBlob": "4c1c8aa36f6817ac127b5f441ad36d1c7f1ef7a2",
+          "workCopySha256": "1d1e828fdcdffea1061f9bb989cb152c3d0848a6578cc25bbac913e601dc369f",
+          "workCopyGitBlob": "12a7b329ff3168a863c9844221d747bdc2520f01",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/NewAccountPage.java",
+          "sourceSha256": "5914a4918f6f015d1501702e615c61afac595e16e9c8a7b0e84b3dcc93e3fece",
+          "sourceGitBlobAtHead": "719b0df04f9f2fdfc2b524789b6684d51e43b1dd",
+          "sourceWorkingGitBlob": "719b0df04f9f2fdfc2b524789b6684d51e43b1dd",
+          "workCopySha256": "28254130b31fd18c5d35cd62ccc394f963ef15c55f6b72986ff09ef5aab747ec",
+          "workCopyGitBlob": "479cddc48608a1c2fa997872aef519ad302aa201",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ReportIssuePage.java",
+          "sourceSha256": "0d1ddaf5f2fabc336fce89d30c6dc6921e2a2a707b671a9396117cee02963a65",
+          "sourceGitBlobAtHead": "17b2603e7618068666bb8a7a21890ce90464116a",
+          "sourceWorkingGitBlob": "17b2603e7618068666bb8a7a21890ce90464116a",
+          "workCopySha256": "852eed6ef9ea24f3da0bd8cd7cf7178b750c5f67379a6a965112cbdcfd11bb1d",
+          "workCopyGitBlob": "63cdb14bc2c1140644c4206e7fdef835c7cc0b67",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ViewIssueDetailsPage.java",
+          "sourceSha256": "474dd06f21333d384173093a9f140dfa2e9338f16b1f7fe71d89b7d526b9bf2b",
+          "sourceGitBlobAtHead": "d8b5ad0d3f46bf067cae45177cef6556b1650015",
+          "sourceWorkingGitBlob": "d8b5ad0d3f46bf067cae45177cef6556b1650015",
+          "workCopySha256": "f7c0ca3d7c63d4279b33cb92e88fb5842fcd835a6cf95be6e152ae53f27e6704",
+          "workCopyGitBlob": "24dc965b4a17715b0bc29c37a6168ea1b7354a56",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ViewIssuesPage.java",
+          "sourceSha256": "2add68588e980d281048eb81b9247182e671c98d7d3de6c90bc7ccf88c3f0383",
+          "sourceGitBlobAtHead": "6b45e89e46a57ec1c31967eef3496b2e9cb5caac",
+          "sourceWorkingGitBlob": "6b45e89e46a57ec1c31967eef3496b2e9cb5caac",
+          "workCopySha256": "6eb36d8fe476e6b69ffb46f9577097d80472bc9ee259a9be9137f1569fb0456e",
+          "workCopyGitBlob": "88ff94b97d79f7c1b7fcddb826c0510df4b115f3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/utils/Strings.java",
+          "sourceSha256": "380c3b15e6245a72da9dde595b7eb49ee2d0c28fab10fdbd6ff6ed8f611ea415",
+          "sourceGitBlobAtHead": "fd9b42e65d0de968143041adf1ad0bd50060c16e",
+          "sourceWorkingGitBlob": "fd9b42e65d0de968143041adf1ad0bd50060c16e",
+          "workCopySha256": "ffba3ef46e07f489eb1c6dfdb6713963be7f6a340d540e67993ddb5d38d12827",
+          "workCopyGitBlob": "ae1a5ebc79697db9748d07926b8ff01d17397e8d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddCategory.java",
+          "sourceSha256": "006742eadb333dd73248028a63466b9ab423f7942e7cb2d876a55d91286c16fa",
+          "sourceGitBlobAtHead": "dc79339c71567e03862e5b22ffdbb2aa3eff38cd",
+          "sourceWorkingGitBlob": "dc79339c71567e03862e5b22ffdbb2aa3eff38cd",
+          "workCopySha256": "6fb9ad621474bc13519429377e5f52c090c70c9f2bbca091bc729f83cc67e402",
+          "workCopyGitBlob": "cff9aa644325e98660c731b4af00cca3d9cbec25",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddEmptyUserFails.java",
+          "sourceSha256": "3645a9a222a28a31df9b8d5412b9168f02d60876dd987f589bc8a220cab9590d",
+          "sourceGitBlobAtHead": "3ce1b33f4f6a806cb1ac742715b3d7a2cd3cc0d1",
+          "sourceWorkingGitBlob": "3ce1b33f4f6a806cb1ac742715b3d7a2cd3cc0d1",
+          "workCopySha256": "8159253d14189191698bc9ab4f922fc105afc4e9c9dd6ac2f4ac5da8ddc9a08d",
+          "workCopyGitBlob": "4da3fe7b01eeb257ada10cd76e05df0d7068d149",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddExistingCategoryFails.java",
+          "sourceSha256": "bbf26db91cef45e0558deb8c0b6ee780c3756a001dee718ba0d16a309fc1864b",
+          "sourceGitBlobAtHead": "10a8dd1d3a494ce8781d3d8c8914f5ea8e183445",
+          "sourceWorkingGitBlob": "10a8dd1d3a494ce8781d3d8c8914f5ea8e183445",
+          "workCopySha256": "9500fa144df0dfe796af6483206aec74cf5694e2886b7fbcf7ece9b0bf491af4",
+          "workCopyGitBlob": "1b617ae38518e3d2dd73eff8e3231448c9bf4ddd",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddExistingProjectFails.java",
+          "sourceSha256": "c6763762130ef03d6f3a9843698133586a79ab7de2edd05638dac92a6ee08069",
+          "sourceGitBlobAtHead": "734ef3f6b0a71178433edd497c51275f6f33c85b",
+          "sourceWorkingGitBlob": "734ef3f6b0a71178433edd497c51275f6f33c85b",
+          "workCopySha256": "223c12dc9488805c29085a17bd4a6b5e0f2d803d90998b44d77ec39c1a81d34f",
+          "workCopyGitBlob": "5059bc54a3681ba0764586104bde7f03091bc9bc",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddExistingUserFails.java",
+          "sourceSha256": "ae8628434bac0256a6001c2cc44a3d7de2d73d330cadfc4c0a44557b65561d18",
+          "sourceGitBlobAtHead": "5daecfc3d0caa700ac471c85afc8d74fd4842585",
+          "sourceWorkingGitBlob": "5daecfc3d0caa700ac471c85afc8d74fd4842585",
+          "workCopySha256": "573b53d2c9c1f763cb6d100a5f2a98eb5925c65e5229ec3f2b6c81f6638ca3af",
+          "workCopyGitBlob": "4a3074f02eb98b7378810edfa6af1824fd31622c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddIssue.java",
+          "sourceSha256": "02cfcb5e5929f91df54af09daf1c9f72ca6875849d2a42bb5d4919d02f5f30af",
+          "sourceGitBlobAtHead": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+          "sourceWorkingGitBlob": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+          "workCopySha256": "4cf748f9c98e1e446cc9ddce4ed08cc585e752b2baa3741e3f512b07f775c022",
+          "workCopyGitBlob": "5fb1a7f1acae3c5969501c3eb3fc9bc9149348df",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMultipleSubprojects.java",
+          "sourceSha256": "5b0e5681bd5cf4dce11b94679de52f48a63bb7f8280e0ed4a754bf4d241f43ee",
+          "sourceGitBlobAtHead": "8796c9628a7b55df042b4e20822cd37a8e015a31",
+          "sourceWorkingGitBlob": "8796c9628a7b55df042b4e20822cd37a8e015a31",
+          "workCopySha256": "91e1a28889af1e5808b395d30e20d1317ae44c616bbdddf2c73ed0170d6aaf6f",
+          "workCopyGitBlob": "4450552c512f9fe73802a054a70978a70ea91545",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddMultipleUsers.java",
+          "sourceSha256": "a4a5485b2986b206d1fe108bc6b30afb7ae8035bcbbc6c3ec936c091145ec5d6",
+          "sourceGitBlobAtHead": "fb63df322dfc74da49530a8eccaad28d1e9552f0",
+          "sourceWorkingGitBlob": "fb63df322dfc74da49530a8eccaad28d1e9552f0",
+          "workCopySha256": "42340f714bf93a20cfaf736369c694b8ee50bb3e740dc67cb541fbbbeeda1dc5",
+          "workCopyGitBlob": "6a9983bdafd4f5f7f35448f03a6c255089e645c3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddProject.java",
+          "sourceSha256": "cda210d2e27c26a9c954403935bfc53d52198eb70bcfb43b69fcf67eb0942de0",
+          "sourceGitBlobAtHead": "90fae83d99e8f54153c3a91636d44db643f4986f",
+          "sourceWorkingGitBlob": "90fae83d99e8f54153c3a91636d44db643f4986f",
+          "workCopySha256": "8167b9c557f717a477cce85c62572c39dc23c84139da335ca9a792abb73bbbd2",
+          "workCopyGitBlob": "af10c18c19d8f607ea1ba7592a377dc5706e5c54",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AddUser.java",
+          "sourceSha256": "83b462c92107bab03b0c4739b9eee0bf4c1087ef02f9a6f450b601a59862c008",
+          "sourceGitBlobAtHead": "94c181b0074183a2bc15a47043b3643ce1f3c5b6",
+          "sourceWorkingGitBlob": "94c181b0074183a2bc15a47043b3643ce1f3c5b6",
+          "workCopySha256": "3d8ca7d1836a92edb3341bd503d344a7be911ed6a0f468b9e25b62c6df714a1d",
+          "workCopyGitBlob": "f1a0bd51d03cb67172667f78baa1ae0a57b4c243",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/AssignIssue.java",
+          "sourceSha256": "a4e5088ae9c50134d5d63231bcc08275edbd93e6e69ed6c2d8c58e7b47af68a5",
+          "sourceGitBlobAtHead": "7eece57a283b126a7ef74cee36212d22d708a88a",
+          "sourceWorkingGitBlob": "7eece57a283b126a7ef74cee36212d22d708a88a",
+          "workCopySha256": "47a700a5ae7be3c25c4c2954661e916bc39ad8daf5659b9a6d87aa8cc3e60ad9",
+          "workCopyGitBlob": "8cb45614d1eb8e3a66eab94fc8b9c8eb62d34352",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/BadLogin.java",
+          "sourceSha256": "ddf9512d09e755baa8583bae499ec59e47b3fab0a5021b0e860775d7beed81c4",
+          "sourceGitBlobAtHead": "1bc9545a1c54835bab609330e4c673f891214bd6",
+          "sourceWorkingGitBlob": "1bc9545a1c54835bab609330e4c673f891214bd6",
+          "workCopySha256": "b022e86485c5f67c2df0485a565ef9bab90951e9ac58bcfb3a23e77a5bb84baa",
+          "workCopyGitBlob": "7cd95c4233993a10873e1a7349560ff35864a7de",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/BaseTest.java",
+          "sourceSha256": "7518ba585cd59ba4dc3fe58c241b87d62f512294ab1efb86f0478c29d6b246e1",
+          "sourceGitBlobAtHead": "8996b1083014a429228ba9af48d74f581e50f426",
+          "sourceWorkingGitBlob": "8996b1083014a429228ba9af48d74f581e50f426",
+          "workCopySha256": "fa292e648d295f68a70981f95c30b6e85434f9e9203028d18f8f1436949cfd4c",
+          "workCopyGitBlob": "7fdb6ca3605bcb26d2984a241d1671567aa2ec45",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteCategory.java",
+          "sourceSha256": "3038fca91c3d115b970c2ba56efbbed6dade3865a29c3f0de3e83435614e0123",
+          "sourceGitBlobAtHead": "188fff16a369c3773a1a473356f79ffdc6734940",
+          "sourceWorkingGitBlob": "188fff16a369c3773a1a473356f79ffdc6734940",
+          "workCopySha256": "0e0dfe7627f8005cc46db11c8c9cfb72ff76f8d9edf2ab0341a7f71e3db3fe78",
+          "workCopyGitBlob": "bdd05afa632bc261c5118e28d32674760187f2ad",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteIssue.java",
+          "sourceSha256": "c2b3f689a97622cac5fd407c33f9649186119c48ed3dba8561d78b0ba1e6a9a5",
+          "sourceGitBlobAtHead": "7b5310b9b65462b4e39ebbce6091e2157fdffc13",
+          "sourceWorkingGitBlob": "7b5310b9b65462b4e39ebbce6091e2157fdffc13",
+          "workCopySha256": "bfdba2403d9c7774800dd06b26346d79e07130614e3f77264f84c54885da0bf9",
+          "workCopyGitBlob": "4e2621618162a1f99516122208373c94f0430b81",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteMultipleProjects.java",
+          "sourceSha256": "a2e0992ce826bce37562d2f9c67aa312d7b9dc14814425f7e7ee64957dde8081",
+          "sourceGitBlobAtHead": "af6d7f604d521e2e50b610d09df54f33252c2d62",
+          "sourceWorkingGitBlob": "af6d7f604d521e2e50b610d09df54f33252c2d62",
+          "workCopySha256": "eb8657c12da291fb6b2d2e0dabe0edad9f43e97af3ca65cbbc4a1ed29a92bb9d",
+          "workCopyGitBlob": "dedb5c4d091f097afa89eb1329ee61807b748596",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteMultipleUsers.java",
+          "sourceSha256": "7c3c349a39974fa7f65575639212d56eef3e315f00e025d8fae2de0c3b1e35d9",
+          "sourceGitBlobAtHead": "99d05a6a41272091fe6e35813e9f401ea9bbee84",
+          "sourceWorkingGitBlob": "99d05a6a41272091fe6e35813e9f401ea9bbee84",
+          "workCopySha256": "476940cebce303685a56d9f25dc9ce24277f0f07a1c44ff2548d54436e02a7be",
+          "workCopyGitBlob": "4baf207c1e28c1f5768f374ab5abd81a7d90ad4a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteProject.java",
+          "sourceSha256": "735b9493caebca2d0967fd00637361724817538cc8bf34e6141266a318687a7b",
+          "sourceGitBlobAtHead": "7db612dd2d15074997c0aee1b0da7e22df0aeba1",
+          "sourceWorkingGitBlob": "7db612dd2d15074997c0aee1b0da7e22df0aeba1",
+          "workCopySha256": "5ab8cf1f2328b83957e08080a2ba0bdbb4ab6dbd5422ec36fd552ed4bc2b53de",
+          "workCopyGitBlob": "0323025cced424ad74bfa3cd8025686ffaf5a7c6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/DeleteUser.java",
+          "sourceSha256": "05b4be47049afd579721f5db8f22a5ef688c1823f06dbc588fdcd3a0a7c1c09b",
+          "sourceGitBlobAtHead": "265907b2586afc945d0ebc1c49a9c26673914763",
+          "sourceWorkingGitBlob": "265907b2586afc945d0ebc1c49a9c26673914763",
+          "workCopySha256": "29f6b68fedddeb635886d356b499b813c971051a73b82f4489060dbd1fd32b60",
+          "workCopyGitBlob": "bddee9ffc35ee524706d0c2dceb537b51adaae0c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/LinkMultipleSubprojects.java",
+          "sourceSha256": "5b565f06d8a9ee5c25f3d00cda63fa68b5879dc7517c346e33edc6d556755f61",
+          "sourceGitBlobAtHead": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
+          "sourceWorkingGitBlob": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
+          "workCopySha256": "53b01fd461acb52962cd0256e4c97fd7fa0aacf2046c7f0d2f5f7ea09d042176",
+          "workCopyGitBlob": "8263accb092671d384db343d20aa78392489bcab",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/Logout.java",
+          "sourceSha256": "a8bc93fc5345452a19658d6620848d8f25f3aaea23e9644673fb4ad2b3c3f29f",
+          "sourceGitBlobAtHead": "7b621389f3e3e0f83a489943852762cafd9b046a",
+          "sourceWorkingGitBlob": "7b621389f3e3e0f83a489943852762cafd9b046a",
+          "workCopySha256": "172304541119207680a1f3f1ce93b42a90d07a61bf5fd74b32388e232a392038",
+          "workCopyGitBlob": "dd2720fb62ed0fde570fdbc586d910e519fbb75d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/TestSuite.java",
+          "sourceSha256": "336232b59a921a978621a36c1d19e4bf8c15295f2e3243c82f2bf0d8e5d4af0c",
+          "sourceGitBlobAtHead": "0c0bbf17a09370e73ab74e1d1a7df2ff7c999301",
+          "sourceWorkingGitBlob": "0c0bbf17a09370e73ab74e1d1a7df2ff7c999301",
+          "workCopySha256": "317562d3fc6f53ceeae9207f565872e709d2daf664122210069eb56e76a85ebe",
+          "workCopyGitBlob": "906c15472c04f0077441b9975814659e1f63b84d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UnlinkMultipleSubprojects.java",
+          "sourceSha256": "3377b1b04b161c27f4d1510cd0930958459c8e751201c21aa308448f26739119",
+          "sourceGitBlobAtHead": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
+          "sourceWorkingGitBlob": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
+          "workCopySha256": "1091ce481172d3e120787b4a31ca8d70645ed5a9f3a7b474efffd6c6f14b70df",
+          "workCopyGitBlob": "4f0ec4e3a2d7d0a313b26c5267604fb2977e5fd4",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateCategory.java",
+          "sourceSha256": "a9177684f0321faa64a652a6212872a3f27e7090744a0f0c2feb4a9176ae70ac",
+          "sourceGitBlobAtHead": "f1c773ba851b6a56d3f913669ede1179a2f8f733",
+          "sourceWorkingGitBlob": "f1c773ba851b6a56d3f913669ede1179a2f8f733",
+          "workCopySha256": "2f10cfb9dd9645fce32ff21abe534d1ee2e10dc34bf8663dc8747258beac79c5",
+          "workCopyGitBlob": "e70291d526890dc9c8436c91a91da3c50facaed8",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateCategoryEmpty.java",
+          "sourceSha256": "2f6b4abc235722e05c50ea0fcaee406ba6169d0adde6b26dbc08a4cbc8e92cf8",
+          "sourceGitBlobAtHead": "74f5f75166386a0b419a299232b59af484816a31",
+          "sourceWorkingGitBlob": "74f5f75166386a0b419a299232b59af484816a31",
+          "workCopySha256": "3dc5e212e74af7d4b5765c4c8a0e6447c6dca07a98543a00ebb83fa691609845",
+          "workCopyGitBlob": "2be33017c043a429fa5f6bc6d2f8b445e7dcd956",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssuePriority.java",
+          "sourceSha256": "3de0687c0ed294b2a080954006f7392b16559689e5b16dcec639a7b25a2946f3",
+          "sourceGitBlobAtHead": "1b9db8ae163c0dac32cee067ab3a689e89fd998a",
+          "sourceWorkingGitBlob": "1b9db8ae163c0dac32cee067ab3a689e89fd998a",
+          "workCopySha256": "8cda7f5aa5195612eefe61e277b93ebd942b423ebaf7886d9f0832c48ca212d3",
+          "workCopyGitBlob": "3ccd2acc764f0e1906e0e1ae876bfa2549c879b9",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueSeverity.java",
+          "sourceSha256": "856cc9bec26ba469b7532c7a1a61924dd044d778477c6c18a4821d97a38e36f7",
+          "sourceGitBlobAtHead": "33d5bb88e2ace1e307d746bab3fb2477a13de40f",
+          "sourceWorkingGitBlob": "33d5bb88e2ace1e307d746bab3fb2477a13de40f",
+          "workCopySha256": "bd6d3512d8b4c8585080c8095a067df25c784558acd161caccc43da88abf0412",
+          "workCopyGitBlob": "98b0c6db88bd4f33bad5c8b3264a2ae4a70fbc12",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusAcknowledged.java",
+          "sourceSha256": "9cb6b847c807dc46effa007280464b1d5bf382fb16c81f14f5a3b7a688e835c1",
+          "sourceGitBlobAtHead": "e8bc21660ceb9f655075d5151cdf7c3c5c49d328",
+          "sourceWorkingGitBlob": "e8bc21660ceb9f655075d5151cdf7c3c5c49d328",
+          "workCopySha256": "d37d07309d4e336b3e1bd94df46b312a72d36583441ea04440e191944bfac331",
+          "workCopyGitBlob": "2fe981a47aa2920c26ddbbf4b304cc7a52f99c79",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusAssigned.java",
+          "sourceSha256": "ad3835d9e9a0ed6e5a63855b1173d302ae1867ac04554de0f48dd37e0b297a53",
+          "sourceGitBlobAtHead": "35d288c31a24ba1c6d1a6a302f14bb61d6e67a2e",
+          "sourceWorkingGitBlob": "35d288c31a24ba1c6d1a6a302f14bb61d6e67a2e",
+          "workCopySha256": "513577d762d464596e45d507b82c1dc8518d8bb856431fffd1a2381280c577ac",
+          "workCopyGitBlob": "296961699d86a3f245e6ef712f0e2b256dd8ce84",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusConfirmed.java",
+          "sourceSha256": "90d32d177e04da2926a90747be62b3d03d2a3c3d36e231359caae065ac194187",
+          "sourceGitBlobAtHead": "10e982eeb12ddd1efbcfdf2e17142e94d9fffacd",
+          "sourceWorkingGitBlob": "10e982eeb12ddd1efbcfdf2e17142e94d9fffacd",
+          "workCopySha256": "10339e2c30eba99102f28b2442845916c7d2bac15a5e76576b9a4f904f35429f",
+          "workCopyGitBlob": "2ac6542f4c27f6a1592cfba43ede9a3056c0158c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusFeedback.java",
+          "sourceSha256": "1c8dcaa7f92c44ee7626ba1859bb086bfc34aaf809764ad56cc981de821f7b0a",
+          "sourceGitBlobAtHead": "689cd800a68ef387a29c937d0751c42dd7363d91",
+          "sourceWorkingGitBlob": "689cd800a68ef387a29c937d0751c42dd7363d91",
+          "workCopySha256": "0692c57e5917b3368177dacc234e25e40294a9525e115e940b57f5df8a61952f",
+          "workCopyGitBlob": "213e7015020ac5d6352cfad9167e247498b1ba50",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusNew.java",
+          "sourceSha256": "7b50856cf49e254190a4a4958a62cecaf2d17c873a25db0134bae10ec05bd180",
+          "sourceGitBlobAtHead": "4dd41a52c4d2516b1026f508f0086e1484bcbced",
+          "sourceWorkingGitBlob": "4dd41a52c4d2516b1026f508f0086e1484bcbced",
+          "workCopySha256": "9afdc0bca841f7a3e01f4418e809e117242f62172fda3fad54db96fad9e2288d",
+          "workCopyGitBlob": "24294da41874738f98847a26aa34668e1f4c750a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueStatusResolved.java",
+          "sourceSha256": "7b83a53de6266c6b4fa72a1bf05316f3b8b0a728f20f8f8c933ae206bbaaa135",
+          "sourceGitBlobAtHead": "44e0427584266bd1de1e5784359c78663b1bacd7",
+          "sourceWorkingGitBlob": "44e0427584266bd1de1e5784359c78663b1bacd7",
+          "workCopySha256": "939e81554d50f7dd487fa2d9f6738ea9e94bd2dbf1ff9d0f9d966329448ef84c",
+          "workCopyGitBlob": "7833206864e61f067cac131b99a4b99e2e37a3ff",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateIssueSummary.java",
+          "sourceSha256": "7c134cc961f7456c75b7fb7146613864c105dcf1528571ce341018af97ecf6e3",
+          "sourceGitBlobAtHead": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+          "sourceWorkingGitBlob": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+          "workCopySha256": "b1e538f98f934a21787546e6cd3f487bb34f9eac54042adf27c259796d9c9b46",
+          "workCopyGitBlob": "83a7ef421e223c81ba81632ea246e1a1a1ac0dec",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateProjectDescription.java",
+          "sourceSha256": "27dde60642fec5d92a273801bbbdc766f6edbe7e1848aae288e54f5f580221d4",
+          "sourceGitBlobAtHead": "5c91e393b0465d1bd85d2d806391500b3f0ba5c1",
+          "sourceWorkingGitBlob": "5c91e393b0465d1bd85d2d806391500b3f0ba5c1",
+          "workCopySha256": "ce249ca0ec67ec59f3a74184aa5eaf282ded247377328068f43f200f23474ef8",
+          "workCopyGitBlob": "c019e13986ec4dbdaa7e711c0d734b476088fc78",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateProjectStatus.java",
+          "sourceSha256": "045e9f37aad2bd47bacb25d2818f199f43186c87e673aa6aa0df1d218da1deaf",
+          "sourceGitBlobAtHead": "bf506a62b66d967845bf635b56d5590fdf256677",
+          "sourceWorkingGitBlob": "bf506a62b66d967845bf635b56d5590fdf256677",
+          "workCopySha256": "a7e15644e841f589bfaf1a4398e86b6fdcb8e2257144b22da3ddc623b5c9d669",
+          "workCopyGitBlob": "e5cd175a5d053daabf94c2e31b271038d1dbcf76",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateProjectViewStatus.java",
+          "sourceSha256": "f5edb6aa3f248468e13ce1d1d61c8e46d746bfcd9e4f7cfc645a12f38bbb823d",
+          "sourceGitBlobAtHead": "751318d96039f7c83c833e17c6eb508463626fc9",
+          "sourceWorkingGitBlob": "751318d96039f7c83c833e17c6eb508463626fc9",
+          "workCopySha256": "841936174b6b13c40540bf02404eb302a072da4f2b2d77b984463a5ad76cf580",
+          "workCopyGitBlob": "69468759a7e84baaa595ffe9896d4b2102122fe5",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateUser.java",
+          "sourceSha256": "a8b985964ccbb566119215b924bb69dafd6d39fbafcf9d87ea761a4c82a9a3cb",
+          "sourceGitBlobAtHead": "7b74a3fa60877b811369a8ef5fbe9761c473908d",
+          "sourceWorkingGitBlob": "7b74a3fa60877b811369a8ef5fbe9761c473908d",
+          "workCopySha256": "588f642ccd15d586aba613fffdf69bc47f2b820dafc3ec4c4c2ec50899bb2aef",
+          "workCopyGitBlob": "db464ce804566517a33c661f9473566eb6fb203a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/base/UpdateUserEmpty.java",
+          "sourceSha256": "73ac1fa94e0f47b2295f1e7081a2198eb88346ea2864a398493146c6f81bfc3d",
+          "sourceGitBlobAtHead": "49f98123a079617d9f686e6f4976b509a60e5ad5",
+          "sourceWorkingGitBlob": "49f98123a079617d9f686e6f4976b509a60e5ad5",
+          "workCopySha256": "c2f92ee91c8ab742a0b16b9d2250063f527098bd2a92320319b51af2d69d12ca",
+          "workCopyGitBlob": "3955d5a3874ef4622cc62b4bfe57082c0560054c",
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "app": "mediawiki",
+      "sourceVersionDirectory": "mediawiki/baseline/mediawiki-1.40.0",
+      "sourceDirtyForSuite": false,
+      "sourceDirtyStatus": "CLEAN",
+      "fileCount": 47,
+      "unchangedFiles": 1,
+      "adaptedFiles": [
+        "src/main/java/po/AddCategoryPage.java",
+        "src/main/java/po/BlockUserPage.java",
+        "src/main/java/po/ChangeCredentialsPage.java",
+        "src/main/java/po/CreateAccountPage.java",
+        "src/main/java/po/DeletePage.java",
+        "src/main/java/po/EditSourcePage.java",
+        "src/main/java/po/LoginPage.java",
+        "src/main/java/po/MainPage.java",
+        "src/main/java/po/PageCreationPage.java",
+        "src/main/java/po/PageObject.java",
+        "src/main/java/po/PageProtectPage.java",
+        "src/main/java/po/RevisionHistoryPage.java",
+        "src/main/java/po/SearchResultsPage.java",
+        "src/main/java/po/SpecialPagesPage.java",
+        "src/main/java/po/UserRightsPage.java",
+        "src/main/java/po/WikiPage.java",
+        "src/test/java/mediawiki/AddCategoryTest.java",
+        "src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+        "src/test/java/mediawiki/ApplyTemplateTest.java",
+        "src/test/java/mediawiki/BaseTest.java",
+        "src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+        "src/test/java/mediawiki/BlockUserTest.java",
+        "src/test/java/mediawiki/ChangePassword_OKTest.java",
+        "src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+        "src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+        "src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+        "src/test/java/mediawiki/CreateAndLinkPageTest.java",
+        "src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+        "src/test/java/mediawiki/CreateEmptyUser_Fails.java",
+        "src/test/java/mediawiki/CreatePageFromSourceTest.java",
+        "src/test/java/mediawiki/CreatePageTest.java",
+        "src/test/java/mediawiki/CreateRedirectTest.java",
+        "src/test/java/mediawiki/CreateTemplateTest.java",
+        "src/test/java/mediawiki/CreateUserPageTest.java",
+        "src/test/java/mediawiki/CreateUserTest.java",
+        "src/test/java/mediawiki/DeletePageTest.java",
+        "src/test/java/mediawiki/EditPageTest.java",
+        "src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+        "src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+        "src/test/java/mediawiki/FollowRedirectTest.java",
+        "src/test/java/mediawiki/Installer.java",
+        "src/test/java/mediawiki/PromoteToAdminTest.java",
+        "src/test/java/mediawiki/ProtectPageTest.java",
+        "src/test/java/mediawiki/RevertLastCommitTest.java",
+        "src/test/java/mediawiki/SearchPageTest.java",
+        "src/test/java/mediawiki/TestSuite.java"
+      ],
+      "files": [
+        {
+          "path": "pom.xml",
+          "sourceSha256": "5f549d1b3555cace55f2d28c35ba719a5b662f239ca412d647e66b374c34cc9c",
+          "sourceGitBlobAtHead": "4f6183f8fc783ea8201388a5ca558c37b1d0ae3e",
+          "sourceWorkingGitBlob": "4f6183f8fc783ea8201388a5ca558c37b1d0ae3e",
+          "workCopySha256": "5f549d1b3555cace55f2d28c35ba719a5b662f239ca412d647e66b374c34cc9c",
+          "workCopyGitBlob": "4f6183f8fc783ea8201388a5ca558c37b1d0ae3e",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/main/java/po/AddCategoryPage.java",
+          "sourceSha256": "531a8961f96a1005e0f1184a3e002942b3f03a47dcce6447f6c64d60a10f04d0",
+          "sourceGitBlobAtHead": "ada1c164231bec1b1be80dde8d85c047786f232d",
+          "sourceWorkingGitBlob": "ada1c164231bec1b1be80dde8d85c047786f232d",
+          "workCopySha256": "d20fb6ef40a5bb4a0db619c84622aaf179b418bce9fb84772b5d292fc7385255",
+          "workCopyGitBlob": "83dcc42d0ab8435a63b94c738ef576a6d6a33933",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/BlockUserPage.java",
+          "sourceSha256": "f6ae2442dd2bfc92c9beeaadea15af8567717960b32a8ade340eaa7ce493e48d",
+          "sourceGitBlobAtHead": "6383a464fb78744623c9fe35acccad03e8c70693",
+          "sourceWorkingGitBlob": "6383a464fb78744623c9fe35acccad03e8c70693",
+          "workCopySha256": "196a5f82e492166522db973c62cd07b699c76879d2940c7bb0422770399d97d8",
+          "workCopyGitBlob": "4134701f2553a86c05af8d06b0f6e0d9d891aecf",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ChangeCredentialsPage.java",
+          "sourceSha256": "b9b54df18a3fbceff1559fec51624fa9d899f4b316f6381d32de042bac4de8c5",
+          "sourceGitBlobAtHead": "ebb54fb8bbf53b9beb0cf18511cb390290c5670e",
+          "sourceWorkingGitBlob": "ebb54fb8bbf53b9beb0cf18511cb390290c5670e",
+          "workCopySha256": "48c6b1369391e30838172b5add8e2e16b853d5c47039b954980f39e2b59dea2a",
+          "workCopyGitBlob": "1e4c7de0028a388561f9ed3d862962bb8a26dfda",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CreateAccountPage.java",
+          "sourceSha256": "8f3ee11546e82649462de260318adebd27de1fa6980fca37ac75fdb0eb76ee67",
+          "sourceGitBlobAtHead": "45d092f396b1ac2cadd7a7619046e6b0523931b0",
+          "sourceWorkingGitBlob": "45d092f396b1ac2cadd7a7619046e6b0523931b0",
+          "workCopySha256": "39c938a1a862f8621d94de522a58eb2fd1843e866c89f33a52b22a1df8466d8f",
+          "workCopyGitBlob": "3ab5f59975e229c0d2cf53140b5b4823547c90bf",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/DeletePage.java",
+          "sourceSha256": "270ae965cbd34271b763f2d070865476d6fd5fa52eb8c51b8961878d6b847a0a",
+          "sourceGitBlobAtHead": "142b4c3a3092d14b89008486c308e380f0af313c",
+          "sourceWorkingGitBlob": "142b4c3a3092d14b89008486c308e380f0af313c",
+          "workCopySha256": "28134fe18534b709a94b2cc182eb1c5625f7009f7fb6221d1cd191fa7842abbf",
+          "workCopyGitBlob": "dbf0428e3a11b5be608909b38c081595ddc195ad",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EditSourcePage.java",
+          "sourceSha256": "2ef7ea35491706cb8f1dc76efc6e2afe13a9c7362c5fcd3d7858f9a5daf3ead6",
+          "sourceGitBlobAtHead": "cb83646ab4b68098d58bd33250cf5fef27ea6c55",
+          "sourceWorkingGitBlob": "cb83646ab4b68098d58bd33250cf5fef27ea6c55",
+          "workCopySha256": "4e052e113b6b5e77cf97a30367c7f589396ba4ae1e4f88ee66f4b04e9a1ee05e",
+          "workCopyGitBlob": "d9b214092ad1fde7e6abe53165f9a8245ee643df",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/LoginPage.java",
+          "sourceSha256": "3d7df407384bdbb1190bc0ec8f84c1fec3ff1cd5561a5793c2e0cdd319d8a4c7",
+          "sourceGitBlobAtHead": "d1c0d036f286568e428f82096345e2d7aaa9018a",
+          "sourceWorkingGitBlob": "d1c0d036f286568e428f82096345e2d7aaa9018a",
+          "workCopySha256": "771cd001b59f6d0e66060cb91bf2110d03a4990bc451000cf8c155dd3a5cfff9",
+          "workCopyGitBlob": "8317cbe254db66ab48b2427ca8907517a4f72bb3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/MainPage.java",
+          "sourceSha256": "3c4e4bbf107fae1f703185a2f2cdf8cf3b544679679fe5adea931e9cec047ea7",
+          "sourceGitBlobAtHead": "a24bae306bcf19645275150f841d3de79e8e0a35",
+          "sourceWorkingGitBlob": "a24bae306bcf19645275150f841d3de79e8e0a35",
+          "workCopySha256": "54c13185e7104007f300f12fd42085c86dab211c70ce1b687dc88ad0e5a9ca03",
+          "workCopyGitBlob": "7340af64f973efcf6a54f98a6a278871742ecb83",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PageCreationPage.java",
+          "sourceSha256": "7e1a5a25c7fc4f3fe4137f8b711942b8575924fd8a69b124b8b9762ee4162ea0",
+          "sourceGitBlobAtHead": "12bba2b51f2a0658d9aeb6ec5ab1d03feeea3b0c",
+          "sourceWorkingGitBlob": "12bba2b51f2a0658d9aeb6ec5ab1d03feeea3b0c",
+          "workCopySha256": "7afaf70adb76b94d84e679a2454e53ccb33d639c4a4a698a4490780b6822ac46",
+          "workCopyGitBlob": "06bda7045a450bd1b37051f5aebb10b9af020fb6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PageObject.java",
+          "sourceSha256": "fb3aff2709219312944c4ece5990e20eb391112602a66aaae148497831c7c702",
+          "sourceGitBlobAtHead": "e3e11312eda932dea98b8b9e819621d09b7a043c",
+          "sourceWorkingGitBlob": "e3e11312eda932dea98b8b9e819621d09b7a043c",
+          "workCopySha256": "a69c0cf5cdb179b15053b69dd89d1abc8fa0e300a50bb8de0bafeb1d0144d734",
+          "workCopyGitBlob": "7ba56c675a697743585191fea180117729e67309",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PageProtectPage.java",
+          "sourceSha256": "e6ea5d2e6e2ace8edd3b2f7705b20a4c4efa4c07b1085beaa49955d954af5210",
+          "sourceGitBlobAtHead": "d69b191a4a801332d7d57da5e4a1489a0f974b1f",
+          "sourceWorkingGitBlob": "d69b191a4a801332d7d57da5e4a1489a0f974b1f",
+          "workCopySha256": "3c8ff95fc58b0c0a3fc66a292805b8b0b337bc8a00ccf9e7b34537dbd08336f4",
+          "workCopyGitBlob": "9036435e71a8b29c75390b19ec645b1b122014fb",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/RevisionHistoryPage.java",
+          "sourceSha256": "452f54b1c47fb974b744c6ea6fbd772436ad65e88e83e13c93b23a44ea48d554",
+          "sourceGitBlobAtHead": "742f507295a7e19c8d319d29b1cd7cd599ee5b8c",
+          "sourceWorkingGitBlob": "742f507295a7e19c8d319d29b1cd7cd599ee5b8c",
+          "workCopySha256": "7588b78fb395ebd6669b4258037a59ee55f5280f514408f769803fb2157ab1e9",
+          "workCopyGitBlob": "d63bb996dfa3553d9465f41100a2668fc7f5540c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SearchResultsPage.java",
+          "sourceSha256": "7e99fe80d814b57fcbe5581476cd600124ea5b6ae2a7f24a332c196b4a0a0c3c",
+          "sourceGitBlobAtHead": "a100587dc5ecd9cdbf20c35291141420106d67c0",
+          "sourceWorkingGitBlob": "a100587dc5ecd9cdbf20c35291141420106d67c0",
+          "workCopySha256": "d6bb8bab15eeb680973cd9c9e1358e0844d6e1e7777178a8b00ed910eb3b759d",
+          "workCopyGitBlob": "0922754bbaa2caa0178941a77c5b359f9f4e7425",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SpecialPagesPage.java",
+          "sourceSha256": "c6b90a579bc76acc29a663cc6ab1cd6c52e9f3c3350deebda125e716f3034ae3",
+          "sourceGitBlobAtHead": "a2d930ce771337e478eb92f2c87075d68c020968",
+          "sourceWorkingGitBlob": "a2d930ce771337e478eb92f2c87075d68c020968",
+          "workCopySha256": "ba50dbfc51149a72f843542d0a9893d7a80d24e895ad82c4eaa70ad1c8d25e5e",
+          "workCopyGitBlob": "3644255b04e1dc52de883b1146a45b485e2f622e",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/UserRightsPage.java",
+          "sourceSha256": "d63b2b4a57acdfeff6573ead56f01cc85c373cbbc536f98f9e183bd3b0d2cf74",
+          "sourceGitBlobAtHead": "c5edb6695a221b049851a2bc2480e273c87195c6",
+          "sourceWorkingGitBlob": "c5edb6695a221b049851a2bc2480e273c87195c6",
+          "workCopySha256": "601d0fc18f4bd2644aa4fb910a4eecd0b5f999f1dde7ee4834de8a3c46ad3a7d",
+          "workCopyGitBlob": "054ae77939dce3d2c0eef5a0893df9a56c69bd91",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/WikiPage.java",
+          "sourceSha256": "cf34827a66f57e8241ae071cd2d02a5bd54447e74c5a785d2e28be07bd470de5",
+          "sourceGitBlobAtHead": "4cc011a9074fa59535c775c8292715239d113ec9",
+          "sourceWorkingGitBlob": "4cc011a9074fa59535c775c8292715239d113ec9",
+          "workCopySha256": "21ce7d4c8edf65e20c4f3c1a5baea5c441ac4fd17c51922ffbd6a2dc1be935bd",
+          "workCopyGitBlob": "0a66e158661ec4d7cd442ffd427fab96b6c2db1d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/AddCategoryTest.java",
+          "sourceSha256": "eef5be60f567e9eced1be1f12b07114f9377d293705eb3a83a8255079e76b8cc",
+          "sourceGitBlobAtHead": "b138712b78afc019b2d0583e140f1bfa2bf7d59d",
+          "sourceWorkingGitBlob": "b138712b78afc019b2d0583e140f1bfa2bf7d59d",
+          "workCopySha256": "1b27ee2fa80b722679db3b2b5a02d320ae11f23f4f161d71b31985f6ac30ccab",
+          "workCopyGitBlob": "cb3b0c71e8cac6930ad5b59a4b1f47cc9e211539",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/AdminEditProtectedPage_GetsWarningTest.java",
+          "sourceSha256": "816b5f89807782827823f89b8c1ef0568e7044afa45a8953090d0cef9a76349f",
+          "sourceGitBlobAtHead": "a7d4b90209a8b430751210449b175c48975c1864",
+          "sourceWorkingGitBlob": "a7d4b90209a8b430751210449b175c48975c1864",
+          "workCopySha256": "e0e019821cfe11ed571567dcdc720f63c0495389b0e69f2d3d324c812b3abf0d",
+          "workCopyGitBlob": "83ce53220dbca40bc9877b0347e74268ce8dda66",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/ApplyTemplateTest.java",
+          "sourceSha256": "5c323493c628268aacdce1a7f535e75ea931f23c0a6eed7b881abab91ce78e61",
+          "sourceGitBlobAtHead": "b1d27b4ac42e2a05bd2c584ddae26ed842245028",
+          "sourceWorkingGitBlob": "b1d27b4ac42e2a05bd2c584ddae26ed842245028",
+          "workCopySha256": "d1b5b82eccf10ed6bdc39a8cb0f9b65d85018c67576a1294719fa8ddc9d0ea5b",
+          "workCopyGitBlob": "502e40a045ce4094bfc5804a04349b8e6091ff11",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/BaseTest.java",
+          "sourceSha256": "46286e2281734d0cdff4f4c2e464eff96745462fd33313abf4fce998aa77671c",
+          "sourceGitBlobAtHead": "9895e62e5af4552faae93a8b06ec98ef12a25d3e",
+          "sourceWorkingGitBlob": "9895e62e5af4552faae93a8b06ec98ef12a25d3e",
+          "workCopySha256": "4e8141885ec2315c6db15cbcc38f0bd1d705854f59cc59bc376cd23076ada1b6",
+          "workCopyGitBlob": "307db457d1cd9be5164600e338e65a47d726e499",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/BlockedUser_CantEditTest.java",
+          "sourceSha256": "5338f1692ae430219416e8cc1d34ce18fa76253e155ee6b5a41ddacf227459d2",
+          "sourceGitBlobAtHead": "f2ce6d5b55e74edd406960849b0bbf9aaacb6429",
+          "sourceWorkingGitBlob": "f2ce6d5b55e74edd406960849b0bbf9aaacb6429",
+          "workCopySha256": "dec9235dbfe6a1f7206a3e935fc2bd9aa9d06fd8701ed9f8a25a667c9a230508",
+          "workCopyGitBlob": "d8c18954a241f658c51624d02e40d7208b7b2c98",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/BlockUserTest.java",
+          "sourceSha256": "561b75e6fc4c169128ffed29c959f0bfe4d06293e62e392c4441d6e5502d2a8f",
+          "sourceGitBlobAtHead": "8dd5f24ad32f467c7fb0830364e33c41136aeb1a",
+          "sourceWorkingGitBlob": "8dd5f24ad32f467c7fb0830364e33c41136aeb1a",
+          "workCopySha256": "bb315970b73dc633bcdede04319b71f5da773039ae72f47df9052bc86324fcfc",
+          "workCopyGitBlob": "2100c920251fcc092022b1b24fc0e2139dac3d39",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/ChangePassword_OKTest.java",
+          "sourceSha256": "bd6c47bf0778ffb4634d6414b505767dac40f662cc4c2a3b5aa03b9d5ae4fdc3",
+          "sourceGitBlobAtHead": "19c23eb9bc2a20ac2f2ff5173e3f9aaf590c7645",
+          "sourceWorkingGitBlob": "19c23eb9bc2a20ac2f2ff5173e3f9aaf590c7645",
+          "workCopySha256": "c6771ea07023a39ae88a3ab3494e2243254b246aa646286692b90ec66de4e5fb",
+          "workCopyGitBlob": "a33e667a061d71c433615ffff52336817097784c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/ChangePassword_TooCommonTest.java",
+          "sourceSha256": "f8bd2b4f72836cd1631be45f802ea60dfcdb8967b111d3168c14a6de564da2fa",
+          "sourceGitBlobAtHead": "7e1c0c327835385a0fc3d79bd4cca9ebdc3e0990",
+          "sourceWorkingGitBlob": "7e1c0c327835385a0fc3d79bd4cca9ebdc3e0990",
+          "workCopySha256": "6678d9126f1e18f330a4d88e224d2915a21ca27f1d0f76be8c96ecabc3a60f4c",
+          "workCopyGitBlob": "cf6407d41387a30fc1fa25a0a4276f54b589d675",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/ChangePassword_TooShortTest.java",
+          "sourceSha256": "80b18c324578cf5c8df6b76d6f64994ffba7470662be317ada2f5f6701d8526d",
+          "sourceGitBlobAtHead": "236dde7420315460c9e27ff8e6ea68e8ae268347",
+          "sourceWorkingGitBlob": "236dde7420315460c9e27ff8e6ea68e8ae268347",
+          "workCopySha256": "050aca46cfe14cbd410e52812b0299cc05d312da975d4d6dbee7f5d51b31a210",
+          "workCopyGitBlob": "fe4918324a660afcf2ae1b98754966934bf9700a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CloseInitialEditorPopupTest.java",
+          "sourceSha256": "2dd333d6bc3511caf202186cd5a5bf727caf1f2521469e0a181db92db9923c32",
+          "sourceGitBlobAtHead": "c0203c21273dc3880befbb7f6cf3bda7b41a5c5e",
+          "sourceWorkingGitBlob": "c0203c21273dc3880befbb7f6cf3bda7b41a5c5e",
+          "workCopySha256": "3efdce2bcc4ff5ec34f4eb12b69d8f8c3aa0f71ce5ddbbae44cc7fc82f6e1f35",
+          "workCopyGitBlob": "639de061010aab5f40a34bf661013a8d20d88a7c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateAndLinkPageTest.java",
+          "sourceSha256": "71f32c2f89f36399d410f3dc025942126fbd9ca139103c77d6689ac85f1c38e4",
+          "sourceGitBlobAtHead": "0365b606c6b35c90865fdc07cb9bb732054fdd81",
+          "sourceWorkingGitBlob": "0365b606c6b35c90865fdc07cb9bb732054fdd81",
+          "workCopySha256": "fa17700d5ecea060c5755f823ecd7e3e8fd6476003de688a9b0fd16fd695bae8",
+          "workCopyGitBlob": "9cf3859659e1d50958c62a7ac97ae48449f79b9d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateBlankPage_GetsWarningTest.java",
+          "sourceSha256": "dc63cfb0388427c829cc49d964ac6691b12c8b4ef1a4a7a5ddc639bedc1f230f",
+          "sourceGitBlobAtHead": "de1082b50069eed3e437b35096eae5a17bbe5001",
+          "sourceWorkingGitBlob": "de1082b50069eed3e437b35096eae5a17bbe5001",
+          "workCopySha256": "d9aa440f85b67a6a310552fa7587c7d08b5fb2b4adbaa5b49c642135ac1f5c2f",
+          "workCopyGitBlob": "eec7d1a0697e64924742f99f7aa908a81e1e6ba8",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateEmptyUser_Fails.java",
+          "sourceSha256": "8e7b55e853185325ff3fedbb1e1cba8e087bf0c306f0feced4483df17503c95c",
+          "sourceGitBlobAtHead": "a1af83e328be3081722c7407c20b4d85e6b43a8b",
+          "sourceWorkingGitBlob": "a1af83e328be3081722c7407c20b4d85e6b43a8b",
+          "workCopySha256": "8ef040761aa6577720cd7765ce145fd868a16a546ae2f102d8dad72c9a59ccd5",
+          "workCopyGitBlob": "d737d1711d72b0e3786e6a8f50d82c2ca458db92",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreatePageFromSourceTest.java",
+          "sourceSha256": "4fbfd0515e46c56d78cd477b6d4d6184de0717c0bb46999e728fb5c82a07b9f4",
+          "sourceGitBlobAtHead": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+          "sourceWorkingGitBlob": "d9a826d8caa9083730b29c664ae84de5a25a01d5",
+          "workCopySha256": "7e605c144fd9c9dbdbb20b4ced4649c720fb9e0261000738aaccea26fced7ed6",
+          "workCopyGitBlob": "eda6eb853e308561a35c7b7da3f8fad8cc307bf5",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreatePageTest.java",
+          "sourceSha256": "37b65b8b606d91e4cf2a2ae45e7bfb3882102d0100d0dfd193307ca6e2a44aee",
+          "sourceGitBlobAtHead": "a53d396a929387b2760f9db2f153200cfb07224e",
+          "sourceWorkingGitBlob": "a53d396a929387b2760f9db2f153200cfb07224e",
+          "workCopySha256": "f8d5a6b7bbc73e225bf89d8c9d810c1aee300cb2071043fd1ab42cba600e7d84",
+          "workCopyGitBlob": "1b97b2dbb37a90e624ab7545cc51e6d029264bb2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateRedirectTest.java",
+          "sourceSha256": "edd2b624cf0cb449b9ddba9f5096432965d2887950fbb920f0919cb2dd49eeff",
+          "sourceGitBlobAtHead": "eb5837980b3be8aad60679f6ddf5d451c47cc116",
+          "sourceWorkingGitBlob": "eb5837980b3be8aad60679f6ddf5d451c47cc116",
+          "workCopySha256": "a75418410caf5e839dd79591baedde44251efe716433ae76b652895ed1453c29",
+          "workCopyGitBlob": "190f5079b2493368f907f46044750840f2761ff9",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateTemplateTest.java",
+          "sourceSha256": "23ba7259a2a50a4789c1646200b935559447561473fa65565ccea11a046218a2",
+          "sourceGitBlobAtHead": "0fba176d835a951e460b71c54f32758edcf9748d",
+          "sourceWorkingGitBlob": "0fba176d835a951e460b71c54f32758edcf9748d",
+          "workCopySha256": "09a13a0523399f26c90d4b63ba582675f7f72caad347e34efd896a59c531bbdc",
+          "workCopyGitBlob": "3476f90fb8756615e9a131ce61911e1560ee4ae2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateUserPageTest.java",
+          "sourceSha256": "9d933f7e35977733a038c79ff2300bfa897c628a68b17dbc74a5ccafb665a797",
+          "sourceGitBlobAtHead": "6eb14e11da7df54171db38e32806988933f9f6fd",
+          "sourceWorkingGitBlob": "6eb14e11da7df54171db38e32806988933f9f6fd",
+          "workCopySha256": "b6f7826767a12ccd7258a176b0eb7b3de0ed89492362dfad59b44602875ef2ed",
+          "workCopyGitBlob": "71432e42e5740ed43f7acb6475ddb77c3fbe133a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/CreateUserTest.java",
+          "sourceSha256": "54bb657bec240472f54492007d7800d281d5a3025cdd2dc6ea677a29a1aed307",
+          "sourceGitBlobAtHead": "c6abb075f09a24c250d9d806d82b19832e21e970",
+          "sourceWorkingGitBlob": "c6abb075f09a24c250d9d806d82b19832e21e970",
+          "workCopySha256": "d028cfa772886beae3420a1ebbb47077e1466990e36192debceede86b0d12154",
+          "workCopyGitBlob": "663ba90f0e403959898ba4859abdb25cebd6585d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/DeletePageTest.java",
+          "sourceSha256": "80f8b3d236faabf0a2c529f57acf1661d3ceb6b7b65445b52c927aef9285a953",
+          "sourceGitBlobAtHead": "9f53f0066d32a31ccdb8bfbc003e203ed9d32e6f",
+          "sourceWorkingGitBlob": "9f53f0066d32a31ccdb8bfbc003e203ed9d32e6f",
+          "workCopySha256": "b8254357a086fa91b46775f52c15fd909b75e16b73c691a804e3c65887345afa",
+          "workCopyGitBlob": "b6e1ee7da9c44124120c31779258fc2aa849b28c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/EditPageTest.java",
+          "sourceSha256": "69df219991aa435b7cf9be363ef0b52e1dbfebbc2f1698a3e93eb5c15139e479",
+          "sourceGitBlobAtHead": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+          "sourceWorkingGitBlob": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+          "workCopySha256": "1177833c1bbaed200d0e51e56d0a2ad0f60f4fab1616f1e1fad3f6782f6ad15b",
+          "workCopyGitBlob": "6434333dac0a6c2b137e79b7394a0ba43f1b508b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/EditProtectedPage_ForbiddenTest.java",
+          "sourceSha256": "22af2acb8c71d0c0cc5613fa8750744d890e8a6fe07aaa9fa55be33cf6d02aea",
+          "sourceGitBlobAtHead": "45286fd4605a2ce9cc870b90fdbbc84e138bef15",
+          "sourceWorkingGitBlob": "45286fd4605a2ce9cc870b90fdbbc84e138bef15",
+          "workCopySha256": "c3195f97cf0851c38cddc34a79adcff86b7d726d5db5118f79a305c0d11cafe2",
+          "workCopyGitBlob": "2daaba0d165da6bfe0d58261cfc963765008ce42",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+          "sourceSha256": "278f75bb8326608b8594c869755d14c6a84283a15eea55340ea64d4a77f636c5",
+          "sourceGitBlobAtHead": "2da06da85e9e09d93b1666831464bc65a514de4f",
+          "sourceWorkingGitBlob": "2da06da85e9e09d93b1666831464bc65a514de4f",
+          "workCopySha256": "c9309e143e06d6258492bb3494f1ac0330bf9544977ca7706e1126a933e668b1",
+          "workCopyGitBlob": "435db6d8043c4fd3708e9acf88459119e79ad795",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/FollowRedirectTest.java",
+          "sourceSha256": "9e674c309995a31399d85acc42fd6c519984ab3468de10cfb2e1da2ae2cf49b5",
+          "sourceGitBlobAtHead": "92edb4fea62757ca7aee08a36a79b68c5108fac1",
+          "sourceWorkingGitBlob": "92edb4fea62757ca7aee08a36a79b68c5108fac1",
+          "workCopySha256": "dce7266c2049de9dcb73388523e66857bae0a8f36b905a87535f613639909c8f",
+          "workCopyGitBlob": "e23fcb61c81841df8a5ae9e0a168bf1bf8a41fd1",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/Installer.java",
+          "sourceSha256": "d0fe117c34293670f0936d88996c52cfd47a8834aa6ee0df3b2eaaf81471a45b",
+          "sourceGitBlobAtHead": "7c0314e03b826f0f482e3bd9660db7a91d00eda3",
+          "sourceWorkingGitBlob": "7c0314e03b826f0f482e3bd9660db7a91d00eda3",
+          "workCopySha256": "b65dacf52ad757459b377df286d75d3c5053aae1d6fef438867d6beea290c383",
+          "workCopyGitBlob": "2eef78bab5fc49af62ccee8bf96696da9db586cb",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/PromoteToAdminTest.java",
+          "sourceSha256": "ce4b7206be33087f70933f36544b33e0bd1e7d73f2393f5867df5e2f4574fed5",
+          "sourceGitBlobAtHead": "843464b878899349048ca334f65ace61e415b36a",
+          "sourceWorkingGitBlob": "843464b878899349048ca334f65ace61e415b36a",
+          "workCopySha256": "67d3108882b5f73cb96798a6cb79c88b391c66412ae2f075211b261fb46867e3",
+          "workCopyGitBlob": "6581c791842c0e60312adf733594f922f9956715",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/ProtectPageTest.java",
+          "sourceSha256": "6ead7a465dcbd03dd37d7c3622b71b993acd83de22d30ab27b8bd70a7e329718",
+          "sourceGitBlobAtHead": "5f7d954655924c450737becf5fcfbe37b02d5ffd",
+          "sourceWorkingGitBlob": "5f7d954655924c450737becf5fcfbe37b02d5ffd",
+          "workCopySha256": "b7a24ef06a3a10753ce996ed9c7c3b0c5ba5b4a82a950c72856a756d83cc5ead",
+          "workCopyGitBlob": "03a37932c80f98f4800401c75c86cb81549ec6ec",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/RevertLastCommitTest.java",
+          "sourceSha256": "e4c9792dd0f45e7a891a1ca1d445f56883f97e57b2eddc6018b74c9e71ff099c",
+          "sourceGitBlobAtHead": "2a8e87f31cfbc09637190bf7a15d246870689d9b",
+          "sourceWorkingGitBlob": "2a8e87f31cfbc09637190bf7a15d246870689d9b",
+          "workCopySha256": "501ef43212f74eb38bb13bff62bf0c4fd99608f792457d55c43848ed7ebd4bd3",
+          "workCopyGitBlob": "fa72c35ba56861295898d8c1e18bb0d577b739cf",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/SearchPageTest.java",
+          "sourceSha256": "1391d2597d1727dee756944af207e1497f8545dcb0b319a01981c73bf589c0ce",
+          "sourceGitBlobAtHead": "7b3013d0931038b99b0a0d6181eb177696b92880",
+          "sourceWorkingGitBlob": "7b3013d0931038b99b0a0d6181eb177696b92880",
+          "workCopySha256": "25fc4e39b3c1e283e57fe097f3cc24558fdfbd969afe5c7be7ec26dead028ec2",
+          "workCopyGitBlob": "97700139e43384db2420eb07c7f2ed465ef80c42",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/mediawiki/TestSuite.java",
+          "sourceSha256": "8fcf28f2fa27c85ab34466193d1f344a500a2a742ee13f8f27f10fab0d14f6d9",
+          "sourceGitBlobAtHead": "ee5905251fcc59179c0c2dce45b1ef5b0eaac932",
+          "sourceWorkingGitBlob": "ee5905251fcc59179c0c2dce45b1ef5b0eaac932",
+          "workCopySha256": "3fc4dfbb735e73482583935dbd0e53cd51df399fb924138c6390d7a5a5a71a80",
+          "workCopyGitBlob": "b8b428d50fb0de615651ae3f22a71ed56c9a54d9",
+          "byteIdentical": false
+        }
+      ]
+    },
+    {
+      "app": "prestashop",
+      "sourceVersionDirectory": "prestashop/baseline/prestashop-1.6.1.23",
+      "sourceDirtyForSuite": false,
+      "sourceDirtyStatus": "CLEAN",
+      "fileCount": 73,
+      "unchangedFiles": 2,
+      "adaptedFiles": [
+        "src/main/java/po/AddAddressPage.java",
+        "src/main/java/po/AddAttributePage.java",
+        "src/main/java/po/AddCategoryPage.java",
+        "src/main/java/po/AddCurrencyPage.java",
+        "src/main/java/po/AddFeaturesPage.java",
+        "src/main/java/po/AddLanguageIsoCodeValidityPage.java",
+        "src/main/java/po/AddManufacturerPage.java",
+        "src/main/java/po/AddNewStatePage.java",
+        "src/main/java/po/AddProductPage.java",
+        "src/main/java/po/AddressesPage.java",
+        "src/main/java/po/AddSupplierPage.java",
+        "src/main/java/po/AddTagPage.java",
+        "src/main/java/po/AddToCartPage.java",
+        "src/main/java/po/AdminPage.java",
+        "src/main/java/po/AdminSidebar.java",
+        "src/main/java/po/AttributesPage.java",
+        "src/main/java/po/CategoriesPage.java",
+        "src/main/java/po/CurrencyPage.java",
+        "src/main/java/po/ElementManagementPage.java",
+        "src/main/java/po/EmployeesPage.java",
+        "src/main/java/po/FeaturesPage.java",
+        "src/main/java/po/LanguagesPage.java",
+        "src/main/java/po/ManufacturerPage.java",
+        "src/main/java/po/OrdersPage.java",
+        "src/main/java/po/PageObject.java",
+        "src/main/java/po/PrestaLogin.java",
+        "src/main/java/po/PricesPage.java",
+        "src/main/java/po/ProductsPage.java",
+        "src/main/java/po/RegisterEmployeePage.java",
+        "src/main/java/po/StatesPage.java",
+        "src/main/java/po/SupplierPage.java",
+        "src/main/java/po/TagsPage.java",
+        "src/main/java/utils/JavascriptExecutor.java",
+        "src/test/java/tests/AddCurrency.java",
+        "src/test/java/tests/AddEmptyAddress.java",
+        "src/test/java/tests/AddEmptyAttribute.java",
+        "src/test/java/tests/AddEmptyCategory.java",
+        "src/test/java/tests/AddEmptyCurrency.java",
+        "src/test/java/tests/AddEmptyFeature.java",
+        "src/test/java/tests/AddEmptyManufacturer.java",
+        "src/test/java/tests/AddEmptyProduct.java",
+        "src/test/java/tests/AddEmptyState.java",
+        "src/test/java/tests/AddEmptySupplier.java",
+        "src/test/java/tests/AddEmptyTag.java",
+        "src/test/java/tests/AddLanguageIsoCodeValidity.java",
+        "src/test/java/tests/AddNewAddress.java",
+        "src/test/java/tests/AddNewAttribute.java",
+        "src/test/java/tests/AddNewCategory.java",
+        "src/test/java/tests/AddNewFeatures.java",
+        "src/test/java/tests/AddNewManufacturer.java",
+        "src/test/java/tests/AddNewProduct.java",
+        "src/test/java/tests/AddNewProductWithTax.java",
+        "src/test/java/tests/AddNewProductWithTax10.java",
+        "src/test/java/tests/AddNewState.java",
+        "src/test/java/tests/AddNewSupplier.java",
+        "src/test/java/tests/AddTag.java",
+        "src/test/java/tests/BaseTest.java",
+        "src/test/java/tests/EditAddress.java",
+        "src/test/java/tests/EditCategory.java",
+        "src/test/java/tests/EditEmployee.java",
+        "src/test/java/tests/EditManufacturer.java",
+        "src/test/java/tests/EditProduct.java",
+        "src/test/java/tests/Installer.java",
+        "src/test/java/tests/OutOfStockValidity.java",
+        "src/test/java/tests/RegisterEmployee.java",
+        "src/test/java/tests/RegisterEmployee_NoEmail.java",
+        "src/test/java/tests/RegisterEmployee_NoName.java",
+        "src/test/java/tests/RegisterEmployee_NoPassword.java",
+        "src/test/java/tests/RegisterEmployee_NoPermission.java",
+        "src/test/java/tests/RemoveSupplier.java",
+        "src/test/java/tests/TestSuite.java"
+      ],
+      "files": [
+        {
+          "path": "pom.xml",
+          "sourceSha256": "051bf8cbc46b689d5f259a51fb719e0b8b5b6ad76ae4b758f1becc07a9b87c2d",
+          "sourceGitBlobAtHead": "152773165a5ba747a809f87fb4172e41966f209f",
+          "sourceWorkingGitBlob": "152773165a5ba747a809f87fb4172e41966f209f",
+          "workCopySha256": "051bf8cbc46b689d5f259a51fb719e0b8b5b6ad76ae4b758f1becc07a9b87c2d",
+          "workCopyGitBlob": "152773165a5ba747a809f87fb4172e41966f209f",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/main/java/po/AddAddressPage.java",
+          "sourceSha256": "5ece9d327d7c221fe781f6f92664511baafa9ebd4aac358c7eae74aef8a95a7d",
+          "sourceGitBlobAtHead": "1947a889cbcb77b82c737e8037eea9514b51942b",
+          "sourceWorkingGitBlob": "1947a889cbcb77b82c737e8037eea9514b51942b",
+          "workCopySha256": "e76c68a6844b315b9cdf16a462fa93acc858cde1022709407d9a157ab81fb6a4",
+          "workCopyGitBlob": "d9f9cf3a2cd4c0d1f28b6ce19735e54a25586434",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddAttributePage.java",
+          "sourceSha256": "a7d3f1acef590e69c0e8478841d6fa7483ff28c64455cc6ce6f5dfdbdfdde7c5",
+          "sourceGitBlobAtHead": "6b8c0da5107d3f79c6dd9c13cba408c0fa41700e",
+          "sourceWorkingGitBlob": "6b8c0da5107d3f79c6dd9c13cba408c0fa41700e",
+          "workCopySha256": "817d1af162696aad5cdb47baf818efb7e48626fd6a4f67ccb8a1dd5770f11b69",
+          "workCopyGitBlob": "1e5181a2b16031f751e2dbb3a5298a5abcd808ec",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddCategoryPage.java",
+          "sourceSha256": "47f76c993def1b8edfb185cf84fd8531d83f2b8cd718fe020837b16ad34701d4",
+          "sourceGitBlobAtHead": "7cdfb7ea3c2c9d67aead58f10fdef39379a8a6fb",
+          "sourceWorkingGitBlob": "7cdfb7ea3c2c9d67aead58f10fdef39379a8a6fb",
+          "workCopySha256": "f42aed7bdfc06c09d7186fd4b8a838cb3e55a1a44b6367574017802d79a70545",
+          "workCopyGitBlob": "def4754e57c46c6deec1ed17328956885ab04145",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddCurrencyPage.java",
+          "sourceSha256": "e96855bbe1969c8115c44b4516e18903fd709916af9753ffe8fdfe169c7cdd7d",
+          "sourceGitBlobAtHead": "a79f9687e9c18215e68706bbdefbcc57a0169fdd",
+          "sourceWorkingGitBlob": "a79f9687e9c18215e68706bbdefbcc57a0169fdd",
+          "workCopySha256": "c450c9dd282685ac30cc2662f0fedddd210c2fa68a7c4c5318f10e82054f377c",
+          "workCopyGitBlob": "3a5c27af3b1051c66cd4e9912096994a7db7387b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddFeaturesPage.java",
+          "sourceSha256": "c0dc503ba56d6a42bf73eaca10f539d944f2b23e4d4ab6ded0d00e8d738aeadd",
+          "sourceGitBlobAtHead": "16620abe7552cb156a8abc94a8f107c0fb6e60de",
+          "sourceWorkingGitBlob": "16620abe7552cb156a8abc94a8f107c0fb6e60de",
+          "workCopySha256": "7b1815dd3008f6f09452ad956c20aa8841540ec8854102c7a4d471b1ebefe410",
+          "workCopyGitBlob": "044b9b873895061f3b84ff884b7478ce8758fbe6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddLanguageIsoCodeValidityPage.java",
+          "sourceSha256": "ca0c1071189f168b89476f6f4df2dd79e516bee5501779871991605450ac9bac",
+          "sourceGitBlobAtHead": "4191d1374a80176729d2af7bbe72e025e6ed20da",
+          "sourceWorkingGitBlob": "4191d1374a80176729d2af7bbe72e025e6ed20da",
+          "workCopySha256": "29a9e6da6020b2147233c617cf53c937d2bf4861ec64f1acf6f9188cfdec17fa",
+          "workCopyGitBlob": "86424176252012a7b9a5b4001888997d7a8abd0f",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddManufacturerPage.java",
+          "sourceSha256": "d606a429a5f81907b1f2250aa9a2e4965c33398bf8b2d7f0c19e022acf09af4b",
+          "sourceGitBlobAtHead": "951d2c4db45a66b61e92b3a2fb71d47d6306e116",
+          "sourceWorkingGitBlob": "951d2c4db45a66b61e92b3a2fb71d47d6306e116",
+          "workCopySha256": "050186b9f13e1be39d18718b9266fbf1728e2f33d4064e77f3e5fc8ab84beb19",
+          "workCopyGitBlob": "96f686922f071a31bc9468d5ad3d56ca88d88a35",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddNewStatePage.java",
+          "sourceSha256": "faa30d65a0f19face52237d3430af8fef4fdda83c2b5c858e22449d96d16257b",
+          "sourceGitBlobAtHead": "fea6078dcef5c6ae9721f01ebc86f159714ffcd5",
+          "sourceWorkingGitBlob": "fea6078dcef5c6ae9721f01ebc86f159714ffcd5",
+          "workCopySha256": "29542c63c9abeee719d09fdd6bce3ab2c409046c60617647ba824f3fd0494388",
+          "workCopyGitBlob": "fa9b1144897795ea17139ba7b2ae889a8406b7aa",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddProductPage.java",
+          "sourceSha256": "233437ab78620e7f6d6539640502b82f86cd7330e0a2e4302add8a2152167f73",
+          "sourceGitBlobAtHead": "ef5d08877ef65bca296a2b636d87eaf23b88bd7c",
+          "sourceWorkingGitBlob": "ef5d08877ef65bca296a2b636d87eaf23b88bd7c",
+          "workCopySha256": "e5697cf46ed7ad9ee4514ff94a0e849a12f52cdf96506be2d0e2ccd406673754",
+          "workCopyGitBlob": "b9cbc82422f3214ec99058e3afbe17ed7876115a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddressesPage.java",
+          "sourceSha256": "3bc4de709402573cd6ab1310dec30e96db8646eb85ee77c0f17d7d5d32c78af2",
+          "sourceGitBlobAtHead": "57de21e0de993b22eeee0c78217eef313becfeed",
+          "sourceWorkingGitBlob": "57de21e0de993b22eeee0c78217eef313becfeed",
+          "workCopySha256": "2a39fd23ccf24280a02bd28caf763c217bf3671d06be9d4862bc3f69a6ca778f",
+          "workCopyGitBlob": "0f82865e31e64d7cc485ffd07187a950922ceee1",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddSupplierPage.java",
+          "sourceSha256": "686353a57bef07468dca4ce0b80723c43e629983c0f8c4d46d70c2dce8bb30e5",
+          "sourceGitBlobAtHead": "1eb1d906d3ada7b402d12170828adeb0c0ddc236",
+          "sourceWorkingGitBlob": "1eb1d906d3ada7b402d12170828adeb0c0ddc236",
+          "workCopySha256": "50f87a5ae50302efa0df64b57b20cdea13049140d089fed24cbbb78969c6c9cd",
+          "workCopyGitBlob": "343ffe05402e92233b27c0904ee39b748ff6245e",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddTagPage.java",
+          "sourceSha256": "6105429686edec60f5f9fccb413f43ae0746b4a90bb7d5fb22dcd2f303612a7a",
+          "sourceGitBlobAtHead": "8f8f222ca61fdfeebb916a97a8c490da95c15753",
+          "sourceWorkingGitBlob": "8f8f222ca61fdfeebb916a97a8c490da95c15753",
+          "workCopySha256": "64570419b224ac9ac996d4406921693b7c603e681cf89ae2d521af9006463e84",
+          "workCopyGitBlob": "eccc2bcd7edf1c091a69c4c7f24d89362a6cd9f6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AddToCartPage.java",
+          "sourceSha256": "7d7d6329aff187fef8079ac6d292dfe20dd5348563464bf2d5472342fcbb0a12",
+          "sourceGitBlobAtHead": "1cd8e0f60e560bd0da2c468c136914ca8a33e6ed",
+          "sourceWorkingGitBlob": "1cd8e0f60e560bd0da2c468c136914ca8a33e6ed",
+          "workCopySha256": "5c11b90068efc096910aa832d478b59d8b97d8c6a301a7fddb934335f8565d4f",
+          "workCopyGitBlob": "3ad81aee3d4c23ddabf80c87215d4f3239440ec6",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AdminPage.java",
+          "sourceSha256": "9492e72d2b8cbea3e7e5f34ee33dc822dd4903aa6c58c28a55ef1a498caed509",
+          "sourceGitBlobAtHead": "e80d7b1a43cf07f0f3a1ab28609b3528c85a8edb",
+          "sourceWorkingGitBlob": "e80d7b1a43cf07f0f3a1ab28609b3528c85a8edb",
+          "workCopySha256": "182e4d0a78ae00272d12997240413d48b568e767cf7cd69d534432fead5aeb75",
+          "workCopyGitBlob": "03fb6474ed0fddfb88e912a680b895b5e6b09994",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AdminSidebar.java",
+          "sourceSha256": "886a3e43c157b4de4102b396deb805c37609db8eb7bbee4736bac1adb39fe3be",
+          "sourceGitBlobAtHead": "78cf801b3aa2c905309835b3b105a8f45951246b",
+          "sourceWorkingGitBlob": "78cf801b3aa2c905309835b3b105a8f45951246b",
+          "workCopySha256": "6d71925126dba517afb90228af56b0eedbe3eb1fbe7114413ab2ab8980d8b156",
+          "workCopyGitBlob": "35fc2920888aeaf2c70835fad6dd000fefbfbe5b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/AttributesPage.java",
+          "sourceSha256": "44220c2026a737109fc59f431ad9c737c113bb814c56dc8aec6c95b18c158d34",
+          "sourceGitBlobAtHead": "16e2e21f21674459635c6ce248eaf961a7aed7c6",
+          "sourceWorkingGitBlob": "16e2e21f21674459635c6ce248eaf961a7aed7c6",
+          "workCopySha256": "54bc3193d75387e2bc7780c993af4538162ba31501c6eb11014aebef00981f5e",
+          "workCopyGitBlob": "d1592f6c676205a3e6b423deeb0dce8e538daa68",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CategoriesPage.java",
+          "sourceSha256": "bdc90b920f14a9bef2e419f4b3abe3b46055ca73855487f39060c9a98f00ed9d",
+          "sourceGitBlobAtHead": "b65dcfbd49006467961621b14008f539f1fa3fc6",
+          "sourceWorkingGitBlob": "b65dcfbd49006467961621b14008f539f1fa3fc6",
+          "workCopySha256": "47cded9182ae9ee7a780d25d46e91b0c2f9c28d9666e756edf6f22f38097260c",
+          "workCopyGitBlob": "cab3921f76efb212118376bf46330827df1d8076",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/CurrencyPage.java",
+          "sourceSha256": "12cf0d1da7376d335fc8a8e08ed70f4dc9d21b509c95fb72a4cc5f248518303f",
+          "sourceGitBlobAtHead": "49bfa82cec5eadc02b74b6362777fca109c0f542",
+          "sourceWorkingGitBlob": "49bfa82cec5eadc02b74b6362777fca109c0f542",
+          "workCopySha256": "422fa94e78b629dfb8c9ec2ce386c3dbf4ffcd60ccce382aab000fce1c89f593",
+          "workCopyGitBlob": "badd5996a9a14124e575072ca7a49378d45331cd",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ElementManagementPage.java",
+          "sourceSha256": "189035d846ac514cdcdb1777617574f32c2c0f6bd3f6209cf333c066e18456c0",
+          "sourceGitBlobAtHead": "948f3cc6abca523030a0e406e1a7828bb046a93c",
+          "sourceWorkingGitBlob": "948f3cc6abca523030a0e406e1a7828bb046a93c",
+          "workCopySha256": "f1c792e7ece4dd4020fe9c3f46bdfecc7c7bbd9e55509e78de612081585b6757",
+          "workCopyGitBlob": "5747276dd0b1145a00ae3ad21b0f6b98bad04fe3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/EmployeesPage.java",
+          "sourceSha256": "67f043bb6af50cc90b02cf1488e295cf78ff48fa120d86fe21451be65dd72ed9",
+          "sourceGitBlobAtHead": "3046d13d57f0599e099e6e1edc4a4436d0ea6b50",
+          "sourceWorkingGitBlob": "3046d13d57f0599e099e6e1edc4a4436d0ea6b50",
+          "workCopySha256": "e31a3889d50339d9ca39517b4f16db86440d2827750c4e8a82acbe0cee8cac46",
+          "workCopyGitBlob": "d41d2e3e82aad0b5561957a8c47c175f52bb54f3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/FeaturesPage.java",
+          "sourceSha256": "57f3edad1500027319dd39af548d720fe791de492c09283561dc6419c2fb1b69",
+          "sourceGitBlobAtHead": "a661967ff6ae8a3b076600c13ee2b044453e7f49",
+          "sourceWorkingGitBlob": "a661967ff6ae8a3b076600c13ee2b044453e7f49",
+          "workCopySha256": "eab3bd8920f056536ad301b27bf1580962bda7a7764b55e05a58a93496622969",
+          "workCopyGitBlob": "6f262396f9511eecd51ed5693e4c4f283922318b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/LanguagesPage.java",
+          "sourceSha256": "eb3b71b13de13af5c7ab285c83d54913457d35196845ec92d563f594dccdfd79",
+          "sourceGitBlobAtHead": "545995443ea087ff4fe7690f0c1df5328933558c",
+          "sourceWorkingGitBlob": "545995443ea087ff4fe7690f0c1df5328933558c",
+          "workCopySha256": "ece2d77c9cb0dba402dc6b1b6965a95ffdc4c4d3a80f869bbbd767121eac8a2f",
+          "workCopyGitBlob": "0c2cd5e457cbab2c3b98147b24def5668c2899a8",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ManufacturerPage.java",
+          "sourceSha256": "2bc2189e6367518a2295f5db55041892e5fea493fa07aec30b94d44444db7f6f",
+          "sourceGitBlobAtHead": "67a2d9ab5882a013f22ae451367ab85befeab94d",
+          "sourceWorkingGitBlob": "67a2d9ab5882a013f22ae451367ab85befeab94d",
+          "workCopySha256": "b3701f233f0114390a4fcee68a470b1d23ccae64181948b9760c346c05d4f0a2",
+          "workCopyGitBlob": "5167c7ef2a64932bbcf4e4f43d46d262e4a4d93f",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/OrdersPage.java",
+          "sourceSha256": "1375085f5c06c4b2453b5737a9b5af56858534a2f2572c472fd80567d24c23fe",
+          "sourceGitBlobAtHead": "d1198974957be44bd07c3fde9fdbaa022d4fbe7d",
+          "sourceWorkingGitBlob": "d1198974957be44bd07c3fde9fdbaa022d4fbe7d",
+          "workCopySha256": "57ffc81b588b87dae882bea5be2d3acfa65e21be284e54c1d157b981532a01f8",
+          "workCopyGitBlob": "46ac1495389246b8b6cd48a5bb5db216b48fbc34",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PageObject.java",
+          "sourceSha256": "6b0dd4ef3c2645557290be16ddcc0235da707078573abe004c1cee2d8b98be5f",
+          "sourceGitBlobAtHead": "cd4c7d32766afd90acfa017703aea31ba214e5c3",
+          "sourceWorkingGitBlob": "cd4c7d32766afd90acfa017703aea31ba214e5c3",
+          "workCopySha256": "c0415f80cb73601fbbe1a8410d9ba79aef968d75a0706f1fcbb7f78caf30a012",
+          "workCopyGitBlob": "bab8f09c796a81cf2decd94cd1eaa91b101bec5c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PrestaLogin.java",
+          "sourceSha256": "dbf84b26003414cdbfc384ee9ac94fb50234b4edfd4b7e3444a26e6f10c604f7",
+          "sourceGitBlobAtHead": "35b25790483a14e16b6345b33563ce4ddbbc6aec",
+          "sourceWorkingGitBlob": "35b25790483a14e16b6345b33563ce4ddbbc6aec",
+          "workCopySha256": "ac1540c9685a8d80695a2a3355fc548e9dfa87c3e9e3c84e7edbfcd4c175c838",
+          "workCopyGitBlob": "da045ef701c118099402515bebc94b2fd30202d7",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/PricesPage.java",
+          "sourceSha256": "4a3465bf947548372d1711583e9f079a96c9f570eef91ca2dd7d2749908cd473",
+          "sourceGitBlobAtHead": "f50099712c8d8277c84c17ccb18e4bd7458569b3",
+          "sourceWorkingGitBlob": "f50099712c8d8277c84c17ccb18e4bd7458569b3",
+          "workCopySha256": "faefd5be2c905cb04611c7a457520cb8915d33b179f13723aaf66c0502fd2b78",
+          "workCopyGitBlob": "d1e355397febde9b61bff8e51e3f41a6452c9184",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/ProductsPage.java",
+          "sourceSha256": "e75c10855e4dc773ad8e216df53e5e6b2111346d224addfe5cad8ff0467d989a",
+          "sourceGitBlobAtHead": "74194fee8421f9deb2059ad14a644318f289fc30",
+          "sourceWorkingGitBlob": "74194fee8421f9deb2059ad14a644318f289fc30",
+          "workCopySha256": "ad126bf6b7100b44a81ec4aada909917623f3474848a12b9a261595eea25237b",
+          "workCopyGitBlob": "3b6d0c8a7772249f97361340fc09141d81846ca2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/RegisterEmployeePage.java",
+          "sourceSha256": "99831fd7e806281b31c17bd9442ea192c68e1b2f17d4de801cbb786b13e779aa",
+          "sourceGitBlobAtHead": "d9e9d23f3e4fb73519e78dbc2fee50c72f57e126",
+          "sourceWorkingGitBlob": "d9e9d23f3e4fb73519e78dbc2fee50c72f57e126",
+          "workCopySha256": "87851b4e69247adde18b65a7c134bc28df7ca94a1cb9bb5b0bd697a52c93e625",
+          "workCopyGitBlob": "07c2a895bb5d447255c5688d6fc3104458f5ebc3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/StatesPage.java",
+          "sourceSha256": "7c0b75256c4ebc15fa53eccc46c7abfcb078d2d40a66b18e3003625de2a460a9",
+          "sourceGitBlobAtHead": "15089f7e85ae71e6da9fa3fea636b2e2a920231e",
+          "sourceWorkingGitBlob": "15089f7e85ae71e6da9fa3fea636b2e2a920231e",
+          "workCopySha256": "b4cfa4e5d9a23650938fdafe4eca47a7b6dee12c2f3906f63c0c318c4bd38562",
+          "workCopyGitBlob": "8108162060436569a90bff02db0788fd512c41a1",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/SupplierPage.java",
+          "sourceSha256": "f12f4a146f912adbd6b4a4a90c8d64deee2047012fa735a2dd562df720fe41b4",
+          "sourceGitBlobAtHead": "2e12a223a3ea4007de94c5321f0a9e3b0bbec8b2",
+          "sourceWorkingGitBlob": "2e12a223a3ea4007de94c5321f0a9e3b0bbec8b2",
+          "workCopySha256": "bf9c31e0db3c95ed611ffe7eebb4f925a71a4c4b1f44a2e8e1e9af59a4486f8a",
+          "workCopyGitBlob": "a9d03d9357515a9cfdec947349d21b928dc5d973",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/po/TagsPage.java",
+          "sourceSha256": "ab47bc4bd9e6df5afe0053c9a85f8f45277ff89d3214dba9aac117c4faec5802",
+          "sourceGitBlobAtHead": "7474d33559bef1a6eee208b9cd69fdfa4c8ed415",
+          "sourceWorkingGitBlob": "7474d33559bef1a6eee208b9cd69fdfa4c8ed415",
+          "workCopySha256": "ed970e89ef9a9f37dd8146d25634024f979855ff4652f9fd64dde01b78757715",
+          "workCopyGitBlob": "9efa876e52ff2f0659e24958c93b63ea3335395a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/main/java/utils/JavascriptExecutor.java",
+          "sourceSha256": "7f5b6d75134c7b27c85e596e3c27c163fde812cc74666035b48551e432681c36",
+          "sourceGitBlobAtHead": "5fe2bf6f348777d186e91384ae91202cc6b4c52c",
+          "sourceWorkingGitBlob": "5fe2bf6f348777d186e91384ae91202cc6b4c52c",
+          "workCopySha256": "a4a178d9c0abab4512354f5e4002723574e169dc761f3fa87dabf486622060f3",
+          "workCopyGitBlob": "0455632c3d12b6754a11a5efc40325ac45336203",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddCurrency.java",
+          "sourceSha256": "b719eed53ac0aa3f0900166f0caef307b452281843902686f31c73f5169d293c",
+          "sourceGitBlobAtHead": "9342941f84514859ff02af985ed4a61e9a58079f",
+          "sourceWorkingGitBlob": "9342941f84514859ff02af985ed4a61e9a58079f",
+          "workCopySha256": "bb0c40755716173698ded2752cf56ef08cf7458a8c1e91f0c99a86f4bda4ff4c",
+          "workCopyGitBlob": "b3e8d1b248d7bff263530ec8268d2fafe00ae76e",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyAddress.java",
+          "sourceSha256": "75c9bae529c848f3494b6252d8cef5ae0f88b6dc111296f2e9240a1276ff8861",
+          "sourceGitBlobAtHead": "c49fa5fcbb7d95710aa19105e7249f4545b9ca3e",
+          "sourceWorkingGitBlob": "c49fa5fcbb7d95710aa19105e7249f4545b9ca3e",
+          "workCopySha256": "e201326dea7d7d64551e818c0fafe4263e7efc03ebf225a5ba2f4bae6edea630",
+          "workCopyGitBlob": "450f660b515b6fd72459d10a1514d0c79153fb21",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyAttribute.java",
+          "sourceSha256": "1d4a88be85b5495afdaf8d4f7bac41bdbe91178f77b9154bc430212128d8687a",
+          "sourceGitBlobAtHead": "e5fe547b2a0629a976f6ef672383e5c498c9d996",
+          "sourceWorkingGitBlob": "e5fe547b2a0629a976f6ef672383e5c498c9d996",
+          "workCopySha256": "d548afc78b1f03296ca7d7c36d0fd292d13b0e17818bb3484f6631090221f7fb",
+          "workCopyGitBlob": "eea063b6c711d060b9803bbebe86d2841bb3b684",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyCategory.java",
+          "sourceSha256": "ceaf48d4a8f67e6fd84d5bd26bdfc9c09b8d796a35ad2818600e6e5f6048e8e9",
+          "sourceGitBlobAtHead": "23e02167acc9ee0b72b708ab6dac2ca9016f8151",
+          "sourceWorkingGitBlob": "23e02167acc9ee0b72b708ab6dac2ca9016f8151",
+          "workCopySha256": "824722149b98340aa93e74dff1c855023ca109d2620810a7f9e3620fba0013e9",
+          "workCopyGitBlob": "2579bf4f4d4618c7e7e3f6a1fdd5126854c4d1fa",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyCurrency.java",
+          "sourceSha256": "bba06367f880d2a1f85d53d7450c31747887833cf392319f173668a3da79f98e",
+          "sourceGitBlobAtHead": "388e2b10b084a8b184106bb68ed55e97007a38ee",
+          "sourceWorkingGitBlob": "388e2b10b084a8b184106bb68ed55e97007a38ee",
+          "workCopySha256": "58f93bbf296530fc28cd7adff1e093178bfb0e803d2de09abb8dbc38aaa139a7",
+          "workCopyGitBlob": "74753c0426c309e0593541537de5922f4feb4e7c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyFeature.java",
+          "sourceSha256": "85622362e079a43cf3cf911de04bbfc8b1af586bbcecae2d1a13d0ec5710fd59",
+          "sourceGitBlobAtHead": "7b8768decbf784d336797cc794f05df3c9f5eaf1",
+          "sourceWorkingGitBlob": "7b8768decbf784d336797cc794f05df3c9f5eaf1",
+          "workCopySha256": "f7c872dc71c9b8264b4dcdb3e44e724a51ae8d530e36b8517e971d9296867d7c",
+          "workCopyGitBlob": "516df26f4e45b56f144ba0dcc0b5aaca860f6e92",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyManufacturer.java",
+          "sourceSha256": "ae38d820b5235ff858cff769015d230b6238b21770c39f23f420b9a548e1b86e",
+          "sourceGitBlobAtHead": "e30a7dd933f755bcd15f0adc1caf978e90c88b11",
+          "sourceWorkingGitBlob": "e30a7dd933f755bcd15f0adc1caf978e90c88b11",
+          "workCopySha256": "7a0337bc68ea4268e622d777e2faa2a3a2d2ee5e16f34eb98fb408aa66a5a783",
+          "workCopyGitBlob": "f7295319e948f187252143fad74c4f1caa5146de",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyProduct.java",
+          "sourceSha256": "e582b50fd27989df4575dd510ea7c98e4025aa20fd441272805c04d5dc667b0a",
+          "sourceGitBlobAtHead": "a169d273ecd72dad41d6f78084a2e37e42737830",
+          "sourceWorkingGitBlob": "a169d273ecd72dad41d6f78084a2e37e42737830",
+          "workCopySha256": "aa1002b26b47e8d4bcd1754263fec459be3f0596283c095cd270c4e381a92dd3",
+          "workCopyGitBlob": "abfb410f83996dc23c03353dba3e042245c04e81",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyState.java",
+          "sourceSha256": "f5e231fe887acd0ce13f50d27957cf9596f21ced34cc93af0be302fc798f926a",
+          "sourceGitBlobAtHead": "89e8c3f2c2c6e3466046296be8be28f12a4da91f",
+          "sourceWorkingGitBlob": "89e8c3f2c2c6e3466046296be8be28f12a4da91f",
+          "workCopySha256": "128005ee5104fe44d01252892a22361148e4e43ebfeb1af7c227664a35cf9957",
+          "workCopyGitBlob": "ea283d71e5d94d3465cf8ee517448fc84adadccc",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptySupplier.java",
+          "sourceSha256": "1d24745f7e87fa0cf3b5ec52339b3a478d89779d218d2c8352410f5d1da46740",
+          "sourceGitBlobAtHead": "922af046e3fbee755b508924a2106c595a8c9c1a",
+          "sourceWorkingGitBlob": "922af046e3fbee755b508924a2106c595a8c9c1a",
+          "workCopySha256": "adaaee1bd171d059cfaa5e1df4bf85f37766cfb010f01c3a556c14bc9a74b1a9",
+          "workCopyGitBlob": "2927bc49213ad6b3bc809bb72b8863b31c38ab67",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddEmptyTag.java",
+          "sourceSha256": "e37683e294a01e85265b8e0b091b2b5b4f7168989b882f88c4677f2491e355f5",
+          "sourceGitBlobAtHead": "7c08c7d33384ef4cb7e3f1922a96a3fa4428c96c",
+          "sourceWorkingGitBlob": "7c08c7d33384ef4cb7e3f1922a96a3fa4428c96c",
+          "workCopySha256": "85ecd6ecd7d04bd4801f2c4ff6abb451328d0097c855429a39c1d34612cf41c1",
+          "workCopyGitBlob": "8e17d8009d83b5f929dbbc10a1815a2ee24cc343",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddLanguageIsoCodeValidity.java",
+          "sourceSha256": "f46557386031ed079fe2cbdb9d377a8879bfa543595dd5c8132d58f2fb93c152",
+          "sourceGitBlobAtHead": "263efc29465275fbc795534e0128553cdfd96097",
+          "sourceWorkingGitBlob": "263efc29465275fbc795534e0128553cdfd96097",
+          "workCopySha256": "692de3a686892d67eacc685d79de1b9e183fe1933b3f27a48e48f1bacf7f6d36",
+          "workCopyGitBlob": "1cf790a5d92a201c45988eea7177eb68fa2a8567",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewAddress.java",
+          "sourceSha256": "b69ca474959009f1deb4ce3aa70c304137ebca88acdd49af885c04728bf2c760",
+          "sourceGitBlobAtHead": "7163cf04381cd386ed7daae25ff7553866da3c86",
+          "sourceWorkingGitBlob": "7163cf04381cd386ed7daae25ff7553866da3c86",
+          "workCopySha256": "4655776a118dbacefbc59c8919f4038c0c3ea9c8c4c67264590854a2ae81ff27",
+          "workCopyGitBlob": "f51082f43d9bc371b49aa861c3609b948beecc71",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewAttribute.java",
+          "sourceSha256": "922f0f03f81695d12fe22882ca18238a50298e364fc2a6c4b698b4d21ac8abda",
+          "sourceGitBlobAtHead": "a6389eba2b71a5fc81956fffc804911398119386",
+          "sourceWorkingGitBlob": "a6389eba2b71a5fc81956fffc804911398119386",
+          "workCopySha256": "acc7981dc00f1831b282326c5eb3d123249321f65c56753a7912960b4f1d4785",
+          "workCopyGitBlob": "a323cab3575b2eb61b6fbe97ff529b297d98ca61",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewCategory.java",
+          "sourceSha256": "f199ed20ebabfa8fa34ceda2f4c8ec73b66e36eafb3127fd89f6ba3b6c7849e9",
+          "sourceGitBlobAtHead": "63798a29081b1fea9164c435c5a2ab06102f1565",
+          "sourceWorkingGitBlob": "63798a29081b1fea9164c435c5a2ab06102f1565",
+          "workCopySha256": "6359e348e838b2edde689567c2951e85b8b7fe3345832dc91e24f4f986a3815e",
+          "workCopyGitBlob": "757ec3edfb8972a92ff3bd2fc495fac3d002f214",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewFeatures.java",
+          "sourceSha256": "4670e9a24a2d8b93108ca1be89f9dce7fa71aaa592836c010b7e4bcc54e006d1",
+          "sourceGitBlobAtHead": "e8976841f04690385937135fa2936b8fe99fceb5",
+          "sourceWorkingGitBlob": "e8976841f04690385937135fa2936b8fe99fceb5",
+          "workCopySha256": "0a2ce6d8f1825ef180b0674c1dc835a9de5a3cb0d3ac6ab45d344e71085c6258",
+          "workCopyGitBlob": "8dace87fe668ffef3af677287af32778890dfeb2",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewManufacturer.java",
+          "sourceSha256": "aff1962e5803b0c7c19b294b5e149757d920f8907822823e6a769c0ebcfedc12",
+          "sourceGitBlobAtHead": "010c47ac6c1114cff6b3c4f63ef9727531047353",
+          "sourceWorkingGitBlob": "010c47ac6c1114cff6b3c4f63ef9727531047353",
+          "workCopySha256": "a66b119e7af64e68a0d519f6447041214c4f917797464d11dd1f38f81af7bd82",
+          "workCopyGitBlob": "9c19fbddf08a3dba83dfc629de4259f3b3055af8",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewProduct.java",
+          "sourceSha256": "ad022a7978b7681e4cb8b577fbc529b698949fd634df1a5f2d8ce1284face27a",
+          "sourceGitBlobAtHead": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+          "sourceWorkingGitBlob": "a4494328506d5f475bf5c0c6b30b2dce8a69b329",
+          "workCopySha256": "f1eb8f4311df1b611a4eaca8d544fc0ca9db40e887c942eeaf8498d548bfdf8e",
+          "workCopyGitBlob": "a34e61f632567225aee959ff10964535d24d47eb",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewProductWithTax.java",
+          "sourceSha256": "286091e0b7ee6235ed69276ecfad26f513dbd016bcc1724238bb7a6ff9f5d0bf",
+          "sourceGitBlobAtHead": "bdc76bd28ed0d43e381faf467e5a670a0cfa4b5d",
+          "sourceWorkingGitBlob": "bdc76bd28ed0d43e381faf467e5a670a0cfa4b5d",
+          "workCopySha256": "7ea9df9a7f82b8342cc677f5ce3be36e22c1e69f0627eb009b613b1c24c976c0",
+          "workCopyGitBlob": "d2d3c59137dbfe6fee576984dfaeced1b96ec71a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewProductWithTax10.java",
+          "sourceSha256": "353b7dd240434fd41e287f65701df8c0d05ca2ce435df4ecb1bb31741315f27e",
+          "sourceGitBlobAtHead": "b6a2a30b1eedf6398129357457ea6d2eb6b710ad",
+          "sourceWorkingGitBlob": "b6a2a30b1eedf6398129357457ea6d2eb6b710ad",
+          "workCopySha256": "9d165fe46d5a591d48cd7d5584c6d982260612edc1eb8f8459b25a8ed0e4fd0d",
+          "workCopyGitBlob": "13ca56efd283941aa426139f9282b2242122c4df",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewState.java",
+          "sourceSha256": "a2b724644bd202bbec84175ab763dd870c0fc7f08c55d7ae9a28df5ae11d1b71",
+          "sourceGitBlobAtHead": "e88edcfa0303634df301bb2abf0c28f08847a587",
+          "sourceWorkingGitBlob": "e88edcfa0303634df301bb2abf0c28f08847a587",
+          "workCopySha256": "b848ce8e8e76436ff6c04b9852d25827218ea224bf9bbef598db43d19353fbc3",
+          "workCopyGitBlob": "a125c940c6cfdc7fa601c4e921460a7b697be1e3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddNewSupplier.java",
+          "sourceSha256": "f2d8c855e96941c6bc526da8c6e0b654a19e90ad2b5e4a80d02efef3179405d0",
+          "sourceGitBlobAtHead": "51211f9b677b7a4a54a7b1fbbfd41c8e074765a3",
+          "sourceWorkingGitBlob": "51211f9b677b7a4a54a7b1fbbfd41c8e074765a3",
+          "workCopySha256": "34a888e2cb90be2915fd6e1029167fbf0d0cc261235d310b2ab1cab85042f004",
+          "workCopyGitBlob": "15631a2fe0388d13af6610b19da06c1a6e82f37a",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/AddTag.java",
+          "sourceSha256": "beeafb83a66df248dff48c5ba097a07b26fe8ace5a8332e9a1ab12748dcc30b6",
+          "sourceGitBlobAtHead": "f3896862716f11b86d6201ee4867b16226ce202d",
+          "sourceWorkingGitBlob": "f3896862716f11b86d6201ee4867b16226ce202d",
+          "workCopySha256": "2b5b2034893e014672b6ce4e76ca91a2097e9c3af9756d00e7540b1626f0301a",
+          "workCopyGitBlob": "930a347cbf452d929034c3eb91c4dbbd0d90c8a9",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/BaseTest.java",
+          "sourceSha256": "6b1f09c30a7f2ec9921fd9f8d2d7e7b32d748531d0afdb08da300d5fc7c5a9be",
+          "sourceGitBlobAtHead": "77c3e900e1e2f59396ea390bde5c01f80f0e71d0",
+          "sourceWorkingGitBlob": "77c3e900e1e2f59396ea390bde5c01f80f0e71d0",
+          "workCopySha256": "21606a1690363ddd6617ddbc662585fb7779d84b359f25388e776c093f965e61",
+          "workCopyGitBlob": "eeecb0dcf05e1a990d5d55bf8c27be860852be60",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/EditAddress.java",
+          "sourceSha256": "4cf0e368f5c7fc85fd8b85eaa29a44008662f8c623a617efe93465ec077d19cf",
+          "sourceGitBlobAtHead": "e12c5ed10c4360bac7d2bd65901c28eb9664daff",
+          "sourceWorkingGitBlob": "e12c5ed10c4360bac7d2bd65901c28eb9664daff",
+          "workCopySha256": "4f47581e3904a4a3a1d9c7493a8f171573abbbf00a74db702f26173a161d9b61",
+          "workCopyGitBlob": "7f3573a67902c4facd838fe18efa625c42fa6e5c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/EditCategory.java",
+          "sourceSha256": "44e214cb79b777d2a5d4b6743eac6f6628cd122d05eba7bf173be8819e3d03f7",
+          "sourceGitBlobAtHead": "b0e16a27c8f1461bfe9644f8e5fe9d43ed1adb24",
+          "sourceWorkingGitBlob": "b0e16a27c8f1461bfe9644f8e5fe9d43ed1adb24",
+          "workCopySha256": "249ffb9e60de00192d0004662697e576e2f36ce9bf9aee2fd6aa2cb852acc697",
+          "workCopyGitBlob": "be9c61b15314926d92ad46e6d9389674266c7400",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/EditEmployee.java",
+          "sourceSha256": "ebc419eeffacc60412993513589b8c75a2811b311119ec95665e8fb82d7dde3a",
+          "sourceGitBlobAtHead": "120296b27843b7f112c5160706392f8d3d197b38",
+          "sourceWorkingGitBlob": "120296b27843b7f112c5160706392f8d3d197b38",
+          "workCopySha256": "9862c07ce0d5e7032e1ebd978b4e9c52aae0f71c96ba4fa8d809fe200a4c8b22",
+          "workCopyGitBlob": "f9197c60b216a372a7651c07938a0dbd6f03528b",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/EditManufacturer.java",
+          "sourceSha256": "79553cc656bd87fc93bee4ce3746160a94e2b4bf1ec7067951c7d09a0132ffdb",
+          "sourceGitBlobAtHead": "c37096378daf888d2e69dad11401faef164574e7",
+          "sourceWorkingGitBlob": "c37096378daf888d2e69dad11401faef164574e7",
+          "workCopySha256": "235fbf4147cec21054f88150967740d64ba0aaa6f3b0e7b508f15eb813e82d4e",
+          "workCopyGitBlob": "dd143d7e6a2f7e7d5e9e339c0dd1787f4f3804a3",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/EditProduct.java",
+          "sourceSha256": "3dd75e0b027e6f68f746ea4a89510e1bf00eed3fd443de4a0d060c23052009f6",
+          "sourceGitBlobAtHead": "d8359b013b900364cbd32881f31b0b29734c06f9",
+          "sourceWorkingGitBlob": "d8359b013b900364cbd32881f31b0b29734c06f9",
+          "workCopySha256": "325a22dd69997031c5aec9de442fc68301fa64b6ef4f01621e8defef14bbcf4e",
+          "workCopyGitBlob": "35795f408a359c73b68130b74a1fd509bdd0b4cd",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/Installer.java",
+          "sourceSha256": "a2b11910773b744536179fea2be3d60dfa13a68ea07c8b2926d0a2dc90f0c562",
+          "sourceGitBlobAtHead": "d8f1c4e12c3f7415d4d15b5498a878294b644be9",
+          "sourceWorkingGitBlob": "d8f1c4e12c3f7415d4d15b5498a878294b644be9",
+          "workCopySha256": "53bed589df8cb2434506a6e0c2029b0028b009579609938be9a8746d697a2acd",
+          "workCopyGitBlob": "b4d05bfcd97965a8be1df5ff8219b44f2e90919d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/originalOrder.txt",
+          "sourceSha256": "946345c26c3d8539bda6d8464b53ca7de63cf37633b12b2c2fcc1afbbf3953f0",
+          "sourceGitBlobAtHead": "5f1fdde00503ff88f8dd06dfba99939a95a8870c",
+          "sourceWorkingGitBlob": "5f1fdde00503ff88f8dd06dfba99939a95a8870c",
+          "workCopySha256": "946345c26c3d8539bda6d8464b53ca7de63cf37633b12b2c2fcc1afbbf3953f0",
+          "workCopyGitBlob": "5f1fdde00503ff88f8dd06dfba99939a95a8870c",
+          "byteIdentical": true
+        },
+        {
+          "path": "src/test/java/tests/OutOfStockValidity.java",
+          "sourceSha256": "379204a48a1cbe785b435b28daf83b8e904899bf8666d839e8acb30a3ddd7602",
+          "sourceGitBlobAtHead": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+          "sourceWorkingGitBlob": "af41b8ca5ca35c6bda7981097ae5a3cb619e157a",
+          "workCopySha256": "fa5e2e9f95aefc96be1ef303cc58774b18f03c6cc075f4e349f2c2ffeb05958f",
+          "workCopyGitBlob": "7179238c01e5c4925ce12c9db509da8e43c35bda",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RegisterEmployee.java",
+          "sourceSha256": "b0e79c6a18016eab0da5b7c282e00abe395b8d5d4e366c0fc72028e5f7dd692a",
+          "sourceGitBlobAtHead": "5483550b2bff28d2e479ec57f40f57f37503b463",
+          "sourceWorkingGitBlob": "5483550b2bff28d2e479ec57f40f57f37503b463",
+          "workCopySha256": "40e26a8dc5015cf9bdf9b2e9af30b60fd9ccebc69965d6bae1fabecf7f6163b8",
+          "workCopyGitBlob": "c4ba31bbd11d1df72ed978fee9f8acaf45503310",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RegisterEmployee_NoEmail.java",
+          "sourceSha256": "4f9fe7b37b7f16a3e51d71e16695aa2d0038b4480f7571138fa458ae79650753",
+          "sourceGitBlobAtHead": "defc8f4b43c6197fc2397d17f550f48120d62fde",
+          "sourceWorkingGitBlob": "defc8f4b43c6197fc2397d17f550f48120d62fde",
+          "workCopySha256": "936624e81f2ae17bcbdbb6371fe2087891f3141f32ba3705459fccdd5c807100",
+          "workCopyGitBlob": "980dba5fd7defe3ba40d607f7f16f48d1b6cc463",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RegisterEmployee_NoName.java",
+          "sourceSha256": "3080555e0573cdc9a259ebf4c5643c53f9c8ad7332c6f382036d68769d961002",
+          "sourceGitBlobAtHead": "646863fb74198454803ec61d5871a6d8f7879233",
+          "sourceWorkingGitBlob": "646863fb74198454803ec61d5871a6d8f7879233",
+          "workCopySha256": "b335c9e7b785531ca8ce77d0aa63571700f03b67d5d3cdf0e071e116e56dcee4",
+          "workCopyGitBlob": "d3d78d78a3eaa67b1fe160d8f6b57d084c38ae76",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RegisterEmployee_NoPassword.java",
+          "sourceSha256": "a34461bd5a81ab88930e82942875bcc3d30426250e4c84d1d7d6b13e217247c8",
+          "sourceGitBlobAtHead": "6033f76715e5a53021a75c026e0779d3c4523e54",
+          "sourceWorkingGitBlob": "6033f76715e5a53021a75c026e0779d3c4523e54",
+          "workCopySha256": "28c296fbf7811cf0f41113134fd7d7f4009c3e2b50185be7f3d1fbc1e565e9b5",
+          "workCopyGitBlob": "be9f7470a58e65d84d686a23bf9627631a9c596c",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RegisterEmployee_NoPermission.java",
+          "sourceSha256": "dd0c4488f203055bede8dbf50d12e0d31dd9ec072f06b2190215fe8cfbe36b68",
+          "sourceGitBlobAtHead": "1ff519319642b4464cded6a7a700f1450686b522",
+          "sourceWorkingGitBlob": "1ff519319642b4464cded6a7a700f1450686b522",
+          "workCopySha256": "f032914a922369e87cac729041440a2204888a1f0e036551d06b5cadb42b173c",
+          "workCopyGitBlob": "4d70e8a0ff3d8cce40d09cfaf3307c0d2c79fd53",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/RemoveSupplier.java",
+          "sourceSha256": "03f95efa517ef00ab299268f2bb95648bd6e234f0c05154c34f5dab5dcf0b3a1",
+          "sourceGitBlobAtHead": "5044e24ccae97f827a94a0e976d14402777013b8",
+          "sourceWorkingGitBlob": "5044e24ccae97f827a94a0e976d14402777013b8",
+          "workCopySha256": "c3ba77f148b7791497b7a380a6a17f1be351b49c328cedf60f5d70d30042bf88",
+          "workCopyGitBlob": "cf4f8703f8830779d0c56c635def52bc018b664d",
+          "byteIdentical": false
+        },
+        {
+          "path": "src/test/java/tests/TestSuite.java",
+          "sourceSha256": "7eb87dbf8cf37ab794a320fbadc2fa495d3f82bd27221bd838de14711f3538e3",
+          "sourceGitBlobAtHead": "761042c14d5904195f979b086691f1a04b585f60",
+          "sourceWorkingGitBlob": "761042c14d5904195f979b086691f1a04b585f60",
+          "workCopySha256": "6fe30e4be472faeb3876527c35085e2513e313ea5f641d73efc1df4a7e3bcac5",
+          "workCopyGitBlob": "1f66290eb90249b177b59defb1899a328c4eb56b",
+          "byteIdentical": false
+        }
+      ]
+    }
+  ]
+}
