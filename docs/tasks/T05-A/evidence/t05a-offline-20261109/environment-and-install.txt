@@ -1,0 +1,14 @@
+Observed install and toolchain results (2026-11-09):
+
+Framework, command npm ci:
+Exit code 0; added 71 packages; audited 72; found 0 vulnerabilities.
+
+ExpressCart Agent, command npm ci:
+Exit code 0; added 34 packages; audited 35; found 0 vulnerabilities.
+
+Node: v24.19.0
+Java: 21.0.12 LTS
+Maven: 3.9.16
+Docker CLI: 29.8.0; Docker Desktop Linux engine unavailable (named pipe missing).
+
+npm warned that esbuild and better-sqlite3 install scripts were pending the package allow-scripts policy. Executed build and test commands are separately recorded. No package manifest or lockfile was changed.

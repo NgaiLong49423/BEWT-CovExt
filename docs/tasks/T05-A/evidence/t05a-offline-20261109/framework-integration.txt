@@ -1,0 +1,51 @@
+
+> test:integration
+> tsx --test test/integration/*.test.ts
+
+✔ dispatcher schema-validates, policy-checks and resolves symlink-free paths before fixed handler calls (45.3528ms)
+✔ dispatcher requires a fixed implementation for every declared tool (0.7022ms)
+✖ actual ExpressCart adapter isolates validation invocations and repair evidence (15770.0445ms)
+✔ collectEvidence discovers nested files without mixing invocations or following links (70.8781ms)
+﹣ SqliteSaver replay after OS process termination reconciles fixture and runs a fresh actual E2E (1.1782ms) # SKIP
+✔ comment-only revision metadata preserves approved scenario semantics (6.5725ms)
+✔ ExpressCart local image identity is tied to measured source, package and Dockerfile inputs (486.6534ms)
+✔ source-built image IDs must match host-observed IDs and are not registry digests (6.9084ms)
+✔ build-context hashing rejects symlinks and is stable for sorted repository-relative inputs (339.2439ms)
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (135.3539ms)
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (8159.5801ms)
+✔ offline production-shaped repair loop preserves the first Java artifact and records two real isolated Maven attempts (11435.4214ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (3.6069ms)
+✔ real-path resolver rejects traversal and junction/symlink components (66.9318ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (175.1278ms)
+✔ REJECT terminates before Java preparation (51.7959ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (62.5325ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (87.5057ms)
+✔ application-behavior E2E failure is recorded without repairing generated Java (47.7518ms)
+✔ SQLite checkpoint resumes after the first Node process exits (5810.1849ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 18
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 23944.8108
+
+✖ failing tests:
+
+test at test\integration\expresscart-adapter-lifecycle.test.ts:17:1
+✖ actual ExpressCart adapter isolates validation invocations and repair evidence (15770.0445ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+
+  'BLOCKED' !== 'PASS'
+
+      at TestContext.<anonymous> (D:\Github-Projects\BEWT-CovExt-worktrees\t05a-expresscart-model-readiness\framework\test\integration\expresscart-adapter-lifecycle.test.ts:65:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'BLOCKED',
+    expected: 'PASS',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
