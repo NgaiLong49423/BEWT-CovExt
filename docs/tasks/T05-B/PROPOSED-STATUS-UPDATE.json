@@ -5,12 +5,15 @@
   "liveGeminiInvocations": 0,
   "candidateCount": 0,
   "candidateStatus": "NOT_CREATED",
+  "proposedBehaviorScope": "invalid or expired reset token redirects to /forgot; page existence and visible message are not asserted",
+  "researchNovelty": "UNVERIFIED",
   "humanReview": "NOT_RUN",
   "requiredToProceed": [
     "Fresh Team Lead D-C1 approval bound to the model, one-call maximum, zero retries, timeout, output limit, cost ceiling, and expiry in LIVE-CALL-AUTHORIZATION-REQUEST.md",
     "Credential validity confirmed through the approved secret channel without exposing its value"
   ],
   "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
+  "costTelemetry": "List-price token usage is an estimate, not independently verified billed cost",
   "dockerRuntime": "NOT_USED_AGENT_1_OWNS_LEASE",
   "historicalT01CResultsReusedAsNew": false
 }

@@ -12,7 +12,7 @@
 | Retries | 0, including automatic provider retries |
 | Timeout | 60 seconds |
 | Maximum output | 2,000 tokens |
-| Per-call / task ceiling | USD 0.02 maximum for this request |
+| Configured per-call / task preflight limit | USD 0.02 estimated cost limit; this is not an independently enforced provider billing ceiling |
 | Input bound | 8,000 Unicode characters; local preflight rejects requests beyond the provider's existing limit |
 | Expiry | 2026-11-11 23:59 Asia/Saigon; approval expires sooner if revoked or source/request changes |
 | Credential channel | Existing local process secret binding `GEMINI_API_KEY`; the value must never be displayed, copied into artifacts, or committed. Its presence is not evidence of validity. |
@@ -21,9 +21,10 @@
 
 ## Cost preflight
 
-At the 8,000-character input limit, existing code conservatively budgets four input tokens per character (32,000 tokens). At the current Google published standard rates for Gemini 3.1 Flash-Lite ($0.25 per million input tokens and $1.50 per million output tokens), plus the full 2,000-token output allowance, the estimated ceiling is **USD 0.011**. The proposed USD 0.02 cap leaves headroom while remaining an absolute per-call ceiling. No grounding or other billed tools are requested. Prices must be rechecked immediately before any later authorized call; this snapshot is not a quote or proof of billing configuration.
+As of 2026-11-10, Google's model documentation lists `gemini-3.1-flash-lite` as an available stable model. Its Developer API pricing page lists Free Tier input/output as free of charge and Paid Tier Standard text input/output at $0.25/$1.50 per million tokens. Assuming the Paid Tier Standard rate, 8,000 prompt characters × the code's 4-token-per-character estimate (32,000 input tokens), and the full 2,000-token output allowance, the **preflight estimate** is USD 0.011. The code's USD 0.02 threshold is a conservative request budget estimate, not a provider-enforced hard billing cap; account tier, actual invoice, and billing guarantees were not independently checked. No grounding or other billed tools are requested. Recheck availability and prices immediately before any later authorized call.
 
 Pricing source: [Google Gemini Developer API pricing](https://ai.google.dev/gemini-api/docs/pricing), accessed 2026-11-10.
+Model source: [Google Gemini 3.1 Flash-Lite model page](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite), accessed 2026-11-10.
 
 ## Approval record — intentionally blank
 
@@ -34,3 +35,5 @@ Pricing source: [Google Gemini Developer API pricing](https://ai.google.dev/gemi
 - Credential channel confirmed without sharing its value:
 
 Unless this record is completed with a fresh Team Lead decision, the required result is `MODEL_AUTHORIZATION_REQUIRED`; do not probe the credential or provider.
+
+The source-backed proposal is deliberately limited to asserting the redirect destination `/forgot`; it does not assert that the destination page exists or that a message is visible. Novelty remains unverified. No fresh D-C1 approval is recorded, so the live call remains blocked. Cost approval alone does not establish a reviewer decision on the candidate.

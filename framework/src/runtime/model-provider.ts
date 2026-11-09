@@ -19,7 +19,15 @@ export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
 export function parseGenerationOutput(input: unknown): GenerationOutput { return ModelOutput.parse(input); }
 export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { return JavaOutput.parse(input); }
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
-export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; actualCostUsd?: number; }
+export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; estimatedCostUsd?: number; }
+
+/** Estimate list-price cost from token usage; this is not account billing data. */
+export function estimateTokenCostUsd(inputTokens: number, outputTokens: number): number {
+  if (!Number.isSafeInteger(inputTokens) || inputTokens < 0 || !Number.isSafeInteger(outputTokens) || outputTokens < 0) {
+    throw new Error("token usage must be non-negative safe integers");
+  }
+  return (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000;
+}
 export interface GenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generate(request: GenerationRequest): Promise<GenerationOutput>; }
 export interface JavaGenerationProvider { readonly name: "Fake" | "Gemini"; readonly model: string; generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, approvedImplementationContext?: string[]): Promise<GeneratedJavaOutput>; repairJava?(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState, currentJava: string, validation: import("../contracts.js").ValidationResult, attempt: number): Promise<GeneratedJavaOutput>; }
 
@@ -399,9 +407,9 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
       return output;
     } catch (error) {
       const category = classifyModelError(error);
@@ -460,9 +468,9 @@ export class GeminiGenerationProvider implements GenerationProvider {
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      const estimatedCostUsd = inputTokens !== undefined && outputTokens !== undefined ? estimateTokenCostUsd(inputTokens, outputTokens) : undefined;
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
-        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
+        ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(estimatedCostUsd === undefined ? {} : { estimatedCostUsd }) };
       return output;
     } catch (error) {
       const category = classifyModelError(error);

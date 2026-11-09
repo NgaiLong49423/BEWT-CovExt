@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { readFile } from "node:fs/promises";
+import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, estimateTokenCostUsd, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -32,6 +33,19 @@ test("model request evidence is hashed and redacts secrets and private identifie
   assert.match(evidence.promptSha256, /^[a-f0-9]{64}$/);
   assert.doesNotMatch(evidence.sanitizedPrompt, /person@example\.test|hunter2|secret-value/);
   assert.match(evidence.sanitizedPrompt, /REDACTED/);
+});
+
+test("token-usage cost telemetry is a list-price estimate, never labeled as billed actual cost", () => {
+  assert.equal(estimateTokenCostUsd(1_000, 2_000), 0.00325);
+  assert.throws(() => estimateTokenCostUsd(-1, 2_000), /non-negative safe integers/);
+  assert.throws(() => estimateTokenCostUsd(Number.MAX_SAFE_INTEGER + 1, 2_000), /non-negative safe integers/);
+});
+
+test("T01-C reset-token coverage claim asserts only source-confirmed redirect behavior", async () => {
+  const cli = await readFile(new URL("../src/t01c-cli.ts", import.meta.url), "utf8");
+  assert.match(cli, /sets session message keys and redirects to \/forgot without rendering the reset form/);
+  assert.match(cli, /this claim asserts only the redirect destination, not page existence or message visibility/);
+  assert.doesNotMatch(cli, /redirects to the forgot-password page and displays the invalid-or-expired message/);
 });
 
 test("structured generation parser rejects incomplete model output", () => {

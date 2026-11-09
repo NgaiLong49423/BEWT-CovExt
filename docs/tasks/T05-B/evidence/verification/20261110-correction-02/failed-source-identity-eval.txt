@@ -1,0 +1,4 @@
+Command: one-off `npx.cmd tsx -e` attempting to import and execute the source-identity helper.
+Process exit: 1
+Failure: esbuild transform error `Expected string but found "node"`; PowerShell argument quoting removed JavaScript string delimiters before TSX parsed the eval input.
+Classification: verification-harness quoting error. No app/runtime/provider operation occurred. Replaced with `npx.cmd tsx ..\docs\tasks\T05-B\tools\verify-expresscart-source-identity.mts`, which passed; see `expresscart-source-identity.json`.

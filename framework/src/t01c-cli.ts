@@ -102,7 +102,7 @@ async function main(args: string[]): Promise<void> {
         if (start < 0 || end < 0) throw new Error("pinned source does not contain the expected reset-token route block");
         const routeContext = route.slice(start, end).trim();
         const reference = { repositoryCommit: sourceCommit, sourceVersion, runId: `t01c-source-${runIdForEvidence}`, artifactPath: routePath };
-        const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: historicalBehaviorIndex.candidates.map((item) => item.behaviorId), sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavioralCategory: "Account recovery and reset-token security", behavior: "An invalid or expired password-reset token redirects to the forgot-password page and displays the invalid-or-expired message.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(), sets the session error message when no live token is found, then redirects to /forgot.", sourceReferences: [reference] }] });
+        const results = analyzeSourceBackedCoverage({ baseline, historicalProposalBehaviorIds: historicalBehaviorIndex.candidates.map((item) => item.behaviorId), sourceClaims: [{ behaviorId: "customer.password.reset.invalid-or-expired-token", behavioralCategory: "Account recovery and reset-token security", behavior: "A GET to /customer/reset/:token with no customer matching the token and future expiry sets session message keys and redirects to /forgot without rendering the reset form.", evidenceSummary: "The pinned GET /customer/reset/:token route checks resetToken and resetTokenExpiry > Date.now(); when no customer matches it sets req.session.message and req.session.message_type, then redirects to /forgot. The target is handled by the generic page lookup; this claim asserts only the redirect destination, not page existence or message visibility.", sourceReferences: [reference] }] });
         const gap = results.find((item) => item.disposition === "CANDIDATE_GAP")?.gap;
         if (!gap) throw new Error(`source-backed candidate gap unavailable: ${results.map((item) => `${item.behaviorId}:${item.disposition}`).join(",")}`);
         const evidenceDirectory = `${evidenceRoot}/${runIdForEvidence}`;
@@ -297,7 +297,7 @@ async function main(args: string[]): Promise<void> {
       const runCostCeilingUsd = maxCostArg ? Number(maxCostArg.slice("--max-cost-usd=".length)) : 0.02;
       const perCallCostCeilingUsd = runCostCeilingUsd / maxApiRequests;
       if (!Number.isInteger(maxApiRequests) || maxApiRequests < 1 || maxApiRequests > 4 || !Number.isFinite(runCostCeilingUsd) || runCostCeilingUsd <= 0 ||
-          perCallCostCeilingUsd > 0.02 || perCallCostCeilingUsd < 0.001) throw new Error("T01-C run budget must allow 1..4 calls with a verified per-call ceiling no greater than USD 0.02");
+          perCallCostCeilingUsd > 0.02 || perCallCostCeilingUsd < 0.001) throw new Error("T01-C run budget must allow 1..4 calls with a preflight-estimated per-call cost limit no greater than USD 0.02");
       const runId = `t01c-${randomUUID()}`;
       runIdForEvidence = runId;
       await ensureContainedDirectory(root, `${evidenceRoot}/${runId}`);
