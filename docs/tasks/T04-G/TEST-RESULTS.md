@@ -1,13 +1,13 @@
 # T04-G Independent Review Correction — Test Results
 
-## Source and tool versions
+## Reproducible source extraction
 
-- Python: 3.12.10
-- Git: 2.55.0.windows.3
-- BEWT checkout: read-only sparse checkout at commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; verified tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`.
-- The checkout is local-only under `docs/tasks/T04-G/evidence/baseline-checkout/`, excluded from Git by the task-local .gitignore. No source files were changed.
+- Python: 3.12.10. Git: 2.55.0.windows.3.
+- Read-only baseline checkout: HEAD `0501249ff3e9a5ea83a06155cd2971dc36197056`; tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`.
+- Source is read from the checkout's files. Builder verifies HEAD and tree, lists Git tree blob IDs, recomputes Git blob SHA-1 from file bytes, and checks T04-D paths, source hashes, scenario/Then anchors, Java method anchors, and assertion anchors before writing.
+- The checkout is local at `docs/tasks/T04-G/evidence/baseline-checkout/`, ignored by the task .gitignore, and was not modified.
 
-Recreate a checkout and regenerate:
+Reproduce from a fresh checkout:
 
 ```powershell
 git init BEWT-CHECKOUT
@@ -18,32 +18,55 @@ python docs/tasks/T04-G/tools/build_t04g.py --baseline-checkout BEWT-CHECKOUT --
 python docs/tasks/T04-G/tools/validate_t04g.py --baseline-checkout BEWT-CHECKOUT --negative-tests
 ```
 
-The builder verifies checkout HEAD/tree, obtains the pinned Git tree's blob IDs, recomputes Git blob hashes from checked-out bytes, and matches all T04-D paths, blob hashes, and line anchors before writing outputs. Missing or mismatched source returns NOT_VERIFIED and a nonzero exit.
+## Exact test commands and results
 
-## Commands and results
+Tested code/data commit: `0fd9fc9b711e2293c90c7ab00f26f49b911c20bb`.
 
-- `python docs/tasks/T04-G/tools/build_t04g.py --baseline-checkout docs/tasks/T04-G/evidence/baseline-checkout --check-determinism` — exit 0. Stdout: `{"status":"PASS","sourceCommit":"0501249ff3e9a5ea83a06155cd2971dc36197056","sourceTree":"d38fcc0eae8073023c48bb46998741c8c19d4d06","featureCases":227,"candidateCount":27,"directLinks":46,"nearbyLinks":19,"determinism":"PASS"}`. Stderr: empty.
-- `python docs/tasks/T04-G/tools/validate_t04g.py --baseline-checkout docs/tasks/T04-G/evidence/baseline-checkout --negative-tests` — exit 0; all negative tests PASS. Exact output is recorded at final tested code/data SHA after commit.
-- `git diff --check` — exit 0; no whitespace errors. Informational Git line-ending notices, if present, are recorded separately from errors.
-- Catalog/T04-D comparison: 227 feature cases, 204 Scenario headers, 226 feature-to-Java matches, one feature-only MantisBT case, two Java-only PrestaShop tests; 290 Then refs and 316 assertion lines.
-- Candidate/T04-F comparison: 27 candidates, 20 shortlisted, 46 direct links over 35 distinct baseline cases, 19 separate nearby links. Queue is grouped by app, shortlisted-first, with per-app priorities ascending.
+Command: `python docs/tasks/T04-G/tools/build_t04g.py --baseline-checkout docs/tasks/T04-G/evidence/baseline-checkout --check-determinism`
 
-## Correction checks
+- Exit code: 0
+- Stdout: `{"status": "PASS", "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056", "sourceTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06", "featureCases": 227, "candidateCount": 27, "directLinks": 46, "nearbyLinks": 19, "determinism": "PASS"}`
+- Stderr: empty
 
-- F01: safe quoted labels, expected messages, test values, and Java assertion literals remain intact. Only credential-field values or explicit secret assignments are replaced, with quotes and syntax retained. Synthetic redaction/syntax tests are automated.
-- F02: builder output is regenerated directly from the pinned Git checkout and read-only T04-D/T04-F inputs; repeated generation is byte-deterministic.
-- F03: candidate questions in cands, queue, and delta are regenerated from T04-F; BL-GAP-002 and MB-GAP-001 curly apostrophes are U+2019. U+FFFD is rejected throughout text artifacts.
-- Completeness/negative checks cover unreferenced-unit removal, duplicate unit IDs/case IDs, feature SHA, Java assertion anchor, aggregate counts, priority order, candidate/nearby links, approval state, shortlist membership, U+FFFD, missing mapping, Then anchor, mismatched output, incorrect SHA, truncated bytes, and quote-preserving redaction.
-- ORACLE-SIM-004 remains a hypothesis; opposite enrollment/add versus remove transitions carry an explicit high false-positive risk.
+Command: `python docs/tasks/T04-G/tools/validate_t04g.py --baseline-checkout docs/tasks/T04-G/evidence/baseline-checkout --negative-tests`
 
-## Scope, policy, and status
+- Exit code: 0
+- Stdout:
 
-- Changed Git paths are restricted to `docs/tasks/T04-G/**`; merge-base check uses `origin/main`. Shared STATUS, T04-D/E/F, coverage data, and application code are unchanged.
-- Secret scan and UTF-8 scan must pass on the final diff.
-- Static task only: no Docker, Cloud VM, Selenium, Gemini, or application runtime.
-- Task status remains `PARTIAL_WITH_LIMITATIONS`; no human approval, G1 PASS, confirmed semantic consolidation, official behavioral denominator, or RQ2 result is claimed.
+```json
+{"status": "PASS", "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056", "sourceTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06", "units": 227, "candidates": 27, "shortlist": 20, "directLinks": 46, "distinctBaselineCases": 35, "nearbyLinks": 19, "officialBehavioralDenominator": null, "negativeTests": [{"test": "remove-unreferenced-unit", "result": "PASS"}, {"test": "duplicate-unit-id", "result": "PASS"}, {"test": "duplicate-case-id", "result": "PASS"}, {"test": "feature-blob-sha", "result": "PASS"}, {"test": "java-assertion-anchor", "result": "PASS"}, {"test": "aggregate-count", "result": "PASS"}, {"test": "queue-priority-order", "result": "PASS"}, {"test": "candidate-baseline-link", "result": "PASS"}, {"test": "nearby-link", "result": "PASS"}, {"test": "human-decision", "result": "PASS"}, {"test": "shortlist-membership", "result": "PASS"}, {"test": "replacement-character", "result": "PASS"}, {"test": "credential-redaction", "result": "PASS"}, {"test": "missing-baseline-mapping", "result": "PASS"}, {"test": "then-anchor", "result": "PASS"}, {"test": "mismatched-output", "result": "PASS"}, {"test": "incorrect-blob-sha", "result": "PASS"}, {"test": "truncated-source", "result": "PASS"}, {"test": "quoted-string-redaction-and-syntax", "result": "PASS"}]}
+```
 
-## SHA handoff
+- Stderr: empty
 
-- Exact tested code/data commit SHA: recorded after the final code/data commit.
-- Final PR #20 HEAD and URL: supplied by GitHub PR metadata and final task handoff; a containing commit cannot store its own SHA.
+Command: `git diff --check`
+
+- Exit code: 0
+- Stdout: empty
+- Stderr (informational only; no whitespace errors):
+
+  ```text
+  warning: in the working copy of 'docs/tasks/T04-G/BEHAVIORAL-BASELINE-CATALOG.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/CANDIDATE-BASELINE-DELTA.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/HUMAN-REVIEW-QUEUE.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/evidence/cands.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/evidence/cat.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/evidence/comps.json', LF will be replaced by CRLF the next time Git touches it
+  warning: in the working copy of 'docs/tasks/T04-G/evidence/near.json', LF will be replaced by CRLF the next time Git touches it
+  ```
+
+## Corrected evidence and integrity
+
+- T04-D completeness: 227 feature records; 204 scenario headers; 226 feature-to-Java mappings; one feature-only MantisBT case; two Java-only PrestaShop tests; 290 Then references; 316 Java assertion lines.
+- Candidate links: 27 candidates, 20 shortlisted, 46 direct links over 35 distinct baseline cases, and 19 separately validated nearby links. Queue order groups applications in the documented stable order, then shortlisted by ascending per-app priority, followed by non-shortlisted candidates in T04-F source order.
+- F01: safe quoted labels, expected messages, test data and Java assertion literals are preserved. The rebuilt corpus masks 470 credential-field values with quoted markers; other quoted excerpts are not broadly redacted.
+- F03: BL-GAP-002 and MB-GAP-001 reviewer questions exactly match T04-F; their curly apostrophes are U+2019. UTF-8 scan found 0 U+FFFD characters. Secret scan found 0 credential-assignment matches in JSON/Markdown evidence.
+- ORACLE-SIM-004 remains a hypothesis with explicit high false-positive risk for opposite enrollment/add and remove transitions; no automatic merge or denominator change.
+- Task-local Git scope check uses the merge-base of `origin/main`; only `docs/tasks/T04-G/**` is modified. Shared STATUS, T04-D/E/F, coverage inputs and application code are unchanged.
+- No Docker, Cloud VM, Selenium, Gemini, or application runtime was used.
+
+## PR state and handoff
+
+- PR #20 was already MERGED before these corrections: reviewed head `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`, merge commit `3687c015bf06c6e05a2e15ac2ef91bbaafa2c541`.
+- The merged PR head is `0870f4c2a3ba93137c5908f78dcb8c8464ed58cc`; it cannot be reopened. Corrections are pushed to the original feature branch, with its final correction SHA reported in the handoff. No replacement PR was created.
+- T04-G remains `PARTIAL_WITH_LIMITATIONS`; no candidate approval, G1 PASS, confirmed semantic consolidation, official denominator, or RQ2 result is claimed.
