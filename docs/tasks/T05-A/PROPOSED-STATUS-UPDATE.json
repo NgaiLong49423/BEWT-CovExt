@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "T05-A",
+  "statusType": "PROPOSED_TASK_PROGRESS_NOT_ACCEPTANCE",
+  "baseSha": "ae149842185877bcd4a97cf99ebdb3fc099e040b",
+  "workingBranch": "feature/t05a-expresscart-model-readiness",
+  "proposedStatus": "PARTIAL",
+  "researchImpact": {
+    "liveGeminiCalls": 0,
+    "newCandidates": 0,
+    "humanDecisions": 0,
+    "seleniumRuns": 0,
+    "validatedCases": 0,
+    "rq1": "NOT_EVALUATED",
+    "rq2": "NOT_EVALUATED",
+    "rq3": "NOT_EVALUATED",
+    "rq4": "NO_NEW_LIVE_USAGE_SAMPLE"
+  },
+  "blockers": [
+    "Fresh D-C1 live-model authorization and valid local credential not provided",
+    "No current candidate reached human review",
+    "Docker runtime unavailable for adapter lifecycle integration and Selenium"
+  ],
+  "note": "Proposal only. Do not modify docs/program/STATUS.json or treat this record as ACCEPTED, VALIDATED, or a gate transition."
+}

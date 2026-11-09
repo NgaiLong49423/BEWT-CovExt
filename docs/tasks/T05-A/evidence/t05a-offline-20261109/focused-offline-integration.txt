@@ -1,0 +1,19 @@
+✔ offline generation enters the shared LangGraph review checkpoint without Java side effects (67.5957ms)
+✔ offline LangGraph path pauses before effects, then uses fake Java only after current ACCEPT and records controlled validation (4499.1121ms)
+✔ offline production-shaped repair loop preserves the first Java artifact and records two real isolated Maven attempts (8556.6841ms)
+✔ Maven argument builder exposes only fixed compile and approved-test forms (2.0286ms)
+✔ real-path resolver rejects traversal and junction/symlink components (15.4929ms)
+✔ durable graph records REVISE then a fresh review checkpoint then ACCEPT (86.5346ms)
+✔ REJECT terminates before Java preparation (24.5978ms)
+✔ review resume is thread-bound and replay cannot trigger a second Java execution (27.0426ms)
+✔ repair loop records two distinct artifacts and never repairs the first source (38.5024ms)
+✔ application-behavior E2E failure is recorded without repairing generated Java (26.4946ms)
+✔ SQLite checkpoint resumes after the first Node process exits (3009.7475ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 15043.0806
