@@ -1,0 +1,98 @@
+{
+  "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "sourceTree": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+  "scope": "27 feature blobs; bounded keyword screen is not semantic proof",
+  "featuresScanned": 27,
+  "keywordHitFiles": [
+    {
+      "path": "mediawiki/gherkin/16_RevertLastCommitTest.feature",
+      "lineNumbers": [
+        1,
+        9,
+        10,
+        11,
+        15
+      ]
+    }
+  ],
+  "selectedComparisons": [
+    {
+      "case": "06_EditPageTest",
+      "feature": {
+        "path": "mediawiki/gherkin/06_EditPageTest.feature",
+        "gitBlob": "1d9c6bde78f19bab389a23eeea3e6f1d5321ee9f",
+        "sha256": "41625d5803b8bebc1e34b326f73ca29055ad429696a6445bc3a96edf1b6c06f1"
+      },
+      "java": {
+        "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java",
+        "gitBlob": "0d2a1daa0fe9a93b8b6cda0821341f08ffd48ea8",
+        "sha256": "07ad24841e6b10eecefcc2658abe43602f34301e3d8ed9b4894226f2f85e0411"
+      },
+      "expectedAnchors": [
+        "getTitle()",
+        "getBody()"
+      ],
+      "assertLines": [
+        20,
+        21
+      ]
+    },
+    {
+      "case": "15_EditProtectedPage_NewAdmin_SuccessTest",
+      "feature": {
+        "path": "mediawiki/gherkin/15_EditProtectedPage_NewAdmin_SuccessTest.feature",
+        "gitBlob": "7c4a82222a4f7163f1e496c33b07630fd05f9acc",
+        "sha256": "107916feed6a130f3c0647c3bc9a8ac262794c1233510d409becdb5d472f1827"
+      },
+      "java": {
+        "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditProtectedPage_NewAdmin_SuccessTest.java",
+        "gitBlob": "2da06da85e9e09d93b1666831464bc65a514de4f",
+        "sha256": "d972c5ba87b7fd2a024a405b57c8de2f2734dad10bad03bd602ccfae91dc5e59"
+      },
+      "expectedAnchors": [
+        "getTitle()",
+        "getBody()"
+      ],
+      "assertLines": [
+        20,
+        21
+      ]
+    },
+    {
+      "case": "16_RevertLastCommitTest",
+      "feature": {
+        "path": "mediawiki/gherkin/16_RevertLastCommitTest.feature",
+        "gitBlob": "556d9d8176fa155ef046f6d9af56a353cabbee2f",
+        "sha256": "b9c8920ef389bfb01ab931de184f45a4ef85dfa23dae19f5dc0a27647e637dee"
+      },
+      "java": {
+        "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/RevertLastCommitTest.java",
+        "gitBlob": "2a8e87f31cfbc09637190bf7a15d246870689d9b",
+        "sha256": "c707d3b18f5e5df4593fe869cdc6f01375a9af8ad008890cda9ad7e283c0ebc3"
+      },
+      "expectedAnchors": [
+        "rollbackLastEdit()",
+        "getMessage()",
+        "getTitle()",
+        "getBody()"
+      ],
+      "assertLines": [
+        19,
+        22,
+        23
+      ]
+    }
+  ],
+  "suite": {
+    "path": "mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/TestSuite.java",
+    "gitBlob": "ee5905251fcc59179c0c2dce45b1ef5b0eaac932",
+    "sha256": "a2843d849a4a259d809db72dc3be91ab085ca3aafedb4d994233ff9b6e39a660",
+    "adjacentEntryLines": [
+      23,
+      24
+    ]
+  },
+  "novelty": "NOT_VERIFIED",
+  "runtime": "NOT_RUN",
+  "humanDecision": null
+}
