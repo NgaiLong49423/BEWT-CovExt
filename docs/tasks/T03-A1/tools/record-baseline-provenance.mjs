@@ -1,12 +1,19 @@
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
-import { lstat, readdir, readFile, writeFile } from 'node:fs/promises';
-import { join, relative, resolve, sep } from 'node:path';
+import { lstat, readdir, readFile, realpath, writeFile } from 'node:fs/promises';
+import { dirname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 
 const [sourceRootArg, outputArg] = process.argv.slice(2);
 if (!sourceRootArg || !outputArg) throw new Error('Usage: node record-baseline-provenance.mjs <read-only-bewt-original-root> <new-output.json>');
 const sourceRoot = resolve(sourceRootArg);
 const output = resolve(outputArg);
+// Follow existing parent symlinks before checking containment; never write evidence into the read-only source tree.
+const realSourceRoot = await realpath(sourceRoot);
+const realOutputParent = await realpath(dirname(output));
+const outputParentRelative = relative(realSourceRoot, realOutputParent);
+if (outputParentRelative === '' || (!outputParentRelative.startsWith(`..${sep}`) && outputParentRelative !== '..' && !isAbsolute(outputParentRelative))) {
+  throw new Error('Output must be outside the read-only BEWT source tree');
+}
 const benchmarkCommit = execFileSync('git', ['-C', sourceRoot, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim();
 if (!/^[a-f0-9]{40}$/.test(benchmarkCommit)) throw new Error('Could not resolve the pinned BEWT source commit');
 const root = resolve(import.meta.dirname, '../../../..');

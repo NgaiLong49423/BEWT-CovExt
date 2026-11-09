@@ -36,3 +36,7 @@ The r6 summary records `sourceTreeCleanAtStart: true`, `worktreeCleanAtStart: fa
 No Docker Engine, container, image pull/build, network route, HTTP/MySQL readiness, Selenium browser test, database seed/reset, cleanup execution, or app runtime was invoked. The supplemental Claroline cleanup suite could not load in this sandbox because its module import requires locating a signature-verified Docker CLI; this was a path-resolution block before any Docker command. No G0 runtime PASS or acceptance is claimed. The offline `g0-plan.json` profiles explicitly keep runtime pending and image promotion disabled.
 
 Exact commands, separate stdout/stderr paths, exit codes, test totals, raw/sanitized log SHA-256 values are in `evidence/offline-verification-20261110-r6/verification-summary.json`; source/test SHA-256 and commit blob IDs are in `source-test-hashes.json`; Maven command/results are in `evidence/offline-compile-20261110-r7/compile-summary.json`. Earlier r1-r3 evidence has not been rewritten.
+
+## Mount/source boundary corrections
+
+The final offline suite ran 33 tests (33 PASS, 0 FAIL, 0 skipped; exit 0), including malformed/missing Mounts on complete and partial cleanup and refusal to write provenance within a synthetic source tree. The provenance script syntax check exited 0. See `evidence/offline-verification-20261110-r9/`; the preceding 32-test run is preserved at `evidence/offline-verification-20261110-r8/`. No Docker, Maven, browser, Gemini or cloud call was made in this correction.

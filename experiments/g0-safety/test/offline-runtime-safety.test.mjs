@@ -35,6 +35,9 @@ test('container ownership requires exact digest, labels, isolated network, and l
   assert.throws(() => assertOwnedContainer(container(), { ...containerExpected, portBindings: undefined, labels }), /Expected complete PortBindings/);
   assert.throws(() => assertOwnedContainer(container({ NetworkSettings: { Networks: undefined } }), { ...containerExpected, labels }), /must include the Networks object/);
   assert.throws(() => assertOwnedContainer(container({ Mounts: [{ Type: 'bind', Name: '', Destination: '/data' }] }), { ...containerExpected, labels, volumes: [] }), /mount blocks cleanup/);
+  for (const mounts of [undefined, null, {}]) {
+    assert.throws(() => assertOwnedContainer(container({ Mounts: mounts }), { ...containerExpected, labels, volumes: [] }), /must include a Mounts array/);
+  }
 });
 
 test('startup result never treats a successful CLI response alone as readiness', () => {
@@ -68,4 +71,5 @@ test('partial-start cleanup tolerates omitted port mappings but does not prove i
   assert.equal(plan.portForwardingVerified, false);
   assert.deepEqual(plan.actions.map((x) => x.args), [['stop', id], ['rm', id], ['network', 'rm', 'net-1234567890']]);
   assert.throws(() => createCleanupPlan({ containers: [container({ State: { Running: true }, HostConfig: { PortBindings: null }, NetworkSettings: { Networks: {} } })], network: network(), volumes: [] }, expected, { partialContainerIds: [id] }), /stopped container/);
+  assert.throws(() => createCleanupPlan({ containers: [container({ Mounts: undefined, HostConfig: { PortBindings: null }, NetworkSettings: { Networks: {} } })], network: network(), volumes: [] }, expected, { partialContainerIds: [id] }), /must include a Mounts array/);
 });

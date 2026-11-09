@@ -40,11 +40,12 @@ function assertContainerIdentityAndMounts(container, expected) {
   requireValue(container?.Config?.Image === expected.imageRef, 'BLOCKED_IMAGE_IDENTITY', 'Container image reference does not match the pinned image');
   requireValue(labelsMatch(container?.Config?.Labels, expected.labels), 'BLOCKED_CONTAINER_OWNERSHIP', 'Container ownership labels do not match the run');
 
+  requireValue(Array.isArray(container?.Mounts), 'BLOCKED_CONTAINER_MOUNT_INSPECTION', 'Docker container inspection must include a Mounts array');
   const allowedVolumes = new Map((expected.volumes ?? []).map((volume) => [volume.name, volume.destination]));
-  for (const mount of container?.Mounts ?? []) {
+  for (const mount of container.Mounts) {
     requireValue(mount.Type === 'volume' && allowedVolumes.get(mount.Name) === mount.Destination, 'BLOCKED_CONTAINER_MOUNT', 'Unexpected bind, anonymous, tmpfs, or unrecorded mount blocks cleanup');
   }
-  requireValue((container?.Mounts ?? []).length === allowedVolumes.size, 'BLOCKED_CONTAINER_MOUNT', 'Recorded volume inventory does not match actual mounts');
+  requireValue(container.Mounts.length === allowedVolumes.size, 'BLOCKED_CONTAINER_MOUNT', 'Recorded volume inventory does not match actual mounts');
 }
 
 function assertContainerNetworkAttachment(container, networkId, { allowUnattached = false } = {}) {
