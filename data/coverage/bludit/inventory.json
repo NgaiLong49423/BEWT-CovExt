@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "proposalBaseLabel": "2.3.4",
+  "proposalBusinessCaseCount": 23,
+  "source": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceType": "PINNED_BENCHMARK_TEST_SOURCE"
+  },
+  "observedCounts": {
+    "gherkinFeatureFiles": 23,
+    "explicitScenarioHeaders": 0,
+    "baselineTestSuiteBusinessEntries": 23,
+    "baselineJavaFilesUnderTestTree": 26,
+    "matchedFeatureToSuiteClass": 23,
+    "featureWithoutSuiteClass": 0,
+    "suiteClassWithoutFeature": 0,
+    "behaviorDenominator": "NOT_ESTABLISHED",
+    "baselineJavaTestMethodsFound": 23,
+    "javaAssertionCallLineCount": 27
+  },
+  "anomalies": {
+    "featureWithoutSuiteClass": [],
+    "suiteClassWithoutFeature": [],
+    "notes": [
+      "All 23 feature files at this source pin have no explicit Scenario header."
+    ]
+  },
+  "G1": "NOT_VERIFIED"
+}

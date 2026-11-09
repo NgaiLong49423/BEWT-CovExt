@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "claroline",
+  "proposalBaseLabel": "1.11.10",
+  "proposalBusinessCaseCount": 40,
+  "source": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceType": "PINNED_BENCHMARK_TEST_SOURCE"
+  },
+  "observedCounts": {
+    "gherkinFeatureFiles": 40,
+    "explicitScenarioHeaders": 40,
+    "baselineTestSuiteBusinessEntries": 40,
+    "baselineJavaFilesUnderTestTree": 42,
+    "matchedFeatureToSuiteClass": 40,
+    "featureWithoutSuiteClass": 0,
+    "suiteClassWithoutFeature": 0,
+    "behaviorDenominator": "NOT_ESTABLISHED",
+    "baselineJavaTestMethodsFound": 40,
+    "javaAssertionCallLineCount": 73
+  },
+  "anomalies": {
+    "featureWithoutSuiteClass": [],
+    "suiteClassWithoutFeature": [],
+    "notes": []
+  },
+  "G1": "NOT_VERIFIED"
+}

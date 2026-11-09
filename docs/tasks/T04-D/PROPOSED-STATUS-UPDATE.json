@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "taskId": "T04-D",
+  "taskStatus": "READY_FOR_REVIEW",
+  "programStatusChange": "NONE",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "apps": {
+    "bludit": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "claroline": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "expresscart": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "joomla": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "mantisbt": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "mediawiki": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    },
+    "prestashop": {
+      "G1": "NOT_VERIFIED",
+      "baseline": "STATIC_SOURCE_INDEXED",
+      "behaviorDenominator": "NOT_ESTABLISHED",
+      "novelty": "NOT_EVALUATED",
+      "oracle": "NOT_EVALUATED",
+      "candidateCount": 0
+    }
+  },
+  "note": "Proposal only; do not copy into docs/program/STATUS.json without integration review."
+}

@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "joomla",
+  "proposalBaseLabel": "3.10.11",
+  "proposalBusinessCaseCount": 35,
+  "source": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceType": "PINNED_BENCHMARK_TEST_SOURCE"
+  },
+  "observedCounts": {
+    "gherkinFeatureFiles": 35,
+    "explicitScenarioHeaders": 35,
+    "baselineTestSuiteBusinessEntries": 35,
+    "baselineJavaFilesUnderTestTree": 39,
+    "matchedFeatureToSuiteClass": 35,
+    "featureWithoutSuiteClass": 0,
+    "suiteClassWithoutFeature": 0,
+    "behaviorDenominator": "NOT_ESTABLISHED",
+    "baselineJavaTestMethodsFound": 35,
+    "javaAssertionCallLineCount": 43
+  },
+  "anomalies": {
+    "featureWithoutSuiteClass": [],
+    "suiteClassWithoutFeature": [],
+    "notes": []
+  },
+  "G1": "NOT_VERIFIED"
+}

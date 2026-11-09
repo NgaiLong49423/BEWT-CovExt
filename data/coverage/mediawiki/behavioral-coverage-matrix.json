@@ -1,0 +1,787 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mediawiki",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "mediawiki-01-createusertest",
+      "scenarioTitles": [
+        "Creates a new user"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-02-closeinitialeditorpopuptest",
+      "scenarioTitles": [
+        "Closes the pop-up that is shown the first time the editor is opened. Required for a successful execution of other tests"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 13,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 16,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-03-createpagetest",
+      "scenarioTitles": [
+        "Creates a new page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-04-createandlinkpagetest",
+      "scenarioTitles": [
+        "Creates a new page containing an hyperlink to another page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 20,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 24,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-05-searchpagetest",
+      "scenarioTitles": [
+        "Searches a page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 17,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-06-editpagetest",
+      "scenarioTitles": [
+        "Edits a page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-07-createtemplatetest",
+      "scenarioTitles": [
+        "Creates a new template"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-08-createpagefromsourcetest",
+      "scenarioTitles": [
+        "Creates a new page using the source editor"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-09-applytemplatetest",
+      "scenarioTitles": [
+        "Creates a new page using the source editor"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 20,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-10-addcategorytest",
+      "scenarioTitles": [
+        "Adds a new category"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "PAGE_OR_ELEMENT_STATE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-11-protectpagetest",
+      "scenarioTitles": [
+        "Protects a page from being edited by non-admin users"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-12-admineditprotectedpage-getswarningtest",
+      "scenarioTitles": [
+        "Checks that the admin gets a warning message when editing a protected page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 17,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-13-editprotectedpage-forbiddentest",
+      "scenarioTitles": [
+        "A non-admin user tries to edit a protected page and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-14-promotetoadmintest",
+      "scenarioTitles": [
+        "Promotes a standard user to administrator"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "MANUAL_CLASSIFICATION_REQUIRED"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 22,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-15-editprotectedpage-newadmin-successtest",
+      "scenarioTitles": [
+        "A newly promoted admin successfully edits a protected page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-16-revertlastcommittest",
+      "scenarioTitles": [
+        "The last edit made to a page is reverted"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-17-createuserpagetest",
+      "scenarioTitles": [
+        "Creates a new user page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-18-blockusertest",
+      "scenarioTitles": [
+        "Blocks a user"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "commerce_catalog"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-19-blockeduser-cantedit",
+      "scenarioTitles": [
+        "A blocked user tries to edit a page and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-20-deletepagetest",
+      "scenarioTitles": [
+        "Deletes a page"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-21-createredirecttest",
+      "scenarioTitles": [
+        "Creates a new redirect"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-22-followredirecttest",
+      "scenarioTitles": [
+        "Searches a keyword for which a redirect has been defined"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 5,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 16,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 17,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-23-changepassword-tooshorttest",
+      "scenarioTitles": [
+        "Tries to change a user's password with a too short one and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-24-changepassword-toocommontest",
+      "scenarioTitles": [
+        "Tries to change a user's password with a too common one and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-25-changepassword-ok",
+      "scenarioTitles": [
+        "Tries to change a user's password with a too common one and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-26-createblankpage-getswarning",
+      "scenarioTitles": [
+        "Tries to create a blank page and gets a warning"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "navigation_search"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mediawiki-27-createemptyuser-fails",
+      "scenarioTitles": [
+        "Tries to create an empty user and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    }
+  ]
+}

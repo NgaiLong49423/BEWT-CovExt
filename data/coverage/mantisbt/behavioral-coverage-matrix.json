@@ -1,0 +1,1047 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "mantisbt-01-adduser",
+      "scenarioTitles": [
+        "Add a new user"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-02-addexistinguserfails",
+      "scenarioTitles": [
+        "Tries to add an already existing user and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-03-addemptyuserfails",
+      "scenarioTitles": [
+        "Tries to add an empty user and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-04-addproject",
+      "scenarioTitles": [
+        "Adds a new project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 31,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 32,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-05-addexistingprojectfails",
+      "scenarioTitles": [
+        "Tries to add an existing project and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-06-addcategory",
+      "scenarioTitles": [
+        "Adds a category"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-07-addexistingcategoryfails",
+      "scenarioTitles": [
+        "Tries to add an existing category and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-08-addissue",
+      "scenarioTitles": [
+        "Adds a new issue"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 28,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 29,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 30,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-09-assignissue",
+      "scenarioTitles": [
+        "Assigns an issue to the administrator"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 18,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-0-login",
+      "scenarioTitles": [
+        "Logs in as the administrator"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-10-updateissuepriority",
+      "scenarioTitles": [
+        "Changes the priorrity of an issue"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-11-updateissueseverity",
+      "scenarioTitles": [
+        "Changes the severity of an issue"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-12-updateissuestatusacknowledged",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"acknowledged\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-13-updateissuestatusassigned",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"assigned\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-14-updateissuestatusconfirmed",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"confirmed\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-15-updateissuestatusfeedback",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"feedback\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-16-updateissuestatusnew",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"new\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-17-updateissuestatusresolved",
+      "scenarioTitles": [
+        "Changes the status of an issue to \"resolved\""
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 7,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-18-updateissuesummary",
+      "scenarioTitles": [
+        "Changes the summary of an issue"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-19-updateprojectstatus",
+      "scenarioTitles": [
+        "Changes the status of a project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-20-updateprojectdescription",
+      "scenarioTitles": [
+        "Changes the description of a project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-21-updateprojectviewstatus",
+      "scenarioTitles": [
+        "Changes the view status (visibility) of a project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-22-updatecategory",
+      "scenarioTitles": [
+        "Changes a category's name"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-23-updatecategoryempty",
+      "scenarioTitles": [
+        "Tries to change a category's name with an empty string and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-24-updateuser",
+      "scenarioTitles": [
+        "Changes a user's real name"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-25-updateuserempty",
+      "scenarioTitles": [
+        "Tries to change a username with an empty string and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "authorization_boundary"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-26-deleteissue",
+      "scenarioTitles": [
+        "Deletes an issue"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-27-deletecategory",
+      "scenarioTitles": [
+        "Deletes a category"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-28-deleteproject",
+      "scenarioTitles": [
+        "Deletes a project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-29-deleteuser",
+      "scenarioTitles": [
+        "Deletes a user"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-30-badlogin",
+      "scenarioTitles": [
+        "Tries to login with invalid credentials and fails"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 16,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-31-addmultipleusers",
+      "scenarioTitles": [
+        "Adds three new users"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 26,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 40,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 33,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 34,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 35,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 36,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-32-deletemultipleusers",
+      "scenarioTitles": [
+        "Deletes three users"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 16,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 23,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-33-addmultiplesubprojects",
+      "scenarioTitles": [
+        "Adds a new project and then adds two subprojects"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 18,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 26,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 35,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 43,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-34-unlinkmultiplesubprojects",
+      "scenarioTitles": [
+        "Unlinks two subprojects from their parent project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 13,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertFalse"
+        },
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-35-linkmultiplesubprojects",
+      "scenarioTitles": [
+        "Links two subprojects to another project"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 29,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-36-deletemultipleprojects",
+      "scenarioTitles": [
+        "Deletes three projects"
+      ],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 14,
+          "kind": "REJECTION_EXPECTATION"
+        },
+        {
+          "line": 20,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "mantisbt-37-logout",
+      "scenarioTitles": [
+        "Add a new user"
+      ],
+      "observedBehaviorTags": [
+        "identity_access"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 4,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 16,
+          "kind": "assertTrue"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    }
+  ]
+}

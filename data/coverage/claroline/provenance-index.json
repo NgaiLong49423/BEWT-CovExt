@@ -1,0 +1,499 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "claroline",
+  "sourcePin": {
+    "repository": "https://github.com/OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "retrieval": "GitHub Contents API at ref=commit; blob SHAs from recursive Git tree. No BEWT source content is redistributed.",
+  "localGitCatFileVerification": "NOT_RUN_DUE_SHELL_DNS",
+  "files": [
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/01_AddUserTest.feature",
+      "blobSha": "7a78f664016674e5e126af320d4581f7f04905fc",
+      "bytes": 876
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/02_SearchUserTest.feature",
+      "blobSha": "abeb45ad7c4b781bc7658e3b3e6795445bd46e10",
+      "bytes": 729
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/03_LoginUserTest.feature",
+      "blobSha": "7ce9ccd08954b13a2fc71fd3583c7f9e4a77ed92",
+      "bytes": 598
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/04_AddCourseTest.feature",
+      "blobSha": "11f260aeb230d37f0c75cd9984f8ce9ca4e786a7",
+      "bytes": 933
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/05_SearchCourseTest.feature",
+      "blobSha": "c0b8ab45c9104bd2463d5be9b4b1120426f69f5f",
+      "bytes": 645
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/06_EnrolUserTest.feature",
+      "blobSha": "98de0b64e45431a38dab4a29f9fff72f6e996846",
+      "bytes": 630
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/07_AddCourseEventTest.feature",
+      "blobSha": "dc08c8b2f56cd6280a3b472d49d3df20ec7976cb",
+      "bytes": 758
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/08_AddCourseExerciseTest.feature",
+      "blobSha": "19af1b20249dbbf67496a547519b57ef828cf35f",
+      "bytes": 575
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/09_MakeCourseExerciseVisibleTest.feature",
+      "blobSha": "7cf464cae560af166eb88e9ec68775eadc1f6a53",
+      "bytes": 778
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/10_AddCourseExerciseQuestionsTest.feature",
+      "blobSha": "14c874d55a53e3a7b04d3544f07ed8994352fbba",
+      "bytes": 2322
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/11_DoCourseExerciseQuestionsTest.feature",
+      "blobSha": "ada4880fb8868a6debebb5852809e0a2de4dd3aa",
+      "bytes": 732
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/12_ViewProfileStatisticsUserTest.feature",
+      "blobSha": "7077ecdc18c030762381ed0e397b8143a7822e91",
+      "bytes": 668
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/13_AddMultipleUsersTest.feature",
+      "blobSha": "5ed085141a9d3159a9222e3b3f6c264dac6c3d68",
+      "bytes": 1712
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/14_SearchMultipleUsersTest.feature",
+      "blobSha": "3ec08f0c35510bd4665aef5502bd09c139f0d104",
+      "bytes": 814
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/15_SearchStudentTest.feature",
+      "blobSha": "884e81775495d81b1a12876d687f7efa6fa0b6d0",
+      "bytes": 639
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/16_SearchTeacherTest.feature",
+      "blobSha": "4b6718d319c7a296a50e2472db58a914fe9e6273",
+      "bytes": 646
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/17_SearchAdminTest.feature",
+      "blobSha": "1f70626eee59ec663408d89a64fffe0aa7b8c346",
+      "bytes": 653
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/18_EnrolMultipleUsersTest.feature",
+      "blobSha": "c9251b77183dd509a1825186527b4036ff96450c",
+      "bytes": 1931
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/19_DoCourseExerciseQuestionsMultipleUsersTest.feature",
+      "blobSha": "5e22eef4f2e936c7fb00ec38cc7de91ba96494c5",
+      "bytes": 2617
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/20_RemoveEnrolMultipleUsersTest.feature",
+      "blobSha": "0b63798d486721ecef7c77a6a302490df24aded8",
+      "bytes": 895
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/21_RemoveMultipleUsersTest.feature",
+      "blobSha": "1c46ffba01a8944108ad6e97f60666849c1513e0",
+      "bytes": 967
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/22_AddEmptyUserTest.feature",
+      "blobSha": "f384704064e08507ea6dc0765b2bd326d9537f95",
+      "bytes": 532
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/23_AddWrongEmailUserTest.feature",
+      "blobSha": "8f4c3b317ed365380c181c7c8e25f4b2faf7ce84",
+      "bytes": 855
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/24_AddTwiceUserTest.feature",
+      "blobSha": "748b7560eb3613a2084fc72a95501cabf50f7092",
+      "bytes": 858
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/25_AddWrongPasswordUserTest.feature",
+      "blobSha": "3e2be806f4786a15dea82f5fb4cb4453cd77cf6c",
+      "bytes": 864
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/26_AddEmptyCourseTest.feature",
+      "blobSha": "dfd2d9afee337b72f9ae669e05d5cbaee4cac83a",
+      "bytes": 564
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/27_AddDeniedCourseTest.feature",
+      "blobSha": "238565e4666ea9cf6decdb41a57f5c66efcc186a",
+      "bytes": 786
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/28_EnrolDeniedCourseTest.feature",
+      "blobSha": "5dbb5bdf90f97d23834e1cc318815bf253c099a0",
+      "bytes": 698
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/29_AddPasswordCourseTest.feature",
+      "blobSha": "ab6c8a53aa7177563fecdf0f81e0d7728fa48df0",
+      "bytes": 956
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature",
+      "blobSha": "5cbfb4937c0b6d40447af0a52f1fc3a6d4baf44b",
+      "bytes": 770
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/31_EnrolPasswordCourseGoodPasswordUserTest.feature",
+      "blobSha": "341b7e28cbe23d186b191d1d75f42d953de1a471",
+      "bytes": 738
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/32_SearchAllowedCourseTest.feature",
+      "blobSha": "d21f3963cb4a8b93f84edd9842cf8a4fa5e96089",
+      "bytes": 691
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/33_SearchAndRemovePasswordCourseTest.feature",
+      "blobSha": "d73f43121cc72df80f7399e4ddbe67222df362d3",
+      "bytes": 967
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/34_SearchAndRemoveDeniedCourseTest.feature",
+      "blobSha": "f14edf851af58c73f3a9b8e86d9ebae6f07e981c",
+      "bytes": 935
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/35_RemoveCourseExerciseQuestionsTest.feature",
+      "blobSha": "da24c59a68ddbc9d6f47ef6e75ec91079509cdf0",
+      "bytes": 971
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/36_RemoveCourseEventTest.feature",
+      "blobSha": "31209d0667f773b718908ab2d5219c333cb8f58b",
+      "bytes": 553
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/37_RemoveCourseExerciseTest.feature",
+      "blobSha": "d73b8a0139f895d8d81f22bed954ef9d65aefc43",
+      "bytes": 581
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/38_RemoveEnrolUserTest.feature",
+      "blobSha": "8571c076249b533490a1263242f6054d88dcd9a7",
+      "bytes": 618
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/39_RemoveUserTest.feature",
+      "blobSha": "928c549ba3401c681c915071abca1748452c23d3",
+      "bytes": 624
+    },
+    {
+      "role": "gherkin",
+      "path": "claroline/gherkin/40_RemoveCourseTest.feature",
+      "blobSha": "47a475bb443f9c2d8444d0d871131cb94de180c3",
+      "bytes": 615
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddUserTest.java",
+      "blobSha": "11dedfa2d1c33a1e93cd16bcc2c9f64aa6aff8a5",
+      "bytes": 581
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchUserTest.java",
+      "blobSha": "c58a7e0e4fd1918410a5c7d132da2af590cb26e5",
+      "bytes": 544
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_LoginUserTest.java",
+      "blobSha": "8ee244d2ded4f82e175dae792d2f39eb38f3ad54",
+      "bytes": 410
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseTest.java",
+      "blobSha": "09072853d6c3da7f76a0e79529d51da16fc58ca8",
+      "bytes": 572
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchCourseTest.java",
+      "blobSha": "931a98ddce27f7edf2f1f6618426471429a404b7",
+      "bytes": 511
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolUserTest.java",
+      "blobSha": "bda790d256697f98a5c9070444dbc844d0c59b68",
+      "bytes": 501
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseEventTest.java",
+      "blobSha": "045fbc815075f344cfaf227f017cb7f0aff56091",
+      "bytes": 538
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseTest.java",
+      "blobSha": "b41b7e337a98b10ff5c67cb681099bc4e1f54abd",
+      "bytes": 515
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_MakeCourseExerciseVisibleTest.java",
+      "blobSha": "285250652dd3651943b2a914daa1f1341d5d8977",
+      "bytes": 574
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddCourseExerciseQuestionsTest.java",
+      "blobSha": "2ab6ab38542104b006ecbcbc54164038b6191374",
+      "bytes": 1060
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsTest.java",
+      "blobSha": "5440af24a8b07245dbc0316742ebc83e9008c30c",
+      "bytes": 529
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_ViewProfileStatisticsUserTest.java",
+      "blobSha": "d6f287a8a7e27878f6201bea9e8c6113400f67e7",
+      "bytes": 564
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddMultipleUsersTest.java",
+      "blobSha": "ba37e6f81b186635e024188d1dcd8d7243187d17",
+      "bytes": 922
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchMultipleUsersTest.java",
+      "blobSha": "d3410d0bf80458d6fd3a21ca8c229857bff8ceae",
+      "bytes": 580
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchStudentTest.java",
+      "blobSha": "e3a762db272e94f78c711fde559c686b28c77ffb",
+      "bytes": 488
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchTeacherTest.java",
+      "blobSha": "6e3f037256488fca3c1130f88525c1b32ccef222",
+      "bytes": 495
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAdminTest.java",
+      "blobSha": "d8e94dd4134a9388ecf98b5406fc401fcc812c66",
+      "bytes": 498
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolMultipleUsersTest.java",
+      "blobSha": "4e0832f02e52001c168a02b5c04a678f5cf65653",
+      "bytes": 986
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_DoCourseExerciseQuestionsMultipleUsersTest.java",
+      "blobSha": "43bfe5f54b59d83dcbbb201a70d5e6274dbef2f6",
+      "bytes": 1225
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolMultipleUsersTest.java",
+      "blobSha": "e1d0bc109ec717b10d3419d33fa5edc8d7862b0b",
+      "bytes": 641
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveMultipleUsersTest.java",
+      "blobSha": "9b2eb1b2b863b1f2896ff9cb8e05b76fd69b833c",
+      "bytes": 775
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyUserTest.java",
+      "blobSha": "3704e686af9ffceaa81cbdbe7f2ff40351276e88",
+      "bytes": 522
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongEmailUserTest.java",
+      "blobSha": "6e02a58e03412eba7f5cc9d8a126a7f25973c87b",
+      "bytes": 574
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddTwiceUserTest.java",
+      "blobSha": "4f321f29bcb01929f67013ce3933b5103a4aa24f",
+      "bytes": 569
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddWrongPasswordUserTest.java",
+      "blobSha": "29d70ed1f6f5d8967333b825c6d155e4edd468d7",
+      "bytes": 594
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddEmptyCourseTest.java",
+      "blobSha": "4a842fbfb98957a1f43db43d4c97ce137c2b99df",
+      "bytes": 551
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java",
+      "blobSha": "f05796e9fbf8935acde4bf18eeb0d559dc7c3205",
+      "bytes": 569
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java",
+      "blobSha": "efcc97769cb2bcdad1a6781644544e5b244e9a95",
+      "bytes": 563
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddPasswordCourseTest.java",
+      "blobSha": "ad839b2d8f4a82c84beb74196f4dcf446110ba2f",
+      "bytes": 588
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java",
+      "blobSha": "560fcd4fb112b01a9626e9b64015d335ee292d00",
+      "bytes": 575
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseGoodPasswordUserTest.java",
+      "blobSha": "20cb72dce4ad2969c49078ab8dcde84f016795bd",
+      "bytes": 571
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAllowedCourseTest.java",
+      "blobSha": "71b8cc5229b04573f3f63d114e8421644ed34703",
+      "bytes": 517
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemovePasswordCourseTest.java",
+      "blobSha": "aeaed60899868cea7d72cdc64522e347ab517d9b",
+      "bytes": 635
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_SearchAndRemoveDeniedCourseTest.java",
+      "blobSha": "4e5662a6dc0dd2d10724721e0651f1b1eb8568cf",
+      "bytes": 626
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseQuestionsTest.java",
+      "blobSha": "7ce018ee1b23f59c4cff0713cab7db9cfaa8f219",
+      "bytes": 726
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseEventTest.java",
+      "blobSha": "c0280329aabaaa632f5c0a4bda8992de2705eeb7",
+      "bytes": 533
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseExerciseTest.java",
+      "blobSha": "70dcd56c1228a01a353e558c662302d35548d712",
+      "bytes": 574
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveEnrolUserTest.java",
+      "blobSha": "dbe79017e407f713911e146e5e7668a626590fe7",
+      "bytes": 508
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveUserTest.java",
+      "blobSha": "7f5e387912425f4aa38f218a6d961b48228ad8f7",
+      "bytes": 558
+    },
+    {
+      "role": "java-test",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_RemoveCourseTest.java",
+      "blobSha": "11f3486a405b11d0c64cb6109be2108ffea1b398",
+      "bytes": 525
+    },
+    {
+      "role": "test-suite",
+      "path": "claroline/baseline/claroline-1.11.10/src/test/java/test/TestSuite.java",
+      "blobSha": "c28392a953b6a4e3380f360e6b1c9455e8b3fe4b",
+      "bytes": 1847
+    }
+  ]
+}

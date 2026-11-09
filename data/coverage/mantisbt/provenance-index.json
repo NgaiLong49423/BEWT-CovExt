@@ -1,0 +1,469 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "sourcePin": {
+    "repository": "https://github.com/OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "retrieval": "GitHub Contents API at ref=commit; blob SHAs from recursive Git tree. No BEWT source content is redistributed.",
+  "localGitCatFileVerification": "NOT_RUN_DUE_SHELL_DNS",
+  "files": [
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/01_AddUser.feature",
+      "blobSha": "ff86f3e677ac6733463f781ceddf185848c9fbf9",
+      "bytes": 760
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/02_AddExistingUserFails.feature",
+      "blobSha": "534a4428df0533951adcae28e2e1cc1a4847bb7d",
+      "bytes": 611
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/03_AddEmptyUserFails.feature",
+      "blobSha": "52b757c44c8e1d2e81b082a28dd8346e324099ad",
+      "bytes": 363
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/04_AddProject.feature",
+      "blobSha": "816cb044f62ef6be8f2ec033d9132552c3959278",
+      "bytes": 720
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/05_AddExistingProjectFails.feature",
+      "blobSha": "c4a547b7e9f53880a0d5c69746e06db921c31c5b",
+      "bytes": 618
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/06_AddCategory.feature",
+      "blobSha": "1e89486c2627afe170c615919a57fcffd380c345",
+      "bytes": 433
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/07_AddExistingCategoryFails.feature",
+      "blobSha": "7b0379785b901ccb859b5dee8e0894cd9ce72fb7",
+      "bytes": 431
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/08_AddIssue.feature",
+      "blobSha": "d7bfaf82c31b00fce592dcd35d0e20225a93266f",
+      "bytes": 734
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/09_AssignIssue.feature",
+      "blobSha": "aa7817c1964851f045d3836642cd9db089f91548",
+      "bytes": 400
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/0_Login.feature",
+      "blobSha": "56ea7e9f0bb94ffaef5ffa02046e250cd02270d5",
+      "bytes": 298
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/10_UpdateIssuePriority.feature",
+      "blobSha": "f485b38a9c016a5e4fde26a39b1ad5cf22c29c2c",
+      "bytes": 365
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/11_UpdateIssueSeverity.feature",
+      "blobSha": "705f4b882454049c2672eb0cf0d987fc63981204",
+      "bytes": 368
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/12_UpdateIssueStatusAcknowledged.feature",
+      "blobSha": "6c4551d3028f5f3a15abc3da7023bf84c62ef0c6",
+      "bytes": 394
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/13_UpdateIssueStatusAssigned.feature",
+      "blobSha": "b5539f84a01742fd0164d8db1d6087898c508041",
+      "bytes": 382
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/14_UpdateIssueStatusConfirmed.feature",
+      "blobSha": "a0e2ad2503c0b60713a7dbe998f24f5ec4fafb6e",
+      "bytes": 385
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/15_UpdateIssueStatusFeedback.feature",
+      "blobSha": "eb12173d6c32b39cb4a6e11885d9a6947c29bc99",
+      "bytes": 382
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/16_UpdateIssueStatusNew.feature",
+      "blobSha": "d069aa11de5d7362ea54507aa6ad7b5fb64896d8",
+      "bytes": 367
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/17_UpdateIssueStatusResolved.feature",
+      "blobSha": "2cc948053b533868000e59902feb26e9d2654768",
+      "bytes": 382
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/18_UpdateIssueSummary.feature",
+      "blobSha": "d4d4665ddb813f409c2f691d4434c6bb5563005d",
+      "bytes": 407
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/19_UpdateProjectStatus.feature",
+      "blobSha": "c37938f1dd2484b9fa235ff510b863444b71c6de",
+      "bytes": 383
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/20_UpdateProjectDescription.feature",
+      "blobSha": "3a31acf4e132fc8a86a13d6bd95969e7aeea1865",
+      "bytes": 448
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/21_UpdateProjectViewStatus.feature",
+      "blobSha": "dcc1f66ff73df57250ed3ba24a2881f3ecce3f03",
+      "bytes": 413
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/22_UpdateCategory.feature",
+      "blobSha": "eefb12e84c2ddd6323c34176eb3f6b1374d24cb3",
+      "bytes": 504
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/23_UpdateCategoryEmpty.feature",
+      "blobSha": "6a98de7191af5b3432f994c552b02d1000fae341",
+      "bytes": 483
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/24_UpdateUser.feature",
+      "blobSha": "6a38a681a31f60e473437f3e11885f46cf71258f",
+      "bytes": 433
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/25_UpdateUserEmpty.feature",
+      "blobSha": "afbe5b885098815526d6e8f9e2fdce00635b66a6",
+      "bytes": 476
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/26_DeleteIssue.feature",
+      "blobSha": "0932397cfe110f6a311eb8a25c8cc061c7c195fa",
+      "bytes": 389
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/27_DeleteCategory.feature",
+      "blobSha": "43bb10a3a55dbc8540451c88880296d0014808b2",
+      "bytes": 396
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/28_DeleteProject.feature",
+      "blobSha": "f8c661f796f2a5e90a4956992e3f1bc5a193b2bb",
+      "bytes": 341
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/29_DeleteUser.feature",
+      "blobSha": "b9867d1275fcb8f1ceefb9e4139e28b43727c2ae",
+      "bytes": 357
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/30_BadLogin.feature",
+      "blobSha": "60c642d362b4aaca168e671b36cf9b230fa9e8b1",
+      "bytes": 344
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/31_AddMultipleUsers.feature",
+      "blobSha": "238eea4728f13392c04844e45c954d23fc9941ea",
+      "bytes": 2130
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/32_DeleteMultipleUsers.feature",
+      "blobSha": "2c8ad6552e97d7e876c5acc45f942d0433d26160",
+      "bytes": 821
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/33_AddMultipleSubprojects.feature",
+      "blobSha": "2427b22ae2dcc5a8a7e1e1443ab392c9e5b1c221",
+      "bytes": 1150
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature",
+      "blobSha": "0d04e867f6cd8958ad598c2728f7b960263b7e8a",
+      "bytes": 578
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/35_LinkMultipleSubprojects.feature",
+      "blobSha": "233ce344bb917c463aab1fe64e99422b5489d475",
+      "bytes": 776
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/36_DeleteMultipleProjects.feature",
+      "blobSha": "fb8924b0ea3be8a7cea3f2f8fcb4125d0ecc9470",
+      "bytes": 781
+    },
+    {
+      "role": "gherkin",
+      "path": "mantisbt/gherkin/37_Logout.feature",
+      "blobSha": "b270f81123d4f03be0b4f0136de4f982155bc392",
+      "bytes": 171
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddUser.java",
+      "blobSha": "94c181b0074183a2bc15a47043b3643ce1f3c5b6",
+      "bytes": 822
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingUserFails.java",
+      "blobSha": "5daecfc3d0caa700ac471c85afc8d74fd4842585",
+      "bytes": 675
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddEmptyUserFails.java",
+      "blobSha": "3ce1b33f4f6a806cb1ac742715b3d7a2cd3cc0d1",
+      "bytes": 448
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddProject.java",
+      "blobSha": "90fae83d99e8f54153c3a91636d44db643f4986f",
+      "bytes": 932
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingProjectFails.java",
+      "blobSha": "734ef3f6b0a71178433edd497c51275f6f33c85b",
+      "bytes": 718
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddCategory.java",
+      "blobSha": "dc79339c71567e03862e5b22ffdbb2aa3eff38cd",
+      "bytes": 551
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddExistingCategoryFails.java",
+      "blobSha": "10a8dd1d3a494ce8781d3d8c8914f5ea8e183445",
+      "bytes": 607
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddIssue.java",
+      "blobSha": "7f2d1ec971c12b32df385ad7925c6b93c3019f1d",
+      "bytes": 877
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AssignIssue.java",
+      "blobSha": "7eece57a283b126a7ef74cee36212d22d708a88a",
+      "bytes": 475
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssuePriority.java",
+      "blobSha": "1b9db8ae163c0dac32cee067ab3a689e89fd998a",
+      "bytes": 520
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSeverity.java",
+      "blobSha": "33d5bb88e2ace1e307d746bab3fb2477a13de40f",
+      "bytes": 524
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAcknowledged.java",
+      "blobSha": "e8bc21660ceb9f655075d5151cdf7c3c5c49d328",
+      "bytes": 548
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusAssigned.java",
+      "blobSha": "35d288c31a24ba1c6d1a6a302f14bb61d6e67a2e",
+      "bytes": 534
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusConfirmed.java",
+      "blobSha": "10e982eeb12ddd1efbcfdf2e17142e94d9fffacd",
+      "bytes": 536
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusFeedback.java",
+      "blobSha": "689cd800a68ef387a29c937d0751c42dd7363d91",
+      "bytes": 534
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusNew.java",
+      "blobSha": "4dd41a52c4d2516b1026f508f0086e1484bcbced",
+      "bytes": 514
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueStatusResolved.java",
+      "blobSha": "44e0427584266bd1de1e5784359c78663b1bacd7",
+      "bytes": 534
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateIssueSummary.java",
+      "blobSha": "2ffb485b30c2f7ac0335f0d9680afd009c321c3f",
+      "bytes": 515
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectStatus.java",
+      "blobSha": "bf506a62b66d967845bf635b56d5590fdf256677",
+      "bytes": 600
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectDescription.java",
+      "blobSha": "5c91e393b0465d1bd85d2d806391500b3f0ba5c1",
+      "bytes": 583
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateProjectViewStatus.java",
+      "blobSha": "751318d96039f7c83c833e17c6eb508463626fc9",
+      "bytes": 604
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategory.java",
+      "blobSha": "f1c773ba851b6a56d3f913669ede1179a2f8f733",
+      "bytes": 571
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateCategoryEmpty.java",
+      "blobSha": "74f5f75166386a0b419a299232b59af484816a31",
+      "bytes": 573
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUser.java",
+      "blobSha": "7b74a3fa60877b811369a8ef5fbe9761c473908d",
+      "bytes": 534
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UpdateUserEmpty.java",
+      "blobSha": "49f98123a079617d9f686e6f4976b509a60e5ad5",
+      "bytes": 528
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteIssue.java",
+      "blobSha": "7b5310b9b65462b4e39ebbce6091e2157fdffc13",
+      "bytes": 472
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteCategory.java",
+      "blobSha": "188fff16a369c3773a1a473356f79ffdc6734940",
+      "bytes": 531
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteProject.java",
+      "blobSha": "7db612dd2d15074997c0aee1b0da7e22df0aeba1",
+      "bytes": 508
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteUser.java",
+      "blobSha": "265907b2586afc945d0ebc1c49a9c26673914763",
+      "bytes": 485
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/BadLogin.java",
+      "blobSha": "1bc9545a1c54835bab609330e4c673f891214bd6",
+      "bytes": 381
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleUsers.java",
+      "blobSha": "fb63df322dfc74da49530a8eccaad28d1e9552f0",
+      "bytes": 1017
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleUsers.java",
+      "blobSha": "99d05a6a41272091fe6e35813e9f401ea9bbee84",
+      "bytes": 587
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java",
+      "blobSha": "8796c9628a7b55df042b4e20822cd37a8e015a31",
+      "bytes": 1054
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java",
+      "blobSha": "1cadd29f46ce891788d5a1efa7677f0a840bebf2",
+      "bytes": 595
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java",
+      "blobSha": "5a3d36e01759fc641fa108b72b97e47fc6a5577e",
+      "bytes": 687
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/DeleteMultipleProjects.java",
+      "blobSha": "af6d7f604d521e2e50b610d09df54f33252c2d62",
+      "bytes": 603
+    },
+    {
+      "role": "java-test",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/Logout.java",
+      "blobSha": "7b621389f3e3e0f83a489943852762cafd9b046a",
+      "bytes": 325
+    },
+    {
+      "role": "test-suite",
+      "path": "mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/TestSuite.java",
+      "blobSha": "0c0bbf17a09370e73ab74e1d1a7df2ff7c999301",
+      "bytes": 1176
+    }
+  ]
+}

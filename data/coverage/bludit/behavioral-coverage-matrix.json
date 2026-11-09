@@ -1,0 +1,563 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "matrixType": "STATIC_BASELINE_TEST_SPECIFICATION_INDEX",
+  "behaviorDenominator": "NOT_ESTABLISHED",
+  "RQ2": "NOT_EVALUATED",
+  "entries": [
+    {
+      "caseId": "bludit-01-addcontenttest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-02-changeurltest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-03-changepositiontest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 15,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-04-changeparenttest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-05-addasdrafttest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-06-setstickyposttest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring",
+        "issue_project"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 23,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-07-deleteposttest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-08-addusertest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "PAGE_OR_ELEMENT_STATE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-09-changepasswordtest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 12,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 25,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-10-addsocialstest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 13,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 26,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-11-changehometest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 21,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-12-orderbypositiontest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_CONTENT"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-13-addsitesocialtest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-14-setfootertest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-15-changelanguagetest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "VISIBLE_MESSAGE"
+        },
+        {
+          "line": 11,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertEquals"
+        },
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-16-deleteusertest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-17-changepostdatetest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-18-badloginfailstest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 6,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-19-addcategorytest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 10,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 24,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-20-assigncategorytest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 14,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 27,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-21-seecategoryarticlestest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 8,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-22-deletecategorytest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 9,
+          "kind": "REJECTION_EXPECTATION"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 22,
+          "kind": "assertFalse"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    },
+    {
+      "caseId": "bludit-23-emptyloginfailstest",
+      "scenarioTitles": [],
+      "observedBehaviorTags": [
+        "identity_access",
+        "content_authoring"
+      ],
+      "expectedOutcomeRefs": [
+        {
+          "line": 4,
+          "kind": "VISIBLE_MESSAGE"
+        }
+      ],
+      "javaAssertionRefs": [
+        {
+          "line": 19,
+          "kind": "assertTrue"
+        },
+        {
+          "line": 20,
+          "kind": "assertEquals"
+        }
+      ],
+      "interpretation": "STATIC_BASELINE_TEST_SPECIFICATION_ONLY",
+      "semanticOracleAlignment": "NOT_EVALUATED",
+      "humanDecision": null
+    }
+  ]
+}

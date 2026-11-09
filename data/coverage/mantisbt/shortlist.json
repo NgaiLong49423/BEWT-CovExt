@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "mantisbt",
+  "sourcePin": {
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "NO_SHORTLIST_GAP_ANALYSIS_NOT_EVALUATED",
+  "topFive": [],
+  "decisionLedger": "UNCHANGED"
+}

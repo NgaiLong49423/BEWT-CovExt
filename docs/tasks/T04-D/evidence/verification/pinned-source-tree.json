@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "https://github.com/OlianasD/BEWT",
+  "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+  "commitUrl": "https://github.com/OlianasD/BEWT/commit/0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "treeApiUrl": "https://api.github.com/repos/OlianasD/BEWT/git/trees/0501249ff3e9a5ea83a06155cd2971dc36197056?recursive=1",
+  "retrieval": {
+    "gherkinRequested": 227,
+    "gherkinRetrieved": 227,
+    "suiteRequested": 7,
+    "suiteRetrieved": 7,
+    "javaTestsRequested": 228,
+    "javaTestsRetrieved": 228,
+    "failed": 0,
+    "sourceFilesIndexed": 462
+  },
+  "apps": {
+    "bludit": {
+      "features": 23,
+      "scenario": 0,
+      "tests": 23,
+      "mapped": 23,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "claroline": {
+      "features": 40,
+      "scenario": 40,
+      "tests": 40,
+      "mapped": 40,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "expresscart": {
+      "features": 31,
+      "scenario": 31,
+      "tests": 31,
+      "mapped": 31,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "joomla": {
+      "features": 35,
+      "scenario": 35,
+      "tests": 35,
+      "mapped": 35,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "mantisbt": {
+      "features": 38,
+      "scenario": 38,
+      "tests": 37,
+      "mapped": 37,
+      "featureOnly": 1,
+      "javaOnly": 0
+    },
+    "mediawiki": {
+      "features": 27,
+      "scenario": 27,
+      "tests": 27,
+      "mapped": 27,
+      "featureOnly": 0,
+      "javaOnly": 0
+    },
+    "prestashop": {
+      "features": 33,
+      "scenario": 33,
+      "tests": 35,
+      "mapped": 33,
+      "featureOnly": 0,
+      "javaOnly": 2
+    }
+  },
+  "integrityNote": "Pinned GitHub tree and contents were read via connected GitHub API; blob SHAs are indexed per app. Shell git clone failed because this environment could not resolve github.com; local cat-file verification NOT_RUN. No source content is copied into this repository."
+}

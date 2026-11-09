@@ -1,0 +1,295 @@
+{
+  "schemaVersion": "1.0.0",
+  "application": "bludit",
+  "sourcePin": {
+    "repository": "https://github.com/OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "retrieval": "GitHub Contents API at ref=commit; blob SHAs from recursive Git tree. No BEWT source content is redistributed.",
+  "localGitCatFileVerification": "NOT_RUN_DUE_SHELL_DNS",
+  "files": [
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+      "blobSha": "a1d6f286aa5a66057dfa419d38cac730d87e775d",
+      "bytes": 476
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/02_ChangeUrlTest.feature",
+      "blobSha": "88c2ef97e1d1f4f13f18ddcff4172af36cfafdb0",
+      "bytes": 625
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/03_ChangePositionTest.feature",
+      "blobSha": "3d78d11cdeba4dc78d73b9f7bd0d5ace715bfd53",
+      "bytes": 699
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/04_ChangeParentTest.feature",
+      "blobSha": "321293693990f088a867d6b1bf1e7056c7371809",
+      "bytes": 714
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/05_AddAsDraftTest.feature",
+      "blobSha": "c716ef40de36a014d4a391d81d9e8533a1b9c576",
+      "bytes": 481
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/06_SetStickyPostTest.feature",
+      "blobSha": "37d571b05b90f3c2dcac32f329503eb5367a1fe2",
+      "bytes": 598
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/07_DeletePostTest.feature",
+      "blobSha": "d6ba3030c80bfcb904754cddd1b4ac2e4794fa75",
+      "bytes": 462
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/08_AddUserTest.feature",
+      "blobSha": "4b3d7b5f46d6a82ac2350c2218a257b35be7963d",
+      "bytes": 696
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/09_ChangePasswordTest.feature",
+      "blobSha": "a4e592a5bd5dddcbdbe74f472d46272c919b8613",
+      "bytes": 662
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/10_AddSocialsTest.feature",
+      "blobSha": "66c7093738821b8a487bef435a82ae76b9f98703",
+      "bytes": 905
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/11_ChangeHomeTest.feature",
+      "blobSha": "b100364bcf8f04ee7b0b76e056214c17d9f70fd7",
+      "bytes": 510
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/12_OrderByPositionTest.feature",
+      "blobSha": "f8864cf20992569bc5faaa4ae9ebf6c7d1a59c35",
+      "bytes": 515
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/13_AddSiteSocialTest.feature",
+      "blobSha": "fb83cb0d0254155339de437b0278e731fdc3f169",
+      "bytes": 524
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/14_SetFooterTest.feature",
+      "blobSha": "d190a9e94e6f78e6ce8e4c6141db7c4d1ada7ec7",
+      "bytes": 470
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/15_ChangeLanguageTest.feature",
+      "blobSha": "f9f07877bc6b2845de83e6ffea0f5a7af801634a",
+      "bytes": 708
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/16_DeleteUserTest.feature",
+      "blobSha": "bb3a8ddd2c1175318316d9bff6aeb73178fd06e4",
+      "bytes": 520
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/17_ChangePostDateTest.feature",
+      "blobSha": "27b332fab55df96efda60fa2a3f1375682f8326f",
+      "bytes": 707
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/18_BadLoginFailsTest.feature",
+      "blobSha": "8f5ca1f9ff01c39fe8dec2bf5d99ed603eb37471",
+      "bytes": 345
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/19_AddCategoryTest.feature",
+      "blobSha": "362f258d20aae9983cec8859d5c722137eab0bff",
+      "bytes": 494
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/20_AssignCategoryTest.feature",
+      "blobSha": "91f5bd91036ad44f5e48ebd3ae2cf66ca38f876c",
+      "bytes": 736
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/21_SeeCategoryArticlesTest.feature",
+      "blobSha": "746ab9a7bff1127c135100e46f38f015da0d4d10",
+      "bytes": 439
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/22_DeleteCategoryTest.feature",
+      "blobSha": "1a049f50d46381a8c665c420d40d2684d55df654",
+      "bytes": 425
+    },
+    {
+      "role": "gherkin",
+      "path": "bludit/gherkin/bludit-3.13.1/23_EmptyLoginFailsTest.feature",
+      "blobSha": "f3968730409955a4887e69351744884c99927aeb",
+      "bytes": 251
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddContentTest.java",
+      "blobSha": "73b873db1386fc18dddee653910edb5efba38300",
+      "bytes": 488
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeUrlTest.java",
+      "blobSha": "68453163efaecaa6f1bd99dde0b32ed15f04e2ce",
+      "bytes": 541
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePositionTest.java",
+      "blobSha": "3d3f9fd76cb6c2e3a749dbb838c3651e8f7103e0",
+      "bytes": 580
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeParentTest.java",
+      "blobSha": "a96fa2fd48001377ab9132f197ad4f3a3462f24d",
+      "bytes": 633
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddAsDraftTest.java",
+      "blobSha": "0d23d5678569a745de5f3e14570037b42e077421",
+      "bytes": 465
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetStickyPostTest.java",
+      "blobSha": "12b7717e51c24353000421bd8ee1d7f4a95a2b3a",
+      "bytes": 555
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeletePostTest.java",
+      "blobSha": "baffc67613f2dd49044a297c969ce0a71162b857",
+      "bytes": 457
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddUserTest.java",
+      "blobSha": "819dce4095fddf828c1ff93bf70c8559144bd492",
+      "bytes": 571
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePasswordTest.java",
+      "blobSha": "2a5294b1b7c75098233b380f023e944cc6bb8605",
+      "bytes": 536
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSocialsTest.java",
+      "blobSha": "b8b20e1c73e59d67027644c62c4a1e67a67372ff",
+      "bytes": 735
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeHomeTest.java",
+      "blobSha": "9499d5a968a6b0cec2205f95f68e011e5868e6cf",
+      "bytes": 497
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/OrderByPositionTest.java",
+      "blobSha": "98240273b249277d206b9f33ae8c0994c6f3a48b",
+      "bytes": 492
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddSiteSocialTest.java",
+      "blobSha": "267c2125386c8725bba206979a37a1128abfecc0",
+      "bytes": 532
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SetFooterTest.java",
+      "blobSha": "88537681a813604c780a652e8b291628fa28fddc",
+      "bytes": 499
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangeLanguageTest.java",
+      "blobSha": "7c229f8e7e5a111c7dcdf468c8b953efd1bc21ac",
+      "bytes": 556
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteUserTest.java",
+      "blobSha": "eb1e404aa92c4ab7df48ad40e1ce85560a0c88d2",
+      "bytes": 421
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/ChangePostDateTest.java",
+      "blobSha": "6bfc5cd008cec03ea62b0bd37aa2caea063f0ab3",
+      "bytes": 638
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/BadLoginFailsTest.java",
+      "blobSha": "c1ab15e4f7a6380ce6f5bfee2d6e9bb3de123d56",
+      "bytes": 482
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AddCategoryTest.java",
+      "blobSha": "a95739ebba04fa80e564637fc703b10a106fc1c4",
+      "bytes": 501
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/AssignCategoryTest.java",
+      "blobSha": "49e7833535d9a1730e525d052049b5b1da5ebb70",
+      "bytes": 617
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/SeeCategoryArticlesTest.java",
+      "blobSha": "f81f5504f1642be77386acee2438f6bf7b23280f",
+      "bytes": 495
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/DeleteCategoryTest.java",
+      "blobSha": "65461925672604aae8102864f5b529dd9d59c892",
+      "bytes": 472
+    },
+    {
+      "role": "java-test",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/EmptyLoginFailsTest.java",
+      "blobSha": "5773e28b4b2029b46e5f619b052fe9ca0e6b0642",
+      "bytes": 468
+    },
+    {
+      "role": "test-suite",
+      "path": "bludit/baseline/bludit-2.3.4/src/test/java/tests/TestSuite.java",
+      "blobSha": "a7f0e8040b4d53f562dd4c17c8adb20ef9eaeafa",
+      "bytes": 792
+    }
+  ]
+}
