@@ -17,7 +17,7 @@
 - Human readiness: decision protocol, blank template, candidate-specific questions, fixture/oracle context and evidence links are present. No human decision or approval was created. `CL-GAP-002` remains blocked on authoritative authorization policy; Claroline runtime-image/source provenance is incomplete. Eight per-application quota shortfalls remain open.
 - Outcome: `PARTIAL_WITH_LIMITATIONS`. No candidate implementation, G1 PASS, runtime/E2E result, novelty validation, or RQ2 result is claimed. `docs/program/STATUS.json` remains unchanged.
 - Validator and negative-test evidence: see `TEST-RESULTS.md`.
-- Code/data tested SHA: `fe7c0d49b86369e0e8c1cb66ace0d70251dcc59c` (validator and negative tests rerun at this exact commit).
+- Code/data and final validator tested SHA: `cbe7edce0ec3ffcafebf919838567b07632792d5` (validator and negative tests rerun at this exact commit).
 - Final PR SHA and URL: the published head is supplied in the task handoff; it differs only by these final report metadata updates.
 
 ## Changed files

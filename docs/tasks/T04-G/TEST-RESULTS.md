@@ -17,6 +17,6 @@
 
 ## Reproducibility identifiers
 
-- Code/data tested commit SHA: `fe7c0d49b86369e0e8c1cb66ace0d70251dcc59c`.
+- Code/data and final validator tested commit SHA: `cbe7edce0ec3ffcafebf919838567b07632792d5`.
 - Final PR head SHA: reported from the pushed branch after publication; it includes this handoff-only update.
 - T04-G validator checks artifact structure and mappings; it does not establish application runtime behavior, candidate novelty, human approval, G1 PASS, or RQ2 gain.
