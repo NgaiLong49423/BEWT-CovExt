@@ -1,0 +1,18 @@
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (2.7193ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.1898ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (0.7767ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (0.8101ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.4715ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.4097ms)
+  ✔ network (0.2954ms)
+  ✔ volume (0.2913ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (1.4585ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 112.2859

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "auditScope": "Kanboard G0 only; independent review of existing T03-A Run A/B evidence; no runtime rerun",
+  "repositoryBaseCommit": "ae149842185877bcd4a97cf99ebdb3fc099e040b",
+  "runs": [
+    {
+      "runId": "t03a-a-20261108-r2",
+      "evidenceRoot": "docs/tasks/T03-A/evidence/t03a-a-20261108-r2",
+      "source": {"bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056", "kanboardCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b", "sourceTreeSha256": "1e1c125802be4b36366efa1589827ad53a2efc0b13dd14b803966ef57817196f"},
+      "image": {"tag": "kanboard/kanboard:v1.2.15", "digest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e", "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"},
+      "runtime": {"url": "http://127.0.0.1:57580/", "httpStatus": 200, "loginFormPresent": true, "memoryBytes": 805306368, "pidsLimit": 256, "cpuLimit": "1.5", "containerId": "6b52ccbc80aee2574af83335030591364cae1071b5079187030a0fe1293e163d", "networkId": "4e0642d85d20a89ecc4b90033e70e1378de16fd128cf43ee4f47c94251bf2557", "volumeCount": 3, "ownershipLabelsMatchRun": true},
+      "test": {"class": "tests.AddNewProject", "tests": 1, "failures": 0, "errors": 0, "skipped": 0, "mavenExitCode": 0, "mavenCommandExact": false, "xmlPath": "surefire-raw-sanitized.xml", "recordedOriginalSha256": "63d0f79609d222c9708e4cf224ae2770fbc5339bbab41fdb49d72bc9638db527", "lfNormalizedXmlSha256": "17fa89bd0c3f5207077a3cbe534a740a7f437811a6e619c18787bb8d6fa1ef16", "integrity": "BLOCKED_EVIDENCE"},
+      "sentinel": {"before": 0, "after": 1, "readOnly": true},
+      "cleanup": {"firstPass": "PASS", "repeatPass": "NOT_EVIDENCED", "protectedResourcesUnchanged": true}
+    },
+    {
+      "runId": "t03a-b-20261108-r2",
+      "evidenceRoot": "docs/tasks/T03-A/evidence/t03a-b-20261108-r2",
+      "source": {"bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056", "kanboardCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b", "sourceTreeSha256": "1e1c125802be4b36366efa1589827ad53a2efc0b13dd14b803966ef57817196f"},
+      "image": {"tag": "kanboard/kanboard:v1.2.15", "digest": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e", "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"},
+      "runtime": {"url": "http://127.0.0.1:62535/", "httpStatus": 200, "loginFormPresent": true, "memoryBytes": 805306368, "pidsLimit": 256, "cpuLimit": "1.5", "containerId": "c0a1aeaa9f230c3b7cd59c8fbce9c6a65c3a5a63c24b66964a7e1d66ebb61dd6", "networkId": "75fcf4e0a284055f27b7a718f7181aec86798c8f53b712d4a75e9eb4ffa8bf15", "volumeCount": 3, "ownershipLabelsMatchRun": true},
+      "test": {"class": "tests.AddNewProject", "tests": 1, "failures": 0, "errors": 0, "skipped": 0, "mavenExitCode": 0, "mavenCommandExact": false, "xmlPath": "surefire-raw-sanitized.xml", "recordedOriginalSha256": "cd0c77ab86d97ca5a29c92f4aa7cbc8fd861a749868684d9cdfccb1013af99a1", "lfNormalizedXmlSha256": "035f275f14d85368777abcc025a5b6253773874853ef04f4554bb5daf5f75fab", "integrity": "BLOCKED_EVIDENCE"},
+      "sentinel": {"before": 0, "after": 1, "readOnly": true},
+      "cleanup": {"firstPass": "PASS", "repeatPass": "PASS_IDEMPOTENT", "protectedResourcesUnchanged": true}
+    }
+  ],
+  "humanReviewInputs": {
+    "datasetPath": "data/reviews/kanboard/t04b-review-dataset.json",
+    "datasetSha256LfNormalized": "f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37",
+    "candidateDefinitionPath": "data/coverage/kanboard/gap-candidates.json",
+    "candidateDefinitionSha256": "df600b91417480b0c727282fc3e27c08d21ae2784fe9a2e31275999f20514815",
+    "ledgerPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+    "ledgerSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "candidateIds": ["KB-GAP-001", "KB-GAP-002", "KB-GAP-003", "KB-GAP-004", "KB-GAP-008"],
+    "allDecisionsPending": true,
+    "ledgerRecordCount": 0
+  }
+}
