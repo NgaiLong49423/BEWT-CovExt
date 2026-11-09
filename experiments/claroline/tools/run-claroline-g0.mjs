@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertNetworkPolicy, classifyEgressProbe, EGRESS_LIMITED_NETWORK_POLICY, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, classifyEgressProbe, INTERNAL_IPAM_NETWORK_POLICY, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
@@ -22,7 +22,7 @@ const evidenceDir = createEvidenceDirectory(resolve(repo, 'docs/tasks/T03-B2/evi
 const names = namesForRun(runId);
 const labels = labelsForRun(runId);
 const labelArgs = Object.entries(labels).flatMap(([key, value]) => ['--label', `${key}=${value}`]);
-const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, networkPolicy: EGRESS_LIMITED_NETWORK_POLICY, containers: [], network: null };
+const record = { runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, imageDigest: digest(APP_IMAGE_REF), browserImageDigest: digest(BROWSER_IMAGE_REF), imageLabels: {}, networkPolicy: INTERNAL_IPAM_NETWORK_POLICY, containers: [], network: null };
 let exitCode = 1;
 
 function dockerCall(args, evidenceName, throwOnError = true) {
@@ -34,6 +34,18 @@ function dockerCall(args, evidenceName, throwOnError = true) {
     throw new Error(`${prefix}docker ${args[0]} failed (${result.status}): ${detail}`);
   }
   return result;
+}
+
+function selectNetworkIpam() {
+  const ids = docker(['network', 'ls', '-q']).split(/\r?\n/).filter(Boolean);
+  const dockerCidrs = ids.flatMap(id => JSON.parse(docker(['network', 'inspect', id]))[0].IPAM?.Config?.map(item => item.Subnet).filter(Boolean) || []);
+  const routeResult = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="Stop"; $routes=@(Get-NetRoute -AddressFamily IPv4 | Select-Object -ExpandProperty DestinationPrefix); ConvertTo-Json -InputObject $routes -Compress'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
+  if (routeResult.error || routeResult.status !== 0) throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${routeResult.status})`);
+  const parsedRoutes = JSON.parse(routeResult.stdout || '[]');
+  const hostRoutes = Array.isArray(parsedRoutes) ? parsedRoutes : [parsedRoutes];
+  const selected = selectInternalBridgeIpam([...dockerCidrs, ...hostRoutes]);
+  writeOnce(resolve(evidenceDir, 'network-ipam-selection.json'), { outcome: 'PASS', selected, dockerNetworkCount: ids.length, inspectedDockerSubnetCount: dockerCidrs.length, inspectedHostRouteCount: hostRoutes.length, overlapChecked: true });
+  return selected;
 }
 
 try {
@@ -67,11 +79,16 @@ try {
   const hostEgressControl = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="SilentlyContinue"; if (Test-NetConnection -ComputerName 1.1.1.1 -Port 443 -InformationLevel Quiet) { exit 0 } else { exit 1 }'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
   writeOnce(resolve(evidenceDir, 'host-egress-control.json'), { target: '1.1.1.1:443', exitCode: hostEgressControl.status, outcome: hostEgressControl.status === 0 ? 'PASS' : 'BLOCKED', error: hostEgressControl.error?.message || '' });
   if (hostEgressControl.status !== 0) throw new Error('EGRESS_CONTROL_BLOCKED: host could not reach the external TCP control target');
-  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
+  const networkIpam = selectNetworkIpam();
+  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const networkInfo = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
-  assertNetworkPolicy(networkInfo, EGRESS_LIMITED_NETWORK_POLICY);
-  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), { outcome: 'PASS', policy: EGRESS_LIMITED_NETWORK_POLICY, driver: networkInfo.Driver, internal: networkInfo.Internal, ipv6Enabled: networkInfo.EnableIPv6, ipMasquerade: networkInfo.Options?.['com.docker.network.bridge.enable_ip_masquerade'] });
+  assertNetworkPolicy(networkInfo, INTERNAL_IPAM_NETWORK_POLICY);
+  const actualIpam = assertRecordedNetworkIpam(networkInfo, networkIpam);
+  record.network.subnet = actualIpam.Subnet;
+  record.network.gateway = actualIpam.Gateway;
+  writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`);
+  writeOnce(resolve(evidenceDir, 'network-policy-verification.json'), { outcome: 'PASS', policy: INTERNAL_IPAM_NETWORK_POLICY, driver: networkInfo.Driver, internal: networkInfo.Internal, ipv6Enabled: networkInfo.EnableIPv6, subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
   const appCreated = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', '127.0.0.1:' + appPort + ':80', '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
   recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreated, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
   const browserCreated = dockerCall(['create', '--name', names.browser, '--network', names.network, '--publish', '127.0.0.1:' + browserPort + ':4444', '--memory', '2304m', '--cpus', '2', '--pids-limit', '512', '--shm-size', '1g', '--restart', 'no', ...labelArgs, BROWSER_IMAGE_REF], 'selenium-create.json', false);
@@ -83,6 +100,8 @@ try {
   assertPublishedLoopbackPort(appInfo, '80/tcp', appPort);
   assertPublishedLoopbackPort(browserInfo, '4444/tcp', browserPort);
   assertContainerPortNotPublished(appInfo, '3306/tcp');
+  assertContainerNetworkGateway(appInfo, names.network, record.network.gateway, record.network.id);
+  assertContainerNetworkGateway(browserInfo, names.network, record.network.gateway, record.network.id);
   for (const [role, container] of [['app', record.containers.find(item => item.role === 'app')], ['browser', record.containers.find(item => item.role === 'browser')]]) {
     const probe = spawnSync(DOCKER_CLI_PATH, ['exec', container.id, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
     const probeOutcome = classifyEgressProbe(probe);

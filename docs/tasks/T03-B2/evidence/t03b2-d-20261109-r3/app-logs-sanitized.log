@@ -1,0 +1,7 @@
+2026-11-09T13:53:05.740698509Z  * Starting web server apache2
+2026-11-09T13:53:06.953845512Z  * 
+2026-11-09T13:53:09.744595134Z Result starting mysql:  result
+
+[stderr]
+2026-11-09T13:53:05.931771684Z AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.26.254.2. Set the 'ServerName' directive globally to suppress this message
+

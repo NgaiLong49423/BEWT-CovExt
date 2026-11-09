@@ -1,0 +1,69 @@
+✔ partial-startup cleanup handles 0 recorded Claroline container(s) (5.3548ms)
+✔ partial-startup cleanup handles 1 recorded Claroline container(s) (1.2378ms)
+✔ partial-startup cleanup handles 2 recorded Claroline container(s) (0.8549ms)
+✔ approved egress-limited bridge profile is checked and legacy internal runs remain cleanable (2.6529ms)
+✔ isolated internal bridge requires the recorded explicit IPAM gateway and exact container endpoints (1.623ms)
+✖ internal IPAM selector skips overlapping Docker and host route CIDRs (1.9551ms)
+✔ external egress probe distinguishes blocked, reachable, and inconclusive outcomes (0.2238ms)
+✔ failed network initialization without a returned ID blocks on an unrecorded same-run resource (0.1944ms)
+✔ create ID is persisted before nonzero status is classified for network/app/Selenium failures (0.4471ms)
+✔ Docker create port bind race is classified after any returned ID is recorded (0.2073ms)
+✔ fault injection: Selenium start failure cleans both containers because their IDs were recorded at create (0.5525ms)
+✔ pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints (0.7131ms)
+✔ running containers with an explicitly unallocated host port are safely cleaned by recorded ownership (0.383ms)
+✔ an empty HostConfig port is blocked if Docker reports an assigned external port (0.1466ms)
+✔ stopped exit-137 container with detached endpoint and no published port is safely removed (0.6959ms)
+✔ exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block (0.2971ms)
+✔ stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation (0.5357ms)
+✔ unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted (0.3748ms)
+✔ partial teardown and network removal failure return BLOCKED/nonzero; no false PASS (0.4084ms)
+✔ fully absent previously recorded resources are an idempotent PASS (0.248ms)
+✔ network-only partial run and no-resource network-create failure are safe (0.2307ms)
+✔ app-only diagnostic can safely clean an exact loopback record when Docker omits the active port report (0.287ms)
+✔ selected port mismatch or active external binding blocks cleanup without mutation (0.3633ms)
+✔ containers without a recorded network block before any stop or rm (0.0976ms)
+✔ Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML (5.2604ms)
+✔ Surefire sanitization removes machine properties/output and local workspace paths (1.1008ms)
+✔ run ID validation rejects unsafe and duplicate-shape identities (0.1328ms)
+✔ evidence directory creation is write-once for each run ID (3.2717ms)
+✔ native tools resolve to explicit paths and child PATH excludes user-writable AppData (0.3593ms)
+✔ loopback port selector returns an available host-only ephemeral port (19.7546ms)
+✔ selected loopback port probe detects occupied port and does not claim reservation (2.1033ms)
+✔ Docker port verification requires exact loopback HostConfig and NetworkSettings match (0.2182ms)
+ℹ tests 32
+ℹ suites 0
+ℹ pass 31
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 673.6206
+
+✖ failing tests:
+
+test at experiments\claroline\tools\test\cleanup-claroline-g0.test.mjs:185:1
+✖ internal IPAM selector skips overlapping Docker and host route CIDRs (1.9551ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   gateway: '172.28.254.1',
+  +   subnet: '172.28.254.0/24'
+  -   gateway: '172.27.254.1',
+  -   subnet: '172.27.254.0/24'
+    }
+  
+      at TestContext.<anonymous> (file:///D:/Github-Projects/BEWT-CovExt-worktrees/t03b2-claroline-g0/experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs:186:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { subnet: '172.28.254.0/24', gateway: '172.28.254.1' },
+    expected: { subnet: '172.27.254.0/24', gateway: '172.27.254.1' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

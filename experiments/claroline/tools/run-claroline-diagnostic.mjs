@@ -5,7 +5,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertContainerPortNotPublished,
-  assertPublishedLoopbackPort, assertNetworkPolicy, classifyEgressProbe, EGRESS_LIMITED_NETWORK_POLICY,
+  assertPublishedLoopbackPort, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway,
+  classifyEgressProbe, INTERNAL_IPAM_NETWORK_POLICY, selectInternalBridgeIpam,
   createEvidenceDirectory, labelsForRun, namesForRun,
   probeLoopbackPort, recordCreatedResource, selectLoopbackPort, snapshotInventory,
   validateRunId,
@@ -30,7 +31,7 @@ const scrub = value => String(value ?? '')
 const docker = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const digestOf = ref => ref.slice(ref.indexOf('@') + 1);
 const record = {
-  runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, networkPolicy: EGRESS_LIMITED_NETWORK_POLICY,
+  runId, benchmarkRepositoryCommit: SOURCE_COMMIT, applicationSourceCommit: null, networkPolicy: INTERNAL_IPAM_NETWORK_POLICY,
   imageDigest: digestOf(APP_IMAGE_REF), browserImageDigest: digestOf(BROWSER_IMAGE_REF),
   imageLabels: {}, containers: [], network: null, selectedHostPorts: {},
 };
@@ -40,6 +41,18 @@ let reason = 'diagnostic did not complete';
 let dockerChanged = false;
 
 function saveRecord() { writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`); }
+
+function selectNetworkIpam() {
+  const ids = docker(['network', 'ls', '-q']).split(/\r?\n/).filter(Boolean);
+  const dockerCidrs = ids.flatMap(id => JSON.parse(docker(['network', 'inspect', id]))[0].IPAM?.Config?.map(item => item.Subnet).filter(Boolean) || []);
+  const routeResult = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="Stop"; $routes=@(Get-NetRoute -AddressFamily IPv4 | Select-Object -ExpandProperty DestinationPrefix); ConvertTo-Json -InputObject $routes -Compress'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
+  if (routeResult.error || routeResult.status !== 0) throw new Error(`NETWORK_IPAM_BLOCKED: host route inventory failed (${routeResult.status})`);
+  const parsedRoutes = JSON.parse(routeResult.stdout || '[]');
+  const hostRoutes = Array.isArray(parsedRoutes) ? parsedRoutes : [parsedRoutes];
+  const selected = selectInternalBridgeIpam([...dockerCidrs, ...hostRoutes]);
+  writeOnce('network-ipam-selection.json', { outcome: 'PASS', selected, dockerNetworkCount: ids.length, inspectedDockerSubnetCount: dockerCidrs.length, inspectedHostRouteCount: hostRoutes.length, overlapChecked: true });
+  return selected;
+}
 
 function dockerCall(args, evidenceName, throwOnError = true) {
   const result = spawnSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true });
@@ -142,12 +155,17 @@ try {
   if (!probe.available) throw new Error('PORT_BIND_CONFLICT: selected app port was unavailable before Docker create');
   writeOnce('host-port-allocation.json', { app: appPort, bindAddress: '127.0.0.1', purpose: 'app-only diagnostic; browser not started', reservationHeld: false });
   saveRecord();
-  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
+  const networkIpam = selectNetworkIpam();
+  const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--internal', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, ...labelArgs, names.network], 'network-create.json', false);
   try { recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: saveRecord }); }
   finally { if (record.network) dockerChanged = true; }
   const network = JSON.parse(docker(['network', 'inspect', record.network.id]))[0];
-  assertNetworkPolicy(network, EGRESS_LIMITED_NETWORK_POLICY);
-  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: EGRESS_LIMITED_NETWORK_POLICY, driver: network.Driver, internal: network.Internal, ipv6Enabled: network.EnableIPv6, ipMasquerade: network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] });
+  assertNetworkPolicy(network, INTERNAL_IPAM_NETWORK_POLICY);
+  const actualIpam = assertRecordedNetworkIpam(network, networkIpam);
+  record.network.subnet = actualIpam.Subnet;
+  record.network.gateway = actualIpam.Gateway;
+  saveRecord();
+  writeOnce('network-policy-verification.json', { outcome: 'PASS', policy: INTERNAL_IPAM_NETWORK_POLICY, driver: network.Driver, internal: network.Internal, ipv6Enabled: network.EnableIPv6, subnet: actualIpam.Subnet, gateway: actualIpam.Gateway });
   const appCreate = dockerCall(['create', '--name', names.app, '--network', names.network, '--publish', `127.0.0.1:${appPort}:80`, '--memory', '1280m', '--cpus', '1.5', '--pids-limit', '256', '--restart', 'no', ...labelArgs, APP_IMAGE_REF], 'app-create.json', false);
   try { recordCreatedResource({ kind: 'container', role: 'app', name: names.app, imageRef: APP_IMAGE_REF, result: appCreate, record, onRecord: saveRecord }); }
   finally { if (record.containers.length) dockerChanged = true; }
@@ -160,6 +178,7 @@ try {
   const appSafe = safeInspect(app);
   assertPublishedLoopbackPort(app, '80/tcp', appPort);
   assertContainerPortNotPublished(app, '3306/tcp');
+  assertContainerNetworkGateway(app, names.network, record.network.gateway, record.network.id);
   writeOnce('host-port-verification.json', { outcome: 'PASS', requestedHostPort: appPort, hostConfig: appSafe.hostConfig.portBindings['80/tcp'], networkSettings: appSafe.networkSettings.ports['80/tcp'], mysql3306Published: false, reservationHeld: false });
   writeOnce('app-inspect-after-start.json', appSafe);
   const egressProbe = spawnSync(DOCKER_CLI_PATH, ['exec', record.containers[0].id, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });

@@ -160,4 +160,20 @@ Read-only preflight r46 passed the stable 6 GiB gate with samples 6.744, 6.589, 
 
 App-only diagnostic `t03b2-d-20261109-r2` ran on the approved profile. Docker network inspection verified bridge mode, IP masquerading disabled, and IPv6 disabled; loopback port forwarding also verified. The host TCP control to `1.1.1.1:443` passed, but the Claroline container connected to that external TCP target, so the runner correctly returned `BLOCKED` (exit 1) for `EGRESS_POLICY_VIOLATION`. Application readiness, Maven, Selenium, business assertions, and database reset were `NOT_RUN`. Cleanup returned PASS for the recorded container/network, with zero run-labeled residual containers/networks/volumes. Independent before/after inventory counts and fingerprints match. No other Docker resource changed. Evidence: `evidence/t03b2-d-20261109-r2/`.
 
-Do not start G0 Runs A/B until the egress policy is revised and safely verified. G0 remains `PARTIAL`/`BLOCKED`.
+Diagnostic r2 shows the non-internal no-masquerade profile is not egress-limited: its app container connected to the host control target `1.1.1.1:443`. r2's actual result and cleanup remain unchanged.
+
+## Internal bridge diagnostic r3 — 2026-11-09
+
+Preflight r49 passed with host RAM free samples 6.355, 6.355, and 6.357 GiB; Docker Engine responded and full task-label residual counts were zero. Evidence: `evidence/offline-verification-20261109-r49/`.
+
+Diagnostic `t03b2-d-20261109-r3` selected `172.26.254.0/24` after checking Docker network subnets and Windows IPv4 routes. Docker inspect confirmed bridge mode, `Internal=true`, IPv6 disabled, and the recorded subnet/gateway. The loopback HostConfig port was `127.0.0.1:50555`, but Docker reported `NetworkSettings.Ports` as `{"80/tcp":[]}`; the runner correctly returned `BLOCKED` (exit 1) before egress probing, HTTP/MySQL readiness, Maven, Selenium, business assertion, or DB reset. Evidence: `evidence/t03b2-d-20261109-r3/`.
+
+Initial cleanup failed closed because Docker Desktop omitted the endpoint `Gateway` despite the explicit gateway in network IPAM. The updated verifier now allows that field to be absent only while requiring the exact recorded network ID and matching internal IPAM; r3 exact cleanup recovery passed. Independent post-check found zero resources with the complete task/run labels; all pre/post container/network/volume/image counts and ID fingerprints match. Evidence: `cleanup-recovery-r1.json` and `post-cleanup-independent-check.json` in the r3 folder.
+
+Do not start G0 Runs A/B: the internal profile still fails Docker Desktop host port forwarding. G0 remains `PARTIAL`/`BLOCKED`.
+
+## Latest recheck — r51 (2026-11-09)
+
+Fresh host RAM samples after the user's cleanup: 4.951, 4.953, and 4.949 GiB. Docker Engine 29.8.0 is available; container/network/volume queries using the full project and task labels returned zero resources (all query exit codes 0). The 6 GiB diagnostic gate is `BLOCKED`; no runtime was started and this recheck changed no Docker resources. Evidence: `evidence/offline-verification-20261109-r51/runtime-gate-recheck.json`.
+
+The latest cleanup fault-injection suite passed 32/32 (exit 0); all five syntax checks passed (exit 0), with logs in `evidence/offline-verification-20261109-r51/`. Diagnostic r3 remains blocked on Docker Desktop internal-bridge host port forwarding; its exact-resource cleanup recovery and independent post-check passed. Do not start G0 A/B until the app-only diagnostic passes.

@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, INTERNAL_NETWORK_POLICY, classifyEgressProbe, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -42,8 +42,9 @@ function makeContainer(role, overrides = {}) {
 }
 
 function makeNetwork(endpointIds = [], policy = EGRESS_LIMITED_NETWORK_POLICY) {
-  const internal = policy === INTERNAL_NETWORK_POLICY;
-  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, EnableIPv6: false, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
+  const internal = policy === INTERNAL_NETWORK_POLICY || policy === INTERNAL_IPAM_NETWORK_POLICY;
+  const ipam = policy === INTERNAL_IPAM_NETWORK_POLICY ? [{ Subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], Gateway: '172.26.254.1' }] : [];
+  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, EnableIPv6: false, IPAM: { Config: ipam }, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
 function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun = true, inspectError = null, endpointMismatch = false, labelMismatch = false, imageMetadataMismatch = false, mountMismatch = false, badBinding = false, createdUnstarted = false, residualContainer = false, residualNetwork = false, residualVolume = false, staleName = false, failRemoveRole = null, failNetworkRemove = false } = {}) {
@@ -156,6 +157,39 @@ test('approved egress-limited bridge profile is checked and legacy internal runs
   legacy.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], INTERNAL_NETWORK_POLICY));
   const legacyRecord = record(); legacyRecord.networkPolicy = INTERNAL_NETWORK_POLICY;
   assert.equal(cleanup(legacy, legacyRecord).outcome, 'PASS');
+});
+
+test('isolated internal bridge requires the recorded explicit IPAM gateway and exact container endpoints', () => {
+  const value = record();
+  value.networkPolicy = INTERNAL_IPAM_NETWORK_POLICY;
+  value.network = { id: ids.network, name: names.network, subnet: INTERNAL_IPAM_SUBNET_CANDIDATES[0], gateway: '172.26.254.1' };
+  const valid = fakeDocker();
+  valid.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], INTERNAL_IPAM_NETWORK_POLICY));
+  for (const role of ['app', 'browser']) valid.state.containers.get(ids[role]).NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
+  assert.equal(cleanup(valid, value).outcome, 'PASS');
+  const omittedGateway = fakeDocker();
+  omittedGateway.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], INTERNAL_IPAM_NETWORK_POLICY));
+  assert.equal(cleanup(omittedGateway, value).outcome, 'PASS', 'Docker Desktop may omit the endpoint gateway while network IPAM remains explicit');
+  for (const mutate of [
+    fake => { fake.state.networks.get(ids.network).Internal = false; },
+    fake => { fake.state.networks.get(ids.network).IPAM.Config[0].Gateway = '172.26.254.2'; },
+    fake => { fake.state.networks.get(ids.network).IPAM.Config = []; },
+    fake => { fake.state.containers.get(ids.app).NetworkSettings.Networks[names.network].Gateway = '172.26.254.9'; },
+    fake => { fake.state.containers.get(ids.app).NetworkSettings.Networks[names.network].NetworkID = ids.otherNetwork; },
+  ]) {
+    const fake = fakeDocker();
+    fake.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], INTERNAL_IPAM_NETWORK_POLICY));
+    for (const role of ['app', 'browser']) fake.state.containers.get(ids[role]).NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
+    mutate(fake);
+    assert.throws(() => cleanup(fake, value), /network policy mismatch|endpoint network ID or gateway/);
+    assert.deepEqual(fake.state.mutations, [], 'invalid network ownership blocks before cleanup mutation');
+  }
+});
+
+test('internal IPAM selector skips overlapping Docker and host route CIDRs', () => {
+  assert.deepEqual(selectInternalBridgeIpam(['172.26.0.0/16', '172.27.254.0/24', '0.0.0.0/0']), { subnet: '172.28.254.0/24', gateway: '172.28.254.1' });
+  assert.throws(() => selectInternalBridgeIpam(['not-a-cidr']), /invalid IPv4 CIDR/);
+  assert.throws(() => selectInternalBridgeIpam(INTERNAL_IPAM_SUBNET_CANDIDATES, ['172.30.0.0/16']), /no non-overlapping/);
 });
 
 test('external egress probe distinguishes blocked, reachable, and inconclusive outcomes', () => {

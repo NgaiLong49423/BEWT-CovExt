@@ -11,12 +11,53 @@ export const SOURCE_VERSION = '1.11.10';
 export const APP_TEST_CLASS = 'test.Claroline_AddUserTest';
 export const INTERNAL_NETWORK_POLICY = 'internal-bridge-v1';
 export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerade-v1';
+export const INTERNAL_IPAM_NETWORK_POLICY = 'internal-bridge-explicit-ipam-v1';
+export const INTERNAL_IPAM_SUBNET_CANDIDATES = Object.freeze([
+  '172.26.254.0/24', '172.27.254.0/24', '172.28.254.0/24',
+  '172.29.254.0/24', '172.30.254.0/24', '172.31.254.0/24',
+]);
+
+function ipv4Range(cidr) {
+  const match = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\/(\d{1,2})$/.exec(String(cidr));
+  if (!match) throw new Error(`invalid IPv4 CIDR in network preflight: ${cidr}`);
+  const octets = match.slice(1, 5).map(Number);
+  const prefix = Number(match[5]);
+  if (octets.some(value => value > 255) || prefix > 32) throw new Error(`invalid IPv4 CIDR in network preflight: ${cidr}`);
+  const address = octets.reduce((value, octet) => (value << 8n) | BigInt(octet), 0n);
+  if (prefix === 0) return { first: 0n, last: 0xffffffffn };
+  const mask = (0xffffffffn << BigInt(32 - prefix)) & 0xffffffffn;
+  return { first: address & mask, last: (address & mask) | (0xffffffffn ^ mask) };
+}
+
+export function selectInternalBridgeIpam(occupiedCidrs, candidates = INTERNAL_IPAM_SUBNET_CANDIDATES) {
+  if (!Array.isArray(occupiedCidrs) || !Array.isArray(candidates)) throw new Error('IPv4 CIDR inventories are required to select internal network IPAM');
+  const occupied = occupiedCidrs.filter(Boolean).filter(cidr => cidr !== '0.0.0.0/0').map(ipv4Range);
+  for (const subnet of candidates) {
+    const range = ipv4Range(subnet);
+    if (!occupied.some(item => range.first <= item.last && item.first <= range.last)) {
+      const gateway = `${subnet.split('/')[0].split('.').slice(0, 3).join('.')}.1`;
+      return { subnet, gateway };
+    }
+  }
+  throw new Error('NETWORK_IPAM_BLOCKED: no non-overlapping internal bridge subnet is available');
+}
 
 export function assertNetworkPolicy(network, policy) {
   if (!network || network.Driver !== 'bridge') throw new Error('network policy requires a user-defined bridge');
   if (network.EnableIPv6 !== false) throw new Error('network policy mismatch: IPv6 must be explicitly disabled');
   if (policy === INTERNAL_NETWORK_POLICY) {
     if (network.Internal !== true) throw new Error('network policy mismatch: expected internal bridge');
+    return network;
+  }
+  if (policy === INTERNAL_IPAM_NETWORK_POLICY) {
+    const ipam = network.IPAM?.Config;
+    const subnet = ipam?.[0]?.Subnet;
+    const expectedGateway = INTERNAL_IPAM_SUBNET_CANDIDATES.includes(subnet)
+      ? `${subnet.split('/')[0].split('.').slice(0, 3).join('.')}.1`
+      : null;
+    if (network.Internal !== true || !Array.isArray(ipam) || ipam.length !== 1 || !expectedGateway || ipam[0]?.Gateway !== expectedGateway) {
+      throw new Error('network policy mismatch: expected isolated internal bridge with explicit IPv4 subnet and gateway');
+    }
     return network;
   }
   if (policy === EGRESS_LIMITED_NETWORK_POLICY) {
@@ -26,6 +67,22 @@ export function assertNetworkPolicy(network, policy) {
     return network;
   }
   throw new Error('unknown or missing recorded network policy');
+}
+
+export function assertRecordedNetworkIpam(network, networkRecord) {
+  const actual = network?.IPAM?.Config?.[0];
+  if (!actual || actual.Subnet !== networkRecord?.subnet || actual.Gateway !== networkRecord?.gateway) {
+    throw new Error('network policy mismatch: inspected IPAM does not match recorded subnet and gateway');
+  }
+  return actual;
+}
+
+export function assertContainerNetworkGateway(container, networkName, gateway, networkId) {
+  const endpoint = container?.NetworkSettings?.Networks?.[networkName];
+  if (!gateway || !endpoint || (networkId && endpoint.NetworkID !== networkId) || (endpoint.Gateway && endpoint.Gateway !== gateway)) {
+    throw new Error('container endpoint network ID or gateway does not match the recorded isolated network');
+  }
+  return endpoint;
 }
 
 /** Classify a no-payload outbound TCP probe; a host control probe must pass first. */

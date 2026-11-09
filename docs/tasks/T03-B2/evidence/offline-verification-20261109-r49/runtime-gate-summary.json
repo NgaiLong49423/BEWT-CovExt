@@ -1,0 +1,12 @@
+{
+  "gate": "PASS",
+  "minimumFreeGiB": 6.355,
+  "requiredStableGiB": 6,
+  "samplesGiB": [
+    6.355,
+    6.355,
+    6.357
+  ],
+  "dockerInfoExitCode": 0,
+  "taskOwnedResources": "{\"container\":{\"count\":0,\"ids\":[],\"exitCode\":0},\"network\":{\"count\":0,\"ids\":[],\"exitCode\":0},\"volume\":{\"count\":0,\"ids\":[],\"exitCode\":0}}"
+}

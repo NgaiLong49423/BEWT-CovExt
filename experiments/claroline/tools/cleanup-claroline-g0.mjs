@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
-import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, INTERNAL_NETWORK_POLICY, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
+import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
 
 const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
@@ -78,6 +78,10 @@ function assertContainerSecurity(container, item, networkName, record) {
     throw new CleanupBlockedError(`${item.role} is attached to an unexpected network`);
   }
   const endpoint = container.NetworkSettings.Networks[networkName] || {};
+  if (record.networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+    try { assertContainerNetworkGateway(container, networkName, record.network?.gateway, record.network?.id); }
+    catch (error) { throw new CleanupBlockedError(`${item.role} ${error.message}`, { cause: error }); }
+  }
   const endpointFieldsPresent = Boolean(endpoint.EndpointID || endpoint.IPAddress || endpoint.Gateway || endpoint.MacAddress);
   if (preStart && endpointFieldsPresent) throw new CleanupBlockedError(`${item.role} created-state container unexpectedly has an initialized network endpoint`);
   const detachedStoppedEndpoint = container.State?.Running !== true && !endpoint.EndpointID && !endpoint.IPAddress && !endpoint.Gateway && !endpoint.MacAddress;
@@ -135,6 +139,10 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (networkById) {
     try { assertNetworkPolicy(networkById, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+      try { assertRecordedNetworkIpam(networkById, networkRecord); }
+      catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
+    }
     assertOwnedNetwork(networkById, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: expectedEndpointIds.sort((left, right) => left.localeCompare(right, 'en')) });
   }
 
@@ -168,6 +176,10 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
     if (!current) throw new CleanupBlockedError('recorded network disappeared before verified removal');
     try { assertNetworkPolicy(current, networkPolicy); }
     catch (error) { throw new CleanupBlockedError(`network configuration changed before removal: ${error.message}`, { cause: error }); }
+    if (networkPolicy === INTERNAL_IPAM_NETWORK_POLICY) {
+      try { assertRecordedNetworkIpam(current, networkRecord); }
+      catch (error) { throw new CleanupBlockedError(`network IPAM changed before removal: ${error.message}`, { cause: error }); }
+    }
     assertOwnedNetwork(current, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: [] });
     dockerExec(['network', 'rm', networkRecord.id]);
     if (inspect(dockerExec, 'network', networkRecord.id) || inspect(dockerExec, 'network', networkRecord.name)) throw new CleanupBlockedError('recorded network remains after rm');
