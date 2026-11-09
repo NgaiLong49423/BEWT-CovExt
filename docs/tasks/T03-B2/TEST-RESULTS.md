@@ -43,3 +43,13 @@ The T03-B2 application source release is now accounted for as the historical 1.1
 | Runtime A/B, Selenium, AddUser and DB reset | NOT_RUN | G0-RUNTIME-RESULTS.md |
 
 The parser result validates a candidate object only. It does not establish runtime readiness or G0 acceptance. The last executed Node unit/fault suite remains r13 (18/18 PASS); the last Maven clean test-compile remains r9 (PASS). Neither historical result was rewritten or rerun for this documentation/evidence-only follow-up.
+
+## Post-start runtime gate — r15
+
+| Check | Result | Evidence |
+|---|---|---|
+| Docker Engine | PASS; version 29.8.0 responds | `evidence/offline-verification-20261109-r15/runtime-preflight.json` |
+| Host free memory | BLOCKED; 0.95 GiB, below the required 4 GiB; runner not invoked | `evidence/offline-verification-20261109-r15/runtime-preflight.json` |
+| Docker inventory | 32 containers (2 running), 11 networks, 24 volumes; zero resources with both T03-B2 ownership labels | `evidence/offline-verification-20261109-r15/runtime-preflight.json` |
+
+No Claroline/Selenium runtime was started and no individual Docker resource was created or removed in this preflight.

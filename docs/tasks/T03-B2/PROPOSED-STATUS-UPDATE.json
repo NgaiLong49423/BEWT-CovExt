@@ -7,7 +7,7 @@
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "The pinned image base layer exactly matches the verified official Claroline 1.11.10 source archive. One later image layer modifies course-identifier allocation guard without identified source commit. Runtime gate remains below 4 GiB and Docker Engine is unavailable.",
+  "reason": "The pinned image base layer exactly matches the verified official Claroline 1.11.10 source archive. One later image layer modifies course-identifier allocation guard without identified source commit. Docker Engine is available, but latest post-start free RAM is 0.95 GiB, below the 4 GiB runtime gate; runtime remains NOT_RUN.",
   "statusJsonChanged": false,
   "archiveCandidates": [
     {

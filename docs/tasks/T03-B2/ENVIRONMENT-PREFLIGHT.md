@@ -30,3 +30,7 @@ A fresh read-only check measured **3.36 GiB free of 13.79 GiB**, below the requi
 ## Latest read-only recheck — 2026-11-09 14:00 +07:00
 
 Free RAM measured **3.90 GiB of 13.79 GiB**, still below the 4 GiB threshold. docker version exited 1 because the Docker Desktop Linux-engine named pipe was unavailable. No Docker resources were created, started, removed, or changed. Runtime remains BLOCKED at preflight and was not run. Evidence: evidence/offline-verification-20261109-r14/runtime-preflight.json.
+
+## Post-start recheck — 2026-11-09 (r15)
+
+Docker Desktop was started for the requested runtime. Docker Engine 29.8.0 is reachable, but free host RAM is **0.95 GiB of 13.79 GiB**, below the required 4 GiB; the runtime harness was not started. Read-only Docker inventory counted 32 containers (2 running), 11 networks, and 24 volumes. No resource carried both T03-B2 ownership labels. No individual Docker resource was created or removed during this preflight. Evidence: `evidence/offline-verification-20261109-r15/runtime-preflight.json`.
