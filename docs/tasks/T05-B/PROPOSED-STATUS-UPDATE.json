@@ -1,0 +1,16 @@
+{
+  "taskId": "T05-B",
+  "statusProposedByAgent": "BLOCKED_AUTHORIZATION",
+  "programStatusFileChanged": false,
+  "liveGeminiInvocations": 0,
+  "candidateCount": 0,
+  "candidateStatus": "NOT_CREATED",
+  "humanReview": "NOT_RUN",
+  "requiredToProceed": [
+    "Fresh Team Lead D-C1 approval bound to the model, one-call maximum, zero retries, timeout, output limit, cost ceiling, and expiry in LIVE-CALL-AUTHORIZATION-REQUEST.md",
+    "Credential validity confirmed through the approved secret channel without exposing its value"
+  ],
+  "offlineChecks": "See TEST-RESULTS.md; offline fake-provider behavior is not a live provider result",
+  "dockerRuntime": "NOT_USED_AGENT_1_OWNS_LEASE",
+  "historicalT01CResultsReusedAsNew": false
+}
