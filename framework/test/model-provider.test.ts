@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
-import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, estimateTokenCostUsd, FakeGenerationProvider, GeminiGenerationProvider, invokeWithTimeout, newCandidateId, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
+import { buildSanitizedRequestEvidence, candidateFromGeneration, classifyModelError, estimateTokenCostUsd, FakeGenerationProvider, GeminiGenerationProvider, GeminiJavaGenerationProvider, invokeWithTimeout, newCandidateId, normalizeGeminiApiKey, parseGeneratedJavaOutput, parseGenerationOutput, validateGeneratedJavaContract } from "../src/runtime/model-provider.js";
 import type { BaselineInventory, CoverageGap } from "../src/contracts.js";
 
 const commit = "b31302f4e99c3293bd742c6d076a721e168118b0";
@@ -20,6 +20,13 @@ test("fake provider creates a schema-valid proposed candidate with source pins",
 
 test("Gemini provider refuses construction without explicit live-model authorization", () => {
   assert.throws(() => new GeminiGenerationProvider("gemini-test", { authorized: false, apiKey: "test" }), /LIVE_MODEL_AUTHORIZATION_REQUIRED/);
+});
+
+test("Gemini API key normalization strips surrounding whitespace and rejects whitespace-only keys", () => {
+  assert.equal(normalizeGeminiApiKey("  synthetic-dummy-key\t\r\n"), "synthetic-dummy-key");
+  assert.equal(normalizeGeminiApiKey(" \t\r\n "), undefined);
+  assert.throws(() => new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: " \t\r\n " }), /GEMINI_API_KEY is required/);
+  assert.throws(() => new GeminiJavaGenerationProvider("gemini-3.1-flash-lite", { authorized: true, apiKey: " \t\r\n " }), /GEMINI_API_KEY is required/);
 });
 
 test("model error classifier does not mistake generateContent for rate limiting", () => {

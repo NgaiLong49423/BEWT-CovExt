@@ -1,0 +1,16 @@
+T05-B diagnostic outputs (no secret values or derived secret metadata)
+PowerShell current Process GEMINI_API_KEY:
+KEY_PRESENT
+SURROUNDING_WHITESPACE_ABSENT
+
+Windows User versus current Process GEMINI_API_KEY:
+CONTEXT_EQUAL
+
+Harmless Node child inherited current process environment, GEMINI_API_KEY:
+KEY_PRESENT
+SURROUNDING_WHITESPACE_ABSENT
+
+Current Process LANGSMITH_GATEWAY:
+NOT_COMPARABLE
+
+No historical elevated-process values or Mâm Xanh container values were read or compared.

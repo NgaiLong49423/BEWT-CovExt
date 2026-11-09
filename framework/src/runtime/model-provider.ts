@@ -18,6 +18,11 @@ export type GenerationOutput = z.infer<typeof ModelOutput>;
 export type GeneratedJavaOutput = z.infer<typeof JavaOutput>;
 export function parseGenerationOutput(input: unknown): GenerationOutput { return ModelOutput.parse(input); }
 export function parseGeneratedJavaOutput(input: unknown): GeneratedJavaOutput { return JavaOutput.parse(input); }
+/** Match the Java GenAI client boundary: trim accidental surrounding secret whitespace without logging it. */
+export function normalizeGeminiApiKey(apiKey: string | undefined): string | undefined {
+  const normalized = apiKey?.trim();
+  return normalized || undefined;
+}
 export interface GenerationRequest { baseline: BaselineInventory; gaps: CoverageGap[]; candidateId: string; revision: number; sourceContext?: string[]; }
 export interface ModelTelemetry { provider: "Fake" | "Gemini"; model: string; calls: number; attempts: number; elapsedMs: number; status: "PASS" | "NOT_RUN" | "BLOCKED" | "FAIL"; errorCategory?: string; promptCharacters?: number; estimatedMaxCostUsd?: number; requestEvidence?: { promptSha256: string; sanitizedPrompt: string }; inputTokens?: number; outputTokens?: number; estimatedCostUsd?: number; }
 
@@ -352,7 +357,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   private readonly costCeilingUsd: number;
   constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
-    const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
+    const apiKey = normalizeGeminiApiKey(options.apiKey ?? process.env.GEMINI_API_KEY);
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
     if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
     this.maxOutputTokens = options.maxOutputTokens ?? 4_000;
@@ -442,7 +447,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
   private readonly costCeilingUsd: number;
   constructor(readonly model: string, options: { authorized: boolean; apiKey?: string; timeoutMs?: number; maxOutputTokens?: number; costCeilingUsd?: number }) {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
-    const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
+    const apiKey = normalizeGeminiApiKey(options.apiKey ?? process.env.GEMINI_API_KEY);
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
     if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
     this.maxOutputTokens = options.maxOutputTokens ?? 2_000;

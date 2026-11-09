@@ -23,7 +23,7 @@
 | `docs/tasks/T05-B/PROPOSED-STATUS-UPDATE.json` | Task-scoped proposed status only | Preserve the explicitly protected global status file |
 | `docs/tasks/T05-B/TEST-RESULTS.md` | Commands, outcomes and evidence index | Separate offline, live-provider and Docker runtime claims |
 | `docs/tasks/T05-B/TASK-REPORT.md` | Team Lead handoff | Report scope, results, limits and review decision needed |
-| `framework/src/runtime/model-provider.ts`, `framework/test/model-provider.test.ts` | Renamed token-derived `actualCostUsd` telemetry to `estimatedCostUsd`; added numeric estimate guard and regression test | Token usage × list price is not independent billing evidence |
+| `framework/src/runtime/model-provider.ts`, `framework/test/model-provider.test.ts` | Renamed token-derived `actualCostUsd` telemetry to `estimatedCostUsd`; added numeric estimate guard and regression test; normalized Gemini API keys at the provider boundary and added synthetic whitespace regression coverage | Token usage × list price is not independent billing evidence; align BEWT credential normalization with Mâm Xanh `.strip()` |
 | `framework/src/t01c-cli.ts` | Clarified that the configured USD limit is a preflight estimate, not a verified provider cost ceiling | Avoids overstating the budget guarantee |
 | `docs/tasks/T05-B/tools/verify-expresscart-source-identity.mts` | Reproducible offline source pin/build-context verifier | Captures independently rerun source identity evidence without Docker |
 | `framework/src/runtime/model-provider.ts` | Shared `successfulGeminiTelemetry` for both Gemini providers | Removes Sonar-confirmed duplicated token-usage and success telemetry mapping without changing thresholds or exclusions |
@@ -61,6 +61,12 @@ The independent review identified 9.8% new-code duplication on commit `72103d17b
 ## 5.1 Authentication root-cause investigation
 
 Offline conclusion: `UNDETERMINED`. The current investigation shell's Process and User `GEMINI_API_KEY` compare equal in memory and a harmless Node child inherited the variable, but neither fact establishes the historical invocation credential or equality with the Team Lead's known-working application. The historical request ran through the authorized outside-sandbox execution path and received HTTP 400; this rules against a simple connection-level sandbox denial, while absent response headers/TLS evidence leave an intermediary unverified. BEWT explicitly passes `GEMINI_API_KEY` into installed `@langchain/google-genai` 2.3.4, so `GOOGLE_API_KEY` cannot override this code path. Google's Standard-key cutoff is one possible cause only; do not replace the key without private verification. Detailed matrix: `evidence/verification/20261110-auth-investigation-01/root-cause-investigation.md`. Zero new Gemini requests or probes were made; D-C1 remains consumed.
+
+## 5.2 Cross-project authentication correction
+
+Mâm Xanh resolves `GEMINI_API_KEY` through Spring properties/environment and calls `.strip()` before the Java GenAI 1.76.0 client. BEWT passed its selected key unchanged; LangChain Google GenAI 2.3.4 and downstream JavaScript GenAI 0.24.1 preserve it and send it as `x-goog-api-key`. Current Process/User/Node diagnostics report key present with no surrounding whitespace and Process/User equality. This is not a snapshot of the historical elevated request or Mâm Xanh's running container. The model IDs also differ (`gemini-3.8-flash` for Mâm Xanh and `gemini-3.1-flash-lite` for BEWT); Mâm Xanh's active endpoint/runtime route was not inspected. Historical cause remains `UNDETERMINED`.
+
+Applied a minimal provider-boundary trim in both BEWT Gemini providers. Whitespace-only inputs now fail closed as missing configuration. Offline synthetic regression: provider unit 12/12, framework unit 48/48, build exit 0. Logs and exact source hashes: `evidence/verification/20261110-auth-investigation-02/`. No live request, credential probe, Docker command, Java generation, or Selenium action occurred. Fresh D-C1 authorization is still required for any future call.
 
 ## 6. Review request
 

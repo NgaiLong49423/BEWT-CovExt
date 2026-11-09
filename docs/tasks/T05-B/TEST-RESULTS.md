@@ -130,3 +130,17 @@ Offline only; zero Gemini requests, probes, Java/Selenium/Docker execution, or e
 The exact BEWT path passes `options.apiKey ?? process.env.GEMINI_API_KEY` explicitly to the SDK, so `GOOGLE_API_KEY` cannot override it. The optional SDK LangSmith gateway base URL and the historical proxy route are not established for the old execution context. Current Process/User equality and Node inheritance do not prove equality with either historical or known-working credentials. Root cause: `UNDETERMINED`; Standard-key cutoff remains a possible explanation only.
 
 Evidence: `evidence/verification/20261110-auth-investigation-01/`. No source change is indicated. A new live request requires a separate fresh explicit Team Lead D-C1 decision.
+
+## Targeted cross-project auth correction — 2026-11-10
+
+Mâm Xanh source resolves its key from Spring configuration with environment fallback and invokes `.strip()` before `Client.builder().apiKey(...)`. Its Docker Compose source injects `${GEMINI_API_KEY:-}` into the service environment; no Docker command or container inspection was done. Mâm Xanh's configured model is `gemini-3.8-flash`, compared with BEWT's historical `gemini-3.1-flash-lite`. The Mâm Xanh source configures API-key auth and no explicit base URL/Vertex flag; its actual runtime endpoint is not observed.
+
+Installed BEWT `@langchain/google-genai` 2.3.4 passes the explicit API key unchanged to `@google/generative-ai` 0.24.1, whose inspected request path adds it as `x-goog-api-key` without trimming. Current PowerShell Process and Windows User values compare `CONTEXT_EQUAL`; current PowerShell and a harmless Node child report `KEY_PRESENT` and `SURROUNDING_WHITESPACE_ABSENT`. These are current context findings only. Historical elevated-process and Mâm Xanh container values were not read. Accordingly, the latent normalization mismatch is confirmed and fixed, but its role in the historical HTTP 400 remains unproven; overall root cause stays `UNDETERMINED`.
+
+| Command (from `framework/`) | Exit | Result | Sanitized evidence |
+|---|---:|---|---|
+| `npx.cmd tsx --test test/model-provider.test.ts` | 0 | PASS, 12/12; synthetic dummy key only | `evidence/verification/20261110-auth-investigation-02/provider-unit.txt` and `provider-unit-exit.txt` |
+| `npm.cmd run build` | 0 | PASS, TypeScript build | `evidence/verification/20261110-auth-investigation-02/framework-build.txt` and `framework-build-exit.txt` |
+| `npm.cmd test` | 0 | PASS, 48/48 | `evidence/verification/20261110-auth-investigation-02/framework-unit.txt` and `framework-unit-exit.txt` |
+
+Node `v24.19.0`, npm `11.17.0`. Changed source SHA-256 values and command provenance are in `execution-provenance.txt`. These are offline local results, not provider results or CI. No Gemini request, probe, Docker, Java generation, or Selenium action occurred. The one-call D-C1 remains consumed.
