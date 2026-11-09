@@ -1,6 +1,6 @@
 # T05-A Test Results
 
-Commands ran in the T05-A worktree at base ae149842185877bcd4a97cf99ebdb3fc099e040b on 2026-11-09. Node v24.19.0 and Java 21.0.12 were available. Maven 3.9.16 was installed; focused offline integration successfully ran synthetic isolated Maven test-compile. Docker Desktop Linux engine was unavailable.
+Commands ran in the T05-A worktree at source HEAD ae149842185877bcd4a97cf99ebdb3fc099e040b on 2026-11-09. Logs are in evidence commit fdf3ba216a0c9e03d9f979c2e252cbda1b9c012b. At this audit, PR HEAD was 97b28250425c213095d01dcb81e16b288ca223d1, a metadata-only handoff update; tests were not rerun after it. Node v24.19.0 and Java 21.0.12 were available. Maven 3.9.16 was installed; focused offline integration successfully ran synthetic isolated Maven test-compile. Docker Desktop Linux engine was unavailable.
 
 | Command | Exit | Result | Evidence |
 |---|---:|---|---|
