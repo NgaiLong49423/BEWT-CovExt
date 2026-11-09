@@ -61,8 +61,8 @@ function assertCompletePortBindings(container, expected) {
   const wanted = expected.portBindings;
   requireValue(wanted && typeof wanted === 'object' && !Array.isArray(wanted), 'BLOCKED_CONTAINER_PORT_EXPECTATION', 'Expected complete PortBindings configuration is required');
   requireValue(actual && typeof actual === 'object' && !Array.isArray(actual), 'BLOCKED_CONTAINER_PORT_INSPECTION', 'Docker container inspection must include PortBindings');
-  const expectedPorts = Object.keys(wanted).sort();
-  const actualPorts = Object.keys(actual).sort();
+  const expectedPorts = Object.keys(wanted).sort((a, b) => a.localeCompare(b));
+  const actualPorts = Object.keys(actual).sort((a, b) => a.localeCompare(b));
   requireValue(JSON.stringify(actualPorts) === JSON.stringify(expectedPorts), 'BLOCKED_CONTAINER_PORT', 'Inspected PortBindings keys do not match the complete expected configuration');
 
   for (const port of expectedPorts) {
@@ -106,8 +106,8 @@ export function assertOwnedVolume(volume, expected) {
 export function assertOwnedNetwork(network, expected) {
   requireValue(network?.Id === expected.id && network?.Name === expected.name, 'BLOCKED_NETWORK_IDENTITY', 'Network ID or name does not match the run record');
   requireValue(labelsMatch(network?.Labels, expected.labels), 'BLOCKED_NETWORK_OWNERSHIP', 'Network ownership labels do not match the run');
-  const actual = inspectedNetworkEndpoints(network).sort();
-  const wanted = [...(expected.containerIds ?? [])].sort();
+  const actual = inspectedNetworkEndpoints(network).sort((a, b) => a.localeCompare(b));
+  const wanted = [...(expected.containerIds ?? [])].sort((a, b) => a.localeCompare(b));
   requireValue(JSON.stringify(actual) === JSON.stringify(wanted), 'BLOCKED_NETWORK_ENDPOINTS', 'Network endpoint set does not exactly match the run inventory');
   return true;
 }
@@ -121,8 +121,8 @@ function inspectedNetworkEndpoints(network) {
 function assertNetworkCleanupInventory(network, expected, partialContainerIds) {
   requireValue(network?.Id === expected.id && network?.Name === expected.name, 'BLOCKED_NETWORK_IDENTITY', 'Network ID or name does not match the run record');
   requireValue(labelsMatch(network?.Labels, expected.labels), 'BLOCKED_NETWORK_OWNERSHIP', 'Network does not carry the complete run ownership labels');
-  const actual = inspectedNetworkEndpoints(network).sort();
-  const wanted = [...(expected.containerIds ?? [])].sort();
+  const actual = inspectedNetworkEndpoints(network).sort((a, b) => a.localeCompare(b));
+  const wanted = [...(expected.containerIds ?? [])].sort((a, b) => a.localeCompare(b));
   const required = wanted.filter((id) => !partialContainerIds.has(id));
   requireValue(actual.every((id) => wanted.includes(id)) && required.every((id) => actual.includes(id)), 'BLOCKED_NETWORK_ENDPOINTS', 'Network endpoints are not a safe subset of the run inventory for cleanup');
 }

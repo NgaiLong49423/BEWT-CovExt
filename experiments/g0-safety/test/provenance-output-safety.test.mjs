@@ -21,3 +21,16 @@ test('provenance recorder refuses output inside its read-only source tree before
     }
   } finally { fs.rmSync(temp, { recursive: true, force: true }); }
 });
+
+test('provenance recorder does not find Git via the caller PATH', () => {
+  const temp = fs.mkdtempSync(path.join(os.tmpdir(), 'bewt-provenance-path-'));
+  try {
+    const source = path.join(temp, 'source');
+    fs.mkdirSync(source);
+    const result = spawnSync(process.execPath, [tool, source, path.join(temp, 'result.json')], { encoding: 'utf8', env: { ...process.env, PATH: '' } });
+    assert.notEqual(result.status, 0);
+    assert.doesNotMatch(result.stderr, /spawn git ENOENT/);
+    assert.match(result.stderr, /not a git repository/i);
+    assert.equal(fs.existsSync(path.join(temp, 'result.json')), false);
+  } finally { fs.rmSync(temp, { recursive: true, force: true }); }
+});

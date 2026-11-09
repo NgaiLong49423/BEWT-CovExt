@@ -40,3 +40,7 @@ Exact commands, separate stdout/stderr paths, exit codes, test totals, raw/sanit
 ## Mount/source boundary corrections
 
 The final offline suite ran 33 tests (33 PASS, 0 FAIL, 0 skipped; exit 0), including malformed/missing Mounts on complete and partial cleanup and refusal to write provenance within a synthetic source tree. The provenance script syntax check exited 0. See `evidence/offline-verification-20261110-r9/`; the preceding 32-test run is preserved at `evidence/offline-verification-20261110-r8/`. No Docker, Maven, browser, Gemini or cloud call was made in this correction.
+
+## SonarCloud follow-up
+
+After check 129504117186 failed on sort and Git PATH issues, the offline safety/adapter/provenance/cleanup suite passed 34/34 (exit 0), and provenance syntax exited 0. See `evidence/offline-verification-20261110-r10/`. The subsequent SonarCloud check is pending until observed; no CI PASS is claimed.
