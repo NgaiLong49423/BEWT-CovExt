@@ -28,7 +28,7 @@ The deterministic dataset at `data/reviews/kanboard/t04b-review-dataset.json` co
 
 These opinions must not be read as candidate decisions or novelty acceptance. The static review dataset is immutable with respect to human decisions: the append-only decision ledger is separate at `data/reviews/kanboard/human-review-decisions.jsonl`, and the deterministic builder never writes to it. The ledger is currently empty.
 
-Human decisions use `data/reviews/kanboard/human-review-decision.schema.json` and the tested validator/append-only utility `docs/tasks/T04-B/tools/human-review-decisions.mjs`. Each record binds candidate version, reviewed dataset bytes and a commit containing those exact bytes and candidate definition, reviewer-supplied identity/date, rationale, oracle/novelty assessment and evidence. Prior decisions are retained and hash-linked; changed candidate or dataset hashes require a new review. No decision record was created in this task; the official JSONL ledger remains zero bytes.
+Human decisions use `data/reviews/kanboard/human-review-decision.schema.json` and the tested validator/append-only utility `docs/tasks/T04-B/tools/human-review-decisions.mjs`. Each record binds candidate version and reviewed dataset bytes to reviewer-supplied full commit SHA, identity/date, rationale, oracle/novelty assessment and evidence. The offline validator does not prove commit existence/content; the reviewer must verify the SHA against Git history. Prior decisions are retained and hash-linked; changed candidate or dataset hashes require a new review. No decision record was created in this task; the official JSONL ledger remains zero bytes.
 
 ## Verification
 

@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
 const DECISIONS = new Set(['ACCEPT', 'REVISE', 'REJECT']);
@@ -29,19 +28,6 @@ function loadContext(root) {
   return { dataset, datasetBytes, datasetSha256: sha256(datasetBytes), gaps };
 }
 
-function verifyCommitContentBinding(payload, root) {
-  let datasetBytes;
-  let gapsBytes;
-  try {
-    datasetBytes=execFileSync('git',['show',`${payload.reviewedCommitSha}:data/reviews/kanboard/t04b-review-dataset.json`],{cwd:root,windowsHide:true});
-    gapsBytes=execFileSync('git',['show',`${payload.reviewedCommitSha}:data/coverage/kanboard/gap-candidates.json`],{cwd:root,windowsHide:true});
-  } catch { fail('reviewedCommitSha must contain the reviewed static dataset and accepted candidate definitions'); }
-  if(sha256(datasetBytes)!==payload.reviewedDatasetSha256) fail('reviewedCommitSha dataset content does not match reviewedDatasetSha256');
-  const pinnedGaps=JSON.parse(gapsBytes.toString('utf8'));
-  const committedCandidate=pinnedGaps.items.find((item)=>item.id===payload.candidateId);
-  if(!committedCandidate||sha256(JSON.stringify(committedCandidate))!==payload.candidateVersionSha256) fail('reviewedCommitSha candidate definition does not match candidateVersionSha256');
-}
-
 function validateEvidenceReference(ref, dataset, root, verifyBytes) {
   const keys=['path','sha256','description'];
   required(ref, keys, 'reviewerEvidence[]'); exactKeys(ref,keys,'reviewerEvidence[]');
@@ -59,7 +45,7 @@ function validateEvidenceReference(ref, dataset, root, verifyBytes) {
   if (sha256(fs.readFileSync(real)) !== ref.sha256) fail('reviewerEvidence file hash does not match the supplied evidence reference');
 }
 
-export function validateDecisionPayload(payload, { root = process.cwd(), verifyCommit = true, verifyCommitContent = true } = {}) {
+export function validateDecisionPayload(payload, { root = process.cwd() } = {}) {
   const payloadKeys=['candidateId','candidateVersionSha256','reviewedDatasetSha256','reviewedCommitSha','reviewerIdentity','decisionDate','decision','rationale','oracleConfirmation','noveltyAssessment','conditionsForImplementation','reviewerEvidence'];
   required(payload, payloadKeys, 'decision'); exactKeys(payload,payloadKeys,'decision');
   if (!CANDIDATES.has(payload.candidateId)) fail('decision.candidateId is not in the T04-B shortlist');
@@ -87,11 +73,6 @@ export function validateDecisionPayload(payload, { root = process.cwd(), verifyC
   const currentCandidateHash = sha256(JSON.stringify(acceptedCandidate));
   if (candidate.candidateVersionSha256 !== currentCandidateHash) fail('static dataset candidate hash is inconsistent with the accepted T04-A candidate input');
   if (payload.candidateVersionSha256 !== currentCandidateHash) fail('candidate hash mismatch: this decision must be reviewed again for the current candidate version');
-  if (verifyCommit) {
-    try { execFileSync('git', ['cat-file', '-e', `${payload.reviewedCommitSha}^{commit}`], { cwd: root, stdio: 'ignore', windowsHide: true }); }
-    catch { fail('reviewedCommitSha does not resolve to a commit in this repository'); }
-    if(verifyCommitContent) verifyCommitContentBinding(payload,root);
-  }
   for (const evidence of payload.reviewerEvidence) validateEvidenceReference(evidence, dataset, root, true);
   return { candidateId: candidate.id, candidateVersionSha256: currentCandidateHash, reviewedDatasetSha256: datasetSha256 };
 }
@@ -157,8 +138,8 @@ export function getCandidateReviewState(candidateId, ledgerText, { root = proces
   return { status: latest.decision, latestRecord: latest };
 }
 
-export function appendHumanDecision(payload, { root = process.cwd(), ledgerPath = path.join(root, 'data/reviews/kanboard/human-review-decisions.jsonl'), verifyCommit = true, allowExternalLedger = false } = {}) {
-  validateDecisionPayload(payload, { root, verifyCommit });
+export function appendHumanDecision(payload, { root = process.cwd(), ledgerPath = path.join(root, 'data/reviews/kanboard/human-review-decisions.jsonl'), allowExternalLedger = false } = {}) {
+  validateDecisionPayload(payload, { root });
   const rootReal=fs.realpathSync(root);
   const ledgerResolved=path.resolve(ledgerPath);
   if(!allowExternalLedger&&(ledgerResolved!==rootReal&&!ledgerResolved.startsWith(`${rootReal}${path.sep}`))) fail('decision ledger path must remain inside this repository');

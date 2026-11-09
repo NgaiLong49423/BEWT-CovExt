@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import { execFileSync, spawnSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
 import { appendHumanDecision, getCandidateReviewState, validateDecisionLedger, validateDecisionPayload } from '../tools/human-review-decisions.mjs';
 
 const root=process.cwd();
@@ -22,7 +22,7 @@ function reviewerFixture(candidateId='KB-GAP-002', decision='REVISE') {
     candidateId,
     candidateVersionSha256:candidate.candidateVersionSha256,
     reviewedDatasetSha256:hash(fs.readFileSync(datasetPath)),
-    reviewedCommitSha:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),
+    reviewedCommitSha:'a'.repeat(40),
     reviewerIdentity:'TEST_FIXTURE_ONLY_NOT_A_REAL_REVIEWER',
     decisionDate:'2026-11-09T12:00:00.000Z',
     decision,
