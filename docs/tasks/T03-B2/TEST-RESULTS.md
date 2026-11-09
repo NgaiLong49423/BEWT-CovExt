@@ -110,3 +110,15 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 - Docker runtime, HTTP/MySQL, Maven, Selenium, business assertions and database reset: `NOT_RUN`. The current coordinator Docker CLI probe could not connect to `dockerDesktopLinuxEngine`; latest recorded Claroline RAM samples in r60 were 5.174/4.974/4.959 GiB, below the 6 GiB runtime gate. No Docker resources were changed.
 - Gemini: `NOT_RUN`. No source/runtime manifest or historical run outcome changed. G0 remains `PARTIAL/BLOCKED`; derivative image approval remains pending Team Lead review.
 - Status proposed: `PARTIAL`; review gate remains open. This verification does not establish runtime PASS or G0 acceptance.
+
+## Current continuation — 2026-11-10
+
+| Exact command/check | Exit code | Result | Evidence |
+|---|---:|---|---|
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS; 34 passed, 0 failed | `evidence/offline-verification-20261110-r64/cleanup-fault-tests.log`, `verification-summary.json` |
+| `node --check experiments/claroline/tools/claroline-g0.mjs` and the cleanup, diagnostic, G0 runner, and cleanup test modules | 0 each | PASS; five syntax checks | `evidence/offline-verification-20261110-r64/syntax-checks.json` |
+| Docker Engine `29.8.0`, `docker info`; `docker ps/network ls/volume ls --filter label=task=t03b2-g0` | 0 each | PASS for read-only availability/inventory; 0 task containers/networks/volumes | `evidence/offline-verification-20261110-r65/runtime-gate-recheck.json` |
+| Three host RAM samples | — | BLOCKED; 3.089/3.109/3.110 GiB, below required 6 GiB | `evidence/offline-verification-20261110-r65/runtime-gate-recheck.json` |
+| Claroline diagnostic, G0 Run A/B, HTTP/MySQL, Selenium, baseline AddUser, DB reset | — | NOT_RUN because RAM gate failed; no Docker resources changed | `evidence/offline-verification-20261110-r65/runtime-gate-recheck.json`; historical port-forwarding evidence remains under `evidence/t03b2-d-20261109-r3/` |
+
+The unit/fault suite is offline-only and does not establish runtime egress isolation, port forwarding, readiness, reset, Selenium, or G0 PASS. Maven was not rerun because Java sources did not change. Historical evidence remains immutable.

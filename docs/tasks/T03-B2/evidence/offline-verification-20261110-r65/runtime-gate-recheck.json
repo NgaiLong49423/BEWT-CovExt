@@ -1,0 +1,27 @@
+{
+  "runId": "offline-verification-20261110-r65",
+  "sourceHead": "827f3c6fa754eb4c9cd6643016830f8b2d0cd8da",
+  "ramSampledAtLocal": "2026-11-10T00:49:55.8392007+07:00",
+  "dockerCollectedAtUtc": "2026-11-09T17:52:56.4144782Z",
+  "freeRamGiBSamples": [
+    3.089,
+    3.109,
+    3.11
+  ],
+  "diagnosticRequiredGiB": 6,
+  "ramGate": "BLOCKED",
+  "dockerEngineVersion": "29.8.0",
+  "dockerInfoExitCode": 0,
+  "dockerHostTotalMemoryBytes": 7157481472,
+  "dockerHostOSType": "linux",
+  "taskLabel": "task=t03b2-g0",
+  "taskContainerCount": 0,
+  "containerQueryExitCode": 0,
+  "taskNetworkCount": 0,
+  "networkQueryExitCode": 0,
+  "taskVolumeCount": 0,
+  "volumeQueryExitCode": 0,
+  "diagnostic": "NOT_RUN",
+  "dockerResourcesChanged": false,
+  "note": "Aggregated from the current three-sample read-only RAM check and exact task-label Docker queries; no IDs for unrelated Docker resources are retained."
+}
