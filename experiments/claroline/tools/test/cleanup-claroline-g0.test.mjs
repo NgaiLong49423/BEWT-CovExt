@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { EventEmitter } from 'node:events';
 import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -202,6 +203,8 @@ test('TCP probe classification keeps timeout, unreachable, execution failure, an
   const connected = processProbe(0, 0);
   const refused = processProbe(1, 1, 'Connection refused');
   const timedOut = processProbe(124, 124, 'Connection timed out');
+  const timeoutAndUnreachable = processProbe(124, 124, 'Connection timed out; Network is unreachable');
+  const unreachableAndTimeout = processProbe(1, 1, 'Network is unreachable; Connection timed out');
 
   // Contradictory successful process exit and unreachable text is never isolation evidence.
   const exitZeroUnreachable = processProbe(0, 0, unreachableText);
@@ -227,6 +230,10 @@ test('TCP probe classification keeps timeout, unreachable, execution failure, an
   assert.equal(classifyEgressProbe(genuineUnreachable), 'NETWORK_UNREACHABLE');
   assert.equal(classifyTcpProbe(timedOut), 'PROBE_TIMEOUT');
   assert.equal(classifyEgressProbe(timedOut), 'TCP_TIMEOUT_INCONCLUSIVE');
+  assert.equal(classifyTcpProbe(timeoutAndUnreachable), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe(timeoutAndUnreachable), 'INCONCLUSIVE');
+  assert.equal(classifyTcpProbe(unreachableAndTimeout), 'INCONCLUSIVE');
+  assert.equal(classifyEgressProbe(unreachableAndTimeout), 'INCONCLUSIVE');
 
   assert.equal(classifyTcpProbe(processProbe(0, 0, unreachableText)), 'INCONCLUSIVE', 'probe marker success conflicts with unreachable stderr');
   assert.equal(classifyEgressProbe(processProbe(0, 1, 'Network is unreachable', 'connected')), 'INCONCLUSIVE', 'connection evidence conflicts with unreachable result');
@@ -248,6 +255,20 @@ test('host IPv6 unavailable is distinct from a reachable host control and never 
   assert.equal(classifyHostControlProbe({ source: 'node-socket', status: null, error: Object.assign(new Error('timeout'), { code: 'ETIMEDOUT' }) }, 'ipv6'), 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE');
   assert.equal(classifyHostControlProbe({ source: 'node-socket', status: 1, error: Object.assign(new Error('Connection refused'), { code: 'ECONNREFUSED' }) }, 'ipv6'), 'HOST_CONTROL_TARGET_REFUSED');
   assert.equal(classifyHostControlProbe({ source: 'process', status: null, error: Object.assign(new Error('spawn failed'), { code: 'ENOENT' }) }, 'ipv6'), 'HOST_CONTROL_EXECUTION_FAILURE');
+});
+
+test('Node socket timeout preserves its source and remains an inconclusive host control', async () => {
+  const socket = new EventEmitter();
+  let destroyed = false;
+  socket.setTimeout = (_timeout, callback) => queueMicrotask(callback);
+  socket.destroy = () => { destroyed = true; };
+  const result = await probeTcpTarget('2001:db8::1', 443, 'ipv6', 1, () => socket);
+  assert.equal(result.source, 'node-socket');
+  assert.equal(result.status, null);
+  assert.equal(result.error.code, 'ETIMEDOUT');
+  assert.equal(destroyed, true);
+  assert.equal(classifyTcpProbe(result), 'PROBE_TIMEOUT');
+  assert.equal(classifyHostControlProbe(result, 'ipv6'), 'HOST_CONTROL_TIMEOUT_INCONCLUSIVE');
 });
 
 test('privileged route command stays disabled without independent Team Lead authorization', () => {

@@ -198,7 +198,8 @@ export function classifyTcpProbe(result) {
     if ((probeStatus === 0 || connectedEvidence) && (unreachableText || timeoutEvidence || refusedEvidence)) return 'INCONCLUSIVE';
     if (probeStatus === 0) return 'CONNECTION_SUCCESS';
     if ([125, 126, 127].includes(probeStatus) || /command not found|cannot execute|permission denied/i.test(output)) return 'PROBE_EXECUTION_FAILURE';
-    if ((probeStatus === 124 || timeoutEvidence) && !unreachableText && !refusedEvidence) return 'PROBE_TIMEOUT';
+    if (probeStatus === 124) return unreachableText || refusedEvidence || connectedEvidence ? 'INCONCLUSIVE' : 'PROBE_TIMEOUT';
+    if (timeoutEvidence) return unreachableText || refusedEvidence || connectedEvidence ? 'INCONCLUSIVE' : 'PROBE_TIMEOUT';
     if (connectedEvidence || (unreachableText && refusedEvidence)) return 'INCONCLUSIVE';
     if (unreachableText) return 'NETWORK_UNREACHABLE';
     if (refusedEvidence) return 'CONNECTION_REFUSED';
@@ -234,12 +235,12 @@ export function classifyEgressProbe(result) {
   return 'INCONCLUSIVE';
 }
 
-export function probeTcpTarget(address, port, family, timeoutMs = 5000) {
+export function probeTcpTarget(address, port, family, timeoutMs = 5000, socketFactory = createConnection) {
   return new Promise(resolve => {
     let settled = false;
     const finish = result => { if (settled) return; settled = true; socket.destroy(); resolve(result); };
-    const socket = createConnection({ host: address, port, family: family === 'ipv6' ? 6 : 4 });
-    socket.setTimeout(timeoutMs, () => finish({ status: null, error: Object.assign(new Error('TCP probe timed out'), { code: 'ETIMEDOUT' }) }));
+    const socket = socketFactory({ host: address, port, family: family === 'ipv6' ? 6 : 4 });
+    socket.setTimeout(timeoutMs, () => finish({ source: 'node-socket', status: null, error: Object.assign(new Error('TCP probe timed out'), { code: 'ETIMEDOUT' }) }));
     socket.once('connect', () => finish({ source: 'node-socket', status: 0, connectionEstablished: true }));
     socket.once('error', error => finish({ source: 'node-socket', status: 1, error }));
   });
