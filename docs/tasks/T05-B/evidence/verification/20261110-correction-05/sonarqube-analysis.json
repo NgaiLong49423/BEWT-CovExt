@@ -37,9 +37,9 @@
     "analysisLink": "https://sonarcloud.io/dashboard?id=NgaiLong49423_BEWT-CovExt&pullRequest=15"
   },
   "latestCompletedPrAnalysisAtVerification": {
-    "analyzedCommit": "1f279b596a485543e5e584d80445101964322e9f",
+    "analyzedCommit": "9cc22fba4f0cf8420016c8e2acab579b0e6bd6a2",
     "checkName": "SonarCloud Code Analysis",
-    "checkRunId": 129373301304,
+    "checkRunId": 129374330646,
     "qualityGate": "PASS",
     "newIssues": 0,
     "acceptedIssues": 0,
