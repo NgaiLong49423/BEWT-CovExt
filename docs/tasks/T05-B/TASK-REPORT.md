@@ -4,9 +4,11 @@
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb` (fetched and verified 2026-11-10).
 - Working branch: `feature/t05b-expresscart-live-generation`.
 - Execution commit (source fix; exact local tests ran against this commit): `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`.
-- Current PR HEAD at the start of this correction round: `72103d17bc4005a661d6fa03d862e1364c283a88`. The evidence/report commits are later documentation-only updates; the final PR HEAD is reported in the handoff and PR ref.
+- Reviewed PR HEAD at the start of this correction round: `72103d17bc4005a661d6fa03d862e1364c283a88` (Sonar duplication analysis).
+- Evidence commit: `06c163b` (`docs(t05b): record independent correction verification`), containing correction-05 test logs, provenance, Sonar results and secret-scan outputs.
+- PR HEAD verified with the evidence bundle: `06c163b`; this report-only commit advances the PR ref after that snapshot. The exact final local/origin/PR HEAD is reported in the final handoff.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15 (draft; review gate only).
-- Push status: source fix pushed to existing branch; evidence/report commits follow on PR #15. No new PR was created.
+- Push status: source fix and evidence/report follow-ups pushed to existing branch PR #15. No new PR was created.
 - Runtime/commit/version tested: offline framework at execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`; ExpressCart source pin `b31302f4e99c3293bd742c6d076a721e168118b0`, package `1.1.19` (benchmark label `1.19`). No app runtime used.
 - Status proposed by Agent: `BLOCKED_AUTHORIZATION`. The proposed assertion is limited to the source-backed `/forgot` redirect; page/message visibility and research novelty remain unverified. No Gemini candidate was generated.
 
