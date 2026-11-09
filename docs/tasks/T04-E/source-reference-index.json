@@ -18,8 +18,8 @@
           "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
           "path": "bl-kernel/dbpages.class.php",
           "blobSha": "9283d3f27354817808a4419691b2536db4682202",
-          "lineRanges": "13-18,82-93",
-          "observed": "Stores status/type/coverImage; a future date changes published status to scheduled.",
+          "lineRanges": "13-18,39-53,82-110,131-140,149-166,193-216,313-373,417-423,449-456,548-579",
+          "observed": "Stores and persists page fields; maps future publish dates to scheduled; scheduler promotes due entries to published; published/static collections are separately queried.",
           "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/dbpages.class.php"
         },
         "BL-S02": {
@@ -29,8 +29,8 @@
           "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
           "path": "bl-kernel/boot/rules/69.pages.php",
           "blobSha": "b3cb53cd97475cc824f9ce5f6b742f8305ebb721",
-          "lineRanges": "97-102",
-          "observed": "Contains the scheduler publication message/rule and published-page tree generation.",
+          "lineRanges": "87-100,102-129",
+          "observed": "Invokes the database page scheduler during page boot, then builds public pages from published content.",
           "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/boot/rules/69.pages.php"
         },
         "BL-S03": {
@@ -87,6 +87,28 @@
           "lineRanges": "9,61-99",
           "observed": "User storage model defines default editor role and saves user records.",
           "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/dbusers.class.php"
+        },
+        "BL-S08": {
+          "id": "BL-S08",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-kernel/page.class.php",
+          "blobSha": "e5b5ac30e92cb255b6a7c7cfd3e446e1560ba60a",
+          "lineRanges": "311-331",
+          "observed": "Page coverImage accessor resolves a stored image key into the app-managed image URL; it returns false when unset.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-kernel/page.class.php"
+        },
+        "BL-S09": {
+          "id": "BL-S09",
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "path": "bl-themes/alternative/php/page.php",
+          "blobSha": "354a0e993cdfd513c9aafb3e54e43afc3faf7638",
+          "lineRanges": "17-27",
+          "observed": "Pinned alternative theme renders the page cover image accessor in its page template.",
+          "permalink": "https://github.com/bludit/bludit/blob/44de235a5eedda9b80d9f0babd9fd5cb8c6943bd/bl-themes/alternative/php/page.php"
         }
       },
       "baselinePin": {
@@ -192,6 +214,39 @@
           "lineRanges": "475-541",
           "observed": "Restricted discount settings routes validate start/end dates and discount records.",
           "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/admin.js"
+        },
+        "EC-S05": {
+          "id": "EC-S05",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "routes/index.js",
+          "blobSha": "774f41491d90d3c4f23151c5c70b340f97c89ae0",
+          "lineRanges": "541-550,583-639,641-642",
+          "observed": "Cart update rejects quantities beyond product/variant stock with HTTP 400 before changing the session cart; enforcement depends on stock tracking and product stock-disable configuration.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/index.js"
+        },
+        "EC-S06": {
+          "id": "EC-S06",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "lib/auth.js",
+          "blobSha": "a515394a68dd550551c5beed750109a3acb8782d",
+          "lineRanges": "4-29,31-65,68-85",
+          "observed": "Authentication/authorization only runs when route middleware is attached; admin order creation is absent from the restricted route list and its POST handler lacks restrict/checkAccess.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/lib/auth.js"
+        },
+        "EC-S07": {
+          "id": "EC-S07",
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "path": "app.js",
+          "blobSha": "e7615061e999b49ad4c743382856ca445e319a79",
+          "lineRanges": "401-415",
+          "observed": "Order router is mounted directly at the root after generic session/header middleware; no global authorization wrapper surrounds router mounts.",
+          "permalink": "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/app.js"
         }
       },
       "baselinePin": {
@@ -214,8 +269,8 @@
           "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
           "path": "administrator/components/com_content/models/article.php",
           "blobSha": "8717315555a82d96ea00239269328fabbb7e620f",
-          "lineRanges": "61-62,225-250,264-281",
-          "observed": "Article model handles featured relationship, edit-state authorization, publish dates and version increment.",
+          "lineRanges": "61-67,233-250,262-281,701-706,722-800",
+          "observed": "Article model checks edit-state rights, prepares publication/version fields, saves article data, and persists featured state into the content/frontpage tables.",
           "permalink": "https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/article.php"
         },
         "JO-S02": {
@@ -352,8 +407,8 @@
           "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
           "path": "includes/Revision/RevisionStore.php",
           "blobSha": "46dc0544a26b52f29bd90718f0e58eba12e4b652",
-          "lineRanges": "Pinned source file",
-          "observed": "Revision store provides persistence/read path for page revisions; no UI oracle inferred from this file alone.",
+          "lineRanges": "417-526,1244-1245",
+          "observed": "Revision store inserts revision rows and exposes lookup by revision ID; caller/UI link is corroborated by PageUpdater.",
           "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Revision/RevisionStore.php"
         },
         "MW-S04": {
@@ -363,9 +418,20 @@
           "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
           "path": "includes/upload/UploadBase.php",
           "blobSha": "485e92dab9b7b80485949781d7137da5201cf0e5",
-          "lineRanges": "Pinned source file",
-          "observed": "Upload base implements file-upload processing and validation.",
+          "lineRanges": "646-692,905-945,963-1064",
+          "observed": "UploadBase validates filename/extensions and reports title errors; successful performUpload delegates to LocalFile::upload; frontend error rendering is not inferred.",
           "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/upload/UploadBase.php"
+        },
+        "MW-S05": {
+          "id": "MW-S05",
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "path": "includes/Storage/PageUpdater.php",
+          "blobSha": "6e18bf1d2e6d54a45a5d08b54cb1aa0279d57579",
+          "lineRanges": "1328-1440,1495-1535",
+          "observed": "Normal page-update commit path inserts new revisions through RevisionStore and updates page latest revision.",
+          "permalink": "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Storage/PageUpdater.php"
         }
       },
       "baselinePin": {
@@ -399,8 +465,8 @@
           "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
           "path": "classes/Carrier.php",
           "blobSha": "704763700a5deb01b4f69fdc5a864e4c76e9d92d",
-          "lineRanges": "30-47,66-93",
-          "observed": "Carrier supports price/weight ranges, active state and behavior for unmatched ranges.",
+          "lineRanges": "30-47,66-93,248-299,330-412,602-686,1283-1419",
+          "observed": "Carrier model calculates range-based delivery prices and filters carriers for an order; range_behavior=disabled removes out-of-range carriers, while other configured behavior permits fallback pricing.",
           "permalink": "https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/Carrier.php"
         },
         "PS-S03": {

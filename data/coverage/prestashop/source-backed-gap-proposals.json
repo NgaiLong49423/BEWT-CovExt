@@ -73,7 +73,7 @@
       "preconditions": "Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary.",
       "fixture": "Proceed to carrier selection with cart value/weight below, at and above configured ranges.",
       "oracle": {
-        "observable": "Only the eligible carrier is offered for each range; unmatched range follows configured range_behavior.",
+        "observable": "The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies.",
         "sourceRefs": [
           "PS-S02"
         ]
@@ -96,7 +96,7 @@
       },
       "negativeControl": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
       "testabilityRisk": "Carrier module/config and tax inclusion influence calculated values.",
-      "uncertainty": "Carrier source defines range/unknown-range constants and active/range properties; exact customer-flow selection requires runtime validation.",
+      "uncertainty": "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: Carrier eligibility follows configured price/weight range.",

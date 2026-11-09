@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Static source-backed gap proposals for Bludit, Claroline, ExpressCart, Joomla, MantisBT, MediaWiki and PrestaShop; no shared status update or G1 acceptance.
 - Base branch + base SHA: `origin/main`, `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`.
 - Working branch: `feature/t04e-seven-app-source-gaps`.
-- Head commit (full SHA): `9b895854c7a6853c167542fb3ff6923dcdc9f463` (initial research commit; final report update is committed separately).
-- PR: [#16](https://github.com/NgaiLong49423/BEWT-CovExt/pull/16), open against `main`; no merge requested or performed.
-- Push status: PUSHED; GitHub PR metadata confirmed head `9b895854c7a6853c167542fb3ff6923dcdc9f463` before this report-only follow-up commit.
+- Head commit (full SHA): correction head is verified and reported in the final task handoff after push.
+- PR: [#16](https://github.com/NgaiLong49423/BEWT-CovExt/pull/16), same branch/PR, open against `main`; no merge requested or performed.
+- Push status: correction commits pending push and post-push SHA verification.
 - Runtime/commit/version tested: static application source pins listed in `SOURCE-AVAILABILITY.md`; BEWT baseline `0501249ff3e9a5ea83a06155cd2971dc36197056`. Runtime NOT_RUN.
 - Status proposed by Agent: READY_FOR_REVIEW_WITH_LIMITATIONS. All G1 gates remain NOT_VERIFIED.
 
@@ -13,10 +13,11 @@
 
 | Path | Change |
 |---|---|
-| `data/coverage/<app>/source-backed-gap-proposals.json` (7) | Four proposals/app; actor, role, fixture, operation, oracle, source refs, novelty, baseline overlap, negative control, risks and uncertainty |
-| `data/coverage/<app>/source-backed-gap-shortlist.json` (7) | Three-item technical review order/app; no human decision |
-| `docs/tasks/T04-E/source-reference-index.json` | Pinned source commit/tree, file Git blob SHA, line ranges and permalink |
-| `docs/tasks/T04-E/{SOURCE-AVAILABILITY,BEHAVIOR-MAPPING-REVIEW,CANDIDATE-EVIDENCE-INDEX,TEST-RESULTS}.md` | Provenance, mapping, review and test handoff |
+| `data/coverage/<app>/source-backed-gap-proposals.json` (7) | 27 evidence-supported proposals total; ExpressCart has 3 after EC-GAP-001 was removed |
+| `data/coverage/<app>/source-backed-gap-shortlist.json` (7) | 20-item technical review order total; no human decision |
+| `docs/tasks/T04-E/source-reference-index.json` | Pinned source commit/tree, file Git blob SHA, numeric line ranges and immutable permalink |
+| `docs/tasks/T04-E/{SOURCE-AVAILABILITY,BEHAVIOR-MAPPING-REVIEW,CANDIDATE-EVIDENCE-INDEX,TEST-RESULTS,EXPRESSCART-SOURCE-DEFECT-FINDINGS}.md` | Provenance, oracle mapping, corrections, defects and verification handoff |
+| `docs/tasks/T04-E/evidence/verification/correction-run.md` | Runtime versions, exact command/output records, pinned API verification and file hashes |
 | `docs/tasks/T04-E/PROPOSED-STATUS-UPDATE.json` | Proposed-only status; shared `docs/program/STATUS.json` untouched |
 | `docs/tasks/T04-E/tools/` | Reusable consistency validator and focused Node tests |
 
@@ -24,15 +25,22 @@ No source code was copied. T04-D historical files, `bewt-original/`, Kanboard fi
 
 ## 2. Actual verification
 
-See `TEST-RESULTS.md`. Bundle validation PASS; Node tests 8/8 PASS; T04-D counts cross-checked. No live app, runtime, Selenium, Docker or Gemini execution.
+See `TEST-RESULTS.md` and `evidence/verification/correction-run.md`. The corrected CLI and 12 focused tests are executed on the corrected head; all 36 indexed source files and seven commit/tree links are checked against exact pinned GitHub API refs. No live app, runtime, Selenium, Docker or Gemini execution.
 
 ## 3. Research impact
 
-- Counts: Bludit 4, Claroline 4, ExpressCart 4, Joomla 4, MantisBT 4, MediaWiki 4, PrestaShop 4 (28 total); proposed technical review order 3/app (21 total).
-- The directional 8–12/app target was not met. Only four directly supported proposals per app are included; no padding or exhaustive source-coverage claim.
+- Counts: Bludit 4, Claroline 4, ExpressCart 3, Joomla 4, MantisBT 4, MediaWiki 4, PrestaShop 4 (27 total); technical review order is 20 total.
+- EC-GAP-001 was removed, not renumbered or reused. Static findings are separately documented; no runtime impact is asserted.
+- The directional 8–12/app target was not met. No padding or exhaustive source-coverage claim.
 - All candidate statuses remain PROPOSED; novelty NOT_VERIFIED; human decisions none.
 - RQ1: proposals only; acceptance NOT_EVALUATED. RQ2: NOT_EVALUATED. RQ3: NOT_RUN. RQ4: NOT_EVALUATED.
 - G1 remains NOT_VERIFIED for all apps; no VALIDATED case proposed.
+
+## 7. Correction outcomes
+
+- Engineering: validator entrypoint uses `fileURLToPath`; subprocess CLI test proves valid data prints PASS and invalid data exits nonzero. Source path/pin/tree/range, shortlist, duplicate and oracle-reference consistency checks are deterministic; upstream object existence is confirmed separately by pinned GitHub API retrieval.
+- Research: 27 candidate proposals, novelty NOT_VERIFIED, behavioral denominator NOT_ESTABLISHED, RQ2 NOT_EVALUATED. ExpressCart stock rejection is present in source; the missing-cart/auth concerns are separate unconfirmed defect findings.
+- Merge readiness: STOPPED at independent review gate; no merge, G1 promotion or acceptance claim.
 
 ## 4. Safety & integrity
 

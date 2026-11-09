@@ -33,11 +33,13 @@
       "oracle": {
         "observable": "Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.",
         "sourceRefs": [
-          "JO-S01"
+          "JO-S01",
+          "JO-S02"
         ]
       },
       "sourceRefs": [
-        "JO-S01"
+        "JO-S01",
+        "JO-S02"
       ],
       "novelty": {
         "assessment": "POTENTIAL_GAP",

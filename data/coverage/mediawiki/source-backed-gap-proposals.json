@@ -143,7 +143,7 @@
       },
       "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
       "testabilityRisk": "Upload config, MIME detection and storage backend must be pinned.",
-      "uncertainty": "UploadBase source is pinned, but exact enabled extensions/size config and visible error path require review.",
+      "uncertainty": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: Upload validation rejects a disallowed or oversized file without creating a file page.",
@@ -164,11 +164,13 @@
       "oracle": {
         "observable": "New revision has a later ID/timestamp and new content; old revision remains retrievable unchanged.",
         "sourceRefs": [
-          "MW-S03"
+          "MW-S03",
+          "MW-S05"
         ]
       },
       "sourceRefs": [
-        "MW-S03"
+        "MW-S03",
+        "MW-S05"
       ],
       "novelty": {
         "assessment": "POTENTIAL_GAP",
@@ -188,7 +190,7 @@
       },
       "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
       "testabilityRisk": "History display/API state and edit tokens need pinned config.",
-      "uncertainty": "RevisionStore source confirms a revision persistence path; history UI semantics and novelty need source-level review.",
+      "uncertainty": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: A new edit creates a retrievable revision distinct from the prior revision.",

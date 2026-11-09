@@ -12,19 +12,15 @@
   "decisionLedger": "UNCHANGED",
   "topCandidates": [
     {
-      "candidateId": "EC-GAP-001",
+      "candidateId": "EC-GAP-002",
       "priorityOrder": 1,
       "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
     },
     {
-      "candidateId": "EC-GAP-002",
+      "candidateId": "EC-GAP-003",
       "priorityOrder": 2,
       "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
-    },
-    {
-      "candidateId": "EC-GAP-003",
-      "priorityOrder": 3,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
     }
-  ]
+  ],
+  "shortlistCount": 2
 }

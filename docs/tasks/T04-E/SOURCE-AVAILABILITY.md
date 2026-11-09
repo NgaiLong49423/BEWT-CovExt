@@ -1,6 +1,6 @@
 # T04-E — Source availability
 
-Application source was retrieved through GitHub commit, tree and pinned-file APIs. Per-file paths, line ranges, Git blob SHAs and immutable permalinks are recorded in `source-reference-index.json`. No application source files are copied into this public repository.
+Application source was retrieved through GitHub commit, tree and pinned-file APIs. Per-file paths, numeric line ranges, Git blob SHAs and immutable permalinks are recorded in `source-reference-index.json`. During correction, all seven commit-to-tree relationships and all 36 indexed files were fetched at exact commit pins; returned tree/blob IDs and immutable URLs matched the index. No application source files are copied into this public repository.
 
 | App | Version | Pinned source | Availability |
 |---|---|---|---|
@@ -14,7 +14,7 @@ Application source was retrieved through GitHub commit, tree and pinned-file API
 
 Claroline's official 1.11.10 archive hash in T03-B2 is SHA-256 `666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6`. Its release archive has 17 CLCHAT files absent from the Git tree, and the pinned runtime image contains one unattributed application-code patch. Candidates cite only inspected core files; source release is not equated with image/runtime behavior. Details: `docs/tasks/T03-B2/CLAROLINE-SOURCE-PROVENANCE.md` and its r12 comparison evidence.
 
-Commit metadata supplies the source tree SHA. File Git blob SHA-1 values were matched at the pinned tree or returned by the pinned-file API; they are not locally recomputed SHA-256 checksums. No source clone, Docker, Gemini, Selenium or application runtime was used. No app is wholly `SOURCE_NOT_AVAILABLE`; Claroline is partial.
+Commit metadata supplies the source tree SHA. File Git blob SHA-1 values are GitHub Git object IDs returned for pinned file refs and matched against the index; they were not locally recomputed as SHA-1 or SHA-256 checksums. The deterministic validator checks format and index/data consistency only; it cannot prove that an upstream object exists. The independent pinned GitHub API retrieval is recorded in `evidence/verification/correction-run.md`. No source clone, Docker, Gemini, Selenium or application runtime was used. No app is wholly `SOURCE_NOT_AVAILABLE`; Claroline is partial.
 
 ## T04-D baseline availability
 
@@ -26,4 +26,4 @@ All six per-app T04-D JSON inputs were parsed and compared with the task reports
 - Seven-app totals: 228 proposal labels, 227 feature files, 204 scenario headers, 228 suite entries, 226 structural mappings. T02's aggregate projection remains 227; unresolved.
 - Behavior denominator remains NOT_ESTABLISHED. T04-D keyword tags are heuristic and were excluded from behavioral claims.
 
-The directional 8–12 proposal/app range was not met: four per app (28 total) are included from the inspected modules. No additional candidates were inferred to fill a target. Further source/function and semantic review is needed before expanding proposals.
+The directional 8–12 proposal/app range was not met: 27 proposals remain (4 each for Bludit, Claroline, Joomla, MantisBT, MediaWiki and PrestaShop; 3 for ExpressCart). EC-GAP-001 was removed and is recorded separately as an unconfirmed source-level defect finding. No additional candidates were inferred to fill a target. Further source/function and semantic review is needed before expanding proposals.

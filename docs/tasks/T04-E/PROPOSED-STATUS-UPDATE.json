@@ -30,8 +30,8 @@
     {
       "app": "expresscart",
       "sourceAvailability": "PINNED_SOURCE_AVAILABLE",
-      "proposalCount": 4,
-      "technicalReviewOrderCount": 3,
+      "proposalCount": 3,
+      "technicalReviewOrderCount": 2,
       "noveltyVerifiedCount": 0,
       "behaviorDenominator": "NOT_ESTABLISHED",
       "G1": "NOT_VERIFIED"
@@ -80,7 +80,8 @@
     "RQ4": "NOT_EVALUATED"
   },
   "limitations": [
-    "4 proposals/app (28 total), below directional 8-12 target; no padding by inference.",
+    "27 source-supported proposals remain; below directional 8-12/app range, with no padding by inference.",
+    "EC-GAP-001 was removed and is documented separately as a source-level defect finding with runtime impact NOT_VERIFIED.",
     "Claroline source/archive and image caveats remain.",
     "No app runtime, Docker, Selenium or Gemini test was run.",
     "No human decision or G1 acceptance was created."

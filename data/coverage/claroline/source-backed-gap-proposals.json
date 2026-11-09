@@ -29,7 +29,7 @@
       "actor": "Teacher",
       "role": "Course editor",
       "preconditions": "Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.",
-      "fixture": "Upload the file, rename it, then delete it through the document tool.",
+      "fixture": "Upload the file, move it to a different course-folder path, then delete it through the document tool.",
       "oracle": {
         "observable": "Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.",
         "sourceRefs": [

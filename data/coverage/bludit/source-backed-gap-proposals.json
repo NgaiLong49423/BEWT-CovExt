@@ -25,19 +25,21 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Scheduled publication becomes visible at its scheduled time",
+      "title": "Scheduled pages are promoted on a request after their due time",
       "actor": "Administrator",
       "role": "Admin",
       "preconditions": "A page with a future publish date; isolated clock-controlled fixture or bounded wait; no existing page with same slug.",
       "fixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
       "oracle": {
-        "observable": "Before due time page is absent from public published-page list; after due time it is present and scheduler indicator/state is cleared.",
+        "observable": "A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection.",
         "sourceRefs": [
-          "BL-S01"
+          "BL-S01",
+          "BL-S02"
         ]
       },
       "sourceRefs": [
-        "BL-S01"
+        "BL-S01",
+        "BL-S02"
       ],
       "novelty": {
         "assessment": "POTENTIAL_GAP",
@@ -56,7 +58,7 @@
       },
       "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
       "testabilityRisk": "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
-      "uncertainty": "Source confirms future date maps published to scheduled and scheduler rule exists; end-to-end transition and oracle need runtime/reviewer validation.",
+      "uncertainty": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: Scheduled publication becomes visible at its scheduled time.",
@@ -77,11 +79,17 @@
       "oracle": {
         "observable": "Saved content references the selected image and the public page resolves that image in its cover slot.",
         "sourceRefs": [
-          "BL-S03"
+          "BL-S01",
+          "BL-S03",
+          "BL-S08",
+          "BL-S09"
         ]
       },
       "sourceRefs": [
-        "BL-S03"
+        "BL-S01",
+        "BL-S03",
+        "BL-S08",
+        "BL-S09"
       ],
       "novelty": {
         "assessment": "POTENTIAL_GAP",
@@ -100,7 +108,7 @@
       },
       "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
       "testabilityRisk": "Theme-specific rendering and image cleanup may affect reproducibility.",
-      "uncertainty": "Model stores coverImage; edit view exposes the Images tab. Theme-level public rendering must be confirmed.",
+      "uncertainty": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: Cover image selection persists and renders for content.",
@@ -113,13 +121,13 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Static page and post have distinct public placement",
+      "title": "Static status maps to page type and the static-page collection",
       "actor": "Administrator",
       "role": "Editor or Administrator",
       "preconditions": "Fresh static page and post with unique slugs; public home page is available.",
       "fixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
       "oracle": {
-        "observable": "Both records persist their type; the post appears in post listing while the static page is addressable as a page without being treated as a post.",
+        "observable": "Setting static status sets type to page; the stored record appears in the static-page collection, while a published post remains in the published collection.",
         "sourceRefs": [
           "BL-S01"
         ]
@@ -146,7 +154,7 @@
       },
       "negativeControl": "Compare with a normal post under the same category/route context.",
       "testabilityRisk": "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
-      "uncertainty": "Source model has an explicit `post`/`page` type field; public behavior needs theme-specific confirmation.",
+      "uncertainty": "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification.",
       "behavioralCoverageStatus": "NOT_VERIFIED",
       "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
       "action": "Exercise: Static page and post have distinct public placement.",
