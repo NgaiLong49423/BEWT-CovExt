@@ -193,3 +193,9 @@ Three host samples measured 5.437, 5.442, and 5.460 GiB free, below 6 GiB. Docke
 ## Latest memory gate recheck — r60 (2026-11-09)
 
 After the user's further memory recovery, three samples measured 5.174, 4.974, and 4.959 GiB free (<6 GiB). Docker Engine was available; WSL VM working set was 1,238,462,464 bytes; full task-label inventories found zero containers/networks/volumes. The route-isolation diagnostic and G0 A/B were not run, the approved route command remains unused, and no Docker resources changed. Evidence: `evidence/offline-verification-20261109-r60/runtime-gate-recheck.json`.
+
+## Route-isolation correction review — 2026-11-10 (r66)
+
+The candidate runner previously invoked its privileged route-removal command without a per-container approval checkpoint. It now blocks non-interactive runs and requires a one-use confirmation bound to the current run ID and exact full container ID, with command/scope/rollback displayed before invocation. The approval identity is operator-entered attestation and is not independently authenticated. This continuation did not provide an approval and invoked no privileged Docker command.
+
+Docker CLI forwarding is now checked with `docker port` against the exact loopback mapping for each published app/browser port. The candidate also contains fixed IPv4 and IPv6 external TCP probes. These are code-level/offline changes only: r66 syntax checks and 35/35 unit/fault tests passed. The route-isolated published bridge, dual-stack blocking, and port-forwarder behavior remain unverified in Docker because latest recorded free RAM is 3.089/3.109/3.110 GiB, below the unchanged 6 GiB gate. Do not start the diagnostic or G0 A/B until the gate passes. Selenium Base, DB reset, and runtime cleanup remain `NOT_RUN`; G0 stays `PARTIAL/BLOCKED` and awaits review.

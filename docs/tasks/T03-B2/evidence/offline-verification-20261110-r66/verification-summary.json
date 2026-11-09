@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-10",
+  "scope": "offline-only T03-B2 route approval, Docker port reporting, dual-stack probe and cleanup regression",
+  "syntaxChecks": {
+    "exitCode": 0,
+    "pass": 4,
+    "total": 4
+  },
+  "cleanupFaultTests": {
+    "pass": 35,
+    "fail": 0,
+    "exitCode": 0
+  },
+  "runtime": "NOT_RUN",
+  "reason": "Latest recorded RAM samples 3.089/3.109/3.110 GiB are below unchanged 6 GiB gate; no repeated RAM check or Docker runtime",
+  "dockerResourcesChanged": false,
+  "historicalEvidenceModified": false
+}

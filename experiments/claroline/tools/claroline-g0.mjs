@@ -1,4 +1,6 @@
 import { createServer } from 'node:net';
+import { createInterface } from 'node:readline/promises';
+import { randomUUID } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -14,6 +16,80 @@ export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerad
 export const INTERNAL_IPAM_NETWORK_POLICY = 'internal-bridge-explicit-ipam-v1';
 export const ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY = 'published-bridge-default-route-removed-v1';
 export const ROUTE_ISOLATION_METHOD = 'container-netns-default-route-drop-v1';
+export const EGRESS_PROBE_TARGETS = Object.freeze({
+  ipv4: Object.freeze({ family: 'ipv4', address: '1.1.1.1', port: 443 }),
+  ipv6: Object.freeze({ family: 'ipv6', address: '2606:4700:4700::1111', port: 443 }),
+});
+const ROUTE_APPROVAL_SCOPE = 'one privileged exec in this exact container network namespace before services start; no host routing, Docker daemon, or other-container changes';
+const ROUTE_APPROVAL_ROLLBACK = 'if route removal or any probe fails, do not start services; remove only the exact recorded run-owned containers and network; discard the container rather than restoring its route';
+const issuedRouteApprovals = new WeakMap();
+
+function approvalRequired(message) {
+  const error = new Error(`BLOCKED_APPROVAL_REQUIRED: ${message}`);
+  error.code = 'BLOCKED_APPROVAL_REQUIRED';
+  return error;
+}
+
+export function routeIsolationApprovalRequest(containerId, role, runId) {
+  if (typeof containerId !== 'string' || !/^[a-f0-9]{64}$/i.test(containerId)) throw approvalRequired('a full recorded Docker container ID is required');
+  if (!['app', 'browser'].includes(role)) throw approvalRequired('container role must be app or browser');
+  try { validateRunId(runId); } catch { throw approvalRequired('a valid unique T03-B2 run ID is required'); }
+  return {
+    runId,
+    containerName: namesForRun(runId)[role],
+    containerId,
+    role,
+    command: `docker exec --privileged --user 0 ${containerId} /bin/sh -c 'ip route del default'`,
+    maxExecutions: 1,
+    scope: ROUTE_APPROVAL_SCOPE,
+    rollback: ROUTE_APPROVAL_ROLLBACK,
+  };
+}
+
+export function routeIsolationApprovalPhrase(request) {
+  return `APPROVE ${request.runId} ${request.containerId} ONCE; SCOPE=CONTAINER_NETNS_ONLY; ROLLBACK=REMOVE_EXACT_RUN_RESOURCES`;
+}
+
+export function validateRouteIsolationApproval(approval, request) {
+  if (!approval || !request || approval.approvalId === undefined || !/^[0-9a-f-]{36}$/i.test(approval.approvalId) ||
+      approval.runId !== request.runId || approval.containerId !== request.containerId || approval.role !== request.role || approval.command !== request.command ||
+      approval.maxExecutions !== 1 || approval.scope !== request.scope || approval.rollback !== request.rollback ||
+      typeof approval.approvedBy !== 'string' || !approval.approvedBy.trim() || approval.approverRole !== 'Team Lead' ||
+      typeof approval.approvedAtUtc !== 'string' || !Number.isFinite(Date.parse(approval.approvedAtUtc)) ||
+      approval.confirmation !== routeIsolationApprovalPhrase(request)) {
+    throw approvalRequired('approval must identify this exact full container ID, one command, scope, rollback, and Team Lead confirmation');
+  }
+  return approval;
+}
+
+export async function requestRouteIsolationApproval(containerId, role, runId, {
+  interactive = process.stdin.isTTY === true,
+  input = process.stdin,
+  output = process.stdout,
+} = {}) {
+  const request = routeIsolationApprovalRequest(containerId, role, runId);
+  if (!interactive) throw approvalRequired('interactive Team Lead confirmation is unavailable; no privileged command was run');
+  output.write(`\nPrivileged operation approval required:\n${JSON.stringify(request, null, 2)}\n`);
+  const readline = createInterface({ input, output });
+  try {
+    const approvedBy = await readline.question('Team Lead GitHub handle: ');
+    const approverRole = await readline.question('Type role exactly as Team Lead: ');
+    const confirmation = await readline.question(`Type exactly “${routeIsolationApprovalPhrase(request)}”: `);
+    const approval = Object.freeze(validateRouteIsolationApproval({
+      ...request,
+      approvalId: randomUUID(),
+      approvedBy: approvedBy.trim(),
+      approverRole: approverRole.trim(),
+      approvedAtUtc: new Date().toISOString(),
+      confirmation: confirmation.trim(),
+    }, request));
+    issuedRouteApprovals.set(approval, 'unused');
+    return approval;
+  } finally {
+    readline.close();
+  }
+}
+
 export const INTERNAL_IPAM_SUBNET_CANDIDATES = Object.freeze([
   '172.26.254.0/24', '172.27.254.0/24', '172.28.254.0/24',
   '172.29.254.0/24', '172.30.254.0/24', '172.31.254.0/24',
@@ -93,11 +169,12 @@ export function assertContainerNetworkGateway(container, networkName, gateway, n
   return endpoint;
 }
 
-/** Build the one-shot route removal command for an exact task-owned container ID. */
-export function routeIsolationExecArgs(containerId) {
-  if (typeof containerId !== 'string' || !/^[a-f0-9]{64}$/i.test(containerId)) {
-    throw new Error('route isolation requires a recorded full container ID');
-  }
+/** Build the route command only after validating an explicit per-container Team Lead approval. */
+export function routeIsolationExecArgs(containerId, approval, runId) {
+  const request = routeIsolationApprovalRequest(containerId, approval?.role, runId);
+  validateRouteIsolationApproval(approval, request);
+  if (issuedRouteApprovals.get(approval) !== 'unused') throw approvalRequired('approval is not an unused interactive grant or has already been consumed');
+  issuedRouteApprovals.set(approval, 'consumed');
   return ['exec', '--privileged', '--user', '0', containerId, '/bin/sh', '-c', 'ip route del default'];
 }
 
@@ -320,6 +397,25 @@ export function assertPublishedLoopbackPort(container, containerPort, expectedHo
     throw new Error(`PORT_BINDING_MISMATCH: NetworkSettings.Ports does not match 127.0.0.1:${expected}`);
   }
   return true;
+}
+
+/** Verify Docker CLI's active forwarding view, in addition to inspect and an HTTP request. */
+export function assertDockerPortOutput(output, expectedHostIp, expectedHostPort) {
+  const expected = `${expectedHostIp}:${expectedHostPort}`;
+  const mappings = String(output ?? '').trim().split(/\r?\n/).map(value => value.trim()).filter(Boolean);
+  if (mappings.length !== 1 || mappings[0] !== expected) {
+    throw new Error(`DOCKER_PORT_MISMATCH: expected exactly ${expected}; received ${mappings.join(',') || 'no active mapping'}`);
+  }
+  return true;
+}
+
+/** Build a no-payload TCP probe for one of the fixed IPv4/IPv6 external control endpoints. */
+export function buildEgressProbeArgs(containerId, family) {
+  if (typeof containerId !== 'string' || !/^[a-f0-9]{64}$/i.test(containerId)) throw new Error('egress probe requires a recorded full container ID');
+  const target = EGRESS_PROBE_TARGETS[family];
+  if (!target) throw new Error('egress probe family must be ipv4 or ipv6');
+  const command = `timeout 5 bash -c 'echo >/dev/tcp/${target.address}/${target.port}'`;
+  return ['exec', containerId, 'bash', '-lc', command];
 }
 
 export function assertContainerPortNotPublished(container, containerPort) {

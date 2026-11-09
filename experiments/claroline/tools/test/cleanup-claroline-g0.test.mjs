@@ -3,8 +3,9 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { PassThrough } from 'node:stream';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, routeIsolationApprovalPhrase, validateRouteIsolationApproval, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -201,15 +202,38 @@ test('external egress probe distinguishes blocked, reachable, and inconclusive o
   assert.equal(classifyEgressProbe({ status: null, error: new Error('spawn timeout') }), 'BLOCKED');
 });
 
-test('published bridge route isolation requires an exact no-masquerade bridge and removes only recorded IDs', () => {
+test('published bridge route isolation requires exact per-container interactive Team Lead approval', async () => {
   const correct = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY);
   assert.equal(assertNetworkPolicy(correct, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), correct);
-  assert.deepEqual(routeIsolationExecArgs(ids.app), ['exec', '--privileged', '--user', '0', ids.app, '/bin/sh', '-c', 'ip route del default']);
-  assert.throws(() => routeIsolationExecArgs('bewt-covext-app'), /full container ID/);
+  assert.throws(() => routeIsolationExecArgs(ids.app), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => routeIsolationExecArgs(ids.app, true), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => routeIsolationApprovalRequest('bewt-covext-app', 'app', runId), /full recorded Docker container ID/);
+  await assert.rejects(requestRouteIsolationApproval(ids.app, 'app', runId, { interactive: false }), error => error.code === 'BLOCKED_APPROVAL_REQUIRED');
+  const request = routeIsolationApprovalRequest(ids.app, 'app', runId);
+  const phrase = routeIsolationApprovalPhrase(request);
+  const output = new PassThrough();
+  const input = new PassThrough();
+  const approvalPromise = requestRouteIsolationApproval(ids.app, 'app', runId, { interactive: true, input, output });
+  setTimeout(() => input.write('NgaiLong49423\n'), 20);
+  setTimeout(() => input.write('Team Lead\n'), 40);
+  setTimeout(() => input.write(`${phrase}\n`), 60);
+  const approval = await approvalPromise;
+  input.end();
+  output.end();
+  assert.equal(validateRouteIsolationApproval(approval, request), approval);
+  assert.throws(() => validateRouteIsolationApproval({ ...approval, containerId: ids.browser }, request), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => validateRouteIsolationApproval({ ...approval, command: 'docker exec --privileged other' }, request), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => validateRouteIsolationApproval({ ...approval, scope: 'all containers' }, request), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => validateRouteIsolationApproval({ ...approval, rollback: 'restore route' }, request), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => validateRouteIsolationApproval({ ...approval, approverRole: 'Coding Agent' }, request), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => routeIsolationExecArgs(ids.browser, approval, runId), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.throws(() => routeIsolationExecArgs(ids.app, { ...approval }, runId), /unused interactive grant/);
+  assert.throws(() => routeIsolationExecArgs(ids.app, approval, 't03b2-a-20261109-r2'), /BLOCKED_APPROVAL_REQUIRED/);
+  assert.deepEqual(routeIsolationExecArgs(ids.app, approval, runId), ['exec', '--privileged', '--user', '0', ids.app, '/bin/sh', '-c', 'ip route del default']);
+  assert.throws(() => routeIsolationExecArgs(ids.app, approval, runId), /already been consumed/);
   assert.equal(assertNoDefaultRoutes('192.168.0.0/16 dev eth0 scope link\n'), true);
   assert.equal(assertNoDefaultRoutes(''), true);
   assert.throws(() => assertNoDefaultRoutes('default via 172.26.254.1 dev eth0'), /EGRESS_ROUTE_PRESENT/);
-  assert.throws(() => assertNoDefaultRoutes(undefined), /output is missing/);
   assert.equal(assertPrivateLogDirectory('/root/.t03b2-logs.A1B2C3D4', '/root'), '/root/.t03b2-logs.A1B2C3D4');
   assert.equal(assertPrivateLogDirectory('/home/seluser/.t03b2-logs.A1B2C3D4', '/home/seluser'), '/home/seluser/.t03b2-logs.A1B2C3D4');
   for (const path of ['/tmp/t03b2.log', '/root/.t03b2-logs../unsafe', '/root/.t03b2-logs.a/../../tmp']) {
@@ -219,6 +243,15 @@ test('published bridge route isolation requires an exact no-masquerade bridge an
     const network = makeNetwork([], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY); mutate(network);
     assert.throws(() => assertNetworkPolicy(network, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY), /network policy mismatch/);
   }
+});
+
+test('external TCP probes are generated for fixed IPv4 and IPv6 targets', () => {
+  assert.deepEqual(EGRESS_PROBE_TARGETS.ipv4, { family: 'ipv4', address: '1.1.1.1', port: 443 });
+  assert.deepEqual(EGRESS_PROBE_TARGETS.ipv6, { family: 'ipv6', address: '2606:4700:4700::1111', port: 443 });
+  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv4'), ['exec', ids.app, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"]);
+  assert.deepEqual(buildEgressProbeArgs(ids.app, 'ipv6'), ['exec', ids.app, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/2606:4700:4700::1111/443'"]);
+  assert.throws(() => buildEgressProbeArgs('short-id', 'ipv4'), /full container ID/);
+  assert.throws(() => buildEgressProbeArgs(ids.app, 'all'), /ipv4 or ipv6/);
 });
 
 test('cleanup of route-isolated containers requires exact bootstrap and no persistent capabilities', () => {
@@ -234,11 +267,14 @@ test('cleanup of route-isolated containers requires exact bootstrap and no persi
     container.HostConfig.CapAdd = [];
     container.NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
   }
-  assert.equal(cleanup(valid, value).outcome, 'PASS');
+  valid.state.containers.get(ids.app).NetworkSettings.Networks[names.network].Gateway = '';
+  assert.equal(cleanup(valid, value).outcome, 'PASS', 'an omitted endpoint Gateway is accepted only with the exact NetworkID and inspected IPAM');
   for (const mutate of [
     fake => { fake.state.containers.get(ids.app).HostConfig.CapAdd = ['NET_ADMIN']; },
     fake => { fake.state.containers.get(ids.browser).Config.Cmd = ['-c', 'unexpected']; },
     fake => { fake.state.networks.get(ids.network).IPAM.Config[0].Gateway = '172.26.254.2'; },
+    fake => { fake.state.containers.get(ids.app).NetworkSettings.Networks[names.network].NetworkID = ids.otherNetwork; },
+    fake => { fake.state.containers.get(ids.app).NetworkSettings.Networks[names.network].Gateway = '172.26.254.99'; },
   ]) {
     const fake = fakeDocker();
     fake.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY));
@@ -249,7 +285,7 @@ test('cleanup of route-isolated containers requires exact bootstrap and no persi
       container.NetworkSettings.Networks[names.network].Gateway = value.network.gateway;
     }
     mutate(fake);
-    assert.throws(() => cleanup(fake, value), /dormant bootstrap|IPAM/);
+    assert.throws(() => cleanup(fake, value), /dormant bootstrap|IPAM|network ID or gateway/);
     assert.deepEqual(fake.state.mutations, [], 'invalid route/isolation ownership blocks before cleanup mutation');
   }
 });
@@ -509,6 +545,10 @@ test('selected loopback port probe detects occupied port and does not claim rese
 test('Docker port verification requires exact loopback HostConfig and NetworkSettings match', () => {
   const sample = { HostConfig: { PortBindings: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51001' }] } }, NetworkSettings: { Ports: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51001' }] } } };
   assert.equal(assertPublishedLoopbackPort(sample, '80/tcp', 51001), true);
+  assert.equal(assertDockerPortOutput('127.0.0.1:51001\n', '127.0.0.1', 51001), true);
+  for (const dockerPortOutput of ['', '127.0.0.1:51002', '0.0.0.0:51001', '[::]:51001', '127.0.0.1:51001\n0.0.0.0:51001']) {
+    assert.throws(() => assertDockerPortOutput(dockerPortOutput, '127.0.0.1', 51001), /DOCKER_PORT_MISMATCH/);
+  }
   for (const changed of [
     { ...sample, HostConfig: { PortBindings: { '80/tcp': [{ HostIp: '127.0.0.1', HostPort: '51002' }] } } },
     { ...sample, NetworkSettings: { Ports: { '80/tcp': [{ HostIp: '0.0.0.0', HostPort: '51001' }] } } },

@@ -62,48 +62,40 @@
     "evidence/offline-verification-20261109-r58/runtime-gate-recheck.json",
     "evidence/offline-verification-20261109-r60/runtime-gate-recheck.json",
     "evidence/offline-verification-20261110-r64/",
-    "evidence/offline-verification-20261110-r65/runtime-gate-recheck.json"
+    "evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
+    "evidence/offline-verification-20261110-r66/"
   ],
   "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
   "approvedNetworkPolicy": "published-bridge-default-route-removed-v1 (runtime unverified)",
   "networkPolicyRuntimeStatus": "NOT_RUN_HOST_MEMORY_GATE",
-  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r64/",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r66/",
   "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261110-r65/runtime-gate-recheck.json",
   "routeIsolationCandidate": {
     "networkPolicy": "published-bridge-default-route-removed-v1",
     "method": "container-netns-default-route-drop-v1",
     "status": "OFFLINE_VERIFIED_RUNTIME_NOT_RUN",
-    "privilegedExecApproved": true,
-    "privilegedExecInvoked": false
+    "privilegedExecInvoked": false,
+    "privilegedExecApprovalMode": "PER_RUN_INTERACTIVE_OPERATOR_ATTESTATION_EXACT_CONTAINER_COMMAND_SCOPE_ROLLBACK"
   },
   "latestContinuation": {
     "dateLocal": "2026-11-10",
-    "sourceHeadBeforeReportUpdate": "827f3c6fa754eb4c9cd6643016830f8b2d0cd8da",
+    "sourceHeadBeforeCommit": "6592e115b5213772ee82e41e05893b1d8116e033",
     "branch": "feature/t03b2-claroline-g0",
     "pr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/12",
-    "dockerEngineVersion": "29.8.0",
+    "dockerEngine": "NOT_RECHECKED_BELOW_EXISTING_RAM_GATE",
     "freeRamGiBSamples": [
       3.089,
       3.109,
       3.11
     ],
-    "ramGate": "BLOCKED",
-    "taskResourceCounts": {
-      "containers": 0,
-      "networks": 0,
-      "volumes": 0
-    },
-    "offlineFaultTests": {
-      "pass": 34,
-      "fail": 0,
-      "exitCode": 0
-    },
-    "syntaxChecks": {
-      "pass": 5,
-      "fail": 0
-    },
+    "ramGate": "BLOCKED_UNCHANGED_6_GIB",
+    "taskResourceInventory": "NOT_RECHECKED",
+    "offlineEvidence": "evidence/offline-verification-20261110-r66/",
+    "syntaxChecks": "4/4 PASS",
+    "offlineFaultTests": "35/35 PASS",
     "runtime": "NOT_RUN",
+    "privilegedDockerExec": "NOT_INVOKED",
     "dockerResourcesChanged": false,
-    "sharedStatusJsonChanged": false
+    "statusJsonChanged": false
   }
 }

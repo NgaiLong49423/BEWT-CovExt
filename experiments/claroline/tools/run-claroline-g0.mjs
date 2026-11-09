@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, APP_TEST_CLASS, BROWSER_IMAGE_REF, SOURCE_COMMIT, assertOwnedContainer, assertPrivateLogDirectory, assertRouteIsolationContainer, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway, assertNoDefaultRoutes, routeIsolationExecArgs, requestRouteIsolationApproval, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, classifyEgressProbe, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun, parseSurefireXml, recordCreatedResource, sanitizeSurefireXml, snapshotInventory, selectLoopbackPort, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, validateRunId } from './claroline-g0.mjs';
 import { DOCKER_CLI_PATH, DOCKER_ENV, MAVEN_CLI_PATH, MAVEN_ENV, POWERSHELL_PATH } from './child-process-policy.mjs';
 import { runCleanupWithExitCode } from './cleanup-claroline-g0.mjs';
 
@@ -86,9 +86,13 @@ try {
   if (!portProbes.app.available || !portProbes.browser.available || appPort === browserPort) throw new Error('PORT_BIND_CONFLICT: selected loopback ports are unavailable or not distinct before Docker create');
   const safeConfig = config => ({ Entrypoint: config.Entrypoint, Cmd: config.Cmd, WorkingDir: config.WorkingDir, User: config.User, Labels: config.Labels, ExposedPorts: config.ExposedPorts });
   writeOnce(resolve(evidenceDir, 'image-inspect.json'), { app: { Id: appInspect.Id, RepoDigests: appInspect.RepoDigests, Os: appInspect.Os, Architecture: appInspect.Architecture, Created: appInspect.Created, Config: safeConfig(appInspect.Config), RootFS: appInspect.RootFS }, browser: { Id: browserInspect.Id, RepoDigests: browserInspect.RepoDigests, Os: browserInspect.Os, Architecture: browserInspect.Architecture, Created: browserInspect.Created } });
-  const hostEgressControl = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', '$ErrorActionPreference="SilentlyContinue"; if (Test-NetConnection -ComputerName 1.1.1.1 -Port 443 -InformationLevel Quiet) { exit 0 } else { exit 1 }'], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
-  writeOnce(resolve(evidenceDir, 'host-egress-control.json'), { target: '1.1.1.1:443', exitCode: hostEgressControl.status, outcome: hostEgressControl.status === 0 ? 'PASS' : 'BLOCKED', error: hostEgressControl.error?.message || '' });
-  if (hostEgressControl.status !== 0) throw new Error('EGRESS_CONTROL_BLOCKED: host could not reach the external TCP control target');
+  const hostEgressControls = Object.fromEntries(Object.entries(EGRESS_PROBE_TARGETS).map(([family, target]) => {
+    const command = `$ErrorActionPreference="SilentlyContinue"; if (Test-NetConnection -ComputerName '${target.address}' -Port ${target.port} -InformationLevel Quiet) { exit 0 } else { exit 1 }`;
+    const result = spawnSync(POWERSHELL_PATH, ['-NoProfile', '-NonInteractive', '-Command', command], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 10000 });
+    return [family, { target: `${target.address}:${target.port}`, exitCode: result.status, outcome: result.status === 0 ? 'PASS' : 'BLOCKED', error: result.error?.message || '' }];
+  }));
+  writeOnce(resolve(evidenceDir, 'host-egress-control.json'), hostEgressControls);
+  if (Object.values(hostEgressControls).some(control => control.outcome !== 'PASS')) throw new Error('EGRESS_CONTROL_BLOCKED: host IPv4 and IPv6 TCP control probes must both pass');
   const networkIpam = selectNetworkIpam();
   const networkCreate = dockerCall(['network', 'create', '--driver', 'bridge', '--ipv6=false', '--subnet', networkIpam.subnet, '--gateway', networkIpam.gateway, '--opt', 'com.docker.network.bridge.enable_ip_masquerade=false', ...labelArgs, names.network], 'network-create.json', false);
   recordCreatedResource({ kind: 'network', name: names.network, result: networkCreate, record, onRecord: () => writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify(record, null, 2)}\n`) });
@@ -119,22 +123,31 @@ try {
   assertContainerPortNotPublished(appInfo, '3306/tcp');
   assertContainerNetworkGateway(appInfo, names.network, record.network.gateway, record.network.id);
   assertContainerNetworkGateway(browserInfo, names.network, record.network.gateway, record.network.id);
+  const dockerPortOutputs = { app: docker(['port', appRecord.id, '80/tcp']), browser: docker(['port', browserRecord.id, '4444/tcp']) };
+  assertDockerPortOutput(dockerPortOutputs.app, '127.0.0.1', appPort);
+  assertDockerPortOutput(dockerPortOutputs.browser, '127.0.0.1', browserPort);
+  writeOnce(resolve(evidenceDir, 'docker-port-verification.json'), { outcome: 'PASS', app: { containerId: appRecord.id, output: dockerPortOutputs.app }, browser: { containerId: browserRecord.id, output: dockerPortOutputs.browser } });
   for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
-    const routeRemoval = dockerCall(routeIsolationExecArgs(container.id), `${role}-route-isolation.json`);
+    const approval = await requestRouteIsolationApproval(container.id, role, runId);
+    writeOnce(resolve(evidenceDir, `${role}-route-isolation-approval.json`), approval);
+    const routeRemoval = dockerCall(routeIsolationExecArgs(container.id, approval, runId), `${role}-route-isolation.json`);
     const routeOutput = docker(['exec', container.id, '/bin/sh', '-c', 'set -e; ip route show default; ip -6 route show default']);
     assertNoDefaultRoutes(routeOutput);
     writeOnce(resolve(evidenceDir, `${role}-route-verification.json`), { outcome: 'PASS', method: ROUTE_ISOLATION_METHOD, routeRemovalExitCode: routeRemoval.status, ipv4AndIpv6DefaultRoutesAbsent: true, routeTableOutput: routeOutput });
   }
   for (const [role, container] of [['app', appRecord], ['browser', browserRecord]]) {
-    const probe = spawnSync(DOCKER_CLI_PATH, ['exec', container.id, 'bash', '-lc', "timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'"], { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
-    const probeOutcome = classifyEgressProbe(probe);
-    writeOnce(resolve(evidenceDir, `${role}-egress-policy-check.json`), { target: '1.1.1.1:443', outcome: probeOutcome, exitCode: probe.status, stdout: probe.stdout || '', stderr: probe.stderr || '', error: probe.error?.message || '' });
-    if (probeOutcome !== 'PASS') throw new Error(probeOutcome === 'FAIL' ? `EGRESS_POLICY_VIOLATION: ${role} container reached an external TCP target` : `EGRESS_POLICY_UNVERIFIED: ${role} container probe was inconclusive`);
+    for (const family of Object.keys(EGRESS_PROBE_TARGETS)) {
+      const target = EGRESS_PROBE_TARGETS[family];
+      const probe = spawnSync(DOCKER_CLI_PATH, buildEgressProbeArgs(container.id, family), { encoding: 'utf8', env: DOCKER_ENV, windowsHide: true, timeout: 8000 });
+      const probeOutcome = classifyEgressProbe(probe);
+      writeOnce(resolve(evidenceDir, `${role}-egress-policy-${family}.json`), { family, target: `${target.address}:${target.port}`, outcome: probeOutcome, exitCode: probe.status, stdout: probe.stdout || '', stderr: probe.stderr || '', error: probe.error?.message || '' });
+      if (probeOutcome !== 'PASS') throw new Error(probeOutcome === 'FAIL' ? `EGRESS_POLICY_VIOLATION: ${role} container reached external ${family} target` : `EGRESS_POLICY_UNVERIFIED: ${role} container ${family} probe was inconclusive`);
+    }
   }
   writeOnce(resolve(evidenceDir, 'host-port-verification.json'), {
     outcome: 'PASS', bindAddress: '127.0.0.1', app: { requestedHostPort: appPort, hostConfig: appInfo.HostConfig.PortBindings['80/tcp'], networkSettings: appInfo.NetworkSettings.Ports['80/tcp'] },
-    browser: { requestedHostPort: browserPort, hostConfig: browserInfo.HostConfig.PortBindings['4444/tcp'], networkSettings: browserInfo.NetworkSettings.Ports['4444/tcp'] },
-    mysql3306Published: false, reservationHeld: false,
+    browser: { requestedHostPort: browserPort, hostConfig: browserInfo.HostConfig.PortBindings['4444/tcp'], networkSettings: browserInfo.NetworkSettings.Ports['4444/tcp'], dockerPort: dockerPortOutputs.browser },
+    dockerPort: dockerPortOutputs.app, mysql3306Published: false, reservationHeld: false,
   });
   writeFileSync(resolve(evidenceDir, 'run-record.json'), `${JSON.stringify({ ...record, appPort, browserPort }, null, 2)}\n`);
   const appLogDirectory = createPrivateStartupLogDirectory(appRecord, 'app');

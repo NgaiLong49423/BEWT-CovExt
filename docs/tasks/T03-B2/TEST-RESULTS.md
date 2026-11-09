@@ -122,3 +122,11 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 | Claroline diagnostic, G0 Run A/B, HTTP/MySQL, Selenium, baseline AddUser, DB reset | — | NOT_RUN because RAM gate failed; no Docker resources changed | `evidence/offline-verification-20261110-r65/runtime-gate-recheck.json`; historical port-forwarding evidence remains under `evidence/t03b2-d-20261109-r3/` |
 
 The unit/fault suite is offline-only and does not establish runtime egress isolation, port forwarding, readiness, reset, Selenium, or G0 PASS. Maven was not rerun because Java sources did not change. Historical evidence remains immutable.
+
+## Offline correction regression — 2026-11-10 (r66)
+
+- Four changed JavaScript modules passed `node --check`; all exit codes are 0.
+- `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **35 passed, 0 failed**, exit 0.
+- Coverage added for exact per-run/per-container one-use interactive approval and refusal/forgery/mismatch cases, `docker port` loopback output, omitted endpoint Gateway with exact NetworkID, wrong NetworkID/Gateway, and fixed IPv4/IPv6 TCP probe arguments.
+- Evidence: `evidence/offline-verification-20261110-r66/`.
+- Docker/runtime behavior, actual external IPv4/IPv6 probes, Selenium, Maven, business test, DB reset, and runtime cleanup: `NOT_RUN`; RAM gate is below 6 GiB. Offline tests do not establish runtime network isolation or port forwarding.
