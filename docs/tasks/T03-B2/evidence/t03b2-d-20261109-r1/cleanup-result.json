@@ -1,0 +1,4 @@
+{
+  "outcome": "BLOCKED",
+  "reason": "PORT_BINDING_MISMATCH: NetworkSettings.Ports does not match 127.0.0.1:52508"
+}

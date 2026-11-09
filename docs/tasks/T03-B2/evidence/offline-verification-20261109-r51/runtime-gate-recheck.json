@@ -1,0 +1,24 @@
+{
+  "sampledAtUtc": "2026-11-09T14:05:40.3386998Z",
+  "commands": {
+    "ram": "node os.freemem() sampled 3 times",
+    "dockerInfo": "docker info --format ServerVersion",
+    "taskInventory": "docker ps/network ls/volume ls with project=bewt-covext and task=t03b2-g0 labels",
+    "dockerInfoExitCode": 0,
+    "containerQueryExitCode": 0,
+    "networkQueryExitCode": 0,
+    "volumeQueryExitCode": 0
+  },
+  "hostFreeGiBSamples": [
+    4.951,
+    4.953,
+    4.949
+  ],
+  "diagnosticThresholdGiB": 6,
+  "ramGate": "BLOCKED",
+  "dockerEngineVersion": "29.8.0",
+  "taskOwnedContainers": [],
+  "taskOwnedNetworks": [],
+  "taskOwnedVolumes": [],
+  "dockerResourcesChanged": false
+}

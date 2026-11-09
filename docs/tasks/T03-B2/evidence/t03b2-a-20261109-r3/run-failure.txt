@@ -1,0 +1,2 @@
+Error: Command failed: C:\Users\Lenovo\AppData\Local\Programs\DockerDesktop\resources\bin\docker.exe image inspect selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f
+Error response from daemon: No such image: selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f

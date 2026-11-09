@@ -1,0 +1,48 @@
+{
+  "id": "e0e8131155ae65d9a552fdc553fce13ec92027620950e795007babf30ebc32b8",
+  "name": "bewt-covext-claroline-t03b2-d-20261110-r6-app",
+  "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "labels": {
+    "app": "claroline",
+    "managed-by": "bewt-covext-agent",
+    "owner": "bewt-covext",
+    "project": "bewt-covext",
+    "runId": "t03b2-d-20261110-r6",
+    "task": "t03b2-g0"
+  },
+  "state": {
+    "status": "created",
+    "running": false,
+    "exitCode": 0,
+    "oomKilled": false,
+    "error": "",
+    "startedAt": "0001-01-01T00:00:00Z",
+    "finishedAt": "0001-01-01T00:00:00Z"
+  },
+  "hostConfig": {
+    "privileged": false,
+    "networkMode": "bewt-covext-claroline-t03b2-d-20261110-r6-net",
+    "binds": [],
+    "portBindings": {
+      "80/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "45775"
+        }
+      ]
+    }
+  },
+  "networkSettings": {
+    "ports": {},
+    "networks": {
+      "bewt-covext-claroline-t03b2-d-20261110-r6-net": {
+        "networkId": "",
+        "endpointId": "",
+        "ipAddress": "",
+        "gateway": "",
+        "macAddress": ""
+      }
+    }
+  },
+  "mounts": []
+}

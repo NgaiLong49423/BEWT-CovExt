@@ -1,0 +1,9 @@
+{
+  "outcome": "PASS",
+  "policy": "internal-bridge-explicit-ipam-v1",
+  "driver": "bridge",
+  "internal": true,
+  "ipv6Enabled": false,
+  "subnet": "172.26.254.0/24",
+  "gateway": "172.26.254.1"
+}

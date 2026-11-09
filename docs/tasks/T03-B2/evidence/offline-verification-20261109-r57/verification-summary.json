@@ -1,0 +1,31 @@
+{
+  "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+  "testExitCode": 0,
+  "testCount": 34,
+  "pass": 34,
+  "fail": 0,
+  "syntax": [
+    {
+      "file": "experiments\\claroline\\tools\\claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments\\claroline\\tools\\cleanup-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments\\claroline\\tools\\run-claroline-diagnostic.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments\\claroline\\tools\\run-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments\\claroline\\tools\\test\\cleanup-claroline-g0.test.mjs",
+      "exitCode": 0
+    }
+  ],
+  "dockerRuntime": "NOT_RUN_MEMORY_GATE_BELOW_6_GIB",
+  "sonarIssuesTargeted": "pending remote analysis"
+}

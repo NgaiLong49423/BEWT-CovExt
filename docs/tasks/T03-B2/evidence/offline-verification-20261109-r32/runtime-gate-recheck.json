@@ -1,0 +1,43 @@
+{
+  "capturedAtUtc": "2026-11-09T11:46:05Z",
+  "hostRamSamples": [
+    {
+      "capturedAtUtc": "2026-11-09T11:45:53Z",
+      "freeBytes": 3177693184,
+      "freeGiB": 2.959,
+      "totalBytes": 14806622208
+    },
+    {
+      "capturedAtUtc": "2026-11-09T11:45:59Z",
+      "freeBytes": 3189940224,
+      "freeGiB": 2.971,
+      "totalBytes": 14806622208
+    },
+    {
+      "capturedAtUtc": "2026-11-09T11:46:04Z",
+      "freeBytes": 3183927296,
+      "freeGiB": 2.965,
+      "totalBytes": 14806622208
+    }
+  ],
+  "dockerServerVersion": "29.8.0",
+  "dockerVersionExitCode": 0,
+  "dockerVmMemoryLimitBytes": 7157477376,
+  "dockerInfoExitCode": 0,
+  "wslVmProcesses": [
+    {
+      "workingSetBytes": 655040512
+    }
+  ],
+  "t03b2OwnedContainerCount": 0,
+  "t03b2OwnedNetworkCount": 0,
+  "t03b2OwnedVolumeCount": 0,
+  "ownershipQueryExitCodes": [
+    0,
+    0,
+    0
+  ],
+  "decision": "HOST_MEMORY_BLOCKED_BELOW_HARD_GATE",
+  "actions": "Read-only host/Docker recheck. No T03-B2 containers, networks, or volumes created, started, stopped, or removed.",
+  "publicSanitization": "No unrelated resource names or IDs recorded."
+}

@@ -1,0 +1,4 @@
+{
+  "outcome": "BLOCKED",
+  "reason": "app port is not a valid dynamic loopback binding for its container state"
+}

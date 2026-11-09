@@ -1,0 +1,18 @@
+{
+  "outcome": "PASS",
+  "requestedHostPort": 59276,
+  "hostConfig": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "59276"
+    }
+  ],
+  "networkSettings": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "59276"
+    }
+  ],
+  "mysql3306Published": false,
+  "reservationHeld": false
+}

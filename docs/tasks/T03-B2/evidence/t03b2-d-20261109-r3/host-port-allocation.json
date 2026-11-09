@@ -1,0 +1,6 @@
+{
+  "app": 50555,
+  "bindAddress": "127.0.0.1",
+  "purpose": "app-only diagnostic; browser not started",
+  "reservationHeld": false
+}

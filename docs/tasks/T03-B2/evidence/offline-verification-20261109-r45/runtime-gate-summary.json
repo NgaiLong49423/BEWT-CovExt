@@ -1,0 +1,12 @@
+{
+  "gate": "BLOCKED",
+  "requiredStableFreeGiB": 6,
+  "samplesGiB": [
+    1.66,
+    1.659,
+    1.663
+  ],
+  "dockerInfoExitCode": 0,
+  "inventory": "task-owned-inventory.json",
+  "noDockerMutation": true
+}

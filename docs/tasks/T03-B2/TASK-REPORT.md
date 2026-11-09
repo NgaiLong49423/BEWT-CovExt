@@ -3,12 +3,14 @@
 - Task scope / acceptance gate: Isolated Claroline G0 feasibility, source/image provenance, baseline compilation and safe runtime harness; no G1–G4.
 - Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
 - Working branch: `feature/t03b2-claroline-g0`.
+- Reviewed starting HEAD for this final blocker diagnosis: `a977fe7d61e5ff4b38046c7cc7dc62209d22c9ed` (PR #12 remains draft). This report update is for the follow-up work after that reviewed starting point; final pushed SHA is supplied in the handoff.
 - Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
-- Current reviewed/pushed HEAD before this evidence follow-up: `a34e14c586e9a2d38d7c9839387adf2ec92224d0`; this follow-up requires a new commit and final remote verification.
-- PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
-- Push status: `PUSHED`; final branch, remote ref, and PR head are verified together after this report update.
+- Historical implementation note: PR #9 was merged by the repository owner at merge commit `ae149842185877bcd4a97cf99ebdb3fc099e040b`; this T03-B2 follow-up originally began at `c68eafcf34b7fc1ee9282661c68e640fc1aa34b5`. The current review follow-up is tracked separately by draft PR #12 on `feature/t03b2-claroline-g0`; its reviewed starting HEAD was `fc9c755b16b1b4f8afce4285c0d99bd2ffa25b1a`.
+- PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/12](https://github.com/NgaiLong49423/BEWT-CovExt/pull/12) (active draft follow-up; PR #9 is historical and merged).
+- Current follow-up: route-isolation candidate changes are offline-verified only. SonarCloud failed at `d7635f1186a0ddda961f159fc7690aa2f572a580` on a potentially super-linear regex, `/tmp` startup-log paths, and nullable container record references; the regex, log-path handling, and explicit record guards were corrected. SonarCloud Quality Gate passed at code/test HEAD `8672d5bf56379a89c487e0c7c030c22b62581a32` with 6 new issues and 0 security hotspots. The one-shot route removal uses Docker's `docker exec --privileged` option for an exact recorded full container ID; the container itself remains configured unprivileged with no added persistent capabilities or mounts. Startup logs now use a fresh `mktemp` directory below the container's non-symlink home with `umask 077`. See r57 evidence. No diagnostic or G0 run has validated this candidate.
+- PR #9 was merged by the repository owner. Draft follow-up PR #12 is open for review: https://github.com/NgaiLong49423/BEWT-CovExt/pull/12. Runtime A/B remain incomplete and G0 is PARTIAL.
 - Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source release verified by historical tag/archive comparison; runtime image base matches source archive with one unattributed code patch; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
-- Status proposed by Agent: `PARTIAL` / provenance `PARTIAL` (base verified; one image-only patch unattributed); runtime `NOT_RUN` because the latest user-authorized RAM check measured 3.90 GiB free (<4 GiB preflight requirement) and the Docker Desktop engine pipe was unavailable.
+- Current proposed gate: G0 `PARTIAL`/`BLOCKED`. Latest preflight r60 measured free RAM at 5.174, 4.974, and 4.959 GiB, below the diagnostic's stable 6 GiB gate; WSL VM working set was 1,238,462,464 bytes. Docker Engine was reachable; complete task-label inventories showed zero Claroline containers/networks/volumes. No runtime resource was changed. The route-isolated published-bridge proposal is unverified at runtime; the exact user-approved privileged exec was not invoked. Offline cleanup/fault suite r57: 34/34 PASS, exit 0; five syntax checks exit 0. Historical r2/r3 outcomes, Run A r5, Run B `NOT_RUN`, and exit-137 `ROOT_CAUSE_NOT_VERIFIED` are unchanged. Maven/Selenium/business tests/database reset remain `NOT_RUN`. The pinned image derivative contains one unattributed patch pending Team Lead decision.
 
 ## 1. What changed
 
@@ -17,11 +19,28 @@
 | `experiments/claroline/bewt-suite/` | Isolated 75-file baseline suite; only `BaseTest.java` environment adaptation | Retain baseline oracle while supporting remote headless Selenium |
 | `experiments/claroline/tools/` | Pinned-run helpers, fail-closed partial-start cleanup, write-once wrapper, runtime harness, explicit signed-tool/path policy | Reproducible, ownership-safe, and avoids PATH search in child processes |
 | `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | Cleanup fault injection and Surefire/run identity/sanitization tests | Verify failure paths without touching Docker |
+| `experiments/claroline/tools/run-claroline-g0.mjs` | Fixes Maven suite path, validates POM before resource creation, starts app/browser before reading dynamic ports, and records pinned image labels | Prevent wrong-cwd compile and pre-allocation port failures |
+| `experiments/claroline/tools/run-claroline-diagnostic.mjs` | Adds a write-once app-only diagnostic path with a 6 GiB gate and records exact runtime state before cleanup | Diagnose port/readiness blockers without starting Selenium or business tests |
+| `experiments/claroline/tools/cleanup-claroline-g0.mjs` | Validates exact merged pinned-image and run labels, recorded bridge profile, and only permits teardown when Docker omits active port reporting if recorded HostConfig loopback port matches exactly | Recover the exact diagnostic container safely without treating a runtime mismatch as PASS |
+| `experiments/claroline/tools/claroline-g0.mjs`, `run-claroline-diagnostic.mjs`, `run-claroline-g0.mjs`, cleanup fault tests | Add a recorded egress-limited bridge profile, host control plus per-container external TCP probes, fail-closed cleanup policy checks, and offline fault coverage; raise full-run memory gate to stable 6 GiB samples | Test the approved Docker Desktop port-forwarding path while limiting default container egress |
+| `experiments/claroline/tools/claroline-g0.mjs`, `cleanup-claroline-g0.mjs`, both runners, cleanup fault tests | Add a no-masquerade published bridge, exact-ID one-shot default-route removal, route-table verification and dormant unprivileged container checks | Candidate design for retaining host port forwarding while blocking container egress; runtime behavior remains unverified |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r55/` | Actual 34/34 cleanup/fault tests and five syntax checks, all exit 0 | Initial offline verification of the route-isolation candidate |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r57/` | Final 34/34 cleanup/fault tests and five syntax checks, all exit 0 | Verification after addressing Sonar findings |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r41/` | Real 30-test/five-syntax-check outputs and exit codes | Evidence for the approved bridge profile before IPv6 hardening |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r44/` | Real 30-test/five-syntax-check outputs and exit codes | Evidence that the verifier fails closed unless IPv6 is disabled |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r47/` | First internal-IPAM selector test attempt and syntax checks | Preserves an initial wrong candidate-order expectation failure |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r48/` | Corrected selector/cleanup suite and syntax checks | First 32/32 pass after correcting the test expectation |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r49/` | Fresh three-sample memory and task-label preflight | Precondition evidence for diagnostic r3 |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r50/` | Latest pre-r3 32-test fault suite and five syntax checks | Verifies cleanup of internal-IPAM resources with an omitted endpoint gateway |`n| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r51/` | Latest fresh 32-test/five-syntax execution and read-only RAM/Docker gate | Confirms fail-closed cleanup offline and records the below-threshold runtime gate |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r46/` | Three-sample >=6 GiB preflight and complete task-label inventory | Gate evidence preceding diagnostic r2 |
+| `docs/tasks/T03-B2/evidence/t03b2-d-20261109-r2/` | Actual app-only diagnostic, failed egress probe, exact cleanup and immutable runner outcome | Diagnostic blocked before readiness/Maven/Selenium/business tests |
+| `docs/tasks/T03-B2/evidence/t03b2-a-20261109-r1..r5/` and `t03b2-d-20261109-r1..r2/` | Immutable preflight/runtime/diagnostic attempts and cleanup recovery evidence | Preserve each blocked attempt without changing outcomes |
+| `docs/tasks/T03-B2/evidence/offline-verification-20261109-r16/` | Actual 19-test cleanup suite and four syntax checks | Verify the current source changes |
 | `docs/tasks/T03-B2/` | Provenance, image risk, preflight, adaptation, cleanup and partial result reports | Preserve auditable current state and limitations |
 | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` | Image-only inspection and preflight resource evidence | Preserve actual read-only image inspection and stopped-container cleanup records |
 | `.gitignore` | Narrow allow rule for T03-B2 sanitized evidence `.log` files | Allow sanitized future Maven output while retaining general log ignore |
 
-No `config/apps/claroline.json` was added: although the official release source and pinned image base are verified, one later image-only source patch remains unattributed and runtime is still `NOT_RUN`.
+No `config/apps/claroline.json` was added: although the official release source and pinned image base are verified, one later image-only source patch remains unattributed and the app-only diagnostic was blocked before readiness; the G0 business runtime remains incomplete.
 
 ## 2. Actual verification
 
@@ -34,33 +53,68 @@ No `config/apps/claroline.json` was added: although the official release source 
 | In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | [parser negative check](evidence/offline-verification-20261109-r2/manifest-parser-negative.json); `framework/src/contracts.ts` unchanged |
 | Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | [image preflight evidence](evidence/preflight-image-20261109/) |
 | Read-only Docker CLI/RAM preflight after last check | 1 for Docker daemon query; RAM query 0 | BLOCKED — daemon pipe unavailable; free RAM 3.64 GiB | [preflight result](evidence/offline-verification-20261109-r7/docker-and-memory-preflight.json) |
-| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 3.90 GiB (<4 GiB) and daemon pipe unavailable | [runtime status](G0-RUNTIME-RESULTS.md) |
+| Node cleanup/fault suite after current runner/cleanup fixes | 0 | PASS — 19 passed, 0 failed | `evidence/offline-verification-20261109-r16/cleanup-fault-tests.log` |
+| Four changed Node modules/tests `--check` | 0 | PASS | `evidence/offline-verification-20261109-r16/syntax-check.log` |
+| Run A r4 | 1 | BLOCKED before app/browser start: dynamic ports were queried before start; no Maven/Selenium/business test ran; recovery has a baseline network ID delta | `evidence/t03b2-a-20261109-r4/` |
+| Run A r5 | 1 | BLOCKED because Docker did not assign active port mappings; no readiness/Maven/Selenium/business test/reset ran; later exact cleanup recovered | `evidence/t03b2-a-20261109-r5/` |
+| Docker Desktop r5/r1 port-forwarder trace | 0 (local log inspection) | PASS diagnosis — backend reports no suitable container IP; r5 and r1 show the same failure pattern | `evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json` |
+| App-only diagnostic r1 | 1 | Historical BLOCKED — Docker active port report empty; no readiness or Maven/Selenium tests ran | `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` |
+| r5 Docker stop trace | 0 (source-log inspection) | Force-stop escalation verified; initiating caller and underlying non-graceful shutdown reason unknown; OOM not established | `evidence/offline-verification-20261109-r34/r5-stop-escalation-trace.json` |
+| Cleanup recovery r1 + independent postcheck | 0 | PASS — exact recorded resources removed; all full-label residual scans zero | `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`; `post-cleanup-independent-check.json` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 28 passed, 0 failed | `evidence/offline-verification-20261109-r38/cleanup-fault-tests.log` |
+| Six Claroline tool `node --check` commands | 0 | PASS | `evidence/offline-verification-20261109-r38/syntax-check.log` |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` | 0 | PASS — 30 passed, 0 failed | `evidence/offline-verification-20261109-r41/cleanup-fault-tests.log` |
+| Five changed Claroline tool/test `node --check` commands | 0 | PASS | `evidence/offline-verification-20261109-r41/syntax-exit-code.txt` and individual logs |
+| SonarCloud Code Analysis at pushed code/test HEAD `a4aaeba3d379a426be9dd34cfc8be2b2787e77da` | 0 | PASS — 0 new issues, 0 security hotspots | [PR #12 checks](https://github.com/NgaiLong49423/BEWT-CovExt/pull/12/checks) |
+| App-only diagnostic r2 (`t03b2-d-20261109-r2`) | 1 | BLOCKED — app reached external TCP target `1.1.1.1:443`; readiness, Maven, Selenium, business assertion and reset NOT_RUN; exact cleanup PASS and independent resource check zero | `evidence/t03b2-d-20261109-r2/` |
+| App-only diagnostic r3 (`t03b2-d-20261109-r3`) | 1 | BLOCKED — loopback HostConfig recorded but Docker active port report empty on internal bridge; egress probe/readiness/Maven/Selenium/business/reset NOT_RUN | `evidence/t03b2-d-20261109-r3/diagnostic-result.json` |
+| r3 exact cleanup recovery + independent check | 0 | PASS — recorded app/network removed; no run-owned residuals; all before/after inventory fingerprints match | `evidence/t03b2-d-20261109-r3/cleanup-recovery-r1.json` and `post-cleanup-independent-check.json` |
+| Read-only runtime gate recheck r42 | 0 | BLOCKED — free RAM samples 3.484/2.845/2.518 GiB; Docker Engine available; task-owned container/network/volume counts all zero | `evidence/offline-verification-20261109-r42/runtime-gate-recheck.json` |
+| Read-only runtime gate recheck r43 | 0 | BLOCKED — free RAM samples 1.162/1.180/1.194 GiB; Docker Engine available; task-owned container/network/volume counts all zero | `evidence/offline-verification-20261109-r43/runtime-gate-recheck.json` |
+| Read-only runtime gate recheck r45 | 0 | BLOCKED — free RAM samples 1.660/1.659/1.663 GiB; Docker Engine available; complete task-label container/network/volume counts all zero | `evidence/offline-verification-20261109-r45/` |
+| Read-only runtime gate recheck r46 | 0 | PASS — free RAM samples 6.744/6.589/6.601 GiB; Docker Engine available; complete task-label counts all zero | `evidence/offline-verification-20261109-r46/` |
+| Read-only runtime gate recheck r49 | 0 | PASS — free RAM samples 6.355/6.355/6.357 GiB; Docker Engine available; complete task-label counts all zero | `evidence/offline-verification-20261109-r49/` |
+| Cleanup unit/fault suite r50 | 0 | PASS — 32 passed, 0 failed | `evidence/offline-verification-20261109-r50/cleanup-fault-tests.log` |
+| Five changed Node module/test syntax checks r50 | 0 | PASS — all exit 0 | `evidence/offline-verification-20261109-r50/syntax-checks.json` |
+| G0 Run A and B | — | NOT_RUN; diagnostic r2 violated egress policy and r3 failed active host-port forwarding, so business runs remain gated | [runtime status](G0-RUNTIME-RESULTS.md) |
+| `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` (r44) | 0 | PASS — 30 passed, 0 failed | `evidence/offline-verification-20261109-r44/cleanup-fault-tests.log` |
+| Five changed Claroline tool/test `node --check` commands (r44) | 0 | PASS | `evidence/offline-verification-20261109-r44/syntax-exit-code.txt` and individual logs |
 
 ## 3. Research impact
 
 - Apps affected: Claroline feasibility setup only. The BEWT upstream test source is not an independently verified Claroline release archive.
-- Candidate statuses before → proposed after: Claroline remains draft/provenance-blocked; no candidate or research metric is promoted.
-- RQ1/RQ2/RQ3/RQ4 measurable changes: none; no runtime test data collected.
-- Gate status before → proposed after: no acceptance change; proposed Claroline status is `PARTIAL`, runtime `NOT_RUN`.
+- Candidate statuses before → proposed after: Claroline remains PARTIAL and provenance-blocked; diagnostic r1 is BLOCKED before readiness, with no candidate or research metric promoted.
+- RQ1/RQ2/RQ3/RQ4 measurable changes: none; no business-test observation or coverage metric was collected.
+- Gate status before → proposed after: Claroline G0 remains `PARTIAL` and not accepted; the latest app-only diagnostic is `BLOCKED`, while Selenium/business tests are `NOT_RUN`.
 - Dataset/metrics artifacts updated: none.
-- Denominator and sampling caveats: no runtime sample; compilation and fault-injection tests are not application outcome observations.
+- Denominator and sampling caveats: no successful G0/business-test sample; the app-only startup diagnostic was blocked before readiness and is not a business outcome observation.
 
 ## 4. Safety & integrity
 
 - `bewt-original/` touched? NO. Exact BEWT source was fetched to a temporary location and copied into the isolated working copy; original research source remains read-only.
-- Docker/project resources touched? One preflight-only Claroline container was created stopped with unique task labels and no mounts/network, inspected, removed, and confirmed absent by exact NOT_FOUND follow-up. App/Selenium service containers were NOT started. No other Docker resources were removed.
-- Final read-only T03-B2 ownership scan: zero containers, networks, or volumes; evidence is `docs/tasks/T03-B2/evidence/preflight-image-20261109/final-resource-scan.json`.
+- Docker/project resources touched? Docker Desktop was started; the pinned Selenium image was pulled by digest. Run A r4 and diagnostic r1 created only exact recorded task resources, later absent after recovery. Diagnostic r1 created one app container and one internal network, both removed by exact IDs/ownership. No volume/image was removed and no global prune ran. Existing ExpressCart/Kanboard resources were preserved by cleanup checks. r4 baseline default-network ID delta remains unexplained.
+- Final read-only T03-B2 run-label scan: zero containers, networks, or volumes. Baseline preservation is not PASS because network ID `221f...` is absent and `11ce...` is present; see `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
 - Existing unrelated local dirty files preserved? YES; this is a dedicated clean task worktree.
 - Secret scan / staged diff review result: pending final review; runner sanitizes local paths, fixture-like secret strings, Surefire properties and console output. No credentials are stored in the evidence.
-- Failed/blocked tasks: runtime A/B is BLOCKED by the measured RAM gate; runtime manifest is withheld pending image-to-release source comparison.
+- Failed/blocked tasks: successful A/B remain `NOT_RUN`; Run A r4 is `BLOCKED` before Selenium/application tests, and teardown evidence is `BLOCKED` on a baseline network identity change. Runtime manifest remains unpromoted pending review of the unattributed image patch.
 
 ## 5. Evidence and reproduction
 
 - Source/test paths: `experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java`, `experiments/claroline/tools/`, `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; [baseline source comparison](evidence/offline-verification-20261109-r3/baseline-source-comparison.json).
-- Raw run/log/XML/screenshot paths: none for runtime; no Maven/Selenium outcome log was fabricated. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r8/`; Maven compile and RAM/daemon preflight logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r7/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
+- Raw run/log/XML/screenshot paths: no Maven/Selenium/JUnit outcome exists; no such log was fabricated. Sanitized app-only diagnostic create/start/cleanup evidence is linked below; raw Docker inventories and internal-IP app logs remain excluded from Git. Final offline Node logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r8/`; Maven compile and RAM/daemon preflight logs are under `docs/tasks/T03-B2/evidence/offline-verification-20261109-r7/`; image preflight is under `docs/tasks/T03-B2/evidence/preflight-image-20261109/`.
 - Fixture/database before/after and cleanup: no app database was started. Preflight-container cleanup evidence is retained with its initial blocked checker record and exact NOT_FOUND follow-up.
 - Reproducible commands: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`; Maven `mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile`; runtime requires a fresh never-used `t03b2-<letter>-YYYYMMDD-rN` ID and ≥4 GiB free memory.
 - Known limitations: Both official SourceForge archive candidate hashes are recorded; runtime image-to-archive match and upstream Claroline Git commit remain unverified; runtime and DB reset not evaluated; image is legacy and has unknown build provenance.
+
+## Runtime and verifier correction follow-up — 2026-11-09 (r16)
+
+- Run A attempts r1 and r2 were blocked by the runner’s measured free-memory gate before Docker operations. Run A r3 passed memory preflight but was blocked because the pinned Selenium image digest was missing locally; cleanup PASS and before/after counts were unchanged. The exact pinned image was then pulled by digest.
+- Run A r4 passed memory preflight, created two not-started containers and an internal network, then failed before container start because dynamic ports were inspected too early. No Maven, HTTP, MySQL, Selenium, AddUser or DB reset check ran.
+- Cleanup fixes now validate run labels merged with metadata labels from the exact pinned image and permit an empty dynamic port only for a `created`, non-running container with no initialized endpoint. The runner starts both containers before inspecting assigned ports.
+- Current unit/fault tests: 19/19 PASS, exit 0; four Node syntax checks PASS, exit 0. Evidence: `evidence/offline-verification-20261109-r16/`.
+- r4 run-owned containers/network are absent after recovery. Cleanup remains `BLOCKED` because global inventory found one pre-existing network ID missing and a replacement ID present. All baseline containers, volumes and images match. No unrelated Docker resource was removed; the default-network identity change’s cause is unknown. Evidence: `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
+- Latest r16 host RAM: 3.06 GiB; fresh r17 RAM: 4.017 GiB of 13.79 GiB with Docker Engine 29.8.0 reachable. The fresh reading was marginal, so no new run was started. Maven `clean test-compile` remains the previously verified r9 PASS; Java source has not changed.
+- PR #9 is historical and merged by the repository owner. Draft PR #12 is the active review target; do not merge. The current handoff reports the new pushed commit SHA verified from GitHub.
 
 ## 6. Review request
 
@@ -112,3 +166,208 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 - Docker Desktop was started after the user-authorized recheck. Docker Engine 29.8.0 responds, but host free RAM is 0.95 GiB (<4 GiB); the runtime harness was not invoked.
 - Read-only inventory: 32 containers (2 running), 11 networks, 24 volumes; zero containers, networks, or volumes matched both `project=bewt-covext` and `task=t03b2-g0` ownership labels. No individual Docker resources were created or removed in this preflight.
 - Runtime A/B remains `NOT_RUN`; evidence: `evidence/offline-verification-20261109-r15/runtime-preflight.json`.
+
+## Final correction verification — r24/r25
+
+- The runner now selects and records two host loopback ephemeral ports before Docker creation, requests explicit bindings, and verifies Docker assigned those exact ports. The port selector availability test passes; this code change has not been exercised in Docker runtime.
+- Cleanup now permits no host-port assignment only when Docker reports no external binding, and handles an exited container with a detached incomplete endpoint while preserving strict ID/name/image/label/mount/network checks. The latest combined unit/fault suite passes 23/23; syntax checks for helper, runner and test pass. Evidence: `evidence/offline-verification-20261109-r24/`.
+- Run A r5 passed runner RAM preflight but Docker assigned no host ports; the app later exited 137. Runner exit 1; Maven/Selenium/AddUser/reset did not run. Exact cleanup recovery PASS and independent before/after/residual postcheck PASS. Run B remains NOT_RUN. Evidence: `evidence/t03b2-a-20261109-r5/`.
+- Historical r25 RAM check: 4.409 GiB. It did not establish an OOM cause for r5's exit 137.
+- Maven `clean test-compile` remains the previously verified r9 PASS (22 main + 42 test sources); application/test Java sources are unchanged. No new Maven console evidence is claimed.
+- G0 remains PARTIAL / not accepted; the runtime manifest remains withheld pending source-patch provenance and completed A/B runs.
+
+## Runtime blocker and port guard follow-up — r28/r31
+
+- Current read-only gate: free host RAM 4.340, 4.330, and 4.332 GiB across three samples; Docker Engine 29.8.0 reachable; WSL VM process working set 1,696,399,360 bytes; zero task-owned containers/networks/volumes. This is below the preferred ~6 GiB margin, so no Claroline/Selenium diagnostic or full run was started. No T03-B2 resources were created/started/stopped/removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.
+- Corrected Docker events query for both r5 container IDs exited 0 and returned no events. That does not establish exit 137's cause: `ROOT_CAUSE_NOT_VERIFIED`. Run A r5 remains `BLOCKED`; Maven/Selenium/business assertions/reset remain `NOT_RUN`; Run B remains `NOT_RUN`. r4 default-network ID delta remains unexplained.
+- Port handling now probes selected ports immediately before creation (socket released; no reservation claim), verifies exact loopback `HostConfig.PortBindings` and `NetworkSettings.Ports`, forbids MySQL 3306 publishing, and classifies port races as `PORT_BIND_CONFLICT`. Latest offline verification: 26/26 tests and 4 syntax checks exit 0 at `evidence/offline-verification-20261109-r31/`. Docker runtime binding remains `PORT_BINDING_RUNTIME_NOT_VERIFIED`.
+- PR #9 is historical and merged. Draft PR #12 remains active on `feature/t03b2-claroline-g0`; this follow-up is not merged. The pinned image derivative decision remains pending Team Lead. No runtime manifest was promoted; G0 remains `PARTIAL`.
+
+## Post-review runtime gate — r32
+
+- Three current host RAM samples are 2.959, 2.971, and 2.965 GiB, below the hard 4 GiB runtime gate. Docker Engine 29.8.0 is reachable; Docker VM limit is 7,157,477,376 bytes; WSL VM working set is 655,040,512 bytes; task ownership filters show zero containers/networks/volumes. No diagnostic or G0 run was started and no T03-B2 Docker resource was changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.
+- Run A remains `BLOCKED`, Run B remains `NOT_RUN`, and exit 137 cause remains `ROOT_CAUSE_NOT_VERIFIED`. The user was asked to free additional host memory while leaving Docker Desktop and ExpressCart running before another runtime gate recheck.
+
+- Public evidence sanitization: raw Docker inventories were excluded because they contain unrelated local project resource names. Sanitized r3-r5 inventory summaries retain counts and resource conservation/deltas using SHA-256 fingerprints. Raw files remain local only; no runtime outcome was altered.
+
+## Current diagnostic follow-up — 2026-11-09 (r38 / diagnostic r1)
+
+- New RAM preflight: three samples 6.331, 6.350, and 6.356 GiB free; hard 6 GiB diagnostic gate PASS. Docker Engine was reachable. Evidence: `evidence/t03b2-d-20261109-r1/memory-preflight.json`.
+- App-only diagnostic `t03b2-d-20261109-r1`: Docker create/start both exited 0. The request and `HostConfig.PortBindings` recorded `127.0.0.1:52508`, while `NetworkSettings.Ports` returned `{"80/tcp":[]}`. Runner correctly returned `BLOCKED` (`PORT_BINDING_MISMATCH`) before HTTP/MySQL readiness. Snapshot: app `Running=true`, `ExitCode=0`, `OOMKilled=false`. No Selenium, Maven, business test, or database reset ran. See `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` and immutable `run-failure.txt`.
+- Initial cleanup result stays unchanged (`BLOCKED`). A separate cleanup-only recovery using the exact recorded app ID, image, full labels, loopback mapping, network ID, and baseline returned `PASS`; independent exact-label filters found zero container/network/volume residuals, and both recorded IDs returned NOT_FOUND. Existing resources were preserved. Evidence: `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`, `post-cleanup-independent-check.json`.
+- Historical r5 Docker Desktop logs show Docker-Client stop requests followed about three seconds later by “using the force” and task-delete records for app and Selenium. This verifies force-stop escalation as the observed termination mechanism, not an OOM diagnosis or the initiating caller. The raw locked host log is not committed; sanitized trace: `evidence/offline-verification-20261109-r34/r5-stop-escalation-trace.json`.
+- Updated offline verification: 28/28 cleanup fault-injection tests and six syntax checks PASS, exit 0; evidence: `evidence/offline-verification-20261109-r38/`. Maven was not rerun because Java sources are unchanged.
+- Runtime status: diagnostic `BLOCKED`; Run A `BLOCKED`; Run B `NOT_RUN`; G0 remains `PARTIAL`, not accepted. No further runtime will be started after the diagnostic failed.
+
+## Docker Desktop port-forwarder diagnosis — 2026-11-09 (r39)
+
+The Docker Desktop backend log explains the empty active-port report. For r5, both app and Selenium had `exposer.Approve` requests but `exposer.Add` returned an empty mapping; the backend resyncer repeatedly warned `container has port bindings but no suitable container IP found`. For diagnostic r1, the approver accepted `127.0.0.1:52508`, the backend briefly attempted a forward to `127.0.0.1:0`, removed it, and emitted the same warning. The pre-cleanup inspect recorded an endpoint IP but no gateway on the internal bridge. These observations establish a Docker Desktop forwarder suitability failure on both internal-network attempts; the precise backend selection rule is unknown. The retained trace does not indicate a host port allocation conflict.
+
+The default Docker context and `desktop-linux` both resolve to Docker Desktop 4.92.0 / Engine 29.8.0; no alternate local Linux Engine is available. The preceding statement that no runtime would follow without a compatible runtime or approval is historical and is superseded by the Team Lead's approval of the egress-limited bridge experiment. That experiment has not yet run because the 6 GiB memory gate is unmet. Evidence: `evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json`.
+
+## Approved egress-limited bridge follow-up — 2026-11-09
+
+The diagnostic and full G0 runners now create a labeled user-defined bridge with `com.docker.network.bridge.enable_ip_masquerade=false` instead of `--internal`. They inspect and verify this recorded policy, check host reachability to `1.1.1.1:443` as a control, and fail closed unless each container's TCP attempt to that target is blocked. The runner remains loopback-only for HTTP/Selenium; MySQL is never published. Cleanup checks the recorded profile and remains compatible with prior write-once internal-bridge run records. This is not a per-destination firewall ACL; runtime probes and the exact Docker Desktop forwarding behavior remain unverified.
+
+Offline evidence r41: 30/30 tests PASS and all five syntax checks PASS (exit 0). SonarCloud Code Analysis passed at code/test HEAD `a4aaeba3d379a426be9dd34cfc8be2b2787e77da` and at the then-current docs-only HEAD, with 0 new issues and 0 security hotspots. The latest host samples in r43 were 1.162, 1.180, and 1.194 GiB free, below the stable 6 GiB preflight; task-owned container/network/volume inventory counts were zero. App-only diagnostic r2 and full G0 runs remain NOT_RUN. Historical diagnostic r1 and r5 outcomes are unchanged. G0 remains PARTIAL/BLOCKED pending app-only diagnostic success, two G0 runs, and Team Lead provenance decision.
+
+## Latest RAM gate recheck and offline verification — r51 (2026-11-09)
+
+After the user-confirmed memory cleanup, three fresh host samples were 4.951, 4.953, and 4.949 GiB free. Docker Engine 29.8.0 and all three exact task-label inventory queries responded successfully; no matching Claroline containers, networks, or volumes were present. The diagnostic's 6 GiB RAM gate remains `BLOCKED`, so no further Docker diagnostic or G0 A/B run was started. No Docker resources were changed during this recheck. Evidence: `evidence/offline-verification-20261109-r51/runtime-gate-recheck.json`.
+
+The latest cleanup fault-injection suite passes **32/32**, exit 0, with five Node syntax checks passing, exit 0. Evidence: `evidence/offline-verification-20261109-r51/`. Diagnostic r3 remains `BLOCKED` because Docker Desktop did not report an active host port on the internal bridge; cleanup recovery for its exact app/network passed and independent residual/inventory checks matched. G0 Runs A/B, Maven, Selenium, business tests, and database reset remain `NOT_RUN`. G0 remains `PARTIAL` and is not accepted.
+
+## Sprint coordinator continuation — r61 (2026-11-09)
+
+- Branch: `feature/t03b2-claroline-g0`; tested local HEAD `2c6300a1b1185a1c68d7ac96783e90a210aa747c`; `origin/main` after fetch: `ae149842185877bcd4a97cf99ebdb3fc099e040b`.
+- PR #12 was independently confirmed open and draft, targeting `main`, with PR head `2c6300a1b1185a1c68d7ac96783e90a210aa747c`.
+- Offline verification at the tested HEAD: cleanup fault-injection 34/34 passed (exit 0); five Node syntax checks passed (all exit 0). Raw logs and exit codes: `evidence/offline-verification-20261109-r61/`.
+- Docker runtime, HTTP/MySQL, Maven, Selenium, business assertions and database reset: `NOT_RUN`. The current coordinator Docker CLI probe could not connect to `dockerDesktopLinuxEngine`; latest recorded Claroline RAM samples in r60 were 5.174/4.974/4.959 GiB, below the 6 GiB runtime gate. No Docker resources were changed.
+- Gemini: `NOT_RUN`. No source/runtime manifest or historical run outcome changed. G0 remains `PARTIAL/BLOCKED`; derivative image approval remains pending Team Lead review.
+- Status proposed: `PARTIAL`; review gate remains open. This verification does not establish runtime PASS or G0 acceptance.
+
+## Follow-up on 2026-11-10 — r62
+
+- Branch/PR: `feature/t03b2-claroline-g0`, draft PR #12. Starting HEAD: `050662d6f895d70d27b6dea5accaebf5d920d8a7`.
+- Fresh host preflight: **2.337 GiB free of 13.79 GiB**; the app-only diagnostic requires at least 6 GiB. Runtime gate is `BLOCKED`. Docker Engine 29.8.0 responds, but no Docker resource inventory or runtime was started after the memory gate failed. No Docker resources were changed. Evidence: `evidence/offline-verification-20261110-r62/runtime-gate-recheck.json`.
+- Network forwarding remains runtime-unverified for a safe candidate. Historical evidence records Docker Desktop's `no suitable container IP` failure for prior isolated bridge attempts (`evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json`, `evidence/t03b2-d-20261109-r3/diagnostic-result.json`). The previously approved route-isolation attempt still requires the 6 GiB gate; no privileged Docker command was invoked.
+- Offline verification at the starting HEAD: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` **PASS 34/34**, exit 0; five Node `--check` commands **PASS**, all exit 0. Logs and exit codes: `evidence/offline-verification-20261110-r62/`.
+- Run A/B, HTTP/MySQL readiness, Selenium Base test, DB reset, and cleanup of a new run: `NOT_RUN` because no safe runtime was started. Historical runtime outcomes remain immutable. G0 remains `PARTIAL/BLOCKED`, not accepted.
+- Scope note: the requested `10-AGENT-1-IMPLEMENT.md` was not present in the specified worktree. The implementation followed the task scope and constraints supplied in the request and the repository governance documents; no `STATUS.json` or source tree was changed.
+
+## Current continuation — 2026-11-10
+
+- Branch/PR check: local `HEAD` and `origin/feature/t03b2-claroline-g0` were both `827f3c6fa754eb4c9cd6643016830f8b2d0cd8da` before this report update. PR #12 is still OPEN and DRAFT with that head. `origin/main` fetched as `af4dc6f212074c2ec2ced8ebb7d0a8adc83819eb`; this branch has 7 commits behind and 25 ahead of current main. No merge/rebase was made because this blocker follow-up changes only T03-B2 files and no conflicts need resolution for the current documentation handoff.
+- Read-only environment preflight: Docker Engine 29.8.0 responded (`docker info` exit 0), Linux engine total memory 7,157,481,472 bytes; exact task label `task=t03b2-g0` inventory was 0 containers, 0 networks, 0 volumes (all queries exit 0). Three host free-memory samples were 3.089/3.109/3.110 GiB, below the unchanged 6 GiB diagnostic gate. Values and exact task inventory are preserved in `evidence/offline-verification-20261110-r65/runtime-gate-recheck.json`; r64 verification summary confirms runtime NOT_RUN.
+- Offline verification on source HEAD `827f3c6fa754eb4c9cd6643016830f8b2d0cd8da`: cleanup/fault suite 34/34 PASS (exit 0); five Node syntax checks PASS (all exit 0). Evidence: `evidence/offline-verification-20261110-r64/`.
+- Runtime diagnostic and G0 A/B were NOT_RUN because RAM was below gate. No Docker resource, DB, network, container, or image was changed. HTTP/MySQL/Selenium readiness, original `Claroline_AddUserTest`, reset, and cleanup for a new run remain NOT_RUN. Historical diagnostic r3 remains the evidence that Docker Desktop omitted active published port reporting on the internal IPv6-disabled bridge; route-isolation candidate remains runtime-unverified.
+- Network safety: no privileged `docker exec` was invoked in this continuation. The candidate route-removal path still requires exact run ownership and its runtime egress/port-forward behavior has not been established. Preserve the 6 GiB gate; do not infer runtime PASS from unit tests.
+- Source provenance blocker remains: pinned image digest `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` contains one unattributed application-code patch. Team Lead decision is still needed before G0 can be proposed ready for review.
+- Proposed disposition stays `PARTIAL/BLOCKED`; `docs/program/STATUS.json` was not changed. Historical Run A/B and diagnostic outcomes were not edited. No G0 ACCEPTED or VALIDATED claim is made.
+
+## Runtime correction review — 2026-11-10 (r66)
+
+A review of the route-isolation candidate found that both runners could invoke `docker exec --privileged` automatically after creating dormant containers. The code now requires an interactive, per-run and per-container approval phrase that names the full container ID, exact one-shot command, scope, and rollback; the approval grant is one-use and bound to the exact run ID. Non-interactive execution blocks before invoking the command. The handle and “Team Lead” role are operator-entered attestations, not identity-provider verification. No such approval was supplied in this continuation and no privileged command was invoked.
+
+The candidate also now verifies Docker CLI `docker port` output matches exactly one requested `127.0.0.1` mapping, in addition to inspect fields, and prepares fixed TCP reachability controls for both IPv4 and IPv6. Offline regression tests cover the approval, negative cases, Docker port output, endpoint NetworkID/Gateway, and dual-stack probe argument construction. Four Node syntax checks and the cleanup/fault suite pass (35/35); logs and exit codes are retained in `evidence/offline-verification-20261110-r66/`.
+
+Runtime remains `BLOCKED` at the unchanged 6 GiB free-RAM gate: the latest existing samples are 3.089/3.109/3.110 GiB (`evidence/offline-verification-20261110-r65/runtime-gate-recheck.json`). No repeated RAM sampling, Docker command, network diagnostic, Selenium test, DB reset, or runtime cleanup was performed. Diagnostic r2/r3 and A/B historical results remain unchanged. Dual-stack egress behavior and Docker Desktop port forwarding for this revised candidate are still runtime-unverified. G0 remains `PARTIAL/BLOCKED`, not accepted. The derivative Claroline image still has an unattributed source patch requiring Team Lead provenance review.
+
+## Independent reviewer correction round 2 — 2026-11-10 (r67)
+
+### F01 — Privileged authorization
+
+The previous terminal prompt accepted self-entered handle/role/phrase and did not authenticate a Team Lead. That path has been removed. `requestRouteIsolationApproval` now returns `BLOCKED_APPROVAL_REQUIRED` because no independently authenticated Team Lead decision verifier is configured; `routeIsolationExecArgs` never returns executable arguments. Both runners persist the exact run/container/command/scope/rollback authorization request and reach this block before starting either attached container. No approval was fabricated or supplied, and no privileged command ran.
+
+A verifier cannot be safely invented in this task: the repository provides no trusted Team Lead identity source, trust root/key, review-record integration, expiry/replay ledger, or audited decision endpoint. Team Lead must select/provide an independently authenticated authorization mechanism bound to the complete request and with expiry/replay protection before privileged route isolation can be enabled. Until then the route-isolation candidate is disabled and G0 cannot progress.
+
+### F02 — Evidence provenance
+
+A reusable recorder now captures the exact commands, exit codes, output log SHA-256 values, test counts, source/test raw SHA-256 values, Git blob IDs, HEAD, and whether tested files were dirty. It is `experiments/claroline/tools/record-offline-verification.mjs`. Run r67 was executed after code commit `2625bc618c1cbaabf7267f9d7594cedd71c0426e`; all seven source/test `.mjs` files matched their HEAD blobs before and after verification, and source diff paths were empty. See `evidence/offline-verification-20261110-r67/verification-summary.json`. The later handoff commit contains reports/evidence only; no source/test change followed r67.
+
+### F03 — Network probe classification and lifecycle
+
+Host control results now distinguish `HOST_IPV6_UNAVAILABLE`, `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`, target refusal, execution failure, and reachable controls. A host IPv6 failure blocks before network creation; it is never interpreted as container isolation. Container probes distinguish `NETWORK_UNREACHABLE`, `TCP_TIMEOUT_INCONCLUSIVE`, `PROBE_EXECUTION_FAILURE`, `EGRESS_REACHABLE`, and `INCONCLUSIVE`. Only explicit `NETWORK_UNREACHABLE` is accepted as evidence that the fixed endpoint was blocked; TCP timeout, connection refusal/reachability, a failed Docker exec, and command construction do not become isolation PASS. Tests exercise these deterministic classifications. No external control or container TCP probe was run during this correction.
+
+The runners create the task-labeled network and stopped containers to obtain exact Docker IDs, record the authorization request, then block before `docker start`. Thus this corrected path does not start the app/Selenium workload before route isolation. A future verifier alone would not resolve the later start-to-route-removal interval: the current published non-internal no-masquerade bridge previously allowed external egress (diagnostic r2). Before any route-isolated runtime is enabled, Team Lead must also approve a network-level deny-by-default control that prevents egress during that interval, or another design with equivalent evidence. Runtime safety is not established by offline tests.
+
+### Verification and disposition
+
+`node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **36 passed, 0 failed**, exit 0. Seven Node syntax checks: **7/7 passed**, all exit 0. Exact commands, individual logs/exit codes/log hashes, source hashes and test counts are in `evidence/offline-verification-20261110-r67/`. Latest existing RAM evidence remains r65 (3.089/3.109/3.110 GiB free, below unchanged 6 GiB); no repeated sampling or runtime was performed. Docker diagnostic, G0 A/B, network probe, Selenium Base, DB reset, Maven/business execution, and runtime cleanup are `NOT_RUN`. G0 remains `PARTIAL/BLOCKED`; no acceptance is claimed. Shared `docs/program/STATUS.json` and historical evidence r1-r66 were not changed.
+
+## Independent reviewer correction round 3 — 2026-11-10 (r68)
+
+The egress classifier now separates Docker process execution from the in-container TCP command result using a structured `__BEWT_TCP_PROBE_EXIT__` marker. The wrapper returns the inner probe exit code; the classifier requires a present marker and matching exit codes before accepting `NETWORK_UNREACHABLE`. Docker spawn errors, missing markers, exit 127, mismatched outer/inner status, and contradictory output are non-PASS (`PROBE_EXECUTION_FAILURE` or `INCONCLUSIVE`). Node host socket results carry `source: node-socket`, while Docker CLI results carry `source: process`.
+
+Regression coverage includes exit 0 with unreachable stderr, exit 127 with unreachable stderr, null-status spawn error, connection success, connection refused, genuine marked network-unreachable, timeout, contradictory success/unreachable signals, incomplete/empty results, plus separate host socket and Docker process failures. The suite verifies that ambiguous execution cannot become an egress-isolation PASS.
+
+Post-commit verification ran on `992db57c3320320d68b69a64547a6784c89c237f`: seven syntax checks PASS (all exit 0); Claroline cleanup/fault tests PASS (36/36, exit 0). Provenance and hashes are in `evidence/offline-verification-20261110-r68/verification-summary.json`; source/test files matched HEAD before and after. The later report/evidence commit does not change Claroline source/test content.
+
+Runtime is `NOT_RUN`. Last recorded RAM samples remain 3.089/3.109/3.110 GiB, below the unchanged 6 GiB gate. No Docker or TCP diagnostic ran. Privileged execution remains disabled pending independently authenticated Team Lead authorization design and network-level deny-by-default design. G0 remains `PARTIAL/BLOCKED`; r1-r67 evidence, `bewt-original/`, and `docs/program/STATUS.json` remain unchanged.
+
+## Targeted correction round 4 — 2026-11-10 (r69)
+
+Fixed the two requested defects only. `classifyTcpProbe` now handles timeout status 124 and timeout evidence before unreachable evidence; any timeout/unreachable combination is `INCONCLUSIVE` or `PROBE_TIMEOUT`, never `NETWORK_UNREACHABLE`. It still requires a matching marker and consistent probe status, and only consistent explicit network-unreachable output can pass the egress isolation classifier. `probeTcpTarget` now tags its timeout result with `source: 'node-socket'`, matching connect and socket-error results.
+
+A deterministic fake-socket test exercises the timeout callback without opening any socket or making an external request, and confirms host timeout classification is `HOST_CONTROL_TIMEOUT_INCONCLUSIVE`. Tests also assert both TCP and egress classifiers reject status 124 with a matching marker plus unreachable stderr, and combined timeout/unreachable evidence.
+
+Post-commit verification ran on `0bcd4bffdd0deaa60d03f2f8b4ba03049f05a674`: all seven Node syntax checks PASS (exit 0); cleanup/fault tests PASS (37/37, exit 0). Source/test hashes and Git blobs matched tested HEAD. Evidence is `evidence/offline-verification-20261110-r69/`. No runtime or external network request ran. Last recorded RAM remains below the unchanged 6 GiB gate; privileged execution remains disabled. G0 stays `PARTIAL/BLOCKED`; historical evidence r1-r68 remains unchanged.
+
+## Google Cloud Ubuntu 24.04 runner, cross-platform compatibility, and runtime diagnostic — 2026-11-10 (r72/r73, d-r4/d-r5, a-r6)
+
+### 1. Cloud Runner preflight and 6 GiB memory gate resolution
+
+To overcome the persistent Windows host memory blocker (`3.089`–`5.460 GiB` free vs the required `6.0 GiB` gate) and Docker Desktop WSL port-forwarding defects, execution was extended to the provisioned Google Cloud Compute Engine Ubuntu 24.04 LTS VM (`bewt-covext-runner`, zone `asia-southeast1-a`, machine type `c4d-highmem-8`, 8 vCPU, 63 GiB RAM, 200 GB Hyperdisk Balanced, Docker Engine `29.9.3`, OpenJDK `21.0.10`, Maven `3.8.7`, Node.js `v20.20.2`).
+
+Before running any task workload, `experiments/claroline/tools/cloud-controller.mjs` verified the VM identity (`3042402845209891905`) and automatic 6-hour stop schedule (`maxRunDuration.seconds = 21600`, `instanceTerminationAction = STOP`, `terminationTimestamp = 2026-11-10T02:18:54.625Z` / `2026-11-10T09:18:54+07:00`). Three independent free-RAM samples on the Ubuntu VM measured **60.537, 60.541, and 60.541 GiB** (`MemAvailable` in `/proc/meminfo`), passing the unchanged `6.0 GiB` preflight gate with `>54 GiB` headroom.
+
+### 2. Cross-platform Linux compatibility, Cloud Controller, and Deterministic Evidence Validator
+
+The Claroline G0 tooling in `experiments/claroline/tools/` was updated to support both Windows (`win32`) and Ubuntu Linux (`linux`) without relaxing any security or fail-closed check:
+
+- **`child-process-policy.mjs`**: Preserved 100% of Windows path/Authenticode/environment rules while adding Linux binary verification (`verifyLinuxRootExecutable` checking root uid/gid `0:0`, non-world-writable mode, and realpath inside `/usr/bin`, `/bin`, `/usr/sbin`, `/sbin`, `/usr/local/bin`), `/proc/meminfo` `MemAvailable` parsing (`parseLinuxMeminfoBytes`), `/proc/net/route` + `ip -4 route show` subnet collision parsing (`parseLinuxIpv4Routes`), cross-platform host memory/route helpers (`readHostFreeMemoryBytes`, `readHostIpv4Routes`), and cross-platform Maven invocation (`invokeMaven`).
+- **`cleanup-claroline-g0.mjs`**: Fixed a latent pre-start cleanup check bug exposed on real Docker Engine during `t03b2-d-20261110-r4`. When `requestRouteIsolationApproval` blocks before `docker start` under `ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY`, a newly created container (`State.Status === "created"`, `State.Running === false`, `State.StartedAt === "0001-01-01T00:00:00Z"`) has `NetworkSettings.Networks[networkName].NetworkID === ""` until `docker start` attaches the sandbox endpoint. `cleanupClarolineResources` now verifies `assertContainerNetworkGateway` when `isPreStartCreatedContainer(container)` is false (or when `NetworkID` is already populated), while still enforcing full ownership labels (`task`, `run_id`, `role`), image digest, `HostConfig.NetworkMode`, and exact container/network IDs. Also added direct CLI recovery (`node cleanup-claroline-g0.mjs <runId>`).
+- **`cloud-controller.mjs`**: Implemented a thin, fail-closed `gcloud compute ssh` / `scp` controller supporting `preflight`, allowlisted `exec` actions (`offline-verify`, `maven-compile`, `diagnostic`, `g0-run`, `cleanup-recovery`), `sync` with SHA-256 manifest generation (`sha256-manifest.json`), and `verify-manifest`.
+- **`validate-evidence.mjs`**: Implemented a deterministic validator verifying `runId` format, source commit hash, pinned image digests, timestamp ordering, command exit codes vs reported outcomes, real Surefire `TEST-*.xml` parsing when business tests run, DB delta assertions, Docker isolation records, zero-residual cleanup, `sha256-manifest.json` integrity, and absence of leaked secrets or raw host paths.
+
+### 3. Post-commit verification on Windows (`r72`) and Cloud VM (`r73`)
+
+Code changes were committed at `183668bc18e89b4e04212be510b971a9f79c7f65` and verified on both platforms with clean working trees (`sourceMatchesHeadAtTest: true`):
+
+- **Windows (`evidence/offline-verification-20261110-r72/`)**: 9/9 Node syntax checks PASS (exit 0); 41/41 cleanup/fault/cross-platform tests PASS (exit 0).
+- **Ubuntu 24.04 Cloud VM (`evidence/offline-verification-20261110-r73/`)**: 9/9 Node syntax checks PASS (exit 0); 41/41 cleanup/fault/cross-platform tests PASS (exit 0); `cloud-preflight.json` PASS (`60.604 GiB` available RAM, `184.404 GiB` free disk, `0` active containers); Maven compilation (`mvn test-compile -DskipTests`) PASS (compiled 22 main + 42 test classes in `11.352 s`, exit 0).
+
+### 4. Actual Cloud Docker runtime runs (`t03b2-d-20261110-r4`, `t03b2-d-20261110-r5`, `t03b2-a-20261110-r6`)
+
+1. **`t03b2-d-20261110-r4` (App-only diagnostic — exposed and recovered pre-start cleanup check)**:
+   - Passed the 6 GiB memory gate (`~60.52 GiB` free).
+   - Recorded `host-egress-control.json`: IPv4 host control (`1.1.1.1:443`) returned `HOST_CONTROL_REACHABLE`; IPv6 host control (`2606:4700:4700::1111:443`) returned `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH`) because the GCE VPC interface is `IPV4_ONLY`.
+   - Selected non-overlapping subnet `172.26.254.0/24` (gateway `172.26.254.1`) from Linux `ip -4 route show`, created isolated bridge network `692707f3e7dba5926c2a7cdad876086829904e2e48cbc5ba65d27c9c942cc768` (`Internal: false`, `EnableIPv6: false`, `enable_ip_masquerade: false`, `enable_icc: true`), and created dormant app container `1051585e14a1396931ee3d5dff3c61d2642ef9c0a5d905d8f7cfe11cfddba3fd` (`127.0.0.1:33863->80/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and stopped fail-closed at `requestRouteIsolationApproval()` (`BLOCKED_APPROVAL_REQUIRED`) before `docker start`.
+   - Initial `finally` cleanup blocked on the unstarted container's empty `endpoint.NetworkID`. After fixing `cleanup-claroline-g0.mjs`, exact-resource recovery (`cleanup-recovery-r1.json` and `post-cleanup-independent-check.json`) removed the exact container and network with 0 residuals (`countsEqual: true`, `fingerprintsEqual: true`).
+2. **`t03b2-d-20261110-r5` (App-only diagnostic — clean end-to-end pre-approval lifecycle and automatic cleanup PASS)**:
+   - Passed the 6 GiB memory gate (`60.537 / 60.541 / 60.541 GiB` free).
+   - Created network `a8be33f2f2b1ac26a39345f1a8478ab1c7fecffb643d4c13f61a00c445a7842e` (`172.26.254.0/24`) and dormant app container `dca3595ab595726a8e4c028dfe2ff7bcbacc16d02f4ef7cb7109322bd8af71b6` (`127.0.0.1:46033->80/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before `docker start`.
+   - Automatic `finally` cleanup (`cleanup-result.json`) returned **`PASS`** on the first pass (`removedContainerIds: ["dca3595ab595726a8e4c028dfe2ff7bcbacc16d02f4ef7cb7109322bd8af71b6"]`, `removedNetworkId: "a8be33f2f2b1ac26a39345f1a8478ab1c7fecffb643d4c13f61a00c445a7842e"`, `residuals: { containers: 0, networks: 0, volumes: 0 }`, `countsEqual: true`, `fingerprintsEqual: true`).
+3. **`t03b2-a-20261110-r6` (G0 baseline runner — dual-container pre-approval lifecycle and automatic cleanup PASS)**:
+   - Passed the 6 GiB memory gate (`~60.54 GiB` free).
+   - Created network `2ed133a9f5b8df0cd8292ec3f7595813e07270913dab7a26dd39feb321f4047e` (`172.26.254.0/24`), dormant app container `f6681250d57647092aaf2cafb64a8849a74b57838b5b1458ed87ba05cf4a71f6` (`127.0.0.1:44465->80/tcp`), and dormant browser container `2824b38e30fbff53b458c975dc31d248a8dd8f3ce17982d3861a9126b62d54b0` (`127.0.0.1:34105->4444/tcp`).
+   - Recorded `app-route-isolation-authorization-request.json` and `browser-route-isolation-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before `docker start`.
+   - Automatic `finally` cleanup (`cleanup-result.json`) returned **`PASS`**, removing both containers and the network with 0 residuals (`countsEqual: true`, `fingerprintsEqual: true`).
+
+All three Cloud runtime evidence folders and `offline-verification-20261110-r73` were synced via `cloud-controller.mjs sync`, verified with `sha256-manifest.json`, and validated with `validate-evidence.mjs` (`valid: true`). Detailed analysis, runbook, and the formal Team Lead Approval Request packet are documented in `docs/tasks/T03-B2/CLOUD-RUNNER-REPORT.md` and `docs/tasks/T03-B2/CLOUD-RUNNER-RUNBOOK.md`. G0 remains `PARTIAL/BLOCKED` at the Team Lead approval gate; `docs/program/STATUS.json` and historical evidence `r1`–`r69` remain unchanged.
+
+### 5. SonarCloud Quality Gate resolution, host-firewall specification, and `r74`/`r75` verification — 2026-11-10 (`2e31e1a0a2aa6681047817bcee17e25405d5ba84`)
+
+Following Team Lead review of PR #12 (`REQUEST_CHANGES`), the 15 SonarCloud security findings on new code (`11x jssecurity:S8707` path traversal from raw CLI arguments in `cloud-controller.mjs` and `validate-evidence.mjs`, `1x javascript:S4036` bare `git` PATH lookup in `record-offline-verification.mjs`, and `3x javascript:S1313` hardcoded VM IP in `cloud-controller.mjs`) were resolved at the root cause in commit `2e31e1a0a2aa6681047817bcee17e25405d5ba84`:
+
+- `cloud-controller.mjs` and `validate-evidence.mjs` now validate CLI arguments with `validateEvidenceId` (`/^(?:t03b2-[a-z0-9]{1,20}-\d{8}-r[1-9]\d*|offline-verification-\d{8}-r[1-9]\d*)$/`) and resolve directories strictly via `resolveEvidenceDirectoryById` against `readdirSync(docs/tasks/T03-B2/evidence)`.
+- `child-process-policy.mjs` exports verified absolute paths `GIT_CLI_PATH` and `NODE_CLI_PATH`, used with `env: DOCKER_ENV` in `record-offline-verification.mjs`.
+- `cloud-controller.mjs` dynamically resolves `natIP` from `gcloud compute instances describe` (`resolveVmExternalIp`) and fails closed (`VM_EXTERNAL_IP_UNAVAILABLE`) if absent.
+- `claroline-g0.mjs` adds deterministic specification and verification helpers for the Ubuntu host bridge firewall candidate (`HOST_FIREWALL_ISOLATION_METHOD = 'linux-docker-user-bridge-reject-v1'`, `deriveLinuxBridgeInterfaceName`, `buildHostBridgeFirewallSpec`, `assertHostBridgeFirewallRuleInstalled`, `assertHostBridgeFirewallRuleRemoved`) while keeping `requestRouteIsolationApproval()` fail-closed (`BLOCKED_APPROVAL_REQUIRED`).
+- Post-commit verification passed on both Windows (`evidence/offline-verification-20261110-r74/`) and Ubuntu 24.04 Cloud VM (`evidence/offline-verification-20261110-r75/`): **9/9 syntax checks PASS (exit 0)** and **44/44 unit/fault tests PASS (exit 0)** with `sourceMatchesHeadAtTest: true`.
+- SonarCloud Quality Gate on PR #12 at `2e31e1a0a2aa6681047817bcee17e25405d5ba84` is **`OK` (`PASSED`)** with `Security Rating = A (1)`, `Reliability = A (1)`, `Maintainability = A (1)`, `0` vulnerabilities, and `0.0%` duplication.
+- Browser image digest (`selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f`) and VM timestamps (`creationTimestamp = 2026-11-09T12:18:54.625-08:00`, `terminationTimestampUtc = 2026-11-10T02:18:54.625Z`) were reconciled in `CLOUD-RUNNER-REPORT.md` and `G0-RUNTIME-RESULTS.md`. G0 remains `PARTIAL/BLOCKED` awaiting Team Lead approvals.
+
+### 6. Implementation of Team Lead Decisions `A1` & `P1`, Reconciliations, and Cloud Diagnostic `t03b2-d-20261110-r6` — 2026-11-10 (`3fe306ad0a4a7f1e3bd235c018041cbeee8072cb`)
+
+Following the Team Lead's formal approval of **Decision 1 (`A1 — Host Firewall Isolation`: `linux-docker-user-bridge-reject-v1`)** and **Decision 2 (`P1 — Accept Pinned BEWT Benchmark Image`: `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`)**:
+
+1. **Decision 2 (`P1`) & Reconciled Image Patch Provenance**:
+   - Promoted `config/apps/claroline.json` (`source.commit = "22d852f93081bc36b1d08b93f5e0c14b49a573f6"`, `source.packageVersion = "1.11.10-bewt-derivative"`, `runtime.version = "1.11.10-bewt-derivative-php-5.5.9-apache-2.4.7-mysql-5.5.61"`, `runtime.imageDigest = "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"`). Updated `docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs` (`3/3 PASS`).
+   - Reconciled the exact 1-file difference in `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php`: Layer 8 (official `claroline-1.11.10.tar.gz`) is **23,010 bytes** with SHA-256 `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1`, whereas Layer 13 is **23,040 bytes** (`+30` bytes from adding `// ` to 10 lines) with SHA-256 `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8`. The 10 commented lines are at lines **382–389** in `create_course_tables($courseDbName)` (commenting out `CREATE TABLE` for `course_description` and `course_properties`) and lines **557–562** in `fill_Db_course(...)` (commenting out 3 `INSERT INTO ... course_description` seed rows). Exported in `PINNED_IMAGE_PATCH_RECORD` (`claroline-g0.mjs`).
+2. **Decision 1 (`A1`) & Independent Cryptographic Authorization Verifier**:
+   - Replaced `docker exec --privileged` route removal in `run-claroline-diagnostic.mjs`, `run-claroline-g0.mjs`, and `cleanup-claroline-g0.mjs` with `HOST_FIREWALL_PUBLISHED_NETWORK_POLICY` (`published-bridge-host-firewall-reject-v1`) and `HOST_FIREWALL_ISOLATION_METHOD` (`linux-docker-user-bridge-reject-v1`).
+   - Unified the official firewall rule in `buildHostBridgeFirewallSpec` as `/usr/bin/sudo -n /usr/sbin/iptables -w 5 -I DOCKER-USER 1 -i br-<id12> ! -o br-<id12> -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-<runId> -j REJECT --reject-with icmp-net-unreachable` (and corresponding `-D DOCKER-USER` rollback in `cleanup-claroline-g0.mjs`), recording the verified host uplink interface **`ens3`** (`ip -4 route show default`) and blocking all non-bridge routing paths (`! -o br-<id12>`).
+   - Implemented `verifyHostFirewallDecision` / `requestHostFirewallApproval` using Ed25519 signature verification over the canonical request payload (Team Lead identity, exact `runId`, `networkId`, `bridgeInterface`, `uplinkInterface`, `insertCommand`, `deleteCommand`, `scope`, `rollback`, `<=15 min` TTL, and append-only consumed-nonce replay ledger).
+3. **Post-Commit Offline Verifications (`r76` Windows & `r77` Cloud VM) on `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb`**:
+   - Both `evidence/offline-verification-20261110-r76/` (Windows) and `evidence/offline-verification-20261110-r77/` (Ubuntu 24.04 Cloud VM) passed **9/9 Node syntax checks (exit 0)** and **46/46 unit/fault tests (exit 0)** with `sourceMatchesHeadAtTest: true`.
+4. **Live Cloud Diagnostic `t03b2-d-20261110-r6` on `bewt-covext-runner`**:
+   - Passed the 6 GiB memory gate (`60.617 / 60.614 / 60.616 GiB` free).
+   - Verified `host-egress-control.json` (`ipv4: HOST_CONTROL_REACHABLE`, `ipv6: HOST_IPV6_UNAVAILABLE`, `hostDefaultUplinkInterface: "ens3"`, `hostIpv6DefaultRoutes: []`) and `host-network-firewall-preflight.json` (`PASS`, `networkId: "19ec2e85b68514830ce05530dbe5ec7233cefd4059daeb73cd56798f6fd7470a"`, `bridgeInterface: "br-19ec2e85b685"`, `uplinkInterface: "ens3"`, `iptables v1.8.10 (nf_tables)`).
+   - Created dormant app container `e0e8131155ae65d9a552fdc553fce13ec92027620950e795007babf30ebc32b8` (`127.0.0.1:41931->80/tcp`), recorded `host-firewall-authorization-request.json`, and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before executing `sudo /usr/sbin/iptables` or `docker start` because no out-of-band Team Lead Ed25519 public key and per-run signed decision token are provisioned.
+   - Completed automatic `finally` cleanup (`cleanup-result.json`: `outcome: "PASS"`, `residuals: { containers: 0, networks: 0, volumes: 0, firewallRules: 0 }`, `countsEqual: true`, `fingerprintsEqual: true`), synced 21 files with `sha256-manifest.json`, and passed `validate-evidence.mjs t03b2-d-20261110-r6` (`status: "VALID"`).
+   - Reconciled earlier PR #12 prose regarding `t03b2-d-20261110-r5`: neither `d-r5` nor `d-r6` started the Claroline container (`businessTest: "NOT_RUN"`, `selenium: "NOT_RUN"`, `dbReset: "NOT_RUN"`). G0 remains `PARTIAL/BLOCKED` (`REQUEST_CHANGES`).
+
+

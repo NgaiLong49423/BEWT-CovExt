@@ -1,0 +1,4 @@
+{
+  "outcome": "BLOCKED",
+  "reason": "app container endpoint gateway does not match the recorded isolated-network gateway"
+}

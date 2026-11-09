@@ -1,0 +1,1 @@
+{"runId":"t03b2-d-20261109-r2","outcome":"BLOCKED","reason":"EGRESS_POLICY_VIOLATION: container reached an external TCP target","evidenceDir":"docs/tasks/T03-B2/evidence/t03b2-d-20261109-r2"}

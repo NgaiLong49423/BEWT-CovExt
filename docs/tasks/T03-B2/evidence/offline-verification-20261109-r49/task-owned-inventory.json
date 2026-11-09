@@ -1,0 +1,27 @@
+{
+  "labels": [
+    "project=bewt-covext",
+    "owner=bewt-covext",
+    "managed-by=bewt-covext-agent",
+    "app=claroline",
+    "task=t03b2-g0"
+  ],
+  "readOnlyCounts": {
+    "container": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0
+    },
+    "network": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0
+    },
+    "volume": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0
+    }
+  },
+  "capturedAtUtc": "2026-11-09T13:52:36.8920396Z"
+}

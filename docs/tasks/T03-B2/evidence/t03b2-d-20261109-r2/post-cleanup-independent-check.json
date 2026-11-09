@@ -1,0 +1,34 @@
+{
+  "runId": "t03b2-d-20261109-r2",
+  "capturedAtUtc": "2026-11-09T13:41:07.9654820Z",
+  "ownershipLabels": [
+    "project=bewt-covext",
+    "owner=bewt-covext",
+    "managed-by=bewt-covext-agent",
+    "app=claroline",
+    "task=t03b2-g0",
+    "runId=t03b2-d-20261109-r2"
+  ],
+  "checks": {
+    "container": {
+      "exitCode": 0,
+      "ids": [],
+      "count": 0,
+      "outcome": "PASS"
+    },
+    "network": {
+      "exitCode": 0,
+      "ids": [],
+      "count": 0,
+      "outcome": "PASS"
+    },
+    "volume": {
+      "exitCode": 0,
+      "ids": [],
+      "count": 0,
+      "outcome": "PASS"
+    }
+  },
+  "overall": "PASS",
+  "scope": "Read-only filters requiring every listed ownership label; no Docker mutation."
+}

@@ -1,0 +1,4 @@
+{
+  "outcome": "BLOCKED",
+  "reason": "app has an incomplete network endpoint identity"
+}

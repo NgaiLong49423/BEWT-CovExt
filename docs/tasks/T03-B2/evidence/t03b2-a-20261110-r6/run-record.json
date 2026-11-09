@@ -1,0 +1,42 @@
+{
+  "runId": "t03b2-a-20261110-r6",
+  "benchmarkRepositoryCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "applicationSourceCommit": null,
+  "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "browserImageDigest": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+  "imageLabels": {
+    "app": {},
+    "browser": {
+      "authors": "SeleniumHQ",
+      "org.opencontainers.image.ref.name": "ubuntu",
+      "org.opencontainers.image.source": "https://github.com/SeleniumHQ/docker-selenium",
+      "org.opencontainers.image.version": "24.04"
+    }
+  },
+  "networkPolicy": "published-bridge-default-route-removed-v1",
+  "egressIsolationMethod": "container-netns-default-route-drop-v1",
+  "containers": [
+    {
+      "role": "app",
+      "id": "f6681250d57647092aaf2cafb64a8849a74b57838b5b1458ed87ba05cf4a71f6",
+      "name": "bewt-covext-claroline-t03b2-a-20261110-r6-app",
+      "imageRef": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+    },
+    {
+      "role": "browser",
+      "id": "2824b38e30fbff53b458c975dc31d248a8dd8f3ce17982d3861a9126b62d54b0",
+      "name": "bewt-covext-claroline-t03b2-a-20261110-r6-selenium",
+      "imageRef": "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f"
+    }
+  ],
+  "network": {
+    "id": "2ed133a9f5b8df0cd8292ec3f7595813e07270913dab7a26dd39feb321f4047e",
+    "name": "bewt-covext-claroline-t03b2-a-20261110-r6-net",
+    "subnet": "172.26.254.0/24",
+    "gateway": "172.26.254.1"
+  },
+  "selectedHostPorts": {
+    "app": 44465,
+    "browser": 34105
+  }
+}

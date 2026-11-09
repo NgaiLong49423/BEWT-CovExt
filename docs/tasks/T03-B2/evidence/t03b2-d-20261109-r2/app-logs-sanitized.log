@@ -1,0 +1,5 @@
+2026-11-09T13:38:07.771655263Z  * Starting web server apache2
+2026-11-09T13:38:07.964384152Z httpd (pid 33) already running
+
+[stderr]
+2026-11-09T13:38:07.953055670Z AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.26.0.2. Set the 'ServerName' directive globally to suppress this message

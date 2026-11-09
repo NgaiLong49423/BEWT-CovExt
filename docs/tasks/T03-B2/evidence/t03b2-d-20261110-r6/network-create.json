@@ -1,0 +1,33 @@
+{
+  "command": [
+    "docker",
+    "network",
+    "create",
+    "--driver",
+    "bridge",
+    "--ipv6=false",
+    "--subnet",
+    "172.26.254.0/24",
+    "--gateway",
+    "172.26.254.1",
+    "--opt",
+    "com.docker.network.bridge.enable_ip_masquerade=false",
+    "--label",
+    "project=bewt-covext",
+    "--label",
+    "owner=bewt-covext",
+    "--label",
+    "managed-by=bewt-covext-agent",
+    "--label",
+    "app=claroline",
+    "--label",
+    "task=t03b2-g0",
+    "--label",
+    "runId=t03b2-d-20261110-r6",
+    "bewt-covext-claroline-t03b2-d-20261110-r6-net"
+  ],
+  "status": 0,
+  "stdout": "19ec2e85b68514830ce05530dbe5ec7233cefd4059daeb73cd56798f6fd7470a\n",
+  "stderr": "",
+  "error": ""
+}

@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-d-20261110-r6",
+  "outcome": "BLOCKED_APPROVAL_REQUIRED",
+  "reason": "BLOCKED_APPROVAL_REQUIRED: no trusted Team Lead Ed25519 public key is configured for independent host-firewall authorization verification",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

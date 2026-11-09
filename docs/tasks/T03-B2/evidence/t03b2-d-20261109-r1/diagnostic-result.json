@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-d-20261109-r1",
+  "outcome": "BLOCKED",
+  "reason": "cleanup BLOCKED: PORT_BINDING_MISMATCH: NetworkSettings.Ports does not match 127.0.0.1:52508",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

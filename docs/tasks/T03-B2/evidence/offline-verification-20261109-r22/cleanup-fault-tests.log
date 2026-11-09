@@ -1,0 +1,31 @@
+✔ partial-startup cleanup handles 0 recorded Claroline container(s) (2.4956ms)
+✔ partial-startup cleanup handles 1 recorded Claroline container(s) (2.252ms)
+✔ partial-startup cleanup handles 2 recorded Claroline container(s) (0.6205ms)
+✔ failed network initialization without a returned ID blocks on an unrecorded same-run resource (0.2553ms)
+✔ create ID is persisted before nonzero status is classified for network/app/Selenium failures (0.5372ms)
+✔ fault injection: Selenium start failure cleans both containers because their IDs were recorded at create (0.539ms)
+✔ pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints (0.7539ms)
+✔ running containers with an explicitly unallocated host port are safely cleaned by recorded ownership (0.8141ms)
+✔ an empty HostConfig port is blocked if Docker reports an assigned external port (0.3642ms)
+✔ stopped OOM container with detached endpoint and no published port is safely removed (0.7667ms)
+✔ exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block (0.4841ms)
+✔ stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation (0.8329ms)
+✔ unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted (0.6125ms)
+✔ partial teardown and network removal failure return BLOCKED/nonzero; no false PASS (0.7041ms)
+✔ fully absent previously recorded resources are an idempotent PASS (0.4544ms)
+✔ network-only partial run and no-resource network-create failure are safe (0.4632ms)
+✔ containers without a recorded network block before any stop or rm (0.1604ms)
+✔ Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML (2.3885ms)
+✔ Surefire sanitization removes machine properties/output and local workspace paths (0.4869ms)
+✔ run ID validation rejects unsafe and duplicate-shape identities (0.1525ms)
+✔ evidence directory creation is write-once for each run ID (1.8069ms)
+✔ native tools resolve to explicit paths and child PATH excludes user-writable AppData (0.3789ms)
+✔ loopback port selector returns an available host-only ephemeral port (21.5436ms)
+ℹ tests 23
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 652.769

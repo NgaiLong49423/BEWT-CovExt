@@ -1,0 +1,34 @@
+{
+  "runId": "offline-verification-20261110-r64",
+  "sourceHead": "827f3c6fa754eb4c9cd6643016830f8b2d0cd8da",
+  "sampledAtLocal": "2026-11-10T00:56:04.7503028+07:00",
+  "command": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+  "testExitCode": 0,
+  "tests": 34,
+  "passed": 34,
+  "failed": 0,
+  "syntax": [
+    {
+      "file": "experiments/claroline/tools/claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments/claroline/tools/run-claroline-diagnostic.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments/claroline/tools/run-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "file": "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+      "exitCode": 0
+    }
+  ],
+  "dockerRuntime": "NOT_RUN_RAM_GATE_BELOW_6_GIB",
+  "dockerResourcesChanged": false
+}

@@ -1,0 +1,17 @@
+{
+  "capturedAt": "2026-11-09T10:17:51.4390222Z",
+  "sourceRecord": "run-record.json",
+  "sourceRecordSha256": "b951a1436c2a8044537148f11f49eea095d91b128efe20d6c645faa9777a324f",
+  "imageInspectionSource": "docker image inspect <pinned-reference> --format {{json .Config.Labels}}",
+  "appImageReference": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "appImageLabels": null,
+  "browserImageReference": "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+  "browserImageLabels": {
+    "authors": "SeleniumHQ",
+    "org.opencontainers.image.ref.name": "ubuntu",
+    "org.opencontainers.image.source": "https://github.com/SeleniumHQ/docker-selenium",
+    "org.opencontainers.image.version": "24.04"
+  },
+  "recoveryRecord": "cleanup-recovery-record.json",
+  "purpose": "Add verified pinned-image metadata labels needed to distinguish inherited browser labels from T03-B2 ownership labels. Original run record remains unchanged."
+}

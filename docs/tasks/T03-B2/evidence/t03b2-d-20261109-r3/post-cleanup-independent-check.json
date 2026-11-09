@@ -1,0 +1,64 @@
+{
+  "runId": "t03b2-d-20261109-r3",
+  "capturedAtUtc": "2026-11-09T13:56:41.2733644Z",
+  "inventoryComparison": {
+    "containers": {
+      "beforeCount": 32,
+      "afterCount": 32,
+      "beforeSha256": "3fa3f9751be9eea149765d405378b3e0c4c21eb43655199db89dd8fc4679ae28",
+      "afterSha256": "3fa3f9751be9eea149765d405378b3e0c4c21eb43655199db89dd8fc4679ae28",
+      "countEqual": true,
+      "fingerprintEqual": true,
+      "exitCode": 0
+    },
+    "networks": {
+      "beforeCount": 11,
+      "afterCount": 11,
+      "beforeSha256": "390e1383066182e775d1f1accd6e98db64ef0bfba08a2c27ad49a6eb036d3156",
+      "afterSha256": "390e1383066182e775d1f1accd6e98db64ef0bfba08a2c27ad49a6eb036d3156",
+      "countEqual": true,
+      "fingerprintEqual": true,
+      "exitCode": 0
+    },
+    "volumes": {
+      "beforeCount": 24,
+      "afterCount": 24,
+      "beforeSha256": "87a14c65e573f5d0463b898942a5bd7bc166ba0353c37aa5aa411b2dc6759274",
+      "afterSha256": "87a14c65e573f5d0463b898942a5bd7bc166ba0353c37aa5aa411b2dc6759274",
+      "countEqual": true,
+      "fingerprintEqual": true,
+      "exitCode": 0
+    },
+    "images": {
+      "beforeCount": 25,
+      "afterCount": 25,
+      "beforeSha256": "97d0f4913c99212427bacbe54c53ee45b1f253571a64d2520140c26bd82ca4f7",
+      "afterSha256": "97d0f4913c99212427bacbe54c53ee45b1f253571a64d2520140c26bd82ca4f7",
+      "countEqual": true,
+      "fingerprintEqual": true,
+      "exitCode": 0
+    }
+  },
+  "taskOwnedResidualScans": {
+    "container": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0,
+      "outcome": "PASS"
+    },
+    "network": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0,
+      "outcome": "PASS"
+    },
+    "volume": {
+      "count": 0,
+      "ids": [],
+      "exitCode": 0,
+      "outcome": "PASS"
+    }
+  },
+  "overall": "PASS",
+  "readOnly": null
+}

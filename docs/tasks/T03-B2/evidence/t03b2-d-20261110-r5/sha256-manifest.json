@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "runId": "t03b2-d-20261110-r5",
+  "generatedAtUtc": "2026-11-09T21:05:07.328Z",
+  "fileCount": 19,
+  "privateInventoriesExcluded": true,
+  "files": {
+    "app-create.json": {
+      "sha256": "be193b39b83de426fe4ff577405d914ac5896a5dcbd9b52d2b9c5133c59d6e12",
+      "bytes": 898
+    },
+    "app-inspect-before-cleanup.json": {
+      "sha256": "23c560b7871b4fae8871ba16afc9845231ce721db47a97b97589514b2dd65b08",
+      "bytes": 1203
+    },
+    "app-logs-metadata.json": {
+      "sha256": "4647dd146e5de59bee9ceec0517f3d464bb1b5b9b1e21b00a21daf9b5f452ca2",
+      "bytes": 193
+    },
+    "app-logs-sanitized.log": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "app-route-isolation-authorization-request.json": {
+      "sha256": "c70073630c44cb8d79acb40ce3ad992c47e9d03a015a687ed865740715bd6188",
+      "bytes": 732
+    },
+    "app-stats-before-cleanup.json": {
+      "sha256": "a398c80d3db0c52c0f7e41961e5b06d4e0d2b5272488f21fc5b8f486d99fc4c3",
+      "bytes": 380
+    },
+    "cleanup-result.json": {
+      "sha256": "b10a678a66a03847d40b8e62b872fdcfa32470dade8dec22eb4cab8d82485684",
+      "bytes": 375
+    },
+    "diagnostic-result.json": {
+      "sha256": "9cb3ef4519df11569c01c31dbfaa71d05bdead2c7c15927b5719ce5abae5f311",
+      "bytes": 390
+    },
+    "docker-inventory-sanitized-summary.json": {
+      "sha256": "b8ec6ab31792333454c002b3565da2a31b66868632706ce0b8edc153e329f190",
+      "bytes": 1137
+    },
+    "host-egress-control.json": {
+      "sha256": "b7fcac7a936ac3d7929f2eba88237c3e10b436bdf25c22cf31dd39e23da1aeb2",
+      "bytes": 375
+    },
+    "host-port-allocation.json": {
+      "sha256": "5fe025cbf083370ea2b0ac3d75ac8dde246dda93596cf49c9465211f1b1db27d",
+      "bytes": 134
+    },
+    "image-inspect-sanitized.json": {
+      "sha256": "88bf5b00a9e24becb9dd66415b10daaf0ca6f95acdd3c9b3acd1d8ff6bb5e4cd",
+      "bytes": 697
+    },
+    "memory-preflight.json": {
+      "sha256": "e8b957fc5e1ddef7601ee5555ca45596888ea63a4e0b18e963882913fe9f0264",
+      "bytes": 489
+    },
+    "network-create.json": {
+      "sha256": "b845edd776c4f1b7e57a15a3280560a5efc2070e8a9d137598603afc4a98fbc7",
+      "bytes": 698
+    },
+    "network-ipam-selection.json": {
+      "sha256": "c3356bd57a93e96ea2d18875811dbc47af98d1527838a247b547a149e233b20a",
+      "bytes": 228
+    },
+    "network-policy-verification.json": {
+      "sha256": "df1137be0e3476c3606ee927117fd2e6a5710062f464ea88738014e91dc7804a",
+      "bytes": 303
+    },
+    "port-precreate-check.json": {
+      "sha256": "91df53ada9110674189232bd84620ee577619d6a071e36c0d6d4df0d37f7a3be",
+      "bytes": 195
+    },
+    "run-failure.txt": {
+      "sha256": "0552eab90b318fa8fe11ca334c6c5c87cda0d03caf7384206706c5a9c201aaa2",
+      "bytes": 151
+    },
+    "run-record.json": {
+      "sha256": "6c572278aa98cb760b5e092c891693a49d9f31d92d8666126ee5a7ba787c64fe",
+      "bytes": 1345
+    }
+  }
+}

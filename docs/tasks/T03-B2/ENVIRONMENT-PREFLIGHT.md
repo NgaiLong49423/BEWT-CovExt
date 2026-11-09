@@ -34,3 +34,51 @@ Free RAM measured **3.90 GiB of 13.79 GiB**, still below the 4 GiB threshold. do
 ## Post-start recheck — 2026-11-09 (r15)
 
 Docker Desktop was started for the requested runtime. Docker Engine 29.8.0 is reachable, but free host RAM is **0.95 GiB of 13.79 GiB**, below the required 4 GiB; the runtime harness was not started. Read-only Docker inventory counted 32 containers (2 running), 11 networks, and 24 volumes. No resource carried both T03-B2 ownership labels. No individual Docker resource was created or removed during this preflight. Evidence: `evidence/offline-verification-20261109-r15/runtime-preflight.json`.
+
+## Post-recovery verification — 2026-11-09 (r16)
+
+Docker Engine 29.8.0 is reachable. A fresh host reading measured **4.013 GiB free of 13.79 GiB**. This is only marginally above the runner's hard 4 GiB threshold; no new runtime run was started because prior in-process readings dipped below the gate. Existing r4 resource recovery is documented as BLOCKED due a baseline network identity delta; there are no resources matching the full T03-B2 ownership labels. See `evidence/offline-verification-20261109-r16/verification-summary.json` and `evidence/t03b2-a-20261109-r4/cleanup-recovery-postcheck.json`.
+
+## Latest read-only gate — r17
+
+At 2026-11-09 10:28:58 UTC, free host RAM was **4.017 GiB of 13.79 GiB** and Docker Engine 29.8.0 was reachable. The harness was not started because the reading is marginal and prior in-process checks fell below the 4 GiB hard threshold. No Docker resource was changed. Evidence: `evidence/offline-verification-20261109-r17/runtime-preflight.json`.
+
+## r5 runtime and cleanup recovery — 2026-11-09
+
+Runner exit code 1; preflight PASS at 4,353,576,960 bytes. Docker did not allocate either requested host port; app container later exited 137. No readiness, Maven, Selenium, business test, or DB reset ran. Initial cleanup BLOCKED; corrected cleanup-only exited 0/PASS for exact recorded r5 resources. Independent postcheck: zero r5 residuals and no missing baseline IDs. Run A remains BLOCKED; Run B NOT_RUN. Current host RAM 3.809 GiB, so runtime is stopped at the preflight gate. Evidence: `evidence/t03b2-a-20261109-r5/` and `evidence/offline-verification-20261109-r21/`.
+
+## Latest post-r5 runtime gate — 2026-11-09
+
+At 11/09/2026 10:45:05, host RAM was **4.192 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. The harness was not started because memory remains marginal after r5 app exit 137. No resources changed in this read-only check. Evidence: docs/tasks/T03-B2/evidence/offline-verification-20261109-r23/runtime-preflight.json.
+
+## Latest read-only gate — r25
+
+At 2026-11-09T10:49:31Z, host RAM was **4.409 GiB of 13.79 GiB**; Docker Engine 29.8.0 was reachable. No runtime was started after the observed r5 app exit 137; its cause is not verified. Evidence: `evidence/offline-verification-20261109-r25/runtime-preflight.json`.
+
+## Current runtime gate — r28
+
+Three host RAM samples at 2026-11-09T11:23:43Z, 11:23:48Z, and 11:23:53Z measured **4.340, 4.330, and 4.332 GiB free** of 13.79 GiB. Docker Engine 29.8.0 was reachable; the WSL VM process working set was 1,696,399,360 bytes. Read-only filters found zero T03-B2-owned containers, networks, or volumes. This is below the preferred approximately 6 GiB margin, so diagnostic and full runtime were not started (`HOST_MEMORY_BLOCKED`). No T03-B2 resources were created, started, stopped, or removed. Evidence: `evidence/offline-verification-20261109-r28/runtime-gate-recheck.json`.
+
+## Latest runtime gate — r32
+
+At 2026-11-09T11:45:53Z, 11:45:59Z, and 11:46:04Z, host free RAM was **2.959, 2.971, and 2.965 GiB**, below the runner's hard 4 GiB gate. Docker Engine 29.8.0 was reachable; Docker VM memory limit was 7,157,477,376 bytes and WSL VM process working set was 655,040,512 bytes. Read-only ownership filters found zero T03-B2 containers, networks, and volumes. No diagnostic or G0 runtime was started and no T03-B2 Docker resources were changed. Evidence: `evidence/offline-verification-20261109-r32/runtime-gate-recheck.json`.
+
+## User-confirmed memory recovery and diagnostic gate — 2026-11-09
+
+Three consecutive samples measured 6.331, 6.350, and 6.356 GiB free, exceeding the 6 GiB diagnostic threshold; Docker Engine was available. App-only diagnostic `t03b2-d-20261109-r1` was attempted. It failed closed because Docker's active port report was empty despite the recorded loopback HostConfig mapping. No HTTP/MySQL readiness or business test was attempted. The diagnostic resources were subsequently removed by exact recorded ownership cleanup; independent full-label checks show zero residuals and the cleanup verifier preserved existing resources. No project-other Docker resources were touched. Evidence: `evidence/t03b2-d-20261109-r1/memory-preflight.json`, `diagnostic-assessment-r1.json`, and `post-cleanup-independent-check.json`.
+
+## Latest user-confirmed memory recheck — r53 (2026-11-09)
+
+Three free-memory samples measured 4.848, 4.904, and 4.863 GiB, below the 6 GiB runtime gate. Docker Engine 29.8.0 responded; full project/task ownership-label queries returned zero task containers, networks, and volumes (all queries exited 0). Runtime status is `HOST_MEMORY_BLOCKED`; no task Docker resource was created, started, stopped, or removed by this check. The exact route-isolation `docker exec` authorization remains unused. Evidence: `evidence/offline-verification-20261109-r53/runtime-gate-recheck.json`.
+
+## Latest user-confirmed memory recheck — r58 (2026-11-09)
+
+Three new host samples measured 5.437, 5.442, and 5.460 GiB, still below the diagnostic gate of 6 GiB. Docker Engine 29.8.0 responded; exact project/task label queries found zero containers, networks, and volumes (query exit codes 0). The route-isolation candidate remains `HOST_MEMORY_BLOCKED`; the privileged route command was not invoked and no Docker resources changed. Evidence: `evidence/offline-verification-20261109-r58/runtime-gate-recheck.json`.
+
+## Latest user-confirmed memory recheck — r60 (2026-11-09)
+
+After a further user-confirmed attempt to free memory, three samples measured 5.174, 4.974, and 4.959 GiB. The 6 GiB gate remains `BLOCKED`. Docker Engine 29.8.0 responded, WSL VM working set was 1,238,462,464 bytes, and exact project/task ownership queries returned zero containers, networks, and volumes. No runtime was started and no Docker resource changed. Evidence: `evidence/offline-verification-20261109-r60/runtime-gate-recheck.json`.
+
+## Follow-up — 2026-11-10 (r62)
+
+A fresh read-only host check measured 2.337 GiB free of 13.79 GiB. Docker Engine 29.8.0 responded. The 6 GiB diagnostic gate failed, so Docker inventory, network port-forwarding probes, and runtime were not run; no Docker resources changed. Network forwarding is still runtime-unverified after the historical Docker Desktop `no suitable container IP` failures documented in r39 and diagnostic r3. Offline tests passed 34/34 and all five syntax checks passed. See `evidence/offline-verification-20261110-r62/`.
