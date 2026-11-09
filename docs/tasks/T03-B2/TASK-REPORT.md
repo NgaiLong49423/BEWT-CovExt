@@ -216,3 +216,12 @@ Offline evidence r41: 30/30 tests PASS and all five syntax checks PASS (exit 0).
 After the user-confirmed memory cleanup, three fresh host samples were 4.951, 4.953, and 4.949 GiB free. Docker Engine 29.8.0 and all three exact task-label inventory queries responded successfully; no matching Claroline containers, networks, or volumes were present. The diagnostic's 6 GiB RAM gate remains `BLOCKED`, so no further Docker diagnostic or G0 A/B run was started. No Docker resources were changed during this recheck. Evidence: `evidence/offline-verification-20261109-r51/runtime-gate-recheck.json`.
 
 The latest cleanup fault-injection suite passes **32/32**, exit 0, with five Node syntax checks passing, exit 0. Evidence: `evidence/offline-verification-20261109-r51/`. Diagnostic r3 remains `BLOCKED` because Docker Desktop did not report an active host port on the internal bridge; cleanup recovery for its exact app/network passed and independent residual/inventory checks matched. G0 Runs A/B, Maven, Selenium, business tests, and database reset remain `NOT_RUN`. G0 remains `PARTIAL` and is not accepted.
+
+## Sprint coordinator continuation — r61 (2026-11-09)
+
+- Branch: `feature/t03b2-claroline-g0`; tested local HEAD `2c6300a1b1185a1c68d7ac96783e90a210aa747c`; `origin/main` after fetch: `ae149842185877bcd4a97cf99ebdb3fc099e040b`.
+- PR #12 was independently confirmed open and draft, targeting `main`, with PR head `2c6300a1b1185a1c68d7ac96783e90a210aa747c`.
+- Offline verification at the tested HEAD: cleanup fault-injection 34/34 passed (exit 0); five Node syntax checks passed (all exit 0). Raw logs and exit codes: `evidence/offline-verification-20261109-r61/`.
+- Docker runtime, HTTP/MySQL, Maven, Selenium, business assertions and database reset: `NOT_RUN`. The current coordinator Docker CLI probe could not connect to `dockerDesktopLinuxEngine`; latest recorded Claroline RAM samples in r60 were 5.174/4.974/4.959 GiB, below the 6 GiB runtime gate. No Docker resources were changed.
+- Gemini: `NOT_RUN`. No source/runtime manifest or historical run outcome changed. G0 remains `PARTIAL/BLOCKED`; derivative image approval remains pending Team Lead review.
+- Status proposed: `PARTIAL`; review gate remains open. This verification does not establish runtime PASS or G0 acceptance.

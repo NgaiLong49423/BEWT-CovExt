@@ -1,0 +1,16 @@
+{
+  "runId": "offline-verification-20261109-r61",
+  "testedHead": "2c6300a1b1185a1c68d7ac96783e90a210aa747c",
+  "cleanupFaultTestsExitCode": 0,
+  "syntaxCheckCount": 5,
+  "syntaxCheckExitCodes": [
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "dockerRuntime": "NOT_RUN",
+  "gemini": "NOT_RUN",
+  "scope": "offline only; no Docker or project resources touched"
+}

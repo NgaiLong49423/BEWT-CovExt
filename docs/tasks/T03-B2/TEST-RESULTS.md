@@ -101,3 +101,12 @@ A/B successful Selenium runs remain NOT_RUN. Historical verification results and
 | Diagnostic `t03b2-d-20261109-r1` | BLOCKED: `NetworkSettings.Ports` empty despite requested/HostConfig loopback port; no readiness/Maven/Selenium/business test ran | `evidence/t03b2-d-20261109-r1/diagnostic-assessment-r1.json` |
 | Cleanup-only recovery for diagnostic r1 | PASS; independent full-label residual scans zero and exact recorded IDs absent | `evidence/t03b2-d-20261109-r1/cleanup-recovery-r1.json`, `post-cleanup-independent-check.json` |
 | Maven `clean test-compile` | NOT_RERUN; Java sources unchanged; previous successful compile evidence remains applicable | `evidence/offline-verification-20261109-r9/maven-test-compile.log` |
+
+## Sprint coordinator continuation — r61 (2026-11-09)
+
+- Branch: `feature/t03b2-claroline-g0`; tested local HEAD `2c6300a1b1185a1c68d7ac96783e90a210aa747c`; `origin/main` after fetch: `ae149842185877bcd4a97cf99ebdb3fc099e040b`.
+- PR #12 was independently confirmed open and draft, targeting `main`, with PR head `2c6300a1b1185a1c68d7ac96783e90a210aa747c`.
+- Offline verification at the tested HEAD: cleanup fault-injection 34/34 passed (exit 0); five Node syntax checks passed (all exit 0). Raw logs and exit codes: `evidence/offline-verification-20261109-r61/`.
+- Docker runtime, HTTP/MySQL, Maven, Selenium, business assertions and database reset: `NOT_RUN`. The current coordinator Docker CLI probe could not connect to `dockerDesktopLinuxEngine`; latest recorded Claroline RAM samples in r60 were 5.174/4.974/4.959 GiB, below the 6 GiB runtime gate. No Docker resources were changed.
+- Gemini: `NOT_RUN`. No source/runtime manifest or historical run outcome changed. G0 remains `PARTIAL/BLOCKED`; derivative image approval remains pending Team Lead review.
+- Status proposed: `PARTIAL`; review gate remains open. This verification does not establish runtime PASS or G0 acceptance.
