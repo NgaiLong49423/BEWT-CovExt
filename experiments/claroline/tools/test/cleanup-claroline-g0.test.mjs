@@ -4,7 +4,7 @@ import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, EGRESS_LIMITED_NETWORK_POLICY, INTERNAL_NETWORK_POLICY, classifyEgressProbe, createEvidenceDirectory, parseSurefireXml, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
 const runId = 't03b2-a-20261109-r1';
@@ -22,7 +22,7 @@ const unrelatedLabels = { project: 'other-task', owner: 'other-task' };
 
 function record(roles = ['app', 'browser'], includeNetwork = true) {
   return {
-    runId, imageDigest, browserImageDigest, imageLabels, selectedHostPorts: { app: 51001, browser: 51002 },
+    runId, imageDigest, browserImageDigest, imageLabels, selectedHostPorts: { app: 51001, browser: 51002 }, networkPolicy: EGRESS_LIMITED_NETWORK_POLICY,
     containers: roles.map(role => ({ role, id: ids[role], name: names[role], imageRef: role === 'app' ? APP_IMAGE_REF : BROWSER_IMAGE_REF })),
     network: includeNetwork ? { id: ids.network, name: names.network } : null,
   };
@@ -41,8 +41,9 @@ function makeContainer(role, overrides = {}) {
   };
 }
 
-function makeNetwork(endpointIds = []) {
-  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: true, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
+function makeNetwork(endpointIds = [], policy = EGRESS_LIMITED_NETWORK_POLICY) {
+  const internal = policy === INTERNAL_NETWORK_POLICY;
+  return { Id: ids.network, Name: names.network, Driver: 'bridge', Internal: internal, Options: internal ? {} : { 'com.docker.network.bridge.enable_ip_masquerade': 'false' }, Labels: { ...labels }, Containers: Object.fromEntries(endpointIds.map(id => [id, {}])) };
 }
 
 function fakeDocker({ roles = ['app', 'browser'], includeNetwork = true, addRun = true, inspectError = null, endpointMismatch = false, labelMismatch = false, imageMetadataMismatch = false, mountMismatch = false, badBinding = false, createdUnstarted = false, residualContainer = false, residualNetwork = false, residualVolume = false, staleName = false, failRemoveRole = null, failNetworkRemove = false } = {}) {
@@ -136,6 +137,33 @@ for (const roles of [[], ['app'], ['app', 'browser']]) {
     assert.deepEqual(fake.state.images, new Set(fake.baseline.images), 'images are not removed');
   });
 }
+
+test('approved egress-limited bridge profile is checked and legacy internal runs remain cleanable', () => {
+  const correct = fakeDocker();
+  assert.equal(cleanup(correct).outcome, 'PASS');
+  for (const mutate of [
+    network => { network.Internal = true; },
+    network => { network.Options['com.docker.network.bridge.enable_ip_masquerade'] = 'true'; },
+    network => { delete network.Options['com.docker.network.bridge.enable_ip_masquerade']; },
+  ]) {
+    const fake = fakeDocker(); mutate(fake.state.networks.get(ids.network));
+    assert.throws(() => cleanup(fake), /network policy mismatch/);
+    assert.deepEqual(fake.state.mutations, []);
+  }
+  const legacy = fakeDocker();
+  legacy.state.networks.set(ids.network, makeNetwork([ids.app, ids.browser], INTERNAL_NETWORK_POLICY));
+  const legacyRecord = record(); legacyRecord.networkPolicy = INTERNAL_NETWORK_POLICY;
+  assert.equal(cleanup(legacy, legacyRecord).outcome, 'PASS');
+});
+
+test('external egress probe distinguishes blocked, reachable, and inconclusive outcomes', () => {
+  assert.equal(classifyEgressProbe({ status: 124, stdout: '', stderr: '' }), 'PASS');
+  assert.equal(classifyEgressProbe({ status: 1, stdout: '', stderr: 'connect: Network is unreachable' }), 'PASS');
+  assert.equal(classifyEgressProbe({ status: 0, stdout: '', stderr: '' }), 'FAIL');
+  assert.equal(classifyEgressProbe({ status: 1, stdout: '', stderr: 'Connection refused' }), 'FAIL');
+  assert.equal(classifyEgressProbe({ status: 127, stdout: '', stderr: 'timeout: command not found' }), 'BLOCKED');
+  assert.equal(classifyEgressProbe({ status: null, error: new Error('spawn timeout') }), 'BLOCKED');
+});
 
 test('failed network initialization without a returned ID blocks on an unrecorded same-run resource', () => {
   const fake = fakeDocker({ roles: [], includeNetwork: false, addRun: false, residualNetwork: true });

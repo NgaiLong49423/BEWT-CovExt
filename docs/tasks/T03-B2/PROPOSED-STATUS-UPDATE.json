@@ -2,14 +2,14 @@
   "task": "T03-B2",
   "application": "Claroline",
   "proposedStatus": "PARTIAL",
-  "runtimeStatus": "BLOCKED_PORT_BINDING_MISMATCH",
+  "runtimeStatus": "BLOCKED_EGRESS_LIMITED_PROFILE_UNVERIFIED",
   "businessTestStatus": "NOT_RUN",
   "rootCauseR5Exit137": "Docker Desktop port-forwarder failure verified; Docker stop-to-force escalation verified during teardown; initiating caller and app shutdown reason unknown; OOM not verified",
   "sourceVersion": "1.11.10 source base verified in image layer; final image contains one unattributed application-code patch",
   "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
   "archiveSha256": "666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6",
   "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
-  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. Cleanup recovery and independent residual checks PASS. Full G0 A/B remain stopped after the diagnostic failure. No alternate local Linux Engine is available. Preserving isolation requires either a compatible runtime or a Team Lead approved network design change. OOM is not verified; pinned image derivative still awaits Team Lead review.",
+  "reason": "Docker Desktop backend logs verify that r5 and diagnostic r1 port forwards could not select a suitable container IP on the internal bridge; r1 Docker create/start succeeded but active NetworkSettings.Ports stayed empty. The Team Lead approved an egress-limited bridge profile with IP masquerading disabled. Its code and offline tests pass, but runtime behavior remains unverified; latest host RAM samples were 3.484, 2.845, and 2.518 GiB, below the stable 6 GiB diagnostic gate. Task-owned container/network/volume residual counts are zero. Diagnostic r2 and G0 A/B remain NOT_RUN. Cleanup recovery and independent residual checks PASS. OOM is not verified; pinned image derivative still awaits Team Lead review.",
   "statusJsonChanged": true,
   "archiveCandidates": [
     {
@@ -45,5 +45,9 @@
     "evidence/offline-verification-20261109-r38/",
     "evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json"
   ],
-  "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE"
+  "portForwardingDiagnosis": "DOCKER_DESKTOP_NO_SUITABLE_CONTAINER_IP_ON_INTERNAL_BRIDGE",
+  "approvedNetworkPolicy": "egress-limited-bridge-no-masquerade-v1",
+  "networkPolicyRuntimeStatus": "NOT_RUN_MEMORY_GATE",
+  "offlineVerificationEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r41/",
+  "runtimeGateEvidence": "docs/tasks/T03-B2/evidence/offline-verification-20261109-r42/runtime-gate-recheck.json"
 }

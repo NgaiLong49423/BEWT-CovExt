@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { DOCKER_CLI_PATH, DOCKER_ENV } from './child-process-policy.mjs';
-import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
+import { CleanupBlockedError, assertOwnedContainer, assertOwnedNetwork, assertNetworkPolicy, INTERNAL_NETWORK_POLICY, dockerErrorText, isExactNotFound, labelsForRun, namesForRun, snapshotInventory, assertPublishedLoopbackPort } from './claroline-g0.mjs';
 
 const dockerCli = args => execFileSync(DOCKER_CLI_PATH, args, { encoding: 'utf8', env: DOCKER_ENV, stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 const labelFilters = labels => Object.entries(labels).flatMap(([key, value]) => ['--filter', `label=${key}=${value}`]);
@@ -102,6 +102,7 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   const containers = record.containers.map(item => normalizeContainer(record, item));
   if (new Set(containers.map(x => x.id)).size !== containers.length || new Set(containers.map(x => x.role)).size !== containers.length) throw new CleanupBlockedError('recorded IDs and container roles must be unique');
   const networkRecord = record.network;
+  const networkPolicy = record.networkPolicy || INTERNAL_NETWORK_POLICY; // Prior write-once records predate explicit policy metadata.
   if (networkRecord && (networkRecord.name !== names.network || !/^[a-f0-9]{64}$/i.test(networkRecord.id || ''))) throw new CleanupBlockedError('recorded network ID/name does not match the run identity');
   if (!networkRecord && containers.length > 0) throw new CleanupBlockedError('recorded containers exist without a recorded network; endpoint ownership cannot be verified');
   if (record.selectedHostPorts !== undefined) {
@@ -132,7 +133,8 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (Boolean(networkById) !== Boolean(networkByName)) throw new CleanupBlockedError('recorded network ID/name lookup mismatch');
   if (!networkById && foundContainers.some(Boolean)) throw new CleanupBlockedError('recorded container exists while its recorded network is absent');
   if (networkById) {
-    if (networkById.Driver !== 'bridge' || networkById.Internal !== true) throw new CleanupBlockedError('recorded network is not the required internal bridge');
+    try { assertNetworkPolicy(networkById, networkPolicy); }
+    catch (error) { throw new CleanupBlockedError(error.message, { cause: error }); }
     assertOwnedNetwork(networkById, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: expectedEndpointIds.sort((left, right) => left.localeCompare(right, 'en')) });
   }
 
@@ -164,7 +166,8 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   if (networkRecord && networkById) {
     const current = inspect(dockerExec, 'network', networkRecord.id);
     if (!current) throw new CleanupBlockedError('recorded network disappeared before verified removal');
-    if (current.Driver !== 'bridge' || current.Internal !== true) throw new CleanupBlockedError('network configuration changed before removal');
+    try { assertNetworkPolicy(current, networkPolicy); }
+    catch (error) { throw new CleanupBlockedError(`network configuration changed before removal: ${error.message}`, { cause: error }); }
     assertOwnedNetwork(current, { id: networkRecord.id, name: networkRecord.name, labels, containerIds: [] });
     dockerExec(['network', 'rm', networkRecord.id]);
     if (inspect(dockerExec, 'network', networkRecord.id) || inspect(dockerExec, 'network', networkRecord.name)) throw new CleanupBlockedError('recorded network remains after rm');

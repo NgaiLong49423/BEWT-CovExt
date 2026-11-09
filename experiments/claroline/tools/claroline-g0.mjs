@@ -9,6 +9,32 @@ export const BROWSER_IMAGE_REF = 'selenium/standalone-chrome@sha256:073925954265
 export const SOURCE_COMMIT = '0501249ff3e9a5ea83a06155cd2971dc36197056';
 export const SOURCE_VERSION = '1.11.10';
 export const APP_TEST_CLASS = 'test.Claroline_AddUserTest';
+export const INTERNAL_NETWORK_POLICY = 'internal-bridge-v1';
+export const EGRESS_LIMITED_NETWORK_POLICY = 'egress-limited-bridge-no-masquerade-v1';
+
+export function assertNetworkPolicy(network, policy) {
+  if (!network || network.Driver !== 'bridge') throw new Error('network policy requires a user-defined bridge');
+  if (policy === INTERNAL_NETWORK_POLICY) {
+    if (network.Internal !== true) throw new Error('network policy mismatch: expected internal bridge');
+    return network;
+  }
+  if (policy === EGRESS_LIMITED_NETWORK_POLICY) {
+    if (network.Internal !== false || network.Options?.['com.docker.network.bridge.enable_ip_masquerade'] !== 'false') {
+      throw new Error('network policy mismatch: expected non-internal bridge with IP masquerading disabled');
+    }
+    return network;
+  }
+  throw new Error('unknown or missing recorded network policy');
+}
+
+/** Classify a no-payload outbound TCP probe; a host control probe must pass first. */
+export function classifyEgressProbe(result) {
+  if (!result || result.error || result.status === null || result.status === undefined) return 'BLOCKED';
+  const output = `${result.stderr || ''} ${result.stdout || ''}`;
+  if (result.status === 0 || /connection refused|connected/i.test(output)) return 'FAIL';
+  if (result.status === 124 || /network is unreachable|no route to host|connection timed out|operation timed out/i.test(output)) return 'PASS';
+  return 'BLOCKED';
+}
 
 export function validateRunId(runId) {
   if (typeof runId !== 'string' || !/^t03b2-[a-z0-9]{1,20}-\d{8}-r[1-9]\d*$/.test(runId)) {

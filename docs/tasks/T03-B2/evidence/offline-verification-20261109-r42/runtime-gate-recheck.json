@@ -1,0 +1,41 @@
+{
+  "capturedAtUtc": "2026-11-09T12:52:17.9513139Z",
+  "memorySamples": [
+    {
+      "capturedAtUtc": "2026-11-09T12:52:06.8062574Z",
+      "freeBytes": 3741089792,
+      "freeGiB": 3.484
+    },
+    {
+      "capturedAtUtc": "2026-11-09T12:52:11.9784776Z",
+      "freeBytes": 3055210496,
+      "freeGiB": 2.845
+    },
+    {
+      "capturedAtUtc": "2026-11-09T12:52:17.1650838Z",
+      "freeBytes": 2704162816,
+      "freeGiB": 2.518
+    }
+  ],
+  "minimumFreeGiB": 2.518,
+  "requiredStableFreeGiB": 6,
+  "dockerInfo": {
+    "exitCode": 0,
+    "serverVersion": "29.8.0",
+    "operatingSystem": "Docker Desktop (containerized)",
+    "cpus": "16",
+    "memoryBytes": "7157477376"
+  },
+  "taskOwnedResidualReadOnlyCounts": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "dockerQueryExitCodes": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0
+  },
+  "dockerBackendAndWslWorkingSetBytes": 1218965504,
+  "runtimeGate": "BLOCKED"
+}
