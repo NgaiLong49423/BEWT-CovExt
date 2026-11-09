@@ -5,8 +5,8 @@
 - Working branch: `feature/t05b-expresscart-live-generation`.
 - Execution commit (source fix; exact local tests ran against this commit): `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`.
 - Reviewed PR HEAD entering correction round 3: `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`.
-- Current PR HEAD after this evidence-only correction: recorded in the round-3 handoff and GitHub PR metadata; it is distinct from the source execution commit and the evidence commit.
-- Evidence commit: `06c163b747efebd1ce4cfc5f509b2012d132586c` (`docs(t05b): record independent correction verification`), containing correction-05 test logs, provenance, Sonar results and secret-scan outputs.
+- Current PR HEAD: the latest documentation-only report/evidence commit on the existing branch (exact full SHA is stated in the round-3 handoff and verified against origin and PR metadata). It is distinct from source execution commit `ffa19f6f1d890269cd20397fbaa66ba1ed66963e`, correction-06 evidence commit below, and reviewed Sonar SHA `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`.
+- Evidence commit: `01496c2a449fb320df90e8fba5cdfe964d460857` (`docs(t05b): reconcile correction round three evidence`), containing correction-06 hash audit, reviewed-HEAD Gitleaks scan, Sonar verification and current-main/T04-E reconciliation. Earlier correction-05 evidence commit `06c163b747efebd1ce4cfc5f509b2012d132586c` remains preserved.
 - Exact reviewed PR HEAD `0b6e9803acfd8c70ce252fd6a1fc798e77dc8b9c`: SonarCloud check run `129377220205`, conclusion success, Quality Gate PASS, verified by the independent reviewer. Earlier exact-head status was `NOT_VERIFIED` at the prior snapshot; this is superseded for the reviewed SHA by the newly verified exact-HEAD PASS. Any later documentation-only commit is a different SHA and is not represented as having this check.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/15 (draft; review gate only).
 - Push status: source fix and evidence/report follow-ups pushed to existing branch PR #15. No new PR was created.
