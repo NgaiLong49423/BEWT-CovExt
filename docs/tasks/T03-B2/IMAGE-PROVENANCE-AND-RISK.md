@@ -25,10 +25,16 @@ Proposed browser pin: `selenium/standalone-chrome@sha256:07392595426553888046f79
 
 The runner is constrained to an internal bridge network, unique full ownership labels and run ID, no bind mounts or volumes, no privileged mode or Docker socket, loopback-only dynamic HTTP/Selenium ports, no published MySQL port, and per-container memory/CPU/PID caps (1,280 MiB / 1.5 CPU for the app; 2,304 MiB / 2 CPU and 1 GiB shared memory for Selenium). Native Docker and Maven commands use explicit executable paths; the Docker executable signature is checked, Maven/Java are resolved only under Program Files, and child PATH is restricted to system/Program Files directories without inheriting credential variables. Cleanup validates IDs, names, exact image references, complete labels, mount state, port bindings, and network endpoints before deleting only recorded resources. It blocks on any unknown inspect/daemon/permission failure or same-run residue. It never runs a global prune.
 
-Image digest pinning establishes image identity, not source release equivalence. Source provenance remains blocked; see `CLAROLINE-SOURCE-PROVENANCE.md`.
+Image digest pinning establishes image identity. The later read-only layer comparison verified that the image base layer matches the complete official release archive byte-for-byte, while a later image layer modifies one application-code guard with unattributed origin. The image is therefore a customized derivative with partial provenance, not a pristine upstream release; see `CLAROLINE-SOURCE-PROVENANCE.md`.
 
 ## External lifecycle references
 
 - PHP supported-branch lifecycle: [PHP supported versions](https://www.php.net/supported-versions.php).
 - Ubuntu release support lifecycle: [Ubuntu release cycle](https://ubuntu.com/about/release-cycle).
 - MySQL lifecycle reference used for risk context: [Oracle MySQL lifetime support chart](https://www.oracle.com/assets/lsp-tech-chart-069290.pdf).
+
+## Registry-layer source comparison — 2026-11-09
+
+A read-only Registry API inspection fetched the pinned manifest and verified all 15 compressed layer hashes against their descriptors. Image layer 8 contains all 1,630 files from the official Claroline 1.11.10 archive, with zero raw-byte mismatches. Later image layers add runtime configuration/cache and remove the installer directory. One later source file differs: `claroline/inc/lib/add_course.lib.inc.php`; the image comments out the 128-attempt guard for repeated course-identifier allocation. The image layer file hash is recorded in r14. The patch is pinned by the image digest but has no identified source commit or author. Treat the image as a customized derivative of the verified 1.11.10 source, not a pristine upstream build. No configuration contents or credentials were copied into evidence.
+
+Evidence: `evidence/offline-verification-20261109-r14/registry-image-manifest.json`, `image-source-layer-comparison.json`, and `runtime-preflight.json`. The layer inspection did not create or alter Docker resources.

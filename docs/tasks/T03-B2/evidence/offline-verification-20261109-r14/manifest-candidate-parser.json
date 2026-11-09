@@ -1,0 +1,10 @@
+{
+  "capturedAt": "2026-11-09T06:56:33.329Z",
+  "parser": "framework/src/contracts.ts::parseApplicationManifest",
+  "result": "PASS",
+  "appId": "claroline",
+  "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "manifestFilePromoted": false,
+  "reason": "Candidate object parses, but no config/apps manifest is promoted while the image-only patch is unattributed and runtime remains NOT_RUN."
+}

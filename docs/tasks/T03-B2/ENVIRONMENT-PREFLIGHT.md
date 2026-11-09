@@ -23,3 +23,10 @@ A fresh read-only check measured **2.35 GiB free of 13.79 GiB**. `docker version
 ## Latest recheck — 2026-11-09 12:37 +07:00
 
 The fresh host reading was **2.98 GiB free of 13.79 GiB**; Docker CLI exit 1 reported the unavailable `desktop-linux` pipe. Runtime remains `BLOCKED` below the 4 GiB threshold, with no Docker resources changed. See `evidence/offline-verification-20261109-r10/runtime-preflight.json`.
+
+## Latest runtime gate recheck — 2026-11-09
+
+A fresh read-only check measured **3.36 GiB free of 13.79 GiB**, below the required 4 GiB. `docker version` exited 1 because the Docker Desktop Linux-engine named pipe was unavailable. No Docker resources were created or changed. Evidence: `evidence/offline-verification-20261109-r13/runtime-preflight.json`.
+## Latest read-only recheck — 2026-11-09 14:00 +07:00
+
+Free RAM measured **3.90 GiB of 13.79 GiB**, still below the 4 GiB threshold. docker version exited 1 because the Docker Desktop Linux-engine named pipe was unavailable. No Docker resources were created, started, removed, or changed. Runtime remains BLOCKED at preflight and was not run. Evidence: evidence/offline-verification-20261109-r14/runtime-preflight.json.

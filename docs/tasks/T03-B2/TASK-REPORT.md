@@ -4,11 +4,11 @@
 - Base branch + base SHA: `main` — `464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d`.
 - Working branch: `feature/t03b2-claroline-g0`.
 - Previous implementation commit: `58618c758f4ed3ef4b1e43493d51a1a61ebb0cf9` (harness, suite, evidence and initial report).
-- Head commit (full 40-char SHA): this report update follows the implementation commit; see the final verified HEAD SHA in PR #9 and the handoff.
+- Current reviewed/pushed HEAD before this evidence follow-up: `a34e14c586e9a2d38d7c9839387adf2ec92224d0`; this follow-up requires a new commit and final remote verification.
 - PR: [https://github.com/NgaiLong49423/BEWT-CovExt/pull/9](https://github.com/NgaiLong49423/BEWT-CovExt/pull/9).
 - Push status: `PUSHED`; final branch, remote ref, and PR head are verified together after this report update.
-- Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source commit not verified; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
-- Status proposed by Agent: `PARTIAL` / provenance `PROVENANCE_BLOCKED`; runtime `NOT_RUN` because the latest user-authorized RAM check measured 3.64 GiB free (<4 GiB preflight requirement) and the Docker Desktop engine pipe was unavailable.
+- Runtime/commit/version tested: BEWT suite copied from commit `0501249ff3e9a5ea83a06155cd2971dc36197056`; Claroline 1.11.10 source release verified by historical tag/archive comparison; runtime image base matches source archive with one unattributed code patch; app image digest pinned to `sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af`.
+- Status proposed by Agent: `PARTIAL` / provenance `PARTIAL` (base verified; one image-only patch unattributed); runtime `NOT_RUN` because the latest user-authorized RAM check measured 3.90 GiB free (<4 GiB preflight requirement) and the Docker Desktop engine pipe was unavailable.
 
 ## 1. What changed
 
@@ -21,7 +21,7 @@
 | `docs/tasks/T03-B2/evidence/preflight-image-20261109/` | Image-only inspection and preflight resource evidence | Preserve actual read-only image inspection and stopped-container cleanup records |
 | `.gitignore` | Narrow allow rule for T03-B2 sanitized evidence `.log` files | Allow sanitized future Maven output while retaining general log ignore |
 
-No official `config/apps/claroline.json` was added: current parser requires a verified full source Git commit. The existing draft is not promoted.
+No `config/apps/claroline.json` was added: although the official release source and pinned image base are verified, one later image-only source patch remains unattributed and runtime is still `NOT_RUN`.
 
 ## 2. Actual verification
 
@@ -34,14 +34,14 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 | In-memory `parseApplicationManifest()` with pinned image and `source.commit=NOT_VERIFIED` | 0 | PASS — parser rejected with full 40-character Git SHA requirement | [parser negative check](evidence/offline-verification-20261109-r2/manifest-parser-negative.json); `framework/src/contracts.ts` unchanged |
 | Docker image pull/inspect and stopped preflight container inspection | 0 | PASS — image identity and metadata recorded | [image preflight evidence](evidence/preflight-image-20261109/) |
 | Read-only Docker CLI/RAM preflight after last check | 1 for Docker daemon query; RAM query 0 | BLOCKED — daemon pipe unavailable; free RAM 3.64 GiB | [preflight result](evidence/offline-verification-20261109-r7/docker-and-memory-preflight.json) |
-| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 3.64 GiB (<4 GiB) and daemon pipe unavailable | [runtime status](G0-RUNTIME-RESULTS.md) |
+| Runtime A/B and Selenium | — | NOT_RUN — latest free RAM 3.90 GiB (<4 GiB) and daemon pipe unavailable | [runtime status](G0-RUNTIME-RESULTS.md) |
 
 ## 3. Research impact
 
 - Apps affected: Claroline feasibility setup only. The BEWT upstream test source is not an independently verified Claroline release archive.
 - Candidate statuses before → proposed after: Claroline remains draft/provenance-blocked; no candidate or research metric is promoted.
 - RQ1/RQ2/RQ3/RQ4 measurable changes: none; no runtime test data collected.
-- Gate status before → proposed after: no acceptance change; proposed Claroline status is `PROVENANCE_BLOCKED`, runtime `NOT_RUN`.
+- Gate status before → proposed after: no acceptance change; proposed Claroline status is `PARTIAL`, runtime `NOT_RUN`.
 - Dataset/metrics artifacts updated: none.
 - Denominator and sampling caveats: no runtime sample; compilation and fault-injection tests are not application outcome observations.
 
@@ -52,7 +52,7 @@ No official `config/apps/claroline.json` was added: current parser requires a ve
 - Final read-only T03-B2 ownership scan: zero containers, networks, or volumes; evidence is `docs/tasks/T03-B2/evidence/preflight-image-20261109/final-resource-scan.json`.
 - Existing unrelated local dirty files preserved? YES; this is a dedicated clean task worktree.
 - Secret scan / staged diff review result: pending final review; runner sanitizes local paths, fixture-like secret strings, Surefire properties and console output. No credentials are stored in the evidence.
-- Failed/blocked tasks: runtime A/B is BLOCKED by the measured RAM gate; parser-valid manifest is BLOCKED by missing verified source commit/archive bytes.
+- Failed/blocked tasks: runtime A/B is BLOCKED by the measured RAM gate; runtime manifest is withheld pending image-to-release source comparison.
 
 ## 5. Evidence and reproduction
 
@@ -86,3 +86,23 @@ The GitHub `claroline/Claroline` ref/timeline follow-up found no matching 1.11.1
 
 - Historical source probe: tag `zefredz/claroline@1.11.10` resolves to `22d852f93081bc36b1d08b93f5e0c14b49a573f6`. All 1,613 files common to the official `claroline-1.11.10.tar.gz` archive and tag tree matched after line-ending/CVS-keyword normalization; 323 binary files matched byte-for-byte. The archive includes 17 extra `module/CLCHAT/` files absent from the Git tree, so full source equivalence is not declared and no Claroline runtime manifest is promoted. See `evidence/offline-verification-20261109-r12/source-git-archive-comparison.json`.
 - Runtime gate rechecked: available RAM 3.46 GiB of 13.79 GiB (<4 GiB required); Docker daemon pipe unavailable (`docker version` exit 1). Runtime was not started and no Docker resources were created or changed. See `evidence/offline-verification-20261109-r12/runtime-preflight.json`.
+
+## Composite source and runtime gate follow-up — 2026-11-09
+
+- The 17 `module/CLCHAT/` files found only in the official 1.11.10 application archive match exactly the 17 files in the separately published official CLCHAT companion ZIP (SHA-256 `14f02d486896eb63433c8c6a843f8f6fd06bfd413a3c4e0759aada163a9cda36`). Combined with the r12 core-tag comparison, all 1,630 files in the official application archive are accounted for. Source release provenance is verified; evidence: `evidence/offline-verification-20261109-r13/composite-source-comparison.json`.
+- Historical r13 status that the pinned image had not been compared is superseded by the r14 layer analysis. No runtime manifest is promoted; G0 runtime is still `NOT_RUN`.
+- Historical r13 host gate: 3.36 GiB free of 13.79 GiB (<4 GiB threshold); superseded by r14. No Docker resources were created or changed. Evidence: `evidence/offline-verification-20261109-r13/runtime-preflight.json`.
+- Current r13 offline verification: cleanup/fault suite PASS (18/18), five Node syntax checks PASS, source package comparison PASS; Maven was not rerun because source code was unchanged. Logs and metadata are under `evidence/offline-verification-20261109-r13/`.
+## Pinned image source verification — 2026-11-09 (r14)
+
+- Read-only Registry inspection verified all 15 layer digests for the pinned image. Image layer 8 contains exactly the 1,630 files in the official Claroline 1.11.10 source archive, with zero byte mismatches.
+- Later image layers add runtime configuration/cache, remove the installer directory, and modify one application file: `claroline/inc/lib/add_course.lib.inc.php` (release SHA-256 `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1`; image SHA-256 `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8`). The change comments out the 128-attempt course-identifier allocation guard. Its source commit/author is unknown; the immutable image digest pins the bytes. No runtime manifest is promoted pending Team Lead review of this patch and completion of the runtime gate.
+- Offline unit/fault tests and five syntax checks PASS (r13). See r14 below for the latest host gate; no Docker resources were created or changed during r14. Evidence is in `evidence/offline-verification-20261109-r14/`.
+
+## Final evidence follow-up — 2026-11-09 (r14)
+
+- Registry layer analysis verified all 15 compressed layer hashes and found the full official release archive byte-for-byte in image layer 8. One later image layer applies an unattributed application-code patch; image/source provenance is PARTIAL, not pristine.
+- The actual `parseApplicationManifest()` parser accepted the proposed Claroline manifest object in memory (PASS). No runtime manifest file was promoted. Evidence: `evidence/offline-verification-20261109-r14/manifest-candidate-parser.json`.
+- Latest user-authorized preflight: 3.90 GiB free (<4 GiB) and Docker Engine unavailable (exit 1); runtime remains `NOT_RUN`. No Docker resources were changed. Evidence: `evidence/offline-verification-20261109-r14/runtime-preflight.json`.
+- Node fault tests remain PASS (18/18) and five syntax checks PASS using execution logs in r13. Maven was not rerun because application/test source code did not change; the earlier verified clean test-compile remains at r9.
+- Current status: PARTIAL; no runtime, HTTP, database, Selenium, AddUser, or reset outcome is claimed.

@@ -1,0 +1,101 @@
+{
+  "imageRef": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "manifestDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "mediaType": "application/vnd.docker.distribution.manifest.v2+json",
+  "configDigest": "sha256:a9956d78292d05d70f2a3bcf617873a30befca6468c71a780c28607e9a08196c",
+  "platform": "linux/amd64",
+  "layerCount": 15,
+  "compressedLayerBytes": 179844983.0,
+  "layers": [
+    {
+      "ordinal": 1,
+      "registryDigest": "sha256:72c01b436656c9a55ae968ed14e4f1b2a36e11a1103de1d78052edc926d5003f",
+      "compressedBytes": 67126755,
+      "downloadedDigest": "sha256:72c01b436656c9a55ae968ed14e4f1b2a36e11a1103de1d78052edc926d5003f"
+    },
+    {
+      "ordinal": 2,
+      "registryDigest": "sha256:65584f5f70eeea5b72e357d4e2bc0edf9b1a82fb23f1de65880e1dae719f78ab",
+      "compressedBytes": 72659,
+      "downloadedDigest": "sha256:65584f5f70eeea5b72e357d4e2bc0edf9b1a82fb23f1de65880e1dae719f78ab"
+    },
+    {
+      "ordinal": 3,
+      "registryDigest": "sha256:dc9874b529521c67727d1a5ad5d8eb24af93cdc5aa232cc42ff37488c4c2e5c8",
+      "compressedBytes": 365,
+      "downloadedDigest": "sha256:dc9874b529521c67727d1a5ad5d8eb24af93cdc5aa232cc42ff37488c4c2e5c8"
+    },
+    {
+      "ordinal": 4,
+      "registryDigest": "sha256:86656bbaa6fd4511807a37afa01c1d4dce5cc973faed463aafa4fabd32b6dcde",
+      "compressedBytes": 851,
+      "downloadedDigest": "sha256:86656bbaa6fd4511807a37afa01c1d4dce5cc973faed463aafa4fabd32b6dcde"
+    },
+    {
+      "ordinal": 5,
+      "registryDigest": "sha256:7fe6916ab38229dcf39f8534843008d42dd93a44241619505dbf4774f0b70d28",
+      "compressedBytes": 164,
+      "downloadedDigest": "sha256:7fe6916ab38229dcf39f8534843008d42dd93a44241619505dbf4774f0b70d28"
+    },
+    {
+      "ordinal": 6,
+      "registryDigest": "sha256:09b673ee38a389707191a117131b9a663e578edf6a42f85a0621941f251c5543",
+      "compressedBytes": 80414828,
+      "downloadedDigest": "sha256:09b673ee38a389707191a117131b9a663e578edf6a42f85a0621941f251c5543"
+    },
+    {
+      "ordinal": 7,
+      "registryDigest": "sha256:d3bd9a7290d499970c8a037ee059198cf4c7b7b4a2afafa45c04330b4f7d1125",
+      "compressedBytes": 629664,
+      "downloadedDigest": "sha256:d3bd9a7290d499970c8a037ee059198cf4c7b7b4a2afafa45c04330b4f7d1125"
+    },
+    {
+      "ordinal": 8,
+      "registryDigest": "sha256:d33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f",
+      "compressedBytes": 28989141,
+      "downloadedDigest": "sha256:d33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f"
+    },
+    {
+      "ordinal": 9,
+      "registryDigest": "sha256:c0d4dae32e119fd241f4f9d42efd01620b9be3a7db058baf9ad67f221c1a6c7d",
+      "compressedBytes": 657585,
+      "downloadedDigest": "sha256:c0d4dae32e119fd241f4f9d42efd01620b9be3a7db058baf9ad67f221c1a6c7d"
+    },
+    {
+      "ordinal": 10,
+      "registryDigest": "sha256:3bb3c3429085b6fd368528950944b89dbac020619bfd91d64ea9bdfe30051f98",
+      "compressedBytes": 648667,
+      "downloadedDigest": "sha256:3bb3c3429085b6fd368528950944b89dbac020619bfd91d64ea9bdfe30051f98"
+    },
+    {
+      "ordinal": 11,
+      "registryDigest": "sha256:e5cda2941349db83f6e4799c5766aff5cf82ae442d8b1282c140648abd59882e",
+      "compressedBytes": 503,
+      "downloadedDigest": "sha256:e5cda2941349db83f6e4799c5766aff5cf82ae442d8b1282c140648abd59882e"
+    },
+    {
+      "ordinal": 12,
+      "registryDigest": "sha256:81c0434f1dad38b99d2ac5dd3ac560366f6c5b318eb326cd5b7e8f588301985d",
+      "compressedBytes": 367,
+      "downloadedDigest": "sha256:81c0434f1dad38b99d2ac5dd3ac560366f6c5b318eb326cd5b7e8f588301985d"
+    },
+    {
+      "ordinal": 13,
+      "registryDigest": "sha256:a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a",
+      "compressedBytes": 653988,
+      "downloadedDigest": "sha256:a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a"
+    },
+    {
+      "ordinal": 14,
+      "registryDigest": "sha256:ce2bdd8dbdb2e6e4ac2e1d69cc4f217fe9d6b39ff5ad870c6d385e293c3007c9",
+      "compressedBytes": 437,
+      "downloadedDigest": "sha256:ce2bdd8dbdb2e6e4ac2e1d69cc4f217fe9d6b39ff5ad870c6d385e293c3007c9"
+    },
+    {
+      "ordinal": 15,
+      "registryDigest": "sha256:a371c8b450143a84093de7fcfb0d4329eade9ccf4258c3e640befd2fb6298b5b",
+      "compressedBytes": 649009,
+      "downloadedDigest": "sha256:a371c8b450143a84093de7fcfb0d4329eade9ccf4258c3e640befd2fb6298b5b"
+    }
+  ]
+}

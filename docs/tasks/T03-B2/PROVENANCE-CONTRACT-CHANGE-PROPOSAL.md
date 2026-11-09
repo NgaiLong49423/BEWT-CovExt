@@ -1,8 +1,10 @@
 # Proposal: Archive-based application source provenance
 
-**Status: `PROVENANCE_DECISION_REQUIRED`; proposal only.** No contract or framework change is made in this task.
+**Status: `SUPERSEDED` for source-version representation; proposal only.** No contract or framework change is made in this task.
 
-Claroline 1.11.10 is distributed as historical SourceForge archives; SHA-256 values for both official 1.11.10 archive variants are now recorded in `CLAROLINE-SOURCE-PROVENANCE.md`. No matching upstream Git commit has been verified, and the exact image-to-archive match remains unknown. The current `parseApplicationManifest()` contract requires `source.commit` to be a full Git SHA and cannot represent an archive-only source honestly.
+> **Superseded for source-version representation:** r13 verified the official 1.11.10 package from a historical application Git tag plus the exact separate CLCHAT package. r14 also verified the pinned image base layer against that package byte-for-byte; one later application-code patch remains unattributed. No archive-only parser extension is currently required, and no framework change was made.
+
+Claroline 1.11.10 is distributed as historical SourceForge archives; SHA-256 values for both official 1.11.10 archive variants are recorded in `CLAROLINE-SOURCE-PROVENANCE.md`. The historical application commit and full release package composition are verified. The pinned image base layer matches the official archive, while a later image layer changes one application guard without identified source attribution. The `parseApplicationManifest()` contract accepts the verified source commit; a candidate object passed in memory, but no runtime manifest was promoted.
 
 Proposed future contract option, subject to Team Lead approval:
 
@@ -19,4 +21,4 @@ Proposed future contract option, subject to Team Lead approval:
 
 Acceptance should require fetched archive bytes, exact URL/file identity, measured size and SHA-256, a documented extraction method, source fingerprint comparison where image contents permit, and parser tests rejecting absent/placeholder hashes. An archive SHA-256 must never be represented as a Git commit SHA. A separate optional upstream commit may be recorded only after independent content verification.
 
-Until an approved contract exists and source bytes are available, keep Claroline as a draft and report provenance as `PROVENANCE_BLOCKED`. Any isolated runtime feasibility result is separate from a parser-valid manifest and G0 readiness.
+No archive-based contract extension is requested by this task. Keep Claroline unpromoted while the image patch remains unattributed and runtime has not passed. Any isolated runtime feasibility result is separate from manifest validation and G0 readiness.
