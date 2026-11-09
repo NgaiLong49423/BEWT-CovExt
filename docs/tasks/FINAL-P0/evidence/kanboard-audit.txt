@@ -1,0 +1,41 @@
+✔ evidence index binds the two requested runs to pinned source and image (1.7477ms)
+✔ Surefire XML is bound to the exact reported class and the hash mismatch stays blocked (5.3677ms)
+✔ Run A and B have independent reset and sentinel evidence (4.0599ms)
+✔ cleanup result is distinguished by run, including missing Run A idempotent repeat (4.6324ms)
+✔ CDP warning is reported without overriding the recorded assertion result (1.4655ms)
+✖ T04-B candidates remain proposed and the official human decision ledger remains empty (10.1933ms)
+✔ G0 proposal does not imply G1 acceptance or mutate shared program status (2.8731ms)
+✔ audit artifacts parse as JSON, contain no common token patterns, and preserve source scope (12.1066ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 7
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 129.7064
+
+✖ failing tests:
+
+test at docs\tasks\T04-C\test\g0-audit.test.mjs:104:1
+✖ T04-B candidates remain proposed and the official human decision ledger remains empty (10.1933ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+
+  + '9e894c48aa67517eddcdae1302fecf203da9aa0ab228dd904bac68b2cde81aa4'
+  - 'f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37'
+
+      at TestContext.<anonymous> (file:///D:/Github-Projects/BEWT-CovExt/docs/tasks/T04-C/test/g0-audit.test.mjs:119:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '9e894c48aa67517eddcdae1302fecf203da9aa0ab228dd904bac68b2cde81aa4',
+    expected: 'f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
