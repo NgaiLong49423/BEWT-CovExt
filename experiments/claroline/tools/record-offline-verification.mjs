@@ -58,7 +58,7 @@ const sourceAfter = Object.fromEntries(files.map(file => {
 const testLog = results.at(-1);
 const testOutput = readFileSync(resolve(evidenceDirectory, testLog.log), 'utf8');
 const counts = Object.fromEntries(['tests', 'pass', 'fail', 'cancelled', 'skipped', 'todo'].map(key => {
-  const match = testOutput.match(new RegExp(`ℹ ${key} (\\d+)`));
+  const match = testOutput.match(new RegExp(`(?:ℹ|#) ${key} (\\d+)`));
   return [key, match ? Number(match[1]) : null];
 }));
 const summary = {
