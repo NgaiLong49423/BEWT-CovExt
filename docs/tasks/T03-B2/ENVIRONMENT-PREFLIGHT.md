@@ -78,3 +78,7 @@ Three new host samples measured 5.437, 5.442, and 5.460 GiB, still below the dia
 ## Latest user-confirmed memory recheck — r60 (2026-11-09)
 
 After a further user-confirmed attempt to free memory, three samples measured 5.174, 4.974, and 4.959 GiB. The 6 GiB gate remains `BLOCKED`. Docker Engine 29.8.0 responded, WSL VM working set was 1,238,462,464 bytes, and exact project/task ownership queries returned zero containers, networks, and volumes. No runtime was started and no Docker resource changed. Evidence: `evidence/offline-verification-20261109-r60/runtime-gate-recheck.json`.
+
+## Follow-up — 2026-11-10 (r62)
+
+A fresh read-only host check measured 2.337 GiB free of 13.79 GiB. Docker Engine 29.8.0 responded. The 6 GiB diagnostic gate failed, so Docker inventory, network port-forwarding probes, and runtime were not run; no Docker resources changed. Network forwarding is still runtime-unverified after the historical Docker Desktop `no suitable container IP` failures documented in r39 and diagnostic r3. Offline tests passed 34/34 and all five syntax checks passed. See `evidence/offline-verification-20261110-r62/`.

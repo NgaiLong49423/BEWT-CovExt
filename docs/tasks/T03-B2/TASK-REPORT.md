@@ -225,3 +225,12 @@ The latest cleanup fault-injection suite passes **32/32**, exit 0, with five Nod
 - Docker runtime, HTTP/MySQL, Maven, Selenium, business assertions and database reset: `NOT_RUN`. The current coordinator Docker CLI probe could not connect to `dockerDesktopLinuxEngine`; latest recorded Claroline RAM samples in r60 were 5.174/4.974/4.959 GiB, below the 6 GiB runtime gate. No Docker resources were changed.
 - Gemini: `NOT_RUN`. No source/runtime manifest or historical run outcome changed. G0 remains `PARTIAL/BLOCKED`; derivative image approval remains pending Team Lead review.
 - Status proposed: `PARTIAL`; review gate remains open. This verification does not establish runtime PASS or G0 acceptance.
+
+## Follow-up on 2026-11-10 — r62
+
+- Branch/PR: `feature/t03b2-claroline-g0`, draft PR #12. Starting HEAD: `050662d6f895d70d27b6dea5accaebf5d920d8a7`.
+- Fresh host preflight: **2.337 GiB free of 13.79 GiB**; the app-only diagnostic requires at least 6 GiB. Runtime gate is `BLOCKED`. Docker Engine 29.8.0 responds, but no Docker resource inventory or runtime was started after the memory gate failed. No Docker resources were changed. Evidence: `evidence/offline-verification-20261110-r62/runtime-gate-recheck.json`.
+- Network forwarding remains runtime-unverified for a safe candidate. Historical evidence records Docker Desktop's `no suitable container IP` failure for prior isolated bridge attempts (`evidence/offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json`, `evidence/t03b2-d-20261109-r3/diagnostic-result.json`). The previously approved route-isolation attempt still requires the 6 GiB gate; no privileged Docker command was invoked.
+- Offline verification at the starting HEAD: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` **PASS 34/34**, exit 0; five Node `--check` commands **PASS**, all exit 0. Logs and exit codes: `evidence/offline-verification-20261110-r62/`.
+- Run A/B, HTTP/MySQL readiness, Selenium Base test, DB reset, and cleanup of a new run: `NOT_RUN` because no safe runtime was started. Historical runtime outcomes remain immutable. G0 remains `PARTIAL/BLOCKED`, not accepted.
+- Scope note: the requested `10-AGENT-1-IMPLEMENT.md` was not present in the specified worktree. The implementation followed the task scope and constraints supplied in the request and the repository governance documents; no `STATUS.json` or source tree was changed.

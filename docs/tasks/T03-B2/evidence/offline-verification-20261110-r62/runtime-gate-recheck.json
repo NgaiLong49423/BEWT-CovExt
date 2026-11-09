@@ -1,0 +1,14 @@
+{
+  "checkedDateLocal": "2026-11-10",
+  "ramFreeGiB": 2.337,
+  "ramTotalGiB": 13.79,
+  "diagnosticRequiredGiB": 6,
+  "ramGate": "BLOCKED",
+  "dockerEngineVersion": "29.8.0",
+  "dockerInfoExitCode": 0,
+  "dockerRuntimeStarted": false,
+  "dockerResourceInventory": "NOT_RUN",
+  "networkPortForwardingRuntime": "NOT_RUN",
+  "historicalPortForwardingDiagnosis": "Docker Desktop reported no suitable container IP on prior isolated bridge attempts; see offline-verification-20261109-r39/docker-port-forwarder-diagnosis.json and t03b2-d-20261109-r3/diagnostic-result.json",
+  "dockerResourcesChanged": false
+}

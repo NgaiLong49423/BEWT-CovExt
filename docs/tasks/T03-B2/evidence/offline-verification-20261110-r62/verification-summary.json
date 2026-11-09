@@ -1,0 +1,30 @@
+{
+  "runId": "offline-verification-20261110-r62",
+  "testedHead": "050662d6f895d70d27b6dea5accaebf5d920d8a7",
+  "cleanupFaultTestsExitCode": 0,
+  "syntaxChecks": [
+    {
+      "path": "experiments/claroline/tools/claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "experiments/claroline/tools/cleanup-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "experiments/claroline/tools/run-claroline-diagnostic.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "experiments/claroline/tools/run-claroline-g0.mjs",
+      "exitCode": 0
+    },
+    {
+      "path": "experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+      "exitCode": 0
+    }
+  ],
+  "dockerRuntime": "NOT_RUN",
+  "reason": "HOST_MEMORY_BLOCKED: 2.337 GiB free, diagnostic requires >=6 GiB",
+  "scope": "offline-only"
+}
