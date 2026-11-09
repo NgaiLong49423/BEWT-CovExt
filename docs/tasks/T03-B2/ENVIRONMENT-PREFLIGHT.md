@@ -15,3 +15,7 @@ Disk availability at initial preflight was 89.66 GiB on D: and 4.92 GiB on C:. T
 ## Network policy
 
 When the host gate allows a run, only app TCP 80 and Selenium TCP 4444 are dynamically published on `127.0.0.1`; MySQL 3306 remains internal. The app and browser join a per-run internal bridge. No host paths, anonymous volumes, or Docker socket are mounted. The runner records full before/after Docker inventories and uses fail-closed ownership cleanup.
+
+## Review follow-up recheck — 2026-11-09 12:25 +07:00
+
+A fresh read-only check measured **2.35 GiB free of 13.79 GiB**. `docker version` exited 1 because the `desktop-linux` named pipe is unavailable. The machine/runtime gate remains `BLOCKED`; no Docker resource was created, inspected, removed, or otherwise changed in this recheck. See `evidence/offline-verification-20261109-r9/runtime-preflight.json`.

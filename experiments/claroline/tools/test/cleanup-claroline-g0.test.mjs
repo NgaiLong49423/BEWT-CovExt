@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, MAVEN_ENV } from '../child-process-policy.mjs';
+import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, DOCKER_ENV, MAVEN_ENV } from '../child-process-policy.mjs';
 import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, createEvidenceDirectory, parseSurefireXml, sanitizeSurefireXml, validateRunId } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 
@@ -264,4 +264,8 @@ test('native tools resolve to explicit paths and child PATH excludes user-writab
   assert.doesNotMatch(MAVEN_ENV.PATH, /AppData|Users/i);
   assert.match(MAVEN_ENV.PATH, /C:\\Windows\\System32/i);
   assert.match(MAVEN_ENV.PATH, /Program Files/i);
+  assert.equal(MAVEN_ENV.TEMP, undefined, 'child environment must not inherit a publicly writable TEMP path');
+  assert.equal(MAVEN_ENV.TMP, undefined, 'child environment must not inherit a publicly writable TMP path');
+  assert.equal(DOCKER_ENV.TEMP, undefined);
+  assert.equal(DOCKER_ENV.TMP, undefined);
 });

@@ -1,0 +1,21 @@
+{
+  "recordedAt": "2026-11-09",
+  "verificationId": "offline-verification-20261109-r9",
+  "syntaxChecks": 6,
+  "syntaxExitCode": 0,
+  "nodeCommand": "node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs",
+  "nodeExitCode": 0,
+  "nodeTests": 18,
+  "nodeFailures": 0,
+  "mavenCommand": "mvn -B -f experiments/claroline/bewt-suite/pom.xml clean test-compile",
+  "mavenExitCode": 0,
+  "mainSources": 22,
+  "testSources": 42,
+  "TEMP": "omitted",
+  "TMP": "omitted",
+  "logsSha256": {
+    "node-syntax-check.log": "1ec4d640d60169f3fa1031bdfe6f448dcdcfae9a2439c71ce5d3519c0918f704",
+    "maven-test-compile.log": "f2c3d4ebedf3e3c2df52af829b0fa5ab20cd9120bda5f28f8a3dc5db82495dc2",
+    "node-fault-tests.log": "ac6b55c4d58c74fdba6de95cabc0e43c0aad6ca199cd1ca056a7da33741cf022"
+  }
+}

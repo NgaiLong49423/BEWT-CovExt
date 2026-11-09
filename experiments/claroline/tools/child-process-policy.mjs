@@ -65,7 +65,7 @@ const inheritedNames = [
   'ALLUSERSPROFILE', 'APPDATA', 'COMPUTERNAME', 'CommonProgramFiles', 'CommonProgramFiles(x86)', 'CommonProgramW6432',
   'HOMEDRIVE', 'HOMEPATH', 'LOCALAPPDATA', 'LOGONSERVER', 'NUMBER_OF_PROCESSORS', 'OS', 'PATHEXT',
   'PROCESSOR_ARCHITECTURE', 'PROCESSOR_IDENTIFIER', 'PROCESSOR_LEVEL', 'PROCESSOR_REVISION', 'PUBLIC', 'ProgramData',
-  'ProgramFiles', 'ProgramFiles(x86)', 'ProgramW6432', 'SystemDrive', 'TEMP', 'TMP', 'USERDOMAIN', 'USERNAME',
+  'ProgramFiles', 'ProgramFiles(x86)', 'ProgramW6432', 'SystemDrive', 'USERDOMAIN', 'USERNAME',
   'USERPROFILE',
 ];
 const safeBaseEnvironment = Object.fromEntries(inheritedNames.filter(name => process.env[name]).map(name => [name, process.env[name]]));
@@ -81,8 +81,7 @@ const sharedEnvironment = {
   USERPROFILE: process.env.USERPROFILE || '',
   HOME: process.env.USERPROFILE || '',
   ComSpec: join(system32, 'cmd.exe'),
-  TEMP: process.env.TEMP || join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Local', 'Temp'),
-  TMP: process.env.TMP || join(process.env.USERPROFILE || 'C:\\Users\\Default', 'AppData', 'Local', 'Temp'),
+  // Leave TEMP/TMP unset: Windows GetTempPath falls back to USERPROFILE, avoiding inherited shared temp locations.
 };
 
 export const DOCKER_ENV = {

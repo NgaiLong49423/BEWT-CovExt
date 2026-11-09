@@ -13,3 +13,7 @@ The harness is prepared at `experiments/claroline/tools/run-claroline-g0.mjs`. E
 | Independent clean-state Run A and B | `NOT_RUN` |
 | Official runtime manifest validation | `BLOCKED` by unverified Claroline source commit |
 | Proposed G0 | `PROVENANCE_BLOCKED`; not `G0_READY_FOR_REVIEW` |
+
+## Latest gate recheck — 2026-11-09
+
+A new read-only preflight measured 2.35 GiB free RAM (<4 GiB) and Docker CLI exit 1 because the `desktop-linux` daemon pipe was unavailable. No Docker resources were changed. Runtime checks remain `NOT_RUN`; evidence: `evidence/offline-verification-20261109-r9/runtime-preflight.json`. The earlier 3.64 GiB reading above is historical and superseded by this lower current reading.

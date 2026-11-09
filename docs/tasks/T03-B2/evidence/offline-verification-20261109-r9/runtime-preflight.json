@@ -1,0 +1,11 @@
+{
+  "checkedAt": "2026-11-09T12:25:43+07:00",
+  "freeGiB": 2.35,
+  "totalGiB": 13.79,
+  "minimumGiB": 4,
+  "dockerServerVersion": null,
+  "dockerExitCode": 1,
+  "dockerError": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+  "dockerResourcesChanged": false,
+  "runtimeGate": "BLOCKED"
+}
