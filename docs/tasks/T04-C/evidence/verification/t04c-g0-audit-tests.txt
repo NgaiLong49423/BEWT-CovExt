@@ -1,0 +1,16 @@
+✔ evidence index binds the two requested runs to pinned source and image (1.4377ms)
+✔ Surefire XML is bound to the exact reported class and the hash mismatch stays blocked (1.4773ms)
+✔ Run A and B have independent reset and sentinel evidence (1.5604ms)
+✔ cleanup result is distinguished by run, including missing Run A idempotent repeat (1.9581ms)
+✔ CDP warning is reported without overriding the recorded assertion result (0.3791ms)
+✔ T04-B candidates remain proposed and the official human decision ledger remains empty (10.526ms)
+✔ G0 proposal does not imply G1 acceptance or mutate shared program status (0.8133ms)
+✔ audit artifacts parse as JSON, contain no common token patterns, and preserve source scope (7.9608ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 104.9431

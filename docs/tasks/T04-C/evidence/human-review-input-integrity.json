@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "VERIFIED_EMPTY_AT_AUDIT_BASE",
+  "staticReviewDataset": {"path": "data/reviews/kanboard/t04b-review-dataset.json", "sha256LfNormalized": "f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37"},
+  "candidateDefinition": {"path": "data/coverage/kanboard/gap-candidates.json", "sha256": "df600b91417480b0c727282fc3e27c08d21ae2784fe9a2e31275999f20514815"},
+  "ledger": {"path": "data/reviews/kanboard/human-review-decisions.jsonl", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", "bytes": 0, "records": 0},
+  "candidateIds": ["KB-GAP-001", "KB-GAP-002", "KB-GAP-003", "KB-GAP-004", "KB-GAP-008"],
+  "decisionFieldsNull": true,
+  "status": "PROPOSED",
+  "reviewDecision": "PENDING",
+  "generatorDoesNotWriteLedger": true,
+  "decisionAppendAuthority": "TEAM_LEAD_SUPPLIED_REAL_DECISION_ONLY"
+}

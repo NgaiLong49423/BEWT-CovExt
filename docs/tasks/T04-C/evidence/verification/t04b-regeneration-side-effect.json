@@ -1,0 +1,17 @@
+{
+  "test": "docs/tasks/T04-B/test/review-dataset.test.mjs",
+  "result": "PASS",
+  "testsPassed": 12,
+  "testsFailed": 0,
+  "observation": "The full T04-B test suite invokes the static dataset builder. In this Windows checkout it rewrote dataset source hash fields using working-tree bytes and marked review-packet line endings modified. This task did not keep those regenerated outputs.",
+  "beforeDatasetSha256LfNormalized": "f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37",
+  "temporaryGeneratedSourcePins": {
+    "acceptedInventorySha256": "78ee8e39f1fb27e3888cf3141d74cb2ad5fdcc2dde273c7fae170c3baf60bdc4",
+    "gapCandidatesSha256": "ba6b05b38905dfd162f0e9acc8bfded85c4c0d14af5221ab4c68c0acdd721f81"
+  },
+  "action": "Restored only the five review packets and static dataset that the test runner rewrote, to the pre-test committed worktree contents.",
+  "postRestoreDatasetSha256LfNormalized": "f43b1f72378e41b8622304be927e5088e3b01359b24676a4331e72e99c1b3b37",
+  "postRestoreOfficialDecisionLedgerBytes": 0,
+  "postRestoreGitDiffForT04BInputs": "CLEAN",
+  "implication": "Do not run the T04-B dataset builder on this CRLF worktree for verification; its source-pin hashes are sensitive to working-tree byte representation. This task did not modify the builder or T04-B inputs."
+}
