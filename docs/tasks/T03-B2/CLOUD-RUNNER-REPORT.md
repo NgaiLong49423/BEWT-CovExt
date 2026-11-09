@@ -3,15 +3,16 @@
 **Date**: 2026-11-10  
 **Task**: `T03-B2` (Claroline 1.11.10 — G0 Baseline Verification)  
 **Branch**: `feature/t03b2-claroline-g0` ([PR #12](https://github.com/NgaiLong49423/BEWT-CovExt/pull/12))  
-**Tested Code Commit**: `2e31e1a0a2aa6681047817bcee17e25405d5ba84` (Cloud runtime runs `d-r4`, `d-r5`, `a-r6` recorded on `183668bc18e89b4e04212be510b971a9f79c7f65`; post-SonarCloud security hardening verified on `2e31e1a0a2aa6681047817bcee17e25405d5ba84` in `r74`/`r75`)  
+**Tested Code Commit**: `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb` (implements Team Lead Decisions `A1` & `P1`, verified in Windows `r76`, Cloud VM `r77`, and Cloud Diagnostic `t03b2-d-20261110-r6`; prior Cloud runs `d-r4`, `d-r5`, `a-r6` recorded on `183668bc18e89b4e04212be510b971a9f79c7f65`, SonarCloud hardening on `2e31e1a0a2aa6681047817bcee17e25405d5ba84` in `r74`/`r75`)  
 **Pinned BEWT Commit**: `0501249ff3e9a5ea83a06155cd2971dc36197056`  
-**Current G0 Gate Disposition**: `PARTIAL` / `BLOCKED` (`REQUEST_CHANGES` — **Do NOT merge PR #12** until Team Lead approvals are granted and G0 Run A/B + DB reset pass at runtime)
+**Verified Claroline Application Commit**: `22d852f93081bc36b1d08b93f5e0c14b49a573f6` (`1.11.10-bewt-derivative`, Decision `P1`, promoted in `config/apps/claroline.json`)  
+**Current G0 Gate Disposition**: `PARTIAL` / `BLOCKED` (`REQUEST_CHANGES` — **Do NOT merge PR #12** until an independent Team Lead Ed25519 public key and signed per-run host-firewall decision token are provisioned and G0 Run A/B + DB reset pass at runtime)
 
 ---
 
 ## 1. Cloud VM Status & Auto-Stop Schedule Verification (Corrected & Reconciled)
 
-Direct verification via `gcloud compute instances describe bewt-covext-runner --zone=asia-southeast1-a --project=gen-lang-client-0311012609` and `node experiments/claroline/tools/cloud-controller.mjs preflight offline-verification-20261110-r75` (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r75/cloud-preflight.json`):
+Direct verification via `gcloud compute instances describe bewt-covext-runner --zone=asia-southeast1-a --project=gen-lang-client-0311012609` and `node experiments/claroline/tools/cloud-controller.mjs preflight offline-verification-20261110-r77` (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r77/cloud-preflight.json`):
 
 | Property | Verified Value |
 | --- | --- |
@@ -20,12 +21,14 @@ Direct verification via `gcloud compute instances describe bewt-covext-runner --
 | **Zone** | `asia-southeast1-a` |
 | **Status** | `RUNNING` |
 | **Machine Type** | `c4d-highmem-8` (8 vCPU AMD EPYC, 63 GiB RAM) |
-| **Boot Disk** | 200 GB `hyperdisk-balanced` (`184.403 GiB` available) |
+| **Network Stack / Uplink** | `IPV4_ONLY` / default IPv4 uplink interface **`ens3`** (`default via 10.148.0.1 dev ens3 proto dhcp src 10.148.0.3 metric 100`) |
+| **Firewall Backend** | `/usr/sbin/iptables` $\rightarrow$ `/usr/sbin/xtables-nft-multi` (`iptables v1.8.10 (nf_tables)`) |
+| **Boot Disk** | 200 GB `hyperdisk-balanced` (`184.401 GiB` available) |
 | **OS / Kernel** | Ubuntu 24.04.4 LTS (`Linux 7.0.0-1017-gcp x86_64 GNU/Linux`) |
 | **Creation Timestamp** | `2026-11-09T12:18:54.625-08:00` (`= 2026-11-09T20:18:54.625Z` UTC `= 2026-11-10T03:18:54.625+07:00` ICT) |
 | **Max Run Duration** | `21600s` (6 hours = `21,600,000 ms`) |
 | **Termination Action** | `STOP` |
-| **Termination Timestamp** | `2026-11-09T18:18:54.625-08:00` (`= 2026-11-10T02:18:54.625Z` UTC `= 2026-11-10T09:18:54.625+07:00` ICT) |
+| **Termination Timestamp** | `2026-11-09T18:18:54.625-08:00` (`= 2026-11-10T02:18:54.625Z` UTC `= 2026-11-10T09:18:54.625+07:00` ICT; `14,025 s` $\approx 3\text{h }53\text{m}$ remaining at `r77` capture) |
 | **Schedule Identity Check** | $\text{creationTimestamp} + 21600\,\text{s} = \text{terminationTimestamp}$ (`2026-11-09T20:18:54.625Z + 06:00:00 = 2026-11-10T02:18:54.625Z`) |
 | **OS-level backup timer** | `bewt-autostop.timer` active (`Trigger: Tue 2026-11-10 02:15:39 UTC`) |
 | **VM Recreation / Extension** | **NONE** — Existing VM reused; 6-hour auto-stop schedule untouched |
@@ -92,155 +95,141 @@ Verified via `https://sonarcloud.io/api/qualitygates/project_status?projectKey=N
 
 ---
 
-## 4. Unit & Negative Test Results (`44/44 PASS` on Windows `r74` & Linux `r75`)
+## 4. Unit & Negative Test Results (`46/46 PASS` on Windows `r76` & Linux `r77` + `3/3 PASS` on `verify-config-apps.test.mjs`)
 
-Executed post-commit on `2e31e1a0a2aa6681047817bcee17e25405d5ba84` (`sourceMatchesHeadAtTest: true`, `sourceWorkingTreeDirtyAtTest: false`):
+Executed post-commit on `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb` (`sourceMatchesHeadAtTest: true`, `sourceWorkingTreeDirtyAtTest: false`):
 
-- **Windows (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r74/`)**:
+- **Windows (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r76/`)**:
   - 9/9 `node --check` syntax checks: **PASS** (exit 0).
-  - `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **44 passed, 0 failed** (exit 0).
-- **Ubuntu 24.04 Cloud VM (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r75/`)**:
+  - `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **46 passed, 0 failed** (exit 0).
+  - `node --test docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs`: **3 passed, 0 failed** (exit 0).
+- **Ubuntu 24.04 Cloud VM (`docs/tasks/T03-B2/evidence/offline-verification-20261110-r77/`)**:
   - 9/9 `node --check` syntax checks: **PASS** (exit 0).
-  - `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **44 passed, 0 failed** (exit 0).
-- **New Tests Added in `r74`/`r75` (Tests 42–44)**:
-  - **Test 42**: Verifies `GIT_CLI_PATH` and `NODE_CLI_PATH` resolution and tests `validateEvidenceId` / `resolveEvidenceDirectoryById` against path-traversal payloads (`../t03b2-d-20261110-r5`, `docs/tasks/T03-B2/evidence/...`, `t03b2-d-20261110-r5/../../etc/passwd`, `C:\Windows\System32`).
-  - **Test 43**: Verifies `resolveVmExternalIp` dynamic `natIP` resolution and fail-closed `VM_EXTERNAL_IP_UNAVAILABLE` error when `natIP` is missing.
-  - **Test 44**: Verifies Ubuntu host bridge firewall specification (`deriveLinuxBridgeInterfaceName`, `buildHostBridgeFirewallSpec`), active rule verification (`assertHostBridgeFirewallRuleInstalled`), negative fault cases (short network ID, bridge name mismatch, `docker0`, missing rule, duplicate rule, `-j ACCEPT`, `-j DROP` without `--reject-with icmp-net-unreachable`), and zero-residual rollback verification (`assertHostBridgeFirewallRuleRemoved`).
+  - `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs`: **46 passed, 0 failed** (exit 0).
+  - `node --test docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs`: **3 passed, 0 failed** (exit 0).
+- **New Tests Added in `r76`/`r77` (Tests 45–46)**:
+  - **Test 45**: Verifies Linux default uplink parsing (`parseLinuxDefaultUplinkInterface`), GCE `IPV4_ONLY` host egress control verification (`verifyHostEgressControlsForRun`), and Decision `P1` pinned image provenance metadata (`APPLICATION_SOURCE_COMMIT`, `APPLICATION_SOURCE_VERSION`, `IMAGE_PROVENANCE_CLASSIFICATION = 'BEWT_BENCHMARK_DERIVATIVE_PINNED'`, `PINNED_IMAGE_PATCH_RECORD` with Layer 8 `23,010` bytes `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1` vs Layer 13 `23,040` bytes `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8` and exact line ranges `382–389` and `557–562`).
+  - **Test 46**: Verifies the independent Ed25519 Team Lead host-firewall authorization verifier (`verifyHostFirewallDecision` / `requestHostFirewallApproval`), covering positive signature + scope + TTL + replay ledger persistence and negative fault cases (no trusted public key, invalid signature, wrong role/identity, mismatched `runId`/`networkId`/`bridgeInterface`/`uplinkInterface`/`insertCommand`/`deleteCommand`/`scope`/`rollback`, expired TTL `>15 min`, and replayed nonce).
 
-> **Important Distinction (Item #8)**: Passing `44/44` offline unit/fault tests and `validate-evidence.mjs` `VALID` proves only tool/harness correctness and evidence integrity for pre-approval runs. It **does NOT** establish G0 runtime `PASS`.
+> **Important Distinction (Item #8)**: Passing `46/46` offline unit/fault tests, `3/3` manifest tests, and `validate-evidence.mjs` `VALID` proves only tool/harness correctness and evidence integrity for pre-approval runs. It **does NOT** establish G0 runtime `PASS`.
 
 ---
 
-## 5. Technical Analysis & Approval Request Packet: Ubuntu Host Firewall Network Isolation (Item #5)
+## 5. Implementation & Live Cloud Preflight of Decision 1 (`A1`: `linux-docker-user-bridge-reject-v1`)
 
-### 5.1. Architectural Problem Statement
-1. On a user-defined Docker bridge with `--internal` (`Internal: true`), Docker omits a default gateway and breaks host loopback port forwarding (`127.0.0.1:<hostPort> -> <containerPort>`).
-2. On a non-internal bridge (`Internal: false`, `com.docker.network.bridge.enable_ip_masquerade=false`), host loopback port forwarding works, but on a cloud VM (`bewt-covext-runner`), the VPC router forwards packets even without NAT masquerading (or before route removal), as observed in historical diagnostic `r2`.
-3. The existing candidate (`ROUTE_ISOLATION_METHOD = 'container-netns-default-route-drop-v1'`) proposed running `docker exec --privileged --user 0 <containerId> /bin/sh -c 'ip route del default'` **after** `docker start`, which has two drawbacks:
-   - It requires invoking `docker exec --privileged` inside the untrusted container namespace.
-   - It leaves a brief time window between `docker start` and `docker exec ... ip route del default` during which the container has an active default route.
+### 5.1. Reconciled Cloud VM Network Topology & Firewall Backend (`t03b2-d-20261110-r6/host-network-firewall-preflight.json`)
+Direct inspection on `bewt-covext-runner` (`3042402845209891905`) during `t03b2-d-20261110-r6` verified and reconciled the earlier report contradiction (`ens4` vs `ens3`):
+1. **Default Uplink Interface**: `ip -4 route show default` outputs `default via 10.148.0.1 dev ens3 proto dhcp src 10.148.0.3 metric 100`. The VM's default uplink interface is **`ens3`** (`parseLinuxDefaultUplinkInterface` verified `ens3`). Earlier prose in PR #12 / §5.2 that mentioned `ens4` was a documentation error and is corrected here.
+2. **Task Docker Bridge Interface**: Creating network `19ec2e85b68514830ce05530dbe5ec7233cefd4059daeb73cd56798f6fd7470a` (`172.26.254.0/24`, gateway `172.26.254.1`, `Internal: false`, `EnableIPv6: false`, `com.docker.network.bridge.enable_ip_masquerade: "false"`, `com.docker.network.bridge.enable_icc: "true"`) created kernel bridge **`br-19ec2e85b685`**, verified in `/sys/class/net/br-19ec2e85b685/bridge` (`exists: true`).
+3. **Host Firewall Backend**: `/usr/sbin/iptables --version` outputs **`iptables v1.8.10 (nf_tables)`** (realpath `/usr/sbin/xtables-nft-multi`, root-owned `0:0`, mode `0755`), and `/usr/bin/sudo` is verified (`0:0`, mode `4755`).
+4. **IPv6 Control Verification**: `ip -6 route show default` is empty (`[]`), and `verifyHostEgressControlsForRun` verified `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH`) is safe on GCE `IPV4_ONLY` when `EnableIPv6 === false` and host IPv6 default routes are empty.
 
-### 5.2. Ubuntu Host Firewall Design (`HOST_FIREWALL_ISOLATION_METHOD = 'linux-docker-user-bridge-reject-v1'`)
-Implemented and unit-tested in `experiments/claroline/tools/claroline-g0.mjs` (`deriveLinuxBridgeInterfaceName`, `buildHostBridgeFirewallSpec`, `assertHostBridgeFirewallRuleInstalled`, `assertHostBridgeFirewallRuleRemoved`) while remaining gated behind Team Lead approval:
+### 5.2. Unified Official Firewall Rule Specification (`buildHostBridgeFirewallSpec`)
+Earlier report sections showed two slightly different rule formulations (`! -o br-<id12>` vs `-o ens4`). In commit `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb`, the single authoritative specification in `buildHostBridgeFirewallSpec` is:
 
-1. **Docker Bridge Interface Identification**:
-   - When `docker network create` creates the task-labeled bridge with full 64-hex ID `<networkId>`, Linux Docker Engine creates bridge interface `br-<networkId.slice(0, 12)>` (e.g., `br-2ed133a9f5b8` in `t03b2-a-20261110-r6`).
-   - `deriveLinuxBridgeInterfaceName(networkId, inspectedBridgeName)` validates `/^[a-f0-9]{64}$/i` and confirms `br-${networkId.slice(0, 12).toLowerCase()}` matches `/sys/class/net/br-<id12>`.
-2. **IPv4 Filtering via `DOCKER-USER` Chain (Pre-Start Enforcement)**:
-   - Docker Engine on Linux evaluates the `DOCKER-USER` chain in the `filter` table (`FORWARD` hook) **before** any Docker-generated rules.
-   - **Before `docker start`** (while `app` and `browser` containers are in `created` / dormant state), insert at position 1 of `DOCKER-USER`:
-     ```bash
-     sudo -n /usr/sbin/iptables -w 5 -I DOCKER-USER 1 \
-       -i br-<id12> ! -o br-<id12> \
-       -m conntrack ! --ctstate RELATED,ESTABLISHED \
-       -m comment --comment bewt-t03b2-<runId> \
-       -j REJECT --reject-with icmp-net-unreachable
-     ```
-   - **Why `-j REJECT --reject-with icmp-net-unreachable` instead of `-j DROP`**:
-     - Our fail-closed egress classifier (`classifyTcpProbe` / `classifyEgressProbe` in `claroline-g0.mjs`) explicitly rejects `TCP_TIMEOUT_INCONCLUSIVE` (`status 124`) and requires an explicit `NETWORK_UNREACHABLE` (`ENETUNREACH` / `Network is unreachable`) signal with matching `__BEWT_TCP_PROBE_EXIT__` status.
-     - With `-j REJECT --reject-with icmp-net-unreachable`, any container-initiated SYN packet leaving `br-<id12>` toward an external IP (`! -o br-<id12>`, such as `1.1.1.1:443`) immediately receives ICMP Type 3 Code 0 (`Net Unreachable`) from the host kernel, causing the socket in the container to fail in `<5 ms` with `Network is unreachable` (`ENETUNREACH`), deterministically satisfying `classifyEgressProbe`!
-   - **Why Intra-Bridge and Host Loopback Traffic Remain Unblocked**:
-     - **Browser $\leftrightarrow$ App (`172.26.254.x` $\leftrightarrow$ `172.26.254.y`)**: Both ingress and egress interfaces are `br-<id12>` (`-i br-<id12> -o br-<id12>`), which does **not** match `! -o br-<id12>`. Selenium Chrome inside `browser` can reach `http://claroline-app:80` or the bridge IP unhindered.
-     - **Host Loopback (`127.0.0.1:<appPort>` and `127.0.0.1:<browserPort>`)**: Connections originate on the host via `docker-proxy` (`172.26.254.1 -> 172.26.254.x` on `OUTPUT`/`INPUT`, not `FORWARD`); even if DNAT traverses `FORWARD`, container reply packets have conntrack state `ESTABLISHED,RELATED`, which does **not** match `! --ctstate RELATED,ESTABLISHED`.
-3. **IPv6 Handling**:
-   - The task network is created with `--ipv6=false` (`EnableIPv6: false`, verified by `assertNetworkPolicy`), and the GCE VM NIC (`ens4`) has `stackType: IPV4_ONLY` (`HOST_IPV6_UNAVAILABLE` / `ENETUNREACH`).
-   - Containers on `br-<id12>` receive no IPv6 global address or default route (`ip -6 route show default` is empty).
-   - As defense-in-depth on dual-stack hosts, an analogous `ip6tables` rule (`sudo -n /usr/sbin/ip6tables -w 5 -I FORWARD 1 -i br-<id12> ! -o br-<id12> -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-<runId> -j REJECT --reject-with icmp6-no-route`) can also be applied.
-4. **`sudo` Privilege Scope & Security Comparison**:
-   - On `bewt-covext-runner`, `/usr/sbin/iptables` is verified via `verifyLinuxRootExecutable('/usr/sbin/iptables')` (`uid=0, gid=0`, mode `0755`, realpath `/usr/sbin/xtables-nft-multi`).
-   - Unlike `docker exec --privileged`, which grants all Linux capabilities (`CAP_SYS_ADMIN`, device access, etc.) inside the container namespace, `sudo -n /usr/sbin/iptables` runs on the trusted host with a fixed argument array (`buildHostBridgeFirewallSpec`) and leaves `HostConfig.Privileged: false` and `CapAdd: null` on all containers.
-5. **Zero Impact on Other Resources**:
-   - The rule matches **only** packets with input interface `-i br-<id12>` (the unique 12-hex prefix of the current run's network ID) and carries `--comment bewt-t03b2-<runId>`.
-   - Host traffic (`ens4`), default `docker0`, and any other container networks (`br-<other>`) never match `-i br-<id12>`.
-6. **Deterministic Rollback & Cleanup Verification**:
-   - During `finally` cleanup (`cleanup-claroline-g0.mjs`), after stopping/removing the run's containers:
-     1. Execute `sudo -n /usr/sbin/iptables -w 5 -D DOCKER-USER -i br-<id12> ! -o br-<id12> -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-<runId> -j REJECT --reject-with icmp-net-unreachable`.
-     2. Run `sudo -n /usr/sbin/iptables -w 5 -S DOCKER-USER` and pass the output to `assertHostBridgeFirewallRuleRemoved(output, spec)`, which fails closed if any rule referencing `br-<id12>` or `bewt-t03b2-<runId>` remains.
+- **Pre-Start Insert Command (`sudoInsertArgs`)**:
+  ```bash
+  /usr/bin/sudo -n /usr/sbin/iptables -w 5 -I DOCKER-USER 1 \
+    -i br-<id12> ! -o br-<id12> \
+    -m conntrack ! --ctstate RELATED,ESTABLISHED \
+    -m comment --comment bewt-t03b2-<runId> \
+    -j REJECT --reject-with icmp-net-unreachable
+  ```
+- **Why `! -o br-<id12>` (with `uplinkInterface: "ens3"` recorded in the spec) is Strictly Stronger than `-o ens3` alone**:
+  - `! -o br-<id12>` blocks container-initiated traffic leaving `br-<id12>` toward **`ens3` (Internet / VPC / GCE metadata server `169.254.169.254`) AND any other non-bridge interface** (`docker0`, other `br-*` networks, or tunnel interfaces), while still allowing intra-bridge traffic (`-i br-<id12> -o br-<id12>`, so `browser` $\leftrightarrow$ `app` works) and host loopback reply packets (`--ctstate RELATED,ESTABLISHED`, so `127.0.0.1:<appPort>` and `127.0.0.1:<browserPort>` work).
+- **Teardown Rollback Command (`sudoDeleteArgs`)**:
+  ```bash
+  /usr/bin/sudo -n /usr/sbin/iptables -w 5 -D DOCKER-USER \
+    -i br-<id12> ! -o br-<id12> \
+    -m conntrack ! --ctstate RELATED,ESTABLISHED \
+    -m comment --comment bewt-t03b2-<runId> \
+    -j REJECT --reject-with icmp-net-unreachable
+  ```
+  Verified by `assertHostBridgeFirewallRuleRemoved` against `/usr/bin/sudo -n /usr/sbin/iptables -w 5 -S DOCKER-USER`.
 
-### 5.3. Technical Approval Request #1 (Network Isolation & GCE `IPV4_ONLY` Host Control)
-We request Team Lead approval for:
-1. **Enabling `HOST_FIREWALL_ISOLATION_METHOD` (`linux-docker-user-bridge-reject-v1`) on the Ubuntu Cloud VM**:
-   - Pre-start command: `sudo -n /usr/sbin/iptables -w 5 -I DOCKER-USER 1 -i br-<id12> ! -o br-<id12> -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-<runId> -j REJECT --reject-with icmp-net-unreachable`
-   - Verification before `docker start`: `sudo -n /usr/sbin/iptables -w 5 -S DOCKER-USER` checked via `assertHostBridgeFirewallRuleInstalled`.
-   - Post-start verification before service launch: in-container TCP egress probe to `1.1.1.1:443` must return `NETWORK_UNREACHABLE` (`__BEWT_TCP_PROBE_EXIT__=1`).
-   - Teardown rollback: `sudo -n /usr/sbin/iptables -w 5 -D DOCKER-USER ...` checked via `assertHostBridgeFirewallRuleRemoved`.
-2. **GCE `IPV4_ONLY` Host Control Policy**:
-   - On `bewt-covext-runner` (`stackType: IPV4_ONLY`), permit `HOST_IPV6_UNAVAILABLE` (`ENETUNREACH` on host control probe to `2606:4700:4700::1111:443`) when the task network has `EnableIPv6 === false` and the container's `ip -6 route show default` is verified empty.
+### 5.3. Independent Authorization Verifier & Fail-Closed Approval Gate (`verifyHostFirewallDecision`)
+Per Team Lead Section 3 (*"Phê duyệt kiến trúc trong prompt này không được sử dụng thay cho cơ chế xác thực độc lập mà code đang yêu cầu... Nếu chưa đáp ứng được cơ chế đó, dừng tại approval gate và trình bày chính xác phần còn thiếu; không tự bypass"*):
+- `claroline-g0.mjs` implements `verifyHostFirewallDecision(authReq, decisionRecord, options)` and `requestHostFirewallApproval(spec)`:
+  1. Verifies an **Ed25519 cryptographic signature** (`crypto.verify(null, Buffer.from(canonicalPayload, 'utf8'), publicKey, signature)`) over the canonical JSON payload binding:
+     - `approvedBy.handle` and `approvedBy.role === "Team Lead"`
+     - `decisionId === "A1"` and `isolationMethod === "linux-docker-user-bridge-reject-v1"`
+     - Exact `runId`, `networkId`, `bridgeInterface` (`br-<id12>`), `uplinkInterface` (`ens3`)
+     - Exact `insertCommand`, `deleteCommand`, `checkCommand`, `scope`, and `rollback`
+     - `issuedAt`, `expiresAt` ($\le 15\text{ minutes}$ TTL), and one-time `nonce`
+  2. Checks and persists the consumed `nonce` + `runId` in an append-only replay ledger to prevent reuse across runs.
+- Because no out-of-band Team Lead Ed25519 public key (`BEWT_TEAM_LEAD_ED25519_PUBLIC_KEY_PEM_FILE`) and per-run signed decision token (`BEWT_HOST_FIREWALL_DECISION_FILE`) have been provisioned out-of-band yet, Cloud Diagnostic `t03b2-d-20261110-r6` wrote `host-firewall-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` **before** executing `sudo /usr/sbin/iptables` or `docker start`, then ran automatic `finally` cleanup (`cleanup-result.json`: `PASS`, `0` residuals).
 
 ---
 
-## 6. Risk & Business Impact Analysis of the Unattributed Claroline Image Patch (Item #6)
+## 6. Reconciled Claroline Pinned Image Patch Analysis & Decision 2 (`P1`) Implementation
 
-### 6.1. Exact Code Diff Identified in Layer 13 of `olianasd/claroline-strongpsw`
-Read-only layer comparison (`docs/tasks/T03-B2/evidence/offline-verification-20261109-r14/image-source-layer-comparison.json`) verified that Layer 8 of `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` contains all 1,630 files of official `claroline-1.11.10.tar.gz` (`sha256:666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6`) with **0 byte mismatches**.
-
-In Layer 13, exactly **one** application source file is modified: `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` (official release SHA-256: `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1` $\rightarrow$ image Layer 13 SHA-256: `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8`, both 23,040 bytes).
-
-Exact unified diff at lines 186–201 inside function `define_course_keys()`:
+### 6.1. Reconciled File Byte Counts, SHA-256 Digests, and Exact 10-Line Diff in Layer 13
+Direct inspection of `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` (`offline-verification-20261109-r14/image-source-layer-comparison.json` and container filesystem inspection) reconciled two contradictions in the earlier report/PR text:
+1. **Byte Count & SHA-256 Reconciliation**:
+   - **Layer 8 (`sha256:d33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f`, pristine official `claroline-1.11.10.tar.gz`)**: `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` is **23,010 bytes**, SHA-256 `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1`.
+   - **Layer 13 (`sha256:a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a`, final runtime filesystem)**: `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` is **23,040 bytes** (`+30` bytes from prepending `// ` to 10 lines), SHA-256 `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8`.
+   - *(Note: Earlier PR #12 summary text had misquoted two unrelated hashes `722cc95...` and `c743513...`, and §6.1 prose had stated "both 23,040 bytes"; the true values are `23,010` bytes `fee57c4d...` in Layer 8 and `23,040` bytes `c3428b9e...` in Layer 13.)*
+2. **Exact Code Diff Reconciliation (Lines 382–389 in `create_course_tables()` and Lines 557–562 in `fill_Db_course()`)**:
+   - Earlier §6.1 draft showed a reconstructed snippet at lines 186–201 (`define_course_keys()`). Direct line-by-line comparison between Layer 8 and Layer 13 proves that `define_course_keys()` is untouched; the **actual** 10 commented lines are at lines **382–389** (`create_course_tables($courseDbName)`) and lines **557–562** (`fill_Db_course(...)`):
 
 ```diff
---- layer_8_official_1.11.10 (claroline/inc/lib/add_course.lib.inc.php)
-+++ layer_13_pinned_image (claroline/inc/lib/add_course.lib.inc.php)
-@@ -186,15 +186,15 @@
-         // here  we can add a counter to exit if need too many try
--        $limitQtyTry = 128;
--
--        if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitQtyTry)
--                or ($tryNewFSCId > $limitQtyTry / 2 )
--                or ($tryNewFSCDb > $limitQtyTry / 2 )
--                or ($tryNewFSCDir > $limitQtyTry / 2 )
--            )
--        {
--            trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
--            return false;
--
--        }
-+        // $limitQtyTry = 128;
-+
-+        // if (($tryNewFSCId+$tryNewFSCDb+$tryNewFSCDir > $limitQtyTry)
-+                // or ($tryNewFSCId > $limitQtyTry / 2 )
-+                // or ($tryNewFSCDb > $limitQtyTry / 2 )
-+                // or ($tryNewFSCDir > $limitQtyTry / 2 )
-+            // )
-+        // {
-+            // trigger_error('too many try for ' .  $wantedCode ,E_USER_WARNING);
-+            // return false;
-+
-+        // }
-     }
+--- layer8/var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php
++++ layer13/var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php
+@@ -382,8 +382,8 @@
+-        CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['course_description'] . "` (
++        // CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['course_description'] . "` (
+             `id` int(11) NOT NULL default '0',
+             `title` varchar(255) default NULL,
+             `content` text,
+             `upDate` datetime NOT NULL default '0000-00-00 00:00:00',
+             `visibility` ENUM('SHOW','HIDE') NOT NULL default 'SHOW',
+-          PRIMARY KEY  (`id`)
+-        ) ENGINE=MyISAM COMMENT='eachelt is a part of the course description';");
++          // PRIMARY KEY  (`id`)
++        // ) ENGINE=MyISAM COMMENT='eachelt is a part of the course description';");
+@@ -387,3 +387,3 @@
+-        CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['course_properties'] . "` (
++        // CREATE TABLE IF NOT EXISTS `" . $tbl_mdb_names['course_properties'] . "` (
+@@ -557,6 +557,6 @@
+-    if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
+-                SET `id` = 1, `title` = '" . claro_sql_escape(get_lang('Description')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
+-    if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
+-                SET `id` = 2, `title` = '" . claro_sql_escape(get_lang('Objectives')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
+-    if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
+-                SET `id` = 3, `title` = '" . claro_sql_escape(get_lang('Human and technical resources')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
++    // if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
++                // SET `id` = 1, `title` = '" . claro_sql_escape(get_lang('Description')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
++    // if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
++                // SET `id` = 2, `title` = '" . claro_sql_escape(get_lang('Objectives')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
++    // if(claro_sql_query("INSERT INTO `" . $tbl_mdb_names['course_description'] . "`
++                // SET `id` = 3, `title` = '" . claro_sql_escape(get_lang('Human and technical resources')) . "', `content` = NULL, `upDate` = NOW(), `visibility` = 'HIDE'") == false) return false;
 ```
 
-### 6.2. Technical & Business Impact Assessment
-
-| Dimension | Assessment |
-| --- | --- |
-| **Why the patch exists in `olianasd/claroline-strongpsw`** | In official Claroline 1.11.10, creating a course with an existing `$wantedCode` (e.g., `'Course001'`) appends a numeric suffix (`001`, `002`, ...) in a `while (!$keysAreUnique)` loop and increments `$tryNewFSCId`, `$tryNewFSCDb`, and `$tryNewFSCDir`. After 64 collisions (`$limitQtyTry / 2 = 64`), official Claroline triggers `E_USER_WARNING: too many try for <wantedCode>` and returns `false`, aborting course creation. In the original BEWT benchmark (and automated test-generation/crawling experiments where tests repeatedly create `'Course001'` without resetting the database), the 65th course creation fails unless this 128-try cap is commented out. |
-| **Impact on G0 (`Claroline_AddUserTest`)** | **Zero runtime impact on G0.** `Claroline_AddUserTest` exercises admin login and user creation (`claroline/admin/adminaddnewuser.php` $\rightarrow$ table `cl_user`). It never loads or executes `claroline/inc/lib/add_course.lib.inc.php`. |
-| **Impact on G1–G4 (`AddCourseTest`, course workflows, and code coverage)** | 1. **Normal test execution ($<64$ courses with same prefix)**: Identical functional behavior; courses are created with identical keys/tables. Since our harness resets the database between runs, `$tryNewFSCId` starts at `0` and never approaches `64`.<br>2. **Branch/line coverage delta**: In `add_course.lib.inc.php`, the 12 commented-out lines (1 guard condition + `trigger_error` + `return false`) are non-executable comments in the image, reducing executable statements in `define_course_keys()` by 3 statements / 1 branch.<br>3. **Exhaustion edge-case**: Any negative test specifically asserting failure after $>64$ duplicate course codes would not trigger `return false` on the unmodified image layer. |
-| **Security & Provenance Risk** | The patch contains **no** backdoor, network call, credential change, or privilege escalation—it only comments out the `128`-retry guard in `define_course_keys()`. However, because it differs from pristine upstream Claroline `1.11.10`, the image must be recorded as a **BEWT benchmark derivative image** (`SOURCE_RELEASE_VERIFIED` with 1 documented benchmark patch) rather than a pristine upstream build. |
-
-### 6.3. Image Provenance Decision Request #2 for Team Lead
-Please choose one of the following options for `T03-B2`:
-- **Option P1 (Recommended for BEWT benchmark fidelity)**: Accept `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` as the pinned BEWT benchmark runtime image, with the 1-file `add_course.lib.inc.php` retry-limit patch explicitly documented in `config/apps/claroline.json` metadata and research reports as a known upstream BEWT benchmark modification.
-- **Option P2 (Strict pristine upstream source)**: Before starting Claroline services in the container, restore `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` from Layer 8 (official SHA-256 `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1`) and verify its SHA-256 inside the container so 100% of the 1,630 application files match official `claroline-1.11.10.tar.gz` byte-for-byte.
+### 6.2. Implementation of Team Lead Decision 2 (`P1 — Accept Pinned BEWT Benchmark Image`)
+Following Team Lead Decision 2 (`P1`):
+1. Promoted `config/apps/claroline.json` with `source.commit = "22d852f93081bc36b1d08b93f5e0c14b49a573f6"`, `source.packageVersion = "1.11.10-bewt-derivative"`, `runtime.version = "1.11.10-bewt-derivative-php-5.5.9-apache-2.4.7-mysql-5.5.61"`, and `runtime.imageDigest = "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"`.
+2. Exported `IMAGE_PROVENANCE_CLASSIFICATION = 'BEWT_BENCHMARK_DERIVATIVE_PINNED'` and `PINNED_IMAGE_PATCH_RECORD` in `experiments/claroline/tools/claroline-g0.mjs`, embedding full provenance into every run's `run-record.json`.
+3. Updated `docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs` (`['bludit', 'claroline', 'expresscart', 'kanboard']`, **3/3 PASS**).
 
 ---
 
 ## 7. Cloud Runtime Execution & G0 Status Table (Items #7 & #8)
 
-All runtime executions on `bewt-covext-runner` stopped fail-closed at `requestRouteIsolationApproval()` (`BLOCKED_APPROVAL_REQUIRED`) **before** `docker start`, as required by Section 6/Item #7 before approvals are granted:
+> **Reconciliation Note on `t03b2-d-20261110-r5`**: Earlier PR #12 summary text erroneously claimed that `t03b2-d-20261110-r5` ran on `--internal` and verified HTTP 200 and MySQL 39 tables. In fact, `docs/tasks/T03-B2/evidence/t03b2-d-20261110-r5/diagnostic-result.json` proves that `t03b2-d-20261110-r5` stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` **before** `docker start` (`businessTest: "NOT_RUN"`, `selenium: "NOT_RUN"`, `dbReset: "NOT_RUN"`). Neither `d-r5` nor `d-r6` started the Claroline container; HTTP and MySQL readiness on the Cloud VM remain **`NOT_RUN`**.
 
 | Component / Gate | Status | Exit Code | Verified Evidence & Details |
 | --- | --- | --- | --- |
-| **Cloud VM Preflight (`r73`, `r75`)** | **`PASS`** | `0` | `bewt-covext-runner` (`3042402845209891905`) `RUNNING`, `60.603 GiB` free RAM, `184.403 GiB` free disk, auto-stop `2026-11-10T02:18:54.625Z` (`offline-verification-20261110-r75/cloud-preflight.json`). |
-| **Node Syntax Checks (`r74` Win, `r75` Linux)** | **`PASS`** | `0` (9/9) | All 9 `.mjs` modules pass `node --check` on commit `2e31e1a0a2aa6681047817bcee17e25405d5ba84`. |
-| **Offline Unit/Fault Tests (`r74` Win, `r75` Linux)** | **`PASS`** | `0` (44/44) | `44/44` tests pass on both Windows (`r74`) and Ubuntu 24.04 Cloud VM (`r75`). |
+| **Cloud VM Preflight (`r73`, `r75`, `r77`)** | **`PASS`** | `0` | `bewt-covext-runner` (`3042402845209891905`) `RUNNING`, `60.614 GiB` free RAM, `184.402 GiB` free disk, auto-stop `2026-11-10T02:18:54.625Z` (`offline-verification-20261110-r77/cloud-preflight.json`). |
+| **Node Syntax Checks (`r76` Win, `r77` Linux)** | **`PASS`** | `0` (9/9) | All 9 `.mjs` modules pass `node --check` on commit `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb`. |
+| **Offline Unit/Fault Tests (`r76` Win, `r77` Linux)** | **`PASS`** | `0` (46/46) | `46/46` tests pass on both Windows (`r76`) and Ubuntu 24.04 Cloud VM (`r77`). |
+| **Runtime Manifest Contract (`config/apps/claroline.json`)** | **`PASS`** | `0` (3/3) | Promoted under Decision `P1`; `verify-config-apps.test.mjs` passes `3/3`. |
 | **Maven Test Compilation (Cloud VM)** | **`PASS`** | `0` | `mvn -B clean test-compile` compiled 22 main + 42 test classes in `11.352 s`. |
-| **SonarCloud Quality Gate (`PR #12`)** | **`PASS`** | `0` | Status `OK`, `Security Rating = A (1)`, `Reliability = A (1)`, `Maintainability = A (1)`, `0` vulnerabilities, `0.0%` duplication on `2e31e1a0a2aa6681047817bcee17e25405d5ba84`. |
-| **Cloud Diagnostic `t03b2-d-20261110-r4`** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.522 GiB`); created network `692707f3...` & dormant app `1051585e...`; blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`. Pre-start cleanup bug fixed in `183668bc`; `cleanup-recovery-r1.json` **`PASS`** (0 residuals). |
-| **Cloud Diagnostic `t03b2-d-20261110-r5`** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.541 GiB`); created network `a8be33f2...` & dormant app `dca3595a...`; blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`. Automatic `cleanup-result.json` **`PASS`** (0 residuals). |
-| **Cloud G0 Run A `t03b2-a-20261110-r6`** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.541 GiB`); created network `2ed133a9...`, dormant app `f6681250...`, dormant browser `2824b38e...`; blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`. Automatic `cleanup-result.json` **`PASS`** (0 residuals). |
-| **Cloud G0 Run B** | **`NOT_RUN`** | — | Gated behind Run A completion and Team Lead approval gates. |
+| **SonarCloud Quality Gate (`PR #12`)** | **`PASS`** | `0` | Status `OK`, `Security Rating = A (1)`, `Reliability = A (1)`, `Maintainability = A (1)`, `0` vulnerabilities, `0.0%` duplication. |
+| **Cloud Diagnostic `t03b2-d-20261110-r4` (legacy route policy)** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.522 GiB`); blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`; `cleanup-recovery-r1.json` **`PASS`** (0 residuals). |
+| **Cloud Diagnostic `t03b2-d-20261110-r5` (legacy route policy)** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.541 GiB`); blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`; automatic `cleanup-result.json` **`PASS`** (0 residuals). |
+| **Cloud G0 Run A `t03b2-a-20261110-r6` (legacy route policy)** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.541 GiB`); blocked at `BLOCKED_APPROVAL_REQUIRED` before `docker start`; automatic `cleanup-result.json` **`PASS`** (0 residuals). |
+| **Cloud Diagnostic `t03b2-d-20261110-r6` (`A1` host-firewall policy)** | **`BLOCKED`** | `1` | Memory gate `PASS` (`60.614 GiB`); verified bridge `br-19ec2e85b685`, uplink `ens3`, `iptables v1.8.10 (nf_tables)`, GCE `IPV4_ONLY`; wrote `host-firewall-authorization-request.json`; blocked at `BLOCKED_APPROVAL_REQUIRED` (no Ed25519 key/token) before `sudo iptables` / `docker start`. Automatic `cleanup-result.json` **`PASS`** (`0` containers/networks/volumes/firewallRules). |
+| **Cloud G0 Run A & Run B (under `A1`)** | **`NOT_RUN`** | — | Gated behind diagnostic `PASS` and independent Ed25519 host-firewall authorization token. |
 | **HTTP / MySQL Readiness** | **`NOT_RUN`** | — | Containers were not started prior to approval gate. |
 | **Selenium Base / `Claroline_AddUserTest` (JUnit XML)** | **`NOT_RUN`** | — | No `TEST-test.Claroline_AddUserTest.xml` generated because runtime stopped before `docker start`. |
 | **Database Reset Verification** | **`NOT_RUN`** | — | Containers were not started prior to approval gate. |

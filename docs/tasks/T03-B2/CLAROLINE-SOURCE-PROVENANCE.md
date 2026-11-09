@@ -63,4 +63,20 @@ No container was created or started during this registry-layer inspection. Host 
 
 The `parseApplicationManifest()` parser accepted a candidate manifest object in memory with the verified source commit and pinned image digest. This is parser evidence only: no `config/apps/claroline.json` file was created or promoted because the image contains an unattributed application-code patch and runtime remains incomplete. See `evidence/offline-verification-20261109-r14/manifest-candidate-parser.json`.
 
-**Pending Team Lead decision:** explicitly accept or reject the pinned customized image derivative, including its unattributed patch to `claroline/inc/lib/add_course.lib.inc.php`, as an eligible G0 runtime. The exact image digest preserves the reviewed bytes but does not establish patch authorship or upstream equivalence. No manifest promotion or G0 acceptance is made here.
+**Pending Team Lead decision (historical at r14):** explicitly accept or reject the pinned customized image derivative, including its unattributed patch to `claroline/inc/lib/add_course.lib.inc.php`, as an eligible G0 runtime. The exact image digest preserves the reviewed bytes but does not establish patch authorship or upstream equivalence. No manifest promotion or G0 acceptance was made at r14.
+
+## Team Lead Decision P1 & Manifest Promotion — 2026-11-10 (r76 / r77 / d-r6)
+
+**Decision: `P1 — Accept Pinned BEWT Benchmark Image` (`BEWT_BENCHMARK_DERIVATIVE_PINNED`).**
+
+1. **Official Team Lead Decision P1**: The Team Lead officially approved accepting `olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af` as the pinned BEWT benchmark derivative runtime image for Claroline `1.11.10`, with the 1-file modification in `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` explicitly recorded as a divergence from pristine upstream Claroline `1.11.10`.
+2. **Exact Re-verified Layer 8 vs Layer 13 Diff and SHA-256 Reconciliation**:
+   - **Layer 8 (1-based; blob `sha256:d33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f`)**: Contains all 1,630 files of the official `claroline-1.11.10.tar.gz` release archive (`sha256:666b63e3b4cf0d188a7f618c0c65493812f0ba2283e606d8f1ea8236072d9dd6`) byte-for-byte. In Layer 8, `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` is **23,010 bytes** with SHA-256 `fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1`.
+   - **Layer 13 (1-based; blob `sha256:a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a`)**: Modifies `var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php` to **23,040 bytes** (`+30` bytes from adding `// ` to 10 lines) with SHA-256 `c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8`.
+   - **Exact Code Diff in `add_course.lib.inc.php`** (correcting both the earlier r14 summary phrase about a 128-attempt guard and the earlier PR summary text that misquoted the hashes as `722cc95...` / `c743513...`):
+     - Lines **382–389** inside `create_course_tables($courseDbName)`: prefixes 4 lines with `// `, commenting out the `CREATE TABLE` statements for `$tbl_mdb_names['course_description']` and `$tbl_mdb_names['course_properties']`.
+     - Lines **557–562** inside `fill_Db_course(...)`: prefixes 6 lines with `// `, commenting out the two initial `INSERT INTO ... course_description` seed statements.
+     - Zero impact on `Claroline_AddUserTest` (which exercises admin login and user creation in `cl_user`), while documented as a benchmark-image divergence for course-creation/course-description workflows.
+3. **Runtime Manifest Promotion**:
+   - Promoted `config/apps/claroline.json` conforming to `framework/src/contracts.ts::parseApplicationManifest` (`appId: "claroline"`, `source.commit: "22d852f93081bc36b1d08b93f5e0c14b49a573f6"`, `source.packageVersion: "1.11.10-bewt-derivative"`, `runtime.version: "1.11.10-bewt-derivative-php-5.5.9-apache-2.4.7-mysql-5.5.61"`, `runtime.imageDigest: "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"`).
+   - Validated via `docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs` (3/3 PASS) and `experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` (46/46 PASS in `offline-verification-20261110-r76` and `offline-verification-20261110-r77`).

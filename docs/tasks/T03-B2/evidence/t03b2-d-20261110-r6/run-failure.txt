@@ -1,0 +1,1 @@
+Error: BLOCKED_APPROVAL_REQUIRED: no trusted Team Lead Ed25519 public key is configured for independent host-firewall authorization verification

@@ -203,3 +203,25 @@ The unit/fault suite is offline-only and does not establish runtime egress isola
   - Ubuntu 24.04 Cloud VM: `evidence/offline-verification-20261110-r75/` (`sha256-manifest.json` verified, 12 files including `cloud-preflight.json`).
 - **Runtime note**: `44/44` unit tests and `validate-evidence.mjs` `VALID` do **not** establish G0 runtime `PASS`; `Claroline_AddUserTest` and DB reset remain `NOT_RUN`.
 
+### 4. Decision `A1` & `P1` implementation, Ed25519 authorization verifier, and Cloud Diagnostic `t03b2-d-20261110-r6` (`r76` Windows & `r77` Ubuntu 24.04 Cloud VM — `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb`)
+
+- **Tested source HEAD**: `3fe306ad0a4a7f1e3bd235c018041cbeee8072cb` (`sourceMatchesHeadAtTest: true`, `sourceWorkingTreeDirtyAtTest: false` on both platforms).
+- **Node syntax checks (9 modules)**: **9/9 PASS (exit 0)** on both Windows (`r76`) and Ubuntu 24.04 Cloud VM (`r77`).
+- **Unit, fault-injection, and cross-platform test suite**: `node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs` — **46/46 PASS, 0 FAIL (exit 0)** on both Windows (`r76`) and Ubuntu 24.04 Cloud VM (`r77`).
+- **Runtime manifest contract test**: `node --test docs/tasks/T02/evidence/review-fixes/verify-config-apps.test.mjs` — **3/3 PASS, 0 FAIL (exit 0)** (`['bludit', 'claroline', 'expresscart', 'kanboard']`).
+- **New test coverage (tests 45–46)**:
+  - **Test 45**: `parseLinuxDefaultUplinkInterface` (`ens3`), `verifyHostEgressControlsForRun` (GCE `IPV4_ONLY` host control acceptance when `EnableIPv6 === false` and host IPv6 default routes are empty; fail-closed rejection when IPv6 route exists or IPv4 control fails), and `PINNED_IMAGE_PATCH_RECORD` provenance metadata (`23,010` bytes `fee57c4d...` in Layer 8 vs `23,040` bytes `c3428b9e...` in Layer 13 at lines `382–389` and `557–562`).
+  - **Test 46**: Independent Ed25519 Team Lead host-firewall authorization verifier (`verifyHostFirewallDecision` / `requestHostFirewallApproval`), covering valid signature + scope + TTL + replay ledger persistence and negative fault cases (no trusted public key, invalid signature, wrong role/identity, mismatched `runId`/`networkId`/`bridgeInterface`/`uplinkInterface`/`insertCommand`/`deleteCommand`/`scope`/`rollback`, expired TTL `>15 min`, and replayed nonce).
+- **Live Cloud Diagnostic `t03b2-d-20261110-r6`**:
+  - Memory preflight: `60.617 / 60.614 / 60.616 GiB` free (`PASS`).
+  - Host firewall preflight (`host-network-firewall-preflight.json`): `PASS` (`networkId: "19ec2e85b68514830ce05530dbe5ec7233cefd4059daeb73cd56798f6fd7470a"`, `bridgeInterface: "br-19ec2e85b685"`, `uplinkInterface: "ens3"`, `iptables v1.8.10 (nf_tables)`).
+  - Authorization gate: Wrote `host-firewall-authorization-request.json` and stopped fail-closed at `BLOCKED_APPROVAL_REQUIRED` before `sudo /usr/sbin/iptables` or `docker start`.
+  - Automatic cleanup (`cleanup-result.json`): **`PASS`** on first pass (`removedContainerIds: ["e0e8131155ae65d9a552fdc553fce13ec92027620950e795007babf30ebc32b8"]`, `removedNetworkId: "19ec2e85b68514830ce05530dbe5ec7233cefd4059daeb73cd56798f6fd7470a"`, `residuals: { containers: 0, networks: 0, volumes: 0, firewallRules: 0 }`).
+  - Evidence validator (`validate-evidence.mjs t03b2-d-20261110-r6`): `valid: true`, `status: "VALID"` (21 files verified against `sha256-manifest.json`).
+- **Evidence**:
+  - Windows: `evidence/offline-verification-20261110-r76/` (`sha256-manifest.json` verified, 11 files).
+  - Ubuntu 24.04 Cloud VM: `evidence/offline-verification-20261110-r77/` (`sha256-manifest.json` verified, 12 files including `cloud-preflight.json`).
+  - Cloud Diagnostic: `evidence/t03b2-d-20261110-r6/` (`sha256-manifest.json` verified, 21 files).
+- **Runtime note**: `46/46` unit tests, `3/3` manifest tests, and `validate-evidence.mjs` `VALID` do **not** establish G0 runtime `PASS`; HTTP/MySQL readiness, `Claroline_AddUserTest`, and DB reset remain `NOT_RUN`.
+
+

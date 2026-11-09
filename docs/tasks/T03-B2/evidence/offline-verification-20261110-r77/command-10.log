@@ -1,0 +1,240 @@
+TAP version 13
+# Subtest: partial-startup cleanup handles 0 recorded Claroline container(s)
+ok 1 - partial-startup cleanup handles 0 recorded Claroline container(s)
+  ---
+  duration_ms: 7.196131
+  ...
+# Subtest: partial-startup cleanup handles 1 recorded Claroline container(s)
+ok 2 - partial-startup cleanup handles 1 recorded Claroline container(s)
+  ---
+  duration_ms: 1.424606
+  ...
+# Subtest: partial-startup cleanup handles 2 recorded Claroline container(s)
+ok 3 - partial-startup cleanup handles 2 recorded Claroline container(s)
+  ---
+  duration_ms: 0.679149
+  ...
+# Subtest: approved egress-limited bridge profile is checked and legacy internal runs remain cleanable
+ok 4 - approved egress-limited bridge profile is checked and legacy internal runs remain cleanable
+  ---
+  duration_ms: 1.943134
+  ...
+# Subtest: isolated internal bridge requires the recorded explicit IPAM gateway and exact container endpoints
+ok 5 - isolated internal bridge requires the recorded explicit IPAM gateway and exact container endpoints
+  ---
+  duration_ms: 1.802213
+  ...
+# Subtest: internal IPAM selector skips overlapping Docker and host route CIDRs
+ok 6 - internal IPAM selector skips overlapping Docker and host route CIDRs
+  ---
+  duration_ms: 0.537647
+  ...
+# Subtest: TCP probe classification keeps timeout, unreachable, execution failure, and egress distinct
+ok 7 - TCP probe classification keeps timeout, unreachable, execution failure, and egress distinct
+  ---
+  duration_ms: 0.664807
+  ...
+# Subtest: host IPv6 unavailable is distinct from a reachable host control and never proves container isolation
+ok 8 - host IPv6 unavailable is distinct from a reachable host control and never proves container isolation
+  ---
+  duration_ms: 0.14003
+  ...
+# Subtest: Node socket timeout preserves its source and remains an inconclusive host control
+ok 9 - Node socket timeout preserves its source and remains an inconclusive host control
+  ---
+  duration_ms: 0.25383
+  ...
+# Subtest: privileged route command stays disabled without independent Team Lead authorization
+ok 10 - privileged route command stays disabled without independent Team Lead authorization
+  ---
+  duration_ms: 0.861072
+  ...
+# Subtest: external TCP probes are generated for fixed IPv4 and IPv6 targets
+ok 11 - external TCP probes are generated for fixed IPv4 and IPv6 targets
+  ---
+  duration_ms: 0.179089
+  ...
+# Subtest: cleanup of route-isolated containers requires exact bootstrap and no persistent capabilities
+ok 12 - cleanup of route-isolated containers requires exact bootstrap and no persistent capabilities
+  ---
+  duration_ms: 1.753659
+  ...
+# Subtest: failed network initialization without a returned ID blocks on an unrecorded same-run resource
+ok 13 - failed network initialization without a returned ID blocks on an unrecorded same-run resource
+  ---
+  duration_ms: 0.245217
+  ...
+# Subtest: create ID is persisted before nonzero status is classified for network/app/Selenium failures
+ok 14 - create ID is persisted before nonzero status is classified for network/app/Selenium failures
+  ---
+  duration_ms: 0.441482
+  ...
+# Subtest: Docker create port bind race is classified after any returned ID is recorded
+ok 15 - Docker create port bind race is classified after any returned ID is recorded
+  ---
+  duration_ms: 0.17986
+  ...
+# Subtest: fault injection: Selenium start failure cleans both containers because their IDs were recorded at create
+ok 16 - fault injection: Selenium start failure cleans both containers because their IDs were recorded at create
+  ---
+  duration_ms: 0.556154
+  ...
+# Subtest: pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints
+ok 17 - pre-start cleanup safely removes created containers with empty dynamic ports and no network endpoints
+  ---
+  duration_ms: 0.647661
+  ...
+# Subtest: running containers with an explicitly unallocated host port are safely cleaned by recorded ownership
+ok 18 - running containers with an explicitly unallocated host port are safely cleaned by recorded ownership
+  ---
+  duration_ms: 0.555443
+  ...
+# Subtest: an empty HostConfig port is blocked if Docker reports an assigned external port
+ok 19 - an empty HostConfig port is blocked if Docker reports an assigned external port
+  ---
+  duration_ms: 0.202153
+  ...
+# Subtest: stopped exit-137 container with detached endpoint and no published port is safely removed
+ok 20 - stopped exit-137 container with detached endpoint and no published port is safely removed
+  ---
+  duration_ms: 0.528662
+  ...
+# Subtest: exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block
+ok 21 - exact Docker NOT_FOUND is idempotent while daemon, permission, transport, and unknown inspect errors block
+  ---
+  duration_ms: 0.33403
+  ...
+# Subtest: stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation
+ok 22 - stale IDs, wrong images, labels, mounts, bindings, and extra endpoints block before mutation
+  ---
+  duration_ms: 0.589103
+  ...
+# Subtest: unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted
+ok 23 - unrecorded same-run containers, networks, or volumes prevent PASS and are never deleted
+  ---
+  duration_ms: 0.444807
+  ...
+# Subtest: partial teardown and network removal failure return BLOCKED/nonzero; no false PASS
+ok 24 - partial teardown and network removal failure return BLOCKED/nonzero; no false PASS
+  ---
+  duration_ms: 0.732879
+  ...
+# Subtest: fully absent previously recorded resources are an idempotent PASS
+ok 25 - fully absent previously recorded resources are an idempotent PASS
+  ---
+  duration_ms: 0.283044
+  ...
+# Subtest: network-only partial run and no-resource network-create failure are safe
+ok 26 - network-only partial run and no-resource network-create failure are safe
+  ---
+  duration_ms: 0.244817
+  ...
+# Subtest: app-only diagnostic can safely clean an exact loopback record when Docker omits the active port report
+ok 27 - app-only diagnostic can safely clean an exact loopback record when Docker omits the active port report
+  ---
+  duration_ms: 0.321943
+  ...
+# Subtest: selected port mismatch or active external binding blocks cleanup without mutation
+ok 28 - selected port mismatch or active external binding blocks cleanup without mutation
+  ---
+  duration_ms: 0.372829
+  ...
+# Subtest: containers without a recorded network block before any stop or rm
+ok 29 - containers without a recorded network block before any stop or rm
+  ---
+  duration_ms: 0.149494
+  ...
+# Subtest: Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML
+ok 30 - Surefire parser requires exactly one expected passing testcase and blocks missing or empty XML
+  ---
+  duration_ms: 1.897315
+  ...
+# Subtest: Surefire sanitization removes machine properties/output and local workspace paths
+ok 31 - Surefire sanitization removes machine properties/output and local workspace paths
+  ---
+  duration_ms: 0.608953
+  ...
+# Subtest: run ID validation rejects unsafe and duplicate-shape identities
+ok 32 - run ID validation rejects unsafe and duplicate-shape identities
+  ---
+  duration_ms: 0.143115
+  ...
+# Subtest: evidence directory creation is write-once for each run ID
+ok 33 - evidence directory creation is write-once for each run ID
+  ---
+  duration_ms: 0.758237
+  ...
+# Subtest: native tools resolve to explicit paths and child PATH excludes user-writable AppData
+ok 34 - native tools resolve to explicit paths and child PATH excludes user-writable AppData
+  ---
+  duration_ms: 0.142664
+  ...
+# Subtest: loopback port selector returns an available host-only ephemeral port
+ok 35 - loopback port selector returns an available host-only ephemeral port
+  ---
+  duration_ms: 2.75427
+  ...
+# Subtest: selected loopback port probe detects occupied port and does not claim reservation
+ok 36 - selected loopback port probe detects occupied port and does not claim reservation
+  ---
+  duration_ms: 1.122653
+  ...
+# Subtest: Docker port verification requires exact loopback HostConfig and NetworkSettings match
+ok 37 - Docker port verification requires exact loopback HostConfig and NetworkSettings match
+  ---
+  duration_ms: 0.369814
+  ...
+# Subtest: Linux executable verification enforces root ownership, trusted prefixes, and non-writable permissions
+ok 38 - Linux executable verification enforces root ownership, trusted prefixes, and non-writable permissions
+  ---
+  duration_ms: 0.270556
+  ...
+# Subtest: cross-platform memory and IPv4 route readers parse Linux and Windows formats and fail closed on invalid input
+ok 39 - cross-platform memory and IPv4 route readers parse Linux and Windows formats and fail closed on invalid input
+  ---
+  duration_ms: 0.732328
+  ...
+# Subtest: Cloud Controller enforces allowlisted actions, VM termination schedule, and SHA-256 manifests
+ok 40 - Cloud Controller enforces allowlisted actions, VM termination schedule, and SHA-256 manifests
+  ---
+  duration_ms: 0.642313
+  ...
+# Subtest: Deterministic Evidence Validator detects contradictions, secret leaks, and validates SHA-256 manifests
+ok 41 - Deterministic Evidence Validator detects contradictions, secret leaks, and validates SHA-256 manifests
+  ---
+  duration_ms: 3.751535
+  ...
+# Subtest: protected Git/Node CLI paths and evidence ID path-traversal guards reject unsafe inputs
+ok 42 - protected Git/Node CLI paths and evidence ID path-traversal guards reject unsafe inputs
+  ---
+  duration_ms: 0.60673
+  ...
+# Subtest: resolveVmExternalIp dynamically queries gcloud natIP and fails closed when natIP is missing
+ok 43 - resolveVmExternalIp dynamically queries gcloud natIP and fails closed when natIP is missing
+  ---
+  duration_ms: 0.287351
+  ...
+# Subtest: Ubuntu host bridge firewall specification and verification enforce exact interface, comment tag, REJECT target, and zero-residual rollback
+ok 44 - Ubuntu host bridge firewall specification and verification enforce exact interface, comment tag, REJECT target, and zero-residual rollback
+  ---
+  duration_ms: 0.571828
+  ...
+# Subtest: Decision 1 (A1): host uplink, kernel bridge sysfs, GCE IPV4_ONLY egress control, cryptographic authorization verifier, install/remove, and cleanup rollback
+ok 45 - Decision 1 (A1): host uplink, kernel bridge sysfs, GCE IPV4_ONLY egress control, cryptographic authorization verifier, install/remove, and cleanup rollback
+  ---
+  duration_ms: 4.46766
+  ...
+# Subtest: Decision 2 (P1): Claroline application manifest and pinned BEWT derivative patch metadata match contract
+ok 46 - Decision 2 (P1): Claroline application manifest and pinned BEWT derivative patch metadata match contract
+  ---
+  duration_ms: 0.140871
+  ...
+1..46
+# tests 46
+# suites 0
+# pass 46
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 90.682344
