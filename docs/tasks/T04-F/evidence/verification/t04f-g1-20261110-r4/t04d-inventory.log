@@ -1,0 +1,8 @@
+PASS bludit: 23 features, 23 matched, 0 feature-only, 0 suite-only
+PASS claroline: 40 features, 40 matched, 0 feature-only, 0 suite-only
+PASS expresscart: 31 features, 31 matched, 0 feature-only, 0 suite-only
+PASS joomla: 35 features, 35 matched, 0 feature-only, 0 suite-only
+PASS mantisbt: 38 features, 37 matched, 1 feature-only, 0 suite-only
+PASS mediawiki: 27 features, 27 matched, 0 feature-only, 0 suite-only
+PASS prestashop: 33 features, 33 matched, 0 feature-only, 2 suite-only
+PASS totals: {"features":227,"scenarios":204,"tests":228,"mapped":226,"featureOnly":1,"suiteOnly":2}

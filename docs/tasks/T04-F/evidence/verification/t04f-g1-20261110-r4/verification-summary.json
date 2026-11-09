@@ -1,0 +1,430 @@
+{
+  "schemaVersion": "1.0",
+  "task": "T04-F",
+  "runId": "t04f-g1-20261110-r4",
+  "testedBaseHead": "bd9b3b15fca28419ada9862b8a65bac910edf169",
+  "branch": "feature/offline-g1-review-prep",
+  "sourceDirtyAtTest": true,
+  "dirtyScope": "only new T04-F documentation/verifier/evidence was added; existing T04-D/T04-E source/tests/data were committed at testedBaseHead",
+  "commands": [
+    {
+      "name": "t04e-validator",
+      "command": "node docs/tasks/T04-E/tools/verify-source-backed-gaps.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "t04e-tests",
+      "command": "node --test docs/tasks/T04-E/tools/test/verify-source-backed-gaps.test.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "t04d-inventory",
+      "command": "node docs/tasks/T04-D/tools/verify-inventory.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "t04f-packet-integrity",
+      "command": "node docs/tasks/T04-F/tools/verify-review-package.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "t04f-syntax",
+      "command": "node --check docs/tasks/T04-F/tools/verify-review-package.mjs",
+      "exitCode": 0
+    },
+    {
+      "name": "staged-diff-whitespace",
+      "command": "git diff --cached --check",
+      "exitCode": 0
+    },
+    {
+      "name": "secret-pattern-scan",
+      "command": "rg -n -i <exact patterns in secret-scan-pattern.txt> docs/tasks/T04-F",
+      "rawRgExitCode": 1,
+      "rawMeaning": "no matches",
+      "normalizedExitCode": 0
+    }
+  ],
+  "counts": {
+    "applicationsReviewed": 7,
+    "sourceBackedProposals": 27,
+    "technicalReviewOrder": 20,
+    "reviewPackets": 7,
+    "proposalValidatorTests": {
+      "passed": 14,
+      "failed": 0
+    },
+    "baseline": {
+      "featureFiles": 227,
+      "scenarioHeaders": 204,
+      "suiteEntries": 228,
+      "structuralMappings": 226,
+      "featureOnly": 1,
+      "suiteOnly": 2
+    }
+  },
+  "sourceAndTestHashes": [
+    {
+      "path": "docs/tasks/T04-D/tools/verify-inventory.mjs",
+      "sha256": "0e43c940d53417299f90d3a36d147c02f5f4edd771855e22c52814fff186ec2b",
+      "gitBlobId": "caa686b1e1b5916e87516efb8b41467e25f555ab"
+    },
+    {
+      "path": "docs/tasks/T04-E/tools/verify-source-backed-gaps.mjs",
+      "sha256": "cadeaa92449fc82a205c4db5422c79f6a8975ceebd97622bf7314b5f35ae044b",
+      "gitBlobId": "9937f938b325639a29b8a6ccb0949fe0d45daefb"
+    },
+    {
+      "path": "docs/tasks/T04-E/tools/test/verify-source-backed-gaps.test.mjs",
+      "sha256": "78bbd261a421a4b22252259c80e22b5862dd3fda71b379c701eecd4d28ccc632",
+      "gitBlobId": "5aa795a325945ec355ea506f2b9b3efc3b164999"
+    },
+    {
+      "path": "docs/tasks/T04-E/source-reference-index.json",
+      "sha256": "aeec1ec1c2ffc5ec8b85371b9ce200faaf51ff468d8cb1a5fc18e0c797668c7c",
+      "gitBlobId": "a691a2ce8a46214cf1d67874f81bb5a047d4d2cd"
+    },
+    {
+      "path": "data/coverage/bludit/source-backed-gap-proposals.json",
+      "sha256": "ca9a4a2f25bc7dc06833f38d7679cc8360aefb748ae99d4912fc1e242600b0bd",
+      "gitBlobId": "3a3c9d2b08178f62011530d16558be2adccb17b6"
+    },
+    {
+      "path": "data/coverage/bludit/source-backed-gap-shortlist.json",
+      "sha256": "1b460cf5a27f69ce6a2b3e3c1d1f0f5b01d658c2427f5c3402ca9e513f620e4f",
+      "gitBlobId": "dc1d11dceef67cd54a52da1bdacf052c06299312"
+    },
+    {
+      "path": "data/coverage/bludit/baseline-mapping.json",
+      "sha256": "e2aa512f63729cf9823f4600e1b888896d167c01251c5ec8d2a35c6889eb8128",
+      "gitBlobId": "28903349aea9f3abc4ddb5ccfa67b60770132bd3"
+    },
+    {
+      "path": "data/coverage/claroline/source-backed-gap-proposals.json",
+      "sha256": "cd2cb7eb1faa7e91d13d1400c6de52ca2b2b213678c7bff58b2274a9e568a476",
+      "gitBlobId": "239089858342ac7432c25316739600b9c90be034"
+    },
+    {
+      "path": "data/coverage/claroline/source-backed-gap-shortlist.json",
+      "sha256": "fc3a35338f824da6e0386f5a3bb5b4f8b54079d74a20262ff2cdefd28e97221e",
+      "gitBlobId": "22789c0225d6309d7d906f8b1539e4127baa9beb"
+    },
+    {
+      "path": "data/coverage/claroline/baseline-mapping.json",
+      "sha256": "79c7cf1db05923f10b2ae1e211777f5f9acdb681c98b06e4d6c9390a83a6ff2f",
+      "gitBlobId": "c090659d49a425f735cced99e3ea0080bdcb6143"
+    },
+    {
+      "path": "data/coverage/expresscart/source-backed-gap-proposals.json",
+      "sha256": "5ed7ba92935228e17dce5a28a39e3d80e8e4058144d629e42b56f9b232876bf1",
+      "gitBlobId": "6b394c08276fba663274905d106eb383e8019ddd"
+    },
+    {
+      "path": "data/coverage/expresscart/source-backed-gap-shortlist.json",
+      "sha256": "f6b1a82dbb06b61b0ee00e57a93c0d13b255a31630a0ac0e4bafce0118e3c426",
+      "gitBlobId": "44df97dc11d938850fa1cc01a62e9aaedf7523e5"
+    },
+    {
+      "path": "data/coverage/expresscart/baseline-mapping.json",
+      "sha256": "208ba0694bd992364c30ef37b2df5821b948c5e320622107d63f8d077f9d1ed4",
+      "gitBlobId": "247b7a0fa88c4bb506b5e7f32b5c809a342418d3"
+    },
+    {
+      "path": "data/coverage/joomla/source-backed-gap-proposals.json",
+      "sha256": "697731a841d4792aea9c1c47ab07da5b1b892016da774c1b0e4ecf987d7458b8",
+      "gitBlobId": "3c1a780f37a5e914d5b9b8731191fee56c94ab17"
+    },
+    {
+      "path": "data/coverage/joomla/source-backed-gap-shortlist.json",
+      "sha256": "ff388e2c9f4fe28fafbdc5990acdf33f766281b3706d860d12c44dc03789a49a",
+      "gitBlobId": "abd5c79adcf67475e205f10e4bd2bbfb93b3b2fc"
+    },
+    {
+      "path": "data/coverage/joomla/baseline-mapping.json",
+      "sha256": "3ffa653bb384a3a4a11fbb01f670f668b96728043582d18663bd0aa485247f8a",
+      "gitBlobId": "1b285c45baf0ff27872df33f776e3237bad73759"
+    },
+    {
+      "path": "data/coverage/mantisbt/source-backed-gap-proposals.json",
+      "sha256": "5c54cb99537e13fa82bec9f155f768716722f5023123b46ce301c27b5a926616",
+      "gitBlobId": "fc89e0bfd97f679cd847ec3551221d389a88f0ba"
+    },
+    {
+      "path": "data/coverage/mantisbt/source-backed-gap-shortlist.json",
+      "sha256": "e6a9a6a9732a653ef102036caf35113d65c173ded3bbef16200d800317e711e4",
+      "gitBlobId": "30bfb101bfe392e8a0d49b03459ea830a0d93a37"
+    },
+    {
+      "path": "data/coverage/mantisbt/baseline-mapping.json",
+      "sha256": "c080e9dab21f49a17559479112512664266c3d6fe6a1e7d413a242ae52048847",
+      "gitBlobId": "1d187f58e3385ae675721fb53f4555ea6a80f815"
+    },
+    {
+      "path": "data/coverage/mediawiki/source-backed-gap-proposals.json",
+      "sha256": "1c2abd517731f27a8c2b1cea96188f8ed89926cbf3442fb122a241993fd332a0",
+      "gitBlobId": "d6b73f25b0f419738f9fcba77a08669149e58905"
+    },
+    {
+      "path": "data/coverage/mediawiki/source-backed-gap-shortlist.json",
+      "sha256": "412b8690d0392fb266e6ab048448972f9965fa273637bad11ba4d0764f75835d",
+      "gitBlobId": "d35cb37981ebcaa69282288b67e9dd4355eb83d5"
+    },
+    {
+      "path": "data/coverage/mediawiki/baseline-mapping.json",
+      "sha256": "00aac5b6cb2b720db52dcc83f29a99527b352bb682310afe54e138794f35ad6c",
+      "gitBlobId": "21a03a0ec5ee76cd7ddca16e1c4b060b90ecfec9"
+    },
+    {
+      "path": "data/coverage/prestashop/source-backed-gap-proposals.json",
+      "sha256": "727be072360eb5c08fb90701c6bc79a3ea14fc52e045dd56fb349299e5eb856f",
+      "gitBlobId": "cf9f1d0a28e4daf4a45ecdb178e11ad3aa8d6988"
+    },
+    {
+      "path": "data/coverage/prestashop/source-backed-gap-shortlist.json",
+      "sha256": "4b2515191ced8b5eeec8192163119c73f16e8727aa590f6fa9462dba900e15fb",
+      "gitBlobId": "ef490f4d4d9f90ed559f468e8d4f11f81b1442e0"
+    },
+    {
+      "path": "data/coverage/prestashop/baseline-mapping.json",
+      "sha256": "23f1f7358c09b0a86c7dadd8ddbd932418e91d64f489105b4256a2fbba2fdaaf",
+      "gitBlobId": "2629910b668b68e3a0f956ea17524417a2c1b0cb"
+    },
+    {
+      "path": "docs/tasks/T04-F/tools/verify-review-package.mjs",
+      "sha256": "1926b0c6cd33980a12861566435af6d4c1a7ad72614a8a3e887f8845eb5c5a31",
+      "precommitGitBlobId": "ac86fbdaae87e6b770f516ce3a06f7bd4a2faace"
+    }
+  ],
+  "taskArtifactHashes": [
+    {
+      "path": "docs/tasks/T04-F/G1-REVIEW-PACKAGE.md",
+      "sha256": "9a068f0ce91221eceaba350967b96e6c385a3fc993cb8f8b77861013f65166f3",
+      "precommitGitBlobId": "f0e903413ae32ad167b9230ab8732ccd33970c83"
+    },
+    {
+      "path": "docs/tasks/T04-F/TASK-REPORT.md",
+      "sha256": "1b0063715b0e9ca13aabede46d50354def3b28a1ca04dc3e521d21bdb32367df",
+      "precommitGitBlobId": "e0f5084d27c6cefb0d0788b993574bff05e83b66"
+    },
+    {
+      "path": "docs/tasks/T04-F/TEST-RESULTS.md",
+      "sha256": "b16fafdccac00dc883946534ed4a9b56bd275243d2a09af26d7f4a7bfaefd488",
+      "precommitGitBlobId": "c5b8432dbd9c8d27e569304954aeb16ab6834532"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/commands.json",
+      "sha256": "aca32de0b632b41f8812c84a7228619c371f9aa055a527e37a1032a07deea973",
+      "precommitGitBlobId": "436ebc42c10f654a07e1580c4af76509172829fa"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/diff-check.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/diff-check.txt",
+      "sha256": "2af510d91656c60a4b3e02426cdc34421c49e2c4b27b894c402f01539c5519fe",
+      "precommitGitBlobId": "119cd40d26e2f19bfe1e24e15b657c091e64b645"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/node-version.txt",
+      "sha256": "bc697de995dc791df53d688ef69c08994cdffc8ce30c906b1ffc65b131ccd0eb",
+      "precommitGitBlobId": "3648bfc346569dbd2100505f5c60d9d4598ed69e"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan-pattern.txt",
+      "sha256": "21d5685c572d3becc80b83f2436d183b339a63e535f5c7b24d5adefaed528948",
+      "precommitGitBlobId": "8acd6923faa7d9a63e3062648e063f20160b490e"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan.txt",
+      "sha256": "cee5a162cd116dccc778e7dd7a6ecb0c71a9a98befe94203b34e9c01a23f54fa",
+      "precommitGitBlobId": "2c5efd6bf7e3fcf48bd167c39f7f271b6b1b2b28"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04d-inventory.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04d-inventory.log",
+      "sha256": "0a0bd2b051b556588934c08d9ad3fb27188388a3a945201e04d4220a3a905bb4",
+      "precommitGitBlobId": "cc9f8c3da0657a367c0d56fce24cf2e94d0c3c44"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-tests.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-tests.log",
+      "sha256": "5eb8ecaf8e0cf23b4e617a236202d9d2ce06e6e6637ed50bd306cdbdf07dc2a0",
+      "precommitGitBlobId": "73d71f70577ee13894bd8f205c2c470c856859bd"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-validator.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-validator.log",
+      "sha256": "e86b4d45cd74fd3842133e2ed346c380b5ad0732e6110dc899b99bc31489e0af",
+      "precommitGitBlobId": "ec502b6649ddcfaaeef550dc3796fc5128fbb10d"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-packet-integrity.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-packet-integrity.log",
+      "sha256": "a14b188527e5f2d3a6fe7ae9b6513754cf803f562b24174e41087a47be46c186",
+      "precommitGitBlobId": "e21bb21707d671dcc6c960001f0d28b07d7c6acc"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-syntax.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "precommitGitBlobId": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "precommitGitBlobId": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/tested-base-head.txt",
+      "sha256": "c6f576afccad46f9032770c4231145279217b034a1a881fbb4400b7946a2bb42",
+      "precommitGitBlobId": "a0273886a52ff4ea51f2e183acdbcb9b5786886d"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/bludit.md",
+      "sha256": "81f86ac903b05746843ff6d813049be691f777ab4e9ada854b749415c74e4817",
+      "precommitGitBlobId": "51b9c362ee6b7dbce7eb90d0cd970ead15e30618"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/claroline.md",
+      "sha256": "74da9b912dec118cdc8bdf73db7270af3d75c180cdec31b40bca6a419c6f77c7",
+      "precommitGitBlobId": "cc7d37576111e1ba1cd57731afa3ab9f181c035a"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/expresscart.md",
+      "sha256": "10333412510b1147f18f78924269f38466a88ec172717b08662a5110772171c4",
+      "precommitGitBlobId": "a9443eb28ad8e69543a843c0acc4f9603d788092"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/joomla.md",
+      "sha256": "734a4d3a3d43080ea819219e4d861e0527438650e6255d4014bfedde4bb4e65b",
+      "precommitGitBlobId": "972294e296ae8cbf3208b7934b4941d9ccc2be8b"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/mantisbt.md",
+      "sha256": "b833daa7b96866be3ed6fc0a32d4c8c8b1be52af584a849379cff377e485ca96",
+      "precommitGitBlobId": "919de087f7e068ba62b6672dd675777b779b33b5"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/mediawiki.md",
+      "sha256": "1ea28cc8c07100bf2c120d3788347e2676a1ce0509ca2589e6fa20619b5caa71",
+      "precommitGitBlobId": "c9de315e613013148ac66a840feea133f8b05e1d"
+    },
+    {
+      "path": "docs/tasks/T04-F/review-packets/prestashop.md",
+      "sha256": "7f0831dce34766e0493f7278faec75b8ead068f04f42cbb21763dd69f6435f75",
+      "precommitGitBlobId": "6bc8cee68580aa71f72ec3dfbfdae4dbb13b51bd"
+    },
+    {
+      "path": "docs/tasks/T04-F/tools/verify-review-package.mjs",
+      "sha256": "1926b0c6cd33980a12861566435af6d4c1a7ad72614a8a3e887f8845eb5c5a31",
+      "precommitGitBlobId": "ac86fbdaae87e6b770f516ce3a06f7bd4a2faace"
+    }
+  ],
+  "evidenceLogHashes": [
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/commands.json",
+      "sha256": "aca32de0b632b41f8812c84a7228619c371f9aa055a527e37a1032a07deea973"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/diff-check.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/diff-check.txt",
+      "sha256": "2af510d91656c60a4b3e02426cdc34421c49e2c4b27b894c402f01539c5519fe"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/node-version.txt",
+      "sha256": "bc697de995dc791df53d688ef69c08994cdffc8ce30c906b1ffc65b131ccd0eb"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan-pattern.txt",
+      "sha256": "21d5685c572d3becc80b83f2436d183b339a63e535f5c7b24d5adefaed528948"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/secret-scan.txt",
+      "sha256": "cee5a162cd116dccc778e7dd7a6ecb0c71a9a98befe94203b34e9c01a23f54fa"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04d-inventory.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04d-inventory.log",
+      "sha256": "0a0bd2b051b556588934c08d9ad3fb27188388a3a945201e04d4220a3a905bb4"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-tests.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-tests.log",
+      "sha256": "5eb8ecaf8e0cf23b4e617a236202d9d2ce06e6e6637ed50bd306cdbdf07dc2a0"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-validator.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04e-validator.log",
+      "sha256": "e86b4d45cd74fd3842133e2ed346c380b5ad0732e6110dc899b99bc31489e0af"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-packet-integrity.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-packet-integrity.log",
+      "sha256": "a14b188527e5f2d3a6fe7ae9b6513754cf803f562b24174e41087a47be46c186"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-syntax.exit-code.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/t04f-syntax.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docs/tasks/T04-F/evidence/verification/t04f-g1-20261110-r4/tested-base-head.txt",
+      "sha256": "c6f576afccad46f9032770c4231145279217b034a1a881fbb4400b7946a2bb42"
+    }
+  ],
+  "outcomes": {
+    "sourceBackedBundle": "OFFLINE_VERIFIED",
+    "candidateNovelty": "NOT_VERIFIED",
+    "humanReview": "NOT_RUN",
+    "G1": "NOT_VERIFIED",
+    "docker": "NOT_RUN",
+    "applicationRuntime": "NOT_RUN",
+    "selenium": "NOT_RUN",
+    "databaseReset": "NOT_RUN",
+    "gemini": "NOT_RUN"
+  }
+}
