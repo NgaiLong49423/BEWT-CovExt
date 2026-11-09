@@ -106,11 +106,11 @@ test('CLI validates fixture data, prints PASS, and rejects invalid data with non
 
     const badPath = path.join(root, 'data/coverage/bludit/source-backed-gap-proposals.json');
     const bad = JSON.parse(fs.readFileSync(badPath, 'utf8'));
-    bad.sourcePin.treeSha = '0'.repeat(40);
+    bad.candidateCount += 1;
     fs.writeFileSync(badPath, JSON.stringify(bad));
     const invalid = spawnSync(process.execPath, [cli, '--root', root], { encoding: 'utf8' });
     assert.notEqual(invalid.status, 0);
-    assert.match(invalid.stderr, /mixed source pin/);
+    assert.match(invalid.stderr, /candidate count mismatch/);
     assert.doesNotMatch(invalid.stdout, /^PASS:/);
   } finally {
     fs.rmSync(root, { recursive: true, force: true });
