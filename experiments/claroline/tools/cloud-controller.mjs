@@ -135,7 +135,7 @@ export function buildRemoteCommandScript(action, params = {}) {
         'node --check experiments/claroline/tools/record-offline-verification.mjs',
         'node --check experiments/claroline/tools/cloud-controller.mjs',
         'node --check experiments/claroline/tools/validate-evidence.mjs',
-        'node --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs',
+        'npx --prefix framework tsx --test experiments/claroline/tools/test/cleanup-claroline-g0.test.mjs',
       ].join(' && ');
     case 'maven-compile':
       return `set -eu; cd ${repo}/experiments/claroline/bewt-suite && mvn -B clean test-compile`;
