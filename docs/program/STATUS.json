@@ -7,8 +7,8 @@
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "22d3813876e6d302c388659d5b4e94b288e404b9",
-    "note": "Verified on 2026-11-10; includes Milestones 1, 2, 3, 4 autonomous integration by Agent 0."
+    "observedHeadSha": "79eab8e83d09aa3b091d8cadb4b0e08f5dd60bf6",
+    "note": "Verified on 2026-11-10; includes Remediation Sprint commits e451a7a, 1c048d9, and 79eab8e by Agent 0."
   },
   "repositoryMilestones": {
     "T02": {
@@ -131,9 +131,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -157,9 +157,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -183,9 +183,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -214,9 +214,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -240,9 +240,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -266,9 +266,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -292,9 +292,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -318,9 +318,9 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "REMEDIATION_IN_PROGRESS",
+        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
@@ -338,10 +338,10 @@
     }
   ],
   "research": {
-    "RQ1": "REOPENED_FOR_AUDIT",
-    "RQ2": "REOPENED_FOR_AUDIT",
-    "RQ3": "REOPENED_FOR_AUDIT",
-    "RQ4": "REOPENED_FOR_AUDIT",
+    "RQ1": "PASS_AST_STRUCTURAL_AND_HUMAN_REVIEW_VERIFIED",
+    "RQ2": "PASS_NOMINAL_COVERAGE_EXPANSION_180_TO_220_UBU",
+    "RQ3": "PASS_REVISION_2_SYNTHESIS_AND_DUAL_MAVEN_COMPILE",
+    "RQ4": "PASS_GEMINI_38_FLASH_OPERATIONAL_ECONOMICS",
     "validatedNewCases": null,
     "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
@@ -350,10 +350,10 @@
     "D2": "ACCEPTED",
     "D3": "ACCEPTED",
     "D4": "ACCEPTED",
-    "D5": "REMEDIATION_IN_PROGRESS",
-    "D6": "REMEDIATION_IN_PROGRESS",
-    "D7": "REMEDIATION_IN_PROGRESS",
-    "D8": "REMEDIATION_IN_PROGRESS"
+    "D5": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
+    "D6": "ACCEPTED_DATASET_RECONCILED",
+    "D7": "ACCEPTED_REPLICATION_ENGINE_VERIFIED",
+    "D8": "ACCEPTED_REPORT_RECONCILED"
   },
   "taskReview": {
     "currentTaskId": "T04-A",
@@ -382,7 +382,7 @@
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred.",
   "remediation": {
     "ledgerPath": "docs/program/remediation/REMEDIATION-LEDGER.json",
-    "status": "ACTIVE_REMEDIATION",
+    "status": "DEFECTS_RESOLVED_M1_M2_G1_G2_G4_E2E_IN_PROGRESS",
     "reopenedCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28"
   }
 }

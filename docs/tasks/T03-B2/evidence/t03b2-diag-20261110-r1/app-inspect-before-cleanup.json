@@ -1,0 +1,56 @@
+{
+  "id": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+  "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+  "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "labels": {
+    "app": "claroline",
+    "managed-by": "bewt-covext-agent",
+    "owner": "bewt-covext",
+    "project": "bewt-covext",
+    "runId": "t03b2-diag-20261110-r1",
+    "task": "t03b2-g0"
+  },
+  "state": {
+    "status": "running",
+    "running": true,
+    "exitCode": 0,
+    "oomKilled": false,
+    "error": "",
+    "startedAt": "2026-11-10T16:44:31.315785722Z",
+    "finishedAt": "0001-01-01T00:00:00Z"
+  },
+  "hostConfig": {
+    "privileged": false,
+    "networkMode": "bewt-covext-claroline-t03b2-diag-20261110-r1-net",
+    "binds": [],
+    "portBindings": {
+      "80/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "43283"
+        }
+      ]
+    }
+  },
+  "networkSettings": {
+    "ports": {
+      "3306/tcp": null,
+      "80/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "43283"
+        }
+      ]
+    },
+    "networks": {
+      "bewt-covext-claroline-t03b2-diag-20261110-r1-net": {
+        "networkId": "d8c2b96f36934e3ea4253cbe9a4725e582b30659d8df843ae8f86a1bd25f01f0",
+        "endpointId": "d5f5305a8efdf07ebc726435e6d723daf823c69ef2516a1b348c07dc6140de81",
+        "ipAddress": "172.26.254.2",
+        "gateway": "172.26.254.1",
+        "macAddress": "82:8f:75:26:1e:2b"
+      }
+    }
+  },
+  "mounts": []
+}

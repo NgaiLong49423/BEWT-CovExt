@@ -1,0 +1,19 @@
+{
+  "outcome": "PASS",
+  "requestedHostPort": 43283,
+  "hostConfig": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "43283"
+    }
+  ],
+  "networkSettings": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "43283"
+    }
+  ],
+  "dockerPort": "127.0.0.1:43283",
+  "mysql3306Published": false,
+  "reservationHeld": false
+}

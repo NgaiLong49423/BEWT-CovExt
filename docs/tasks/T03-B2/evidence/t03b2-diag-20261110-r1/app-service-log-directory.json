@@ -1,0 +1,14 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+    "/bin/sh",
+    "-c",
+    "set -eu; test -d \"$HOME\"; test ! -L \"$HOME\"; umask 077; printf \"%s\\n\" \"$HOME\"; mktemp -d \"$HOME/.t03b2-logs.XXXXXXXX\""
+  ],
+  "status": 0,
+  "stdout": "/root\n/root/.t03b2-logs.FuCkY0DJ\n",
+  "stderr": "",
+  "error": ""
+}

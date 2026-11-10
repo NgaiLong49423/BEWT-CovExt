@@ -1,0 +1,16 @@
+{
+  "exitCode": 0,
+  "rows": [
+    {
+      "BlockIO": "56.2MB / 31.3MB",
+      "CPUPerc": "0.03%",
+      "Container": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+      "ID": "bc15c6d51027",
+      "MemPerc": "4.87%",
+      "MemUsage": "62.29MiB / 1.25GiB",
+      "Name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+      "NetIO": "8.77kB / 5.6kB",
+      "PIDs": "23"
+    }
+  ]
+}

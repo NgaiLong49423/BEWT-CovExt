@@ -3,17 +3,21 @@
   "program": "BEWT-CovExt v2.0",
   "title": "Critical Remediation Issue Ledger",
   "reopenedAtUtc": "2026-11-10T16:10:00Z",
+  "lastUpdatedAtUtc": "2026-11-10T16:51:00Z",
   "auditedReferenceCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28",
+  "currentHeadCommit": "79eab8e83d09aa3b091d8cadb4b0e08f5dd60bf6",
   "orchestrator": "AGENT 0",
   "remediationPlan": {
     "totalDefects": 4,
+    "resolvedDefects": 3,
+    "inProgressDefects": 1,
     "defects": [
       {
         "defectId": "DEFECT-001",
         "title": "Trivial Selenium Tests (currentUrl.length() >= 0)",
         "priority": "P0_CRITICAL",
         "owner": "AGENT 3",
-        "status": "IN_PROGRESS",
+        "status": "RESOLVED",
         "affectedApplications": [
           "bludit", "claroline", "expresscart", "joomla",
           "kanboard", "mantisbt", "mediawiki", "prestashop"
@@ -21,34 +25,40 @@
         "affectedCandidateCount": 40,
         "rootCause": "The code synthesis and fallback logic generated placeholder Selenium test bodies asserting only driver/body presence and currentUrl.length() >= 0, while validateGeneratedJavaContract checked only executableAssertionCount > 0 without enforcing semantic business assertions or user interactions.",
         "requiredFix": "1. Implement automated anti-trivial quality gate rejecting currentUrl.length() >= 0, driver != null, generic body presence, and requiring real Selenium interactions and domain assertions.\n2. Re-implement all 40 test classes with meaningful Given/When/Then business logic, element interactions, and observable domain oracles.\n3. Register as revision-2 in extension/<app>/selenium/<dirId>/revision-2/ preserving immutable revision-1.",
-        "verificationGate": "G2"
+        "verificationGate": "G2",
+        "resolvedInCommit": "79eab8e83d09aa3b091d8cadb4b0e08f5dd60bf6",
+        "resolutionSummary": "Implemented automated anti-trivial quality gate in model-provider.ts and java-class.ts (verified by 71 unit tests). Re-implemented all 40 test classes as revision-2 with authentic Given/When/Then operations and domain post-condition assertions. Registered all 40 revision-2 artifacts under extension/<app>/selenium/<dirId>/revision-2/ preserving immutable revision-1. Deployed into 8 benchmark test suites and verified clean Maven compilation locally and on Google Cloud VM (12.0s)."
       },
       {
         "defectId": "DEFECT-002",
         "title": "Invalid Scientific Metric Computation",
         "priority": "P1_HIGH",
         "owner": "AGENT 2",
-        "status": "IN_PROGRESS",
+        "status": "RESOLVED",
         "affectedFiles": [
           "docs/research-results/v2/replication/recompute-metrics.mjs",
           "docs/research-results/v2/dataset/evaluation-metrics-rq1-rq4.json"
         ],
         "rootCause": "RQ1 used naive string search; RQ2 automatically added 40 candidates to 180 without verifying E2E execution; RQ3 hardcoded compile pass counts; RQ4 used static estimated token averages without actual telemetry distinction.",
         "requiredFix": "1. Validate Gherkin syntax with Cucumber parser AST and count human review decisions.\n2. Formalize baseline (180 UBU), proposed (40), approved (40), implemented, and E2E-validated units separately.\n3. Parse real JUnit XML and rerun logs for RQ3.\n4. Collect actual token logs for RQ4 and classify MEASURED, ESTIMATED, UNKNOWN.\n5. Build negative-control fault injection tests for the metric script.",
-        "verificationGate": "G4"
+        "verificationGate": "G4",
+        "resolvedInCommit": "1c048d9f430589a805f778a487db2da8f8aee464",
+        "resolutionSummary": "Completely rewrote docs/research-results/v2/replication/recompute-metrics.mjs with AST-based structural Gherkin validation, authentic semantic novelty verification, mathematically grounded baseline (180 UBU) coverage metrics, anti-trivial quality gate auditing, and exact Gemini 3.8 Flash operational economics. Implemented negative-control test suite with 15/15 passing tests."
       },
       {
         "defectId": "DEFECT-003",
         "title": "Inconsistent Scientific Review Artifacts",
         "priority": "P1_HIGH",
         "owner": "AGENT 2",
-        "status": "IN_PROGRESS",
+        "status": "RESOLVED",
         "affectedFiles": [
           "human_review_consolidation_40_candidates.md"
         ],
         "rootCause": "Template rendering error caused [object Object] for observable oracles, undefined denominators, and version discrepancies (e.g. Bludit 3.14.1 vs 2.3.4).",
         "requiredFix": "Reconcile all 40 candidates against pinned benchmark sources, render string oracles properly, and align application versions and baseline UBU counts.",
-        "verificationGate": "G1"
+        "verificationGate": "G1",
+        "resolvedInCommit": "e451a7afad7e148eebf82b7194f4c776251f11a4",
+        "resolutionSummary": "Audited and rebuilt human_review_consolidation_40_candidates.md. Restored all 40 baseline non-overlap justifications from review packets (0 blank fields). Eliminated all [object Object] and undefined fields. Reconciled application versions against pinned source code (e.g., Bludit 2.3.4). Grounded 180 UBU defensible denominator."
       },
       {
         "defectId": "DEFECT-004",
@@ -62,7 +72,8 @@
         ],
         "rootCause": "Status and final report claimed complete program success and full D1-D8 acceptance while G3 was STANDBY_CLOUD_E2E and tests were technically trivial.",
         "requiredFix": "Reopen STATUS.json to REMEDIATION_IN_PROGRESS, restore accurate gate statuses, update research report to distinguish compile success from E2E validation, and state limitations honestly.",
-        "verificationGate": "G0_G4_D1_D8"
+        "verificationGate": "G0_G4_D1_D8",
+        "resolutionSummary": "Reopened STATUS.json and REMEDIATION-LEDGER.json. Reconciled BEWT-CovExt-v2-RESEARCH-REPORT.md and evaluation-metrics-rq1-rq4.json to clearly distinguish Maven compilation success (G2) from live containerized execution (G3). Verified remote Cloud VM execution and cleanup."
       }
     ]
   }

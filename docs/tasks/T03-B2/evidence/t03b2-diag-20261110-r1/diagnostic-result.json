@@ -1,0 +1,10 @@
+{
+  "runId": "t03b2-diag-20261110-r1",
+  "outcome": "BLOCKED",
+  "reason": "HTTP_READINESS_BLOCKED: fetch failed",
+  "businessTest": "NOT_RUN",
+  "selenium": "NOT_RUN",
+  "dbReset": "NOT_RUN",
+  "dockerResourcesChanged": true,
+  "cleanup": "see cleanup-result.json"
+}

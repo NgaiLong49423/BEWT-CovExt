@@ -1,0 +1,41 @@
+{
+  "before": {
+    "containers": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "networks": {
+      "count": 3,
+      "sha256": "203908854b1658d3bb306a06a2590612b9b6a2fa46e28959b38b7f7f0fb69c71"
+    },
+    "volumes": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "images": {
+      "count": 4,
+      "sha256": "88bf0cd4429e76f40e6bc958a5ed125d2c790490fc5050e23f11d2d524796bc4"
+    }
+  },
+  "after": {
+    "containers": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "networks": {
+      "count": 3,
+      "sha256": "203908854b1658d3bb306a06a2590612b9b6a2fa46e28959b38b7f7f0fb69c71"
+    },
+    "volumes": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "images": {
+      "count": 15,
+      "sha256": "bebea2ef2d4d78bed6d61d3225d5024f8f994acb3c895cebc7c35afefe964e64"
+    }
+  },
+  "countsEqual": false,
+  "fingerprintsEqual": false,
+  "rawInventoriesExcludedFromGit": true
+}

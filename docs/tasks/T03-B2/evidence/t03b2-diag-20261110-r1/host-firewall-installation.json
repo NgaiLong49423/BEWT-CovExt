@@ -1,0 +1,8 @@
+{
+  "outcome": "PASS",
+  "installed": true,
+  "verifiedRule": "-A DOCKER-USER -i br-d8c2b96f3693 ! -o br-d8c2b96f3693 -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-diag-20261110-r1 -j REJECT --reject-with icmp-net-unreachable",
+  "insertStatus": 0,
+  "checkStatus": 0,
+  "listOutput": "-N DOCKER-USER\n-A DOCKER-USER -i br-d8c2b96f3693 ! -o br-d8c2b96f3693 -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-diag-20261110-r1 -j REJECT --reject-with icmp-net-unreachable\n"
+}

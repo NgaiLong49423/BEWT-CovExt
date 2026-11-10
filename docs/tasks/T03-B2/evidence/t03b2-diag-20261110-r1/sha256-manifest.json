@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "runId": "t03b2-diag-20261110-r1",
+  "generatedAtUtc": "2026-11-10T16:48:28.974Z",
+  "fileCount": 34,
+  "privateInventoriesExcluded": true,
+  "files": {
+    "app-create.json": {
+      "sha256": "b8d66f4ce4df510470b7502d2b1078b8ca25efd661a8d8f43c591be8190c7751",
+      "bytes": 907
+    },
+    "app-egress-policy-ipv4.json": {
+      "sha256": "b44334f63cbf1a3f96c0d898a83a8e7788482692b48f0bad2bf552b0deb4824a",
+      "bytes": 291
+    },
+    "app-egress-policy-ipv6.json": {
+      "sha256": "0d3645485891e2def2a07b04287ec93e7cc57b20e26e11bb7cbd24a24328ec61",
+      "bytes": 317
+    },
+    "app-events-before-cleanup.json": {
+      "sha256": "10fe0682221a7f9600a54c2cb0c23036fc040bd7e64950451df7675f9b8e584c",
+      "bytes": 12592
+    },
+    "app-inspect-after-start.json": {
+      "sha256": "6c9833e03026431f8294b5726f26ac4a1dec3743c7d3a2a463a063f795c20b2e",
+      "bytes": 1531
+    },
+    "app-inspect-before-cleanup.json": {
+      "sha256": "6c9833e03026431f8294b5726f26ac4a1dec3743c7d3a2a463a063f795c20b2e",
+      "bytes": 1531
+    },
+    "app-logs-metadata.json": {
+      "sha256": "4647dd146e5de59bee9ceec0517f3d464bb1b5b9b1e21b00a21daf9b5f452ca2",
+      "bytes": 193
+    },
+    "app-logs-sanitized.log": {
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "bytes": 1
+    },
+    "app-service-log-directory.json": {
+      "sha256": "e0ff26a7c1e645422840d42251716a619d036169dfeace43b00e79495c400357",
+      "bytes": 378
+    },
+    "app-service-startup-metadata.json": {
+      "sha256": "1f6b08343beacb2260c5391a04bd180527c5c5d9c06fe92f8103372d4d2b4f2c",
+      "bytes": 193
+    },
+    "app-service-startup-sanitized.log": {
+      "sha256": "74a391a8facd8d52b974048d39b67c38464c2a1b0f652a79d00c303ee54cfea0",
+      "bytes": 67
+    },
+    "app-services-start.json": {
+      "sha256": "3b63e7a4c19d1059331039c743fb42559c86a47a0b3e5b384c6ec8758a1d330b",
+      "bytes": 330
+    },
+    "app-start.json": {
+      "sha256": "7966e6d2193208bb2aea1f8e381feb3a8bcd531567a02ddda942dc94bfe28f9e",
+      "bytes": 249
+    },
+    "app-stats-before-cleanup.json": {
+      "sha256": "eb4078588498676a5ad29f0a8767fd2263f64ddf0983ecae02973997d8e55800",
+      "bytes": 410
+    },
+    "cleanup-result.json": {
+      "sha256": "d41ed64beb29b6e5c0ed3825ecfa54a430ff1ea84029e31d7640dd6fc62d9c51",
+      "bytes": 544
+    },
+    "diagnostic-result.json": {
+      "sha256": "333399ddc7384f1f0222a4a83952946c2667d83e9171798368747d2b9d14d67b",
+      "bytes": 268
+    },
+    "docker-inventory-sanitized-summary.json": {
+      "sha256": "e4590c7d9c166584ade3629a3d0f3d8920552c049f8a3f0743df713678f640ee",
+      "bytes": 1140
+    },
+    "docker-port-verification.json": {
+      "sha256": "5f77f7a4a0088e2a434c3db463348131bb58765f84bef827b3fb5294e9f74049",
+      "bytes": 140
+    },
+    "host-egress-control.json": {
+      "sha256": "e5d9c03b80ebee435ba3134e800d65b4a7d4444d7e03181ea319040ba5ae6ecb",
+      "bytes": 446
+    },
+    "host-firewall-authorization-decision.json": {
+      "sha256": "dcd2937d0f5f3bae8128dd37b8ca87ccf391044f9621b94f32096220660e788e",
+      "bytes": 1735
+    },
+    "host-firewall-authorization-request.json": {
+      "sha256": "a61f1c5cc5e5eee14ac910a14d519c4de149f24209dbf62324514b9f890c3035",
+      "bytes": 1644
+    },
+    "host-firewall-installation.json": {
+      "sha256": "eeed906857c44bcfef79c5ae3b6c770b92e2803070098cc6e4f471e565d331b1",
+      "bytes": 544
+    },
+    "host-network-firewall-preflight.json": {
+      "sha256": "56881acd92a74c73d1574f7221b8e88d38e7f3b5f840c9d1a0b24f07610becb8",
+      "bytes": 2048
+    },
+    "host-port-allocation.json": {
+      "sha256": "74b21d324b786a3fb334689a5eff3c7e29f891b4d14f056326ec79fc3206f451",
+      "bytes": 134
+    },
+    "host-port-verification.json": {
+      "sha256": "b5a7cec36c8e77ac9cfa7d568ebae84ba061f5718defe30082c63ddac9feaf2c",
+      "bytes": 333
+    },
+    "http-readiness.json": {
+      "sha256": "88ddfe02ca04785488d6a5477a9bef8ecdf0604b319fc50845ebb7558f10f914",
+      "bytes": 58
+    },
+    "image-inspect-sanitized.json": {
+      "sha256": "88bf5b00a9e24becb9dd66415b10daaf0ca6f95acdd3c9b3acd1d8ff6bb5e4cd",
+      "bytes": 697
+    },
+    "memory-preflight.json": {
+      "sha256": "8fb62ece767ae158d60f15fb1eb617b64afe35ebda435c49bcef744132e8fa37",
+      "bytes": 489
+    },
+    "network-create.json": {
+      "sha256": "2459594fbdee518ead5a5378ec61dd3f2283e9661c5f3f850681e0cbd3676189",
+      "bytes": 704
+    },
+    "network-ipam-selection.json": {
+      "sha256": "c3356bd57a93e96ea2d18875811dbc47af98d1527838a247b547a149e233b20a",
+      "bytes": 228
+    },
+    "network-policy-verification.json": {
+      "sha256": "f96ccbbf540ddaa87f5efc93619bb010f255d34465a65cfc33c72c92c8d5495e",
+      "bytes": 368
+    },
+    "port-precreate-check.json": {
+      "sha256": "79aa7c26e1f2b55fec60712f398387bc7e572573acbc8e06fcf4ffac034ee286",
+      "bytes": 195
+    },
+    "run-failure.txt": {
+      "sha256": "2ec710a3f9c316d04913145b1d2efe51316a8dc34a271de4cb2262073f9eb100",
+      "bytes": 44
+    },
+    "run-record.json": {
+      "sha256": "999e878a86b2fd724a05e6185444e766c012c32b3bf80a1951af69f968ef7c07",
+      "bytes": 2747
+    }
+  }
+}

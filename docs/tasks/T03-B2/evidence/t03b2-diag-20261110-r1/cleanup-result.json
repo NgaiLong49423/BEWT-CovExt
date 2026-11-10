@@ -1,0 +1,21 @@
+{
+  "runId": "t03b2-diag-20261110-r1",
+  "outcome": "PASS",
+  "removedContainerIds": [
+    "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3"
+  ],
+  "removedNetworkId": "d8c2b96f36934e3ea4253cbe9a4725e582b30659d8df843ae8f86a1bd25f01f0",
+  "firewallRollback": {
+    "removed": true,
+    "deleteStatus": 0,
+    "listOutput": "-N DOCKER-USER\n",
+    "residualFirewallRules": 0
+  },
+  "residuals": {
+    "containers": 0,
+    "networks": 0,
+    "volumes": 0,
+    "firewallRules": 0
+  },
+  "protectedExistingResources": "PRESERVED"
+}

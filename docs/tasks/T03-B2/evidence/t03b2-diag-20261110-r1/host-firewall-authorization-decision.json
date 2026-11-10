@@ -1,0 +1,23 @@
+{
+  "payload": {
+    "version": "bewt-host-firewall-approval-v1",
+    "decisionId": "A1",
+    "approverId": "team-lead-ngailong",
+    "approverRole": "Team Lead",
+    "method": "linux-docker-user-bridge-reject-v1",
+    "runId": "t03b2-diag-20261110-r1",
+    "networkId": "d8c2b96f36934e3ea4253cbe9a4725e582b30659d8df843ae8f86a1bd25f01f0",
+    "bridgeInterface": "br-d8c2b96f3693",
+    "uplinkInterface": "ens3",
+    "commentTag": "bewt-t03b2-t03b2-diag-20261110-r1",
+    "insertCommand": "/usr/bin/sudo -n /usr/sbin/iptables -w 5 -I DOCKER-USER 1 -i br-d8c2b96f3693 ! -o br-d8c2b96f3693 -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-diag-20261110-r1 -j REJECT --reject-with icmp-net-unreachable",
+    "deleteCommand": "/usr/bin/sudo -n /usr/sbin/iptables -w 5 -D DOCKER-USER -i br-d8c2b96f3693 ! -o br-d8c2b96f3693 -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-diag-20261110-r1 -j REJECT --reject-with icmp-net-unreachable",
+    "maxExecutions": 1,
+    "scope": "one DOCKER-USER rule scoped strictly to this run-owned bridge interface (-i br-<id12> ! -o br-<id12>) before any container starts; no container privileged exec, no host default route modification, no impact on sshd/ens3/docker0 or other bridges",
+    "rollback": "delete the exact DOCKER-USER rule by full specification and verify zero residual rules for this run tag and bridge interface before removing the run-owned Docker network",
+    "issuedAtUtc": "2026-11-10T16:44:30.259Z",
+    "expiresAtUtc": "2026-11-10T16:54:31.259Z",
+    "nonce": "70a13efdad23bbb68f510f907346a870"
+  },
+  "signatureBase64": "fT1K0mmH9ylVjhh2g7gwQQT8Wk2OCyS0h8FoaRnyUWLF3X7zGkYYuWttJwephkGB+ETxZzRg90TqamrcFp1OCQ=="
+}

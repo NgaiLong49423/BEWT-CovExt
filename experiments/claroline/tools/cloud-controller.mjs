@@ -71,6 +71,54 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     timeoutMs: 600000,
     description: 'Execute Claroline G0 baseline workflow with unique runId',
   },
+  'run-bludit-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute Bludit G0 baseline workflow with unique runId',
+  },
+  'run-claroline-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute Claroline G0 baseline workflow with unique runId',
+  },
+  'run-expresscart-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute ExpressCart G0 baseline workflow with unique runId',
+  },
+  'run-joomla-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute Joomla G0 baseline workflow with unique runId',
+  },
+  'run-kanboard-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute Kanboard G0 baseline workflow with unique runId',
+  },
+  'run-mantisbt-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute MantisBT G0 baseline workflow with unique runId',
+  },
+  'run-mediawiki-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute MediaWiki G0 baseline workflow with unique runId',
+  },
+  'run-prestashop-g0': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute PrestaShop G0 baseline workflow with unique runId',
+  },
   'cleanup-run': {
     requiresRunId: true,
     sideEffecting: true,
@@ -100,6 +148,24 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     sideEffecting: false,
     timeoutMs: 30000,
     description: 'Check sudo permissions and installed docker images',
+  },
+  'install-chrome': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 180000,
+    description: 'Install google-chrome-stable on Cloud VM',
+  },
+  'pull-images': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Pull all required Docker images for 8 applications on Cloud VM',
+  },
+  'clean-firewall': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 30000,
+    description: 'Flush and clean any residual DOCKER-USER rules',
   },
 });
 
@@ -174,6 +240,22 @@ export function buildRemoteCommandScript(action, params = {}) {
       return `set -eu; cd ${repo} && node experiments/claroline/tools/run-claroline-diagnostic.mjs ${runId}`;
     case 'run-g0':
       return `set -eu; cd ${repo} && node experiments/claroline/tools/run-claroline-g0.mjs ${runId}`;
+    case 'run-claroline-g0':
+      return `set -eu; cd ${repo} && node experiments/claroline/tools/run-claroline-g0.mjs ${runId}`;
+    case 'run-bludit-g0':
+      return `set -eu; cd ${repo} && node experiments/bludit/tools/run-bludit-g0.mjs ${runId}`;
+    case 'run-expresscart-g0':
+      return `set -eu; cd ${repo} && node experiments/expresscart/tools/run-expresscart-g0.mjs ${runId}`;
+    case 'run-joomla-g0':
+      return `set -eu; cd ${repo} && node experiments/joomla/tools/run-joomla-g0.mjs ${runId}`;
+    case 'run-kanboard-g0':
+      return `set -eu; cd ${repo} && node experiments/kanboard/tools/run-kanboard-g0.mjs ${runId}`;
+    case 'run-mantisbt-g0':
+      return `set -eu; cd ${repo} && node experiments/mantisbt/tools/run-mantisbt-g0.mjs ${runId}`;
+    case 'run-mediawiki-g0':
+      return `set -eu; cd ${repo} && node experiments/mediawiki/tools/run-mediawiki-g0.mjs ${runId}`;
+    case 'run-prestashop-g0':
+      return `set -eu; cd ${repo} && node experiments/prestashop/tools/run-prestashop-g0.mjs ${runId}`;
     case 'cleanup-run':
       return `set -eu; cd ${repo} && node experiments/claroline/tools/cleanup-claroline-g0.mjs ${runId}`;
     case 'process-check':
@@ -199,6 +281,32 @@ export function buildRemoteCommandScript(action, params = {}) {
         'printf "CHROME=%s\\n" "$(which google-chrome google-chrome-stable chromium chromium-browser 2>/dev/null || echo NONE)"',
         'docker images',
       ].join('; ');
+    case 'install-chrome':
+      return [
+        'set -eu',
+        'curl -sS -o /tmp/chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb',
+        'sudo apt-get update -y -qq',
+        'sudo apt-get install -y -qq /tmp/chrome.deb',
+        'rm -f /tmp/chrome.deb',
+        'google-chrome --version',
+      ].join(' && ');
+    case 'pull-images':
+      return [
+        'set -eu',
+        'docker pull bludit/docker:2.3.4',
+        'docker pull kanboard/kanboard:v1.2.15',
+        'docker pull olianasd/mantisbt-strongpsw:1.2.0',
+        'docker pull joomla:3.10.11',
+        'docker pull mysql:5.6',
+        'docker pull mediawiki:1.40.0',
+        'docker pull mariadb:10.5',
+        'docker pull prestashop/prestashop:1.6.1.23',
+        'docker pull mysql:5.7',
+        'docker pull mongo:4.4.29',
+        `cd ${repo}/experiments/expresscart/source && docker build -f Dockerfile.experiment -t bewt-covext/expresscart:1.1.19-b31302f .`,
+      ].join(' && ');
+    case 'clean-firewall':
+      return 'set -eu; sudo iptables -F DOCKER-USER || true; sudo iptables -L DOCKER-USER -n';
     default:
       throw new Error(`Unhandled allowlisted action: ${action}`);
   }

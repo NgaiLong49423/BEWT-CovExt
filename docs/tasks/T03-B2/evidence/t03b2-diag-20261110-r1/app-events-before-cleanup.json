@@ -1,0 +1,304 @@
+{
+  "exitCode": 0,
+  "events": [
+    {
+      "Type": "container",
+      "Action": "exec_create: bash -lc timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' \"$probe_status\"; exit \"$probe_status\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "19dc6f2b5840432c6c460a8faad29234c74d081ca704fa6ad2daf27f47e5d718",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329071,
+      "timeNano": 1794329071571641900
+    },
+    {
+      "Type": "container",
+      "Action": "exec_start: bash -lc timeout 5 bash -c 'echo >/dev/tcp/1.1.1.1/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' \"$probe_status\"; exit \"$probe_status\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "19dc6f2b5840432c6c460a8faad29234c74d081ca704fa6ad2daf27f47e5d718",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329071,
+      "timeNano": 1794329071571858200
+    },
+    {
+      "Type": "container",
+      "Action": "exec_die",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "19dc6f2b5840432c6c460a8faad29234c74d081ca704fa6ad2daf27f47e5d718",
+          "exitCode": "1",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072654718200
+    },
+    {
+      "Type": "container",
+      "Action": "exec_create: bash -lc timeout 5 bash -c 'echo >/dev/tcp/2606:4700:4700::1111/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' \"$probe_status\"; exit \"$probe_status\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "3d727584796b36376777b3692266574cbff46172fe20127928279d96e22854b2",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072667080400
+    },
+    {
+      "Type": "container",
+      "Action": "exec_start: bash -lc timeout 5 bash -c 'echo >/dev/tcp/2606:4700:4700::1111/443'; probe_status=$?; printf '\\n__BEWT_TCP_PROBE_EXIT__=%s\\n' \"$probe_status\"; exit \"$probe_status\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "3d727584796b36376777b3692266574cbff46172fe20127928279d96e22854b2",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072667270100
+    },
+    {
+      "Type": "container",
+      "Action": "exec_die",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "3d727584796b36376777b3692266574cbff46172fe20127928279d96e22854b2",
+          "exitCode": "1",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072689424000
+    },
+    {
+      "Type": "container",
+      "Action": "exec_create: /bin/sh -c set -eu; test -d \"$HOME\"; test ! -L \"$HOME\"; umask 077; printf \"%s\\n\" \"$HOME\"; mktemp -d \"$HOME/.t03b2-logs.XXXXXXXX\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "1e1e8797f3c7a1a7d0842b5f42887888832a3161ed53add47c5b80ed5a190b3c",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072701198600
+    },
+    {
+      "Type": "container",
+      "Action": "exec_start: /bin/sh -c set -eu; test -d \"$HOME\"; test ! -L \"$HOME\"; umask 077; printf \"%s\\n\" \"$HOME\"; mktemp -d \"$HOME/.t03b2-logs.XXXXXXXX\"",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "1e1e8797f3c7a1a7d0842b5f42887888832a3161ed53add47c5b80ed5a190b3c",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072701397500
+    },
+    {
+      "Type": "container",
+      "Action": "exec_die",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "1e1e8797f3c7a1a7d0842b5f42887888832a3161ed53add47c5b80ed5a190b3c",
+          "exitCode": "0",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072722116400
+    },
+    {
+      "Type": "container",
+      "Action": "exec_create: /bin/sh -c ./run-services-docker.sh bash > /root/.t03b2-logs.FuCkY0DJ/services.log 2>&1",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "ca5337e16e2d98fb3fab0c8767fe4b0429be2b327b1d0234f27f941c27a495ce",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072733260800
+    },
+    {
+      "Type": "container",
+      "Action": "exec_start: /bin/sh -c ./run-services-docker.sh bash > /root/.t03b2-logs.FuCkY0DJ/services.log 2>&1",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "ca5337e16e2d98fb3fab0c8767fe4b0429be2b327b1d0234f27f941c27a495ce",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329072,
+      "timeNano": 1794329072733399800
+    },
+    {
+      "Type": "container",
+      "Action": "exec_create: /bin/sh -c cat /root/.t03b2-logs.FuCkY0DJ/services.log",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "fb09144dba3ff0e62c683a112f6841dc61e84c525a0301f88a624f1899b24b9b",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329253,
+      "timeNano": 1794329253970764300
+    },
+    {
+      "Type": "container",
+      "Action": "exec_start: /bin/sh -c cat /root/.t03b2-logs.FuCkY0DJ/services.log",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "fb09144dba3ff0e62c683a112f6841dc61e84c525a0301f88a624f1899b24b9b",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329253,
+      "timeNano": 1794329253971005200
+    },
+    {
+      "Type": "container",
+      "Action": "exec_die",
+      "Actor": {
+        "ID": "bc15c6d51027a1b7a3b8801448f24212492f9c4adefa2e1c0f766908a22780d3",
+        "Attributes": {
+          "app": "claroline",
+          "execID": "fb09144dba3ff0e62c683a112f6841dc61e84c525a0301f88a624f1899b24b9b",
+          "exitCode": "0",
+          "image": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "managed-by": "bewt-covext-agent",
+          "name": "bewt-covext-claroline-t03b2-diag-20261110-r1-app",
+          "owner": "bewt-covext",
+          "project": "bewt-covext",
+          "runId": "t03b2-diag-20261110-r1",
+          "task": "t03b2-g0"
+        }
+      },
+      "scope": "local",
+      "time": 1794329253,
+      "timeNano": 1794329253990529800
+    }
+  ],
+  "error": ""
+}

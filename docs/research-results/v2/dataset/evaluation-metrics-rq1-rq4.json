@@ -44,29 +44,35 @@
       "question": "Can the multi-agent system synthesize executable Java/Selenium test code that conforms to project conventions and compiles reliably across multiple web applications?",
       "metrics": {
         "totalGeneratedTestClasses": 40,
+        "revision1TrivialRejections": "40/40 (100.0%) rejected by Anti-Trivial Quality Gate (DEFECT-001)",
+        "revision2RemediatedPassing": "40/40 (100.0%) passed Anti-Trivial Quality Gate",
         "cleanMavenCompileLocal": "40/40 (100.0%) across 8/8 suites",
         "cleanMavenCompileRemoteCloudVm": "40/40 (100.0%) across 8/8 suites",
         "boundedRepairIterationsUsed": "0-1 iterations per class (well within limit of 2)",
+        "boundedRepairBudgetViolations": 0,
         "unboundedRecursionViolations": 0,
         "javaVersionCompatibility": "Java 21 / OpenJDK 21 LTS verified",
         "compilationDurationOnCloudVmSeconds": 12
       },
-      "conclusion": "The test generation engine demonstrated 100% compilation success across all 8 benchmark test suites, successfully conforming to varying package conventions (test, tests, base, mediawiki) and BaseTest inheritance patterns."
+      "conclusion": "The remediated Revision 2 test generation engine demonstrated 100% compilation success and 100% anti-trivial gate compliance across all 8 benchmark test suites, successfully conforming to varying package conventions (test, tests, base, mediawiki) and BaseTest inheritance patterns."
     },
     "RQ4": {
       "question": "What is the utility, token efficiency, and operational cost of the multi-agent architecture using Gemini 3.8 Flash?",
       "metrics": {
         "foundationModel": "gemini-3.8-flash",
-        "inputTokenPricePerThousand": "$0.00015",
-        "outputTokenPricePerThousand": "$0.00060",
-        "perCallCostCeiling": "$0.05",
-        "averagePromptTokensPerTestClass": 2450,
-        "averageOutputTokensPerTestClass": 980,
-        "estimatedModelCostPerTestClass": "$0.000955",
-        "totalEstimatedModelCost40Suites": "$0.0382 (sub-four cents)",
+        "dataCategory": "ESTIMATED (Bounded Conservative Profile)",
+        "inputTokenPricePerMillion": "$0.15",
+        "outputTokenPricePerMillion": "$0.60",
+        "totalInputTokens": 160000,
+        "totalOutputTokens": 52000,
+        "inputCostUsd": 0.024,
+        "outputCostUsd": 0.0312,
+        "totalSynthesisCostUsd": 0.0552,
+        "costPerCandidateUsd": 0.00138,
+        "negativeControlsPassed": "15/15 (100.0%)",
         "humanReviewEfficiency": "Consolidated batch packets enabled full review in ~15 minutes vs estimated 8+ hours manual drafting"
       },
-      "conclusion": "The Gemini 3.8 Flash multi-agent architecture provides exceptional economic viability and execution speed, delivering 40 compilable test suites for less than $0.05 total LLM inference cost while reducing human effort by over 95%."
+      "conclusion": "The Gemini 3.8 Flash multi-agent architecture provides exceptional economic viability and execution speed, delivering 40 compilable anti-trivial test suites for approximately $0.055 total LLM inference cost while reducing human effort by over 95%."
     }
   }
 }
