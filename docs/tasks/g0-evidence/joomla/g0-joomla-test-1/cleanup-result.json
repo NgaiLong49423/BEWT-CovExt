@@ -1,0 +1,29 @@
+{
+  "runId": "g0-joomla-test-1",
+  "appId": "joomla",
+  "stoppedContainers": [
+    "bewt-covext-joomla-db-g0-joomla-test-1",
+    "bewt-covext-joomla-selenium-g0-joomla-test-1",
+    "bewt-covext-joomla-g0-joomla-test-1"
+  ],
+  "removedContainers": [
+    "bewt-covext-joomla-db-g0-joomla-test-1",
+    "bewt-covext-joomla-selenium-g0-joomla-test-1",
+    "bewt-covext-joomla-g0-joomla-test-1"
+  ],
+  "removedVolumes": [
+    "37373e06fa43bde10a80453eb5fefa4ab1c0370a2333e599655ac5f1c57f8f91",
+    "29b6296e306a19a44f87936c15d6de77c5231912e5b5a73f8646ef587925d83e"
+  ],
+  "removedNetwork": "bewt-covext-joomla-g0-joomla-test-1-net",
+  "zeroResidualVerified": false,
+  "residualContainers": [
+    "488a4b70739c304714817acc0f3df43793fff9a16013dd01535e06dc1375afa6",
+    "a72407890b8fcf01542508802da1616e90ab775f7b055fd1e2a35f7ac7fdae31"
+  ],
+  "residualNetworks": [
+    "b377f7dfe8cad7ed0281bfccb70fe969e272bccac0977c820ab9d27621dbdb8f"
+  ],
+  "residualVolumes": [],
+  "outcome": "FAIL_RESIDUALS_EXIST"
+}

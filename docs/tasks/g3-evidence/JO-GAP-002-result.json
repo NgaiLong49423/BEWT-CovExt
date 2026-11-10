@@ -1,0 +1,22 @@
+{
+  "candidateId": "JO-GAP-002",
+  "application": "joomla",
+  "javaClass": "base.T01C_80b1dfff69f7f00680658ed64a4b7315_R2",
+  "initialRun": {
+    "runId": "g3-jogap002-20261110191702",
+    "durationSeconds": 81.7,
+    "exitCode": 1,
+    "outcome": "FAIL",
+    "junitOutcome": "FAIL",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 1,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-002/g3-jogap002-20261110191702"
+  },
+  "reruns": [],
+  "totalRuns": 1,
+  "passedRuns": 0,
+  "flakinessRate": 1,
+  "overallOutcome": "FAILED"
+}

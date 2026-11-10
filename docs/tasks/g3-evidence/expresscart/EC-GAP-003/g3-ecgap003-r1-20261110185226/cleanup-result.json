@@ -1,0 +1,24 @@
+{
+  "runId": "g3-ecgap003-r1-20261110185226",
+  "appId": "expresscart",
+  "stoppedContainers": [
+    "bewt-covext-expresscart-db-g3-ecgap003-r1-20261110185226",
+    "bewt-covext-expresscart-selenium-g3-ecgap003-r1-20261110185226",
+    "bewt-covext-expresscart-g3-ecgap003-r1-20261110185226"
+  ],
+  "removedContainers": [
+    "bewt-covext-expresscart-db-g3-ecgap003-r1-20261110185226",
+    "bewt-covext-expresscart-selenium-g3-ecgap003-r1-20261110185226",
+    "bewt-covext-expresscart-g3-ecgap003-r1-20261110185226"
+  ],
+  "removedVolumes": [
+    "bfa7dbf9aa0129ba301a91eb34f12c0bde3dba5f95247ec393d687bb2ae23145",
+    "e27cc3d0e14fda0e9cb5cf0d1fa3b2b6a87c948f6ed2d11908168ae813c7eb17"
+  ],
+  "removedNetwork": "bewt-covext-expresscart-g3-ecgap003-r1-20261110185226-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

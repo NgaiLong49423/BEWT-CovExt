@@ -1,0 +1,22 @@
+{
+  "candidateId": "CL-GAP-004",
+  "application": "claroline",
+  "javaClass": "test.T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2",
+  "initialRun": {
+    "runId": "g3-clgap004-20261110191216",
+    "durationSeconds": 51.6,
+    "exitCode": 1,
+    "outcome": "FAIL",
+    "junitOutcome": "FAIL",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 1,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-004/g3-clgap004-20261110191216"
+  },
+  "reruns": [],
+  "totalRuns": 1,
+  "passedRuns": 0,
+  "flakinessRate": 1,
+  "overallOutcome": "FAILED"
+}

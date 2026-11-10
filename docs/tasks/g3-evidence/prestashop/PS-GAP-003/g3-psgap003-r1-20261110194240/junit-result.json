@@ -1,0 +1,11 @@
+{
+  "outcome": "PASS",
+  "summary": {
+    "outcome": "PASS",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "expectedClass": "tests.T01C_202336fd43c393a7395e8722b9e82c8f_R2"
+  }
+}

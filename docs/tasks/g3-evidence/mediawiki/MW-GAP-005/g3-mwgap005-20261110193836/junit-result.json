@@ -1,0 +1,11 @@
+{
+  "outcome": "FAIL",
+  "summary": {
+    "outcome": "FAIL",
+    "tests": 1,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0,
+    "expectedClass": "mediawiki.T01C_83ecf3d51792c82eeb8a3e404724ed8b_R2"
+  }
+}

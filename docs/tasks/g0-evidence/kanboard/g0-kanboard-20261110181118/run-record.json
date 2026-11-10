@@ -1,0 +1,41 @@
+{
+  "appId": "kanboard",
+  "runId": "g0-kanboard-20261110181118",
+  "startedAtUtc": "2026-11-10T18:11:18.621Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "kanboard",
+    "task": "g0-kanboard",
+    "runId": "g0-kanboard-20261110181118"
+  },
+  "containers": [
+    {
+      "role": "browser",
+      "name": "bewt-covext-kanboard-selenium-g0-kanboard-20261110181118",
+      "port": 46519
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-kanboard-g0-kanboard-20261110181118",
+      "port": 34439
+    }
+  ],
+  "network": {
+    "id": "ec4c31702c289c625e2dabfbfe11fabb29fa8e0100cf6b5c3f80394a036893cd",
+    "name": "bewt-covext-kanboard-g0-kanboard-20261110181118-net"
+  },
+  "volumes": [
+    {
+      "name": "bewt-covext-kanboard-data-g0-kanboard-20261110181118",
+      "mount": "/var/www/app/data"
+    },
+    {
+      "name": "bewt-covext-kanboard-plugins-g0-kanboard-20261110181118",
+      "mount": "/var/www/app/plugins"
+    }
+  ],
+  "appPort": 34439,
+  "browserPort": 46519
+}

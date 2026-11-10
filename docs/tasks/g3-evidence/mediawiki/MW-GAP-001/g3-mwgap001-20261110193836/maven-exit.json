@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "command": "mvn -B -f experiments/mediawiki/bewt-suite/pom.xml -Dtest=mediawiki.T01C_b078f939f78ca3088b197ccf89f026ba_R2 test"
+}

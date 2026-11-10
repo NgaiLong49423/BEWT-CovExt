@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "command": "mvn -B -f experiments/mantisbt/bewt-suite/pom.xml -Dtest=base.T01C_3b10cef3f23dff894317fc9c42e9ecd4_R2 test"
+}

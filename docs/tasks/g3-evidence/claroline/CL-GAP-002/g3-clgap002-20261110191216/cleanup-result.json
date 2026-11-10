@@ -1,0 +1,19 @@
+{
+  "runId": "g3-clgap002-20261110191216",
+  "appId": "claroline",
+  "stoppedContainers": [
+    "bewt-covext-claroline-selenium-g3-clgap002-20261110191216",
+    "bewt-covext-claroline-g3-clgap002-20261110191216"
+  ],
+  "removedContainers": [
+    "bewt-covext-claroline-selenium-g3-clgap002-20261110191216",
+    "bewt-covext-claroline-g3-clgap002-20261110191216"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-claroline-g3-clgap002-20261110191216-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

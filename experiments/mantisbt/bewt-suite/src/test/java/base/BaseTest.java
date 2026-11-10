@@ -30,7 +30,7 @@ public class BaseTest {
 
         public void setupRemoteWebdriver() {
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--no-sandbox", "--headless=new", "--lang=en", "--disable-gpu", "--lang=en", "--screen-info={1920x1080}");
+                chromeOptions.addArguments("--no-sandbox", "--headless=new", "--lang=en", "--disable-gpu", "--window-size=1920,1080", "--screen-info={1920x1080}");
                 try {
                         driver = new RemoteWebDriver(new URL(ExperimentConfig.webdriverUrl()), chromeOptions);
                 } catch (MalformedURLException e) { throw new IllegalArgumentException("BEWT_WEBDRIVER_URL must be a valid URL", e); }

@@ -28,7 +28,13 @@
       "javaSourceSha256": "8ccbc3c41b9c85bff6797745d53fd5af6525537506bf71d923510435569ce468",
       "gherkinSha256": "95e5fb0dfa4f1301a4ebde94d42008462fb6e8179d4abd4868d080dcc0d7b837",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 2,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0.333,
+      "e2eOutcome": "FLAKY",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-001/g3-blgap001-20261110190053"
     },
     {
       "candidateId": "BL-GAP-002",
@@ -54,7 +60,13 @@
       "javaSourceSha256": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349",
       "gherkinSha256": "3fc0acf00d812d4345126729576ab7992771abd05caeea2c52c4201defde252f",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-002/g3-blgap002-20261110190053"
     },
     {
       "candidateId": "BL-GAP-003",
@@ -80,7 +92,13 @@
       "javaSourceSha256": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
       "gherkinSha256": "866dd83d936ab5490ea8a491cd68e024ebe55654a5740d499953a43849d5874f",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-003/g3-blgap003-20261110190053"
     },
     {
       "candidateId": "BL-GAP-004",
@@ -107,7 +125,13 @@
       "javaSourceSha256": "1360bfec214ba193ee8b4ce7853c469db037272ee204a2749c82849652a3e43d",
       "gherkinSha256": "ea1ea119bd1f9188cb8ed66021a5326f6b319da7ec93717c8526897331d848c2",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-004/g3-blgap004-20261110190053"
     },
     {
       "candidateId": "BL-GAP-005",
@@ -134,7 +158,13 @@
       "javaSourceSha256": "0bc51ae1707b1e2863dee8f31888d4bf8dcaa0b410f7102b15e6e72b55e04bd4",
       "gherkinSha256": "a0dc0944a6018d88307017ff0ff67f89e96ac276fb2927c591f5c1a7448ce338",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-005/g3-blgap005-20261110190053"
     },
     {
       "candidateId": "CL-GAP-001",
@@ -161,7 +191,13 @@
       "javaSourceSha256": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
       "gherkinSha256": "c3d0537a9ffd9a8ac793dfb03305290cb070d9f451dd16f6ed26c05080772c35",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-001/g3-clgap001-20261110191216"
     },
     {
       "candidateId": "CL-GAP-002",
@@ -188,7 +224,13 @@
       "javaSourceSha256": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
       "gherkinSha256": "d8e56c9f4b3fb3c327de5d3cb95b3e1772e0a694b91bff2b4ca8b2e87189fccc",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-002/g3-clgap002-20261110191216"
     },
     {
       "candidateId": "CL-GAP-003",
@@ -215,7 +257,13 @@
       "javaSourceSha256": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
       "gherkinSha256": "1ba9a9165d45eebec6c6c6c289601412ba506b783e99ad2a0afa9b5a92c25cb4",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-003/g3-clgap003-20261110191216"
     },
     {
       "candidateId": "CL-GAP-004",
@@ -242,7 +290,13 @@
       "javaSourceSha256": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
       "gherkinSha256": "c9d94a6c663ee854075ec5887a46cda66b954c02e5b7d400d95b35b535a83c19",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-004/g3-clgap004-20261110191216"
     },
     {
       "candidateId": "CL-GAP-005",
@@ -269,7 +323,13 @@
       "javaSourceSha256": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
       "gherkinSha256": "822cea2f8adb0a55d8b5ce40bdf2c1c58c1b21ad6e7794922bc100d168355f0f",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/claroline/CL-GAP-005/g3-clgap005-20261110191216"
     },
     {
       "candidateId": "EC-GAP-002",
@@ -296,7 +356,13 @@
       "javaSourceSha256": "208357eb4bd49279c7b4778707fdf7123d939110b23be67dc53e550ca156da00",
       "gherkinSha256": "5bc564d998d736639188f554111446a63860641bafe61fb065ba1b375dfe0ad5",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-002/g3-ecgap002-20261110185226"
     },
     {
       "candidateId": "EC-GAP-003",
@@ -323,7 +389,13 @@
       "javaSourceSha256": "c0cf8f428d4a786678f15c21f3faf54ebc670dffcfc9b27a884f6d4cd076894d",
       "gherkinSha256": "85c802c8d6993b3b3b583b6ff3edfc830e4017a09fa4a1f087b609d3239e2ee0",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-003/g3-ecgap003-20261110185226"
     },
     {
       "candidateId": "EC-GAP-004",
@@ -350,7 +422,13 @@
       "javaSourceSha256": "73d5fc21e2367b398578d571da649401dc99a8d324ecdb83aed5014d2f4441b4",
       "gherkinSha256": "f552bda15b98302157edd1f00dcc8a247a41d4051e3167222bbd9faf3fda7683",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-004/g3-ecgap004-20261110185226"
     },
     {
       "candidateId": "EC-GAP-005",
@@ -377,7 +455,13 @@
       "javaSourceSha256": "a4d9d655b1a1a5dc87f5758bbbf1d380b57e51b7e5a36e3807113792b90ada98",
       "gherkinSha256": "9353c55722f768dd39f02a73c5a217c011a8e3fae5d3f8e4ce16c6bcfdc79731",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110185226"
     },
     {
       "candidateId": "EC-GAP-006",
@@ -404,7 +488,13 @@
       "javaSourceSha256": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
       "gherkinSha256": "98f43ee85809e2d99d26cca27b1a11a02bf414de6534d495f5381f06d81ab332",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-006/g3-ecgap006-20261110185226"
     },
     {
       "candidateId": "JO-GAP-001",
@@ -429,7 +519,13 @@
       "javaSourceSha256": "71465916987904fa579cbfa738042b3b0bc71cdef9a5c1548b0bed3ba085264f",
       "gherkinSha256": "612e1a1f303298cc2ff44eefd071c4a47e55982c299e06648e08db092aaf49ce",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-001/g3-jogap001-20261110191702"
     },
     {
       "candidateId": "JO-GAP-002",
@@ -456,7 +552,13 @@
       "javaSourceSha256": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
       "gherkinSha256": "56bbbc8181827f41c9c4c7524e665e26ff816de960817527f0880c52d4597beb",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-002/g3-jogap002-20261110191702"
     },
     {
       "candidateId": "JO-GAP-003",
@@ -482,7 +584,13 @@
       "javaSourceSha256": "9b3f82ac4466f3694fa2c6ab67ff6cc4c8ec204c3a2796f49d0537697c7374ef",
       "gherkinSha256": "c4387d8ee3adfc73fa588e8cc38255ccaeba4bc595831bffc937b6a115e4a8f1",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 1,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0.667,
+      "e2eOutcome": "FLAKY",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-003/g3-jogap003-20261110191702"
     },
     {
       "candidateId": "JO-GAP-004",
@@ -508,7 +616,13 @@
       "javaSourceSha256": "be4ebbb71519cd7da0c0a15b3c2dd770afd76f85fa0bf9da1723031fe789989b",
       "gherkinSha256": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-20261110191702"
     },
     {
       "candidateId": "JO-GAP-005",
@@ -533,7 +647,13 @@
       "javaSourceSha256": "5c4745bc032ec78f9a929394c47bb5765186c91076da63da6860c890ebee9445",
       "gherkinSha256": "b1ce15bf484ce09e8857b40ef909b6258360256d284b8dbf2f72ffdabb48c103",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-005/g3-jogap005-20261110191702"
     },
     {
       "candidateId": "KB-GAP-001",
@@ -560,7 +680,13 @@
       "javaSourceSha256": "17de88b31a68b3ca4f41203b21f1dea1e7a5e3fc018f407a15ecab3d27015a2a",
       "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110193016"
     },
     {
       "candidateId": "KB-GAP-002",
@@ -586,7 +712,13 @@
       "javaSourceSha256": "669e7fc063052b2ed771d1e7ad134ea5b38a707749b2acfbd6fecb6b1fafa731",
       "gherkinSha256": "6e34bb50261f538ce29916631ba82ad97015f6b0ab4c438f53f1b21b66a487c2",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-002/g3-kbgap002-20261110193016"
     },
     {
       "candidateId": "KB-GAP-003",
@@ -613,7 +745,13 @@
       "javaSourceSha256": "dde4efe8c3077504c8f7a1f422489b8af35a21938fa843fb07d633a68fff987f",
       "gherkinSha256": "6ce8d0211d97e3c10f24571167faff80c654595a1cd3d83b890df641b8e8bc73",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-003/g3-kbgap003-20261110193016"
     },
     {
       "candidateId": "KB-GAP-004",
@@ -640,7 +778,13 @@
       "javaSourceSha256": "036cecff5fee2a9e2ee82bcf98bd34174c4cf718bfb92147c780f7c064f05c22",
       "gherkinSha256": "9d6d38b318911d156dcc9bae80af09405357fa5b13b0e3f5714953ad902fbc5d",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-004/g3-kbgap004-20261110193016"
     },
     {
       "candidateId": "KB-GAP-008",
@@ -666,7 +810,13 @@
       "javaSourceSha256": "d9d31365c128be72fbac531dde5ab89570e07411253659b10ad6b79ea6672896",
       "gherkinSha256": "3ab599680a90f311e076eaa619a54c8d0dbba29e8ff91497f2ccd6fc21715cc7",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-008/g3-kbgap008-20261110193016"
     },
     {
       "candidateId": "MB-GAP-001",
@@ -692,7 +842,13 @@
       "javaSourceSha256": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
       "gherkinSha256": "7eee5e8926eb29b256295af76b8c8b86b1f1447360c635185472562f1c54f927",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-001/g3-mbgap001-20261110193403"
     },
     {
       "candidateId": "MB-GAP-002",
@@ -718,7 +874,13 @@
       "javaSourceSha256": "bd0a134385a61ba53b7f32ff6540b57c4f559a3b605180f9f41bd87ba7279991",
       "gherkinSha256": "00d18a2eec447c13aa80df9df4689953b64fd8eb2f579f4d9ba728754e070e34",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-002/g3-mbgap002-20261110193403"
     },
     {
       "candidateId": "MB-GAP-003",
@@ -745,7 +907,13 @@
       "javaSourceSha256": "1fa28e0373ccbc8f771c9da61abce6e2df8f68cff8f0889ba2be895633b84014",
       "gherkinSha256": "46df6810371e69659e5e595f8169f1a3eb3c0af114beb85bb339f043c61324b5",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-003/g3-mbgap003-20261110193403"
     },
     {
       "candidateId": "MB-GAP-004",
@@ -771,7 +939,13 @@
       "javaSourceSha256": "c9fec19003850ff06549ef4b31a43793aff1ba9ba262eae8d5c09c6049644819",
       "gherkinSha256": "76915d561f4e1093b424b3f0c17fb83599afe65f32d508394f0350a79a63993d",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-004/g3-mbgap004-20261110193403"
     },
     {
       "candidateId": "MB-GAP-005",
@@ -797,7 +971,13 @@
       "javaSourceSha256": "0ba675755d5853f1a2c12ceb8527131b2a2c541ba90ed04be1bbffe8baed5f2d",
       "gherkinSha256": "81b8d3346d97b8273b01fe147e769f110523b482cd849011b27964a6e5681804",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-005/g3-mbgap005-20261110193403"
     },
     {
       "candidateId": "MW-GAP-001",
@@ -824,7 +1004,13 @@
       "javaSourceSha256": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
       "gherkinSha256": "558160ad60b8d9cd4d94a6b898638e0c1a86acf82ed009bf77623d9d5fc15ad9",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-001/g3-mwgap001-20261110193836"
     },
     {
       "candidateId": "MW-GAP-002",
@@ -851,7 +1037,13 @@
       "javaSourceSha256": "84840efb854fa55519a0b655db68b24ab684b49c8ce3bd38a66e6b9b1ee53e56",
       "gherkinSha256": "cd65ae3aab0c7fe837305cc1f90d57317cda7e8b4dd48ccd16c35087b003ed3f",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-002/g3-mwgap002-20261110193836"
     },
     {
       "candidateId": "MW-GAP-003",
@@ -876,7 +1068,13 @@
       "javaSourceSha256": "c22b40c2e03dbc4b21b4eb3f29264e3e4f56478d95ae3ccfced0ef09213c62fe",
       "gherkinSha256": "3bf7852fad42a83c3e9ad520d9a5acfd8f7beddc3bf2a82396c3ffe9d5a6b5ad",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-003/g3-mwgap003-20261110193836"
     },
     {
       "candidateId": "MW-GAP-004",
@@ -903,7 +1101,13 @@
       "javaSourceSha256": "db7d43622b41ce11474f5b1d6f064f301a593b6b9238b029ed63ed870001b267",
       "gherkinSha256": "13bca825046df387c2c3f51d2816a18d82515d6fa9a0040e359ee4dac28b775b",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-004/g3-mwgap004-20261110193836"
     },
     {
       "candidateId": "MW-GAP-005",
@@ -929,7 +1133,13 @@
       "javaSourceSha256": "668c184c325731ae5c96ab677feecd3357faf5f5d235a6847bff144b855ca56f",
       "gherkinSha256": "5c0bd636ec19f39c3590970906cbb976104821a9391cf5290310a5c3d9b89d05",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-005/g3-mwgap005-20261110193836"
     },
     {
       "candidateId": "PS-GAP-001",
@@ -955,7 +1165,13 @@
       "javaSourceSha256": "6c119a38dffa47542223a7c0bfa25bf95f3c32b917a86708898234cb527274ae",
       "gherkinSha256": "5a639eb746eddb19f5674f474dec06c24fbc95818eb8b9e3822fc4902e3c332f",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-001/g3-psgap001-20261110194240"
     },
     {
       "candidateId": "PS-GAP-002",
@@ -981,7 +1197,13 @@
       "javaSourceSha256": "8fea440146a44281440f48559a93bd8665ac09f8471f79a9b21c7e019b61e032",
       "gherkinSha256": "5999e34b60849995f086eb3eb9826efd66bab11a40c76c1c53925b24869d56ae",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-002/g3-psgap002-20261110194240"
     },
     {
       "candidateId": "PS-GAP-003",
@@ -1008,7 +1230,13 @@
       "javaSourceSha256": "65692bb27b32f5a6282e044fdd88bf4f37177fb4b28b25e7ea77a73a3d90a063",
       "gherkinSha256": "b73fe08af4349eb7d02a7e88658ad50987095e800ad02281494b7be29c4b8eec",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-003/g3-psgap003-20261110194240"
     },
     {
       "candidateId": "PS-GAP-004",
@@ -1036,7 +1264,13 @@
       "javaSourceSha256": "3aa2333717ddb07049177ff7e6bf87bee780f2193686feaa273428760ca20ec2",
       "gherkinSha256": "23b385c4f409af26c128963ba8592f9470dab4e30602ef0fecef0154a88a057a",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "PASS",
+      "e2eRerunsPassed": 3,
+      "e2eTotalReruns": 3,
+      "e2eFlakinessRate": 0,
+      "e2eOutcome": "VALIDATED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-004/g3-psgap004-20261110194240"
     },
     {
       "candidateId": "PS-GAP-005",
@@ -1065,7 +1299,83 @@
       "javaSourceSha256": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
       "gherkinSha256": "2095719852b8b0d016bbdb81a7dcee873f73ae322a416041a760bd924d568d1d",
       "compileStatus": "PASS",
-      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION"
+      "validationStatus": "ACCEPTED_FOR_IMPLEMENTATION",
+      "e2eInitialOutcome": "FAIL",
+      "e2eRerunsPassed": 0,
+      "e2eTotalReruns": 0,
+      "e2eFlakinessRate": 1,
+      "e2eOutcome": "FAILED",
+      "e2eEvidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-005/g3-psgap005-20261110194240"
     }
-  ]
+  ],
+  "empiricalExecutionSummary": {
+    "executedAtUtc": "2026-11-10T20:15:48.558Z",
+    "totalCandidates": 40,
+    "validatedCandidates": 11,
+    "flakyCandidates": 2,
+    "failedCandidates": 27,
+    "validationRate": 0.275,
+    "initialPassRate": 0.325,
+    "totalIndividualRuns": 79,
+    "totalPassedRuns": 49,
+    "runPassRate": 0.62,
+    "perAppSummary": {
+      "bludit": {
+        "total": 5,
+        "validated": 2,
+        "flaky": 1,
+        "failed": 2,
+        "validationRate": 0.4
+      },
+      "claroline": {
+        "total": 5,
+        "validated": 0,
+        "flaky": 0,
+        "failed": 5,
+        "validationRate": 0
+      },
+      "expresscart": {
+        "total": 5,
+        "validated": 5,
+        "flaky": 0,
+        "failed": 0,
+        "validationRate": 1
+      },
+      "joomla": {
+        "total": 5,
+        "validated": 2,
+        "flaky": 1,
+        "failed": 2,
+        "validationRate": 0.4
+      },
+      "kanboard": {
+        "total": 5,
+        "validated": 0,
+        "flaky": 0,
+        "failed": 5,
+        "validationRate": 0
+      },
+      "mantisbt": {
+        "total": 5,
+        "validated": 0,
+        "flaky": 0,
+        "failed": 5,
+        "validationRate": 0
+      },
+      "mediawiki": {
+        "total": 5,
+        "validated": 0,
+        "flaky": 0,
+        "failed": 5,
+        "validationRate": 0
+      },
+      "prestashop": {
+        "total": 5,
+        "validated": 2,
+        "flaky": 0,
+        "failed": 3,
+        "validationRate": 0.4
+      }
+    }
+  }
 }

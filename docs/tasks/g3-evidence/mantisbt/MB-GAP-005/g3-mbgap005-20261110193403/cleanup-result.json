@@ -1,0 +1,19 @@
+{
+  "runId": "g3-mbgap005-20261110193403",
+  "appId": "mantisbt",
+  "stoppedContainers": [
+    "bewt-covext-mantisbt-selenium-g3-mbgap005-20261110193403",
+    "bewt-covext-mantisbt-g3-mbgap005-20261110193403"
+  ],
+  "removedContainers": [
+    "bewt-covext-mantisbt-selenium-g3-mbgap005-20261110193403",
+    "bewt-covext-mantisbt-g3-mbgap005-20261110193403"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-mantisbt-g3-mbgap005-20261110193403-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

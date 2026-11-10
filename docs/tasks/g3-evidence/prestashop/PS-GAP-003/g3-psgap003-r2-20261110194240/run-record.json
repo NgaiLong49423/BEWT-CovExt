@@ -1,0 +1,36 @@
+{
+  "appId": "prestashop",
+  "runId": "g3-psgap003-r2-20261110194240",
+  "startedAtUtc": "2026-11-10T19:53:51.965Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "prestashop",
+    "task": "g0-prestashop",
+    "runId": "g3-psgap003-r2-20261110194240"
+  },
+  "containers": [
+    {
+      "role": "db",
+      "name": "bewt-covext-prestashop-db-g3-psgap003-r2-20261110194240"
+    },
+    {
+      "role": "browser",
+      "name": "bewt-covext-prestashop-selenium-g3-psgap003-r2-20261110194240",
+      "port": 35907
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-prestashop-g3-psgap003-r2-20261110194240",
+      "port": 40565
+    }
+  ],
+  "network": {
+    "id": "518d324c5f723169883e10a7c250c327894effaac1d8ca1283dd56ed0ee2ca61",
+    "name": "bewt-covext-prestashop-g3-psgap003-r2-20261110194240-net"
+  },
+  "volumes": [],
+  "appPort": 40565,
+  "browserPort": 35907
+}

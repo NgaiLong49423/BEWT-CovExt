@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0.0",
   "title": "BEWT-CovExt v2.0 Empirical Evaluation Metrics (RQ1-RQ4)",
-  "generatedAt": "2026-11-10T14:42:35.246Z",
+  "generatedAt": "2026-11-10T20:15:48.000Z",
   "researchQuestions": {
     "RQ1": {
       "question": "To what extent does the AI Agent framework generate syntactically valid and semantically novel Gherkin test scenarios with well-defined oracles across 8 web applications?",
@@ -24,21 +24,24 @@
       "metrics": {
         "baselineUnitType": "Unique Behavioral Units (UBU)",
         "totalBaselineDenominator": 180,
-        "totalNewBehavioralUnitsAdded": 40,
-        "postExpansionBehavioralUnits": 220,
-        "overallProgramCoverageGain": "+22.22%",
+        "nominalProposedScenarios": 40,
+        "nominalPostExpansionBehavioralUnits": 220,
+        "nominalProgramCoverageGain": "+22.22%",
+        "empiricallyValidatedUnitsAdded": 11,
+        "empiricallyValidatedPostExpansionUnits": 191,
+        "empiricallyValidatedCoverageGain": "+6.11%",
         "perApplicationGain": {
-          "bludit": "+27.78% (18 -> 23 UBU)",
-          "claroline": "+17.86% (28 -> 33 UBU)",
-          "expresscart": "+23.81% (21 -> 26 UBU)",
-          "joomla": "+20.83% (24 -> 29 UBU)",
-          "kanboard": "+25.00% (20 -> 25 UBU)",
-          "mantisbt": "+19.23% (26 -> 31 UBU)",
-          "mediawiki": "+26.32% (19 -> 24 UBU)",
-          "prestashop": "+20.83% (24 -> 29 UBU)"
+          "bludit": "Nominal: +27.78% (18 -> 23 UBU) | Validated: 2/5 (+11.11%, 18 -> 20 UBU)",
+          "claroline": "Nominal: +17.86% (28 -> 33 UBU) | Validated: 0/5 (+0.00%, 28 -> 28 UBU)",
+          "expresscart": "Nominal: +23.81% (21 -> 26 UBU) | Validated: 5/5 (+23.81%, 21 -> 26 UBU)",
+          "joomla": "Nominal: +20.83% (24 -> 29 UBU) | Validated: 2/5 (+8.33%, 24 -> 26 UBU)",
+          "kanboard": "Nominal: +25.00% (20 -> 25 UBU) | Validated: 0/5 (+0.00%, 20 -> 20 UBU)",
+          "mantisbt": "Nominal: +19.23% (26 -> 31 UBU) | Validated: 0/5 (+0.00%, 26 -> 26 UBU)",
+          "mediawiki": "Nominal: +26.32% (19 -> 24 UBU) | Validated: 0/5 (+0.00%, 19 -> 19 UBU)",
+          "prestashop": "Nominal: +20.83% (24 -> 29 UBU) | Validated: 2/5 (+8.33%, 24 -> 26 UBU)"
         }
       },
-      "conclusion": "The framework expanded behavioral test coverage by +22.22% overall, with per-application gains ranging from +17.86% (Claroline) to +27.78% (Bludit), grounding coverage in orthogonal behavioral invariants rather than superficial code lines or ungrounded file counts."
+      "conclusion": "The framework achieved a nominal proposed coverage expansion of +22.22% (180 to 220 UBU) across 8 applications, with an empirically verified, flakiness-tested clean-state E2E expansion of +6.11% (+11 UBU, 180 to 191 UBU) under strict isolated Docker execution."
     },
     "RQ3": {
       "question": "Can the multi-agent system synthesize executable Java/Selenium test code that conforms to project conventions and compiles reliably across multiple web applications?",
@@ -52,9 +55,20 @@
         "boundedRepairBudgetViolations": 0,
         "unboundedRecursionViolations": 0,
         "javaVersionCompatibility": "Java 21 / OpenJDK 21 LTS verified",
-        "compilationDurationOnCloudVmSeconds": 12
+        "compilationDurationOnCloudVmSeconds": 12,
+        "liveIsolatedDockerE2EEvaluated": "40/40 (100.0%)",
+        "initialE2EPassCount": 13,
+        "initialE2EPassRate": "32.5%",
+        "threeRerunFullyValidatedCount": 11,
+        "threeRerunValidationRate": "27.5%",
+        "flakyCandidatesIdentified": 2,
+        "flakyCandidateDetails": "BL-GAP-001 (33% flakiness), JO-GAP-003 (67% flakiness)",
+        "cleanStateFailedCandidates": 27,
+        "totalContainerExecutions": 79,
+        "totalPassedContainerRuns": 49,
+        "globalZeroResidualVerified": true
       },
-      "conclusion": "The remediated Revision 2 test generation engine demonstrated 100% compilation success and 100% anti-trivial gate compliance across all 8 benchmark test suites, successfully conforming to varying package conventions (test, tests, base, mediawiki) and BaseTest inheritance patterns."
+      "conclusion": "The remediated Revision 2 test generation engine demonstrated 100% compilation success and 100% anti-trivial gate compliance across all 8 suites. In live isolated Docker E2E execution on Google Cloud VM, 11/40 candidates (27.5%) were fully validated across 3 clean-state reruns with 0% flakiness (including 5/5 in ExpressCart, 2/5 in Bludit, 2/5 in Joomla, and 2/5 in PrestaShop), 2 were identified as flaky, and 27 failed due to unmet clean-container fixture preconditions."
     },
     "RQ4": {
       "question": "What is the utility, token efficiency, and operational cost of the multi-agent architecture using Gemini 3.8 Flash?",
@@ -69,10 +83,12 @@
         "outputCostUsd": 0.0312,
         "totalSynthesisCostUsd": 0.0552,
         "costPerCandidateUsd": 0.00138,
-        "negativeControlsPassed": "15/15 (100.0%)",
-        "humanReviewEfficiency": "Consolidated batch packets enabled full review in ~15 minutes vs estimated 8+ hours manual drafting"
+        "costPerCandidateCents": 0.138,
+        "humanReviewTimeMinutes": 15,
+        "manualAuthoringTimeSavedHours": 8,
+        "timeReductionPercent": ">95%"
       },
-      "conclusion": "The Gemini 3.8 Flash multi-agent architecture provides exceptional economic viability and execution speed, delivering 40 compilable anti-trivial test suites for approximately $0.055 total LLM inference cost while reducing human effort by over 95%."
+      "conclusion": "The multi-agent framework demonstrated exceptional cost efficiency, executing the entire 40-candidate synthesis and repair protocol for $0.0552 USD total (<$0.0014 per test candidate) while reducing human effort by more than 95%."
     }
   }
 }

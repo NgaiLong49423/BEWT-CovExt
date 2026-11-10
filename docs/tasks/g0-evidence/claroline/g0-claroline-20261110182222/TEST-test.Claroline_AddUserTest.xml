@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="test.Claroline_AddUserTest" time="2.945" errors="0" skipped="0">
+  <properties/>
+  <testcase classname="test.Claroline_AddUserTest" name="runTest" time="2.945"/>
+</testsuite>

@@ -1,0 +1,32 @@
+{
+  "appId": "claroline",
+  "runId": "g0-claroline-20261110183915",
+  "startedAtUtc": "2026-11-10T18:39:57.670Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "claroline",
+    "task": "g0-claroline",
+    "runId": "g0-claroline-20261110183915"
+  },
+  "containers": [
+    {
+      "role": "browser",
+      "name": "bewt-covext-claroline-selenium-g0-claroline-20261110183915",
+      "port": 33315
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-claroline-g0-claroline-20261110183915",
+      "port": 35665
+    }
+  ],
+  "network": {
+    "id": "a78fac1dc17b5d6d5599efea8c801f554091f7674bde6d45b2c58ae84223cf44",
+    "name": "bewt-covext-claroline-g0-claroline-20261110183915-net"
+  },
+  "volumes": [],
+  "appPort": 35665,
+  "browserPort": 33315
+}

@@ -1,0 +1,36 @@
+{
+  "appId": "joomla",
+  "runId": "g3-jogap002-20261110191702",
+  "startedAtUtc": "2026-11-10T19:18:23.821Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "joomla",
+    "task": "g0-joomla",
+    "runId": "g3-jogap002-20261110191702"
+  },
+  "containers": [
+    {
+      "role": "db",
+      "name": "bewt-covext-joomla-db-g3-jogap002-20261110191702"
+    },
+    {
+      "role": "browser",
+      "name": "bewt-covext-joomla-selenium-g3-jogap002-20261110191702",
+      "port": 39645
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-joomla-g3-jogap002-20261110191702",
+      "port": 34661
+    }
+  ],
+  "network": {
+    "id": "5bae14c2e0c997d24152a109b717327436187980da96b0d7c278477929b8b959",
+    "name": "bewt-covext-joomla-g3-jogap002-20261110191702-net"
+  },
+  "volumes": [],
+  "appPort": 34661,
+  "browserPort": 39645
+}

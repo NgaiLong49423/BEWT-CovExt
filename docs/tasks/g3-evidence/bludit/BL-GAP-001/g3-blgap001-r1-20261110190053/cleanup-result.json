@@ -1,0 +1,28 @@
+{
+  "runId": "g3-blgap001-r1-20261110190053",
+  "appId": "bludit",
+  "stoppedContainers": [
+    "bewt-covext-bludit-selenium-g3-blgap001-r1-20261110190053",
+    "bewt-covext-bludit-g3-blgap001-r1-20261110190053"
+  ],
+  "removedContainers": [
+    "bewt-covext-bludit-selenium-g3-blgap001-r1-20261110190053",
+    "bewt-covext-bludit-g3-blgap001-r1-20261110190053"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-bludit-g3-blgap001-r1-20261110190053-net",
+  "zeroResidualVerified": false,
+  "residualContainers": [
+    "016ad42edf665bf5ce1c4ef593c271cb1047d8f3b5975a8a412c01c3d789f41a",
+    "c4328fc7d660479a5938eb63a4297a2aef493b99f1f79c6a17e5aa17df538782"
+  ],
+  "residualNetworks": [
+    "17979260abf3787d19faac91dd043f917595b4aec793aab656a2f3d8d4c524a0"
+  ],
+  "residualVolumes": [
+    "bewt-covext-kanboard-data-g3-kbgap001-20261110190120",
+    "bewt-covext-kanboard-plugins-g3-kbgap001-20261110190120",
+    "ef995bed350b8b102f49849ea96f3825d012c1877ec2706e2c132316c6db1675"
+  ],
+  "outcome": "FAIL_RESIDUALS_EXIST"
+}

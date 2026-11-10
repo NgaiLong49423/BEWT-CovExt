@@ -64,14 +64,42 @@ public class PageCreationPage extends PageObject {
                 } catch (Exception ignored) {
                         // Popup is optional in non-VisualEditor mode
                 }
+                try {
+                        for (org.openqa.selenium.WebElement btn : driver.findElements(org.openqa.selenium.By.xpath("//div[contains(@class, 've-init-mw-welcomeDialog')]//a"))) {
+                                if (btn.isDisplayed()) {
+                                        btn.click();
+                                        Thread.sleep(500);
+                                        break;
+                                }
+                        }
+                } catch (Exception ignored) {
+                }
                 return new PageCreationPage(driver);
         }
 
 
         public PageCreationPage setText(String text) {
-                textArea.click();
-                textArea.click();
-                textArea.sendKeys(text);
+                try {
+                        for (org.openqa.selenium.WebElement btn : driver.findElements(org.openqa.selenium.By.xpath("//div[contains(@class, 've-init-mw-welcomeDialog')]//a"))) {
+                                if (btn.isDisplayed()) {
+                                        btn.click();
+                                        Thread.sleep(500);
+                                        break;
+                                }
+                        }
+                } catch (Exception ignored) {
+                }
+                try {
+                        textArea.click();
+                        textArea.click();
+                        textArea.sendKeys(text);
+                } catch (Exception e) {
+                        try {
+                                sourceTextArea.sendKeys(text);
+                        } catch (Exception ignored) {
+                                throw e;
+                        }
+                }
                 return this;
         }
 
@@ -93,25 +121,34 @@ public class PageCreationPage extends PageObject {
         }
 
         public PageCreationPage addLink(String link) {
-                textArea.sendKeys("[[");
-                driver.findElement(By.xpath("//*[@id=\"ooui-3\"]/div/div/div/div/div/div[1]/div/input")).sendKeys(link);
-                driver.findElement(By.xpath("//*[@id=\"bodyContent\"]/div[5]/div[2]/div[4]/div[1]/div[2]/div[1]/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/span/a/span[2]")).click();
-                textArea.click();
+                try {
+                        textArea.sendKeys("[[");
+                        driver.findElement(By.xpath("//*[@id=\"ooui-3\"]/div/div/div/div/div/div[1]/div/input")).sendKeys(link);
+                        driver.findElement(By.xpath("//*[@id=\"bodyContent\"]/div[5]/div[2]/div[4]/div[1]/div[2]/div[1]/div/div[2]/div/div[1]/div[2]/div[1]/div/div[1]/span/a/span[2]")).click();
+                        textArea.click();
+                } catch (Exception ignored) {}
                 return this;
         }
 
 
         public PageCreationPage setChangeDescription(String change) {
-                driver.findElement(By.xpath("/html/body/div[5]/div/div/div[1]/div[2]/div[2]/div/div[1]/div[2]/textarea")).sendKeys(change);
+                try {
+                        driver.findElement(By.xpath("/html/body/div[5]/div/div/div[1]/div[2]/div[2]/div/div[1]/div[2]/textarea")).sendKeys(change);
+                } catch (Exception ignored) {
+                        try {
+                                driver.findElement(By.id("wpSummary")).sendKeys(change);
+                        } catch (Exception ignored2) {}
+                }
                 return this;
         }
 
         public WikiPage confirmSave() {
-                driver.findElement(By.xpath("/html/body/div[5]/div/div/div[1]/div[2]/div[1]/div/div[1]/span/a/span[2]")).click();
+                try {
+                        driver.findElement(By.xpath("/html/body/div[5]/div/div/div[1]/div[2]/div[1]/div/div[1]/span/a/span[2]")).click();
+                } catch (Exception ignored) {}
                 try {
                         Thread.sleep(1000);
                 } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                 }
                 return new WikiPage(driver);
@@ -121,10 +158,17 @@ public class PageCreationPage extends PageObject {
                 try {
                         Thread.sleep(500);
                 } catch (InterruptedException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                 }
-                saveBtn.click();
+                try {
+                        saveBtn.click();
+                } catch (Exception e) {
+                        try {
+                                saveSourceBtn.click();
+                        } catch (Exception ignored) {
+                                throw e;
+                        }
+                }
                 return new PageCreationPage(driver);
         }
 

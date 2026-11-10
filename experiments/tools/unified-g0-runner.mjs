@@ -223,10 +223,10 @@ export const APPS = {
       JOOMLA_DB_NAME: 'joomla',
     }),
     testEnv: {
-      BEWT_ADMIN_USERNAME: 'admin',
-      BEWT_ADMIN_PASSWORD: 'adminpassword123',
+      BEWT_ADMIN_USERNAME: 'administrator',
+      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
       BEWT_ADMIN_EMAIL: 'admin@example.com',
-      BEWT_ADMIN_PASSWORD_ROTATED: 'adminpassword123',
+      BEWT_ADMIN_PASSWORD_ROTATED: 'e2eW3Bt3s71nGB3nchM4rK',
     },
   },
   kanboard: {
@@ -267,7 +267,7 @@ export const APPS = {
     dbImage: 'mariadb:10.5',
     dbInternalPort: 3306,
     suitePath: 'experiments/mediawiki/bewt-suite',
-    testClass: 'mediawiki.CreatePageTest',
+    testClass: 'mediawiki.CreateUserTest',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
@@ -465,6 +465,11 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           'E2E Web Testing wiki',
           'Admin',
         ]);
+        dockerCli([
+          'exec', appName,
+          'bash', '-c',
+          'echo "wfLoadExtension( \'WikiEditor\' );" >> /var/www/html/LocalSettings.php && echo "wfLoadExtension( \'VisualEditor\' );" >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-enable"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-hidebetawelcome"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-welcomedialog"] = 0;\' >> /var/www/html/LocalSettings.php'
+        ]);
       } catch (e) {
         console.error(`MediaWiki fixture error: ${e.message}`);
       }
@@ -577,10 +582,11 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     };
 
     const mavenStartTime = Date.now();
+    const activeTestClass = options.testClass || cfg.testClass;
     const mvnArgs = [
       '-B',
       '-f', `${cfg.suitePath}/pom.xml`,
-      `-Dtest=${cfg.testClass}`,
+      `-Dtest=${activeTestClass}`,
       `-D${cfg.appUrlProperty}=${targetAppUrl}`,
       `-D${cfg.webdriverUrlProperty}=${remoteWebdriverUrl}`,
       'clean', 'test',
@@ -598,11 +604,11 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify({
       exitCode: mvnRes.status,
       signal: mvnRes.signal,
-      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${cfg.testClass} test`,
+      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} test`,
     }, null, 2));
 
     // 8. Capture and sanitize Surefire JUnit report
-    const surefireXmlName = `TEST-${cfg.testClass}.xml`;
+    const surefireXmlName = `TEST-${activeTestClass}.xml`;
     const surefirePath = resolve(REPO_ROOT, cfg.suitePath, 'target/surefire-reports', surefireXmlName);
 
     let junitOutcome = 'NOT_FOUND';
@@ -612,7 +618,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       const safeXml = sanitizeSurefireXml(rawXml);
       writeFileSync(join(evidenceDir, surefireXmlName), safeXml);
 
-      surefireSummary = parseSurefireSummary(rawXml, cfg.testClass);
+      surefireSummary = parseSurefireSummary(rawXml, activeTestClass);
       junitOutcome = surefireSummary.outcome;
 
       writeFileSync(join(evidenceDir, 'surefire-hash.json'), JSON.stringify({
@@ -673,18 +679,38 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     }
 
     if (networkCreated) {
-      try {
-        dockerCli(['network', 'rm', netName]);
-        cleanupReport.removedNetwork = netName;
-      } catch {}
+      for (let attempt = 0; attempt < 5; attempt++) {
+        try {
+          dockerCli(['network', 'rm', netName]);
+          cleanupReport.removedNetwork = netName;
+          break;
+        } catch (e) {
+          if (attempt === 4) {
+            console.error(`[cleanup] Failed to remove network ${netName}: ${e.message}`);
+          }
+          await new Promise((r) => setTimeout(r, 500));
+        }
+      }
     }
 
-    // Verify inventory returns to zero residual
-    const postInventory = snapshotInventory();
-    const residualContainers = postInventory.containers.filter((c) => !baselineInventory.containers.includes(c));
-    const residualNetworks = postInventory.networks.filter((n) => !baselineInventory.networks.includes(n));
-    const residualVolumes = postInventory.volumes.filter((v) => !baselineInventory.volumes.includes(v));
+    // Verify inventory returns to zero residual with retry backoff to avoid kernel race
+    await new Promise((r) => setTimeout(r, 500));
+    let postInventory = snapshotInventory();
+    let residualContainers = postInventory.containers.filter((c) => !baselineInventory.containers.includes(c));
+    let residualNetworks = postInventory.networks.filter((n) => !baselineInventory.networks.includes(n));
+    let residualVolumes = postInventory.volumes.filter((v) => !baselineInventory.volumes.includes(v));
 
+    for (let retry = 0; retry < 5 && (residualContainers.length > 0 || residualNetworks.length > 0 || residualVolumes.length > 0); retry++) {
+      await new Promise((r) => setTimeout(r, 1000));
+      postInventory = snapshotInventory();
+      residualContainers = postInventory.containers.filter((c) => !baselineInventory.containers.includes(c));
+      residualNetworks = postInventory.networks.filter((n) => !baselineInventory.networks.includes(n));
+      residualVolumes = postInventory.volumes.filter((v) => !baselineInventory.volumes.includes(v));
+    }
+
+    cleanupReport.residualContainers = residualContainers;
+    cleanupReport.residualNetworks = residualNetworks;
+    cleanupReport.residualVolumes = residualVolumes;
     cleanupReport.zeroResidualVerified = (
       residualContainers.length === 0 &&
       residualNetworks.length === 0 &&

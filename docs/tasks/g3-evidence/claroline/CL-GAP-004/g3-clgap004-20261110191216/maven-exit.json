@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "command": "mvn -B -f experiments/claroline/bewt-suite/pom.xml -Dtest=test.T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2 test"
+}

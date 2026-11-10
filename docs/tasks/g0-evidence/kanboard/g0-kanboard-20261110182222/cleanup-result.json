@@ -1,0 +1,20 @@
+{
+  "runId": "g0-kanboard-20261110182222",
+  "appId": "kanboard",
+  "stoppedContainers": [
+    "bewt-covext-kanboard-selenium-g0-kanboard-20261110182222",
+    "bewt-covext-kanboard-g0-kanboard-20261110182222"
+  ],
+  "removedContainers": [
+    "bewt-covext-kanboard-selenium-g0-kanboard-20261110182222",
+    "bewt-covext-kanboard-g0-kanboard-20261110182222"
+  ],
+  "removedVolumes": [
+    "bewt-covext-kanboard-data-g0-kanboard-20261110182222",
+    "bewt-covext-kanboard-plugins-g0-kanboard-20261110182222",
+    "0339798ab297e79f2b180b02c83cdae7d22081349b52d6ae59af167bd5219c5b"
+  ],
+  "removedNetwork": "bewt-covext-kanboard-g0-kanboard-20261110182222-net",
+  "zeroResidualVerified": true,
+  "outcome": "PASS"
+}

@@ -1,0 +1,5 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "command": "mvn -B -f experiments/joomla/bewt-suite/pom.xml -Dtest=base.T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R2 test"
+}

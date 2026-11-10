@@ -1,0 +1,50 @@
+{
+  "candidateId": "EC-GAP-006",
+  "application": "expresscart",
+  "javaClass": "tests.T01C_f02b9ed81a318c005e31982c144907a2_R2",
+  "initialRun": {
+    "runId": "g3-ecgap006-20261110185226",
+    "durationSeconds": 26.6,
+    "exitCode": 0,
+    "outcome": "PASS",
+    "junitOutcome": "PASS",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 0,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/expresscart/EC-GAP-006/g3-ecgap006-20261110185226"
+  },
+  "reruns": [
+    {
+      "rerunIndex": 1,
+      "runId": "g3-ecgap006-r1-20261110185226",
+      "durationSeconds": 26.3,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 2,
+      "runId": "g3-ecgap006-r2-20261110185226",
+      "durationSeconds": 26.2,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 3,
+      "runId": "g3-ecgap006-r3-20261110185226",
+      "durationSeconds": 25.2,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    }
+  ],
+  "totalRuns": 4,
+  "passedRuns": 4,
+  "flakinessRate": 0,
+  "overallOutcome": "VALIDATED"
+}

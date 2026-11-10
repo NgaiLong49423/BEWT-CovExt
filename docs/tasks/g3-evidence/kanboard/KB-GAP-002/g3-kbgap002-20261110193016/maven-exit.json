@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "command": "mvn -B -f experiments/kanboard/bewt-suite/pom.xml -Dtest=tests.T01C_ca582c83d0559c38508bf3e1a5420ca9_R2 test"
+}

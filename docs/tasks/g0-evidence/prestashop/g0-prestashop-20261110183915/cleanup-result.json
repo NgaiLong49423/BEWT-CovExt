@@ -1,0 +1,23 @@
+{
+  "runId": "g0-prestashop-20261110183915",
+  "appId": "prestashop",
+  "stoppedContainers": [
+    "bewt-covext-prestashop-db-g0-prestashop-20261110183915",
+    "bewt-covext-prestashop-selenium-g0-prestashop-20261110183915",
+    "bewt-covext-prestashop-g0-prestashop-20261110183915"
+  ],
+  "removedContainers": [
+    "bewt-covext-prestashop-db-g0-prestashop-20261110183915",
+    "bewt-covext-prestashop-selenium-g0-prestashop-20261110183915",
+    "bewt-covext-prestashop-g0-prestashop-20261110183915"
+  ],
+  "removedVolumes": [
+    "1489bdcb4463dfccea7eb0618fe21387e77a16bb60f98c36c8b494479ea34370"
+  ],
+  "removedNetwork": "bewt-covext-prestashop-g0-prestashop-20261110183915-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

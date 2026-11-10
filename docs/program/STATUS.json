@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
-  "statusType": "REMEDIATION_IN_PROGRESS",
+  "statusType": "REMEDIATION_VALIDATED_EVIDENCED",
   "snapshotDate": "2026-11-10",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
@@ -132,21 +132,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_2_VALIDATED_1_FLAKY_2_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 3,
+      "validatedNewCases": 2,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/bludit/human-review-decisions.jsonl",
         "data/coverage/bludit/source-backed-gap-proposals.json",
         "data/coverage/bludit/source-backed-gap-shortlist.json",
         "extension/bludit/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/bludit/",
+        "docs/tasks/g0-evidence/bludit/"
       ]
     },
     {
@@ -158,21 +160,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 0,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/claroline/human-review-decisions.jsonl",
         "data/coverage/claroline/source-backed-gap-proposals.json",
         "data/coverage/claroline/source-backed-gap-shortlist.json",
         "extension/claroline/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/claroline/",
+        "docs/tasks/g0-evidence/claroline/"
       ]
     },
     {
@@ -184,21 +188,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_5_VALIDATED_0_FLAKY_0_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 2,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 5,
+      "validatedNewCases": 5,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/expresscart/human-review-decisions.jsonl",
         "data/coverage/expresscart/source-backed-gap-proposals.json",
         "data/coverage/expresscart/source-backed-gap-shortlist.json",
         "extension/expresscart/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/expresscart/",
+        "docs/tasks/g0-evidence/expresscart/"
       ],
       "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
       "observedUpstreamVersion": "1.1.19",
@@ -215,21 +221,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_2_VALIDATED_1_FLAKY_2_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 3,
+      "validatedNewCases": 2,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/joomla/human-review-decisions.jsonl",
         "data/coverage/joomla/source-backed-gap-proposals.json",
         "data/coverage/joomla/source-backed-gap-shortlist.json",
         "extension/joomla/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/joomla/",
+        "docs/tasks/g0-evidence/joomla/"
       ]
     },
     {
@@ -241,21 +249,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 0,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/kanboard/human-review-decisions.jsonl",
         "data/coverage/kanboard/source-backed-gap-proposals.json",
         "data/coverage/kanboard/source-backed-gap-shortlist.json",
         "extension/kanboard/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/kanboard/",
+        "docs/tasks/g0-evidence/kanboard/"
       ]
     },
     {
@@ -267,21 +277,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 0,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mantisbt/human-review-decisions.jsonl",
         "data/coverage/mantisbt/source-backed-gap-proposals.json",
         "data/coverage/mantisbt/source-backed-gap-shortlist.json",
         "extension/mantisbt/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/mantisbt/",
+        "docs/tasks/g0-evidence/mantisbt/"
       ]
     },
     {
@@ -293,21 +305,23 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 0,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mediawiki/human-review-decisions.jsonl",
         "data/coverage/mediawiki/source-backed-gap-proposals.json",
         "data/coverage/mediawiki/source-backed-gap-shortlist.json",
         "extension/mediawiki/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/mediawiki/",
+        "docs/tasks/g0-evidence/mediawiki/"
       ]
     },
     {
@@ -319,31 +333,33 @@
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
         "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "STANDBY_CLOUD_E2E",
+        "G3": "EVALUATED_2_VALIDATED_0_FLAKY_3_FAILED",
         "G4": "VERIFIED_METRICS_ENGINE"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": null,
-      "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "finalE2ePassCandidates": 2,
+      "validatedNewCases": 2,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/prestashop/human-review-decisions.jsonl",
         "data/coverage/prestashop/source-backed-gap-proposals.json",
         "data/coverage/prestashop/source-backed-gap-shortlist.json",
         "extension/prestashop/selenium/",
-        "docs/research-results/v2/"
+        "docs/research-results/v2/",
+        "docs/tasks/g3-evidence/prestashop/",
+        "docs/tasks/g0-evidence/prestashop/"
       ]
     }
   ],
   "research": {
     "RQ1": "PASS_AST_STRUCTURAL_AND_HUMAN_REVIEW_VERIFIED",
-    "RQ2": "PASS_NOMINAL_COVERAGE_EXPANSION_180_TO_220_UBU",
-    "RQ3": "PASS_REVISION_2_SYNTHESIS_AND_DUAL_MAVEN_COMPILE",
+    "RQ2": "PASS_NOMINAL_22_22_PCT_EMPIRICALLY_VALIDATED_6_11_PCT",
+    "RQ3": "PASS_40_OF_40_COMPILE_11_VALIDATED_E2E_2_FLAKY_27_FAILED",
     "RQ4": "PASS_GEMINI_38_FLASH_OPERATIONAL_ECONOMICS",
-    "validatedNewCases": null,
-    "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
+    "validatedNewCases": 11,
+    "notes": "Milestone M4 E2E execution evaluated all 40 candidates in isolated Docker containers on GCP VM bewt-covext-runner. 11 candidates fully validated across 3 clean reruns (0% flakiness), 2 flaky (BL-001 @ 33%, JO-003 @ 67%), 27 failed due to unmet clean-container fixture preconditions. Zero residual state verified across all 79 runs."
   },
   "deliverables": {
     "D1": "ACCEPTED",
@@ -377,12 +393,14 @@
     "docs/research-results/final/",
     "docs/tasks/T01-B/evidence/",
     "docs/tasks/T01-C/evidence/",
-    "docs/research-results/v2/"
+    "docs/research-results/v2/",
+    "docs/tasks/g0-evidence/",
+    "docs/tasks/g3-evidence/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred.",
   "remediation": {
     "ledgerPath": "docs/program/remediation/REMEDIATION-LEDGER.json",
-    "status": "DEFECTS_RESOLVED_M1_M2_G1_G2_G4_E2E_IN_PROGRESS",
+    "status": "ALL_DEFECTS_RESOLVED_G0_THROUGH_G4_EVIDENCED",
     "reopenedCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28"
   }
 }

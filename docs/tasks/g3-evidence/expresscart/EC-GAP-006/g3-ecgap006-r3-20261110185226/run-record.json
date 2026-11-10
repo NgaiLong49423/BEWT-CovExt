@@ -1,0 +1,36 @@
+{
+  "appId": "expresscart",
+  "runId": "g3-ecgap006-r3-20261110185226",
+  "startedAtUtc": "2026-11-10T19:00:15.689Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "expresscart",
+    "task": "g0-expresscart",
+    "runId": "g3-ecgap006-r3-20261110185226"
+  },
+  "containers": [
+    {
+      "role": "db",
+      "name": "bewt-covext-expresscart-db-g3-ecgap006-r3-20261110185226"
+    },
+    {
+      "role": "browser",
+      "name": "bewt-covext-expresscart-selenium-g3-ecgap006-r3-20261110185226",
+      "port": 43895
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-expresscart-g3-ecgap006-r3-20261110185226",
+      "port": 45363
+    }
+  ],
+  "network": {
+    "id": "28547ab9b095e22fd3dfdd996002ffe3d482ab4723708619468e477e17a087e0",
+    "name": "bewt-covext-expresscart-g3-ecgap006-r3-20261110185226-net"
+  },
+  "volumes": [],
+  "appPort": 45363,
+  "browserPort": 43895
+}

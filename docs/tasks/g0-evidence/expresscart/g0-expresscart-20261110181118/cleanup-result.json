@@ -1,0 +1,21 @@
+{
+  "runId": "g0-expresscart-20261110181118",
+  "appId": "expresscart",
+  "stoppedContainers": [
+    "bewt-covext-expresscart-db-g0-expresscart-20261110181118",
+    "bewt-covext-expresscart-selenium-g0-expresscart-20261110181118",
+    "bewt-covext-expresscart-g0-expresscart-20261110181118"
+  ],
+  "removedContainers": [
+    "bewt-covext-expresscart-db-g0-expresscart-20261110181118",
+    "bewt-covext-expresscart-selenium-g0-expresscart-20261110181118",
+    "bewt-covext-expresscart-g0-expresscart-20261110181118"
+  ],
+  "removedVolumes": [
+    "eb597e3cf0cd0f9b56f082f489a3913a89b0fbd1f20fdef6ecb11b9932316383",
+    "cf2028bf7217eafdcb4a72a0edb6d60b07a3335d341b18a2ea5deb6803a3ba8c"
+  ],
+  "removedNetwork": "bewt-covext-expresscart-g0-expresscart-20261110181118-net",
+  "zeroResidualVerified": true,
+  "outcome": "PASS"
+}

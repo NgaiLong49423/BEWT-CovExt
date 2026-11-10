@@ -1,0 +1,5 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "command": "mvn -B -f experiments/prestashop/bewt-suite/pom.xml -Dtest=tests.T01C_202336fd43c393a7395e8722b9e82c8f_R2 test"
+}

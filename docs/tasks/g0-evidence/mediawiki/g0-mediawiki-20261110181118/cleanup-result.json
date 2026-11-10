@@ -1,0 +1,20 @@
+{
+  "runId": "g0-mediawiki-20261110181118",
+  "appId": "mediawiki",
+  "stoppedContainers": [
+    "bewt-covext-mediawiki-db-g0-mediawiki-20261110181118",
+    "bewt-covext-mediawiki-selenium-g0-mediawiki-20261110181118",
+    "bewt-covext-mediawiki-g0-mediawiki-20261110181118"
+  ],
+  "removedContainers": [
+    "bewt-covext-mediawiki-db-g0-mediawiki-20261110181118",
+    "bewt-covext-mediawiki-selenium-g0-mediawiki-20261110181118",
+    "bewt-covext-mediawiki-g0-mediawiki-20261110181118"
+  ],
+  "removedVolumes": [
+    "4e9fe957227b00d3b232820d4c5043ef22222c590ef0c81cc4417799e9c495a4"
+  ],
+  "removedNetwork": "bewt-covext-mediawiki-g0-mediawiki-20261110181118-net",
+  "zeroResidualVerified": true,
+  "outcome": "PASS"
+}

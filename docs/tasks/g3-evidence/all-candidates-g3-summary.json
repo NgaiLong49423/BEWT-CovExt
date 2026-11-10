@@ -1,0 +1,181 @@
+{
+  "executedAtUtc": "2026-11-10T20:12:11.978Z",
+  "totalCandidates": 5,
+  "validatedCandidates": 2,
+  "failedOrFlakyCandidates": 3,
+  "validationRate": 0.4,
+  "globalZeroResidualVerified": true,
+  "residualDetails": {
+    "residualContainers": [],
+    "residualVolumes": [],
+    "residualNetworks": []
+  },
+  "results": [
+    {
+      "candidateId": "PS-GAP-001",
+      "application": "prestashop",
+      "javaClass": "tests.T01C_25166db489865765701792687cd9d40e_R2",
+      "initialRun": {
+        "runId": "g3-psgap001-20261110194240",
+        "durationSeconds": 182.5,
+        "exitCode": 1,
+        "outcome": "FAIL",
+        "junitOutcome": "FAIL",
+        "testsRun": 1,
+        "failures": 0,
+        "errors": 1,
+        "zeroResidualVerified": true,
+        "evidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-001/g3-psgap001-20261110194240"
+      },
+      "reruns": [],
+      "totalRuns": 1,
+      "passedRuns": 0,
+      "flakinessRate": 1,
+      "overallOutcome": "FAILED"
+    },
+    {
+      "candidateId": "PS-GAP-002",
+      "application": "prestashop",
+      "javaClass": "tests.T01C_b02cc209824bfa1f986ea340332df898_R2",
+      "initialRun": {
+        "runId": "g3-psgap002-20261110194240",
+        "durationSeconds": 181,
+        "exitCode": 1,
+        "outcome": "FAIL",
+        "junitOutcome": "FAIL",
+        "testsRun": 1,
+        "failures": 0,
+        "errors": 1,
+        "zeroResidualVerified": true,
+        "evidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-002/g3-psgap002-20261110194240"
+      },
+      "reruns": [],
+      "totalRuns": 1,
+      "passedRuns": 0,
+      "flakinessRate": 1,
+      "overallOutcome": "FAILED"
+    },
+    {
+      "candidateId": "PS-GAP-003",
+      "application": "prestashop",
+      "javaClass": "tests.T01C_202336fd43c393a7395e8722b9e82c8f_R2",
+      "initialRun": {
+        "runId": "g3-psgap003-20261110194240",
+        "durationSeconds": 154.1,
+        "exitCode": 0,
+        "outcome": "PASS",
+        "junitOutcome": "PASS",
+        "testsRun": 1,
+        "failures": 0,
+        "errors": 0,
+        "zeroResidualVerified": true,
+        "evidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-003/g3-psgap003-20261110194240"
+      },
+      "reruns": [
+        {
+          "rerunIndex": 1,
+          "runId": "g3-psgap003-r1-20261110194240",
+          "durationSeconds": 153.9,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        },
+        {
+          "rerunIndex": 2,
+          "runId": "g3-psgap003-r2-20261110194240",
+          "durationSeconds": 154.5,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        },
+        {
+          "rerunIndex": 3,
+          "runId": "g3-psgap003-r3-20261110194240",
+          "durationSeconds": 154.2,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        }
+      ],
+      "totalRuns": 4,
+      "passedRuns": 4,
+      "flakinessRate": 0,
+      "overallOutcome": "VALIDATED"
+    },
+    {
+      "candidateId": "PS-GAP-004",
+      "application": "prestashop",
+      "javaClass": "tests.T01C_8e2d11c8e727a6d49530c06fdb53b8d2_R2",
+      "initialRun": {
+        "runId": "g3-psgap004-20261110194240",
+        "durationSeconds": 152.5,
+        "exitCode": 0,
+        "outcome": "PASS",
+        "junitOutcome": "PASS",
+        "testsRun": 1,
+        "failures": 0,
+        "errors": 0,
+        "zeroResidualVerified": true,
+        "evidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-004/g3-psgap004-20261110194240"
+      },
+      "reruns": [
+        {
+          "rerunIndex": 1,
+          "runId": "g3-psgap004-r1-20261110194240",
+          "durationSeconds": 150.4,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        },
+        {
+          "rerunIndex": 2,
+          "runId": "g3-psgap004-r2-20261110194240",
+          "durationSeconds": 152.9,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        },
+        {
+          "rerunIndex": 3,
+          "runId": "g3-psgap004-r3-20261110194240",
+          "durationSeconds": 153.1,
+          "exitCode": 0,
+          "outcome": "PASS",
+          "junitOutcome": "PASS",
+          "zeroResidualVerified": true
+        }
+      ],
+      "totalRuns": 4,
+      "passedRuns": 4,
+      "flakinessRate": 0,
+      "overallOutcome": "VALIDATED"
+    },
+    {
+      "candidateId": "PS-GAP-005",
+      "application": "prestashop",
+      "javaClass": "tests.T01C_b0ad1666e8e14b7de6c48bf6947cd977_R2",
+      "initialRun": {
+        "runId": "g3-psgap005-20261110194240",
+        "durationSeconds": 182.4,
+        "exitCode": 1,
+        "outcome": "FAIL",
+        "junitOutcome": "FAIL",
+        "testsRun": 1,
+        "failures": 0,
+        "errors": 1,
+        "zeroResidualVerified": true,
+        "evidenceDir": "docs/tasks/g3-evidence/prestashop/PS-GAP-005/g3-psgap005-20261110194240"
+      },
+      "reruns": [],
+      "totalRuns": 1,
+      "passedRuns": 0,
+      "flakinessRate": 1,
+      "overallOutcome": "FAILED"
+    }
+  ]
+}

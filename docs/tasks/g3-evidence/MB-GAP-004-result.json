@@ -1,0 +1,22 @@
+{
+  "candidateId": "MB-GAP-004",
+  "application": "mantisbt",
+  "javaClass": "base.T01C_3b10cef3f23dff894317fc9c42e9ecd4_R2",
+  "initialRun": {
+    "runId": "g3-mbgap004-20261110193403",
+    "durationSeconds": 52.7,
+    "exitCode": 1,
+    "outcome": "FAIL",
+    "junitOutcome": "FAIL",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 1,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/mantisbt/MB-GAP-004/g3-mbgap004-20261110193403"
+  },
+  "reruns": [],
+  "totalRuns": 1,
+  "passedRuns": 0,
+  "flakinessRate": 1,
+  "overallOutcome": "FAILED"
+}

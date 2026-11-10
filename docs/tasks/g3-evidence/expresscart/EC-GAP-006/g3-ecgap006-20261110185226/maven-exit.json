@@ -1,0 +1,5 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "command": "mvn -B -f experiments/expresscart/bewt-suite/pom.xml -Dtest=tests.T01C_f02b9ed81a318c005e31982c144907a2_R2 test"
+}

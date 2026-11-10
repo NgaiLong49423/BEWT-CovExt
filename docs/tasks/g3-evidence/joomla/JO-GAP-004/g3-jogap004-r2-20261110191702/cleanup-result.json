@@ -1,0 +1,24 @@
+{
+  "runId": "g3-jogap004-r2-20261110191702",
+  "appId": "joomla",
+  "stoppedContainers": [
+    "bewt-covext-joomla-db-g3-jogap004-r2-20261110191702",
+    "bewt-covext-joomla-selenium-g3-jogap004-r2-20261110191702",
+    "bewt-covext-joomla-g3-jogap004-r2-20261110191702"
+  ],
+  "removedContainers": [
+    "bewt-covext-joomla-db-g3-jogap004-r2-20261110191702",
+    "bewt-covext-joomla-selenium-g3-jogap004-r2-20261110191702",
+    "bewt-covext-joomla-g3-jogap004-r2-20261110191702"
+  ],
+  "removedVolumes": [
+    "c435bcdf27488cab322e4b0f600dbb9da7fd607aff5f5e7c4e3981f2c9a59818",
+    "4c7987903881a874c1a88e8ab50ad61fd27c270a8262b3389f1d3b5e14362724"
+  ],
+  "removedNetwork": "bewt-covext-joomla-g3-jogap004-r2-20261110191702-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

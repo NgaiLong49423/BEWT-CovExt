@@ -1,0 +1,15 @@
+{
+  "containers": [],
+  "networks": [
+    "13a2e597d9addb7367164f3094548f01b8e065fca13a05cfdc187d094ea3471d",
+    "17979260abf3787d19faac91dd043f917595b4aec793aab656a2f3d8d4c524a0",
+    "5e27005777042bfd5c95965052b29916ff7f988f9e294a900fe412589f59bb65",
+    "e96724bce487640e33a5d788df678b797f46ddc978066ec381a1fa34191d65de"
+  ],
+  "volumes": [
+    "bewt-covext-kanboard-data-g3-kbgap001-20261110190120",
+    "bewt-covext-kanboard-plugins-g3-kbgap001-20261110190120",
+    "ef995bed350b8b102f49849ea96f3825d012c1877ec2706e2c132316c6db1675"
+  ],
+  "timestamp": "2026-11-10T19:06:50.549Z"
+}

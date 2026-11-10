@@ -1,0 +1,22 @@
+{
+  "candidateId": "MW-GAP-003",
+  "application": "mediawiki",
+  "javaClass": "mediawiki.T01C_5c24156fc88caa06da8d4370e60766fc_R2",
+  "initialRun": {
+    "runId": "g3-mwgap003-20261110193836",
+    "durationSeconds": 56.7,
+    "exitCode": 1,
+    "outcome": "FAIL",
+    "junitOutcome": "FAIL",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 1,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/mediawiki/MW-GAP-003/g3-mwgap003-20261110193836"
+  },
+  "reruns": [],
+  "totalRuns": 1,
+  "passedRuns": 0,
+  "flakinessRate": 1,
+  "overallOutcome": "FAILED"
+}

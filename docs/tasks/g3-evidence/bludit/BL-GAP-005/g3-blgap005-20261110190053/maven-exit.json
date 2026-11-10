@@ -1,0 +1,5 @@
+{
+  "exitCode": 1,
+  "signal": null,
+  "command": "mvn -B -f experiments/bludit/bewt-suite/pom.xml -Dtest=tests.T01C_b562c8a66b0e3b937a5058867bbfb761_R2 test"
+}

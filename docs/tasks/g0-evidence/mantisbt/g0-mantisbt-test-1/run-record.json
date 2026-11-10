@@ -1,0 +1,32 @@
+{
+  "appId": "mantisbt",
+  "runId": "g0-mantisbt-test-1",
+  "startedAtUtc": "2026-11-10T18:37:59.339Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "mantisbt",
+    "task": "g0-mantisbt",
+    "runId": "g0-mantisbt-test-1"
+  },
+  "containers": [
+    {
+      "role": "browser",
+      "name": "bewt-covext-mantisbt-selenium-g0-mantisbt-test-1",
+      "port": 36511
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-mantisbt-g0-mantisbt-test-1",
+      "port": 42847
+    }
+  ],
+  "network": {
+    "id": "7cd53a05b9319992c423d6888d56c7b5c28b6c9d7bc9cbc896604068a0866927",
+    "name": "bewt-covext-mantisbt-g0-mantisbt-test-1-net"
+  },
+  "volumes": [],
+  "appPort": 42847,
+  "browserPort": 36511
+}

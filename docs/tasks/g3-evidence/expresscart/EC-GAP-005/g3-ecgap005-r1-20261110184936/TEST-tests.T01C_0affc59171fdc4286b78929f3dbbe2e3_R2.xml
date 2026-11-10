@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2" time="1.019" errors="0" skipped="0">
+  <properties/>
+  <testcase classname="tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2" name="testEC_GAP_005" time="1.019"/>
+</testsuite>

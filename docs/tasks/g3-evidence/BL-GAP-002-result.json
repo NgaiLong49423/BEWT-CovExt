@@ -1,0 +1,50 @@
+{
+  "candidateId": "BL-GAP-002",
+  "application": "bludit",
+  "javaClass": "tests.T01C_4b05dc3e3caa3daec5f080180a09f349_R2",
+  "initialRun": {
+    "runId": "g3-blgap002-20261110190053",
+    "durationSeconds": 24.8,
+    "exitCode": 0,
+    "outcome": "PASS",
+    "junitOutcome": "PASS",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 0,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/bludit/BL-GAP-002/g3-blgap002-20261110190053"
+  },
+  "reruns": [
+    {
+      "rerunIndex": 1,
+      "runId": "g3-blgap002-r1-20261110190053",
+      "durationSeconds": 24.8,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 2,
+      "runId": "g3-blgap002-r2-20261110190053",
+      "durationSeconds": 24.7,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 3,
+      "runId": "g3-blgap002-r3-20261110190053",
+      "durationSeconds": 23.9,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    }
+  ],
+  "totalRuns": 4,
+  "passedRuns": 4,
+  "flakinessRate": 0,
+  "overallOutcome": "VALIDATED"
+}

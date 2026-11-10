@@ -6,8 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT } from './claroline-g0.mjs';
 
 export function validateRunId(runId) {
-  if (typeof runId !== 'string' || !/^[a-z0-9][a-z0-9-]{2,62}$/.test(runId)) {
-    throw new Error(`INVALID_RUN_ID: '${runId}' must be 3-63 lowercase alphanumeric/dash characters (runId must be a unique t03b2-* date/run identity)`);
+  if (typeof runId !== 'string' || !/^[a-zA-Z0-9][a-zA-Z0-9-]{2,62}$/.test(runId)) {
+    throw new Error(`INVALID_RUN_ID: '${runId}' must be 3-63 alphanumeric/dash characters (runId must be a unique t03b2-* date/run identity or Candidate ID)`);
   }
   return runId;
 }
@@ -132,6 +132,24 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     timeoutMs: 1200000,
     description: 'Execute full 8-application G0 baseline verification sequence on Cloud VM',
   },
+  'run-all-candidates': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 7200000,
+    description: 'Execute Milestone M4: 40 Candidate E2E Execution & 3 Reruns on Cloud VM',
+  },
+  'run-app-candidates': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 1800000,
+    description: 'Execute all candidate E2E runs and reruns for a specific application on Cloud VM',
+  },
+  'run-candidate': {
+    requiresRunId: true,
+    sideEffecting: true,
+    timeoutMs: 600000,
+    description: 'Execute single candidate E2E on Cloud VM with candidateId or runId',
+  },
   'cleanup-run': {
     requiresRunId: true,
     sideEffecting: true,
@@ -179,6 +197,12 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     sideEffecting: true,
     timeoutMs: 30000,
     description: 'Flush and clean any residual DOCKER-USER rules',
+  },
+  'docker-clean-residuals': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 60000,
+    description: 'Prune unused docker containers, networks, and volumes from previous runs',
   },
 });
 
@@ -271,6 +295,12 @@ export function buildRemoteCommandScript(action, params = {}) {
       return `set -eu; cd ${repo} && node experiments/prestashop/tools/run-prestashop-g0.mjs ${runId}`;
     case 'run-all-g0':
       return `set -eu; cd ${repo} && node experiments/tools/run-all-g0-cloud.mjs`;
+    case 'run-all-candidates':
+      return `set -eu; cd ${repo} && node experiments/tools/run-all-candidates-cloud.mjs`;
+    case 'run-app-candidates':
+      return `set -eu; cd ${repo} && node experiments/tools/run-all-candidates-cloud.mjs --app=${runId}`;
+    case 'run-candidate':
+      return `set -eu; cd ${repo} && node experiments/tools/run-all-candidates-cloud.mjs --candidate=${runId}`;
     case 'cleanup-run':
       return `set -eu; cd ${repo} && node experiments/claroline/tools/cleanup-claroline-g0.mjs ${runId}`;
     case 'process-check':
@@ -322,6 +352,14 @@ export function buildRemoteCommandScript(action, params = {}) {
       ].join(' && ');
     case 'clean-firewall':
       return 'set -eu; sudo iptables -F DOCKER-USER || true; sudo iptables -L DOCKER-USER -n';
+    case 'docker-clean-residuals':
+      return [
+        'set -eu',
+        'docker container prune -f || true',
+        'docker network prune -f || true',
+        'docker volume prune -a -f || true',
+        'printf "PRUNE_COMPLETE\\n"',
+      ].join('; ');
     default:
       throw new Error(`Unhandled allowlisted action: ${action}`);
   }

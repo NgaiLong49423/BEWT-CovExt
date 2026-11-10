@@ -1,0 +1,19 @@
+{
+  "runId": "g3-blgap002-r1-20261110190053",
+  "appId": "bludit",
+  "stoppedContainers": [
+    "bewt-covext-bludit-selenium-g3-blgap002-r1-20261110190053",
+    "bewt-covext-bludit-g3-blgap002-r1-20261110190053"
+  ],
+  "removedContainers": [
+    "bewt-covext-bludit-selenium-g3-blgap002-r1-20261110190053",
+    "bewt-covext-bludit-g3-blgap002-r1-20261110190053"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-bludit-g3-blgap002-r1-20261110190053-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

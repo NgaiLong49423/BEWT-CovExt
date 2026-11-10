@@ -1,0 +1,50 @@
+{
+  "candidateId": "JO-GAP-003",
+  "application": "joomla",
+  "javaClass": "base.T01C_2fe8982badb9713cf8935bc53c1d61ad_R2",
+  "initialRun": {
+    "runId": "g3-jogap003-20261110191702",
+    "durationSeconds": 50,
+    "exitCode": 0,
+    "outcome": "PASS",
+    "junitOutcome": "PASS",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 0,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/joomla/JO-GAP-003/g3-jogap003-20261110191702"
+  },
+  "reruns": [
+    {
+      "rerunIndex": 1,
+      "runId": "g3-jogap003-r1-20261110191702",
+      "durationSeconds": 50.1,
+      "exitCode": 1,
+      "outcome": "FAIL",
+      "junitOutcome": "FAIL",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 2,
+      "runId": "g3-jogap003-r2-20261110191702",
+      "durationSeconds": 50.1,
+      "exitCode": 0,
+      "outcome": "PASS",
+      "junitOutcome": "PASS",
+      "zeroResidualVerified": true
+    },
+    {
+      "rerunIndex": 3,
+      "runId": "g3-jogap003-r3-20261110191702",
+      "durationSeconds": 50.2,
+      "exitCode": 1,
+      "outcome": "FAIL",
+      "junitOutcome": "FAIL",
+      "zeroResidualVerified": true
+    }
+  ],
+  "totalRuns": 4,
+  "passedRuns": 2,
+  "flakinessRate": 0.667,
+  "overallOutcome": "FLAKY"
+}

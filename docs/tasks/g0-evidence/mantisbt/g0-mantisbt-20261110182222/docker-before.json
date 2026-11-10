@@ -1,0 +1,19 @@
+{
+  "containers": [
+    "1b2424425eb5fb329d6f2f7df34a857eea3a44204935637c4e3924fd2e9969c4",
+    "3269406037a4cd44cc5d5fd1d2b88151f47a4f6cd5d5dc86eccee9003d0a9259",
+    "e3b31b50e1533082252483180c11c9c22a9b0500bb6ae1dbe5768c3256a8f3ed"
+  ],
+  "networks": [
+    "13a2e597d9addb7367164f3094548f01b8e065fca13a05cfdc187d094ea3471d",
+    "1fa63b308e575dce5261b2aef79c9c1b1175e39c75f3f2a489c59e5784007f1c",
+    "5e27005777042bfd5c95965052b29916ff7f988f9e294a900fe412589f59bb65",
+    "e96724bce487640e33a5d788df678b797f46ddc978066ec381a1fa34191d65de"
+  ],
+  "volumes": [
+    "bewt-covext-kanboard-data-test-kanboard-debug-clean",
+    "bewt-covext-kanboard-plugins-test-kanboard-debug-clean",
+    "ddcb85f14ebe00c4711842fb2562702b37ba7dbae3fbc6cb15873c481dd60823"
+  ],
+  "timestamp": "2026-11-10T18:24:26.241Z"
+}

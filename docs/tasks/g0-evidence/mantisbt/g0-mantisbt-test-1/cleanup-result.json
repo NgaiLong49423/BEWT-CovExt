@@ -1,0 +1,19 @@
+{
+  "runId": "g0-mantisbt-test-1",
+  "appId": "mantisbt",
+  "stoppedContainers": [
+    "bewt-covext-mantisbt-selenium-g0-mantisbt-test-1",
+    "bewt-covext-mantisbt-g0-mantisbt-test-1"
+  ],
+  "removedContainers": [
+    "bewt-covext-mantisbt-selenium-g0-mantisbt-test-1",
+    "bewt-covext-mantisbt-g0-mantisbt-test-1"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-mantisbt-g0-mantisbt-test-1-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

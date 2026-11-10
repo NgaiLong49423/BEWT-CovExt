@@ -15,7 +15,7 @@
 | **DEFECT-001** | `P0_CRITICAL` | Code Quality & Semantics | **AGENT 3** | All 40 generated Java test classes (`extension/*/selenium/`) | **RESOLVED** (`798d653`) | **G2** |
 | **DEFECT-002** | `P1_HIGH` | Scientific Metrics | **AGENT 2** | `recompute-metrics.mjs`, `evaluation-metrics-rq1-rq4.json` | **RESOLVED** (`1c048d9`) | **G4** |
 | **DEFECT-003** | `P1_HIGH` | Review Dossier | **AGENT 2** | `human_review_consolidation_40_candidates.md` | **RESOLVED** (`e451a7a`) | **G1** |
-| **DEFECT-004** | `P0_CRITICAL` | Status & Governance | **AGENT 0** | `STATUS.json`, `BEWT-CovExt-v2-RESEARCH-REPORT.md` | **IN_PROGRESS** | **G0–G4 / D1–D8** |
+| **DEFECT-004** | `P0_CRITICAL` | Status & Governance | **AGENT 0** | `STATUS.json`, `BEWT-CovExt-v2-RESEARCH-REPORT.md` | **RESOLVED** | **G0–G4 / D1–D8** |
 
 ---
 
@@ -46,11 +46,14 @@
   3. Reconciled application versions against pinned repository commits (e.g., Bludit 2.3.4).
   4. Verified zero `[object Object]` and zero `undefined` values.
 
-### DEFECT-004: Premature Program Completion Claims (IN_PROGRESS)
-- **Remediation Actions Taken**:
-  1. Reopened `STATUS.json` to `REMEDIATION_IN_PROGRESS`.
-  2. Updated research report and dataset to clearly distinguish Maven compilation success (G2) from containerized E2E execution (G3).
-  3. Executed remote Cloud VM diagnostic and smoke tests with verified zero-leak resource cleanup.
+### DEFECT-004: Premature Program Completion Claims (RESOLVED)
+- **Root Cause**: Previous sprint prematurely claimed overall program success and D1–D8 completion while G3 was STANDBY_CLOUD_E2E and tests were unvalidated placeholders.
+- **Remediation**:
+  1. Reopened `STATUS.json` to `REMEDIATION_IN_PROGRESS` and tracked remediation transparently.
+  2. Executed full Milestone M3 (Gate G0) Cloud Runtime Verification across all 8 applications sequentially on GCP VM `bewt-covext-runner`, achieving 8/8 PASS and global zero-residual verification (352s).
+  3. Executed full Milestone M4 (Gate G3) Candidate E2E Execution across all 40 candidates in 8 applications in isolated Docker containers with 3 clean-state reruns per passing test (79 total container executions, 100% zero-residual teardown verified).
+  4. Discovered and recorded authentic empirical findings: 11 candidates fully validated (0% flakiness over 3 clean reruns), 2 flaky (BL-GAP-001 @ 33%, JO-GAP-003 @ 67%), and 27 failed honestly due to unmet clean-container fixture preconditions.
+  5. Reconciled `STATUS.json`, `BEWT-CovExt-v2-RESEARCH-REPORT.md`, `evaluation-metrics-rq1-rq4.json`, `behavioral-coverage-summary.json`, and `40-candidate-dataset.json/.csv` to clearly distinguish Gate G2 compilation from Gate G3 dynamic execution, establishing a fully evidenced empirical baseline for Team Lead review.
 
 ---
 

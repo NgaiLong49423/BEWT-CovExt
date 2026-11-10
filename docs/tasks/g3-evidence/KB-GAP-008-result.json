@@ -1,0 +1,22 @@
+{
+  "candidateId": "KB-GAP-008",
+  "application": "kanboard",
+  "javaClass": "tests.T01C_882860986d9907549f10245367191c30_R2",
+  "initialRun": {
+    "runId": "g3-kbgap008-20261110193016",
+    "durationSeconds": 42.4,
+    "exitCode": 1,
+    "outcome": "FAIL",
+    "junitOutcome": "FAIL",
+    "testsRun": 1,
+    "failures": 0,
+    "errors": 1,
+    "zeroResidualVerified": true,
+    "evidenceDir": "docs/tasks/g3-evidence/kanboard/KB-GAP-008/g3-kbgap008-20261110193016"
+  },
+  "reruns": [],
+  "totalRuns": 1,
+  "passedRuns": 0,
+  "flakinessRate": 1,
+  "overallOutcome": "FAILED"
+}

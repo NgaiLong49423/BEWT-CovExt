@@ -1,0 +1,21 @@
+{
+  "runId": "g0-joomla-20261110182222",
+  "appId": "joomla",
+  "stoppedContainers": [
+    "bewt-covext-joomla-db-g0-joomla-20261110182222",
+    "bewt-covext-joomla-selenium-g0-joomla-20261110182222",
+    "bewt-covext-joomla-g0-joomla-20261110182222"
+  ],
+  "removedContainers": [
+    "bewt-covext-joomla-db-g0-joomla-20261110182222",
+    "bewt-covext-joomla-selenium-g0-joomla-20261110182222",
+    "bewt-covext-joomla-g0-joomla-20261110182222"
+  ],
+  "removedVolumes": [
+    "6355c804edd37bae030deeb2b2036b3dff15c94ddfa19a2ae0457657a9f30097",
+    "28d1db518eca1415cdbbc42b925adb0138725ffaa81db5ffb6796f47c2a9c68c"
+  ],
+  "removedNetwork": "bewt-covext-joomla-g0-joomla-20261110182222-net",
+  "zeroResidualVerified": false,
+  "outcome": "FAIL_RESIDUALS_EXIST"
+}

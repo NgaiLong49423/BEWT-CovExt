@@ -1,0 +1,36 @@
+{
+  "appId": "mediawiki",
+  "runId": "g0-mediawiki-20261110183915",
+  "startedAtUtc": "2026-11-10T18:42:06.319Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "mediawiki",
+    "task": "g0-mediawiki",
+    "runId": "g0-mediawiki-20261110183915"
+  },
+  "containers": [
+    {
+      "role": "db",
+      "name": "bewt-covext-mediawiki-db-g0-mediawiki-20261110183915"
+    },
+    {
+      "role": "browser",
+      "name": "bewt-covext-mediawiki-selenium-g0-mediawiki-20261110183915",
+      "port": 36843
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-mediawiki-g0-mediawiki-20261110183915",
+      "port": 34995
+    }
+  ],
+  "network": {
+    "id": "f18714594e044b14f9f9416583555d81313913672c6dabbbad741a4e570b39be",
+    "name": "bewt-covext-mediawiki-g0-mediawiki-20261110183915-net"
+  },
+  "volumes": [],
+  "appPort": 34995,
+  "browserPort": 36843
+}
