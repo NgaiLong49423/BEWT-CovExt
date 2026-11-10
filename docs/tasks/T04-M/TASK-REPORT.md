@@ -1,0 +1,9 @@
+# T04-M — Independent review worksheets for three v2 candidates
+
+- Parent/input commit `fee6b299106eb42f7f89a435c8cb1a719421dead` (T04-L); branch `task/t04m-v2-review-pack`. This branch intentionally depends on T04-L and is not an independent main-based integration. Exact commit and push status supplied in handoff; no PR by default.
+- `packets/` provides one evidence-linked worksheet per v2 candidate, and `REVIEW-INSTRUCTIONS.md` describes how two human reviewers independently record real decisions. `REVIEW-INPUTS.json` binds each feature SHA, canonical metadata SHA and two blank slots to the exact T04-L input commit.
+- T04-L engineering pass was reported by Lead, not scientific acceptance. The Team Lead v1 `REVISE` receipt is a direction only; all v2 candidates remain PROPOSED with oracle and novelty pending. No changes to T04-L features, official review ledger, program STATUS, app source or BEWT source.
+- Actual verification: `python docs/tasks/T04-M/tools/verify_review_inputs.py` PASS exit 0 for three input records, three feature blobs and six blank reviewer slots; `python docs/tasks/T04-M/tools/test_review_inputs.py` PASS 7/7 exit 0, including extra/filled slot, stale hash, altered feature and missing candidate checks. Logs and exits under `evidence/`.
+- The checks validate hash binding and placeholders only; they do not validate source claims, scientific novelty, human identity or runtime. Independent reviewer must inspect packet content, source, fixture, reset and exact scenario.
+- No Docker, email, database, application, model, Cloud or Java invocation; no task resources created. Pre-existing untracked `docs/tasks/T04-L/tools/__pycache__/` was preserved and excluded.
+- Review: Lead should inspect exact changed files and evidence; once integration prerequisites allow, two actual independent human reviewers use the protocol, recording individual evidence and any disagreement. No worksheet is an approval.

@@ -1,0 +1,12 @@
+test_extra_reviewer_fields_rejected (__main__.ReviewInputsTests.test_extra_reviewer_fields_rejected) ... ok
+test_filled_reviewer_rejected (__main__.ReviewInputsTests.test_filled_reviewer_rejected) ... ok
+test_missing_candidate_rejected (__main__.ReviewInputsTests.test_missing_candidate_rejected) ... ok
+test_packet_without_hash_rejected (__main__.ReviewInputsTests.test_packet_without_hash_rejected) ... ok
+test_stale_metadata_rejected (__main__.ReviewInputsTests.test_stale_metadata_rejected) ... ok
+test_tampered_feature_rejected (__main__.ReviewInputsTests.test_tampered_feature_rejected) ... ok
+test_valid (__main__.ReviewInputsTests.test_valid) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.506s
+
+OK

@@ -1,0 +1,77 @@
+{
+  "schemaVersion": "1.0.0",
+  "inputCommit": "fee6b299106eb42f7f89a435c8cb1a719421dead",
+  "inputManifestPath": "docs/tasks/T04-L/REVISIONS.json",
+  "inputManifestSha256": "45c62b87165e35327c74ba792c5352ff5cea7f0d39c73c5d36a703c7535fdb37",
+  "canonicalization": "UTF-8 JSON sorted keys compact separators unescaped Unicode",
+  "purpose": "DRAFT_REVIEW_WORKSHEETS_NOT_DECISION_LEDGER",
+  "humanDecisionsAdded": 0,
+  "revisions": [
+    {
+      "candidateId": "MW-GAP-004",
+      "version": 2,
+      "revisionRecordCanonicalSha256": "6812623d7f66116dc1584471ad3185eaa9468bc66fa8cd9560825c342afc021c",
+      "featurePath": "docs/tasks/T04-L/revisions/MW-GAP-004-v2.feature",
+      "featureSha256": "b0556d6d804f6c94ec786c55b3d08a91ed64fac0edadde0d2b5e49e7b4a914d6",
+      "packetPath": "docs/tasks/T04-M/packets/MW-GAP-004-v2.md",
+      "reviewSlots": [
+        {
+          "slot": "reviewer-1",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        },
+        {
+          "slot": "reviewer-2",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        }
+      ]
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "version": 2,
+      "revisionRecordCanonicalSha256": "d6b4337a54d84bc76bf303bd64b40227f2358e2d93f93bf0ea20b9d8bff79a39",
+      "featurePath": "docs/tasks/T04-L/revisions/EC-GAP-003-v2.feature",
+      "featureSha256": "44e76d1c643d0d12208cee38308fca312768244915533f7002408b33f39d055d",
+      "packetPath": "docs/tasks/T04-M/packets/EC-GAP-003-v2.md",
+      "reviewSlots": [
+        {
+          "slot": "reviewer-1",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        },
+        {
+          "slot": "reviewer-2",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        }
+      ]
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "version": 2,
+      "revisionRecordCanonicalSha256": "6802a5f23bb187024c78e1c2cc196f25e5d8f89b2c7e7f0cade1d9d780c4151c",
+      "featurePath": "docs/tasks/T04-L/revisions/CL-GAP-002-v2.feature",
+      "featureSha256": "f613ae0775384801eda70e9b4e71572215e29c44666ea00cf47c4e9311b3d803",
+      "packetPath": "docs/tasks/T04-M/packets/CL-GAP-002-v2.md",
+      "reviewSlots": [
+        {
+          "slot": "reviewer-1",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        },
+        {
+          "slot": "reviewer-2",
+          "reviewerIdentity": null,
+          "decision": null,
+          "reviewedAt": null
+        }
+      ]
+    }
+  ]
+}
