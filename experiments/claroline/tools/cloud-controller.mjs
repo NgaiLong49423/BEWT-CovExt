@@ -30,6 +30,12 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     timeoutMs: 180000,
     description: 'Maven clean test-compile check for Claroline suite on Ubuntu VM',
   },
+  'maven-compile-all': {
+    requiresRunId: false,
+    sideEffecting: false,
+    timeoutMs: 300000,
+    description: 'Maven clean test-compile check for all 8 suites on Ubuntu VM',
+  },
   'run-diagnostic': {
     requiresRunId: true,
     sideEffecting: true,
@@ -59,6 +65,12 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     sideEffecting: false,
     timeoutMs: 20000,
     description: 'Read-only check of Docker containers, networks, and volumes on VM',
+  },
+  'git-sync': {
+    requiresRunId: false,
+    sideEffecting: false,
+    timeoutMs: 60000,
+    description: 'Fetch and checkout latest main commit on Cloud VM',
   },
 });
 
@@ -127,6 +139,8 @@ export function buildRemoteCommandScript(action, params = {}) {
       ].join(' && ');
     case 'maven-compile':
       return `set -eu; cd ${repo}/experiments/claroline/bewt-suite && mvn -B clean test-compile`;
+    case 'maven-compile-all':
+      return `set -eu; cd ${repo}; for app in bludit claroline expresscart joomla kanboard mantisbt mediawiki prestashop; do printf "=== Compiling %s ===\\n" "$app"; mvn -B -q clean test-compile -f experiments/$app/bewt-suite/pom.xml; printf "=== %s: SUCCESS ===\\n" "$app"; done`;
     case 'run-diagnostic':
       return `set -eu; cd ${repo} && node experiments/claroline/tools/run-claroline-diagnostic.mjs ${runId}`;
     case 'run-g0':
@@ -147,6 +161,8 @@ export function buildRemoteCommandScript(action, params = {}) {
         'printf "NETWORKS=%s\\n" "$(docker network ls --format \'{{.Name}}\' | tr \'\\n\' \',\')"',
         'printf "VOLUMES=%s\\n" "$(docker volume ls --format \'{{.Name}}\' | tr \'\\n\' \',\')"',
       ].join('; ');
+    case 'git-sync':
+      return `set -eu; cd ${repo} && git fetch origin main && git checkout main && git reset --hard origin/main && git rev-parse HEAD`;
     default:
       throw new Error(`Unhandled allowlisted action: ${action}`);
   }
