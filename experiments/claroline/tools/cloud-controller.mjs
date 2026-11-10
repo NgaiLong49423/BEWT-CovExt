@@ -4,22 +4,12 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync,
 import { dirname, join, posix, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, validateRunId } from './claroline-g0.mjs';
+import { loadCanonicalConfig, toCloudVmConfig } from '../../../framework/src/runtime/config-loader.ts';
 
 const toolDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(toolDir, '../../..');
 
-export const CLOUD_VM_CONFIG = Object.freeze({
-  projectId: 'gen-lang-client-0311012609',
-  zone: 'asia-southeast1-a',
-  instanceName: 'bewt-covext-runner',
-  expectedInstanceId: '3042402845209891905',
-  expectedMachineTypeSuffix: 'machineTypes/c4d-highmem-8',
-  expectedMaxRunDurationSeconds: 21600,
-  expectedTerminationAction: 'STOP',
-  sshUser: 'runner',
-  remoteRepoPath: '/home/runner/BEWT-CovExt',
-  minRemainingSecondsForRun: 600,
-});
+export const CLOUD_VM_CONFIG = Object.freeze(toCloudVmConfig(loadCanonicalConfig({ startDir: repoRoot })));
 
 export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
   'preflight-probe': {
