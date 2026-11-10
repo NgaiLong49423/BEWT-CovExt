@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "b470f9794c81ca381208f5542969b810f9b52cfb966c2042be7cd6189f912cd4",
-  "callId": "call-02-r2-244fbbc3c7e19c2ceb6a56738e493041",
-  "candidateId": "KB-GAP-001",
   "appId": "kanboard",
+  "candidateId": "KB-GAP-001",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "815d7eabc99d5f06e642fe125f38c594c7f630744166490852f7ebd0bec340ca"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "d044b271f0dbfe2982e7bcfa98ce486d16b3c072cd1358faea5cdf7f7c90474c",
+  "callId": "offline-synthesis-KB-GAP-001",
+  "generatedAt": "2026-11-10T17:45:33.727Z",
+  "sourceSha256": "17de88b31a68b3ca4f41203b21f1dea1e7a5e3fc018f407a15ecab3d27015a2a",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

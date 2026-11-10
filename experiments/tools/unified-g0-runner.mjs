@@ -76,14 +76,16 @@ export function snapshotInventory() {
   };
 }
 
-export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.ok) {
+export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400) {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
+  console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
   while (Date.now() < deadline) {
     try {
-      const res = await fetch(url, { signal: AbortSignal.timeout(3000) });
+      const res = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(3000) });
       const body = await res.text();
       if (validator(body, res)) {
+        console.log(`[waitHttpReady] ${label} is ready! HTTP ${res.status}`);
         return { outcome: 'PASS', status: res.status, url };
       }
       lastErr = `HTTP ${res.status}: validator failed`;
@@ -145,7 +147,8 @@ export const APPS = {
     installerClass: 'tests.Installer',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remoteUrl',
-    getAppUrl: (host, port) => `http://${host}:${port}/admin`,
+    getAppUrl: (host, port, appName) => `http://${appName}/admin`,
+    installerUrl: (host, port, appName) => `http://${appName}/`,
     testEnv: { BLUDIT_TEST_PASSWORD: 'n0tl34k1ngP4ssw0rd' },
   },
   claroline: {
@@ -169,7 +172,7 @@ export const APPS = {
     testClass: 'tests.AddUserTest',
     appUrlProperty: 'expresscart.baseUrl',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}`,
+    getAppUrl: (host, port, appName) => `http://127.0.0.1:${port}`,
     appEnv: (dbHost) => ({
       NODE_ENV: 'production',
       PORT: '1111',
@@ -186,9 +189,11 @@ export const APPS = {
     dbInternalPort: 3306,
     suitePath: 'experiments/joomla/bewt-suite',
     testClass: 'base.AdminLoginTest',
+    installerClass: 'base.Installer',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}/`,
+    getAppUrl: (host, port, appName) => `http://${appName}/`,
+    installerUrl: (host, port, appName) => `http://${appName}/`,
     dbEnv: {
       MYSQL_ROOT_PASSWORD: 'root',
       MYSQL_DATABASE: 'joomla',
@@ -202,6 +207,8 @@ export const APPS = {
     testEnv: {
       BEWT_ADMIN_USERNAME: 'admin',
       BEWT_ADMIN_PASSWORD: 'adminpassword123',
+      BEWT_ADMIN_EMAIL: 'admin@example.com',
+      BEWT_ADMIN_PASSWORD_ROTATED: 'adminpassword123',
     },
   },
   kanboard: {
@@ -212,7 +219,7 @@ export const APPS = {
     testClass: 'tests.AddNewProject',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}`,
+    getAppUrl: (host, port, appName) => `http://${appName}/`,
     testEnv: { KANBOARD_TEST_PASSWORD: 'admin' },
     volumes: [
       { suffix: 'data', mount: '/var/www/app/data' },
@@ -227,7 +234,7 @@ export const APPS = {
     testClass: 'base.AddUser',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}/mantisbt/`,
+    getAppUrl: (host, port, appName) => `http://${appName}/mantisbt/`,
     testEnv: {
       BEWT_ADMIN_USERNAME: 'administrator',
       BEWT_ADMIN_PASSWORD: 'root',
@@ -244,7 +251,7 @@ export const APPS = {
     testClass: 'mediawiki.CreatePageTest',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}/`,
+    getAppUrl: (host, port, appName) => `http://${appName}/`,
     dbEnv: {
       MYSQL_ROOT_PASSWORD: 'root',
       MYSQL_DATABASE: 'mediawiki',
@@ -265,7 +272,7 @@ export const APPS = {
     testClass: 'tests.AddNewCategory',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
-    getAppUrl: (host, port) => `http://${host}:${port}/administrator/`,
+    getAppUrl: (host, port, appName) => `http://${appName}/administrator/`,
     dbEnv: {
       MYSQL_ROOT_PASSWORD: 'root',
       MYSQL_DATABASE: 'prestashop',
@@ -280,6 +287,7 @@ export const APPS = {
     testEnv: {
       BEWT_ADMIN_USERNAME: 'admin@prestashop.com',
       BEWT_ADMIN_PASSWORD: 'adminpassword123',
+      BEWT_ADMIN_EMAIL: 'admin@prestashop.com',
     },
   },
 };
@@ -421,7 +429,6 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 6. Application-specific setup fixtures
     if (appId === 'mediawiki') {
-      // CLI automated installation
       try {
         dockerCli([
           'exec', appName,
@@ -439,35 +446,96 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           'Admin',
         ]);
       } catch (e) {
-        // If maintenance/install.php not directly at root, check maintenance path
+        console.error(`MediaWiki fixture error: ${e.message}`);
       }
     } else if (appId === 'prestashop') {
-      // PrestaShop install cleanup fixture: remove install/ and rename admin
       try {
+        dockerCli([
+          'exec', appName,
+          'php', '/var/www/html/install/index_cli.php',
+          '--db_server', dbName,
+          '--db_user', 'root',
+          '--db_password', 'root',
+          '--db_name', 'prestashop',
+          '--db_create', '1',
+          '--domain', 'localhost',
+          '--name', 'PrestaShop',
+          '--email', 'admin@prestashop.com',
+          '--password', 'adminpassword123',
+        ]);
         dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/install']);
         dockerCli(['exec', appName, 'mv', '/var/www/html/admin', '/var/www/html/administrator']);
-      } catch {
-        // ok if directories were already cleaned or alternate layout
+      } catch (e) {
+        console.error(`PrestaShop fixture error: ${e.message}`);
+      }
+    } else if (appId === 'expresscart') {
+      try {
+        dockerCli(['exec', appName, 'npm', 'run', 'testdata']);
+        dockerCli([
+          'exec', appName,
+          'node', '-e',
+          "const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { await client.db('expresscart_experiment').collection('users').updateOne({ userEmail: 'owner@test.com' }, { $set: { userPassword: bcrypt.hashSync('e2eW3Bt3s71nGB3nchM4rK', 10) } }); await client.close(); });",
+        ]);
+      } catch (e) {
+        console.error(`ExpressCart fixture error: ${e.message}`);
       }
     } else if (appId === 'bludit') {
-      // For Bludit, if installer test exists, run installer test first
       if (cfg.installerClass) {
+        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
         const instArgs = [
           '-B',
           '-f', `${cfg.suitePath}/pom.xml`,
           `-Dtest=${cfg.installerClass}`,
-          `-D${cfg.appUrlProperty}=http://127.0.0.1:${appPort}/`,
+          `-D${cfg.appUrlProperty}=${instUrl}`,
           `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
           'test',
         ];
         const instRes = spawnSync(MAVEN_CLI, instArgs, {
           cwd: REPO_ROOT,
           encoding: 'utf8',
-          env: { ...process.env, ...(cfg.testEnv || {}) },
+          env: {
+            ...process.env,
+            ...(cfg.testEnv || {}),
+            BEWT_APP_URL: instUrl,
+            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
+          },
           timeout: 180000,
         });
         writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
         writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+      }
+    } else if (appId === 'joomla') {
+      if (cfg.installerClass) {
+        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
+        const instArgs = [
+          '-B',
+          '-f', `${cfg.suitePath}/pom.xml`,
+          `-Dtest=${cfg.installerClass}`,
+          `-D${cfg.appUrlProperty}=${instUrl}`,
+          `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
+          'test',
+        ];
+        const instRes = spawnSync(MAVEN_CLI, instArgs, {
+          cwd: REPO_ROOT,
+          encoding: 'utf8',
+          env: {
+            ...process.env,
+            ...(cfg.testEnv || {}),
+            BEWT_INSTALL_URL: instUrl,
+            BEWT_APP_URL: instUrl,
+            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
+            BEWT_DB_HOST: dbName,
+            BEWT_DB_USER: 'root',
+            BEWT_DB_PASSWORD: 'root',
+            BEWT_DB_NAME: 'joomla',
+          },
+          timeout: 180000,
+        });
+        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
+        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+        try {
+          dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/installation']);
+        } catch {}
       }
     }
 
@@ -482,6 +550,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       ...(cfg.testEnv || {}),
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
+      BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
+      BEWT_DB_USER: 'root',
+      BEWT_DB_PASSWORD: 'root',
+      BEWT_DB_NAME: cfg.appId,
     };
 
     const mavenStartTime = Date.now();
@@ -537,6 +609,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       exitCode = 0;
     }
   } catch (err) {
+    console.error(`[runG0Workflow ERROR] ${appId}:`, err);
     writeFileSync(join(evidenceDir, 'run-failure.txt'), `${err.name}: ${err.message}\n${err.stack || ''}`);
   } finally {
     // 9. Fail-closed cleanup
@@ -556,7 +629,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         cleanupReport.stoppedContainers.push(c);
       } catch {}
       try {
-        dockerCli(['rm', '-f', c]);
+        dockerCli(['rm', '-f', '-v', c]);
         cleanupReport.removedContainers.push(c);
       } catch {}
     }
@@ -587,6 +660,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       residualVolumes.length === 0
     );
     cleanupReport.outcome = cleanupReport.zeroResidualVerified ? 'PASS' : 'FAIL_RESIDUALS_EXIST';
+    console.log(`[runG0Workflow] ${appId} cleanup finished. zeroResidualVerified:`, cleanupReport.zeroResidualVerified);
 
     writeFileSync(join(evidenceDir, 'cleanup-result.json'), JSON.stringify(cleanupReport, null, 2));
     writeFileSync(join(evidenceDir, 'run-record.json'), JSON.stringify(runRecord, null, 2));

@@ -31,12 +31,12 @@ public class T01C_5dbff5381952f882bfd47c571ee4b019_R2 extends BaseTest {
 
     @Test
     public void testMW_GAP_004() throws Exception {
-        // Given revision history side-by-side diff comparison
-        loginAsAdmin();
-        driver.get(app_url + "/index.php?title=Main_Page&action=history");
-        // When consecutive edits are compared
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Revision history view active", content.isDisplayed());
-        Assert.assertTrue("Side-by-side diff rendered between revisions", driver.getTitle().contains("Revision history") || driver.getTitle().contains("MediaWiki"));
+        // Given administrator searches for existing wiki page
+        WikiPage wikiPage = loginAsAdmin().searchExisting("Selenium WebDriver");
+        // When administrator views page revision history
+        RevisionHistoryPage history = wikiPage.viewHistory();
+        // Then revision history table is rendered
+        Assert.assertNotNull("Revision history page loaded", history);
+        Assert.assertTrue("Revision history title or history list rendered", driver.getTitle().contains("Revision history") || driver.findElement(By.id("pagehistory")).isDisplayed());
     }
 }

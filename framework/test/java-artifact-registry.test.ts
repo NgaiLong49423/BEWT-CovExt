@@ -30,7 +30,7 @@ function acceptedWorkflow(candidate: CandidateScenario): AgentWorkflowState {
 
 function javaOutput(candidate: CandidateScenario, useResetPageObject = false) {
   const testClass = expectedGeneratedTestClass(candidate);
-  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl); " : ""}driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); }\n}\n` };
+  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\nimport org.openqa.selenium.By;\nimport po.*;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl); " : ""}driver.get(appUrl); driver.findElement(By.id("btn")).click(); Assert.assertTrue("page title must be present", driver.getTitle().contains("Home")); }\n}\n` };
 }
 
 test("generated Java requires an executable assertion in an annotated test method", () => {
@@ -38,12 +38,13 @@ test("generated Java requires an executable assertion in an annotated test metho
   assert.equal(executableAssertionCount(valid.javaSource), 1);
   assert.doesNotThrow(() => validateGeneratedJavaContract(valid, expectedGeneratedTestClass(proposed)));
 
+  const assertionSnippet = 'Assert.assertTrue("page title must be present", driver.getTitle().contains("Home"));';
   const cases = [
-    ["removed", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "")],
-    ["line comment", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "// Assert.assertNotNull(driver.getTitle());")],
-    ["block comment", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "/* Assert.assertNotNull(driver.getTitle()); */")],
-    ["string literal", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", 'String example = "Assert.assertNotNull(driver.getTitle());";')],
-    ["helper outside @Test", valid.javaSource.replace("@Test public void syntheticContract() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); }", "public void helper() { Assert.assertNotNull(driver.getTitle()); } @Test public void syntheticContract() {}")],
+    ["removed", valid.javaSource.replace(assertionSnippet, "")],
+    ["line comment", valid.javaSource.replace(assertionSnippet, `// ${assertionSnippet}`)],
+    ["block comment", valid.javaSource.replace(assertionSnippet, `/* ${assertionSnippet} */`)],
+    ["string literal", valid.javaSource.replace(assertionSnippet, `String example = "${assertionSnippet}";`)],
+    ["helper outside @Test", valid.javaSource.replace(`@Test public void syntheticContract() { driver.get(appUrl); driver.findElement(By.id("btn")).click(); ${assertionSnippet} }`, `public void helper() { ${assertionSnippet} } @Test public void syntheticContract() { driver.get(appUrl); driver.findElement(By.id("btn")).click(); }`)],
   ] as const;
   for (const [label, javaSource] of cases) {
     assert.equal(executableAssertionCount(javaSource), 0, `${label} must not be lexed as an executable test assertion`);
@@ -73,7 +74,7 @@ test("registry accepts a repaired artifact with only a locator literal corrected
     const className = expectedGeneratedTestClass(candidate);
     const initial = {
       testClass: className,
-      javaSource: `package tests; import org.junit.Test; import org.junit.Assert; public class ${className} extends BaseTest { @Test public void verifiesBehavior() { Assert.assertEquals("expected-oracle", driver.findElement(By.id("stale-locator")).getText()); } }`,
+      javaSource: `package tests; import org.junit.Test; import org.junit.Assert; import org.openqa.selenium.By; public class ${className} extends BaseTest { @Test public void verifiesBehavior() { driver.findElement(By.id("stale-locator")).click(); Assert.assertEquals("expected-oracle", driver.findElement(By.id("stale-locator")).getText()); } }`,
     };
     const first = await registerGeneratedJava(root, accepted, accepted.candidate!, initial);
     const withFirst = { ...accepted, artifacts: [{ kind: "generated_java" as const, path: first.artifact.path, testClass: first.artifact.testClass,
@@ -168,6 +169,6 @@ test("repaired artifacts are immutable, assertion-preserving, and chained throug
     await writeFile(verified2.absolutePath, `${secondRepairOutput.javaSource}// tamper\n`);
     await assert.rejects(verifyRegisteredGeneratedJava(root, withRepair2, approvedCandidate, repair2.artifact), /hash mismatch/);
     await assert.rejects(registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2,
-      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace('Assert.assertNotNull("page title must be present", driver.getTitle());', "") }), /executable assertion|preserve every executable test assertion/);
+      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace('Assert.assertTrue("page title must be present", driver.getTitle().contains("Home"));', "") }), /executable assertion|preserve every executable test assertion/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

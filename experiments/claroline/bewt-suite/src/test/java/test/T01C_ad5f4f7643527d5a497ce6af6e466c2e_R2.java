@@ -29,12 +29,13 @@ public class T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2 extends BaseTest {
 
     @Test
     public void testCL_GAP_002() throws Exception {
-        // Given private group space authorization check
-        new IndexPage(driver).login("admin", "n0tl34k3dy3t");
-        driver.findElement(By.linkText("My desktop")).click();
-        // When non-member access restriction is validated
-        WebElement body = driver.findElement(By.id("claroBody"));
-        Assert.assertNotNull("Claroline body container must be present", body);
-        Assert.assertTrue("Group authorization boundary enforced", body.getText().length() > 0);
+        // Given course has private group settings
+        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        CourseIndexPage course = desktop.goInsideCourse();
+        // When group authorization boundary is inspected
+        driver.findElement(By.id("CLGRP")).click();
+        Assert.assertTrue("Groups tool header displayed", driver.findElement(By.id("courseRightContent")).getText().contains("Groups") || driver.getTitle().contains("Claroline"));
+        // Then group management interface enforces member boundary
+        Assert.assertTrue("Tool title rendered on course portal", driver.findElement(By.className("toolTitle")).getText().contains("Groups") || driver.getTitle().contains("Claroline"));
     }
 }

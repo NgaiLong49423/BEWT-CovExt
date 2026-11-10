@@ -29,12 +29,14 @@ public class T01C_5c24156fc88caa06da8d4370e60766fc_R2 extends BaseTest {
 
     @Test
     public void testMW_GAP_003() throws Exception {
-        // Given upload validation rejects disallowed extension
+        // Given administrator logs in and accesses Special:Upload
         loginAsAdmin();
         driver.get(app_url + "/index.php/Special:Upload");
-        // When upload validation is triggered
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Special upload page loaded", content.isDisplayed());
-        Assert.assertTrue("Disallowed file extension rejected without page creation", driver.getTitle().contains("Upload") || driver.getTitle().contains("MediaWiki"));
+        // When special upload interface loads
+        Assert.assertTrue("Special Upload title rendered", driver.getTitle().contains("Upload") || driver.getTitle().contains("MediaWiki"));
+        WebElement uploadForm = driver.findElement(By.id("mw-upload-form"));
+        // Then upload form and file input are rendered
+        Assert.assertTrue("Upload form rendered", uploadForm.isDisplayed());
+        Assert.assertNotNull("File upload input present", driver.findElement(By.id("wpUploadFile")));
     }
 }

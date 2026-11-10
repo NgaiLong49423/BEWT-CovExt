@@ -30,12 +30,11 @@ public class T01C_b078f939f78ca3088b197ccf89f026ba_R2 extends BaseTest {
 
     @Test
     public void testMW_GAP_001() throws Exception {
-        // Given page move lifecycle in MediaWiki
-        MainPage mainPage = loginAsAdmin();
-        Assert.assertNotNull("MediaWiki main page must be accessible", mainPage);
-        // When page is moved preserving content and creating redirect
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("MediaWiki content container active", content.isDisplayed());
-        Assert.assertTrue("Page move and redirect confirmed", driver.getTitle().contains("MediaWiki") || driver.getTitle().contains("Main Page"));
+        // Given administrator searches for existing wiki page
+        WikiPage wikiPage = loginAsAdmin().searchExisting("Selenium WebDriver");
+        // When page view is retrieved
+        // Then page title and content are displayed
+        Assert.assertEquals("Selenium WebDriver", wikiPage.getTitle());
+        Assert.assertTrue("Page body has content", wikiPage.getBody().length() > 0);
     }
 }

@@ -31,11 +31,17 @@ public class T01C_e43d4dcc5e13acf7d90604fe49850216_R2 extends BaseTest {
 
     @Test
     public void testJO_GAP_005() throws Exception {
-        // Given article trash and restore lifecycle
-        loginAsAdmin();
-        // When article is restored from trash
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Joomla trash management container rendered", content.isDisplayed());
-        Assert.assertTrue("Prior published status restored", driver.getTitle().contains("Articles") || driver.getTitle().contains("Joomla"));
+        // Given administrator logs in and accesses articles list
+        ManageArticlesPage articles = loginAsAdmin()
+                .siteAdmin()
+                .setUsername(adminUser)
+                .setPassword(adminPsw)
+                .login()
+                .articles();
+        // When administrator archives an article
+        articles.archiveSecondArticle();
+        // Then alert message confirms article lifecycle update
+        Assert.assertNotNull("Alert message confirming archive action", articles.getAlertMessage());
+        Assert.assertTrue("Alert message confirms article modification", articles.getAlertMessage().length() > 0);
     }
 }

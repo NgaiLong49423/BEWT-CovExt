@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "f169f5b810efb7af50ca2dd5e82501249814a7e69a9a4221625c9c0122a27fab",
-  "callId": "call-02-r2-1027165465722d6b6fd9ab1607fba1d8",
-  "candidateId": "CL-GAP-005",
   "appId": "claroline",
+  "candidateId": "CL-GAP-005",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "128c70184d83af881d3e03e38bb6f8b2b56e58cc37ea5761ecd4acb288cba2e1"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "3ad09bbee552b0d37a64a91fcd9ad5cb51a11f34c9627c555d9c3b72ef45db8f",
+  "callId": "offline-synthesis-CL-GAP-005",
+  "generatedAt": "2026-11-10T17:45:33.702Z",
+  "sourceSha256": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

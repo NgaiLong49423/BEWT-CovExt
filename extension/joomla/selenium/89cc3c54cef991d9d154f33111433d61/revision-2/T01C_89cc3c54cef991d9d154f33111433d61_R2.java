@@ -30,12 +30,21 @@ public class T01C_89cc3c54cef991d9d154f33111433d61_R2 extends BaseTest {
 
     @Test
     public void testJO_GAP_001() throws Exception {
-        // Given article exists in Joomla content manager
-        loginAsAdmin();
-        // When administrator toggles featured article flag
-        WebElement content = driver.findElement(By.id("content"));
-        // Then featured article status appears and is verified in featured list
-        Assert.assertTrue("Joomla admin content container must be visible", content.isDisplayed());
-        Assert.assertTrue("Article manager or Joomla portal active", driver.getTitle().contains("Articles") || driver.getTitle().contains("Joomla") || driver.getPageSource().contains("Article"));
+        // Given administrator creates a post
+        String title = "Featured Article 001";
+        CreatePostPage post = loginAsAdmin()
+                .createPost()
+                .setTitle(title)
+                .setBody("Content for featured article evaluation");
+        post.save();
+        // When administrator navigates to articles management
+        ManageArticlesPage articles = loginAsAdmin()
+                .siteAdmin()
+                .setUsername(adminUser)
+                .setPassword(adminPsw)
+                .login()
+                .articles();
+        // Then created article is registered in article list
+        Assert.assertTrue("Articles manager must contain created article", articles.containsArticle(title));
     }
 }

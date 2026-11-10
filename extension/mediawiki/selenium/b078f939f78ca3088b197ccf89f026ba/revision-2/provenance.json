@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "97501779b5890b5c5a9725cdb2202463e22f2a9f4a93536cceace30cfda85563",
-  "callId": "call-02-r2-b078f939f78ca3088b197ccf89f026ba",
-  "candidateId": "MW-GAP-001",
   "appId": "mediawiki",
+  "candidateId": "MW-GAP-001",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "90d2a68a95db062e9090fa748b9d1cf823eef3140c1711f0f4f6f3ccaaf1675c"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "ec0959de1c9ac6f92a5868fdaf6a17a29e1a7a1ed90db9976d1cba45626ea0f0",
+  "callId": "offline-synthesis-MW-GAP-001",
+  "generatedAt": "2026-11-10T17:45:33.750Z",
+  "sourceSha256": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "fc9782f43f76f85697a673e5f2d749caa5f4bbc991a42baf826931ac4f55da45",
-  "callId": "call-02-r2-1406ecc3352e264ca199a0cf7476c671",
-  "candidateId": "MB-GAP-001",
   "appId": "mantisbt",
+  "candidateId": "MB-GAP-001",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "06f6e212e2f391605370a9808f4a565148c7779b303b46a84fb9d08260836a63"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "9cd9c1160f8217db50348644db9bdb193ea69a2bd370b1e0080cfa69b67903f2",
+  "callId": "offline-synthesis-MB-GAP-001",
+  "generatedAt": "2026-11-10T17:45:33.739Z",
+  "sourceSha256": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

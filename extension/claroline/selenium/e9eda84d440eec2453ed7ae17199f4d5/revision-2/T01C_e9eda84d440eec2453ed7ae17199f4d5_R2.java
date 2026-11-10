@@ -31,11 +31,16 @@ public class T01C_e9eda84d440eec2453ed7ae17199f4d5_R2 extends BaseTest {
     @Test
     public void testCL_GAP_003() throws Exception {
         // Given teacher is logged into Claroline course
-        new IndexPage(driver).login("admin", "n0tl34k3dy3t");
-        driver.findElement(By.linkText("My desktop")).click();
-        // When teacher imports an exercise package into course bank
-        WebElement body = driver.findElement(By.id("claroBody"));
-        Assert.assertTrue("Exercise import interface loaded", body.isDisplayed());
-        Assert.assertTrue("Course portal title rendered", driver.getTitle().contains("Claroline"));
+        EditExercisePage eep = new IndexPage(driver)
+                .login("admin", "n0tl34k3dy3t")
+                .goInsideCourse()
+                .goToExercisePage()
+                .newExercise()
+                .addExercise("Calculus Quiz 1");
+        // When teacher creates question in exercise bank
+        eep.newQuestion().addMCUAQuestion("Calculus Question 1").addMCUA("5", "-1").goToEditExercisePage();
+        // Then exercise and question are registered in course bank
+        Assert.assertEquals("Exercise added", eep.getCourseMessage());
+        Assert.assertEquals("Calculus Question 1", eep.getQuestionTitle(1));
     }
 }

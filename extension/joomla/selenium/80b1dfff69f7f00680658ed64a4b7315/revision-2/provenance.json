@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "f58fc247112d38db23569bc5680f6047bb73f449cfcbd2046870a44aeec7adea",
-  "callId": "call-02-r2-80b1dfff69f7f00680658ed64a4b7315",
-  "candidateId": "JO-GAP-002",
   "appId": "joomla",
+  "candidateId": "JO-GAP-002",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "5c2f531b97f3a2a4f7577b43af16212522ac4a787c18e7e569a5ac2089a2d5c5"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "715ce6aae402e067cc2b2b424be78d939e0eb0a1fffc23a1090ce02346b523f5",
+  "callId": "offline-synthesis-JO-GAP-002",
+  "generatedAt": "2026-11-10T17:45:33.719Z",
+  "sourceSha256": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

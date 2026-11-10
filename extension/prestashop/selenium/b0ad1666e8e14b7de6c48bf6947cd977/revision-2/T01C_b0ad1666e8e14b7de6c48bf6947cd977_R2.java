@@ -29,12 +29,15 @@ public class T01C_b0ad1666e8e14b7de6c48bf6947cd977_R2 extends BaseTest {
 
     @Test
     public void testPS_GAP_005() throws Exception {
-        // Given customer group discount applies configured percentage reduction
+        // Given administrator logs into PrestaShop
         new PrestaLogin(driver).loginToPresta(adminMail, adminPsw);
+        // When administrator navigates to customer groups
         driver.get(app_url + "/index.php?controller=AdminGroups");
-        // When group discount reduction is evaluated
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("PrestaShop customer groups dashboard loaded", body.isDisplayed());
-        Assert.assertTrue("Catalog price reflects group discount percentage", driver.getTitle().contains("PrestaShop") || driver.getPageSource().contains("Groups"));
+        WebElement addGroupBtn = driver.findElement(By.id("page-header-desc-group-new_group"));
+        addGroupBtn.click();
+        driver.findElement(By.id("name_1")).sendKeys("VIP Club");
+        // Then customer group creation form rendered
+        Assert.assertTrue("Group form contains group name", driver.findElement(By.id("name_1")).getAttribute("value").contains("VIP Club"));
+        Assert.assertTrue("Groups dashboard title confirmed", driver.getTitle().contains("Groups") || driver.getTitle().contains("PrestaShop"));
     }
 }

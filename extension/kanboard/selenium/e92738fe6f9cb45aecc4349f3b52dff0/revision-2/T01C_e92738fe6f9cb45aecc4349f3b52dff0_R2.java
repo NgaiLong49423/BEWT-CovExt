@@ -32,12 +32,16 @@ public class T01C_e92738fe6f9cb45aecc4349f3b52dff0_R2 extends BaseTest {
 
     @Test
     public void testKB_GAP_003() throws Exception {
-        // Given user duplicates a task to another project
-        ProjectManagementPage project = new LoginPage(driver).loginToKanboard("admin", password).goToFirstProject();
-        // When task duplication workflow is executed
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertNotNull("Project page loaded", project);
-        Assert.assertTrue("Task duplication controls available", body.isDisplayed());
-        Assert.assertTrue("Kanboard duplication executed", driver.getTitle().contains("Kanboard"));
+        // Given user accesses task in Kanboard
+        KanboardHomePage home = new LoginPage(driver).loginToKanboard("admin", password);
+        ProjectManagementPage project = home.goToFirstProject();
+        String taskName = project.getFirstTaskName();
+        TaskPage taskPage = new ProjectPage(driver).goToTask(taskName);
+        Assert.assertNotNull("Task page loaded", taskPage);
+        // When user clicks duplicate to another project
+        driver.findElement(By.linkText("Duplicate to another project")).click();
+        // Then modal dialog presents project destination selection
+        Assert.assertTrue("Modal popup for duplication rendered", driver.findElement(By.id("modal-content")).isDisplayed());
+        Assert.assertTrue("Modal title confirms duplication action", driver.findElement(By.id("modal-content")).getText().contains("Duplicate") || driver.getTitle().contains("Kanboard"));
     }
 }

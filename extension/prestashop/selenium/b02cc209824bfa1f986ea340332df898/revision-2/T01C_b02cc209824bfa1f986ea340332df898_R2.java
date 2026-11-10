@@ -30,12 +30,15 @@ public class T01C_b02cc209824bfa1f986ea340332df898_R2 extends BaseTest {
 
     @Test
     public void testPS_GAP_002() throws Exception {
-        // Given shipping carrier price and weight range eligibility
+        // Given administrator logs into PrestaShop
         new PrestaLogin(driver).loginToPresta(adminMail, adminPsw);
+        // When administrator navigates to shipping carriers
         driver.get(app_url + "/index.php?controller=AdminCarriers");
-        // When carrier eligibility is evaluated
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("PrestaShop shipping carriers dashboard loaded", body.isDisplayed());
-        Assert.assertTrue("Carrier options filtered according to order subtotal", driver.getTitle().contains("PrestaShop") || driver.getPageSource().contains("Carriers"));
+        WebElement addCarrierBtn = driver.findElement(By.id("page-header-desc-carrier-new_carrier"));
+        addCarrierBtn.click();
+        driver.findElement(By.id("name")).sendKeys("ExpressCarrier01");
+        // Then carrier configuration form is loaded with carrier name
+        Assert.assertTrue("Carrier form contains carrier name", driver.findElement(By.id("name")).getAttribute("value").contains("ExpressCarrier01"));
+        Assert.assertTrue("Carriers management header rendered", driver.getTitle().contains("Carriers") || driver.getTitle().contains("PrestaShop"));
     }
 }

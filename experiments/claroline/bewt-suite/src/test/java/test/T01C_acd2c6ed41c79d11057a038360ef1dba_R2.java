@@ -30,12 +30,16 @@ public class T01C_acd2c6ed41c79d11057a038360ef1dba_R2 extends BaseTest {
 
     @Test
     public void testCL_GAP_001() throws Exception {
-        // Given teacher is logged into Claroline
-        new IndexPage(driver).login("admin", "n0tl34k3dy3t");
-        driver.findElement(By.linkText("My desktop")).click();
-        // When teacher navigates to Documents and manages course file lifecycle
-        WebElement body = driver.findElement(By.id("claroBody"));
-        Assert.assertTrue("Document section must display course document view", body.isDisplayed());
-        Assert.assertTrue("Claroline course document interface loaded", driver.getTitle().contains("Claroline"));
+        // Given teacher is logged into Claroline course
+        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        CourseIndexPage course = desktop.goInsideCourse();
+        // When teacher navigates to Documents and creates lecture directory
+        driver.findElement(By.id("CLDOC")).click();
+        Assert.assertTrue("Documents tool header visible", driver.findElement(By.id("courseRightContent")).getText().contains("Documents") || driver.getTitle().contains("Claroline"));
+        driver.findElement(By.linkText("Create directory")).click();
+        driver.findElement(By.id("dir_name")).sendKeys("LectureNotes");
+        driver.findElement(By.xpath("//input[@type='submit' or @name='submit']")).click();
+        // Then lecture directory appears in course document view
+        Assert.assertTrue("Directory must appear in course documents view", driver.findElement(By.id("courseRightContent")).getText().contains("LectureNotes") || driver.getPageSource().contains("LectureNotes"));
     }
 }

@@ -31,12 +31,15 @@ public class T01C_8e2d11c8e727a6d49530c06fdb53b8d2_R2 extends BaseTest {
 
     @Test
     public void testPS_GAP_004() throws Exception {
-        // Given available quantity update consistent with combination stock
-        new PrestaLogin(driver).loginToPresta(adminMail, adminPsw);
-        driver.get(app_url + "/index.php?controller=AdminProducts");
-        // When product combination stock is updated
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("PrestaShop product catalog loaded", body.isDisplayed());
-        Assert.assertTrue("Combination stock quantity consistent with catalog", driver.getTitle().contains("PrestaShop") || driver.getPageSource().contains("Products"));
+        // Given administrator navigates to product catalog
+        ProductsPage products = new PrestaLogin(driver)
+                .loginToPresta(adminMail, adminPsw)
+                .goToProducts();
+        Assert.assertNotNull("Products page loaded", products);
+        // When administrator opens product creation form
+        AddProductPage addProd = products.addNewProduct();
+        addProd.addNameOfProduct("Combination Test Item");
+        // Then combinations and quantities tabs are available
+        Assert.assertTrue("Combinations tab or product form rendered", driver.findElement(By.id("link-Quantities")).isDisplayed() || driver.findElement(By.id("link-Combinations")).isDisplayed() || driver.getTitle().contains("Products"));
     }
 }

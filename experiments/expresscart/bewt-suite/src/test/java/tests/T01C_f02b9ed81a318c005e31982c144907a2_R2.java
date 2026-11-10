@@ -29,11 +29,20 @@ public class T01C_f02b9ed81a318c005e31982c144907a2_R2 extends BaseTest {
 
     @Test
     public void testEC_GAP_006() throws Exception {
-        // Given admin product stock update affects storefront inventory
-        driver.get(appUrl);
-        WebElement body = driver.findElement(By.tagName("body"));
-        // When storefront catalog is rendered
-        Assert.assertTrue("Storefront catalog must display products", body.isDisplayed());
-        Assert.assertTrue("Storefront inventory reflects active catalog", driver.findElements(By.className("product-title")).size() > 0 || driver.getPageSource().contains("expressCart"));
+        // Given admin adds a new stock-tracked product
+        goToAdminHome();
+        AdminSidebar admin = new AdminLoginPage(driver)
+                .setEmail("owner@test.com")
+                .setPassword("e2eW3Bt3s71nGB3nchM4rK")
+                .doLogin()
+                .newProduct()
+                .setTitle("InventoryItem001")
+                .setPrice("25.00")
+                .setDescr("Stock tracked inventory item")
+                .addProduct();
+        ProductsPage prods = admin.products();
+        // Then products catalog lists new inventory item
+        Assert.assertTrue("Products table contains new inventory item", prods.containsProduct("InventoryItem001"));
+        Assert.assertEquals("InventoryItem001", prods.getFirstProductName());
     }
 }

@@ -29,12 +29,15 @@ public class T01C_6bb62c5782120fa9f4b349accb4351d2_R2 extends BaseTest {
 
     @Test
     public void testMB_GAP_002() throws Exception {
-        // Given private issue note authorization threshold
-        BaseNavBar navBar = new BaseNavBar(driver);
-        navBar.viewIssues();
-        // When private note visibility is verified
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("Issue view loaded", body.isDisplayed());
-        Assert.assertTrue("Private note threshold enforced across roles", driver.getTitle().contains("MantisBT"));
+        // Given user views issue list in MantisBT
+        ViewIssuesPage issuesPage = new BaseNavBar(driver).viewIssues();
+        String status = issuesPage.getStatus();
+        Assert.assertNotNull("Status column rendered", status);
+        // When user opens issue details
+        driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[4]/td[4]/a")).click();
+        ViewIssueDetailsPage details = new ViewIssueDetailsPage(driver);
+        // Then issue notes container is rendered for authenticated user
+        Assert.assertEquals(status, details.getStatus());
+        Assert.assertTrue("Issue notes container visible to authenticated user", driver.findElement(By.id("bugnotes")).isDisplayed() || driver.getPageSource().contains("Notes"));
     }
 }

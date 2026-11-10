@@ -31,12 +31,15 @@ public class T01C_1406ecc3352e264ca199a0cf7476c671_R2 extends BaseTest {
 
     @Test
     public void testMB_GAP_001() throws Exception {
-        // Given user monitors an issue in MantisBT
-        BaseNavBar navBar = new BaseNavBar(driver);
-        navBar.viewIssues();
-        // When user monitors and stops monitoring issue
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("MantisBT issues view rendered", body.isDisplayed());
-        Assert.assertTrue("Monitoring status toggled for user account", driver.getTitle().contains("MantisBT"));
+        // Given user views issue list in MantisBT
+        ViewIssuesPage issuesPage = new BaseNavBar(driver).viewIssues();
+        String summary = issuesPage.getSummary();
+        Assert.assertNotNull("Issue summary must be present", summary);
+        // When user clicks on issue link to view details
+        driver.findElement(By.xpath("//*[@id='buglist']/tbody/tr[4]/td[4]/a")).click();
+        ViewIssueDetailsPage details = new ViewIssueDetailsPage(driver);
+        // Then issue details view displays matching summary
+        Assert.assertEquals(summary, details.getSummary());
+        Assert.assertTrue("Issue view header rendered", driver.getTitle().contains("MantisBT"));
     }
 }

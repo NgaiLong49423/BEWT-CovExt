@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "4c8e4b1893cd564fff8c40fdce53af4ecb682d3cbfa5aa24e6ea16f0f8cb6dac",
-  "callId": "call-02-r2-b0ad1666e8e14b7de6c48bf6947cd977",
-  "candidateId": "PS-GAP-005",
   "appId": "prestashop",
+  "candidateId": "PS-GAP-005",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "1632b8659e2cca628d6b4ab107b2fc2b6d5ff660a6d09ba2f2f8b7276bb400db"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "0476e7d710f1dd57f04c1eceb0557a7e8a483a0b3e687f819484b537fda246ef",
+  "callId": "offline-synthesis-PS-GAP-005",
+  "generatedAt": "2026-11-10T17:45:33.766Z",
+  "sourceSha256": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

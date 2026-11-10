@@ -31,12 +31,14 @@ public class T01C_cc9b738b705812d5a51f43f2b4b7c0ce_R2 extends BaseTest {
 
     @Test
     public void testMW_GAP_002() throws Exception {
-        // Given watch and unwatch state scoped to signed-in user
-        MainPage mainPage = loginAsAdmin();
-        Assert.assertNotNull("Main page loaded for signed-in user", mainPage);
-        // When watchlist state is toggled
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Watch state controls active", content.isDisplayed());
-        Assert.assertTrue("User watchlist state persisted", driver.getTitle().contains("MediaWiki") || driver.getTitle().contains("Main Page"));
+        // Given administrator searches for existing wiki page
+        WikiPage wikiPage = loginAsAdmin().searchExisting("Selenium WebDriver");
+        Assert.assertEquals("Selenium WebDriver", wikiPage.getTitle());
+        // When administrator checks watchlist action tab
+        WebElement watchTab = driver.findElement(By.id("ca-watch"));
+        Assert.assertTrue("Watch tab visible for signed-in user", watchTab.isDisplayed());
+        watchTab.click();
+        // Then watchlist confirmation is rendered
+        Assert.assertTrue("Title or URL confirms watchlist interaction", driver.getTitle().contains("Selenium WebDriver") || driver.getPageSource().contains("watch"));
     }
 }

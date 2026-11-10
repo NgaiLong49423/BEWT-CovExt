@@ -70,7 +70,7 @@ test("Anti-Trivial Quality Gate — Rejects trivial and tautological assertions"
     /TRIVIAL_TEST_PATTERN_REJECTED: catch block swallows assertion failures/
   );
 
-  // 5. Missing browser interaction
+  // 5. Missing genuine user interaction
   const missingInteraction = `
     package tests;
     public class TestSample extends BaseTest {
@@ -82,7 +82,74 @@ test("Anti-Trivial Quality Gate — Rejects trivial and tautological assertions"
   `;
   assert.throws(
     () => assertAntiTrivialJavaContract(missingInteraction),
-    /TRIVIAL_TEST_PATTERN_REJECTED: test method lacks browser or PageObject interaction/
+    /TRIVIAL_TEST_PATTERN_REJECTED: test method lacks genuine user interaction/
+  );
+
+  // 6. Prohibited By.tagName("body")
+  const tagNameBody = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        driver.findElement(By.id("btn")).click();
+        WebElement body = driver.findElement(By.tagName("body"));
+        Assert.assertTrue("body visible", body.isDisplayed());
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(tagNameBody),
+    /TRIVIAL_TEST_PATTERN_REJECTED: By\.tagName\("body"\) presence assertion is prohibited/
+  );
+
+  // 7. Prohibited By.cssSelector("body")
+  const cssSelectorBody = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        driver.findElement(By.id("btn")).click();
+        WebElement body = driver.findElement(By.cssSelector("body"));
+        Assert.assertTrue("body visible", body.isDisplayed());
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(cssSelectorBody),
+    /TRIVIAL_TEST_PATTERN_REJECTED: By\.cssSelector\("body"\) presence assertion is prohibited/
+  );
+
+  // 8. Prohibited generic body.isDisplayed()
+  const bodyDisplayed = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        driver.findElement(By.id("btn")).click();
+        WebElement claroBody = driver.findElement(By.id("claroBody"));
+        Assert.assertTrue("claroBody visible", claroBody.isDisplayed());
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(bodyDisplayed),
+    /TRIVIAL_TEST_PATTERN_REJECTED: generic container\/body isDisplayed\(\) assertion is prohibited/
+  );
+
+  // 9. Prohibited driver nullness check
+  const driverNull = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        driver.findElement(By.id("btn")).click();
+        Assert.assertNotNull(driver);
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(driverNull),
+    /TRIVIAL_TEST_PATTERN_REJECTED: driver nullness check is a non-behavioral trivial assertion/
   );
 });
 

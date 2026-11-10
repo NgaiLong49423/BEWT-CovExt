@@ -31,12 +31,12 @@ public class T01C_83ecf3d51792c82eeb8a3e404724ed8b_R2 extends BaseTest {
 
     @Test
     public void testMW_GAP_005() throws Exception {
-        // Given page protection restriction level modification
-        loginAsAdmin();
-        driver.get(app_url + "/index.php?title=Main_Page&action=protect");
-        // When administrator restricts editing
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Protection interface accessible to admin", content.isDisplayed());
-        Assert.assertTrue("Page protection enforced against unauthorized edits", driver.getTitle().contains("Main Page") || driver.getTitle().contains("MediaWiki") || driver.getPageSource().contains("protect"));
+        // Given administrator searches for existing wiki page
+        WikiPage wikiPage = loginAsAdmin().searchExisting("Selenium WebDriver");
+        // When administrator opens page protection settings
+        PageProtectPage protectPage = wikiPage.protect();
+        // Then protection options form is displayed
+        Assert.assertNotNull("Page protection page loaded", protectPage);
+        Assert.assertTrue("Protection form rendered", driver.findElement(By.id("mw-Protect-Form")).isDisplayed() || driver.getTitle().contains("Protect"));
     }
 }

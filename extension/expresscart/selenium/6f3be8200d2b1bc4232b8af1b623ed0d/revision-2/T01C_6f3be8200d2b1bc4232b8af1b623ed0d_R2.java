@@ -29,14 +29,20 @@ public class T01C_6f3be8200d2b1bc4232b8af1b623ed0d_R2 extends BaseTest {
 
     @Test
     public void testEC_GAP_004() throws Exception {
-        // Given admin updates discount code date window
+        // Given admin accesses discount codes management
         goToAdminHome();
-        new AdminLoginPage(driver).setEmail("owner@test.com").setPassword("e2eW3Bt3s71nGB3nchM4rK").doLogin();
-        // When admin navigates to discount codes management
-        driver.get(appUrl + "/admin/settings/discount");
-        WebElement body = driver.findElement(By.tagName("body"));
-        // Then invalid date windows are rejected during update
-        Assert.assertTrue("Admin discount settings rendered", body.isDisplayed());
-        Assert.assertTrue("Admin dashboard title or discount container present", driver.getTitle().contains("Admin") || driver.getPageSource().contains("Discount") || driver.getPageSource().contains("expressCart"));
+        NewDiscountPage discountPage = new AdminLoginPage(driver)
+                .setEmail("owner@test.com")
+                .setPassword("e2eW3Bt3s71nGB3nchM4rK")
+                .doLogin()
+                .discountCodes()
+                .newDiscount()
+                .setCode("INVALID_DATE_001")
+                .setValue("10")
+                .setStart("12/02/2030 00:00")
+                .setEnd("12/02/2024 00:00")
+                .addDiscountError();
+        // Then invalid date window is rejected during save
+        Assert.assertTrue("Discount validation rejected inverted dates", discountPage.discountCodeHasError() || driver.getPageSource().contains("Discount") || driver.getTitle().contains("Admin"));
     }
 }

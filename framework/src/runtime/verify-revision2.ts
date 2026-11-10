@@ -4,7 +4,13 @@ import { createHash } from "node:crypto";
 import { getAppTestPackage, candidateDirectoryId } from "./java-class.js";
 import { assertAntiTrivialJavaContract, validateGeneratedJavaContract } from "./model-provider.js";
 
-const REPO_ROOT = join(process.cwd(), "..");
+function findRepoRoot(): string {
+  const cur = process.cwd();
+  if (existsSync(join(cur, "data", "coverage"))) return cur;
+  if (existsSync(join(cur, "..", "data", "coverage"))) return join(cur, "..");
+  return cur;
+}
+const REPO_ROOT = findRepoRoot();
 const APPS = ["bludit", "claroline", "expresscart", "joomla", "kanboard", "mantisbt", "mediawiki", "prestashop"];
 
 interface ScanResult {
@@ -16,6 +22,7 @@ interface ScanResult {
   hasTrivialUrl: boolean;
   hasTautology: boolean;
   hasSwallowedCatch: boolean;
+  hasGenericBody: boolean;
   gatePassed: boolean;
   gateError?: string | undefined;
   hasRegistration: boolean;
@@ -48,6 +55,7 @@ export function verifyAllRevision2(): { totalScanned: number; results: ScanResul
           hasTrivialUrl: false,
           hasTautology: false,
           hasSwallowedCatch: false,
+          hasGenericBody: false,
           gatePassed: false,
           gateError: "FILE_NOT_FOUND",
           hasRegistration: existsSync(regPath),
@@ -60,8 +68,9 @@ export function verifyAllRevision2(): { totalScanned: number; results: ScanResul
       const hasTrivialUrl = /currentUrl\.length\(\)\s*>=?\s*0/.test(source);
       const hasTautology = /Assert\.assertTrue\s*\(\s*(?:"[^"]*"\s*,\s*)?true\s*\)|Assert\.assertFalse\s*\(\s*(?:"[^"]*"\s*,\s*)?false\s*\)/.test(source);
       const hasSwallowedCatch = /catch\s*\(\s*(?:Throwable|AssertionError)\s+[a-zA-Z0-9_]+\s*\)\s*\{(?![^}]*throw)/.test(source);
+      const hasGenericBody = /By\.tagName\(\s*["']body["']\s*\)|By\.cssSelector\(\s*["']body["']\s*\)|(?:body|claroBody)\.isDisplayed\(\)/.test(source);
 
-      if (hasTrivialUrl || hasTautology || hasSwallowedCatch) {
+      if (hasTrivialUrl || hasTautology || hasSwallowedCatch || hasGenericBody) {
         trivialCount++;
       }
 
@@ -85,6 +94,7 @@ export function verifyAllRevision2(): { totalScanned: number; results: ScanResul
         hasTrivialUrl,
         hasTautology,
         hasSwallowedCatch,
+        hasGenericBody,
         gatePassed,
         gateError,
         hasRegistration: existsSync(regPath),

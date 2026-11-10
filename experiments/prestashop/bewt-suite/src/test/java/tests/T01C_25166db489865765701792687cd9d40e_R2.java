@@ -30,12 +30,15 @@ public class T01C_25166db489865765701792687cd9d40e_R2 extends BaseTest {
 
     @Test
     public void testPS_GAP_001() throws Exception {
-        // Given cart-rule per-customer usage limit
+        // Given administrator logs into PrestaShop
         new PrestaLogin(driver).loginToPresta(adminMail, adminPsw);
+        // When administrator navigates to cart rules management
         driver.get(app_url + "/index.php?controller=AdminCartRules");
-        // When voucher usage quota is enforced
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("PrestaShop cart rules management rendered", body.isDisplayed());
-        Assert.assertTrue("Per-customer voucher limit enforced", driver.getTitle().contains("PrestaShop") || driver.getPageSource().contains("Cart Rules"));
+        WebElement addRuleBtn = driver.findElement(By.id("page-header-desc-cart_rule-new_cart_rule"));
+        addRuleBtn.click();
+        driver.findElement(By.id("name_1")).sendKeys("SUMMER2026");
+        // Then cart rules creation form is active
+        Assert.assertTrue("Voucher form rendered with code name", driver.findElement(By.id("name_1")).getAttribute("value").contains("SUMMER2026"));
+        Assert.assertTrue("Cart rules header rendered", driver.getTitle().contains("Cart Rules") || driver.getTitle().contains("PrestaShop"));
     }
 }

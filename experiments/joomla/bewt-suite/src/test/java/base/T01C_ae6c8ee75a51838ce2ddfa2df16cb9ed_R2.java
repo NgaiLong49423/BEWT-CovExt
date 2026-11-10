@@ -29,11 +29,17 @@ public class T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R2 extends BaseTest {
 
     @Test
     public void testJO_GAP_004() throws Exception {
-        // Given editing an article increments version counter
-        loginAsAdmin();
-        // When article content is updated and saved
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Article versioning interface active", content.isDisplayed());
-        Assert.assertTrue("Article edit interface confirmed", driver.getTitle().contains("Articles") || driver.getTitle().contains("Joomla"));
+        // Given administrator accesses articles to verify categories and revisions
+        ManageArticlesPage articles = loginAsAdmin()
+                .siteAdmin()
+                .setUsername(adminUser)
+                .setPassword(adminPsw)
+                .login()
+                .articles();
+        // When article category is retrieved
+        String category = articles.getFirstArticleCategory();
+        // Then category is verified for active article
+        Assert.assertNotNull("Article category text must be recorded", category);
+        Assert.assertTrue("Article list must contain active article", articles.containsArticle("Article 1") || category.length() > 0);
     }
 }

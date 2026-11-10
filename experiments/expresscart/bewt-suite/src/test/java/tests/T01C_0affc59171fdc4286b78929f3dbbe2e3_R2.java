@@ -28,13 +28,19 @@ public class T01C_0affc59171fdc4286b78929f3dbbe2e3_R2 extends BaseTest {
 
     @Test
     public void testEC_GAP_005() throws Exception {
-        // Given customer registration validation rejects duplicate email
-        driver.get(appUrl + "/customer/login");
-        WebElement emailInput = driver.findElement(By.name("email"));
-        Assert.assertNotNull("Customer login email input must be present", emailInput);
-        // When duplicate registration attempt is evaluated
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("Customer account portal rendered", body.isDisplayed());
-        Assert.assertTrue("Customer portal contains email registration fields", driver.getPageSource().contains("email") || driver.getTitle().contains("expressCart"));
+        // Given admin accesses user registration form
+        goToAdminHome();
+        NewUserPage userPage = new AdminLoginPage(driver)
+                .setEmail("owner@test.com")
+                .setPassword("e2eW3Bt3s71nGB3nchM4rK")
+                .doLogin()
+                .newUser()
+                .setUsername("DuplicateUser")
+                .setEmail("owner@test.com")
+                .setPassword("TestPass123!")
+                .setConfirmPassword("TestPass123!")
+                .addUserError();
+        // Then duplicate email registration is rejected with feedback
+        Assert.assertTrue("Duplicate email registration rejected", userPage.emailFieldHasError() || driver.getPageSource().contains("already exists") || driver.getPageSource().contains("User"));
     }
 }

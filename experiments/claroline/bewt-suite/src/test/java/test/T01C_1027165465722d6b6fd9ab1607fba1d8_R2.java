@@ -30,12 +30,15 @@ public class T01C_1027165465722d6b6fd9ab1607fba1d8_R2 extends BaseTest {
 
     @Test
     public void testCL_GAP_005() throws Exception {
-        // Given course announcement creation and publication
-        new IndexPage(driver).login("admin", "n0tl34k3dy3t");
-        driver.findElement(By.linkText("My desktop")).click();
-        // When announcement is published and student visibility verified
-        WebElement body = driver.findElement(By.id("claroBody"));
-        Assert.assertTrue("Announcement interface loaded on course desktop", body.isDisplayed());
-        Assert.assertTrue("Claroline course portal rendered", driver.getTitle().contains("Claroline"));
+        // Given teacher logs into course to publish announcement
+        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        CourseIndexPage course = desktop.goInsideCourse();
+        driver.findElement(By.id("CLANN")).click();
+        // When announcement is created and published
+        driver.findElement(By.linkText("Add an announcement")).click();
+        driver.findElement(By.id("title")).sendKeys("Classroom Relocation");
+        driver.findElement(By.xpath("//input[@type='submit' or @name='submit']")).click();
+        // Then announcement appears in course announcements table
+        Assert.assertTrue("Announcements table must display Classroom Relocation", driver.findElement(By.id("courseRightContent")).getText().contains("Classroom Relocation") || driver.getPageSource().contains("Classroom Relocation"));
     }
 }

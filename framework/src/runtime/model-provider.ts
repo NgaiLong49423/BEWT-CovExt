@@ -262,7 +262,8 @@ function hasNewConstructor(tokens: JavaIdentifier[], source: string, className: 
 
 /**
  * Strict Anti-Trivial Quality Gate for BEWT-CovExt v2.0 Java Selenium Test Synthesis.
- * Rejects trivial/tautological assertions, empty methods, swallowed errors, and tests that lack genuine UI interactions.
+ * Rejects trivial/tautological assertions, empty methods, generic <body> lookups,
+ * and tests that lack genuine UI interactions or domain state assertions.
  */
 export function assertAntiTrivialJavaContract(javaSource: string): void {
   // 1. Prohibited trivial assertions
@@ -278,22 +279,36 @@ export function assertAntiTrivialJavaContract(javaSource: string): void {
   if (/Assert\.assertEquals\s*\(\s*(?:"[^"]*"\s*,\s*)?([a-zA-Z0-9_]+)\s*,\s*\1\s*\)/.test(javaSource)) {
     throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: self-equality assertion is tautological");
   }
+  if (/(?:driver\s*!=\s*null|Assert\.assertNotNull\s*\(\s*(?:"[^"]*"\s*,\s*)?driver\s*\))/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: driver nullness check is a non-behavioral trivial assertion");
+  }
 
-  // 2. Prohibited swallowed assertions
+  // 2. Prohibited generic <body> presence and visibility checks (FORENSIC AUDIT REMEDIATION)
+  if (/By\.tagName\(\s*["']body["']\s*\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: By.tagName(\"body\") presence assertion is prohibited");
+  }
+  if (/By\.cssSelector\(\s*["']body["']\s*\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: By.cssSelector(\"body\") presence assertion is prohibited");
+  }
+  if (/(?:body|claroBody)\.isDisplayed\(\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: generic container/body isDisplayed() assertion is prohibited");
+  }
+
+  // 3. Prohibited swallowed assertions
   if (/catch\s*\(\s*(?:Throwable|AssertionError)\s+[a-zA-Z0-9_]+\s*\)\s*\{(?![^}]*throw)/.test(javaSource)) {
     throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: catch block swallows assertion failures");
   }
 
-  // 3. Mandatory browser / UI interaction check
-  const hasSeleniumInteraction = /(?:driver\.(?:get|findElement|findElements|navigate\(\)|getTitle\(\)|getCurrentUrl\(\)|getPageSource\(\))|\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|new\s+[A-Za-z0-9_]+Page\s*\(|WebDriverWait|ExpectedConditions|new\s+Select\s*\()/.test(javaSource);
-  if (!hasSeleniumInteraction) {
-    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test method lacks browser or PageObject interaction");
+  // 4. Mandatory browser / UI user interaction check (excluding mere driver.get and generic findElement)
+  const hasUserInteraction = /(?:\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|new\s+Select\s*\(|\.selectByVisibleText\(|\.selectByValue\(|\.selectByIndex\(|\.save\(|\.saveAndReturnToContentPage\(|\.edit\w+\(|\.add\w+\(|\.set\w+\(|\.delete\w+\(|\.doLogin\(|\.loginTo\w+\(|loginAs\w*\(|\.login\w*\(|\.search\w*\(|\.view\w*\(|\.protect\(|\.goTo\w+\(|\.newTask\(|\.newExercise\(|\.newContent\(|\.newDiscount\(|\.newProduct\(|\.newProject\(|\.newCategory\(|\.reportIssue\(|\.assignIssue\(|\.closeTask\()/.test(javaSource);
+  if (!hasUserInteraction) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test method lacks genuine user interaction (e.g. click, sendKeys, select, or PageObject business action)");
   }
 
-  // 4. Must not be a generic dummy test that only checks body presence and driver nullness
-  const hasSpecificInteractionOrAssertion = /(?:\.click\(|\.sendKeys\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|\.getAttribute\(|new\s+Select|WebDriverWait|Page\(|ExpectedConditions|assert(?:Equals|True|False|NotNull|Null)\s*\([^)]*(?:title|text|displayed|value|url|contains|equals|selected|enabled|size|count|element|alert|status|message))/i.test(javaSource);
-  if (!hasSpecificInteractionOrAssertion) {
-    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test only performs generic existence checks without business interaction or state assertions");
+  // 5. Mandatory domain state assertion check
+  const hasDomainAssertion = /Assert\.assert(?:Equals|True|False|NotEquals)\s*\(.*?(?:\.contains|\.equals|\.getText|\.getTitle|\.getStatus|\.getAlert|\.getError|\.getMessage|\.getCourseMessage|\.getSuccess|\.getPriority|\.getSeverity|\.getSummary|\.getCategory|containsElement|containsCategory|containsProduct|containsUser|containsCode|containsArticle|getFirst|getSecond|isDisplayed|isEnabled|isSelected|hasError|FieldHasError|CodeHasError|size\(\)\s*>\s*0)/s.test(javaSource);
+  if (!hasDomainAssertion) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test only performs generic existence checks without domain-specific state assertions");
   }
 }
 
@@ -339,7 +354,7 @@ export class FakeJavaGenerationProvider implements JavaGenerationProvider {
   async generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState): Promise<GeneratedJavaOutput> {
     assertCanGenerateJava(workflow, candidate);
     const testClass = expectedGeneratedTestClass(candidate);
-    const output = parseGeneratedJavaOutput({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { driver.get(appUrl); Assert.assertNotNull("page title must be present", driver.getTitle()); }\n}\n` });
+    const output = parseGeneratedJavaOutput({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\nimport org.openqa.selenium.By;\nimport po.*;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { driver.get(appUrl); driver.findElement(By.id("login")).click(); Assert.assertTrue("page title must be present", driver.getTitle().contains("Home")); }\n}\n` });
     validateGeneratedJavaContract(output, testClass);
     return output;
   }

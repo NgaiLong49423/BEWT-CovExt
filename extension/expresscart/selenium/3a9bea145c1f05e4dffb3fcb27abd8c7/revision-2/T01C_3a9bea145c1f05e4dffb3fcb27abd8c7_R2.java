@@ -29,11 +29,16 @@ public class T01C_3a9bea145c1f05e4dffb3fcb27abd8c7_R2 extends BaseTest {
 
     @Test
     public void testEC_GAP_003() throws Exception {
-        // Given customer address update persists into checkout session
-        driver.get(appUrl + "/checkout/information");
-        // When customer accesses checkout information
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("Checkout information page loaded", body.isDisplayed());
-        Assert.assertTrue("Checkout route or page title verified", driver.getCurrentUrl().contains("checkout") || driver.getTitle().contains("Checkout") || driver.getTitle().contains("expressCart"));
+        // Given customer adds product to cart and initiates checkout
+        goToHome();
+        Home home = new Home(driver);
+        home.addToCart(1);
+        TopNavBar nav = new TopNavBar(driver);
+        CartSidebar cart = nav.openCart();
+        // When customer proceeds to checkout
+        CheckoutPage checkout = cart.checkout();
+        // Then checkout route is loaded
+        Assert.assertNotNull("Checkout page must be rendered", checkout);
+        Assert.assertTrue("Checkout route active", driver.getCurrentUrl().contains("checkout") || driver.getPageSource().contains("checkout"));
     }
 }

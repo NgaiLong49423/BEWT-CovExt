@@ -30,12 +30,16 @@ public class T01C_244fbbc3c7e19c2ceb6a56738e493041_R2 extends BaseTest {
 
     @Test
     public void testKB_GAP_001() throws Exception {
-        // Given closed task exists in Kanboard project
-        ProjectManagementPage project = new LoginPage(driver).loginToKanboard("admin", password).goToFirstProject();
-        // When user navigates to task and executes reopen
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertNotNull("Project management page must be rendered", project);
-        Assert.assertTrue("Kanboard project workspace active", body.isDisplayed());
-        Assert.assertTrue("Task status reopened to active state", driver.getTitle().contains("Kanboard"));
+        // Given user is logged into Kanboard project
+        KanboardHomePage home = new LoginPage(driver).loginToKanboard("admin", password);
+        ProjectManagementPage project = home.goToFirstProject();
+        Assert.assertNotNull("Project page rendered", project);
+        String taskName = project.getFirstTaskName();
+        Assert.assertNotNull("First task name must exist", taskName);
+        // When user opens task and closes it
+        TaskPage taskPage = new ProjectPage(driver).goToTask(taskName);
+        taskPage = taskPage.closeTask().confirmCloseTask();
+        // Then task status is updated to closed
+        Assert.assertEquals("closed", taskPage.getStatus().toLowerCase());
     }
 }

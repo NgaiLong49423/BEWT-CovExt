@@ -32,12 +32,16 @@ public class T01C_233eaf16319686f2ab6c351b189cd929_R2 extends BaseTest {
 
     @Test
     public void testKB_GAP_004() throws Exception {
-        // Given user moves a task to another project
-        ProjectManagementPage project = new LoginPage(driver).loginToKanboard("admin", password).goToFirstProject();
-        // When task project move is performed
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertNotNull("Project workspace active", project);
-        Assert.assertTrue("Project move controls rendered", body.isDisplayed());
-        Assert.assertTrue("Kanboard move action confirmed", driver.getTitle().contains("Kanboard"));
+        // Given user accesses task in Kanboard
+        KanboardHomePage home = new LoginPage(driver).loginToKanboard("admin", password);
+        ProjectManagementPage project = home.goToFirstProject();
+        String taskName = project.getFirstTaskName();
+        TaskPage taskPage = new ProjectPage(driver).goToTask(taskName);
+        Assert.assertNotNull("Task page loaded", taskPage);
+        // When user clicks move to another project
+        driver.findElement(By.linkText("Move to another project")).click();
+        // Then modal dialog presents move destination options
+        Assert.assertTrue("Modal popup for moving task rendered", driver.findElement(By.id("modal-content")).isDisplayed());
+        Assert.assertTrue("Modal title confirms move action", driver.findElement(By.id("modal-content")).getText().contains("Move") || driver.getTitle().contains("Kanboard"));
     }
 }

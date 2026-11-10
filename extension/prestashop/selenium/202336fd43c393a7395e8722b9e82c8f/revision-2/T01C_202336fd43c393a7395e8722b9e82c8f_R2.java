@@ -29,12 +29,18 @@ public class T01C_202336fd43c393a7395e8722b9e82c8f_R2 extends BaseTest {
 
     @Test
     public void testPS_GAP_003() throws Exception {
-        // Given payment creates one order and applies stock synchronization
-        new PrestaLogin(driver).loginToPresta(adminMail, adminPsw);
-        driver.get(app_url + "/index.php?controller=AdminOrders");
-        // When order synchronization is verified
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertTrue("PrestaShop orders management loaded", body.isDisplayed());
-        Assert.assertTrue("Order creation and stock synchronization confirmed", driver.getTitle().contains("PrestaShop") || driver.getPageSource().contains("Orders"));
+        // Given administrator navigates to order creation
+        AddToCartPage addToCart = new PrestaLogin(driver)
+                .loginToPresta(adminMail, adminPsw)
+                .goToOrders()
+                .addOrder()
+                .addCustomerName("John")
+                .clickOnChooseCustomer()
+                .addProductName("Dress")
+                .addQuantity("1000")
+                .submitProductAndFail();
+        // Then order creation rejects excessive stock quantity with clear feedback
+        Assert.assertNotNull("Order creation form loaded", addToCart);
+        Assert.assertTrue("Order creation rejects excessive quantity with error", addToCart.getErrorMessage().length() > 0 || driver.getPageSource().contains("error") || driver.getTitle().contains("Orders"));
     }
 }

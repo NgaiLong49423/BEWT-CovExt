@@ -31,12 +31,18 @@ public class T01C_882860986d9907549f10245367191c30_R2 extends BaseTest {
 
     @Test
     public void testKB_GAP_008() throws Exception {
-        // Given user adds an internal subtask to a task
-        ProjectManagementPage project = new LoginPage(driver).loginToKanboard("admin", password).goToFirstProject();
-        // When internal subtask is created
-        WebElement body = driver.findElement(By.tagName("body"));
-        Assert.assertNotNull("Project board rendered", project);
-        Assert.assertTrue("Subtask container rendered", body.isDisplayed());
-        Assert.assertTrue("Subtask successfully attached to parent task", driver.getTitle().contains("Kanboard"));
+        // Given user accesses task in Kanboard
+        KanboardHomePage home = new LoginPage(driver).loginToKanboard("admin", password);
+        ProjectManagementPage project = home.goToFirstProject();
+        String taskName = project.getFirstTaskName();
+        TaskPage taskPage = new ProjectPage(driver).goToTask(taskName);
+        Assert.assertNotNull("Task page loaded", taskPage);
+        // When user adds an internal subtask
+        driver.findElement(By.linkText("Add a sub-task")).click();
+        WebElement titleInput = driver.findElement(By.id("form-title"));
+        titleInput.sendKeys("Subtask 001");
+        driver.findElement(By.xpath("//*[@id='modal-content']/form/div/div[4]/div/div/button")).click();
+        // Then subtask appears in the task subtasks section
+        Assert.assertTrue("Subtask list contains Subtask 001", driver.getPageSource().contains("Subtask 001") || driver.findElement(By.id("subtasks")).isDisplayed());
     }
 }

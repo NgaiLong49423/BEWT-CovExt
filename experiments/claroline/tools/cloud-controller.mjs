@@ -3,7 +3,14 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, posix, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, validateRunId } from './claroline-g0.mjs';
+import { APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT } from './claroline-g0.mjs';
+
+export function validateRunId(runId) {
+  if (typeof runId !== 'string' || !/^[a-z0-9][a-z0-9-]{2,62}$/.test(runId)) {
+    throw new Error(`INVALID_RUN_ID: '${runId}' must be 3-63 lowercase alphanumeric/dash characters`);
+  }
+  return runId;
+}
 import { loadCanonicalConfig, toCloudVmConfig } from '../../../framework/src/runtime/config-loader.ts';
 
 const toolDir = dirname(fileURLToPath(import.meta.url));
@@ -504,9 +511,12 @@ export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSy
   const remoteScript = buildRemoteCommandScript(action, params);
   const sshKey = resolveSshKeyPath();
   const sshArgs = [
+    '-n',
     '-o', 'BatchMode=yes',
     '-o', 'StrictHostKeyChecking=no',
     '-o', 'ConnectTimeout=15',
+    '-o', 'ServerAliveInterval=30',
+    '-o', 'ServerAliveCountMax=10',
     '-i', sshKey,
     `${CLOUD_VM_CONFIG.sshUser}@${resolvedHostIp}`,
     remoteScript,

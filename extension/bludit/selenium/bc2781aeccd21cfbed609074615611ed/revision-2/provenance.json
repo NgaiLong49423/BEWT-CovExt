@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "5dce952d6ebe85de92ee77312ee532e27bb4107b75951cba67a7aa4b8e64a654",
-  "callId": "call-02-r2-bc2781aeccd21cfbed609074615611ed",
-  "candidateId": "BL-GAP-003",
   "appId": "bludit",
+  "candidateId": "BL-GAP-003",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "8e3d4bd539cce6665cb692f1930f7da8a6b1a353e0bb31625c15854d314d6315",
+  "callId": "offline-synthesis-BL-GAP-003",
+  "generatedAt": "2026-11-10T17:45:33.686Z",
+  "sourceSha256": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

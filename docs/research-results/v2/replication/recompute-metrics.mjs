@@ -79,16 +79,25 @@ export function auditJavaSeleniumQuality(javaSource) {
   if (/Assert\.assertFalse\s*\(\s*(?:"[^"]*"\s*,\s*)?false\s*\)/.test(javaSource)) {
     return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Assert.assertFalse(false) is tautological' };
   }
+  if (/By\.tagName\s*\(\s*["']body["']\s*\)/.test(javaSource)) {
+    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Generic <body> tag lookup is prohibited as a surrogate oracle' };
+  }
+  if (/(?:Assert\.assertTrue|assertTrue)\s*\(\s*(?:"[^"]*"\s*,\s*)?[a-zA-Z0-9_]*body[a-zA-Z0-9_]*\.isDisplayed\(\)\s*\)/i.test(javaSource)) {
+    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Asserting body visibility is a trivial non-behavioral oracle' };
+  }
+  if (/(?:Assert\.assertNotNull|assertNotNull)\s*\(\s*(?:"[^"]*"\s*,\s*)?driver\s*\)/.test(javaSource)) {
+    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Asserting driver nullness is not a business oracle' };
+  }
   if (/catch\s*\(\s*(?:Throwable|AssertionError)\s+[a-zA-Z0-9_]+\s*\)\s*\{(?![^}]*throw)/.test(javaSource)) {
     return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Catch block swallows assertion failures' };
   }
 
-  const hasInteraction = /(?:driver\.(?:get|findElement|findElements|navigate\(\)|getTitle\(\)|getCurrentUrl\(\)|getPageSource\(\))|\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|new\s+[A-Za-z0-9_]+Page\s*\(|WebDriverWait|ExpectedConditions|new\s+Select\s*\()/.test(javaSource);
+  const hasInteraction = /(?:driver\.(?:get|findElement|findElements|navigate\(\)|getTitle\(\)|getCurrentUrl\(\)|getPageSource\(\))|\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|new\s+[A-Za-z0-9_]+Page\s*\(|loginAs\w*\(|WebDriverWait|ExpectedConditions|new\s+Select\s*\()/.test(javaSource);
   if (!hasInteraction) {
     return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Method lacks browser or PageObject interactions' };
   }
 
-  const hasStateCheck = /(?:\.click\(|\.sendKeys\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|\.getAttribute\(|new\s+Select|WebDriverWait|Page\(|ExpectedConditions|assert(?:Equals|True|False|NotNull|Null)\s*\([^)]*(?:title|text|displayed|value|url|contains|equals|selected|enabled|size|count|element|alert|status|message))/i.test(javaSource);
+  const hasStateCheck = /(?:\.click\(|\.sendKeys\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|\.getAttribute\(|new\s+Select|WebDriverWait|Page\(|ExpectedConditions|assert(?:Equals|True|False|NotNull|Null)\s*\([^;]+(?:\.contains|\.equals|selected|enabled|size|count|element|alert|status|message|category|article|title|text))/i.test(javaSource);
   if (!hasStateCheck) {
     return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Test performs only generic checks without business assertions' };
   }

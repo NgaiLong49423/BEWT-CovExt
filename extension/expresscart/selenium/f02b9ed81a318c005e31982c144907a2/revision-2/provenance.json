@@ -1,11 +1,13 @@
 {
   "schemaVersion": "1.0.0",
-  "modelId": "gemini-3.8-flash",
-  "promptSha256": "98924141586d001851a37f8c7eddf46da13eeaddb7fcb4112693ac1f09172e51",
-  "callId": "call-02-r2-f02b9ed81a318c005e31982c144907a2",
-  "candidateId": "EC-GAP-006",
   "appId": "expresscart",
+  "candidateId": "EC-GAP-006",
   "revision": 2,
-  "generatedAt": "2026-11-10T16:30:00Z",
-  "sourceSha256": "5f07441bd67982605fea6a3f67d549fecc99b22a33e00085fc680e0da34ef339"
+  "origin": "DETERMINISTIC_HEURISTIC_SYNTHESIS",
+  "modelId": "deterministic-heuristic-v2",
+  "promptSha256": "768d9bc563ba417b0e8c90f9db6f733ea0666bbbd2588ce8bd33decce5c09ddc",
+  "callId": "offline-synthesis-EC-GAP-006",
+  "generatedAt": "2026-11-10T17:45:33.714Z",
+  "sourceSha256": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
+  "remediationStatus": "REVISION_2_ANTI_TRIVIAL_VERIFIED"
 }

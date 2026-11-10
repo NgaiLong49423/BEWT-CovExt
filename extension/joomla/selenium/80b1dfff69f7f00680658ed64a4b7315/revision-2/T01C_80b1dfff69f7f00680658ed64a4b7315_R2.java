@@ -31,11 +31,18 @@ public class T01C_80b1dfff69f7f00680658ed64a4b7315_R2 extends BaseTest {
 
     @Test
     public void testJO_GAP_002() throws Exception {
-        // Given publish-up and publish-down visibility window
-        loginAsAdmin();
-        // When publication window is defined on article
-        WebElement content = driver.findElement(By.id("content"));
-        Assert.assertTrue("Publishing controls container loaded", content.isDisplayed());
-        Assert.assertTrue("Joomla administration active", driver.getTitle().contains("Articles") || driver.getTitle().contains("Joomla"));
+        // Given administrator logs in and accesses article management
+        ManageArticlesPage articles = loginAsAdmin()
+                .siteAdmin()
+                .setUsername(adminUser)
+                .setPassword(adminPsw)
+                .login()
+                .articles();
+        Assert.assertNotNull("Manage articles page loaded", articles);
+        // When administrator opens article editor
+        EditArticleSiteAdminPage editPage = articles.goToArticle("Article 1");
+        // Then article editing workspace is loaded
+        Assert.assertNotNull("Edit article site admin page loaded", editPage);
+        Assert.assertTrue("Admin interface confirms article editing", driver.getTitle().contains("Articles") || driver.getTitle().contains("Joomla"));
     }
 }
