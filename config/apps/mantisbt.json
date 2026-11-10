@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "mantisbt",
+  "benchmarkBaseVersion": "1.2.0",
+  "source": {
+    "repository": "https://github.com/mantisbt/mantisbt",
+    "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+    "packageVersion": "1.2.0"
+  },
+  "baseSuitePath": "experiments/mantisbt/bewt-suite",
+  "runtime": {
+    "kind": "docker",
+    "version": "php-5.3-apache-mysql-bundled",
+    "image": "olianasd/mantisbt-strongpsw:1.2.0",
+    "imageDigest": "sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01"
+  },
+  "fixtureReset": {
+    "experimentKey": "bewt-covext-mantisbt",
+    "prepareTool": "prepare-fixture",
+    "cleanupTool": "cleanup-experiment",
+    "resetStrategy": "Single container deployment with labels and bundled MySQL (olianasd/mantisbt-strongpsw:1.2.0). Pre-populated database. Reset stops and removes the container.",
+    "destructive": true
+  },
+  "allowedTools": [
+    "read-baseline-inventory",
+    "validate-gherkin",
+    "read-approved-manifest",
+    "generate-source-artifact",
+    "compile-maven-project",
+    "run-selenium-test",
+    "prepare-fixture",
+    "collect-test-evidence",
+    "cleanup-experiment"
+  ]
+}

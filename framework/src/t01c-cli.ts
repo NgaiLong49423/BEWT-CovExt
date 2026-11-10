@@ -1,8 +1,9 @@
 import { createHash, randomUUID } from "node:crypto";
 import { readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
-import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseToolResult, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type CoverageGap, type GeneratedJavaArtifact, type ToolResult, type ValidationResult } from "./contracts.js";
+import { getAdapterForApp } from "../../adapters/index.js";
+import { parseApplicationManifest, parseCandidateScenario, parseCoverageGap, parseToolResult, parseValidationResult, sanitizeToolOutput, type AgentWorkflowState, type AppId, type CoverageGap, type GeneratedJavaArtifact, type ToolResult, type ValidationResult } from "./contracts.js";
 import { assertBaselineMatchesManifest } from "./policy.js";
 import { analyzeSourceBackedCoverage } from "./runtime/coverage-analysis.js";
 import { candidateFromGeneration, GeminiGenerationProvider, GeminiJavaGenerationProvider, newCandidateId, parseGeneratedJavaOutput, type GenerationOutput } from "./runtime/model-provider.js";
@@ -14,8 +15,15 @@ import { loadRegisteredGeneratedJava, loadRegisteredRepairedJava, registerGenera
 import { completePendingModelCall, hasReservedModelCall, readModelRunBudget, recordModelCall, reserveModelCall } from "./runtime/model-call-ledger.js";
 import { readHistoricalBehaviorIndex } from "../../adapters/expresscart/historical-behavior-index.js";
 import { reserveValidationInvocation } from "./runtime/validation-invocation.js";
+import { loadCanonicalConfig, loadGeminiApiKey } from "./runtime/config-loader.js";
 
-const root = resolve(process.cwd(), "..");
+const canonicalConfig = loadCanonicalConfig();
+const root = dirname(canonicalConfig.envFilePath);
+const canonicalGeminiKey = loadGeminiApiKey(root);
+const effectiveApiKey = canonicalGeminiKey ?? process.env.GEMINI_API_KEY;
+if (canonicalGeminiKey && !process.env.GEMINI_API_KEY) {
+  process.env.GEMINI_API_KEY = canonicalGeminiKey;
+}
 const sourceCommit = "b31302f4e99c3293bd742c6d076a721e168118b0";
 const sourceVersion = "1.1.19";
 const manifestPath = "config/apps/expresscart.json";
@@ -293,6 +301,9 @@ async function main(args: string[]): Promise<void> {
       if (!rest.includes("--live-authorized")) throw new Error("A live model action requires the explicit --live-authorized flag; no request was sent.");
       const maxCallsArg = rest.find((argument) => argument.startsWith("--max-api-requests="));
       const maxCostArg = rest.find((argument) => argument.startsWith("--max-cost-usd="));
+      const modelArg = rest.find((argument) => argument.startsWith("--model="));
+      const requestedModel = modelArg ? modelArg.slice("--model=".length) : "gemini-3.8-flash";
+      const selectedModel = (requestedModel === "gemini-3.8-flash" || requestedModel === "gemini-3.1-flash-lite") ? requestedModel : "gemini-3.8-flash";
       const maxApiRequests = maxCallsArg ? Number(maxCallsArg.slice("--max-api-requests=".length)) : 1;
       const runCostCeilingUsd = maxCostArg ? Number(maxCostArg.slice("--max-cost-usd=".length)) : 0.02;
       const perCallCostCeilingUsd = runCostCeilingUsd / maxApiRequests;
@@ -301,12 +312,12 @@ async function main(args: string[]): Promise<void> {
       const runId = `t01c-${randomUUID()}`;
       runIdForEvidence = runId;
       await ensureContainedDirectory(root, `${evidenceRoot}/${runId}`);
-      await writeUnique(`${evidenceRoot}/${runId}/model-run-budget.json`, JSON.stringify({ runId, model: "gemini-3.1-flash-lite", apiRequestsAllowed: maxApiRequests,
+      await writeUnique(`${evidenceRoot}/${runId}/model-run-budget.json`, JSON.stringify({ runId, model: selectedModel, apiRequestsAllowed: maxApiRequests,
         runCostCeilingUsd, perCallCostCeilingUsd, retriesAllowed: 0, timeoutMs: 60_000, maxPromptCharacters: 8_000,
         gherkinMaxOutputTokens: 2_000, javaMaxOutputTokens: 4_000,
-        pricingBasis: "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character",
+        pricingBasis: selectedModel === "gemini-3.8-flash" ? "Gemini 3.8 Flash Standard text rates; conservative 4 tokens per prompt character" : "Gemini 3.1 Flash-Lite Standard text rates; conservative 4 tokens per prompt character",
         authorizationFlagPresent: true, exhaustedCallsRemainConsumed: true }, null, 2));
-      provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: perCallCostCeilingUsd });
+      provider = new GeminiGenerationProvider(selectedModel, { authorized: true, timeoutMs: 60_000, costCeilingUsd: perCallCostCeilingUsd, ...(effectiveApiKey ? { apiKey: effectiveApiKey } : {}) });
       const initial: AgentWorkflowState = { appId: manifest.appId, sourceCommit, sourceVersion, runId, currentRole: "coverage_analysis", status: "STARTED", reviewDecisions: [], appliedDecisionIds: [], artifacts: [], repairAttempts: 0 };
       const result = await app.invoke({ workflow: initial }, { configurable: { thread_id: runId } }) as RuntimeState;
       if (result.workflow.status !== "AWAITING_HUMAN_REVIEW" || !result.workflow.candidate || !result.workflow.checkpoint) throw new Error(`LangGraph did not pause at human review: ${result.workflow.status}; ${result.terminalError?.message ?? "no detail"}`);
@@ -335,9 +346,10 @@ async function main(args: string[]): Promise<void> {
     if (decision === "ACCEPT" || decision === "REVISE") {
       runIdForEvidence = state.workflow.runId;
       const budget = await readModelRunBudget(root, evidenceRoot, runIdForEvidence);
-      if (decision === "ACCEPT") javaProvider = new GeminiJavaGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });
+      const budgetModel = (budget.model === "gemini-3.8-flash" || budget.model === "gemini-3.1-flash-lite") ? budget.model : "gemini-3.8-flash";
+      if (decision === "ACCEPT") javaProvider = new GeminiJavaGenerationProvider(budgetModel, { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd, ...(effectiveApiKey ? { apiKey: effectiveApiKey } : {}) });
       else {
-        provider = new GeminiGenerationProvider("gemini-3.1-flash-lite", { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd });
+        provider = new GeminiGenerationProvider(budgetModel, { authorized: true, timeoutMs: 60_000, costCeilingUsd: budget.perCallCostCeilingUsd, ...(effectiveApiKey ? { apiKey: effectiveApiKey } : {}) });
         if (state.workflow.candidate) sourceContext = await approvedJavaContext(state.workflow.candidate);
       }
     }

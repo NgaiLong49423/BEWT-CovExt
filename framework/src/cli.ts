@@ -1,14 +1,20 @@
 import { randomUUID } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
+import { dirname, resolve } from "node:path";
 import { ExpressCartExperimentAdapter, trustedReviewerId } from "../../adapters/expresscart/experiment.js";
 import { parseApplicationManifest, parseCandidateScenario, sanitizeToolOutput, type CandidateScenario, type CoverageGap } from "./contracts.js";
 import { assertBaselineMatchesManifest } from "./policy.js";
 import { parseGherkin } from "./runtime/gherkin.js";
 import { buildWorkflow, openSqliteCheckpointer, resumeReview, type RuntimeServices, type RuntimeState } from "./runtime/workflow.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./runtime/safe-path.js";
+import { loadCanonicalConfig, loadGeminiApiKey } from "./runtime/config-loader.js";
 
-const repositoryRoot = resolve(process.cwd(), "..");
+const canonicalConfig = loadCanonicalConfig();
+const repositoryRoot = dirname(canonicalConfig.envFilePath);
+const canonicalGeminiKey = loadGeminiApiKey(repositoryRoot);
+if (canonicalGeminiKey && !process.env.GEMINI_API_KEY) {
+  process.env.GEMINI_API_KEY = canonicalGeminiKey;
+}
 const manifestRelativePath = "config/apps/expresscart.json";
 const checkpointRelativePath = ".local-state/t01b-checkpoints/expresscart.sqlite";
 const runStateDirectory = ".local-state/t01b-checkpoints/runs";

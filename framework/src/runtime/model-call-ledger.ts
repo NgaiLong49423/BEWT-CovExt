@@ -6,6 +6,7 @@ export interface ModelRunBudget {
   apiRequestsAllowed: number;
   runCostCeilingUsd: number;
   perCallCostCeilingUsd: number;
+  model?: string;
 }
 
 async function writeUnique(root: string, relativePath: string, content: string): Promise<void> {

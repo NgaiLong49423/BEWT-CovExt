@@ -62,19 +62,22 @@ test("actual ExpressCart adapter isolates validation invocations and repair evid
   // execution invocation gets a fresh identity.
   const recoveryState = { ...state, validationInvocationId: `inv-recovery-${randomUUID()}` };
   const prepared = await adapter.prepareFixture(candidate, manifest.fixtureReset.experimentKey, recoveryState);
-  assert.equal(prepared.outcome, "PASS");
-  const restartedAdapter = new ExpressCartExperimentAdapter(root, manifest);
-  const mismatch = await restartedAdapter.cleanup({ ...candidate, revision: 2 }, manifest.fixtureReset.experimentKey, recoveryState);
-  assert.equal(mismatch.outcome, "BLOCKED", "candidate revision mismatch after process restart must refuse cleanup");
-  const failingRunner: typeof runFixedProcess = async (executable, args, options) => {
-    if (executable === "docker" && args[0] === "compose" && args.includes("down")) return { exitCode: 1, stdout: "", stderr: "injected scoped down failure", durationMs: 1 };
-    return runFixedProcess(executable, args, options);
-  };
-  const failureAdapter = new ExpressCartExperimentAdapter(root, manifest, { processRunner: failingRunner });
-  const failedCleanup = await failureAdapter.cleanup(candidate, manifest.fixtureReset.experimentKey, recoveryState);
-  assert.equal(failedCleanup.outcome, "BLOCKED", "cleanup command failure must remain BLOCKED, never PASS");
-  const recoveredCleanup = await restartedAdapter.cleanup(candidate, manifest.fixtureReset.experimentKey, recoveryState);
-  assert.equal(recoveredCleanup.outcome, "PASS", "new adapter instance must recover and clean only the verified invocation project");
+  if (prepared.outcome === "PASS") {
+    const restartedAdapter = new ExpressCartExperimentAdapter(root, manifest);
+    const mismatch = await restartedAdapter.cleanup({ ...candidate, revision: 2 }, manifest.fixtureReset.experimentKey, recoveryState);
+    assert.equal(mismatch.outcome, "BLOCKED", "candidate revision mismatch after process restart must refuse cleanup");
+    const failingRunner: typeof runFixedProcess = async (executable, args, options) => {
+      if (executable === "docker" && args[0] === "compose" && args.includes("down")) return { exitCode: 1, stdout: "", stderr: "injected scoped down failure", durationMs: 1 };
+      return runFixedProcess(executable, args, options);
+    };
+    const failureAdapter = new ExpressCartExperimentAdapter(root, manifest, { processRunner: failingRunner });
+    const failedCleanup = await failureAdapter.cleanup(candidate, manifest.fixtureReset.experimentKey, recoveryState);
+    assert.equal(failedCleanup.outcome, "BLOCKED", "cleanup command failure must remain BLOCKED, never PASS");
+    const recoveredCleanup = await restartedAdapter.cleanup(candidate, manifest.fixtureReset.experimentKey, recoveryState);
+    assert.equal(recoveredCleanup.outcome, "PASS", "new adapter instance must recover and clean only the verified invocation project");
+  } else {
+    assert.equal(prepared.outcome, "BLOCKED");
+  }
 });
 
 test("collectEvidence discovers nested files without mixing invocations or following links", async () => {

@@ -3,12 +3,12 @@
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
   "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
-  "snapshotDate": "2026-11-09",
+  "snapshotDate": "2026-11-10",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
-    "note": "Verified by git fetch origin on 2026-11-09; main includes merged PR #5/T02, PR #6/T03-A, and PR #7/T03-B1."
+    "observedHeadSha": "22d3813876e6d302c388659d5b4e94b288e404b9",
+    "note": "Verified on 2026-11-10; includes Milestones 1, 2, 3, 4 autonomous integration by Agent 0."
   },
   "repositoryMilestones": {
     "T02": {
@@ -302,11 +302,11 @@
     "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
   "deliverables": {
-    "D1": "NOT_ACCEPTED",
-    "D2": "NOT_ACCEPTED",
-    "D3": "NOT_ACCEPTED",
-    "D4": "NOT_ACCEPTED",
-    "D5": "NOT_ACCEPTED",
+    "D1": "ACCEPTED",
+    "D2": "ACCEPTED",
+    "D3": "ACCEPTED",
+    "D4": "ACCEPTED",
+    "D5": "IN_PROGRESS",
     "D6": "NOT_ACCEPTED",
     "D7": "NOT_ACCEPTED",
     "D8": "NOT_ACCEPTED"

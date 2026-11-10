@@ -313,6 +313,17 @@ function hasGeneratedTestDefect(validation: import("../contracts.js").Validation
     (validation.e2e.outcome === "FAIL" && validation.e2e.failureClassification === "GENERATED_TEST_DEFECT");
 }
 
+import { GEMINI_38_GHERKIN_PROFILE, GEMINI_38_JAVA_PROFILE } from "./gemini-model-config.js";
+
+const ALLOWED_GEMINI_MODELS = new Set(["gemini-3.1-flash-lite", "gemini-3.8-flash"]);
+
+function getGeminiPricing(model: string) {
+  if (model === "gemini-3.8-flash") {
+    return { inputUsdPerMillion: GEMINI_38_JAVA_PROFILE.inputUsdPerMillion, outputUsdPerMillion: GEMINI_38_JAVA_PROFILE.outputUsdPerMillion, defaultJavaCeilingUsd: GEMINI_38_JAVA_PROFILE.maxEstimatedCallUsd, defaultGherkinCeilingUsd: GEMINI_38_GHERKIN_PROFILE.maxEstimatedCallUsd };
+  }
+  return { inputUsdPerMillion: 0.25, outputUsdPerMillion: 1.5, defaultJavaCeilingUsd: 0.02, defaultGherkinCeilingUsd: 0.02 };
+}
+
 /** Live Java generation is explicitly separate from Gherkin generation and requires current ACCEPT. */
 export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   readonly name = "Gemini" as const;
@@ -327,12 +338,13 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
     const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
-    if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
+    if (!ALLOWED_GEMINI_MODELS.has(model)) throw new Error(`bounded run permits only ${Array.from(ALLOWED_GEMINI_MODELS).join(", ")}`);
+    const pricing = getGeminiPricing(model);
     this.maxOutputTokens = options.maxOutputTokens ?? 4_000;
-    this.costCeilingUsd = options.costCeilingUsd ?? 0.02;
-    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 4_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > 0.02) throw new Error("Java model budget exceeds the T01-C per-call ceiling");
+    this.costCeilingUsd = options.costCeilingUsd ?? pricing.defaultJavaCeilingUsd;
+    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 4_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > pricing.defaultJavaCeilingUsd) throw new Error("Java model budget exceeds the per-call ceiling");
     this.timeoutMs = options.timeoutMs ?? 60_000;
-    if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded T01-C run timeout cannot exceed 60 seconds");
+    if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded run timeout cannot exceed 60 seconds");
     const structured = new ChatGoogleGenerativeAI({ model, apiKey, temperature: 0, maxRetries: 0, maxOutputTokens: this.maxOutputTokens }).withStructuredOutput(JavaOutput, { includeRaw: true });
     this.modelClient = structured as unknown as { invoke(input: string): Promise<unknown> };
   }
@@ -383,7 +395,8 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   private async invokeJava(prompt: string, candidate: CandidateScenario, expectedClass: string, failureCode: string, consumeCall: () => void): Promise<GeneratedJavaOutput> {
     const promptCharacters = Array.from(prompt).length;
     const requestEvidence = buildSanitizedRequestEvidence(prompt);
-    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
+    const pricing = getGeminiPricing(this.model);
+    const estimatedMaxCostUsd = (promptCharacters * 4 * pricing.inputUsdPerMillion + this.maxOutputTokens * pricing.outputUsdPerMillion) / 1_000_000;
     if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: 0, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
       throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
@@ -399,7 +412,7 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * pricing.inputUsdPerMillion + outputTokens * pricing.outputUsdPerMillion) / 1_000_000 : undefined;
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
         ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
       return output;
@@ -423,18 +436,19 @@ export class GeminiGenerationProvider implements GenerationProvider {
     if (!options.authorized) throw new Error("LIVE_MODEL_AUTHORIZATION_REQUIRED");
     const apiKey = options.apiKey ?? process.env.GEMINI_API_KEY;
     if (!apiKey) throw new Error("GEMINI_API_KEY is required when live model use is explicitly authorized");
-    if (model !== "gemini-3.1-flash-lite") throw new Error("bounded T01-C run permits only gemini-3.1-flash-lite");
+    if (!ALLOWED_GEMINI_MODELS.has(model)) throw new Error(`bounded run permits only ${Array.from(ALLOWED_GEMINI_MODELS).join(", ")}`);
+    const pricing = getGeminiPricing(model);
     this.maxOutputTokens = options.maxOutputTokens ?? 2_000;
-    this.costCeilingUsd = options.costCeilingUsd ?? 0.02;
-    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 2_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > 0.02) throw new Error("Gherkin model budget exceeds the T01-C per-call ceiling");
+    this.costCeilingUsd = options.costCeilingUsd ?? pricing.defaultGherkinCeilingUsd;
+    if (this.maxOutputTokens < 1 || this.maxOutputTokens > 2_000 || this.costCeilingUsd <= 0 || this.costCeilingUsd > pricing.defaultGherkinCeilingUsd) throw new Error("Gherkin model budget exceeds the per-call ceiling");
     const structured = new ChatGoogleGenerativeAI({ model, apiKey, temperature: 0, maxRetries: 0, maxOutputTokens: this.maxOutputTokens }).withStructuredOutput(ModelOutput, { includeRaw: true });
     this.modelClient = structured as unknown as { invoke(input: string): Promise<unknown> };
     this.timeoutMs = options.timeoutMs ?? 60_000;
-    if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded T01-C run timeout cannot exceed 60 seconds");
+    if (this.timeoutMs < 1 || this.timeoutMs > 60_000) throw new Error("bounded run timeout cannot exceed 60 seconds");
   }
   private readonly timeoutMs: number;
   async generate(request: GenerationRequest): Promise<GenerationOutput> {
-    if (this.used) throw new Error("T01-C one-request model budget is exhausted");
+    if (this.used) throw new Error("one-request model budget is exhausted");
     this.used = true;
     const startedAt = Date.now();
     const prompt = [
@@ -448,7 +462,8 @@ export class GeminiGenerationProvider implements GenerationProvider {
     ].join("\n\n");
     const promptCharacters = Array.from(prompt).length;
     const requestEvidence = buildSanitizedRequestEvidence(prompt);
-    const estimatedMaxCostUsd = (promptCharacters * 4 * 0.25 + this.maxOutputTokens * 1.5) / 1_000_000;
+    const pricing = getGeminiPricing(this.model);
+    const estimatedMaxCostUsd = (promptCharacters * 4 * pricing.inputUsdPerMillion + this.maxOutputTokens * pricing.outputUsdPerMillion) / 1_000_000;
     if (promptCharacters > 8_000 || estimatedMaxCostUsd > this.costCeilingUsd) {
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 0, attempts: 0, elapsedMs: Date.now() - startedAt, status: "BLOCKED", errorCategory: "INPUT_BUDGET", promptCharacters, estimatedMaxCostUsd };
       throw new Error("MODEL_INPUT_BUDGET_EXCEEDED");
@@ -460,7 +475,7 @@ export class GeminiGenerationProvider implements GenerationProvider {
       const usage = raw?.usage_metadata ?? raw?.response_metadata?.tokenUsage;
       const inputTokens = usageNumber(usage, ["input_tokens", "prompt_tokens", "inputTokens"]);
       const outputTokens = usageNumber(usage, ["output_tokens", "completion_tokens", "outputTokens"]);
-      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * 0.25 + outputTokens * 1.5) / 1_000_000 : undefined;
+      const actualCostUsd = inputTokens !== undefined && outputTokens !== undefined ? (inputTokens * pricing.inputUsdPerMillion + outputTokens * pricing.outputUsdPerMillion) / 1_000_000 : undefined;
       this.lastTelemetry = { provider: "Gemini", model: this.model, calls: 1, attempts: 1, elapsedMs: Date.now() - startedAt, status: "PASS", promptCharacters, estimatedMaxCostUsd, requestEvidence,
         ...(inputTokens === undefined ? {} : { inputTokens }), ...(outputTokens === undefined ? {} : { outputTokens }), ...(actualCostUsd === undefined ? {} : { actualCostUsd }) };
       return output;
