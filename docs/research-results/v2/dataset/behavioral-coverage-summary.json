@@ -1,0 +1,187 @@
+{
+  "schemaVersion": "2.0.0",
+  "title": "BEWT-CovExt v2.0 Behavioral Coverage Gain Summary (RQ2)",
+  "verifiedAt": "2026-11-10T14:42:35.246Z",
+  "baselineDenominatorTotal": 180,
+  "novelBehaviorsAddedTotal": 40,
+  "postExtensionDenominatorTotal": 220,
+  "programCoverageGainPercentage": "+22.22%",
+  "formula": "Coverage Gain (%) = (Novel Behavioral Units Added / Baseline Behavioral Units) * 100",
+  "perApplicationMetrics": {
+    "bludit": {
+      "application": "bludit",
+      "baselineVersion": "2.3.4",
+      "baselineUBU": 18,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 23,
+      "coverageGainPercent": "+27.78%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 7,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "SYSTEM_CONFIGURATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "newCandidateIds": [
+        "BL-GAP-001",
+        "BL-GAP-002",
+        "BL-GAP-003",
+        "BL-GAP-004",
+        "BL-GAP-005"
+      ]
+    },
+    "claroline": {
+      "application": "claroline",
+      "baselineVersion": "1.11.10",
+      "baselineUBU": 28,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 33,
+      "coverageGainPercent": "+17.86%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 11,
+        "VALIDATION_BOUNDARY_NEGATIVE": 5,
+        "STATE_TRANSITION_LIFECYCLE": 3,
+        "ACCESS_CONTROL_PERMISSIONS": 5,
+        "SEARCH_FILTER_INSPECTION": 4
+      },
+      "newCandidateIds": [
+        "CL-GAP-001",
+        "CL-GAP-002",
+        "CL-GAP-003",
+        "CL-GAP-004",
+        "CL-GAP-005"
+      ]
+    },
+    "expresscart": {
+      "application": "expresscart",
+      "baselineVersion": "1.1.19",
+      "baselineUBU": 21,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 26,
+      "coverageGainPercent": "+23.81%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 8,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "COMMERCE_TRANSACTION": 6,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "newCandidateIds": [
+        "EC-GAP-002",
+        "EC-GAP-003",
+        "EC-GAP-004",
+        "EC-GAP-005",
+        "EC-GAP-006"
+      ]
+    },
+    "joomla": {
+      "application": "joomla",
+      "baselineVersion": "3.10.11",
+      "baselineUBU": 24,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 29,
+      "coverageGainPercent": "+20.83%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 9,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "TAXONOMY_ORGANIZATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "newCandidateIds": [
+        "JO-GAP-001",
+        "JO-GAP-002",
+        "JO-GAP-003",
+        "JO-GAP-004",
+        "JO-GAP-005"
+      ]
+    },
+    "kanboard": {
+      "application": "kanboard",
+      "baselineVersion": "1.2.15",
+      "baselineUBU": 20,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 25,
+      "coverageGainPercent": "+25.00%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 6,
+        "VALIDATION_BOUNDARY_NEGATIVE": 5,
+        "STATE_TRANSITION_LIFECYCLE": 2,
+        "TAXONOMY_ORGANIZATION": 3,
+        "SEARCH_FILTER_INSPECTION": 2,
+        "SYSTEM_CONFIGURATION": 2
+      },
+      "newCandidateIds": [
+        "KB-GAP-001",
+        "KB-GAP-002",
+        "KB-GAP-003",
+        "KB-GAP-004",
+        "KB-GAP-008"
+      ]
+    },
+    "mantisbt": {
+      "application": "mantisbt",
+      "baselineVersion": "1.2.0",
+      "baselineUBU": 26,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 31,
+      "coverageGainPercent": "+19.23%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 10,
+        "VALIDATION_BOUNDARY_NEGATIVE": 6,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "TAXONOMY_ORGANIZATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 2
+      },
+      "newCandidateIds": [
+        "MB-GAP-001",
+        "MB-GAP-002",
+        "MB-GAP-003",
+        "MB-GAP-004",
+        "MB-GAP-005"
+      ]
+    },
+    "mediawiki": {
+      "application": "mediawiki",
+      "baselineVersion": "1.40.0",
+      "baselineUBU": 19,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 24,
+      "coverageGainPercent": "+26.32%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 8,
+        "VALIDATION_BOUNDARY_NEGATIVE": 2,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "SEARCH_FILTER_INSPECTION": 3,
+        "ACCESS_CONTROL_PERMISSIONS": 2
+      },
+      "newCandidateIds": [
+        "MW-GAP-001",
+        "MW-GAP-002",
+        "MW-GAP-003",
+        "MW-GAP-004",
+        "MW-GAP-005"
+      ]
+    },
+    "prestashop": {
+      "application": "prestashop",
+      "baselineVersion": "1.6.1.23",
+      "baselineUBU": 24,
+      "newUBUAdded": 5,
+      "postExtensionUBU": 29,
+      "coverageGainPercent": "+20.83%",
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 10,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "COMMERCE_TRANSACTION": 5,
+        "TAXONOMY_ORGANIZATION": 3,
+        "SYSTEM_CONFIGURATION": 2
+      },
+      "newCandidateIds": [
+        "PS-GAP-001",
+        "PS-GAP-002",
+        "PS-GAP-003",
+        "PS-GAP-004",
+        "PS-GAP-005"
+      ]
+    }
+  }
+}

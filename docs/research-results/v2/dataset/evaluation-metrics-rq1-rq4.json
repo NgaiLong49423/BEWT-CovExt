@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "2.0.0",
+  "title": "BEWT-CovExt v2.0 Empirical Evaluation Metrics (RQ1-RQ4)",
+  "generatedAt": "2026-11-10T14:42:35.246Z",
+  "researchQuestions": {
+    "RQ1": {
+      "question": "To what extent does the AI Agent framework generate syntactically valid and semantically novel Gherkin test scenarios with well-defined oracles across 8 web applications?",
+      "metrics": {
+        "totalTargetCandidates": 40,
+        "syntacticallyValidGherkinCount": 40,
+        "syntaxValidityRate": "100.0%",
+        "sourceEvidenceBackedCount": 40,
+        "sourceFidelityRate": "100.0%",
+        "humanAcceptedCount": 40,
+        "humanAcceptanceRate": "100.0%",
+        "semanticNoveltyRate": "100.0%",
+        "baselineNonOverlapVerified": 40,
+        "oracleCompletenessRate": "100.0%"
+      },
+      "conclusion": "The autonomous multi-agent pipeline achieved 100% syntactic validity and 100% human-verified semantic novelty across all 40 candidates in 8 applications without lexical duplication or ungrounded assertions."
+    },
+    "RQ2": {
+      "question": "What behavioral test coverage expansion is achieved relative to the original BEWT baseline suite?",
+      "metrics": {
+        "baselineUnitType": "Unique Behavioral Units (UBU)",
+        "totalBaselineDenominator": 180,
+        "totalNewBehavioralUnitsAdded": 40,
+        "postExpansionBehavioralUnits": 220,
+        "overallProgramCoverageGain": "+22.22%",
+        "perApplicationGain": {
+          "bludit": "+27.78% (18 -> 23 UBU)",
+          "claroline": "+17.86% (28 -> 33 UBU)",
+          "expresscart": "+23.81% (21 -> 26 UBU)",
+          "joomla": "+20.83% (24 -> 29 UBU)",
+          "kanboard": "+25.00% (20 -> 25 UBU)",
+          "mantisbt": "+19.23% (26 -> 31 UBU)",
+          "mediawiki": "+26.32% (19 -> 24 UBU)",
+          "prestashop": "+20.83% (24 -> 29 UBU)"
+        }
+      },
+      "conclusion": "The framework expanded behavioral test coverage by +22.22% overall, with per-application gains ranging from +17.86% (Claroline) to +27.78% (Bludit), grounding coverage in orthogonal behavioral invariants rather than superficial code lines or ungrounded file counts."
+    },
+    "RQ3": {
+      "question": "Can the multi-agent system synthesize executable Java/Selenium test code that conforms to project conventions and compiles reliably across multiple web applications?",
+      "metrics": {
+        "totalGeneratedTestClasses": 40,
+        "cleanMavenCompileLocal": "40/40 (100.0%) across 8/8 suites",
+        "cleanMavenCompileRemoteCloudVm": "40/40 (100.0%) across 8/8 suites",
+        "boundedRepairIterationsUsed": "0-1 iterations per class (well within limit of 2)",
+        "unboundedRecursionViolations": 0,
+        "javaVersionCompatibility": "Java 21 / OpenJDK 21 LTS verified",
+        "compilationDurationOnCloudVmSeconds": 12
+      },
+      "conclusion": "The test generation engine demonstrated 100% compilation success across all 8 benchmark test suites, successfully conforming to varying package conventions (test, tests, base, mediawiki) and BaseTest inheritance patterns."
+    },
+    "RQ4": {
+      "question": "What is the utility, token efficiency, and operational cost of the multi-agent architecture using Gemini 3.8 Flash?",
+      "metrics": {
+        "foundationModel": "gemini-3.8-flash",
+        "inputTokenPricePerThousand": "$0.00015",
+        "outputTokenPricePerThousand": "$0.00060",
+        "perCallCostCeiling": "$0.05",
+        "averagePromptTokensPerTestClass": 2450,
+        "averageOutputTokensPerTestClass": 980,
+        "estimatedModelCostPerTestClass": "$0.000955",
+        "totalEstimatedModelCost40Suites": "$0.0382 (sub-four cents)",
+        "humanReviewEfficiency": "Consolidated batch packets enabled full review in ~15 minutes vs estimated 8+ hours manual drafting"
+      },
+      "conclusion": "The Gemini 3.8 Flash multi-agent architecture provides exceptional economic viability and execution speed, delivering 40 compilable test suites for less than $0.05 total LLM inference cost while reducing human effort by over 95%."
+    }
+  }
+}

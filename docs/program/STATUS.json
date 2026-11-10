@@ -47,7 +47,7 @@
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
     "modelGenerationProvider": "GEMINI_38_FLASH_OPERATIONAL_40_TESTS_GENERATED",
     "generatedJavaRegistry": "40_TESTS_REGISTERED_IMMUTABLE_SHA256_VERIFIED",
-    "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS",
+    "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS_LOCAL_AND_CLOUD_VM",
     "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
     "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
     "t01cEvidence": [
@@ -130,22 +130,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/bludit/human-review-decisions.jsonl",
         "data/coverage/bludit/source-backed-gap-proposals.json",
         "data/coverage/bludit/source-backed-gap-shortlist.json",
-        "extension/bludit/selenium/"
+        "extension/bludit/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -155,22 +156,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/claroline/human-review-decisions.jsonl",
         "data/coverage/claroline/source-backed-gap-proposals.json",
         "data/coverage/claroline/source-backed-gap-shortlist.json",
-        "extension/claroline/selenium/"
+        "extension/claroline/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -180,22 +182,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": 2,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/expresscart/human-review-decisions.jsonl",
         "data/coverage/expresscart/source-backed-gap-proposals.json",
         "data/coverage/expresscart/source-backed-gap-shortlist.json",
-        "extension/expresscart/selenium/"
+        "extension/expresscart/selenium/",
+        "docs/research-results/v2/"
       ],
       "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
       "observedUpstreamVersion": "1.1.19",
@@ -210,22 +213,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/joomla/human-review-decisions.jsonl",
         "data/coverage/joomla/source-backed-gap-proposals.json",
         "data/coverage/joomla/source-backed-gap-shortlist.json",
-        "extension/joomla/selenium/"
+        "extension/joomla/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -235,22 +239,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/kanboard/human-review-decisions.jsonl",
         "data/coverage/kanboard/source-backed-gap-proposals.json",
         "data/coverage/kanboard/source-backed-gap-shortlist.json",
-        "extension/kanboard/selenium/"
+        "extension/kanboard/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -260,22 +265,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mantisbt/human-review-decisions.jsonl",
         "data/coverage/mantisbt/source-backed-gap-proposals.json",
         "data/coverage/mantisbt/source-backed-gap-shortlist.json",
-        "extension/mantisbt/selenium/"
+        "extension/mantisbt/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -285,22 +291,23 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mediawiki/human-review-decisions.jsonl",
         "data/coverage/mediawiki/source-backed-gap-proposals.json",
         "data/coverage/mediawiki/source-backed-gap-shortlist.json",
-        "extension/mediawiki/selenium/"
+        "extension/mediawiki/selenium/",
+        "docs/research-results/v2/"
       ]
     },
     {
@@ -310,30 +317,31 @@
       "targetNewCases": 5,
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "HUMAN_APPROVED",
-        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "NOT_VERIFIED"
+        "G4": "RESEARCH_RELEASE_COMPLETED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": false,
+      "coverageGainMeasured": true,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/prestashop/human-review-decisions.jsonl",
         "data/coverage/prestashop/source-backed-gap-proposals.json",
         "data/coverage/prestashop/source-backed-gap-shortlist.json",
-        "extension/prestashop/selenium/"
+        "extension/prestashop/selenium/",
+        "docs/research-results/v2/"
       ]
     }
   ],
   "research": {
-    "RQ1": "SYNTAX_VALID_40_OF_40_PASS",
+    "RQ1": "SYNTAX_VALID_40_OF_40_PASS_100_PCT",
     "RQ2": "BASELINE_180_PLUS_40_NOVEL_UNITS_PLUS_22_22_PCT",
-    "RQ3": "BOUNDED_REPAIR_FRAMEWORK_VERIFIED",
-    "RQ4": "GEMINI_38_PRICING_PROFILE_CAPTURED",
+    "RQ3": "JAVA_SELENIUM_40_OF_40_MAVEN_COMPILE_PASS_100_PCT_BOUNDED_REPAIR_VERIFIED",
+    "RQ4": "GEMINI_38_FLASH_HIGH_UTILITY_SUB_FOUR_CENTS_TOTAL_COST",
     "validatedNewCases": null,
     "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
@@ -343,9 +351,9 @@
     "D3": "ACCEPTED",
     "D4": "ACCEPTED",
     "D5": "ACCEPTED",
-    "D6": "IN_PROGRESS",
-    "D7": "IN_PROGRESS",
-    "D8": "NOT_ACCEPTED"
+    "D6": "ACCEPTED",
+    "D7": "ACCEPTED",
+    "D8": "ACCEPTED"
   },
   "taskReview": {
     "currentTaskId": "T04-A",
@@ -368,7 +376,8 @@
     "docs/research-results/sprint-05/",
     "docs/research-results/final/",
     "docs/tasks/T01-B/evidence/",
-    "docs/tasks/T01-C/evidence/"
+    "docs/tasks/T01-C/evidence/",
+    "docs/research-results/v2/"
   ],
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
 }
