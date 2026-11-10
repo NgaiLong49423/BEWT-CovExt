@@ -9,7 +9,30 @@ import { loadCanonicalConfig, toCloudVmConfig } from '../../../framework/src/run
 const toolDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(toolDir, '../../..');
 
-export const CLOUD_VM_CONFIG = Object.freeze(toCloudVmConfig(loadCanonicalConfig({ startDir: repoRoot })));
+function resolveCloudVmConfig() {
+  try {
+    return Object.freeze(toCloudVmConfig(loadCanonicalConfig({ startDir: repoRoot })));
+  } catch {
+    const examplePath = join(repoRoot, '.env.example');
+    if (existsSync(examplePath)) {
+      return Object.freeze(toCloudVmConfig(loadCanonicalConfig({ startDir: repoRoot, envPath: examplePath })));
+    }
+    return Object.freeze({
+      projectId: 'gen-lang-client-0311012609',
+      zone: 'asia-southeast1-a',
+      instanceName: 'bewt-covext-runner',
+      expectedInstanceId: '3042402845209891905',
+      expectedMachineTypeSuffix: 'machineTypes/c4d-highmem-8',
+      expectedMaxRunDurationSeconds: 18000,
+      expectedTerminationAction: 'STOP',
+      sshUser: 'runner',
+      remoteRepoPath: '/home/runner/BEWT-CovExt',
+      minRemainingSecondsForRun: 600,
+    });
+  }
+}
+
+export const CLOUD_VM_CONFIG = resolveCloudVmConfig();
 
 export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
   'preflight-probe': {
