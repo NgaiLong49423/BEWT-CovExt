@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "bludit",
+  "candidateId": "BL-GAP-002",
+  "revision": 1,
+  "sourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+  "sourceVersion": "2.3.4",
+  "gherkinSha256": "3fc0acf00d812d4345126729576ab7992771abd05caeea2c52c4201defde252f",
+  "testClass": "tests.T01C_4b05dc3e3caa3daec5f080180a09f349_R1",
+  "artifactPath": "extension/bludit/selenium/4b05dc3e3caa3daec5f080180a09f349/revision-1/T01C_4b05dc3e3caa3daec5f080180a09f349_R1.java",
+  "sourceSha256": "6958a5eea5f1c5882fe869655add2e9ad408f93af150537bbdb1e5ec6ba960fc",
+  "origin": "GENERATED"
+}

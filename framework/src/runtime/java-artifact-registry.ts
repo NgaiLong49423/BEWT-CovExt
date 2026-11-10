@@ -8,6 +8,16 @@ import { assertExecutableAssertionsPreserved, validateGeneratedJavaContract, typ
 import { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
 export { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
 
+export function getAppTestPackage(appId: string): string {
+  switch (appId) {
+    case "claroline": return "test";
+    case "joomla":
+    case "mantisbt": return "base";
+    case "mediawiki": return "mediawiki";
+    default: return "tests";
+  }
+}
+
 export interface GeneratedJavaRegistration {
   schemaVersion: "1.0.0";
   appId: string;
@@ -82,10 +92,11 @@ export async function registerGeneratedJava(
   await ensureContainedDirectory(repositoryRoot, directory);
   const artifactPath = `${directory}/${expectedClass}.java`;
   const sourceSha256 = sha256(output.javaSource);
+  const pkg = getAppTestPackage(candidate.appId);
   const registration: GeneratedJavaRegistration = {
     schemaVersion: "1.0.0", appId: candidate.appId, candidateId: candidate.candidateId, revision: candidate.revision,
     sourceCommit: candidate.sourceCommit, sourceVersion: candidate.sourceVersion, gherkinSha256: sha256(candidate.gherkin),
-    testClass: `tests.${expectedClass}`, artifactPath, sourceSha256, origin: "GENERATED",
+    testClass: `${pkg}.${expectedClass}`, artifactPath, sourceSha256, origin: "GENERATED",
   };
   await writeImmutable(repositoryRoot, artifactPath, output.javaSource);
   await writeImmutable(repositoryRoot, `${directory}/registration.json`, `${JSON.stringify(registration, null, 2)}\n`);
@@ -104,15 +115,17 @@ export async function verifyRegisteredGeneratedJava(
   artifact: GeneratedJavaArtifact,
 ): Promise<{ absolutePath: string; registration: GeneratedJavaRegistration }> {
   assertHumanApprovedCandidate(workflow, candidate);
-  const expectedClass = `tests.${expectedGeneratedTestClass(candidate)}`;
+  const pkg = getAppTestPackage(candidate.appId);
+  const simpleClass = expectedGeneratedTestClass(candidate);
+  const expectedClass = `${pkg}.${simpleClass}`;
   const expectedDirectory = registrationDirectory(candidate);
-  const expectedPath = `${expectedDirectory}/${expectedClass.slice("tests.".length)}.java`;
+  const expectedPath = `${expectedDirectory}/${simpleClass}.java`;
   if (artifact.kind !== "generated_java" || !["GENERATED", "REPAIRED"].includes(String(artifact.origin)) || artifact.testClass !== expectedClass ||
       artifact.candidateId !== candidate.candidateId || artifact.revision !== candidate.revision || !artifact.sha256) {
     throw new Error("generated Java artifact is not registered for the exact approved candidate revision");
   }
   const isGenerated = artifact.origin === "GENERATED";
-  const match = isGenerated ? artifact.path === expectedPath : new RegExp(`^${expectedDirectory}/repair-[12]/${expectedClass.slice("tests.".length)}\\.java$`).test(artifact.path);
+  const match = isGenerated ? artifact.path === expectedPath : new RegExp(`^${expectedDirectory}/repair-[12]/${simpleClass}\\.java$`).test(artifact.path);
   if (!match) throw new Error("generated Java artifact path does not match its registered origin and repair slot");
   const registrationDirectoryPath = isGenerated ? expectedDirectory : artifact.path.slice(0, artifact.path.lastIndexOf("/"));
   const registrationPath = await resolveContainedExistingPath(repositoryRoot, `${registrationDirectoryPath}/registration.json`);
@@ -126,9 +139,10 @@ export async function verifyRegisteredGeneratedJava(
   if (sha256(await readFile(absolutePath)) !== registration.sourceSha256) throw new Error("registered Java artifact hash mismatch");
   if (!isGenerated) {
     const attempt = registration.repairAttempt!;
-    const expectedParentPath = attempt === 1 ? expectedPath : `${expectedDirectory}/repair-1/${expectedClass.slice("tests.".length)}.java`;
+    const pkg = getAppTestPackage(candidate.appId);
+    const expectedParentPath = attempt === 1 ? expectedPath : `${expectedDirectory}/repair-1/${simpleClass}.java`;
     const parent = workflow.artifacts.find((item) => item.kind === "generated_java" && item.path === registration.parentArtifactPath) as GeneratedJavaArtifact | undefined;
-    if (registration.artifactPath !== `${expectedDirectory}/repair-${attempt}/${expectedClass.slice("tests.".length)}.java` ||
+    if (registration.artifactPath !== `${expectedDirectory}/repair-${attempt}/${simpleClass}.java` ||
         registration.parentArtifactPath !== expectedParentPath || !parent || parent.sha256 !== registration.parentSourceSha256 || parent.candidateId !== candidate.candidateId || parent.revision !== candidate.revision) {
       throw new Error("repaired Java parent chain does not match the workflow artifact history");
     }
@@ -164,10 +178,11 @@ export async function registerRepairedJava(
   const artifactPath = `${directory}/${expectedClass}.java`;
   const sourceSha256 = sha256(output.javaSource);
   if (artifactPath === firstArtifact.path || sourceSha256 === firstArtifact.sha256 || sourceSha256 === currentArtifact.sha256) throw new Error("repair must produce new immutable source bytes and a distinct artifact path");
+  const pkg = getAppTestPackage(candidate.appId);
   const registration: GeneratedJavaRegistration = {
     schemaVersion: "1.0.0", appId: candidate.appId, candidateId: candidate.candidateId, revision: candidate.revision,
     sourceCommit: candidate.sourceCommit, sourceVersion: candidate.sourceVersion, gherkinSha256: sha256(candidate.gherkin),
-    testClass: `tests.${expectedClass}`, artifactPath, sourceSha256, origin: "REPAIRED", repairAttempt: attempt,
+    testClass: `${pkg}.${expectedClass}`, artifactPath, sourceSha256, origin: "REPAIRED", repairAttempt: attempt,
     parentArtifactPath: currentArtifact.path, parentSourceSha256: currentArtifact.sha256!,
     firstGeneratedArtifactPath: firstArtifact.path, firstGeneratedSourceSha256: firstArtifact.sha256!,
   };

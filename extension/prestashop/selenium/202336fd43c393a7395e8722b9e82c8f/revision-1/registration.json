@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "prestashop",
+  "candidateId": "PS-GAP-003",
+  "revision": 1,
+  "sourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+  "sourceVersion": "1.6.1.23",
+  "gherkinSha256": "b73fe08af4349eb7d02a7e88658ad50987095e800ad02281494b7be29c4b8eec",
+  "testClass": "tests.T01C_202336fd43c393a7395e8722b9e82c8f_R1",
+  "artifactPath": "extension/prestashop/selenium/202336fd43c393a7395e8722b9e82c8f/revision-1/T01C_202336fd43c393a7395e8722b9e82c8f_R1.java",
+  "sourceSha256": "bfb3c8250b2c1cd09408a23220fddea2ef6a0298c97eeed8082c911c4bf60d65",
+  "origin": "GENERATED"
+}

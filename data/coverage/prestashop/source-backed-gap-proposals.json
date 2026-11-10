@@ -13,7 +13,7 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "status": "ACCEPTED_FOR_IMPLEMENTATION",
   "candidateCount": 5,
   "shortlistCount": 5,
   "behaviorDenominator": 24,
@@ -23,7 +23,7 @@
       "candidateId": "PS-GAP-001",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Cart-rule per-customer usage limit is enforced",
       "actor": "Customer and Shop Administrator",
@@ -64,13 +64,18 @@
       },
       "negativeControl": "A different customer account can redeem WELCOME10 for their first order.",
       "priorityReviewOrder": 1,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "PS-GAP-002",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Carrier eligibility follows configured price/weight range",
       "actor": "Customer and Administrator",
@@ -78,7 +83,7 @@
       "preconditions": "Carrier 'Express Air' configured for cart total >= $50.00; Carrier 'Standard Ground' configured for all carts.",
       "testData": {
         "carrierAir": "Express Air",
-        "threshold": 50.0
+        "threshold": 50
       },
       "gherkinScenario": "Feature: Shipping Carrier Eligibility\n  Scenario: Carrier eligibility follows configured price/weight range\n    Given carrier \"Express Air\" is configured for minimum order total $50.00\n    And carrier \"Standard Ground\" is configured for all order amounts\n    When customer has a cart with total value $30.00 and proceeds to shipping step\n    Then only \"Standard Ground\" is displayed as an available shipping option\n    When customer increases cart quantity so total value becomes $75.00\n    And proceeds to shipping step\n    Then both \"Standard Ground\" and \"Express Air\" are selectable options",
       "fixture": "Teardown: Reset carrier ranges.",
@@ -111,13 +116,18 @@
       },
       "negativeControl": "If carrier range behavior is set to disable carrier when out of range, carrier is omitted rather than erroring.",
       "priorityReviewOrder": 2,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "PS-GAP-003",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Successful payment creates one order and applies stock synchronization",
       "actor": "Customer",
@@ -159,13 +169,18 @@
       },
       "negativeControl": "If payment validation fails, no order is inserted and stock remains at 10.",
       "priorityReviewOrder": 3,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "PS-GAP-004",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Available quantity update stays consistent with product combination stock",
       "actor": "Catalog Administrator",
@@ -208,13 +223,18 @@
       },
       "negativeControl": "Attempting to enter a non-integer or negative quantity in admin triggers validation error.",
       "priorityReviewOrder": 4,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "PS-GAP-005",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Customer group discount applies configured percentage reduction to catalog price",
       "actor": "Shop Administrator and VIP Customer",
@@ -224,8 +244,8 @@
         "group": "VIP Gold",
         "discount": 20,
         "customer": "vip_buyer@example.com",
-        "productPrice": 100.0,
-        "expectedPrice": 80.0
+        "productPrice": 100,
+        "expectedPrice": 80
       },
       "gherkinScenario": "Feature: Customer Group Pricing\n  Scenario: Customer group discount applies configured percentage reduction to catalog price\n    Given customer group \"VIP Gold\" has a 20% group discount\n    And customer \"vip_buyer@example.com\" belongs to group \"VIP Gold\"\n    And product \"Luxury Leather Bag\" has a retail price of $100.00\n    When customer \"vip_buyer@example.com\" logs in and views \"Luxury Leather Bag\"\n    Then the displayed product price reflects the 20% discount at $80.00\n    And adding the product to cart shows unit price $80.00 in checkout summary",
       "fixture": "Teardown: Reset customer group assignment.",
@@ -266,7 +286,14 @@
       },
       "negativeControl": "A guest or regular default customer sees the unreduced price $100.00.",
       "priorityReviewOrder": 5,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }

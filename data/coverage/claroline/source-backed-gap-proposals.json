@@ -13,7 +13,7 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "status": "ACCEPTED_FOR_IMPLEMENTATION",
   "candidateCount": 5,
   "shortlistCount": 5,
   "behaviorDenominator": 28,
@@ -23,7 +23,7 @@
       "candidateId": "CL-GAP-001",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Course document upload, move and delete lifecycle",
       "actor": "Teacher",
@@ -65,13 +65,18 @@
       },
       "negativeControl": "An enrolled student without edit rights cannot see Move or Delete action buttons.",
       "priorityReviewOrder": 1,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "CL-GAP-002",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Group space is inaccessible to a non-member student in a private group",
       "actor": "Teacher and Student",
@@ -121,13 +126,18 @@
       },
       "negativeControl": "When student_bob visits an open group or a group they belong to, group space renders normally.",
       "priorityReviewOrder": 2,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "CL-GAP-003",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Teacher imports an exercise package into a course",
       "actor": "Teacher",
@@ -169,13 +179,18 @@
       },
       "negativeControl": "Uploading a corrupted zip package displays validation error and creates zero exercise records.",
       "priorityReviewOrder": 3,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "CL-GAP-004",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Tracking controls are teacher-only while exercise attempts remain student-facing",
       "actor": "Teacher and Student",
@@ -217,13 +232,18 @@
       },
       "negativeControl": "Disabling course tracking in tool settings hides the tracking tool even from teachers.",
       "priorityReviewOrder": 4,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "CL-GAP-005",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Course announcement creation, publication, and student notification visibility",
       "actor": "Teacher and Student",
@@ -265,7 +285,14 @@
       },
       "negativeControl": "An announcement set to 'Invisible' is hidden from students while visible to teachers.",
       "priorityReviewOrder": 5,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }

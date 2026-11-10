@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "mantisbt",
+  "candidateId": "MB-GAP-005",
+  "revision": 1,
+  "sourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+  "sourceVersion": "1.2.0",
+  "gherkinSha256": "81b8d3346d97b8273b01fe147e769f110523b482cd849011b27964a6e5681804",
+  "testClass": "base.T01C_04d0e89a5f7d9303bc9ab5c08d0cfb9c_R1",
+  "artifactPath": "extension/mantisbt/selenium/04d0e89a5f7d9303bc9ab5c08d0cfb9c/revision-1/T01C_04d0e89a5f7d9303bc9ab5c08d0cfb9c_R1.java",
+  "sourceSha256": "062f990ba70604259a8e4f9df69d41e114c06cdb5817581c35f5011bde094e76",
+  "origin": "GENERATED"
+}

@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "mediawiki",
+  "candidateId": "MW-GAP-003",
+  "revision": 1,
+  "sourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+  "sourceVersion": "1.40.0",
+  "gherkinSha256": "3bf7852fad42a83c3e9ad520d9a5acfd8f7beddc3bf2a82396c3ffe9d5a6b5ad",
+  "testClass": "mediawiki.T01C_5c24156fc88caa06da8d4370e60766fc_R1",
+  "artifactPath": "extension/mediawiki/selenium/5c24156fc88caa06da8d4370e60766fc/revision-1/T01C_5c24156fc88caa06da8d4370e60766fc_R1.java",
+  "sourceSha256": "c837a6238fb10041363e72078d247ab01992e6b4837bf4414dac56fbb4773d3b",
+  "origin": "GENERATED"
+}

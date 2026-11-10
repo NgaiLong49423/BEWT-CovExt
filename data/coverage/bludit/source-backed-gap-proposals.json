@@ -13,7 +13,7 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "status": "ACCEPTED_FOR_IMPLEMENTATION",
   "candidateCount": 5,
   "shortlistCount": 5,
   "behaviorDenominator": 18,
@@ -23,7 +23,7 @@
       "candidateId": "BL-GAP-001",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Scheduled pages are promoted on a request after their due time",
       "actor": "Administrator",
@@ -72,13 +72,18 @@
       },
       "negativeControl": "A draft page with future date remains draft and is not published by scheduler.",
       "priorityReviewOrder": 1,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "BL-GAP-002",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Cover image selection persists and renders for content",
       "actor": "Administrator",
@@ -127,13 +132,18 @@
       },
       "negativeControl": "Saving content without cover image renders normal title without broken img placeholder.",
       "priorityReviewOrder": 2,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "BL-GAP-003",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Static status maps to page type and the static-page collection",
       "actor": "Administrator",
@@ -174,13 +184,18 @@
       },
       "negativeControl": "Creating normal post appears in blog stream and not in static navigation.",
       "priorityReviewOrder": 3,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "BL-GAP-004",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Administrator can change a non-admin user's role and retain it",
       "actor": "Administrator",
@@ -230,13 +245,18 @@
       },
       "negativeControl": "An Editor attempting to submit role change form cannot elevate permissions.",
       "priorityReviewOrder": 4,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "BL-GAP-005",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Category creation and filtered content listing",
       "actor": "Administrator",
@@ -278,7 +298,14 @@
       },
       "negativeControl": "Visiting a non-existent category slug returns HTTP 404.",
       "priorityReviewOrder": 5,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }

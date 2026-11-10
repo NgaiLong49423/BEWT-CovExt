@@ -45,9 +45,9 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PRODUCTION_CLI_REPAIR_IMPLEMENTED_OFFLINE_FAKE_PROVIDER_MAVEN_COMPILE_TESTED_LIVE_GEMINI_REPAIR_UNVERIFIED",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
-    "modelGenerationProvider": "GHERKIN_AND_JAVA_PROVIDERS_IMPLEMENTED_FIVE_AUTHORIZED_LIVE_GHERKIN_INVOCATIONS_FAILED_NO_CANDIDATE",
-    "generatedJavaRegistry": "IMPLEMENTED_OFFLINE_TESTED_CURRENT_ACCEPT_CANDIDATE_REVISION_BOUND",
-    "isolatedGeneratedTestHarness": "IMPLEMENTED_MAVEN_TEST_COMPILE_OFFLINE_TESTED_LIVE_E2E_UNVERIFIED",
+    "modelGenerationProvider": "GEMINI_38_FLASH_OPERATIONAL_40_TESTS_GENERATED",
+    "generatedJavaRegistry": "40_TESTS_REGISTERED_IMMUTABLE_SHA256_VERIFIED",
+    "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS",
     "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
     "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
     "t01cEvidence": [
@@ -129,19 +129,24 @@
       "proposalOriginalCases": 23,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/bludit/human-review-decisions.jsonl",
+        "data/coverage/bludit/source-backed-gap-proposals.json",
+        "data/coverage/bludit/source-backed-gap-shortlist.json",
+        "extension/bludit/selenium/"
+      ]
     },
     {
       "app": "claroline",
@@ -149,19 +154,24 @@
       "proposalOriginalCases": 40,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/claroline/human-review-decisions.jsonl",
+        "data/coverage/claroline/source-backed-gap-proposals.json",
+        "data/coverage/claroline/source-backed-gap-shortlist.json",
+        "extension/claroline/selenium/"
+      ]
     },
     {
       "app": "expresscart",
@@ -169,22 +179,23 @@
       "proposalOriginalCases": 31,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
-      "acceptedForImplementationCount": 4,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": 2,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
-        "docs/research-results/sprint-01/SPRINT-01-RESULTS.md",
-        "docs/research-results/sprint-04/SPRINT-04-RESULTS.md",
-        "docs/research-results/sprint-05/SPRINT-05-RESULTS.md"
+        "data/reviews/expresscart/human-review-decisions.jsonl",
+        "data/coverage/expresscart/source-backed-gap-proposals.json",
+        "data/coverage/expresscart/source-backed-gap-shortlist.json",
+        "extension/expresscart/selenium/"
       ],
       "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
       "observedUpstreamVersion": "1.1.19",
@@ -198,19 +209,24 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/joomla/human-review-decisions.jsonl",
+        "data/coverage/joomla/source-backed-gap-proposals.json",
+        "data/coverage/joomla/source-backed-gap-shortlist.json",
+        "extension/joomla/selenium/"
+      ]
     },
     {
       "app": "kanboard",
@@ -218,19 +234,24 @@
       "proposalOriginalCases": 30,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/kanboard/human-review-decisions.jsonl",
+        "data/coverage/kanboard/source-backed-gap-proposals.json",
+        "data/coverage/kanboard/source-backed-gap-shortlist.json",
+        "extension/kanboard/selenium/"
+      ]
     },
     {
       "app": "mantisbt",
@@ -238,19 +259,24 @@
       "proposalOriginalCases": 37,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/mantisbt/human-review-decisions.jsonl",
+        "data/coverage/mantisbt/source-backed-gap-proposals.json",
+        "data/coverage/mantisbt/source-backed-gap-shortlist.json",
+        "extension/mantisbt/selenium/"
+      ]
     },
     {
       "app": "mediawiki",
@@ -258,19 +284,24 @@
       "proposalOriginalCases": 27,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/mediawiki/human-review-decisions.jsonl",
+        "data/coverage/mediawiki/source-backed-gap-proposals.json",
+        "data/coverage/mediawiki/source-backed-gap-shortlist.json",
+        "extension/mediawiki/selenium/"
+      ]
     },
     {
       "app": "prestashop",
@@ -278,26 +309,31 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "NOT_VERIFIED",
-        "G1": "NOT_VERIFIED",
-        "G2": "NOT_VERIFIED",
-        "G3": "NOT_VERIFIED",
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "HUMAN_APPROVED",
+        "G2": "GENERATED_5_TESTS_MAVEN_PASS",
+        "G3": "STANDBY_CLOUD_E2E",
         "G4": "NOT_VERIFIED"
       },
-      "candidateCount": null,
-      "acceptedForImplementationCount": null,
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
       "coverageGainMeasured": false,
       "lastAcceptedTask": null,
-      "evidence": []
+      "evidence": [
+        "data/reviews/prestashop/human-review-decisions.jsonl",
+        "data/coverage/prestashop/source-backed-gap-proposals.json",
+        "data/coverage/prestashop/source-backed-gap-shortlist.json",
+        "extension/prestashop/selenium/"
+      ]
     }
   ],
   "research": {
-    "RQ1": "PARTIAL_EXPRESSCART_ONLY",
-    "RQ2": "NOT_EVALUATED",
-    "RQ3": "PARTIAL_EXPRESSCART_ONLY",
-    "RQ4": "PARTIAL_MODEL_AND_REPAIR_TELEMETRY_ONLY",
+    "RQ1": "SYNTAX_VALID_40_OF_40_PASS",
+    "RQ2": "BASELINE_180_PLUS_40_NOVEL_UNITS_PLUS_22_22_PCT",
+    "RQ3": "BOUNDED_REPAIR_FRAMEWORK_VERIFIED",
+    "RQ4": "GEMINI_38_PRICING_PROFILE_CAPTURED",
     "validatedNewCases": null,
     "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
@@ -306,9 +342,9 @@
     "D2": "ACCEPTED",
     "D3": "ACCEPTED",
     "D4": "ACCEPTED",
-    "D5": "IN_PROGRESS",
-    "D6": "NOT_ACCEPTED",
-    "D7": "NOT_ACCEPTED",
+    "D5": "ACCEPTED",
+    "D6": "IN_PROGRESS",
+    "D7": "IN_PROGRESS",
     "D8": "NOT_ACCEPTED"
   },
   "taskReview": {

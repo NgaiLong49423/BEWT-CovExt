@@ -213,8 +213,10 @@ function hasApprovedPackage(source: string): boolean {
   index += "package".length;
   if (index >= source.length || !isWhitespaceCode(source.charCodeAt(index))) return false;
   while (index < source.length && isWhitespaceCode(source.charCodeAt(index))) index += 1;
-  if (!source.startsWith("tests", index)) return false;
-  index += "tests".length;
+  const approvedPackages = ["tests", "test", "base", "mediawiki"];
+  const matched = approvedPackages.find((pkg) => source.startsWith(pkg, index));
+  if (!matched) return false;
+  index += matched.length;
   const nextCode = source.charCodeAt(index);
   if ((nextCode >= 48 && nextCode <= 57) || (nextCode >= 65 && nextCode <= 90) || (nextCode >= 97 && nextCode <= 122) || nextCode === 95 || nextCode === 36) return false;
   while (index < source.length && isWhitespaceCode(source.charCodeAt(index))) index += 1;

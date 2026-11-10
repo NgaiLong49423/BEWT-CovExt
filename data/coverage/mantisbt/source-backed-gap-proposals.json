@@ -13,7 +13,7 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "status": "ACCEPTED_FOR_IMPLEMENTATION",
   "candidateCount": 5,
   "shortlistCount": 5,
   "behaviorDenominator": 26,
@@ -23,7 +23,7 @@
       "candidateId": "MB-GAP-001",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "User monitors and stops monitoring an issue for their own account",
       "actor": "Developer",
@@ -72,13 +72,18 @@
       },
       "negativeControl": "A second user logging in sees 'dev_dave' monitoring state without their own account being affected.",
       "priorityReviewOrder": 1,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MB-GAP-002",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Private issue note is hidden from users below the private-note threshold",
       "actor": "Developer and Reporter",
@@ -127,13 +132,18 @@
       },
       "negativeControl": "A note saved as Public is visible to both dev_dave and rep_bob.",
       "priorityReviewOrder": 2,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MB-GAP-003",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Issue relationship rejects self-link and duplicate links",
       "actor": "Developer",
@@ -183,13 +193,18 @@
       },
       "negativeControl": "Linking issue #203 to an independent issue #205 succeeds without error.",
       "priorityReviewOrder": 3,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MB-GAP-004",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Issue attachment upload is persisted and rejects invalid input",
       "actor": "Reporter",
@@ -230,13 +245,18 @@
       },
       "negativeControl": "Uploading a file exceeding max_file_size fails with file-size error.",
       "priorityReviewOrder": 4,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MB-GAP-005",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Issue tag attachment, display, and tag-based issue filter retrieval",
       "actor": "Developer",
@@ -277,7 +297,14 @@
       },
       "negativeControl": "Detaching the tag removes the badge and filtering by that tag no longer returns the issue.",
       "priorityReviewOrder": 5,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }

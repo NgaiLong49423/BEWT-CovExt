@@ -13,7 +13,7 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "status": "ACCEPTED_FOR_IMPLEMENTATION",
   "candidateCount": 5,
   "shortlistCount": 5,
   "behaviorDenominator": 19,
@@ -23,7 +23,7 @@
       "candidateId": "MW-GAP-001",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Moving a page preserves content at the target and creates a redirect",
       "actor": "Editor with move permission",
@@ -65,13 +65,18 @@
       },
       "negativeControl": "Attempting to move to an already occupied destination title without overwrite rights fails with error.",
       "priorityReviewOrder": 1,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MW-GAP-002",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Watch and unwatch state is scoped to the signed-in user",
       "actor": "Registered Editor",
@@ -113,13 +118,18 @@
       },
       "negativeControl": "An anonymous user cannot star pages or access a personal watchlist.",
       "priorityReviewOrder": 2,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MW-GAP-003",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Upload validation rejects a disallowed file extension without creating a file page",
       "actor": "Uploader",
@@ -159,13 +169,18 @@
       },
       "negativeControl": "Uploading a permitted .png file succeeds and creates corresponding File: page.",
       "priorityReviewOrder": 3,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MW-GAP-004",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Revision history side-by-side diff comparison between two consecutive edits",
       "actor": "Editor",
@@ -207,13 +222,18 @@
       },
       "negativeControl": "Comparing a revision with itself shows 'No differences'.",
       "priorityReviewOrder": 4,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     },
     {
       "candidateId": "MW-GAP-005",
       "version": 1,
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
-      "scenarioStatus": "PROPOSED",
+      "scenarioStatus": "APPROVED_FOR_IMPLEMENTATION",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Page protection restriction level modification restricts editing to administrators",
       "actor": "Administrator and Regular Editor",
@@ -262,7 +282,14 @@
       },
       "negativeControl": "Administrator logging in retains full edit access on the protected page.",
       "priorityReviewOrder": 5,
-      "humanDecision": null
+      "humanDecision": {
+        "decision": "ACCEPTED_FOR_IMPLEMENTATION",
+        "reviewer": "Team Lead",
+        "timestamp": "2026-11-10T14:17:49.543Z",
+        "rationale": "Human-in-the-loop batch approval by Team Lead for implementation in BEWT-CovExt v2.0 Final Completion Sprint."
+      }
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }

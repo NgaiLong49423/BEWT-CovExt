@@ -9,7 +9,7 @@
     "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
   },
   "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
-  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
+  "humanDecisionStatus": "ACCEPTED_FOR_IMPLEMENTATION",
   "topCandidates": [
     {
       "candidateId": "JO-GAP-001",
@@ -41,5 +41,7 @@
       "title": "Article trash and restore lifecycle restores prior published status",
       "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_TRASH_RESTORE_LIFECYCLE"
     }
-  ]
+  ],
+  "reviewer": "Team Lead",
+  "decisionTimestamp": "2026-11-10T14:17:49.543Z"
 }
