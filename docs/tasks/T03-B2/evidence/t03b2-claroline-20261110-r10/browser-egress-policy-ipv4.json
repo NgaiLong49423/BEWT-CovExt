@@ -1,0 +1,9 @@
+{
+  "family": "ipv4",
+  "target": "1.1.1.1:443",
+  "outcome": "NETWORK_UNREACHABLE",
+  "exitCode": 1,
+  "stdout": "\n__BEWT_TCP_PROBE_EXIT__=1\n",
+  "stderr": "bash: connect: Network is unreachable\nbash: line 1: /dev/tcp/1.1.1.1/443: Network is unreachable\n",
+  "error": ""
+}

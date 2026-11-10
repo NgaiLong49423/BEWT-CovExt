@@ -1,0 +1,17 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "--detach",
+    "--user",
+    "0",
+    "c835a5c02a98741b5b16ba19d1db99180af58fc255f2e3acab29c54a677a3300",
+    "/bin/sh",
+    "-c",
+    "./run-services-docker.sh bash > /root/.t03b2-logs.oxbI7cyr/services.log 2>&1"
+  ],
+  "status": 0,
+  "stdout": "",
+  "stderr": "",
+  "error": null
+}

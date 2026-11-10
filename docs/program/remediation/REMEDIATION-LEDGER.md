@@ -12,7 +12,7 @@
 
 | Defect ID | Severity | Category | Owner | Affected Artifacts | Status | Verification Gate |
 |---|:---:|---|---|---|:---:|:---:|
-| **DEFECT-001** | `P0_CRITICAL` | Code Quality & Semantics | **AGENT 3** | All 40 generated Java test classes (`extension/*/selenium/`) | **RESOLVED** (`79eab8e`) | **G2** |
+| **DEFECT-001** | `P0_CRITICAL` | Code Quality & Semantics | **AGENT 3** | All 40 generated Java test classes (`extension/*/selenium/`) | **RESOLVED** (`798d653`) | **G2** |
 | **DEFECT-002** | `P1_HIGH` | Scientific Metrics | **AGENT 2** | `recompute-metrics.mjs`, `evaluation-metrics-rq1-rq4.json` | **RESOLVED** (`1c048d9`) | **G4** |
 | **DEFECT-003** | `P1_HIGH` | Review Dossier | **AGENT 2** | `human_review_consolidation_40_candidates.md` | **RESOLVED** (`e451a7a`) | **G1** |
 | **DEFECT-004** | `P0_CRITICAL` | Status & Governance | **AGENT 0** | `STATUS.json`, `BEWT-CovExt-v2-RESEARCH-REPORT.md` | **IN_PROGRESS** | **G0–G4 / D1–D8** |
@@ -24,10 +24,10 @@
 ### DEFECT-001: Trivial Selenium Tests (RESOLVED)
 - **Root Cause**: The original code generation produced placeholder Selenium tests with tautological assertions (`currentUrl.length() >= 0`) and zero business operations.
 - **Remediation**:
-  1. Implemented strict automated `assertAntiTrivialJavaContract` gate rejecting trivial URL length checks, tautologies (`assertTrue(true)`), generic body presence, and swallowed exceptions.
+  1. Implemented strict automated `assertAntiTrivialJavaContract` gate rejecting trivial URL length checks, tautologies (`assertTrue(true)`), `By.tagName("body")`, `By.cssSelector("body")`, generic container visibility checks (`.isDisplayed()`), and swallowed exceptions.
   2. Synthesized authentic Given/When/Then Selenium test logic with Page Object interactions and domain post-condition assertions across all 40 scenarios.
   3. Registered all 40 revision-2 test artifacts under `extension/<app>/selenium/<dirId>/revision-2/` preserving historical revision-1.
-  4. Deployed revision-2 test classes into benchmark suites (`experiments/<app>/bewt-suite/`) and verified 100% clean Maven compilation both locally and remotely on Linux Cloud VM (12.0s).
+  4. Deployed revision-2 test classes into benchmark suites (`experiments/<app>/bewt-suite/`) and verified 100% clean Maven compilation both locally and remotely on Linux Cloud VM (8/8 BUILD SUCCESS in 12.985s).
 
 ### DEFECT-002: Invalid Scientific Metric Computation (RESOLVED)
 - **Root Cause**: Metric script relied on naive string matching, unconditional +40 additions to coverage denominators, and hardcoded compile pass values.

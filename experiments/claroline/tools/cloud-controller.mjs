@@ -7,7 +7,7 @@ import { APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT } from './claroline-g0.
 
 export function validateRunId(runId) {
   if (typeof runId !== 'string' || !/^[a-z0-9][a-z0-9-]{2,62}$/.test(runId)) {
-    throw new Error(`INVALID_RUN_ID: '${runId}' must be 3-63 lowercase alphanumeric/dash characters`);
+    throw new Error(`INVALID_RUN_ID: '${runId}' must be 3-63 lowercase alphanumeric/dash characters (runId must be a unique t03b2-* date/run identity)`);
   }
   return runId;
 }
@@ -125,6 +125,12 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     sideEffecting: true,
     timeoutMs: 600000,
     description: 'Execute PrestaShop G0 baseline workflow with unique runId',
+  },
+  'run-all-g0': {
+    requiresRunId: false,
+    sideEffecting: true,
+    timeoutMs: 1200000,
+    description: 'Execute full 8-application G0 baseline verification sequence on Cloud VM',
   },
   'cleanup-run': {
     requiresRunId: true,
@@ -263,6 +269,8 @@ export function buildRemoteCommandScript(action, params = {}) {
       return `set -eu; cd ${repo} && node experiments/mediawiki/tools/run-mediawiki-g0.mjs ${runId}`;
     case 'run-prestashop-g0':
       return `set -eu; cd ${repo} && node experiments/prestashop/tools/run-prestashop-g0.mjs ${runId}`;
+    case 'run-all-g0':
+      return `set -eu; cd ${repo} && node experiments/tools/run-all-g0-cloud.mjs`;
     case 'cleanup-run':
       return `set -eu; cd ${repo} && node experiments/claroline/tools/cleanup-claroline-g0.mjs ${runId}`;
     case 'process-check':
@@ -525,7 +533,6 @@ export function executeRemoteAction(action, params = {}, { spawnSyncFn = spawnSy
   const startMs = Date.now();
   const result = spawnSyncFn('ssh', sshArgs, {
     encoding: 'utf8',
-    windowsHide: true,
     timeout: spec.timeoutMs,
   });
   const completedAtUtc = new Date().toISOString();

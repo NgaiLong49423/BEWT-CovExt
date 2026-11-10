@@ -1,0 +1,38 @@
+{
+  "outcome": "PASS",
+  "bindAddress": "127.0.0.1",
+  "app": {
+    "requestedHostPort": 45709,
+    "hostConfig": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "45709"
+      }
+    ],
+    "networkSettings": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "45709"
+      }
+    ]
+  },
+  "browser": {
+    "requestedHostPort": 33905,
+    "hostConfig": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "33905"
+      }
+    ],
+    "networkSettings": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "33905"
+      }
+    ],
+    "dockerPort": "127.0.0.1:33905"
+  },
+  "dockerPort": "127.0.0.1:45709",
+  "mysql3306Published": false,
+  "reservationHeld": false
+}

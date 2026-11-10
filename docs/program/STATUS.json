@@ -7,8 +7,8 @@
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "79eab8e83d09aa3b091d8cadb4b0e08f5dd60bf6",
-    "note": "Verified on 2026-11-10; includes Remediation Sprint commits e451a7a, 1c048d9, and 79eab8e by Agent 0."
+    "observedHeadSha": "798d65371c63656e868f752915ba5f88b55c0219",
+    "note": "Verified on 2026-11-10; includes Remediation Sprint commits e451a7a, 1c048d9, 79eab8e, and 798d653 by Agent 0."
   },
   "repositoryMilestones": {
     "T02": {

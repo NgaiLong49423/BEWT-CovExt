@@ -7,6 +7,8 @@ const FILES_TO_SYNC = [
   'experiments/kanboard/bewt-suite/src/test/java/tests/BaseTest.java',
   'framework/src/runtime/maven-command.ts',
   'experiments/tools/unified-g0-runner.mjs',
+  'experiments/tools/run-all-g0-cloud.mjs',
+  'experiments/tools/run-g0.sh',
   'experiments/bludit/tools/run-bludit-g0.mjs',
   'experiments/claroline/tools/run-claroline-g0.mjs',
   'experiments/claroline/tools/run-claroline-diagnostic.mjs',

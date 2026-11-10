@@ -1,0 +1,18 @@
+{
+  "ipv4": {
+    "target": "1.1.1.1:443",
+    "probeClass": "HOST_CONTROL_REACHABLE",
+    "status": 0,
+    "errorCode": null,
+    "error": ""
+  },
+  "ipv6": {
+    "target": "2606:4700:4700::1111:443",
+    "probeClass": "HOST_IPV6_UNAVAILABLE",
+    "status": 1,
+    "errorCode": "ENETUNREACH",
+    "error": "connect ENETUNREACH 2606:4700:4700::1111:443 - Local (:::0)"
+  },
+  "hostDefaultUplinkInterface": "ens3",
+  "hostIpv6DefaultRoutes": []
+}

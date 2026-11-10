@@ -1,0 +1,8 @@
+{
+  "outcome": "PASS",
+  "installed": true,
+  "verifiedRule": "-A DOCKER-USER -i br-7399971009ee ! -o br-7399971009ee -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-claroline-20261110-r10 -j REJECT --reject-with icmp-net-unreachable",
+  "insertStatus": 0,
+  "checkStatus": 0,
+  "listOutput": "-N DOCKER-USER\n-A DOCKER-USER -i br-7399971009ee ! -o br-7399971009ee -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-t03b2-claroline-20261110-r10 -j REJECT --reject-with icmp-net-unreachable\n"
+}

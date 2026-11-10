@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "runId": "t03b2-claroline-20261110-r10",
+  "generatedAtUtc": "2026-11-10T17:51:35.781Z",
+  "fileCount": 27,
+  "privateInventoriesExcluded": true,
+  "files": {
+    "app-create.json": {
+      "sha256": "4a41da5bbd9304d3209a6a23a47dacf2e8b9e96cc1ff509b1874b42aa77200d4",
+      "bytes": 927
+    },
+    "app-egress-policy-ipv4.json": {
+      "sha256": "b44334f63cbf1a3f96c0d898a83a8e7788482692b48f0bad2bf552b0deb4824a",
+      "bytes": 291
+    },
+    "app-egress-policy-ipv6.json": {
+      "sha256": "0d3645485891e2def2a07b04287ec93e7cc57b20e26e11bb7cbd24a24328ec61",
+      "bytes": 317
+    },
+    "app-service-log-directory.json": {
+      "sha256": "74805c36cd411cbcd3acf0c27e00f1a11f6ad160433f99a0f62d0d1a25810efe",
+      "bytes": 380
+    },
+    "app-services-start.json": {
+      "sha256": "60b812b33f7fc79da2ac1acb3569a4c0344f785f898f4fa30f949e3efa9fe4ab",
+      "bytes": 332
+    },
+    "app-start.json": {
+      "sha256": "dd1ce6e99fd4f024d37962ac4d53f9b790b3be4e083c8727fefb207bf534622b",
+      "bytes": 251
+    },
+    "browser-egress-policy-ipv4.json": {
+      "sha256": "a8c3af2b091c1be1db18a5b34ff8ca91912b0a7e142cf796b25b0d85dce15012",
+      "bytes": 278
+    },
+    "browser-egress-policy-ipv6.json": {
+      "sha256": "070063fc30c96001c6e2ab11293853b716126460ce80ed425692177d2f67b055",
+      "bytes": 304
+    },
+    "docker-port-verification.json": {
+      "sha256": "4b4eb45fc02aed181c964da024ecf5c25681464758dafa479362d0e2c7e33cc1",
+      "bytes": 298
+    },
+    "host-egress-control.json": {
+      "sha256": "e5d9c03b80ebee435ba3134e800d65b4a7d4444d7e03181ea319040ba5ae6ecb",
+      "bytes": 446
+    },
+    "host-firewall-authorization-decision.json": {
+      "sha256": "6a2b06a20620c3aba06b0e6e07c3a387e04d1ceaa21c07b7eee80987a075a251",
+      "bytes": 1759
+    },
+    "host-firewall-authorization-request.json": {
+      "sha256": "d6179f46500aff39009df955246941f9fd683684c2cd7e2095951d894a597500",
+      "bytes": 1680
+    },
+    "host-firewall-installation.json": {
+      "sha256": "e68581b459fb9f7efd38010c638bb24e857e1d00054e025c119d68de0d5ede1e",
+      "bytes": 556
+    },
+    "host-network-firewall-preflight.json": {
+      "sha256": "01bb89dbc0736f637e8f21b17d6c4f1ff5a80589113ced44a2d6510b79180f94",
+      "bytes": 2084
+    },
+    "host-port-allocation.json": {
+      "sha256": "b6ea181428668a789eafaee0874b0cc2e31a55e275c6c0b7f83aeec5e79e430b",
+      "bytes": 176
+    },
+    "host-port-verification.json": {
+      "sha256": "96238ed8bd7dbfd2b9078e1ef91b183804018cbd807f16c5f98d985ecbc953c4",
+      "bytes": 701
+    },
+    "image-inspect.json": {
+      "sha256": "016c70b94eabfa3eea9fff46327fb0da2e792c981fffd4444dcba1663b250115",
+      "bytes": 2234
+    },
+    "memory-preflight.json": {
+      "sha256": "18b1e0c1284002c9bad858b73700fa8a0d75805c36934b0103ce013048a55d5d",
+      "bytes": 497
+    },
+    "network-create.json": {
+      "sha256": "f47dcbc0f04b2d4839eafeba535af722498df1ed6160f7a30ddb6ababf951e07",
+      "bytes": 718
+    },
+    "network-ipam-selection.json": {
+      "sha256": "c3356bd57a93e96ea2d18875811dbc47af98d1527838a247b547a149e233b20a",
+      "bytes": 228
+    },
+    "network-policy-verification.json": {
+      "sha256": "edb4daff136b14ab4aae80d8abd6553a04d88a85651577e1cbf5d3f5aa6758f3",
+      "bytes": 368
+    },
+    "port-precreate-check.json": {
+      "sha256": "545ac3f8d57751f9040b69e29ef509706690cb8213f7c0178dc54438392df760",
+      "bytes": 256
+    },
+    "run-record.json": {
+      "sha256": "93eba0628ab65afa238a8b29a38d7f09386e06de2d2c22931f41e8992b8770fd",
+      "bytes": 3117
+    },
+    "selenium-create.json": {
+      "sha256": "54bd021f4ff0c472a0fb78dd6dff3787fe5ecf33c4fd4543da2b19e3800c2932",
+      "bytes": 958
+    },
+    "selenium-service-log-directory.json": {
+      "sha256": "c3abf2df08ef8d827fe11977c90fa605afb504392f9cac99d1c5426c64ff82cd",
+      "bytes": 396
+    },
+    "selenium-services-start.json": {
+      "sha256": "1a164c581171456125d3573a2311f17b3e29d5547dbd18ed0258ce7e1b86e945",
+      "bytes": 337
+    },
+    "selenium-start.json": {
+      "sha256": "016a0a0ea2cc00d1f60413c46d3a67ce2908c19fa97e8a35e4133d5668ad8199",
+      "bytes": 251
+    }
+  }
+}

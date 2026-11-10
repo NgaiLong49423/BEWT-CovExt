@@ -1,0 +1,69 @@
+{
+  "runId": "t03b2-claroline-20261110-r10",
+  "benchmarkRepositoryCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "applicationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "applicationSourceVersion": "1.11.10-bewt-derivative",
+  "imageProvenanceClassification": "BEWT_BENCHMARK_DERIVATIVE_PINNED",
+  "imagePatch": {
+    "decisionId": "P1",
+    "classification": "BEWT_BENCHMARK_DERIVATIVE_PINNED",
+    "officialTarballLayerIndex": 8,
+    "officialTarballLayerSha256": "d33f1c16adf9e589e8a0501b33b99d1cd8f73e1c4ec6e753d05a3c076e7d302f",
+    "officialFileSha256": "fee57c4d67cecfda037948332b08d241f53b8ec530f9f8419aa375db31a846f1",
+    "officialFileBytes": 23010,
+    "patchLayerIndex": 13,
+    "patchLayerSha256": "a48416c0ca244a9138ac9e537426ed037f4373a85160ffc43514a7a6b4e7501a",
+    "patchedFilePath": "var/www/html/claroline11110/claroline/inc/lib/add_course.lib.inc.php",
+    "patchedFileSha256": "c3428b9e25fb76c85fc6976999f1fb3c0d5619a148bbf54805e1d2c96615a7b8",
+    "patchedFileBytes": 23040,
+    "patchedFunctions": [
+      "create_course_tables",
+      "fill_Db_course"
+    ],
+    "patchSummary": "Comments out course_description and course_properties table creation/seeding in add_course.lib.inc.php (lines 382-389, 557-562)"
+  },
+  "imageDigest": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+  "browserImageDigest": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+  "imageLabels": {
+    "app": {},
+    "browser": {
+      "authors": "SeleniumHQ",
+      "org.opencontainers.image.ref.name": "ubuntu",
+      "org.opencontainers.image.source": "https://github.com/SeleniumHQ/docker-selenium",
+      "org.opencontainers.image.version": "24.04"
+    }
+  },
+  "networkPolicy": "published-bridge-host-firewall-reject-v1",
+  "egressIsolationMethod": "linux-docker-user-bridge-reject-v1",
+  "containers": [
+    {
+      "role": "app",
+      "id": "c835a5c02a98741b5b16ba19d1db99180af58fc255f2e3acab29c54a677a3300",
+      "name": "bewt-covext-claroline-t03b2-claroline-20261110-r10-app",
+      "imageRef": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+      "startupLogHome": "/root",
+      "startupLogDirectory": "/root/.t03b2-logs.oxbI7cyr"
+    },
+    {
+      "role": "browser",
+      "id": "bc244c36a893126119e25a85673ec2212e156a561676509a44d0a230d42645b1",
+      "name": "bewt-covext-claroline-t03b2-claroline-20261110-r10-selenium",
+      "imageRef": "selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+      "startupLogHome": "/home/seluser",
+      "startupLogDirectory": "/home/seluser/.t03b2-logs.w3F5iBi1"
+    }
+  ],
+  "network": {
+    "id": "7399971009ee48588ed89d41602d645d1c75f10e6dfc29e0d3e5076691e45bad",
+    "name": "bewt-covext-claroline-t03b2-claroline-20261110-r10-net",
+    "subnet": "172.26.254.0/24",
+    "gateway": "172.26.254.1",
+    "bridgeInterface": "br-7399971009ee"
+  },
+  "uplinkInterface": "ens3",
+  "firewallRuleInstalled": true,
+  "selectedHostPorts": {
+    "app": 45709,
+    "browser": 33905
+  }
+}

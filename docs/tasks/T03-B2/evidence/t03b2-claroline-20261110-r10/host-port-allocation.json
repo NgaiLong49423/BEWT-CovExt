@@ -1,0 +1,7 @@
+{
+  "app": 45709,
+  "browser": 33905,
+  "bindAddress": "127.0.0.1",
+  "allocation": "host ephemeral loopback ports selected before Docker create",
+  "reservationHeld": false
+}

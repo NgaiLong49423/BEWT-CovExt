@@ -1,0 +1,11 @@
+{
+  "outcome": "PASS",
+  "app": {
+    "containerId": "c835a5c02a98741b5b16ba19d1db99180af58fc255f2e3acab29c54a677a3300",
+    "output": "127.0.0.1:45709"
+  },
+  "browser": {
+    "containerId": "bc244c36a893126119e25a85673ec2212e156a561676509a44d0a230d42645b1",
+    "output": "127.0.0.1:33905"
+  }
+}

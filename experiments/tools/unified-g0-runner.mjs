@@ -1,6 +1,7 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import http from 'node:http';
 import { createServer } from 'node:net';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -76,13 +77,29 @@ export function snapshotInventory() {
   };
 }
 
+export function probeHttp(url, timeoutMs = 3000) {
+  return new Promise((resolve, reject) => {
+    try {
+      const req = http.get(url, { timeout: timeoutMs }, (res) => {
+        let data = '';
+        res.on('data', (chunk) => { data += chunk; });
+        res.on('end', () => resolve({ status: res.statusCode || 0, text: () => Promise.resolve(data) }));
+      });
+      req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
+      req.on('error', (err) => reject(err));
+    } catch (e) {
+      reject(e);
+    }
+  });
+}
+
 export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400) {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
   console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
   while (Date.now() < deadline) {
     try {
-      const res = await fetch(url, { redirect: 'manual', signal: AbortSignal.timeout(3000) });
+      const res = await probeHttp(url, 3000);
       const body = await res.text();
       if (validator(body, res)) {
         console.log(`[waitHttpReady] ${label} is ready! HTTP ${res.status}`);
@@ -159,6 +176,7 @@ export const APPS = {
     testClass: 'test.Claroline_AddUserTest',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
+    appUrlPath: '/claroline11110/claroline/index.php',
     getAppUrl: (host, port, appName) => `http://${appName}/claroline11110/claroline/index.php`,
   },
   expresscart: {
@@ -234,6 +252,7 @@ export const APPS = {
     testClass: 'base.AddUser',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
+    appUrlPath: '/mantisbt/',
     getAppUrl: (host, port, appName) => `http://${appName}/mantisbt/`,
     testEnv: {
       BEWT_ADMIN_USERNAME: 'administrator',
@@ -442,6 +461,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           '--installdbpass', 'root',
           '--pass', 'adminpassword123',
           '--scriptpath', '',
+          '--server', `http://${appName}`,
           'E2E Web Testing wiki',
           'Admin',
         ]);
@@ -458,7 +478,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           '--db_password', 'root',
           '--db_name', 'prestashop',
           '--db_create', '1',
-          '--domain', 'localhost',
+          '--domain', appName,
           '--name', 'PrestaShop',
           '--email', 'admin@prestashop.com',
           '--password', 'adminpassword123',
@@ -622,6 +642,17 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       removedNetwork: null,
       zeroResidualVerified: false,
     };
+
+    // Discover all attached volumes (including anonymous volumes) before removing containers
+    for (const c of createdContainers) {
+      try {
+        const out = dockerCli(['inspect', c, '--format', '{{range .Mounts}}{{if eq .Type "volume"}}{{.Name}}\n{{end}}{{end}}']);
+        const vNames = out.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
+        for (const vn of vNames) {
+          if (!createdVolumes.includes(vn)) createdVolumes.push(vn);
+        }
+      } catch {}
+    }
 
     for (const c of createdContainers) {
       try {

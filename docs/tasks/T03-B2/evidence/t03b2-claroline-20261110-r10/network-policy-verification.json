@@ -1,0 +1,13 @@
+{
+  "outcome": "PASS",
+  "policy": "published-bridge-host-firewall-reject-v1",
+  "egressIsolationMethod": "linux-docker-user-bridge-reject-v1",
+  "driver": "bridge",
+  "internal": false,
+  "ipv6Enabled": false,
+  "ipMasquerade": "false",
+  "subnet": "172.26.254.0/24",
+  "gateway": "172.26.254.1",
+  "bridgeInterface": "br-7399971009ee",
+  "uplinkInterface": "ens3"
+}

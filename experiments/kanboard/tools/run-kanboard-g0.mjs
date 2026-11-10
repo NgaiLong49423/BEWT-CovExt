@@ -9,13 +9,12 @@ if (isMain) {
     console.error('Usage: node run-kanboard-g0.mjs <runId>');
     process.exit(1);
   }
-  runG0Workflow('kanboard', runId)
-    .then((res) => {
-      console.log(JSON.stringify(res, null, 2));
-      process.exit(res.exitCode);
-    })
-    .catch((err) => {
-      console.error(err);
-      process.exit(1);
-    });
+  try {
+    const res = await runG0Workflow('kanboard', runId);
+    console.log(JSON.stringify(res, null, 2));
+    process.exit(res.exitCode);
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
 }

@@ -1,0 +1,17 @@
+{
+  "command": [
+    "docker",
+    "exec",
+    "--detach",
+    "--user",
+    "1200",
+    "bc244c36a893126119e25a85673ec2212e156a561676509a44d0a230d42645b1",
+    "/bin/sh",
+    "-c",
+    "/opt/bin/entry_point.sh > /home/seluser/.t03b2-logs.w3F5iBi1/services.log 2>&1"
+  ],
+  "status": 0,
+  "stdout": "",
+  "stderr": "",
+  "error": null
+}
