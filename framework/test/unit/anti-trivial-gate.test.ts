@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { assertAntiTrivialJavaContract, validateGeneratedJavaContract } from "../../src/runtime/model-provider.js";
+import { assertAntiTrivialJavaContract, validateGeneratedJavaContract, getAppPageObjectsSummary } from "../../src/runtime/model-provider.js";
+import { getAppTestPackage } from "../../src/runtime/java-class.js";
 
 test("Anti-Trivial Quality Gate — Rejects trivial and tautological assertions", () => {
   // 1. currentUrl.length() >= 0
@@ -105,4 +106,20 @@ test("Anti-Trivial Quality Gate — Accepts valid Selenium test with actions and
     }
   `;
   assert.doesNotThrow(() => assertAntiTrivialJavaContract(validTest));
+});
+
+test("App Test Package & Page Objects Injection — Resolves all 8 apps correctly", () => {
+  assert.equal(getAppTestPackage("bludit"), "tests");
+  assert.equal(getAppTestPackage("claroline"), "test");
+  assert.equal(getAppTestPackage("expresscart"), "tests");
+  assert.equal(getAppTestPackage("joomla"), "base");
+  assert.equal(getAppTestPackage("kanboard"), "tests");
+  assert.equal(getAppTestPackage("mantisbt"), "base");
+  assert.equal(getAppTestPackage("mediawiki"), "mediawiki");
+  assert.equal(getAppTestPackage("prestashop"), "tests");
+
+  // Verify Page Object injection summary for an app
+  const poSummary = getAppPageObjectsSummary("bludit");
+  assert.ok(poSummary.includes("AdminLogin"));
+  assert.ok(poSummary.includes("AdminHome"));
 });

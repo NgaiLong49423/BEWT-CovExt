@@ -5,18 +5,8 @@ import type { AgentWorkflowState, CandidateScenario, GeneratedJavaArtifact } fro
 import { assertCanGenerateJava, assertCanRepairJava, assertHumanApprovedCandidate } from "../policy.js";
 import { ensureContainedDirectory, resolveContainedExistingPath, resolveContainedOutputPath } from "./safe-path.js";
 import { assertExecutableAssertionsPreserved, validateGeneratedJavaContract, type GeneratedJavaOutput } from "./model-provider.js";
-import { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
-export { candidateDirectoryId, expectedGeneratedTestClass } from "./java-class.js";
-
-export function getAppTestPackage(appId: string): string {
-  switch (appId) {
-    case "claroline": return "test";
-    case "joomla":
-    case "mantisbt": return "base";
-    case "mediawiki": return "mediawiki";
-    default: return "tests";
-  }
-}
+import { candidateDirectoryId, expectedGeneratedTestClass, getAppTestPackage } from "./java-class.js";
+export { candidateDirectoryId, expectedGeneratedTestClass, getAppTestPackage } from "./java-class.js";
 
 export interface GeneratedJavaRegistration {
   schemaVersion: "1.0.0";

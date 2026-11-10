@@ -1,10 +1,12 @@
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { createHash, randomUUID } from "node:crypto";
+import { readdirSync, existsSync } from "node:fs";
+import { join } from "node:path";
 import { z } from "zod";
 import { sanitizeToolOutput, type BaselineInventory, type CandidateScenario, type CoverageGap } from "../contracts.js";
 import { parseCandidateScenario } from "../contracts.js";
 import { assertCanGenerateJava, assertCanRepairJava } from "../policy.js";
-import { expectedGeneratedTestClass } from "./java-class.js";
+import { expectedGeneratedTestClass, getAppTestPackage } from "./java-class.js";
 
 const ModelOutput = z.object({
   gherkin: z.string().min(1).max(8_000),
@@ -366,6 +368,34 @@ function getGeminiPricing(model: string) {
   return { inputUsdPerMillion: 0.25, outputUsdPerMillion: 1.5, defaultJavaCeilingUsd: 0.02, defaultGherkinCeilingUsd: 0.02 };
 }
 
+function findRepositoryRoot(startDir: string = process.cwd()): string {
+  let current = startDir;
+  while (true) {
+    if (existsSync(join(current, "experiments")) && existsSync(join(current, "framework"))) {
+      return current;
+    }
+    const parent = join(current, "..");
+    if (parent === current) break;
+    current = parent;
+  }
+  return startDir;
+}
+
+export function getAppPageObjectsSummary(appId: string, repositoryRoot?: string): string {
+  const root = repositoryRoot ?? findRepositoryRoot();
+  const poDir = join(root, "experiments", appId, "bewt-suite", "src", "main", "java", "po");
+  if (!existsSync(poDir)) return "No Page Objects directory found.";
+  try {
+    const files = readdirSync(poDir).filter((file) => file.endsWith(".java") && file !== "PageObject.java");
+    const classNames = files.map((file) => file.replace(/\.java$/, ""));
+    return classNames.length > 0
+      ? `Available Page Objects in package po: ${classNames.join(", ")}`
+      : "No specific Page Objects found.";
+  } catch {
+    return "Could not list Page Objects.";
+  }
+}
+
 /** Live Java generation is explicitly separate from Gherkin generation and requires current ACCEPT. */
 export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
   readonly name = "Gemini" as const;
@@ -394,13 +424,16 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     assertCanGenerateJava(workflow, candidate);
     if (this.used) throw new Error("T01-C Java request budget is exhausted");
     const expectedClass = expectedGeneratedTestClass(candidate);
+    const testPkg = getAppTestPackage(candidate.appId);
+    const poSummary = getAppPageObjectsSummary(candidate.appId);
     const context = approvedImplementationContext.slice(0, 8).map((item) => item.slice(0, 1_000));
     const prompt = [
       "Implement exactly one Java Selenium/JUnit test from this accepted candidate. Do not claim any test has run.",
-      "Use package tests, extend the existing BaseTest, use only APIs/selectors demonstrated in the supplied approved source context, and interact through the browser UI. When the approved source context provides a Page Object for this behavior, call its documented API instead of implementing selectors in the test.",
+      `Use package ${testPkg}, extend the existing BaseTest, use only APIs/selectors demonstrated in the supplied approved source context, and interact through the browser UI. When the approved source context provides a Page Object for this behavior, call its documented API instead of implementing selectors in the test.`,
+      poSummary,
       "Do not use direct HTTP/API/database access, credentials, process execution, arbitrary build commands, or weaken the accepted oracle.",
       `The required simple class name is exactly ${expectedClass}. Return only javaSource and testClass.`,
-      JSON.stringify({ candidate: { candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
+      JSON.stringify({ candidate: { candidateId: candidate.candidateId, appId: candidate.appId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
         sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, preconditions: candidate.preconditions, oracle: candidate.oracle,
         sourceReferences: candidate.sourceReferences }, approvedImplementationContext: context }),
     ].join("\n\n");
@@ -415,13 +448,14 @@ export class GeminiJavaGenerationProvider implements JavaGenerationProvider {
     }
     if (currentJava.length > 5_000) throw new Error("repair source exceeds the bounded prompt budget");
     const expectedClass = expectedGeneratedTestClass(candidate);
+    const testPkg = getAppTestPackage(candidate.appId);
     const failure = [validation.compile, validation.e2e].filter((stage) => stage.outcome === "FAIL" && stage.failureClassification === "GENERATED_TEST_DEFECT")
       .map((stage) => stage.evidence.map((item) => item.artifactPath).join(", ")).join("; ").slice(0, 1_000);
     const prompt = [
       "Repair the existing Java Selenium/JUnit test for only the classified generated-test defect. Do not claim any test ran successfully.",
       "Preserve the accepted scenario, every assertion of the approved oracle, browser-only interaction, package, class, and existing approved APIs. Do not weaken, delete, skip, or rewrite assertions to force a pass. Do not use HTTP, database access, credentials, process execution, or arbitrary commands.",
-      `Return the exact class ${expectedClass} and the complete replacement source. This is repair attempt ${attempt} of at most 2.`,
-      JSON.stringify({ candidate: { candidateId: candidate.candidateId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
+      `Return the exact class ${expectedClass} in package ${testPkg} and the complete replacement source. This is repair attempt ${attempt} of at most 2.`,
+      JSON.stringify({ candidate: { candidateId: candidate.candidateId, appId: candidate.appId, revision: candidate.revision, sourceCommit: candidate.sourceCommit,
         sourceVersion: candidate.sourceVersion, gherkin: candidate.gherkin, oracle: candidate.oracle },
         classifiedFailureEvidence: failure, currentJavaSource: currentJava }),
     ].join("\n\n");

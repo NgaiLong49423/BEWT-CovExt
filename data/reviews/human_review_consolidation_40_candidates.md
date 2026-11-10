@@ -35,7 +35,7 @@ Every candidate listed below has been independently audited against the pinned r
 - **Actor / Role**: Administrator (Content manager)
 - **Preconditions**: A page created with a future publication timestamp; controlled application clock fixture.
 - **Observable Business Oracle**: Database page entry status transitions from scheduled to published; page renders in published public collection.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: BL-017 changes post date but never tests request-time scheduler promotion to published status.
 - **Fixture & Cleanup**: Setup: Clean clock/dbPages fixture. Teardown: Remove scheduled page.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -60,7 +60,7 @@ Feature: Content Scheduling
 - **Actor / Role**: Administrator (Content author)
 - **Preconditions**: Valid synthetic image available in managed uploads; new content creation.
 - **Observable Business Oracle**: page.coverImage field persists the image identifier and theme template resolves and renders image tag.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: BL-01 creates text content; baseline never tests cover image association or rendering.
 - **Fixture & Cleanup**: Setup: Upload synthetic image. Teardown: Delete post and uploaded image file.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -84,7 +84,7 @@ Feature: Rich Media Publishing
 - **Actor / Role**: Administrator (Content manager)
 - **Preconditions**: Admin authenticated; no existing static page with slug 'about-our-team'.
 - **Observable Business Oracle**: dbPages categorizes record under static collection rather than published posts stream; static navigation resolves page.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: BL-01, BL-02, BL-04 test blog posts; baseline does not test static page separation.
 - **Fixture & Cleanup**: Teardown: Delete static page 'about-our-team'.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -109,7 +109,7 @@ Feature: Page Type Classification
 - **Actor / Role**: Administrator (System administrator acting on Editor)
 - **Preconditions**: An existing user 'editor_jane' with role 'editor'.
 - **Observable Business Oracle**: dbUsers record updates role field to administrator; subsequent session grants admin route permissions.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: BL-08 adds user, BL-16 deletes user, BL-09 changes password; none test role modification or privilege elevation.
 - **Fixture & Cleanup**: Setup: Create user editor_jane. Teardown: Remove user editor_jane.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -134,7 +134,7 @@ Feature: User Access Governance
 - **Actor / Role**: Administrator (Taxonomy administrator)
 - **Preconditions**: Admin authenticated; no category named 'Tech Insights'.
 - **Observable Business Oracle**: dbCategories registers category slug; public category route filters posts by category key.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has zero category CRUD or filtered category listing tests.
 - **Fixture & Cleanup**: Teardown: Delete post and category 'tech-insights'.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -167,7 +167,7 @@ Feature: Taxonomy Management
 - **Actor / Role**: Teacher (Course teacher / manager)
 - **Preconditions**: Course 'CL-DOC-101' exists; clean document directory; synthetic file 'syllabus.pdf'.
 - **Observable Business Oracle**: Document records in claro_document table update path during move and delete marks record deleted; filesystem confirms file existence then removal.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline exercises exercises, user enrollment, and calendar events, but zero document lifecycle tests.
 - **Fixture & Cleanup**: Setup: Create course and folder. Teardown: Remove document and clean directory.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -192,7 +192,7 @@ Feature: Course Document Management
 - **Actor / Role**: Teacher and Student (Teacher configures private group; student is non-member)
 - **Preconditions**: Course has closed private Group B; Student 1 is enrolled in course but NOT in Group B.
 - **Observable Business Oracle**: claro_is_in_a_group check fails; claro_disp_auth_url denies access; HTTP redirect and error message triggered.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: CL-27/28/30 test course-level access and passwords; none test group-level authorization boundaries.
 - **Fixture & Cleanup**: Teardown: Delete groups and test course.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -216,7 +216,7 @@ Feature: Group Space Authorization
 - **Actor / Role**: Teacher (Course teacher)
 - **Preconditions**: Teacher authenticated in empty course; synthetic IMS QTI / Claroline exercise zip package.
 - **Observable Business Oracle**: exercise and question tables populated from zip package XML schema; imported exercise immediately available for student attempts.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: CL-07..CL-11 manually create and answer exercises; none test package import mechanism.
 - **Fixture & Cleanup**: Teardown: Delete imported exercise and questions.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -241,7 +241,7 @@ Feature: Exercise Import
 - **Actor / Role**: Teacher and Student (Role differentiation in course tracking)
 - **Preconditions**: Course tracking enabled; exercise 'Midterm Quiz' attempted by 'student_alice'.
 - **Observable Business Oracle**: Tracking UI restricted by is_course_allowed('tracking'); tracking database logs student score and renders aggregated analytics for teacher.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: CL-12 views user profile statistics; baseline never tests course-wide tracking governance.
 - **Fixture & Cleanup**: Teardown: Reset tracking logs and student attempts.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -265,7 +265,7 @@ Feature: Course Tracking Governance
 - **Actor / Role**: Teacher and Student (Teacher publishes announcement; student reads)
 - **Preconditions**: Course 'CL-ANN-101' exists; teacher and student enrolled; no prior announcements.
 - **Observable Business Oracle**: claro_announcement table receives new record; course home view pulls and displays active announcements.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline covers calendar events (CL-15), but zero announcement tool tests.
 - **Fixture & Cleanup**: Teardown: Delete announcement record.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -298,7 +298,7 @@ Feature: Course Announcements
 - **Actor / Role**: Customer and Administrator (Customer shops; administrator configures inventory)
 - **Preconditions**: Product 'Limited Edition T-Shirt' has stock=1 with stock tracking enabled; empty cart.
 - **Observable Business Oracle**: routes/index.js cart update validates against productStock; rejects over-quantity and leaves session cart count at 1.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: EC-05 creates product, EC-07 adds product to cart; baseline never checks stock boundary enforcement.
 - **Fixture & Cleanup**: Teardown: Reset product stock to default and clear cart session.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -323,7 +323,7 @@ Feature: Inventory Control
 - **Actor / Role**: Authenticated Customer (Customer managing shipping profile)
 - **Preconditions**: Registered customer 'jane@example.com' logged in; initial address '123 Main St'.
 - **Observable Business Oracle**: POST /customer/update updates database and req.session.customer*; checkout view automatically inherits session address.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: EC-01 adds user in admin; baseline has zero customer storefront profile update or checkout prefill tests.
 - **Fixture & Cleanup**: Teardown: Reset customer address and empty cart.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -347,7 +347,7 @@ Feature: Customer Profile and Checkout
 - **Actor / Role**: Shop Administrator (Marketing administrator)
 - **Preconditions**: Discount code 'SUMMER20' exists with valid dates.
 - **Observable Business Oracle**: routes/admin.js discount update validates start_date < end_date; rejects invalid range and preserves prior DB state.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: EC-12/13/15/16 test discount amounts and percent redemption, but never test invalid date window validation.
 - **Fixture & Cleanup**: Teardown: Restore original discount date range.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -371,7 +371,7 @@ Feature: Promotion Governance
 - **Actor / Role**: Customer (Guest registering for account)
 - **Preconditions**: Account 'shopper_existing@example.com' is already registered in customer collection.
 - **Observable Business Oracle**: POST /customer/create queries db.customers.findOne; finds duplicate email and returns HTTP 400 error.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: EC-01/02 test admin user creation; baseline has zero storefront customer registration tests.
 - **Fixture & Cleanup**: Teardown: Keep existing customer fixture intact.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -394,7 +394,7 @@ Feature: Customer Registration Validation
 - **Actor / Role**: Administrator and Shopper (Admin manages stock; Shopper observes storefront)
 - **Preconditions**: Product 'Solar Charger' has stock=0 and displays 'Out of stock'.
 - **Observable Business Oracle**: Stock update persists in MongoDB; storefront product view dynamically renders in-stock badge and unlocks cart addition.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests product creation and editing title/price, but never dynamic stock replenishment effect on storefront.
 - **Fixture & Cleanup**: Teardown: Reset stock to 0.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -426,7 +426,7 @@ Feature: Stock Replenishment Synchronization
 - **Actor / Role**: Content Administrator (Joomla Content Manager)
 - **Preconditions**: Article 'Featured Launch Article' published and unfeatured.
 - **Observable Business Oracle**: content_frontpage table entry is created then deleted; article published state in #__content remains 1.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: JO-08 creates article, JO-10 edits article, JO-21 archives article; none test featured list membership.
 - **Fixture & Cleanup**: Teardown: Delete article 'Featured Launch Article'.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -451,7 +451,7 @@ Feature: Featured Content Management
 - **Actor / Role**: Content Administrator and Guest (Admin schedules; Guest views)
 - **Preconditions**: Clean timezone fixture; article with future publish-up date.
 - **Observable Business Oracle**: SQL queries filter by (publish_up <= NOW() AND (publish_down >= NOW() OR publish_down = '0000-00-00 00:00:00')).
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests article publishing state (1 or 0), but zero timed publication window tests.
 - **Fixture & Cleanup**: Teardown: Remove timed article.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -477,7 +477,7 @@ Feature: Publication Window Scheduling
 - **Actor / Role**: Editor User and Administrator (User assigned to custom group lacking core.edit.state permission)
 - **Preconditions**: User 'junior_editor' belongs to group 'Staff Authors' which has core.edit but NOT core.edit.state.
 - **Observable Business Oracle**: com_content checks JAccess::check($userId, 'core.edit.state'); denies unauthorized state change attempt.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: JO-23 adds group, JO-25 assigns user to group, JO-10 edits article; baseline never tests granular edit.state restriction.
 - **Fixture & Cleanup**: Teardown: Reset user permissions and article state.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -502,7 +502,7 @@ Feature: Granular Permission Enforcement
 - **Actor / Role**: Content Administrator (Article Editor)
 - **Preconditions**: Article 'Living Document' exists with initial version 1; version history enabled.
 - **Observable Business Oracle**: #__ucm_history inserts new snapshot; #__content.version increments by 1.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: JO-10 edits article; baseline never asserts version counter increment or history modal entries.
 - **Fixture & Cleanup**: Teardown: Delete article and associated version history.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -526,7 +526,7 @@ Feature: Version History Auditing
 - **Actor / Role**: Content Administrator (Article Manager)
 - **Preconditions**: Published article 'Article to Trash' exists.
 - **Observable Business Oracle**: #__content.state transitions 1 -> -2 -> 1; public view hides trashed articles and re-displays restored articles.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: JO-21 archives article; baseline never tests the trash and restore lifecycle.
 - **Fixture & Cleanup**: Teardown: Empty trash and remove test article.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -560,7 +560,7 @@ Feature: Trash and Restore Lifecycle
 - **Actor / Role**: Project Member (Authenticated project member with task management rights)
 - **Preconditions**: A task with title 'Task to Reopen' exists in project 'Test Project' and is currently closed.
 - **Observable Business Oracle**: Task status changes from closed to open in database and UI badge; task reappears on active Kanban board and matches status:open query.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: KB-018 closes a task, and KB-027 searches closed tasks. Baseline never exercises task reopening.
 - **Fixture & Cleanup**: Setup: Create project, add task, close task. Teardown: Remove task and project.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -585,7 +585,7 @@ Feature: Task Lifecycle Management
 - **Actor / Role**: Project Collaborator (Authenticated user with comment permissions)
 - **Preconditions**: An open task 'Task With Comments' exists in 'Test Project'.
 - **Observable Business Oracle**: Comment record is inserted into comments table linked to task_id; comment text and author username render in the task comment stream.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has zero comment coverage across all 30 tests (KB-001..KB-030).
 - **Fixture & Cleanup**: Setup: Create project and task. Teardown: Delete created comment, task, and project.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -610,7 +610,7 @@ Feature: Task Collaboration
 - **Actor / Role**: Project Manager (Manager with permissions across source and target projects)
 - **Preconditions**: Source project 'Project Alpha' with task 'Task to Clone' and target project 'Project Beta' exist.
 - **Observable Business Oracle**: New task record created in project Beta with copied title/description; source task record in project Alpha remains unmodified.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline covers local task creation (KB-003) but no inter-project duplication.
 - **Fixture & Cleanup**: Setup: Create two projects and one task. Teardown: Remove both projects and tasks.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -637,7 +637,7 @@ Feature: Task Operations
 - **Actor / Role**: Project Manager (Manager with permissions across both projects)
 - **Preconditions**: Project A with task 'Task to Move' and Project B exist.
 - **Observable Business Oracle**: Task project_id is updated to Project B; task disappears from Project A board and appears in Project B first column.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has no task move tests across projects.
 - **Fixture & Cleanup**: Setup: Create two projects and task. Teardown: Clean up tasks and projects.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -664,7 +664,7 @@ Feature: Task Operations
 - **Actor / Role**: Project Member (Authenticated task editor)
 - **Preconditions**: Parent task 'Master Feature' exists in 'Test Project'.
 - **Observable Business Oracle**: Subtask row inserted into subtasks table with task_id FK; subtask table renders item with default status 'Todo'.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests tasks, columns, swimlanes, and categories, but zero subtask coverage.
 - **Fixture & Cleanup**: Setup: Create task. Teardown: Remove subtask and task.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -698,7 +698,7 @@ Feature: Subtask Management
 - **Actor / Role**: Developer (Authenticated issue viewer with monitor rights)
 - **Preconditions**: Issue #201 exists; user 'dev_dave' currently not monitoring.
 - **Observable Business Oracle**: mantis_bug_monitor_table adds then deletes (user_id, bug_id) record; UI updates monitor button toggle and list.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests issue assignment, status, and project configuration, but zero monitoring tests.
 - **Fixture & Cleanup**: Teardown: Ensure monitor record is cleared.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -724,7 +724,7 @@ Feature: Issue Monitoring
 - **Actor / Role**: Developer and Reporter (Developer adds private note; Reporter views issue)
 - **Preconditions**: Issue #202 exists; Developer 'dev_dave' has private note view/add right; Reporter 'rep_bob' lacks it.
 - **Observable Business Oracle**: bugnote view query filters by view_state == 50; users below private_bugnote_threshold cannot see private notes.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline updates issue summary and status, but never tests bugnotes or note privacy levels.
 - **Fixture & Cleanup**: Teardown: Delete test bugnote.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -748,7 +748,7 @@ Feature: Note Privacy Authorization
 - **Actor / Role**: Developer (Issue updater)
 - **Preconditions**: Two open issues #203 and #204 exist in the project.
 - **Observable Business Oracle**: mantis_bug_relationship_table enforces uniqueness and disallows source_bug_id == dest_bug_id.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: MB-33..35 link/unlink project subprojects; baseline never tests issue-to-issue relationships or link constraints.
 - **Fixture & Cleanup**: Teardown: Delete relationships between #203 and #204.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -773,7 +773,7 @@ Feature: Issue Relationship Constraints
 - **Actor / Role**: Reporter (Issue creator/reporter)
 - **Preconditions**: Issue #205 exists; small synthetic text attachment 'stacktrace.txt'.
 - **Observable Business Oracle**: mantis_bug_file_table stores file metadata; file content stored in disk/db and retrievable via file_download.php.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline creates and updates issues, but has zero file attachment tests.
 - **Fixture & Cleanup**: Teardown: Delete attachment from issue #205.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -797,7 +797,7 @@ Feature: Attachment Lifecycle
 - **Actor / Role**: Developer (Issue updater)
 - **Preconditions**: Issue #206 exists; clean tag 'regression-v2'.
 - **Observable Business Oracle**: mantis_tag_table and mantis_bug_tag_table link tag to bug; filter query joins tag table and returns matching issues.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has zero tagging tests across all 38 test files.
 - **Fixture & Cleanup**: Teardown: Detach and delete tag 'regression-v2'.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -829,7 +829,7 @@ Feature: Tagging and Filtered Retrieval
 - **Actor / Role**: Editor with move permission (Registered user with page-move right)
 - **Preconditions**: Source page 'Legacy Feature Guide' exists with body text 'Important documentation.'; destination title 'Current Feature Guide' is unused.
 - **Observable Business Oracle**: page title is updated in page table; old page title becomes page with redirect flag and body #REDIRECT [[Current Feature Guide]].
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: MW-03 creates page, MW-06 edits, MW-21 creates redirect manually, MW-22 follows redirect; baseline never tests page move operation.
 - **Fixture & Cleanup**: Teardown: Delete both source and target pages.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -854,7 +854,7 @@ Feature: Page Movement and Redirection
 - **Actor / Role**: Registered Editor (User managing personal watchlist)
 - **Preconditions**: Two distinct users 'UserAlice' and 'UserBob'; page 'Target Research Page'.
 - **Observable Business Oracle**: watchlist table receives row (wl_user, wl_namespace, wl_title) for Alice only; Bob's query returns null.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has zero watchlist tests across all 27 test files.
 - **Fixture & Cleanup**: Teardown: Ensure watchlist entry is removed.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -880,7 +880,7 @@ Feature: Personal Watchlist
 - **Actor / Role**: Uploader (Authenticated user with upload rights)
 - **Preconditions**: MediaWiki Special:Upload accessible; disallowed file 'malicious_script.exe'.
 - **Observable Business Oracle**: UploadBase::checkFileExtension returns FILE_EXTENSION_ERROR; no record in image table or File: page created.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline has zero file upload tests in mediawiki-01..27.
 - **Fixture & Cleanup**: Teardown: Ensure temporary upload directory is clean.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -904,7 +904,7 @@ Feature: File Upload Governance
 - **Actor / Role**: Editor (Content auditor)
 - **Preconditions**: Dedicated page 'Diff Comparison Test' with two distinct sequential edits (Rev 1: 'First baseline sentence.', Rev 2: 'Second modified sentence.').
 - **Observable Business Oracle**: DifferenceEngine renders table.diff containing class 'diff-deletedline' and class 'diff-addedline' with expected texts.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: MW-06 edits a page and MW-16 clicks rollback; baseline never tests the revision history diff comparison screen or diff engine.
 - **Fixture & Cleanup**: Teardown: Delete test page 'Diff Comparison Test'.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -930,7 +930,7 @@ Feature: Revision Difference Inspection
 - **Actor / Role**: Administrator and Regular Editor (Administrator protects; regular user is blocked)
 - **Preconditions**: Page 'Community Standards' exists; administrator 'admin' and regular user 'editor_dan'.
 - **Observable Business Oracle**: page_restrictions table receives row (pr_page, pr_type='edit', pr_level='sysop'); userCan checks user_groups; denies non-admin.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: MW-15 edits a protected page as admin; baseline never tests setting protection or the denial of regular editors.
 - **Fixture & Cleanup**: Teardown: Unprotect or delete page.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -964,7 +964,7 @@ Feature: Page Protection Governance
 - **Actor / Role**: Customer and Shop Administrator (Admin creates voucher; Customer redeems)
 - **Preconditions**: Cart rule 'WELCOME10' configured with discount 10%, global quantity 100, and quantity_per_user=1; customer 'cust1@example.com'.
 - **Observable Business Oracle**: CartRule::checkValidity verifies count in ps_order_cart_rule against quantity_per_user; rejects second redemption.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline adds products, customers, and categories, but zero voucher/cart-rule tests.
 - **Fixture & Cleanup**: Teardown: Delete cart rule and test orders.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -989,7 +989,7 @@ Feature: Voucher Usage Quotas
 - **Actor / Role**: Customer and Administrator (Admin sets carrier ranges; Customer selects delivery)
 - **Preconditions**: Carrier 'Express Air' configured for cart total >= $50.00; Carrier 'Standard Ground' configured for all carts.
 - **Observable Business Oracle**: Carrier::getCarriersForOrder evaluates ps_range_price; filters available carriers based on order subtotal.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests addresses and checkout steps, but never tests carrier price/weight threshold eligibility.
 - **Fixture & Cleanup**: Teardown: Reset carrier ranges.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -1014,7 +1014,7 @@ Feature: Shipping Carrier Eligibility
 - **Actor / Role**: Customer (Shopper completing checkout)
 - **Preconditions**: Product 'Printed Summer Dress' has stock=10; customer at payment step with valid cart.
 - **Observable Business Oracle**: PaymentModule::validateOrder creates ps_orders row, order history entry, and calls StockAvailable::updateQuantity(-2).
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: PS-28 tests out-of-stock validity flag; baseline never executes full payment-to-order-creation flow with stock decrement.
 - **Fixture & Cleanup**: Teardown: Cancel order and restore product stock to 10.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -1038,7 +1038,7 @@ Feature: Order Placement and Stock Sync
 - **Actor / Role**: Catalog Administrator (Stock Manager)
 - **Preconditions**: Product 'T-Shirt' has two combinations: Size S and Size L; initial quantities S=5, L=10.
 - **Observable Business Oracle**: ps_stock_available stores distinct rows per id_product_attribute; frontend AJAX update correctly reflects combination quantity.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: PS-01 adds product, PS-28 tests out of stock; baseline never tests multi-combination stock partitioning.
 - **Fixture & Cleanup**: Teardown: Reset combination quantities.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 
@@ -1064,7 +1064,7 @@ Feature: Combination Stock Management
 - **Actor / Role**: Shop Administrator and VIP Customer (Admin sets group pricing; VIP customer shops)
 - **Preconditions**: Customer group 'VIP Gold' configured with 20% discount on catalog; customer 'vip_buyer@example.com' assigned to 'VIP Gold'; product price $100.00.
 - **Observable Business Oracle**: Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00.
-- **Baseline Overlap Analysis**: 
+- **Baseline Overlap Analysis**: Baseline tests addresses and customers, but zero customer group discount tests.
 - **Fixture & Cleanup**: Teardown: Reset customer group assignment.
 - **Review Decision**: `ACCEPTED_FOR_IMPLEMENTATION`
 

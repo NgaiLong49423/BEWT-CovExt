@@ -25,7 +25,15 @@ public class BaseTest {
 		if (password == null || password.isBlank()) {
 			throw new IllegalStateException("KANBOARD_TEST_PASSWORD must be provided through the runtime environment");
 		}
-		setupNativeBrowser();
+		String remoteWebdriverUrl = System.getenv("BEWT_WEBDRIVER_URL");
+		if (remoteWebdriverUrl == null || remoteWebdriverUrl.isBlank()) {
+			remoteWebdriverUrl = System.getProperty("webdriver.remote.url");
+		}
+		if (remoteWebdriverUrl != null && !remoteWebdriverUrl.isBlank()) {
+			setupRemoteWebdriver();
+		} else {
+			setupNativeBrowser();
+		}
 		driver.get(app_url);
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		driver.manage().window().maximize();
@@ -35,10 +43,13 @@ public class BaseTest {
 		ChromeOptions chromeOptions = new ChromeOptions();
 		chromeOptions.addArguments("--no-sandbox", "--headless=new", "--disable-gpu", "--screen-info={1920x1080}");
 		try {
-			driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
+			String remoteUrl = System.getenv("BEWT_WEBDRIVER_URL");
+			if (remoteUrl == null || remoteUrl.isBlank()) {
+				remoteUrl = System.getProperty("webdriver.remote.url", "http://localhost:4444/wd/hub");
+			}
+			driver = new RemoteWebDriver(new URL(remoteUrl), chromeOptions);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new IllegalArgumentException("BEWT_WEBDRIVER_URL must be a valid URL", e);
 		}
 	}
 

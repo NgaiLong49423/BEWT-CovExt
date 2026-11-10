@@ -17,6 +17,31 @@ test("Maven argument builder exposes only fixed compile and approved-test forms"
   assert.throws(() => fixedMavenArguments("C:/suite/pom.xml", "test", "tests.Foo", { ...runOptions, baseUrl: "http://evil.example" }), /loopback URL/);
   assert.throws(() => fixedMavenArguments("C:/suite/pom.xml", "test", "tests.Foo", { ...runOptions, unregisteredEmail: "victim@example.com" }), /example.invalid/);
   assert.throws(() => fixedMavenArguments("C:/suite/pom.xml", "test", "tests.Foo", { ...runOptions, chromeBinaryPath: "relative/chrome.exe" }), /loopback URL/);
+
+  // Generalized multi-app support:
+  assert.deepEqual(fixedMavenArguments("C:/suite/pom.xml", "test", "tests.AddNewProject"), [
+    "-f", "C:/suite/pom.xml", "-Dstyle.color=never", "-Dtest=tests.AddNewProject", "test",
+  ]);
+  assert.deepEqual(
+    fixedMavenArguments("C:/suite/pom.xml", "test", "tests.AddNewProject", {
+      baseUrl: "http://127.0.0.1:8080",
+      webdriverRemoteUrl: "http://127.0.0.1:4444/wd/hub",
+    }),
+    [
+      "-f", "C:/suite/pom.xml", "-Dstyle.color=never", "-Dtest=tests.AddNewProject",
+      "-Dapp.url=http://127.0.0.1:8080", "-Dwebdriver.remote.url=http://127.0.0.1:4444/wd/hub", "test",
+    ]
+  );
+  assert.deepEqual(
+    fixedMavenArguments("C:/suite/pom.xml", "test", "test.Claroline_AddUserTest", {
+      baseUrl: "http://claroline11110/claroline/index.php",
+      webdriverRemoteUrl: "http://127.0.0.1:4444/wd/hub",
+    }),
+    [
+      "-f", "C:/suite/pom.xml", "-Dstyle.color=never", "-Dtest=test.Claroline_AddUserTest",
+      "-Dapp.url=http://claroline11110/claroline/index.php", "-Dwebdriver.remote.url=http://127.0.0.1:4444/wd/hub", "test",
+    ]
+  );
 });
 
 test("real-path resolver rejects traversal and junction/symlink components", async () => {
