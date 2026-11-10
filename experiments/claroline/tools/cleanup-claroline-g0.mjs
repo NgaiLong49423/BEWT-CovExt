@@ -187,11 +187,11 @@ function removeRun({ record, baseline, dockerExec = dockerCli, captureInventory 
   }
 
   let firewallRollback = null;
-  if (record.firewallRuleInstalled === true) {
-    if (!networkRecord?.id) throw new CleanupBlockedError('firewallRuleInstalled is true but recorded network ID is missing; cannot roll back DOCKER-USER rule');
+  if (record.firewallRuleInstalled === true || record.firewallRulePending === true) {
+    if (!networkRecord?.id) throw new CleanupBlockedError('firewallRuleInstalled/Pending is true but recorded network ID is missing; cannot roll back DOCKER-USER rule');
     try {
       const firewallSpec = buildHostBridgeFirewallSpec(networkRecord.id, record.runId, networkRecord.bridgeInterface || null, record.uplinkInterface || null);
-      firewallRollback = firewallCleanupFn(firewallSpec);
+      firewallRollback = firewallCleanupFn(firewallSpec, undefined, { allowAbsent: record.firewallRuleInstalled !== true });
     } catch (error) {
       throw new CleanupBlockedError(`host firewall rollback failed: ${dockerErrorText(error)}`, { cause: error });
     }

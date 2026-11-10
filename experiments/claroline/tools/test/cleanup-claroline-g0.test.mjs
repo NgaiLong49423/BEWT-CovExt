@@ -7,7 +7,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DOCKER_CLI_PATH, MAVEN_CLI_PATH, GIT_CLI_PATH, NODE_CLI_PATH, IPTABLES_CLI_PATH, SUDO_CLI_PATH, DOCKER_ENV, MAVEN_ENV, verifyLinuxRootExecutable, parseLinuxMeminfoBytes, parseLinuxIpv4Routes, parseLinuxDefaultUplinkInterface, verifyLinuxBridgeSysfs, readHostFreeMemoryBytes, readHostIpv4Routes, invokeMaven } from '../child-process-policy.mjs';
-import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, APPLICATION_SOURCE_COMMIT, APPLICATION_SOURCE_VERSION, IMAGE_PROVENANCE_CLASSIFICATION, PINNED_IMAGE_PATCH_RECORD, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD, HOST_FIREWALL_APPROVAL_SCOPE, HOST_FIREWALL_APPROVAL_ROLLBACK, verifyHostEgressControlsForRun, deriveLinuxBridgeInterfaceName, buildHostBridgeFirewallSpec, hostFirewallApprovalRequest, canonicalHostFirewallDecisionPayload, verifyHostFirewallDecision, requestHostFirewallApproval, assertHostBridgeFirewallRuleInstalled, assertHostBridgeFirewallRuleRemoved, installHostBridgeFirewallRule, removeHostBridgeFirewallRule, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
+import { CleanupBlockedError, isExactNotFound, labelsForRun, namesForRun, recordCreatedResource, APP_IMAGE_REF, BROWSER_IMAGE_REF, SOURCE_COMMIT, APPLICATION_SOURCE_COMMIT, APPLICATION_SOURCE_VERSION, IMAGE_PROVENANCE_CLASSIFICATION, PINNED_IMAGE_PATCH_RECORD, EGRESS_LIMITED_NETWORK_POLICY, ROUTE_ISOLATED_PUBLISHED_NETWORK_POLICY, ROUTE_ISOLATION_METHOD, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD, HOST_FIREWALL_APPROVAL_SCOPE, HOST_FIREWALL_APPROVAL_ROLLBACK, verifyHostEgressControlsForRun, deriveLinuxBridgeInterfaceName, buildHostBridgeFirewallSpec, hostFirewallApprovalRequest, canonicalHostFirewallDecisionPayload, readConsumedNonceLedger, persistConsumedNonce, verifyHostFirewallDecision, requestHostFirewallApproval, assertHostBridgeFirewallRuleInstalled, assertHostBridgeFirewallRuleRemoved, installHostBridgeFirewallRule, removeHostBridgeFirewallRule, INTERNAL_NETWORK_POLICY, INTERNAL_IPAM_NETWORK_POLICY, INTERNAL_IPAM_SUBNET_CANDIDATES, classifyEgressProbe, classifyTcpProbe, classifyHostControlProbe, EGRESS_PROBE_TARGETS, buildEgressProbeArgs, assertDockerPortOutput, assertContainerNetworkGateway, routeIsolationApprovalRequest, requestRouteIsolationApproval, assertNetworkPolicy, assertPrivateLogDirectory, assertNoDefaultRoutes, routeIsolationExecArgs, createEvidenceDirectory, parseSurefireXml, selectInternalBridgeIpam, selectLoopbackPort, sanitizeSurefireXml, validateRunId, probeTcpTarget, probeLoopbackPort, assertPublishedLoopbackPort, assertContainerPortNotPublished, isPortBindingConflict } from '../claroline-g0.mjs';
 import { runCleanup, runCleanupWithExitCode } from '../cleanup-claroline-g0.mjs';
 import { assertAllowedRemoteAction, buildRemoteCommandScript, verifyTerminationSchedule, computeDirectorySha256Manifest, verifySha256Manifest, scrubCloudText, validateEvidenceId, resolveEvidenceDirectoryById, resolveVmExternalIp } from '../cloud-controller.mjs';
 import { validateEvidenceDirectory, scanEvidenceForSecretsAndLeaks } from '../validate-evidence.mjs';
@@ -728,6 +728,17 @@ test('Cloud Controller enforces allowlisted actions, VM termination schedule, an
   const schedule = verifyTerminationSchedule(validVm, createdMs + 3600 * 1000);
   assert.equal(schedule.remainingSeconds, 18000);
   assert.equal(schedule.terminationTimestampUtc, '2026-11-10T02:18:54.625Z');
+  const restarted5hVm = {
+    ...validVm,
+    lastStartTimestamp: '2026-11-09T19:18:05.347-08:00',
+    lastStopTimestamp: '2026-11-09T18:19:48.167-08:00',
+    scheduling: { maxRunDuration: { seconds: '18000' }, instanceTerminationAction: 'STOP' },
+  };
+  const restartedStartMs = Date.parse(restarted5hVm.lastStartTimestamp);
+  const restartedSchedule = verifyTerminationSchedule(restarted5hVm, restartedStartMs + 1800 * 1000);
+  assert.equal(restartedSchedule.maxRunDurationSeconds, 18000);
+  assert.equal(restartedSchedule.remainingSeconds, 16200);
+  assert.equal(restartedSchedule.terminationTimestampUtc, '2026-11-10T08:18:05.347Z');
   assert.throws(() => verifyTerminationSchedule({ ...validVm, status: 'TERMINATED' }, createdMs + 1000), /VM_STOPPED_OR_NOT_RUNNING/);
   assert.throws(() => verifyTerminationSchedule(validVm, createdMs + 21500 * 1000), /VM_DEADLINE_INSUFFICIENT/);
   assert.equal(scrubCloudText('token=ya29.a0AfH6SMBx and /home/runner/BEWT-CovExt/file'), 'token=[REDACTED] and <REMOTE_REPO>/file');
@@ -1070,47 +1081,99 @@ test('Decision 1 (A1): host uplink, kernel bridge sysfs, GCE IPV4_ONLY egress co
     /Ed25519 cryptographic signature verification failed/,
   );
 
-  // Valid signature succeeds and records nonce in replay ledger
-  const consumedNonces = new Set();
-  const verified = verifyHostFirewallDecision(authReq, signDecision(validPayload), {
-    trustedPublicKeyPem: publicKeyPem,
-    nowMs,
-    consumedNonces,
-  });
-  assert.equal(verified.verified, true);
-  assert.equal(verified.approverRole, 'Team Lead');
-  assert.equal(verified.uplinkInterface, 'ens3');
-  assert.equal(consumedNonces.has(validPayload.nonce), true);
-
-  // Replaying the exact same signed token fails closed
-  assert.throws(
-    () => verifyHostFirewallDecision(authReq, signDecision(validPayload), {
+  // Valid signature succeeds and records nonce in both in-memory Set and persistent on-disk replay ledger
+  const tempLedgerDir = mkdtempSync(join(tmpdir(), 'bewt-nonce-ledger-'));
+  const tempLedgerPath = join(tempLedgerDir, 'nonce-ledger.json');
+  try {
+    const consumedNonces = new Set();
+    const verified = verifyHostFirewallDecision(authReq, signDecision(validPayload), {
       trustedPublicKeyPem: publicKeyPem,
       nowMs,
       consumedNonces,
-    }),
-    /replay rejected/,
-  );
+      nonceLedgerPath: tempLedgerPath,
+    });
+    assert.equal(verified.verified, true);
+    assert.equal(verified.approverRole, 'Team Lead');
+    assert.equal(verified.uplinkInterface, 'ens3');
+    assert.equal(consumedNonces.has(validPayload.nonce), true);
+    const diskLedger = readConsumedNonceLedger(tempLedgerPath);
+    assert.equal(diskLedger.nonces.has(validPayload.nonce), true);
+    assert.equal(diskLedger.runIds.has(authReq.runId), true);
 
-  // 5. Install and remove host firewall rule with mocked execFn
-  assert.throws(
-    () => installHostBridgeFirewallRule(spec, null),
-    /requires a verified Team Lead decision/,
-  );
-  const activeRulesLine = `-N DOCKER-USER\n-A DOCKER-USER -i br-834b8a617a0e ! -o br-834b8a617a0e -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j REJECT --reject-with icmp-net-unreachable\n-A DOCKER-USER -j RETURN\n`;
-  const installed = installHostBridgeFirewallRule(spec, verified, (_file, args) => {
-    if (args.includes('-S')) return { status: 0, stdout: activeRulesLine, stderr: '' };
-    return { status: 0, stdout: '', stderr: '' };
-  });
-  assert.equal(installed.installed, true);
-  assert.match(installed.verifiedRule, /-j REJECT/);
+    // Replaying the exact same signed token in a fresh process (fresh in-memory Set, same disk ledger) fails closed!
+    assert.throws(
+      () => verifyHostFirewallDecision(authReq, signDecision(validPayload), {
+        trustedPublicKeyPem: publicKeyPem,
+        nowMs,
+        consumedNonces: new Set(),
+        nonceLedgerPath: tempLedgerPath,
+      }),
+      /already been consumed in persistent ledger/,
+    );
 
-  const removed = removeHostBridgeFirewallRule(spec, (_file, args) => {
-    if (args.includes('-S')) return { status: 0, stdout: '-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', stderr: '' };
-    return { status: 0, stdout: '', stderr: '' };
-  });
-  assert.equal(removed.removed, true);
-  assert.equal(removed.residualFirewallRules, 0);
+    // Tampering with persistent ledger file fails closed
+    writeFileSync(tempLedgerPath, '{"schemaVersion":1,"entries":[{"nonce":"0123456789abcdef0123456789abcdef","runId":"t03b2-a-20261109-r1","networkId":"x","approverId":"y","consumedAtUtc":"z","entrySha256":"bad"}]}', 'utf8');
+    assert.throws(() => readConsumedNonceLedger(tempLedgerPath), /integrity check failed/);
+
+    // Disk-based approval directory lookup (team-lead-ed25519-pub.pem + <runId>-decision.json)
+    const approvalsDir = join(tempLedgerDir, 'approvals');
+    const cleanLedgerPath = join(tempLedgerDir, 'clean-ledger.json');
+    mkdirSync(approvalsDir, { recursive: true });
+    writeFileSync(join(approvalsDir, 'team-lead-ed25519-pub.pem'), publicKeyPem, 'utf8');
+    writeFileSync(join(approvalsDir, `${authReq.runId}-decision.json`), JSON.stringify(signDecision(validPayload), null, 2), 'utf8');
+    const diskApproved = requestHostFirewallApproval(spec, {
+      approvalsDir,
+      nonceLedgerPath: cleanLedgerPath,
+      nowMs,
+    });
+    assert.equal(diskApproved.verified, true);
+    assert.equal(readConsumedNonceLedger(cleanLedgerPath).nonces.has(validPayload.nonce), true);
+
+    // 5. Install and remove host firewall rule with mocked execFn (including emergency rollback on partial failure)
+    assert.throws(
+      () => installHostBridgeFirewallRule(spec, null),
+      /requires a verified Team Lead decision/,
+    );
+    const activeRulesLine = `-N DOCKER-USER\n-A DOCKER-USER -i br-834b8a617a0e ! -o br-834b8a617a0e -m conntrack ! --ctstate RELATED,ESTABLISHED -m comment --comment bewt-t03b2-${runId} -j REJECT --reject-with icmp-net-unreachable\n-A DOCKER-USER -j RETURN\n`;
+    const installed = installHostBridgeFirewallRule(spec, verified, (_file, args) => {
+      if (args.includes('-S')) return { status: 0, stdout: activeRulesLine, stderr: '' };
+      return { status: 0, stdout: '', stderr: '' };
+    });
+    assert.equal(installed.installed, true);
+    assert.match(installed.verifiedRule, /-j REJECT/);
+
+    // Partial failure after -I triggers automatic emergency -D rollback
+    let emergencyDeleteCalled = 0;
+    assert.throws(
+      () => installHostBridgeFirewallRule(spec, verified, (_file, args) => {
+        if (args.includes('-I')) return { status: 0, stdout: '', stderr: '' };
+        if (args.includes('-C')) return { status: 1, stdout: '', stderr: 'check failed' };
+        if (args.includes('-D')) { emergencyDeleteCalled += 1; return { status: 0, stdout: '', stderr: '' }; }
+        if (args.includes('-S')) return { status: 0, stdout: '-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', stderr: '' };
+        return { status: 0, stdout: '', stderr: '' };
+      }),
+      /HOST_FIREWALL_CHECK_FAILED.*emergency rollback succeeded/,
+    );
+    assert.equal(emergencyDeleteCalled, 1);
+
+    const removed = removeHostBridgeFirewallRule(spec, (_file, args) => {
+      if (args.includes('-S')) return { status: 0, stdout: '-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', stderr: '' };
+      return { status: 0, stdout: '', stderr: '' };
+    });
+    assert.equal(removed.removed, true);
+    assert.equal(removed.residualFirewallRules, 0);
+
+    // Idempotent allowAbsent removal when rule was never inserted
+    const alreadyAbsent = removeHostBridgeFirewallRule(spec, (_file, args) => {
+      if (args.includes('-D')) return { status: 1, stdout: '', stderr: 'No chain/target/match by that name' };
+      if (args.includes('-S')) return { status: 0, stdout: '-N DOCKER-USER\n-A DOCKER-USER -j RETURN\n', stderr: '' };
+      return { status: 0, stdout: '', stderr: '' };
+    }, { allowAbsent: true });
+    assert.equal(alreadyAbsent.alreadyAbsent, true);
+    assert.equal(alreadyAbsent.residualFirewallRules, 0);
+  } finally {
+    rmSync(tempLedgerDir, { recursive: true, force: true });
+  }
 
   // 6. Cleanup integration with HOST_FIREWALL_PUBLISHED_NETWORK_POLICY and firewall rollback
   const fwFake = fakeDocker({ roles: ['app'], createdUnstarted: true });

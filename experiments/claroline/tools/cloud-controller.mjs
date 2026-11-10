@@ -14,7 +14,8 @@ export const CLOUD_VM_CONFIG = Object.freeze({
   instanceName: 'bewt-covext-runner',
   expectedInstanceId: '3042402845209891905',
   expectedMachineTypeSuffix: 'machineTypes/c4d-highmem-8',
-  expectedMaxRunDurationSeconds: 21600,
+  expectedMaxRunDurationSeconds: 18000,
+  allowedMaxRunDurationSeconds: Object.freeze([18000, 21600]),
   expectedTerminationAction: 'STOP',
   sshUser: 'runner',
   remoteRepoPath: '/home/runner/BEWT-CovExt',
@@ -180,14 +181,21 @@ export function verifyTerminationSchedule(instanceJson, nowMs = Date.now(), minR
   }
   const maxRunSeconds = Number(instanceJson.scheduling?.maxRunDuration?.seconds || 0);
   const terminationAction = instanceJson.scheduling?.instanceTerminationAction;
-  if (maxRunSeconds !== CLOUD_VM_CONFIG.expectedMaxRunDurationSeconds || terminationAction !== CLOUD_VM_CONFIG.expectedTerminationAction) {
+  const allowedDurations = CLOUD_VM_CONFIG.allowedMaxRunDurationSeconds || [CLOUD_VM_CONFIG.expectedMaxRunDurationSeconds];
+  if (!allowedDurations.includes(maxRunSeconds) || terminationAction !== CLOUD_VM_CONFIG.expectedTerminationAction) {
     throw new Error(`VM_SAFETY_BLOCKED: scheduling.maxRunDuration=${maxRunSeconds}s, instanceTerminationAction=${terminationAction}`);
   }
-  const createdMs = Date.parse(instanceJson.creationTimestamp);
-  if (!Number.isFinite(createdMs)) {
-    throw new Error(`VM_PREFLIGHT_BLOCKED: invalid creationTimestamp (${instanceJson.creationTimestamp})`);
+  const effectiveStartIso = instanceJson.lastStartTimestamp || instanceJson.creationTimestamp;
+  const startMs = Date.parse(effectiveStartIso);
+  if (!Number.isFinite(startMs)) {
+    throw new Error(`VM_PREFLIGHT_BLOCKED: invalid start/creation timestamp (${effectiveStartIso})`);
   }
-  const terminationMs = createdMs + maxRunSeconds * 1000;
+  const explicitTerminationMs = instanceJson.scheduling?.terminationTimestamp
+    ? Date.parse(instanceJson.scheduling.terminationTimestamp)
+    : Number.NaN;
+  const terminationMs = Number.isFinite(explicitTerminationMs)
+    ? explicitTerminationMs
+    : startMs + maxRunSeconds * 1000;
   const remainingSeconds = Math.floor((terminationMs - nowMs) / 1000);
   if (remainingSeconds < minRemainingSeconds) {
     throw new Error(`VM_DEADLINE_INSUFFICIENT: only ${remainingSeconds}s remaining before auto-STOP (< ${minRemainingSeconds}s required)`);
@@ -198,7 +206,9 @@ export function verifyTerminationSchedule(instanceJson, nowMs = Date.now(), minR
     status: instanceJson.status,
     machineType: instanceJson.machineType.split('/').pop(),
     zone: String(instanceJson.zone || '').split('/').pop(),
-    creationTimestamp: instanceJson.creationTimestamp,
+    creationTimestamp: instanceJson.creationTimestamp || effectiveStartIso,
+    lastStartTimestamp: effectiveStartIso,
+    lastStopTimestamp: instanceJson.lastStopTimestamp || null,
     maxRunDurationSeconds: maxRunSeconds,
     instanceTerminationAction: terminationAction,
     terminationTimestampUtc: new Date(terminationMs).toISOString(),
@@ -308,8 +318,15 @@ export function verifySha256Manifest(dirPath, manifest, { allowExtraPrivateFiles
 }
 
 function resolveGcloudPath() {
-  const stitchGcloud = 'C:\\Users\\Lenovo\\.stitch-mcp\\google-cloud-sdk\\bin\\gcloud.cmd';
-  if (process.platform === 'win32' && existsSync(stitchGcloud)) return stitchGcloud;
+  if (process.platform === 'win32') {
+    const candidates = [
+      'C:\\Users\\Lenovo\\.stitch-mcp\\google-cloud-sdk\\bin\\gcloud.cmd',
+      'C:\\Users\\Lenovo\\AppData\\Local\\Google\\Cloud SDK\\google-cloud-sdk\\bin\\gcloud.cmd',
+    ];
+    for (const candidate of candidates) {
+      if (existsSync(candidate)) return candidate;
+    }
+  }
   return 'gcloud';
 }
 
@@ -335,7 +352,7 @@ export function resolveVmExternalIp({ spawnSyncFn = spawnSync } = {}) {
     'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
     `--zone=${CLOUD_VM_CONFIG.zone}`,
     `--project=${CLOUD_VM_CONFIG.projectId}`,
-    '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,networkInterfaces)',
+    '--format=json(id,name,zone,machineType,status,creationTimestamp,lastStartTimestamp,lastStopTimestamp,scheduling,networkInterfaces)',
   ], { spawnSyncFn });
   const instanceJson = JSON.parse(rawInstance);
   verifyTerminationSchedule(instanceJson);
@@ -393,7 +410,7 @@ export function runCloudPreflight({ spawnSyncFn = spawnSync } = {}) {
     'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
     `--zone=${CLOUD_VM_CONFIG.zone}`,
     `--project=${CLOUD_VM_CONFIG.projectId}`,
-    '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,disks,networkInterfaces)',
+    '--format=json(id,name,zone,machineType,status,creationTimestamp,lastStartTimestamp,lastStopTimestamp,scheduling,disks,networkInterfaces)',
   ], { spawnSyncFn });
   const instanceJson = JSON.parse(rawInstance);
   const schedule = verifyTerminationSchedule(instanceJson);

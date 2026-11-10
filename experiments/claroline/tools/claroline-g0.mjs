@@ -1,9 +1,14 @@
 import { createConnection, createServer } from 'node:net';
 import { execFileSync } from 'node:child_process';
-import { createPublicKey, verify as verifySignature } from 'node:crypto';
-import { mkdirSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { createHash, createPublicKey, verify as verifySignature } from 'node:crypto';
+import { closeSync, existsSync, fsyncSync, mkdirSync, openSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { DOCKER_CLI_PATH, DOCKER_ENV, IPTABLES_CLI_PATH, SUDO_CLI_PATH, runCommand } from './child-process-policy.mjs';
+
+const moduleDir = dirname(fileURLToPath(import.meta.url));
+export const DEFAULT_APPROVALS_DIR = resolve(moduleDir, '../../../.local-state/approvals');
+export const DEFAULT_NONCE_LEDGER_PATH = resolve(moduleDir, '../../../.local-state/host-firewall-nonce-ledger.json');
 
 export const APP_IMAGE_REF = 'olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af';
 export const BROWSER_IMAGE_REF = 'selenium/standalone-chrome@sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f';
@@ -654,32 +659,126 @@ export function canonicalHostFirewallDecisionPayload(payload) {
   if (!payload || typeof payload !== 'object') {
     throw approvalRequired('authorization decision payload is missing');
   }
-  return JSON.stringify({
+  const canonical = {
     version: 'bewt-host-firewall-approval-v1',
     decisionId: payload.decisionId,
     approverId: payload.approverId,
     approverRole: payload.approverRole,
     method: payload.method,
     runId: payload.runId,
+    ...(payload.networkName !== undefined ? { networkName: payload.networkName } : {}),
     networkId: payload.networkId,
     bridgeInterface: payload.bridgeInterface,
     uplinkInterface: payload.uplinkInterface,
     commentTag: payload.commentTag,
     insertCommand: payload.insertCommand,
+    ...(payload.checkCommand !== undefined ? { checkCommand: payload.checkCommand } : {}),
     deleteCommand: payload.deleteCommand,
     maxExecutions: payload.maxExecutions,
     scope: payload.scope,
     rollback: payload.rollback,
     issuedAtUtc: payload.issuedAtUtc,
     expiresAtUtc: payload.expiresAtUtc,
-    nonce: payload.nonce,
-  });
+    nonce: typeof payload.nonce === 'string' ? payload.nonce.toLowerCase() : payload.nonce,
+  };
+  return JSON.stringify(canonical);
+}
+
+function computeNonceLedgerEntryHash(entry) {
+  return createHash('sha256')
+    .update(`${entry.nonce}|${entry.runId}|${entry.networkId}|${entry.approverId}|${entry.consumedAtUtc}`, 'utf8')
+    .digest('hex');
+}
+
+export function readConsumedNonceLedger(ledgerPath = DEFAULT_NONCE_LEDGER_PATH) {
+  if (!ledgerPath || !existsSync(ledgerPath)) {
+    return { entries: [], nonces: new Set(), runIds: new Set() };
+  }
+  let parsed;
+  try {
+    if (!statSync(ledgerPath).isFile()) {
+      throw new Error('nonce ledger path is not a regular file');
+    }
+    parsed = JSON.parse(readFileSync(ledgerPath, 'utf8'));
+  } catch (error) {
+    throw approvalRequired(`persistent nonce replay ledger is unreadable or corrupted (${error.message})`);
+  }
+  if (!parsed || parsed.schemaVersion !== 1 || !Array.isArray(parsed.entries)) {
+    throw approvalRequired('persistent nonce replay ledger has invalid schemaVersion or entries structure');
+  }
+  const nonces = new Set();
+  const runIds = new Set();
+  for (const item of parsed.entries) {
+    if (
+      !item ||
+      typeof item.nonce !== 'string' ||
+      !/^[a-f0-9]{32,128}$/.test(item.nonce) ||
+      typeof item.runId !== 'string' ||
+      typeof item.networkId !== 'string' ||
+      typeof item.approverId !== 'string' ||
+      typeof item.consumedAtUtc !== 'string' ||
+      typeof item.entrySha256 !== 'string'
+    ) {
+      throw approvalRequired('persistent nonce replay ledger contains a malformed entry');
+    }
+    const expectedHash = computeNonceLedgerEntryHash(item);
+    if (item.entrySha256 !== expectedHash) {
+      throw approvalRequired(`persistent nonce replay ledger integrity check failed for runId ${item.runId}`);
+    }
+    nonces.add(item.nonce);
+    runIds.add(item.runId);
+  }
+  return { entries: parsed.entries, nonces, runIds };
+}
+
+export function persistConsumedNonce(ledgerPath, { nonce, runId, networkId, approverId, consumedAtUtc }) {
+  const targetPath = ledgerPath || DEFAULT_NONCE_LEDGER_PATH;
+  const current = readConsumedNonceLedger(targetPath);
+  const normalizedNonce = String(nonce || '').toLowerCase();
+  if (current.nonces.has(normalizedNonce) || current.runIds.has(runId)) {
+    throw approvalRequired('authorization decision nonce or runId has already been consumed in persistent ledger (replay rejected)');
+  }
+  const newEntryBase = {
+    nonce: normalizedNonce,
+    runId,
+    networkId,
+    approverId,
+    consumedAtUtc,
+  };
+  const newEntry = {
+    ...newEntryBase,
+    entrySha256: computeNonceLedgerEntryHash(newEntryBase),
+  };
+  const updatedLedger = {
+    schemaVersion: 1,
+    updatedAtUtc: consumedAtUtc,
+    entries: [...current.entries, newEntry],
+  };
+  const parentDir = dirname(targetPath);
+  mkdirSync(parentDir, { recursive: true });
+  const tempPath = `${targetPath}.tmp.${process.pid}.${Date.now()}`;
+  const serialized = `${JSON.stringify(updatedLedger, null, 2)}\n`;
+  const fd = openSync(tempPath, 'wx', 0o600);
+  try {
+    writeFileSync(fd, serialized, 'utf8');
+    fsyncSync(fd);
+  } finally {
+    closeSync(fd);
+  }
+  renameSync(tempPath, targetPath);
+  const verifiedDisk = readConsumedNonceLedger(targetPath);
+  if (!verifiedDisk.nonces.has(normalizedNonce) || !verifiedDisk.runIds.has(runId)) {
+    throw approvalRequired('failed to verify durable persistence of consumed nonce on disk');
+  }
+  return newEntry;
 }
 
 export function verifyHostFirewallDecision(request, signedDecision, {
   trustedPublicKeyPem,
   nowMs = Date.now(),
-  consumedNonces = new Set(),
+  consumedNonces = null,
+  nonceLedgerPath = DEFAULT_NONCE_LEDGER_PATH,
+  persistLedger = true,
 } = {}) {
   const checkedRequest = hostFirewallApprovalRequest(request);
   if (typeof trustedPublicKeyPem !== 'string' || !trustedPublicKeyPem.includes('BEGIN PUBLIC KEY')) {
@@ -698,15 +797,19 @@ export function verifyHostFirewallDecision(request, signedDecision, {
     error.authorizationRequest = checkedRequest;
     throw error;
   }
+  const networkNameMatches = payload.networkName === undefined || payload.networkName === checkedRequest.networkName;
+  const checkCommandMatches = payload.checkCommand === undefined || payload.checkCommand === checkedRequest.checkCommand;
   if (
     payload.decisionId !== 'A1' ||
     payload.method !== checkedRequest.method ||
     payload.runId !== checkedRequest.runId ||
+    !networkNameMatches ||
     payload.networkId !== checkedRequest.networkId ||
     payload.bridgeInterface !== checkedRequest.bridgeInterface ||
     payload.uplinkInterface !== checkedRequest.uplinkInterface ||
     payload.commentTag !== checkedRequest.commentTag ||
     payload.insertCommand !== checkedRequest.insertCommand ||
+    !checkCommandMatches ||
     payload.deleteCommand !== checkedRequest.deleteCommand ||
     payload.maxExecutions !== 1 ||
     payload.scope !== checkedRequest.scope ||
@@ -721,10 +824,25 @@ export function verifyHostFirewallDecision(request, signedDecision, {
     error.authorizationRequest = checkedRequest;
     throw error;
   }
-  if (!(consumedNonces instanceof Set) || consumedNonces.has(payload.nonce)) {
+  const normalizedNonce = payload.nonce.toLowerCase();
+  if (consumedNonces !== null && (!(consumedNonces instanceof Set) || consumedNonces.has(normalizedNonce) || consumedNonces.has(payload.nonce))) {
     const error = approvalRequired('authorization decision nonce has already been consumed (replay rejected)');
     error.authorizationRequest = checkedRequest;
     throw error;
+  }
+  let diskLedger = { nonces: new Set(), runIds: new Set() };
+  if (persistLedger && nonceLedgerPath) {
+    try {
+      diskLedger = readConsumedNonceLedger(nonceLedgerPath);
+    } catch (error) {
+      error.authorizationRequest = checkedRequest;
+      throw error;
+    }
+    if (diskLedger.nonces.has(normalizedNonce) || diskLedger.runIds.has(checkedRequest.runId)) {
+      const error = approvalRequired('authorization decision nonce or runId has already been consumed in persistent ledger (replay rejected)');
+      error.authorizationRequest = checkedRequest;
+      throw error;
+    }
   }
   const issuedMs = Date.parse(payload.issuedAtUtc);
   const expiresMs = Date.parse(payload.expiresAtUtc);
@@ -743,14 +861,23 @@ export function verifyHostFirewallDecision(request, signedDecision, {
     error.authorizationRequest = checkedRequest;
     throw error;
   }
+  const trimmedSig = signatureBase64.trim();
+  if (!/^[A-Za-z0-9+/]{86}==$/.test(trimmedSig)) {
+    const error = approvalRequired('Ed25519 cryptographic signature verification failed for host-firewall decision token (invalid 64-byte base64 encoding)');
+    error.authorizationRequest = checkedRequest;
+    throw error;
+  }
   let verified = false;
   try {
     const publicKey = createPublicKey(trustedPublicKeyPem);
     if (publicKey.asymmetricKeyType !== 'ed25519') {
       throw new Error('public key must be Ed25519');
     }
-    const messageBuffer = Buffer.from(canonicalHostFirewallDecisionPayload(payload), 'utf8');
-    const signatureBuffer = Buffer.from(signatureBase64, 'base64');
+    const messageBuffer = Buffer.from(canonicalHostFirewallDecisionPayload({ ...payload, nonce: normalizedNonce }), 'utf8');
+    const signatureBuffer = Buffer.from(trimmedSig, 'base64');
+    if (signatureBuffer.byteLength !== 64) {
+      throw new Error('Ed25519 signature must be 64 bytes');
+    }
     verified = verifySignature(null, messageBuffer, publicKey, signatureBuffer);
   } catch {
     verified = false;
@@ -760,7 +887,24 @@ export function verifyHostFirewallDecision(request, signedDecision, {
     error.authorizationRequest = checkedRequest;
     throw error;
   }
-  consumedNonces.add(payload.nonce);
+  if (persistLedger && nonceLedgerPath) {
+    try {
+      persistConsumedNonce(nonceLedgerPath, {
+        nonce: normalizedNonce,
+        runId: checkedRequest.runId,
+        networkId: checkedRequest.networkId,
+        approverId: payload.approverId,
+        consumedAtUtc: new Date(nowMs).toISOString(),
+      });
+    } catch (error) {
+      error.authorizationRequest = checkedRequest;
+      throw error;
+    }
+  }
+  if (consumedNonces instanceof Set) {
+    consumedNonces.add(normalizedNonce);
+    consumedNonces.add(payload.nonce);
+  }
   return Object.freeze({
     verified: true,
     approverId: payload.approverId,
@@ -769,15 +913,43 @@ export function verifyHostFirewallDecision(request, signedDecision, {
     networkId: checkedRequest.networkId,
     bridgeInterface: checkedRequest.bridgeInterface,
     uplinkInterface: checkedRequest.uplinkInterface,
-    nonce: payload.nonce,
+    nonce: normalizedNonce,
     issuedAtUtc: payload.issuedAtUtc,
     expiresAtUtc: payload.expiresAtUtc,
   });
 }
 
+function loadApprovalArtifactsFromDirectory(runId, approvalsDir = DEFAULT_APPROVALS_DIR) {
+  const rootDir = resolve(approvalsDir);
+  if (!existsSync(rootDir) || !statSync(rootDir).isDirectory()) {
+    return { trustedPublicKeyPem: undefined, signedDecision: undefined };
+  }
+  const entries = readdirSync(rootDir, { withFileTypes: true }).filter(entry => entry.isFile());
+  const pubKeyEntry = entries.find(entry => entry.name === 'team-lead-ed25519-pub.pem');
+  const decisionEntry = entries.find(entry => entry.name === `${runId}-decision.json`);
+  const trustedPublicKeyPem = pubKeyEntry ? readFileSync(join(rootDir, pubKeyEntry.name), 'utf8') : undefined;
+  let signedDecision;
+  if (decisionEntry) {
+    try {
+      signedDecision = JSON.parse(readFileSync(join(rootDir, decisionEntry.name), 'utf8'));
+    } catch {
+      signedDecision = null;
+    }
+  }
+  return { trustedPublicKeyPem, signedDecision };
+}
+
 export function requestHostFirewallApproval(request, verificationOptions = {}) {
   const checkedRequest = hostFirewallApprovalRequest(request);
-  return verifyHostFirewallDecision(checkedRequest, verificationOptions.signedDecision, verificationOptions);
+  const diskArtifacts = (verificationOptions.trustedPublicKeyPem === undefined || verificationOptions.signedDecision === undefined)
+    ? loadApprovalArtifactsFromDirectory(checkedRequest.runId, verificationOptions.approvalsDir || DEFAULT_APPROVALS_DIR)
+    : {};
+  const trustedPublicKeyPem = verificationOptions.trustedPublicKeyPem ?? diskArtifacts.trustedPublicKeyPem;
+  const signedDecision = verificationOptions.signedDecision ?? diskArtifacts.signedDecision;
+  return verifyHostFirewallDecision(checkedRequest, signedDecision, {
+    ...verificationOptions,
+    trustedPublicKeyPem,
+  });
 }
 
 export function assertHostBridgeFirewallRuleInstalled(iptablesListOutput, spec) {
@@ -827,41 +999,85 @@ export function installHostBridgeFirewallRule(spec, verifiedDecision, execFn = (
   if (insertResult.status !== 0) {
     throw new Error(`HOST_FIREWALL_INSTALL_FAILED: ${insertResult.stderr || insertResult.stdout || 'sudo iptables -I DOCKER-USER failed'}`);
   }
-  const checkResult = execFn(spec.sudoExecutable, spec.sudoCheckArgs);
-  if (checkResult.status !== 0) {
-    throw new Error(`HOST_FIREWALL_CHECK_FAILED: ${checkResult.stderr || checkResult.stdout || 'sudo iptables -C DOCKER-USER failed'}`);
+  try {
+    const checkResult = execFn(spec.sudoExecutable, spec.sudoCheckArgs);
+    if (checkResult.status !== 0) {
+      throw new Error(`HOST_FIREWALL_CHECK_FAILED: ${checkResult.stderr || checkResult.stdout || 'sudo iptables -C DOCKER-USER failed'}`);
+    }
+    const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
+    if (listResult.status !== 0) {
+      throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
+    }
+    const verifiedRule = assertHostBridgeFirewallRuleInstalled(listResult.stdout, spec);
+    return {
+      installed: true,
+      verifiedRule,
+      insertStatus: insertResult.status,
+      checkStatus: checkResult.status,
+      listOutput: listResult.stdout,
+    };
+  } catch (verificationError) {
+    let rollbackNote = 'emergency rollback succeeded';
+    try {
+      removeHostBridgeFirewallRule(spec, execFn, { allowAbsent: true });
+    } catch (rollbackError) {
+      rollbackNote = `emergency rollback also failed (${rollbackError.message})`;
+    }
+    throw new Error(`${verificationError.message} [${rollbackNote}]`, { cause: verificationError });
   }
-  const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
-  if (listResult.status !== 0) {
-    throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
-  }
-  const verifiedRule = assertHostBridgeFirewallRuleInstalled(listResult.stdout, spec);
-  return {
-    installed: true,
-    verifiedRule,
-    insertStatus: insertResult.status,
-    checkStatus: checkResult.status,
-    listOutput: listResult.stdout,
-  };
 }
 
-export function removeHostBridgeFirewallRule(spec, execFn = (file, args) => runCommand(file, args, { env: DOCKER_ENV, timeout: 15000 })) {
+export function removeHostBridgeFirewallRule(spec, execFn = (file, args) => runCommand(file, args, { env: DOCKER_ENV, timeout: 15000 }), { allowAbsent = false } = {}) {
   if (!spec || typeof spec.bridgeInterface !== 'string' || typeof spec.commentTag !== 'string') {
     throw new Error('HOST_FIREWALL_ROLLBACK_VERIFY_FAILED: invalid host bridge firewall specification');
   }
-  const deleteResult = execFn(spec.sudoExecutable, spec.sudoDeleteArgs);
-  if (deleteResult.status !== 0) {
-    throw new Error(`HOST_FIREWALL_DELETE_FAILED: ${deleteResult.stderr || deleteResult.stdout || 'sudo iptables -D DOCKER-USER failed'}`);
+  let deleteAttempts = 0;
+  let lastDeleteStatus = 0;
+  let lastListOutput = '';
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    deleteAttempts += 1;
+    const deleteResult = execFn(spec.sudoExecutable, spec.sudoDeleteArgs);
+    lastDeleteStatus = deleteResult.status;
+    const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
+    if (listResult.status !== 0) {
+      throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
+    }
+    lastListOutput = listResult.stdout;
+    if (deleteResult.status !== 0) {
+      if (attempt === 0 && !allowAbsent) {
+        throw new Error(`HOST_FIREWALL_DELETE_FAILED: ${deleteResult.stderr || deleteResult.stdout || 'sudo iptables -D DOCKER-USER failed'}`);
+      }
+      assertHostBridgeFirewallRuleRemoved(lastListOutput, spec);
+      return {
+        removed: attempt > 0,
+        alreadyAbsent: attempt === 0,
+        deleteStatus: lastDeleteStatus,
+        deleteAttempts,
+        listOutput: lastListOutput,
+        residualFirewallRules: 0,
+      };
+    }
+    const lines = String(lastListOutput ?? '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    const remaining = lines.filter(line => line.includes(spec.commentTag) || line.includes(spec.bridgeInterface));
+    if (remaining.length === 0) {
+      assertHostBridgeFirewallRuleRemoved(lastListOutput, spec);
+      return {
+        removed: true,
+        alreadyAbsent: false,
+        deleteStatus: lastDeleteStatus,
+        deleteAttempts,
+        listOutput: lastListOutput,
+        residualFirewallRules: 0,
+      };
+    }
   }
-  const listResult = execFn(spec.sudoExecutable, spec.sudoListArgs);
-  if (listResult.status !== 0) {
-    throw new Error(`HOST_FIREWALL_LIST_FAILED: ${listResult.stderr || listResult.stdout || 'sudo iptables -S DOCKER-USER failed'}`);
-  }
-  assertHostBridgeFirewallRuleRemoved(listResult.stdout, spec);
+  assertHostBridgeFirewallRuleRemoved(lastListOutput, spec);
   return {
     removed: true,
-    deleteStatus: deleteResult.status,
-    listOutput: listResult.stdout,
+    alreadyAbsent: false,
+    deleteStatus: lastDeleteStatus,
+    deleteAttempts,
+    listOutput: lastListOutput,
     residualFirewallRules: 0,
   };
 }

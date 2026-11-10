@@ -267,8 +267,11 @@ try {
   const firewallRequest = hostFirewallApprovalRequest(firewallSpec);
   writeOnce('host-firewall-authorization-request.json', firewallRequest);
   const verifiedFirewallDecision = requestHostFirewallApproval(firewallSpec); // Fail closed before installing elevated DOCKER-USER rule or starting containers.
+  record.firewallRulePending = true;
+  saveRecord();
   const firewallInstalled = installHostBridgeFirewallRule(firewallSpec, verifiedFirewallDecision);
   record.firewallRuleInstalled = true;
+  record.firewallRulePending = false;
   saveRecord();
   writeOnce('host-firewall-installation.json', { outcome: 'PASS', ...firewallInstalled });
   dockerCall(['start', record.containers[0].id], 'app-start.json');
