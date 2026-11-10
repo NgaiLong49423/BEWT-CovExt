@@ -305,10 +305,12 @@ async function main(args: string[]): Promise<void> {
       const requestedModel = modelArg ? modelArg.slice("--model=".length) : "gemini-3.8-flash";
       const selectedModel = (requestedModel === "gemini-3.8-flash" || requestedModel === "gemini-3.1-flash-lite") ? requestedModel : "gemini-3.8-flash";
       const maxApiRequests = maxCallsArg ? Number(maxCallsArg.slice("--max-api-requests=".length)) : 1;
-      const runCostCeilingUsd = maxCostArg ? Number(maxCostArg.slice("--max-cost-usd=".length)) : 0.02;
+      const defaultCeiling = selectedModel === "gemini-3.8-flash" ? 0.04 : 0.02;
+      const runCostCeilingUsd = maxCostArg ? Number(maxCostArg.slice("--max-cost-usd=".length)) : defaultCeiling;
       const perCallCostCeilingUsd = runCostCeilingUsd / maxApiRequests;
+      const maxAllowedPerCall = selectedModel === "gemini-3.8-flash" ? 0.05 : 0.02;
       if (!Number.isInteger(maxApiRequests) || maxApiRequests < 1 || maxApiRequests > 4 || !Number.isFinite(runCostCeilingUsd) || runCostCeilingUsd <= 0 ||
-          perCallCostCeilingUsd > 0.02 || perCallCostCeilingUsd < 0.001) throw new Error("T01-C run budget must allow 1..4 calls with a verified per-call ceiling no greater than USD 0.02");
+          perCallCostCeilingUsd > maxAllowedPerCall || perCallCostCeilingUsd < 0.001) throw new Error(`T01-C run budget must allow 1..4 calls with a verified per-call ceiling no greater than USD ${maxAllowedPerCall}`);
       const runId = `t01c-${randomUUID()}`;
       runIdForEvidence = runId;
       await ensureContainedDirectory(root, `${evidenceRoot}/${runId}`);

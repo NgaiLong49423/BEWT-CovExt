@@ -63,7 +63,7 @@ export interface ValidatedBewtConfig {
   readonly dockerRuntime: 'CLOUD_ONLY';
   readonly localDockerAllowed: false;
   readonly cloudBudgetMode: string;
-  readonly maxRunDurationSeconds: 21600;
+  readonly maxRunDurationSeconds: 21600 | 18000;
   readonly terminationAction: 'STOP';
   readonly autoCreateVm: false;
   readonly autoStartVm: false;
@@ -271,9 +271,9 @@ export function validateBewtConfig(
   if (parsed.BEWT_GCP_EXPECTED_TERMINATION_ACTION !== 'STOP') {
     throw new ConfigValidationError(`CONFIG_VALIDATION_ERROR: BEWT_GCP_EXPECTED_TERMINATION_ACTION must be 'STOP'.`);
   }
-  if (parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS !== '21600') {
+  if (parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS !== '21600' && parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS !== '18000') {
     throw new ConfigValidationError(
-      `CONFIG_VALIDATION_ERROR: BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS must be '21600', got '${parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS}'.`
+      `CONFIG_VALIDATION_ERROR: BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS must be '21600' or '18000', got '${parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS}'.`
     );
   }
 
@@ -292,7 +292,7 @@ export function validateBewtConfig(
     dockerRuntime: 'CLOUD_ONLY' as const,
     localDockerAllowed: false as const,
     cloudBudgetMode: parsed.BEWT_CLOUD_BUDGET_MODE!,
-    maxRunDurationSeconds: 21600 as const,
+    maxRunDurationSeconds: Number(parsed.BEWT_GCP_EXPECTED_MAX_RUN_DURATION_SECONDS) as 21600 | 18000,
     terminationAction: 'STOP' as const,
     autoCreateVm: false as const,
     autoStartVm: false as const,

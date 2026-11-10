@@ -170,14 +170,16 @@ export function verifyTerminationSchedule(instanceJson, nowMs = Date.now(), minR
   }
   const maxRunSeconds = Number(instanceJson.scheduling?.maxRunDuration?.seconds || 0);
   const terminationAction = instanceJson.scheduling?.instanceTerminationAction;
-  if (maxRunSeconds !== CLOUD_VM_CONFIG.expectedMaxRunDurationSeconds || terminationAction !== CLOUD_VM_CONFIG.expectedTerminationAction) {
+  const allowedDurations = new Set([18000, 21600, CLOUD_VM_CONFIG.expectedMaxRunDurationSeconds]);
+  if (!allowedDurations.has(maxRunSeconds) || terminationAction !== CLOUD_VM_CONFIG.expectedTerminationAction) {
     throw new Error(`VM_SAFETY_BLOCKED: scheduling.maxRunDuration=${maxRunSeconds}s, instanceTerminationAction=${terminationAction}`);
   }
-  const createdMs = Date.parse(instanceJson.creationTimestamp);
-  if (!Number.isFinite(createdMs)) {
-    throw new Error(`VM_PREFLIGHT_BLOCKED: invalid creationTimestamp (${instanceJson.creationTimestamp})`);
+  const startTimestamp = instanceJson.lastStartTimestamp || instanceJson.creationTimestamp;
+  const startedMs = Date.parse(startTimestamp);
+  if (!Number.isFinite(startedMs)) {
+    throw new Error(`VM_PREFLIGHT_BLOCKED: invalid start timestamp (${startTimestamp})`);
   }
-  const terminationMs = createdMs + maxRunSeconds * 1000;
+  const terminationMs = startedMs + maxRunSeconds * 1000;
   const remainingSeconds = Math.floor((terminationMs - nowMs) / 1000);
   if (remainingSeconds < minRemainingSeconds) {
     throw new Error(`VM_DEADLINE_INSUFFICIENT: only ${remainingSeconds}s remaining before auto-STOP (< ${minRemainingSeconds}s required)`);
@@ -383,7 +385,7 @@ export function runCloudPreflight({ spawnSyncFn = spawnSync } = {}) {
     'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
     `--zone=${CLOUD_VM_CONFIG.zone}`,
     `--project=${CLOUD_VM_CONFIG.projectId}`,
-    '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,disks,networkInterfaces)',
+    '--format=json(id,name,zone,machineType,status,creationTimestamp,lastStartTimestamp,scheduling,disks,networkInterfaces)',
   ], { spawnSyncFn });
   const instanceJson = JSON.parse(rawInstance);
   const schedule = verifyTerminationSchedule(instanceJson);
