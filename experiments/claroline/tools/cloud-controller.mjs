@@ -327,7 +327,7 @@ export function resolveVmExternalIp({ spawnSyncFn = spawnSync } = {}) {
     'compute', 'instances', 'describe', CLOUD_VM_CONFIG.instanceName,
     `--zone=${CLOUD_VM_CONFIG.zone}`,
     `--project=${CLOUD_VM_CONFIG.projectId}`,
-    '--format=json(id,name,zone,machineType,status,creationTimestamp,scheduling,networkInterfaces)',
+    '--format=json(id,name,zone,machineType,status,creationTimestamp,lastStartTimestamp,scheduling,networkInterfaces)',
   ], { spawnSyncFn });
   const instanceJson = JSON.parse(rawInstance);
   verifyTerminationSchedule(instanceJson);
