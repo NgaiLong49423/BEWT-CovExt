@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "2.0.0",
+  "program": "BEWT-CovExt v2.0",
+  "title": "Critical Remediation Issue Ledger",
+  "reopenedAtUtc": "2026-11-10T16:10:00Z",
+  "auditedReferenceCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28",
+  "orchestrator": "AGENT 0",
+  "remediationPlan": {
+    "totalDefects": 4,
+    "defects": [
+      {
+        "defectId": "DEFECT-001",
+        "title": "Trivial Selenium Tests (currentUrl.length() >= 0)",
+        "priority": "P0_CRITICAL",
+        "owner": "AGENT 3",
+        "status": "IN_PROGRESS",
+        "affectedApplications": [
+          "bludit", "claroline", "expresscart", "joomla",
+          "kanboard", "mantisbt", "mediawiki", "prestashop"
+        ],
+        "affectedCandidateCount": 40,
+        "rootCause": "The code synthesis and fallback logic generated placeholder Selenium test bodies asserting only driver/body presence and currentUrl.length() >= 0, while validateGeneratedJavaContract checked only executableAssertionCount > 0 without enforcing semantic business assertions or user interactions.",
+        "requiredFix": "1. Implement automated anti-trivial quality gate rejecting currentUrl.length() >= 0, driver != null, generic body presence, and requiring real Selenium interactions and domain assertions.\n2. Re-implement all 40 test classes with meaningful Given/When/Then business logic, element interactions, and observable domain oracles.\n3. Register as revision-2 in extension/<app>/selenium/<dirId>/revision-2/ preserving immutable revision-1.",
+        "verificationGate": "G2"
+      },
+      {
+        "defectId": "DEFECT-002",
+        "title": "Invalid Scientific Metric Computation",
+        "priority": "P1_HIGH",
+        "owner": "AGENT 2",
+        "status": "IN_PROGRESS",
+        "affectedFiles": [
+          "docs/research-results/v2/replication/recompute-metrics.mjs",
+          "docs/research-results/v2/dataset/evaluation-metrics-rq1-rq4.json"
+        ],
+        "rootCause": "RQ1 used naive string search; RQ2 automatically added 40 candidates to 180 without verifying E2E execution; RQ3 hardcoded compile pass counts; RQ4 used static estimated token averages without actual telemetry distinction.",
+        "requiredFix": "1. Validate Gherkin syntax with Cucumber parser AST and count human review decisions.\n2. Formalize baseline (180 UBU), proposed (40), approved (40), implemented, and E2E-validated units separately.\n3. Parse real JUnit XML and rerun logs for RQ3.\n4. Collect actual token logs for RQ4 and classify MEASURED, ESTIMATED, UNKNOWN.\n5. Build negative-control fault injection tests for the metric script.",
+        "verificationGate": "G4"
+      },
+      {
+        "defectId": "DEFECT-003",
+        "title": "Inconsistent Scientific Review Artifacts",
+        "priority": "P1_HIGH",
+        "owner": "AGENT 2",
+        "status": "IN_PROGRESS",
+        "affectedFiles": [
+          "human_review_consolidation_40_candidates.md"
+        ],
+        "rootCause": "Template rendering error caused [object Object] for observable oracles, undefined denominators, and version discrepancies (e.g. Bludit 3.14.1 vs 2.3.4).",
+        "requiredFix": "Reconcile all 40 candidates against pinned benchmark sources, render string oracles properly, and align application versions and baseline UBU counts.",
+        "verificationGate": "G1"
+      },
+      {
+        "defectId": "DEFECT-004",
+        "title": "Premature Program Completion Claims",
+        "priority": "P0_CRITICAL",
+        "owner": "AGENT 0",
+        "status": "IN_PROGRESS",
+        "affectedFiles": [
+          "docs/program/STATUS.json",
+          "docs/research-results/v2/BEWT-CovExt-v2-RESEARCH-REPORT.md"
+        ],
+        "rootCause": "Status and final report claimed complete program success and full D1-D8 acceptance while G3 was STANDBY_CLOUD_E2E and tests were technically trivial.",
+        "requiredFix": "Reopen STATUS.json to REMEDIATION_IN_PROGRESS, restore accurate gate statuses, update research report to distinguish compile success from E2E validation, and state limitations honestly.",
+        "verificationGate": "G0_G4_D1_D8"
+      }
+    ]
+  }
+}

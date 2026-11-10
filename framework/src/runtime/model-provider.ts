@@ -258,8 +258,45 @@ function hasNewConstructor(tokens: JavaIdentifier[], source: string, className: 
   return false;
 }
 
+/**
+ * Strict Anti-Trivial Quality Gate for BEWT-CovExt v2.0 Java Selenium Test Synthesis.
+ * Rejects trivial/tautological assertions, empty methods, swallowed errors, and tests that lack genuine UI interactions.
+ */
+export function assertAntiTrivialJavaContract(javaSource: string): void {
+  // 1. Prohibited trivial assertions
+  if (/currentUrl\.length\(\)\s*>=?\s*0/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: currentUrl.length() >= 0 is a trivial non-behavioral assertion");
+  }
+  if (/Assert\.assertTrue\s*\(\s*(?:"[^"]*"\s*,\s*)?true\s*\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: Assert.assertTrue(true) is a tautological assertion");
+  }
+  if (/Assert\.assertFalse\s*\(\s*(?:"[^"]*"\s*,\s*)?false\s*\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: Assert.assertFalse(false) is a tautological assertion");
+  }
+  if (/Assert\.assertEquals\s*\(\s*(?:"[^"]*"\s*,\s*)?([a-zA-Z0-9_]+)\s*,\s*\1\s*\)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: self-equality assertion is tautological");
+  }
+
+  // 2. Prohibited swallowed assertions
+  if (/catch\s*\(\s*(?:Throwable|AssertionError)\s+[a-zA-Z0-9_]+\s*\)\s*\{(?![^}]*throw)/.test(javaSource)) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: catch block swallows assertion failures");
+  }
+
+  // 3. Mandatory browser / UI interaction check
+  const hasSeleniumInteraction = /(?:driver\.(?:get|findElement|findElements|navigate\(\)|getTitle\(\)|getCurrentUrl\(\)|getPageSource\(\))|\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|new\s+[A-Za-z0-9_]+Page\s*\(|WebDriverWait|ExpectedConditions|new\s+Select\s*\()/.test(javaSource);
+  if (!hasSeleniumInteraction) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test method lacks browser or PageObject interaction");
+  }
+
+  // 4. Must not be a generic dummy test that only checks body presence and driver nullness
+  const hasSpecificInteractionOrAssertion = /(?:\.click\(|\.sendKeys\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|\.getAttribute\(|new\s+Select|WebDriverWait|Page\(|ExpectedConditions|assert(?:Equals|True|False|NotNull|Null)\s*\([^)]*(?:title|text|displayed|value|url|contains|equals|selected|enabled|size|count|element|alert|status|message))/i.test(javaSource);
+  if (!hasSpecificInteractionOrAssertion) {
+    throw new Error("TRIVIAL_TEST_PATTERN_REJECTED: test only performs generic existence checks without business interaction or state assertions");
+  }
+}
+
 /** Static guard only; compilation and suite integration remain separate runtime evidence. */
-export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string): void {
+export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expectedTestClass?: string, requiredPageObject?: string, enforceAntiTrivial: boolean = true): void {
   if (output.javaSource.length < 1 || output.javaSource.length > 30_000) throw new Error("generated Java source must be within the configured size limit");
   if (!isJavaIdentifier(output.testClass)) throw new Error("generated Java class name must be a valid bounded identifier");
   if (expectedTestClass !== undefined && output.testClass !== expectedTestClass) throw new Error("generated Java class must match the deterministic candidate-bound class name");
@@ -272,6 +309,9 @@ export function validateGeneratedJavaContract(output: GeneratedJavaOutput, expec
   if (requiredPageObject && (!isJavaIdentifier(requiredPageObject) || !hasNewConstructor(identifiers, output.javaSource, requiredPageObject))) throw new Error("generated Java must use the approved source-specific Page Object API");
   if (output.javaSource.includes("Runtime.getRuntime().exec") || hasWhitespaceSequence(identifiers, output.javaSource, "new", "ProcessBuilder")) throw new Error("generated Java must not spawn arbitrary processes");
   if (["HttpClient", "MongoClient", "DriverManager", "RestAssured", "OkHttpClient"].some((name) => identifiers.some((token) => token.name === name)) || output.javaSource.includes("java.net.http") || output.javaSource.includes("java.sql.")) throw new Error("generated Java must not bypass browser interaction through API or database clients");
+  if (enforceAntiTrivial) {
+    assertAntiTrivialJavaContract(output.javaSource);
+  }
 }
 
 /** Deterministic offline provider. It exists for contract/integration tests, never as Gemini evidence. */
@@ -297,7 +337,7 @@ export class FakeJavaGenerationProvider implements JavaGenerationProvider {
   async generateJava(candidate: CandidateScenario, workflow: import("../contracts.js").AgentWorkflowState): Promise<GeneratedJavaOutput> {
     assertCanGenerateJava(workflow, candidate);
     const testClass = expectedGeneratedTestClass(candidate);
-    const output = parseGeneratedJavaOutput({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { Assert.assertNotNull(appUrl); }\n}\n` });
+    const output = parseGeneratedJavaOutput({ testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\n\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticOfflineContract() { driver.get(appUrl); Assert.assertNotNull("page title must be present", driver.getTitle()); }\n}\n` });
     validateGeneratedJavaContract(output, testClass);
     return output;
   }

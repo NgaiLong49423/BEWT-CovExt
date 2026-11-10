@@ -1,0 +1,108 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { assertAntiTrivialJavaContract, validateGeneratedJavaContract } from "../../src/runtime/model-provider.js";
+
+test("Anti-Trivial Quality Gate — Rejects trivial and tautological assertions", () => {
+  // 1. currentUrl.length() >= 0
+  const trivialUrlLength = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        String currentUrl = driver.getCurrentUrl();
+        Assert.assertTrue("url check", currentUrl.length() >= 0);
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(trivialUrlLength),
+    /TRIVIAL_TEST_PATTERN_REJECTED: currentUrl\.length\(\) >= 0/
+  );
+
+  // 2. Assert.assertTrue(true)
+  const assertTrueConstant = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        Assert.assertTrue(true);
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(assertTrueConstant),
+    /TRIVIAL_TEST_PATTERN_REJECTED: Assert\.assertTrue\(true\)/
+  );
+
+  // 3. Assert.assertFalse(false)
+  const assertFalseConstant = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        Assert.assertFalse("failed", false);
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(assertFalseConstant),
+    /TRIVIAL_TEST_PATTERN_REJECTED: Assert\.assertFalse\(false\)/
+  );
+
+  // 4. Swallowed assertion catch block
+  const swallowedAssertion = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl);
+        try {
+          Assert.assertEquals("expected", driver.getTitle());
+        } catch (AssertionError e) {
+          // swallowed!
+        }
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(swallowedAssertion),
+    /TRIVIAL_TEST_PATTERN_REJECTED: catch block swallows assertion failures/
+  );
+
+  // 5. Missing browser interaction
+  const missingInteraction = `
+    package tests;
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        String title = "Expected";
+        Assert.assertEquals("Expected", title);
+      }
+    }
+  `;
+  assert.throws(
+    () => assertAntiTrivialJavaContract(missingInteraction),
+    /TRIVIAL_TEST_PATTERN_REJECTED: test method lacks browser or PageObject interaction/
+  );
+});
+
+test("Anti-Trivial Quality Gate — Accepts valid Selenium test with actions and business assertions", () => {
+  const validTest = `
+    package tests;
+    import org.junit.Test;
+    import org.junit.Assert;
+    import org.openqa.selenium.By;
+    import org.openqa.selenium.WebElement;
+
+    public class TestSample extends BaseTest {
+      @Test public void testCase() {
+        driver.get(appUrl + "/cart");
+        WebElement input = driver.findElement(By.name("quantity"));
+        input.clear();
+        input.sendKeys("2");
+        driver.findElement(By.id("update-btn")).click();
+        WebElement error = driver.findElement(By.className("alert-danger"));
+        Assert.assertTrue("Must display out of stock alert", error.getText().contains("There is not enough stock"));
+      }
+    }
+  `;
+  assert.doesNotThrow(() => assertAntiTrivialJavaContract(validTest));
+});

@@ -2,7 +2,7 @@
   "schemaVersion": "1.0.0",
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
-  "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
+  "statusType": "REMEDIATION_IN_PROGRESS",
   "snapshotDate": "2026-11-10",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
@@ -131,15 +131,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/bludit/human-review-decisions.jsonl",
@@ -157,15 +157,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/claroline/human-review-decisions.jsonl",
@@ -183,15 +183,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": 2,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/expresscart/human-review-decisions.jsonl",
@@ -214,15 +214,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/joomla/human-review-decisions.jsonl",
@@ -240,15 +240,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/kanboard/human-review-decisions.jsonl",
@@ -266,15 +266,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mantisbt/human-review-decisions.jsonl",
@@ -292,15 +292,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mediawiki/human-review-decisions.jsonl",
@@ -318,15 +318,15 @@
       "gates": {
         "G0": "VERIFIED_ON_CLOUD_VM",
         "G1": "ACCEPTED",
-        "G2": "ACCEPTED",
+        "G2": "REMEDIATION_IN_PROGRESS",
         "G3": "STANDBY_CLOUD_E2E",
-        "G4": "RESEARCH_RELEASE_COMPLETED"
+        "G4": "NOT_VERIFIED"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
       "finalE2ePassCandidates": null,
       "validatedNewCases": null,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/prestashop/human-review-decisions.jsonl",
@@ -338,10 +338,10 @@
     }
   ],
   "research": {
-    "RQ1": "SYNTAX_VALID_40_OF_40_PASS_100_PCT",
-    "RQ2": "BASELINE_180_PLUS_40_NOVEL_UNITS_PLUS_22_22_PCT",
-    "RQ3": "JAVA_SELENIUM_40_OF_40_MAVEN_COMPILE_PASS_100_PCT_BOUNDED_REPAIR_VERIFIED",
-    "RQ4": "GEMINI_38_FLASH_HIGH_UTILITY_SUB_FOUR_CENTS_TOTAL_COST",
+    "RQ1": "REOPENED_FOR_AUDIT",
+    "RQ2": "REOPENED_FOR_AUDIT",
+    "RQ3": "REOPENED_FOR_AUDIT",
+    "RQ4": "REOPENED_FOR_AUDIT",
     "validatedNewCases": null,
     "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
   },
@@ -350,10 +350,10 @@
     "D2": "ACCEPTED",
     "D3": "ACCEPTED",
     "D4": "ACCEPTED",
-    "D5": "ACCEPTED",
-    "D6": "ACCEPTED",
-    "D7": "ACCEPTED",
-    "D8": "ACCEPTED"
+    "D5": "REMEDIATION_IN_PROGRESS",
+    "D6": "REMEDIATION_IN_PROGRESS",
+    "D7": "REMEDIATION_IN_PROGRESS",
+    "D8": "REMEDIATION_IN_PROGRESS"
   },
   "taskReview": {
     "currentTaskId": "T04-A",
@@ -379,5 +379,10 @@
     "docs/tasks/T01-C/evidence/",
     "docs/research-results/v2/"
   ],
-  "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
+  "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred.",
+  "remediation": {
+    "ledgerPath": "docs/program/remediation/REMEDIATION-LEDGER.json",
+    "status": "ACTIVE_REMEDIATION",
+    "reopenedCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28"
+  }
 }

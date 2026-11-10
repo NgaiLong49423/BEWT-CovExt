@@ -49,26 +49,26 @@ test("model timeout aborts the in-flight invocation and classifies as TIMEOUT", 
 });
 
 test("generated Java contract binds the declared class, BaseTest, and JUnit and rejects process execution", () => {
-  const source = { javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Assert.assertTrue(true); } }", testClass: "GeneratedTest" };
+  const source = { javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }", testClass: "GeneratedTest" };
   assert.doesNotThrow(() => validateGeneratedJavaContract(source));
   assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "OtherTest" }), /declare the returned class/);
   assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "OtherTest" }, "ExpectedTest"), /deterministic candidate-bound/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package wrong; class GeneratedTest extends BaseTest { @Test void behavior() { Assert.assertTrue(true); } }" }), /approved tests package/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest { @Test void behavior() { Assert.assertTrue(true); } }" }), /extend the suite BaseTest/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Assert.assertTrue(true); Runtime.getRuntime().exec(\"mvn\"); } }" }), /spawn arbitrary processes/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Assert.assertTrue(true); new MongoClient(); } }" }), /bypass browser interaction/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package wrong; class GeneratedTest extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }" }), /approved tests package/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }" }), /extend the suite BaseTest/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); Runtime.getRuntime().exec(\"mvn\"); } }" }), /spawn arbitrary processes/);
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); new MongoClient(); } }" }), /bypass browser interaction/);
   assert.throws(() => validateGeneratedJavaContract(source, undefined, "CustomerPasswordResetPage"), /source-specific Page Object/);
-  assert.doesNotThrow(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new CustomerPasswordResetPage(driver, appUrl); Assert.assertTrue(true); } }" }, undefined, "CustomerPasswordResetPage"));
+  assert.doesNotThrow(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { new CustomerPasswordResetPage(driver, appUrl); driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }" }, undefined, "CustomerPasswordResetPage"));
 });
 
 test("generated Java contract bounds class identifiers and validates package, class, and APIs with deterministic scanning", () => {
-  assert.throws(() => parseGeneratedJavaOutput({ javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { Assert.assertTrue(true); } }", testClass: "A".repeat(129) }));
-  const source = { javaSource: `package tests; class ${"A".repeat(128)} extends BaseTest { @Test void behavior() { Assert.assertTrue(true); } }`, testClass: "A".repeat(128) };
+  assert.throws(() => parseGeneratedJavaOutput({ javaSource: "package tests; class GeneratedTest extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }", testClass: "A".repeat(129) }));
+  const source = { javaSource: `package tests; class ${"A".repeat(128)} extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }`, testClass: "A".repeat(128) };
   assert.doesNotThrow(() => validateGeneratedJavaContract(source));
   assert.throws(() => validateGeneratedJavaContract({ ...source, testClass: "A".repeat(129) }), /valid bounded identifier/);
   assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "x".repeat(30_001) }), /configured size limit/);
-  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class NotTheClass extends BaseTest { @Test void behavior() { Assert.assertTrue(true); } }" }), /declare the returned class/);
-  assert.doesNotThrow(() => validateGeneratedJavaContract({ javaSource: "// generated\npackage\n tests ;\nclass GeneratedTest\nextends BaseTest { @Test void behavior() { new\n CustomerPasswordResetPage\n (driver, appUrl); Assert.assertTrue(true); } }", testClass: "GeneratedTest" }, undefined, "CustomerPasswordResetPage"));
+  assert.throws(() => validateGeneratedJavaContract({ ...source, javaSource: "package tests; class NotTheClass extends BaseTest { @Test void behavior() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }" }), /declare the returned class/);
+  assert.doesNotThrow(() => validateGeneratedJavaContract({ javaSource: "// generated\npackage\n tests ;\nclass GeneratedTest\nextends BaseTest { @Test void behavior() { new\n CustomerPasswordResetPage\n (driver, appUrl); driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); } }", testClass: "GeneratedTest" }, undefined, "CustomerPasswordResetPage"));
 });
 
 test("bounded Gemini provider pins model and refuses oversized prompts before network access", async () => {

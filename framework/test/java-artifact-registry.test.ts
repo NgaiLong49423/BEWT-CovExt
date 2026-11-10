@@ -30,7 +30,7 @@ function acceptedWorkflow(candidate: CandidateScenario): AgentWorkflowState {
 
 function javaOutput(candidate: CandidateScenario, useResetPageObject = false) {
   const testClass = expectedGeneratedTestClass(candidate);
-  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl); " : ""}Assert.assertNotNull(appUrl); }\n}\n` };
+  return { testClass, javaSource: `package tests;\n\nimport org.junit.Test;\nimport org.junit.Assert;\npublic class ${testClass} extends BaseTest {\n  @Test public void syntheticContract() { ${useResetPageObject ? "new CustomerPasswordResetPage(driver, appUrl); " : ""}driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); }\n}\n` };
 }
 
 test("generated Java requires an executable assertion in an annotated test method", () => {
@@ -39,11 +39,11 @@ test("generated Java requires an executable assertion in an annotated test metho
   assert.doesNotThrow(() => validateGeneratedJavaContract(valid, expectedGeneratedTestClass(proposed)));
 
   const cases = [
-    ["removed", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "")],
-    ["line comment", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "// Assert.assertNotNull(appUrl);")],
-    ["block comment", valid.javaSource.replace("Assert.assertNotNull(appUrl);", "/* Assert.assertNotNull(appUrl); */")],
-    ["string literal", valid.javaSource.replace("Assert.assertNotNull(appUrl);", 'String example = "Assert.assertNotNull(appUrl);";')],
-    ["helper outside @Test", valid.javaSource.replace("@Test public void syntheticContract() { Assert.assertNotNull(appUrl); }", "public void helper() { Assert.assertNotNull(appUrl); } @Test public void syntheticContract() {}")],
+    ["removed", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "")],
+    ["line comment", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "// Assert.assertNotNull(driver.getTitle());")],
+    ["block comment", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", "/* Assert.assertNotNull(driver.getTitle()); */")],
+    ["string literal", valid.javaSource.replace("Assert.assertNotNull(driver.getTitle());", 'String example = "Assert.assertNotNull(driver.getTitle());";')],
+    ["helper outside @Test", valid.javaSource.replace("@Test public void syntheticContract() { driver.get(appUrl); Assert.assertNotNull(driver.getTitle()); }", "public void helper() { Assert.assertNotNull(driver.getTitle()); } @Test public void syntheticContract() {}")],
   ] as const;
   for (const [label, javaSource] of cases) {
     assert.equal(executableAssertionCount(javaSource), 0, `${label} must not be lexed as an executable test assertion`);
@@ -168,6 +168,6 @@ test("repaired artifacts are immutable, assertion-preserving, and chained throug
     await writeFile(verified2.absolutePath, `${secondRepairOutput.javaSource}// tamper\n`);
     await assert.rejects(verifyRegisteredGeneratedJava(root, withRepair2, approvedCandidate, repair2.artifact), /hash mismatch/);
     await assert.rejects(registerRepairedJava(root, repairing, approvedCandidate, first.artifact, repair1.artifact, 2,
-      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace("Assert.assertNotNull(appUrl);", "") }), /executable assertion|preserve every executable test assertion/);
+      { ...secondRepairOutput, javaSource: secondRepairOutput.javaSource.replace('Assert.assertNotNull("page title must be present", driver.getTitle());', "") }), /executable assertion|preserve every executable test assertion/);
   } finally { await rm(root, { recursive: true, force: true }); }
 });

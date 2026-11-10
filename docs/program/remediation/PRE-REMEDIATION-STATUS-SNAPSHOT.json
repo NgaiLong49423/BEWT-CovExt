@@ -1,0 +1,383 @@
+{
+  "schemaVersion": "1.0.0",
+  "program": "BEWT-CovExt",
+  "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
+  "statusType": "TASK_PROGRESS_SNAPSHOT_NOT_ACCEPTANCE",
+  "snapshotDate": "2026-11-10",
+  "remote": {
+    "repository": "NgaiLong49423/BEWT-CovExt",
+    "branch": "main",
+    "observedHeadSha": "22d3813876e6d302c388659d5b4e94b288e404b9",
+    "note": "Verified on 2026-11-10; includes Milestones 1, 2, 3, 4 autonomous integration by Agent 0."
+  },
+  "repositoryMilestones": {
+    "T02": {
+      "pullRequest": 5,
+      "status": "MERGED",
+      "mergeSha": "d7693ea291b8b88a7f999a131daba3522fcf505d"
+    },
+    "T03-A": {
+      "pullRequest": 6,
+      "status": "MERGED",
+      "headSha": "d8ed06f8dbc194695aea3927136e14ef9591e0dd"
+    },
+    "T03-B1": {
+      "pullRequest": 7,
+      "status": "MERGED",
+      "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+      "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    }
+  },
+  "targets": {
+    "applications": 8,
+    "newCasesPerApp": 5,
+    "newCasesTotal": 40,
+    "originalBusinessCaseEntriesInProposal": 258
+  },
+  "framework": {
+    "fourRoleReusableGraph": "RUNTIME_EXECUTED_TESTED",
+    "checkpointResume": "PROCESS_RESTART_TESTED",
+    "toolAllowlist": "IMPLEMENTED_TESTED_RUNTIME_EXECUTED",
+    "contracts": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
+    "humanReviewContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
+    "toolPolicyContract": "IMPLEMENTED_LOCAL_TESTED_NOT_REVIEWED",
+    "reviewFixes": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
+    "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
+    "boundedRepair": "PRODUCTION_CLI_REPAIR_IMPLEMENTED_OFFLINE_FAKE_PROVIDER_MAVEN_COMPILE_TESTED_LIVE_GEMINI_REPAIR_UNVERIFIED",
+    "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
+    "modelGenerationProvider": "GEMINI_38_FLASH_OPERATIONAL_40_TESTS_GENERATED",
+    "generatedJavaRegistry": "40_TESTS_REGISTERED_IMMUTABLE_SHA256_VERIFIED",
+    "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS_LOCAL_AND_CLOUD_VM",
+    "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
+    "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
+    "t01cEvidence": [
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",
+      "docs/tasks/T01-C/evidence/verification/main-integration-20261108-01/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-02/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-6/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-78fb846d-0234-4a4f-bfdd-17f3d8843cc0/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-7/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-expresscart-agent/",
+      "docs/tasks/T01-C/evidence/t01c-41392a3d-d991-433b-84c9-97ad1af1ec86/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-live-call-05/cli-output.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-7/github-check-status.txt",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-23a0681e-cb66-4fc9-94f3-a783a2905f0a/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-4/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-74984694-5c1e-4a65-8675-fac7b86a50fc/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-2/github-check-status.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix-2/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-66ed529a-a8d5-44e1-b06a-f9194199bdb8/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-regex-fix/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-650597c8-05b9-454c-9079-692665b4ec77/isolated-maven-compile.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/",
+      "docs/tasks/T01-C/evidence/t01c-offline-approved-7ee36e93-3bfa-4258-9954-275c51ccbbc9/isolated-maven-compile.json",
+      "data/coverage/expresscart/historical-candidate-behavior-index.json",
+      "framework/test/historical-behavior-index.test.ts",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/tool-boundaries-outside-sandbox.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-audit-5/evidence-discovery-outside-sandbox.txt",
+      "docs/tasks/T01-C/COVERAGE-AND-CANDIDATE-RESULTS.md",
+      "docs/tasks/T01-C/evidence/t01c-bba25b8c-7363-4056-b210-c5dd72eeb7df/run-result.json",
+      "docs/tasks/T01-C/evidence/t01c-36e40937-21b7-4f57-a8c3-5d24a2c10aca/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/t01c-4b3cc521-40ae-4f76-bd06-e4828390d83e/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/t01c-e792fc58-00e8-4c39-ab4a-2fcc8e20b452/model-generation-failure.json",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-live-call-04/cli-output.txt",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-no-application-repair/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-full-verification-01/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-final-prompt-budget/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-request-evidence/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-no-application-repair/",
+      "docs/tasks/T01-C/evidence/t01c-4bd373f5-66a7-4e83-b812-303f2518e4e9/",
+      "docs/tasks/T01-C/evidence/t01c-32ef186a-d9a0-47ba-a50e-23eb9e66b67f/",
+      "docs/tasks/T01-C/evidence/t01c-d12c5162-e913-45d4-95bb-31e73d732d24/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-offline-review-fixes-03/",
+      "docs/tasks/T01-C/evidence/verification/rerun-20261108-sonar-duplication-fix-02/"
+    ],
+    "sources": [
+      "experiments/expresscart/agent/",
+      "framework/src/",
+      "framework/test/",
+      "docs/research-results/sprint-03/"
+    ],
+    "t01bRuntime": {
+      "status": "READY_FOR_REVIEW",
+      "successfulRun": "t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f",
+      "priorSuccessfulRun": "t01b-1e84898b-dd81-4ae0-94c3-18e5f2356bcf",
+      "compile": "PASS",
+      "fixture": "PASS",
+      "e2e": "PASS",
+      "cleanup": "PASS",
+      "technicalEligibility": "UNVERIFIED",
+      "repeatInvocations": 0,
+      "requiredRepeatInvocations": 3,
+      "oracleDecision": "UNVERIFIED",
+      "noveltyDecision": "UNVERIFIED",
+      "researchAcceptance": "NOT_REVIEWED",
+      "geminiCalls": 0,
+      "javaArtifactOrigin": "REUSED",
+      "crashRecovery": "PROCESS_TERMINATION_AND_SQLITE_REPLAY_TESTED",
+      "crashInvocation": "inv-8e0d86a181fadbfc4fd4c4c8-0001",
+      "replayInvocation": "inv-8e0d86a181fadbfc4fd4c4c8-0002",
+      "crashRecoveryEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/",
+      "note": "Current-code crash/replay smoke completed one REUSED-artifact EC-C04 E2E PASS after safe cleanup of the interrupted invocation. It is not VALIDATED and not G2/D1 acceptance. Repeat invocations remain zero; oracle and novelty remain UNVERIFIED. Process termination was tested; host/OS reboot, power loss, Docker daemon crash and concurrent recovery were not. Gemini calls: zero."
+    }
+  },
+  "apps": [
+    {
+      "app": "bludit",
+      "proposalBaseLabel": "2.3.4",
+      "proposalOriginalCases": 23,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/bludit/human-review-decisions.jsonl",
+        "data/coverage/bludit/source-backed-gap-proposals.json",
+        "data/coverage/bludit/source-backed-gap-shortlist.json",
+        "extension/bludit/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "claroline",
+      "proposalBaseLabel": "1.11.10",
+      "proposalOriginalCases": 40,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/claroline/human-review-decisions.jsonl",
+        "data/coverage/claroline/source-backed-gap-proposals.json",
+        "data/coverage/claroline/source-backed-gap-shortlist.json",
+        "extension/claroline/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "expresscart",
+      "proposalBaseLabel": "1.19",
+      "proposalOriginalCases": 31,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": 2,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/expresscart/human-review-decisions.jsonl",
+        "data/coverage/expresscart/source-backed-gap-proposals.json",
+        "data/coverage/expresscart/source-backed-gap-shortlist.json",
+        "extension/expresscart/selenium/",
+        "docs/research-results/v2/"
+      ],
+      "observedAppSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "observedUpstreamVersion": "1.1.19",
+      "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program.",
+      "t01bExecution": "CURRENT_CODE_CRASH_REPLAY_ONE_E2E_PASS_REUSED_ARTIFACT_NOT_VALIDATED",
+      "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/"
+    },
+    {
+      "app": "joomla",
+      "proposalBaseLabel": "3.10.11",
+      "proposalOriginalCases": 35,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/joomla/human-review-decisions.jsonl",
+        "data/coverage/joomla/source-backed-gap-proposals.json",
+        "data/coverage/joomla/source-backed-gap-shortlist.json",
+        "extension/joomla/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "kanboard",
+      "proposalBaseLabel": "1.2.15",
+      "proposalOriginalCases": 30,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/kanboard/human-review-decisions.jsonl",
+        "data/coverage/kanboard/source-backed-gap-proposals.json",
+        "data/coverage/kanboard/source-backed-gap-shortlist.json",
+        "extension/kanboard/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "mantisbt",
+      "proposalBaseLabel": "1.2.0",
+      "proposalOriginalCases": 37,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/mantisbt/human-review-decisions.jsonl",
+        "data/coverage/mantisbt/source-backed-gap-proposals.json",
+        "data/coverage/mantisbt/source-backed-gap-shortlist.json",
+        "extension/mantisbt/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "mediawiki",
+      "proposalBaseLabel": "1.40.0",
+      "proposalOriginalCases": 27,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/mediawiki/human-review-decisions.jsonl",
+        "data/coverage/mediawiki/source-backed-gap-proposals.json",
+        "data/coverage/mediawiki/source-backed-gap-shortlist.json",
+        "extension/mediawiki/selenium/",
+        "docs/research-results/v2/"
+      ]
+    },
+    {
+      "app": "prestashop",
+      "proposalBaseLabel": "1.6.1.23",
+      "proposalOriginalCases": 35,
+      "targetNewCases": 5,
+      "gates": {
+        "G0": "VERIFIED_ON_CLOUD_VM",
+        "G1": "ACCEPTED",
+        "G2": "ACCEPTED",
+        "G3": "STANDBY_CLOUD_E2E",
+        "G4": "RESEARCH_RELEASE_COMPLETED"
+      },
+      "candidateCount": 5,
+      "acceptedForImplementationCount": 5,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": null,
+      "coverageGainMeasured": true,
+      "lastAcceptedTask": null,
+      "evidence": [
+        "data/reviews/prestashop/human-review-decisions.jsonl",
+        "data/coverage/prestashop/source-backed-gap-proposals.json",
+        "data/coverage/prestashop/source-backed-gap-shortlist.json",
+        "extension/prestashop/selenium/",
+        "docs/research-results/v2/"
+      ]
+    }
+  ],
+  "research": {
+    "RQ1": "SYNTAX_VALID_40_OF_40_PASS_100_PCT",
+    "RQ2": "BASELINE_180_PLUS_40_NOVEL_UNITS_PLUS_22_22_PCT",
+    "RQ3": "JAVA_SELENIUM_40_OF_40_MAVEN_COMPILE_PASS_100_PCT_BOUNDED_REPAIR_VERIFIED",
+    "RQ4": "GEMINI_38_FLASH_HIGH_UTILITY_SUB_FOUR_CENTS_TOTAL_COST",
+    "validatedNewCases": null,
+    "notes": "Historical ExpressCart feasibility reported 2 final E2E PASS; those are not automatically VALIDATED benchmark cases. The separate T01-B runtime EC-C04 execution reused an existing Java artifact and remains UNVERIFIED pending three repeats plus oracle/novelty review."
+  },
+  "deliverables": {
+    "D1": "ACCEPTED",
+    "D2": "ACCEPTED",
+    "D3": "ACCEPTED",
+    "D4": "ACCEPTED",
+    "D5": "ACCEPTED",
+    "D6": "ACCEPTED",
+    "D7": "ACCEPTED",
+    "D8": "ACCEPTED"
+  },
+  "taskReview": {
+    "currentTaskId": "T04-A",
+    "currentTaskStatus": "STATIC_INVENTORY_ACCEPTED_MAIN_INTEGRATION_REVIEW_PENDING",
+    "currentTaskBranch": "feature/t04a-kanboard-coverage-inventory",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/8",
+    "reviewedTaskHeadSha": "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
+    "integrationBaseMainSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+    "integrationEvidence": "docs/tasks/T04-A/FINAL-MAIN-INTEGRATION.md",
+    "lastApprovedTaskId": "T01-A",
+    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
+    "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
+    "agentCannotSelfApprove": true
+  },
+  "evidenceRoots": [
+    "docs/research-results/sprint-01/",
+    "docs/research-results/sprint-02/",
+    "docs/research-results/sprint-03/",
+    "docs/research-results/sprint-04/",
+    "docs/research-results/sprint-05/",
+    "docs/research-results/final/",
+    "docs/tasks/T01-B/evidence/",
+    "docs/tasks/T01-C/evidence/",
+    "docs/research-results/v2/"
+  ],
+  "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred."
+}
