@@ -1,0 +1,15 @@
+{
+  "algorithm": "SHA256",
+  "normalization": "CRLF to LF",
+  "files": {
+    "experiments/kanboard/tools/maven-evidence.mjs": "833c8450bc40d06fef72c1d811018324d870b1aad7b3d81a1dbed68d318aa686",
+    "experiments/kanboard/tools/test/maven-evidence.test.mjs": "3fb76ee907b943a3dc6b07c4bbd070fd2f9b62c058932d58c448816de9f8d583",
+    "docs/tasks/T03-KANBOARD-LEDGER/ENCRYPTED-RAW.md": "dec82d00910e10ecae0e954d382e508af1e3ef301e1276deaf009df52b3d11b4",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110/offline-tests.txt": "1597035d1eb389c5b38063edef15adf02d16f65ed890a553901c8e48fd7b75e9",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110-r2/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110-r2/offline-tests.txt": "3d3b63c9884e843ad7616840fe24491fabbb0e5f206a35f8c5d44cf72f034b2f",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110-r3/offline-tests-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "docs/tasks/T03-KANBOARD-LEDGER/evidence/encrypted-20261110-r3/offline-tests.txt": "1c9f543e07031424eb26cb5b514d42780137d4dc0d045b37f0cf0c18b45c0c73"
+  }
+}

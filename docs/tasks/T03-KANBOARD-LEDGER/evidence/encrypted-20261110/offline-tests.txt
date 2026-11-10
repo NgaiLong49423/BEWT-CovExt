@@ -1,0 +1,52 @@
+✔ evidence index binds the two requested runs to pinned source and image (2.7362ms)
+✔ Surefire XML is bound to the exact reported class and the hash mismatch stays blocked (8.1873ms)
+✔ Run A and B have independent reset and sentinel evidence (9.1927ms)
+✔ cleanup result is distinguished by run, including missing Run A idempotent repeat (14.0351ms)
+✔ CDP warning is reported without overriding the recorded assertion result (2.2545ms)
+✔ T04-B candidates remain proposed and the official human decision ledger remains empty (21.049ms)
+✔ G0 proposal does not imply G1 acceptance or mutate shared program status (3.4654ms)
+✔ audit artifacts parse as JSON, contain no common token patterns, and preserve source scope (25.2037ms)
+✔ only exact NOT_FOUND errors prove absence; daemon, permission and transport errors BLOCK (5.139ms)
+✔ blocked cleanup maps to a nonzero process exit status (0.5209ms)
+✔ idempotent cleanup passes only after all recorded probes and three independent full-label lists are empty (1.6384ms)
+✔ partial teardown error BLOCKS; retry safely cleans the remaining recorded resources (1.4814ms)
+✔ stale recorded container or network IDs resolving by recorded name block before mutation (0.6412ms)
+▶ residual container, network, or volume in its full-label inventory blocks PASS
+  ✔ container (0.6639ms)
+  ✔ network (0.6313ms)
+  ✔ volume (0.5667ms)
+✔ residual container, network, or volume in its full-label inventory blocks PASS (2.6727ms)
+✔ promoted config/apps Kanboard manifest parses as runtime and preserves pinned source/image (3.1201ms)
+✔ draft-to-runtime promotion validates the Docker image digest and removes only draft-only fields (2.9177ms)
+✔ Docker container, volume, and network identity require the recorded IDs and ownership labels (0.6273ms)
+✔ cleanup refuses bind mounts and resources outside the run-owned volume inventory (0.3999ms)
+✔ container inspection requires explicit and complete distinct volume mounts (0.3139ms)
+✔ Docker port publication requests a dynamic loopback binding and accepts only a valid assigned port (0.7615ms)
+✔ baseline URL is property-driven and preserves the original default URL (2.5222ms)
+✔ Maven selection targets only the original AddNewProject Base class and receives the allocated URL (0.3213ms)
+✔ JUnit parsing detects empty selection, PASS, skipped, assertion failure, browser setup, and application connection failure (0.9395ms)
+✔ Run B must start with distinct resources and no Run A data, after Run A cleanup PASS (0.5547ms)
+✔ cleanup plan is scoped to recorded resources, succeeds idempotently, and checks post-cleanup absence (0.3792ms)
+✔ resource comparison protects all pre-existing Docker resources (0.2105ms)
+✔ captures hashes, exact fixed arguments and explicit limitations without storing raw bytes (16.6932ms)
+✔ refuses duplicate run IDs and duplicate evidence without overwriting (12.7098ms)
+✔ rejects invalid identities, command mutations, incomplete output and invalid status before writing (5.5522ms)
+✔ records failed invocations without XML rather than presenting them as passed (4.9844ms)
+✔ concurrent evidence publication creates exactly one immutable complete result (23.5922ms)
+✔ refuses to reserve output inside a BEWT read-only source tree (1.996ms)
+✔ publication failure preserves existing destination and removes its owned temporary file (5.512ms)
+✔ resolves a directory alias before checking the read-only source boundary (3.8453ms)
+✔ encrypts raw artifacts outside Git without storing key or plaintext and decrypts in memory (13.077ms)
+✔ rejects tampered ciphertext, tag, identity, plaintext hash and incorrect key (6.1921ms)
+✔ rejects raw storage in any Git worktree and rejects invalid names or keys (3.5567ms)
+✔ verifies raw hashes against the record without claiming execution or sanitizer validity (21.2866ms)
+✔ detects a raw artifact that differs from its recorded hash (13.4929ms)
+✔ rejects changing keys within one run and reusing a run key in another run in this process (7.5688ms)
+ℹ tests 43
+ℹ suites 0
+ℹ pass 43
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 307.9718
