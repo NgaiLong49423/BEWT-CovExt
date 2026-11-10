@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "46c19397e7048dde825ad73ff0c35facd589e127253b6375ccaaeffe0f8356c1",
+  "callId": "call-02-r2-e92738fe6f9cb45aecc4349f3b52dff0",
+  "candidateId": "KB-GAP-003",
+  "appId": "kanboard",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "833e4b583b79ea7a7927ad7b4f7797960b5dd58e625ff459bbb9f191548f9577"
+}

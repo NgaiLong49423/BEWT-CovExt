@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { assertAntiTrivialJavaContract, validateGeneratedJavaContract, getAppPageObjectsSummary } from "../../src/runtime/model-provider.js";
 import { getAppTestPackage } from "../../src/runtime/java-class.js";
+import { verifyAllRevision2 } from "../../src/runtime/verify-revision2.js";
 
 test("Anti-Trivial Quality Gate — Rejects trivial and tautological assertions", () => {
   // 1. currentUrl.length() >= 0
@@ -122,4 +123,16 @@ test("App Test Package & Page Objects Injection — Resolves all 8 apps correctl
   const poSummary = getAppPageObjectsSummary("bludit");
   assert.ok(poSummary.includes("AdminLogin"));
   assert.ok(poSummary.includes("AdminHome"));
+});
+
+test("Anti-Trivial Quality Gate — Verifies 40/40 Revision-2 Tests Pass Gate with Zero Trivial Assertions", () => {
+  const { totalScanned, results, trivialCount } = verifyAllRevision2();
+  assert.equal(totalScanned, 40, "All 40 candidates must be scanned");
+  assert.equal(trivialCount, 0, "Zero trivial assertions must be detected");
+  const failedGate = results.filter(r => !r.gatePassed);
+  assert.equal(failedGate.length, 0, "All 40 revision-2 test classes must satisfy the quality gate");
+  for (const r of results) {
+    assert.ok(r.hasRegistration, `Candidate ${r.candidateId} must have registration.json`);
+    assert.ok(r.hasProvenance, `Candidate ${r.candidateId} must have provenance.json`);
+  }
 });

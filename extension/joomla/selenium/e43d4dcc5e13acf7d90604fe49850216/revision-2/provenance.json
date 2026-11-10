@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "9388fe6a99c20c3243dd348179f0593ffa4bd468cdbef6302ad33e43e68eb354",
+  "callId": "call-02-r2-e43d4dcc5e13acf7d90604fe49850216",
+  "candidateId": "JO-GAP-005",
+  "appId": "joomla",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "4f412aa84d4b02394879d81b1ccb30f9f9baf875df147207af9349377cbeac71"
+}

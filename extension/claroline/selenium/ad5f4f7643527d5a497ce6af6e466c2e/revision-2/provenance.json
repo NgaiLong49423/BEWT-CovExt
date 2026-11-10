@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "0ca8714fe931adeee5cc5555639ece70b5362dd21d232c491580f1a42887c276",
+  "callId": "call-02-r2-ad5f4f7643527d5a497ce6af6e466c2e",
+  "candidateId": "CL-GAP-002",
+  "appId": "claroline",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "d470a31fe361695e855e1e1f1d65b42c2e151e96bcdf5042ad343396ab33660d"
+}

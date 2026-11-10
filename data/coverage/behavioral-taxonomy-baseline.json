@@ -472,5 +472,89 @@
         "observableContract": "Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00."
       }
     ]
+  },
+  "versionDiscrepancyReconciliation": {
+    "formalizedBaselineDenominator": {
+      "totalBaselineDenominator": 180,
+      "unit": "Unique Behavioral Units (UBU)",
+      "definition": "Orthogonal tuple (Domain Entity, Action / Operational Mode, Observable Invariant / State Transition) invariant to parameter variation or minor syntax rephrasing.",
+      "targetExpansion": 40,
+      "postExpansionTotal": 220,
+      "coverageGainPct": "+22.22%"
+    },
+    "reconciledApplications": {
+      "bludit": {
+        "runtimeVersion": "2.3.4",
+        "benchmarkVersion": "2.3.4",
+        "dockerImage": "bludit/docker:2.3.4",
+        "sourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+        "historicalDiscrepancy": "Historical bewt-original/bludit/ contains crawler and Gherkin directories labeled bludit-3.13.1 (23 feature files with 0 Scenario: keywords).",
+        "reconciliation": "The benchmark under test and runtime container is strictly Bludit 2.3.4. Baseline test classes (23) map to 18 Unique Behavioral Units.",
+        "baselineUBU": 18
+      },
+      "claroline": {
+        "runtimeVersion": "1.11.10",
+        "benchmarkVersion": "1.11.10",
+        "dockerImage": "claroline:1.11.10",
+        "sourceCommit": "22d852f930e62551a37a912bbbcbe9be72348ff9",
+        "historicalDiscrepancy": "Historical bewt-original/claroline/ matches baseline 1.11.10.",
+        "reconciliation": "Target runtime and benchmark is Claroline 1.11.10 (40 test classes, 28 UBUs).",
+        "baselineUBU": 28
+      },
+      "expresscart": {
+        "runtimeVersion": "1.1.19",
+        "benchmarkVersion": "1.19",
+        "dockerImage": "expresscart:latest",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "historicalDiscrepancy": "Contract and proposal tables refer to label 1.19, while upstream package.json specifies 1.1.19.",
+        "reconciliation": "1.19 is the benchmark shorthand label; 1.1.19 is the semantic npm package version. Both denote the identical pinned repository codebase (31 test classes, 21 UBUs).",
+        "baselineUBU": 21
+      },
+      "joomla": {
+        "runtimeVersion": "3.10.11",
+        "benchmarkVersion": "3.10.11",
+        "dockerImage": "joomla:3.10.11",
+        "sourceCommit": "01deee0a7b",
+        "historicalDiscrepancy": "Historical bewt-original/joomla/full_xpath/ contains crawler artifacts labeled joomla-4.2.0.",
+        "reconciliation": "The benchmark under test and verified runtime container is Joomla 3.10.11. Baseline suite has 35 test classes mapping to 24 UBUs.",
+        "baselineUBU": 24
+      },
+      "kanboard": {
+        "runtimeVersion": "1.2.15",
+        "benchmarkVersion": "1.2.15",
+        "dockerImage": "kanboard/kanboard:v1.2.15",
+        "sourceCommit": "0501249ff3",
+        "historicalDiscrepancy": "None. Target benchmark is Kanboard 1.2.15 (30 test classes, 20 UBUs).",
+        "reconciliation": "Verified baseline suite and runtime is Kanboard 1.2.15.",
+        "baselineUBU": 20
+      },
+      "mantisbt": {
+        "runtimeVersion": "1.2.0",
+        "benchmarkVersion": "1.2.0",
+        "dockerImage": "mantisbt:1.2.0",
+        "sourceCommit": "d06bf60f5e",
+        "historicalDiscrepancy": "Historical bewt-original/ contains baseline/mantisbt-1.2.0 alongside explicit_wait/mantisbt-2.25.4 and full_xpath/mantisbt-2.25.4.",
+        "reconciliation": "Verified baseline suite and runtime is MantisBT 1.2.0 (37 test classes, 26 UBUs).",
+        "baselineUBU": 26
+      },
+      "mediawiki": {
+        "runtimeVersion": "1.40.0",
+        "benchmarkVersion": "1.40.0",
+        "dockerImage": "mediawiki:1.40.0",
+        "sourceCommit": "468dd69d6e",
+        "historicalDiscrepancy": "None. Historical and runtime benchmark is MediaWiki 1.40.0 (27 test classes, 19 UBUs).",
+        "reconciliation": "Target runtime and benchmark is MediaWiki 1.40.0.",
+        "baselineUBU": 19
+      },
+      "prestashop": {
+        "runtimeVersion": "1.6.1.23",
+        "benchmarkVersion": "1.6.1.23",
+        "dockerImage": "prestashop:1.6.1.23",
+        "sourceCommit": "475d65fbda",
+        "historicalDiscrepancy": "Historical bewt-original/prestashop/ contains 33 feature files for 35 test classes.",
+        "reconciliation": "Target runtime and benchmark is PrestaShop 1.6.1.23 (35 test classes, 24 UBUs).",
+        "baselineUBU": 24
+      }
+    }
   }
 }

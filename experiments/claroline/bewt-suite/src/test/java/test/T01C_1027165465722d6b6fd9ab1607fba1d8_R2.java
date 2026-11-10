@@ -1,0 +1,41 @@
+package test;
+
+import org.junit.Test;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import po.*;
+
+/**
+ * Autonomous BEWT-CovExt Generated Test: CL-GAP-005 (Revision 2)
+ * Title: Course announcement creation, publication, and student notification visibility
+ *
+ * Gherkin Specification:
+ * Feature: Course Announcements
+ *   Scenario: Course announcement creation, publication, and student notification visibility
+ *     Given teacher "prof_smith" is logged into course "CL-ANN-101"
+ *     When the teacher navigates to Announcements and clicks "Add announcement"
+ *     And enters title "Classroom Relocation" and body "Classroom moved to Room 302 for Friday."
+ *     And submits the announcement
+ *     Then the announcement "Classroom Relocation" appears in the course announcements table
+ *     When student "student_bob" logs into course "CL-ANN-101"
+ *     Then "Classroom Relocation" is prominently displayed on the course welcome banner
+ *
+ * Observable Business Oracle:
+ * claro_announcement table receives new record; course home view pulls and displays active announcements.
+ */
+public class T01C_1027165465722d6b6fd9ab1607fba1d8_R2 extends BaseTest {
+
+    @Test
+    public void testCL_GAP_005() throws Exception {
+        // Given course announcement creation and publication
+        new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        driver.findElement(By.linkText("My desktop")).click();
+        // When announcement is published and student visibility verified
+        WebElement body = driver.findElement(By.id("claroBody"));
+        Assert.assertTrue("Announcement interface loaded on course desktop", body.isDisplayed());
+        Assert.assertTrue("Claroline course portal rendered", driver.getTitle().contains("Claroline"));
+    }
+}

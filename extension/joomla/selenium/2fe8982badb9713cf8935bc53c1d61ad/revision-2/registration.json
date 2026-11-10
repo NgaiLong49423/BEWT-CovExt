@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "joomla",
+  "candidateId": "JO-GAP-003",
+  "revision": 2,
+  "sourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+  "sourceVersion": "3.10.11",
+  "gherkinSha256": "c4387d8ee3adfc73fa588e8cc38255ccaeba4bc595831bffc937b6a115e4a8f1",
+  "testClass": "base.T01C_2fe8982badb9713cf8935bc53c1d61ad_R2",
+  "artifactPath": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/T01C_2fe8982badb9713cf8935bc53c1d61ad_R2.java",
+  "sourceSha256": "9932da1eb6b22e0922e0d2f376a5b47c571f17b1f3691bd129fa81d7820ca131",
+  "origin": "GENERATED"
+}

@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "8b2e753b766ab8f52e94f3dae377743b6ce36c3060baf66f04fd4ede9dfc5ddb",
+  "callId": "call-02-r2-4b05dc3e3caa3daec5f080180a09f349",
+  "candidateId": "BL-GAP-002",
+  "appId": "bludit",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349"
+}

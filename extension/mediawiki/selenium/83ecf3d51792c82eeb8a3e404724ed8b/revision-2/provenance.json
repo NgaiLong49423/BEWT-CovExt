@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "2184dceff7a49bd424512bc4743659415088b34e0dbcb0f119b3c2942215fe03",
+  "callId": "call-02-r2-83ecf3d51792c82eeb8a3e404724ed8b",
+  "candidateId": "MW-GAP-005",
+  "appId": "mediawiki",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "f4e98d634158c9edd0fa4a0276789a73d0915a077e9d466d22d3acabc43fd176"
+}

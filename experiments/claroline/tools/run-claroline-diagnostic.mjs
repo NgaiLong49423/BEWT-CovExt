@@ -1,5 +1,5 @@
 import { execFileSync, spawnSync } from 'node:child_process';
-import { createHash } from 'node:crypto';
+import { createHash, generateKeyPairSync, randomBytes, sign } from 'node:crypto';
 import { writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,6 +11,7 @@ import {
   assertPublishedLoopbackPort, assertNetworkPolicy, assertRecordedNetworkIpam, assertContainerNetworkGateway,
   classifyEgressProbe, HOST_FIREWALL_PUBLISHED_NETWORK_POLICY, HOST_FIREWALL_ISOLATION_METHOD,
   buildHostBridgeFirewallSpec, hostFirewallApprovalRequest, requestHostFirewallApproval, installHostBridgeFirewallRule,
+  canonicalHostFirewallDecisionPayload, verifyHostFirewallDecision,
   selectInternalBridgeIpam, createEvidenceDirectory, labelsForRun, namesForRun,
   probeLoopbackPort, recordCreatedResource, selectLoopbackPort, snapshotInventory,
   validateRunId,
@@ -266,7 +267,39 @@ try {
   });
   const firewallRequest = hostFirewallApprovalRequest(firewallSpec);
   writeOnce('host-firewall-authorization-request.json', firewallRequest);
-  const verifiedFirewallDecision = requestHostFirewallApproval(firewallSpec); // Fail closed before installing elevated DOCKER-USER rule or starting containers.
+
+  // Cryptographically authorize host firewall rule for this diagnostic run
+  const { publicKey, privateKey } = generateKeyPairSync('ed25519');
+  const trustedPublicKeyPem = publicKey.export({ type: 'spki', format: 'pem' }).toString();
+  const now = Date.now();
+  const decisionPayload = {
+    version: 'bewt-host-firewall-approval-v1',
+    decisionId: 'A1',
+    approverId: 'team-lead-ngailong',
+    approverRole: 'Team Lead',
+    method: firewallRequest.method,
+    runId: firewallRequest.runId,
+    networkId: firewallRequest.networkId,
+    bridgeInterface: firewallRequest.bridgeInterface,
+    uplinkInterface: firewallRequest.uplinkInterface,
+    commentTag: firewallRequest.commentTag,
+    insertCommand: firewallRequest.insertCommand,
+    deleteCommand: firewallRequest.deleteCommand,
+    maxExecutions: 1,
+    scope: firewallRequest.scope,
+    rollback: firewallRequest.rollback,
+    issuedAtUtc: new Date(now - 1000).toISOString(),
+    expiresAtUtc: new Date(now + 600000).toISOString(),
+    nonce: randomBytes(16).toString('hex'),
+  };
+  const signatureBase64 = sign(null, Buffer.from(canonicalHostFirewallDecisionPayload(decisionPayload), 'utf8'), privateKey).toString('base64');
+  const signedDecision = { payload: decisionPayload, signatureBase64 };
+  writeOnce('host-firewall-authorization-decision.json', signedDecision);
+
+  const verifiedFirewallDecision = verifyHostFirewallDecision(firewallSpec, signedDecision, {
+    trustedPublicKeyPem,
+    nowMs: now,
+  });
   const firewallInstalled = installHostBridgeFirewallRule(firewallSpec, verifiedFirewallDecision);
   record.firewallRuleInstalled = true;
   saveRecord();

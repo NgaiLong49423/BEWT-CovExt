@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "candidateId": "EC-GAP-005",
+  "revision": 2,
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "gherkinSha256": "9353c55722f768dd39f02a73c5a217c011a8e3fae5d3f8e4ce16c6bcfdc79731",
+  "testClass": "tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2",
+  "artifactPath": "extension/expresscart/selenium/0affc59171fdc4286b78929f3dbbe2e3/revision-2/T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.java",
+  "sourceSha256": "56f978d35d1bd3a202046c58f4c0db8291102df3c9a974aa24f7f40dbba53f19",
+  "origin": "GENERATED"
+}

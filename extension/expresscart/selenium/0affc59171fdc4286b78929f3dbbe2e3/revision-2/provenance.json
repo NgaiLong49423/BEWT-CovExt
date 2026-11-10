@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "266d1dd055e4b92225eab1f8472f1b65b774f5b800efc7930034ea5d74b3535c",
+  "callId": "call-02-r2-0affc59171fdc4286b78929f3dbbe2e3",
+  "candidateId": "EC-GAP-005",
+  "appId": "expresscart",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "56f978d35d1bd3a202046c58f4c0db8291102df3c9a974aa24f7f40dbba53f19"
+}

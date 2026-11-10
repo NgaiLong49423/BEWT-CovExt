@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "e499639473bff8656b8ce8d3a73c2f84f61bd83179b0909bdb10827da024cf51",
+  "callId": "call-02-r2-3b10cef3f23dff894317fc9c42e9ecd4",
+  "candidateId": "MB-GAP-004",
+  "appId": "mantisbt",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "26b8c1e6f2c6321483330a5c0334563522afcaaa6c2041abf1c6facc122e9add"
+}

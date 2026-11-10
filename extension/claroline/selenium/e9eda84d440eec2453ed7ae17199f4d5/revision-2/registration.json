@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "claroline",
+  "candidateId": "CL-GAP-003",
+  "revision": 2,
+  "sourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+  "sourceVersion": "1.11.10",
+  "gherkinSha256": "1ba9a9165d45eebec6c6c6c289601412ba506b783e99ad2a0afa9b5a92c25cb4",
+  "testClass": "test.T01C_e9eda84d440eec2453ed7ae17199f4d5_R2",
+  "artifactPath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-2/T01C_e9eda84d440eec2453ed7ae17199f4d5_R2.java",
+  "sourceSha256": "eb95a11afb1cc7e4812909edb3e558c264e62956a880d253eff1dc20b63f5224",
+  "origin": "GENERATED"
+}

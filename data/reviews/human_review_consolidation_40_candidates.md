@@ -21,8 +21,63 @@ Every candidate listed below has been independently audited against the pinned r
 
 ---
 
+
+## 2. Baseline Denominator Formalization & Cross-Referenced Version Discrepancies
+
+### 2.1 Baseline Denominator Formalization ($D_{base} = 180$ UBUs)
+To resolve baseline count discrepancies across proposal documents, physical feature files, scenario headers, and JUnit test classes, the scientific baseline denominator is formalized based on **Unique Behavioral Units (UBUs)**:
+- **Proposal Document Metric**: 258 entries
+- **Physical `.feature` Files**: 257 files (Historical `bewt-original/` contains 257 `.feature` files; MantisBT contains `0_Login.feature` with no test class; PrestaShop contains 33 `.feature` files for 35 test classes)
+- **Explicit `Scenario:` Headers**: 234 headers (Bludit has 23 `.feature` files with 0 `Scenario:` keywords)
+- **Baseline TestSuite Java Classes**: 258 classes (259 counting `Installer.java` in Bludit)
+- **Baseline Assertions**: 359 assertions
+- **Formalized Defensible Baseline Denominator ($D_{base}$)**: **180 Unique Behavioral Units (UBUs)**
+  - A UBU is defined as an orthogonal tuple `(Domain Entity, Action / Operational Mode, Observable Invariant / State Transition)` invariant to test parameter variations or minor syntactic rephrasing.
+  - Per-application UBU breakdown:
+    - **Bludit**: 18 UBUs (18 nominal baseline -> 23 projected post-extension, +27.78%)
+    - **Claroline**: 28 UBUs (28 nominal baseline -> 33 projected post-extension, +17.86%)
+    - **ExpressCart**: 21 UBUs (21 nominal baseline -> 26 projected post-extension, +23.81%)
+    - **Joomla**: 24 UBUs (24 nominal baseline -> 29 projected post-extension, +20.83%)
+    - **Kanboard**: 20 UBUs (20 nominal baseline -> 25 projected post-extension, +25.00%)
+    - **MantisBT**: 26 UBUs (26 nominal baseline -> 31 projected post-extension, +19.23%)
+    - **MediaWiki**: 19 UBUs (19 nominal baseline -> 24 projected post-extension, +26.32%)
+    - **PrestaShop**: 24 UBUs (24 nominal baseline -> 29 projected post-extension, +20.83%)
+  - Total Baseline: **180 UBUs** + 40 new candidate scenarios = **220 UBUs** (+22.22% coverage expansion).
+
+### 2.2 Application Version Discrepancies & Cross-References
+Across the 8 target web applications, discrepancies between repository labels, runtime Docker images, benchmark proposal tables, and historical crawler directories in `bewt-original/` are cross-referenced and resolved as follows:
+
+1. **Bludit**:
+   - *Target Benchmark & Runtime Version*: `2.3.4` (Docker image `bludit/docker:2.3.4`, Git commit `44de235a5e`).
+   - *Discrepancy*: Historical `bewt-original/bludit/` contains folders labeled `bludit-3.13.1` (both `full_xpath/bludit-3.13.1` and `gherkin/bludit-3.13.1/` with 23 feature files containing 0 `Scenario:` keywords).
+   - *Resolution*: The verified target under test is strictly Bludit 2.3.4. Baseline test classes (23) map to 18 UBUs against the 2.3.4 runtime.
+2. **ExpressCart**:
+   - *Target Benchmark & Runtime Version*: `1.1.19` (Git commit `b31302f4e9`, npm `package.json` version `1.1.19`).
+   - *Discrepancy*: `PROGRAM-CONTRACT.md` and benchmark proposal tables label this application as `1.19`.
+   - *Resolution*: `1.19` is the shorthand benchmark label; `1.1.19` is the exact npm package version. Both denote the identical pinned repository codebase.
+3. **Joomla**:
+   - *Target Benchmark & Runtime Version*: `3.10.11` (Git commit `01deee0a7b`, Docker runtime `joomla:3.10.11`).
+   - *Discrepancy*: Historical directory `bewt-original/joomla/full_xpath/` contains artifacts labeled `joomla-4.2.0` from exploratory crawling.
+   - *Resolution*: Target benchmark and runtime environment is strictly Joomla 3.10.11. Baseline test suite (35 classes) maps to 24 UBUs.
+4. **MantisBT**:
+   - *Target Benchmark & Runtime Version*: `1.2.0` (Git commit `d06bf60f5e`, Docker runtime `mantisbt:1.2.0`).
+   - *Discrepancy*: `bewt-original/` contains `baseline/mantisbt-1.2.0` alongside `explicit_wait/mantisbt-2.25.4` and `full_xpath/mantisbt-2.25.4`.
+   - *Resolution*: Verified baseline suite and runtime is MantisBT 1.2.0 (37 test classes, 26 UBUs).
+5. **Claroline**:
+   - *Target Benchmark & Runtime Version*: `1.11.10` (Git commit `22d852f930`, Docker runtime `claroline:1.11.10`, 40 test classes, 28 UBUs).
+6. **Kanboard**:
+   - *Target Benchmark & Runtime Version*: `1.2.15` (Git commit `0501249ff3`, Docker runtime `kanboard:1.2.15`, 30 test classes, 20 UBUs).
+7. **MediaWiki**:
+   - *Target Benchmark & Runtime Version*: `1.40.0` (Git commit `468dd69d6e`, Docker runtime `mediawiki:1.40.0`, 27 test classes, 19 UBUs).
+8. **PrestaShop**:
+   - *Target Benchmark & Runtime Version*: `1.6.1.23` (Git commit `475d65fbda`, Docker runtime `prestashop:1.6.1.23`, 35 test classes, 24 UBUs).
+
+---
+
 ## Application: BLUDIT (v2.3.4)
 
+- **Runtime & Benchmark Version**: `2.3.4` (Commit: `44de235a5e`)
+- **Version Cross-Reference**: Runtime 2.3.4 vs historical BEWT crawler folder `bludit-3.13.1` (23 feature files without `Scenario:` headers)
 - **Baseline Test Suite Classes**: 23
 - **Baseline Behavioral Units ($D_{base}$)**: 18 UBU
 - **Projected Coverage Gain (RQ2)**: +5 UBU (18 -> 23, +27.78%)
@@ -284,8 +339,10 @@ Feature: Course Announcements
 ---
 
 
-## Application: EXPRESSCART (v1.1.19)
+## Application: EXPRESSCART (v1.1.19 / Benchmark Label 1.19)
 
+- **Runtime & Benchmark Version**: `1.1.19` (NPM package `1.1.19`, Benchmark label `1.19`, Commit: `b31302f4e9`)
+- **Version Cross-Reference**: Benchmark label 1.19 vs package.json semantic version 1.1.19
 - **Baseline Test Suite Classes**: 31
 - **Baseline Behavioral Units ($D_{base}$)**: 21 UBU
 - **Projected Coverage Gain (RQ2)**: +5 UBU (21 -> 26, +23.81%)
@@ -414,6 +471,8 @@ Feature: Stock Replenishment Synchronization
 
 ## Application: JOOMLA (v3.10.11)
 
+- **Runtime & Benchmark Version**: `3.10.11` (Commit: `01deee0a7b`)
+- **Version Cross-Reference**: Target runtime 3.10.11 vs historical BEWT crawler folder `joomla-4.2.0`
 - **Baseline Test Suite Classes**: 35
 - **Baseline Behavioral Units ($D_{base}$)**: 24 UBU
 - **Projected Coverage Gain (RQ2)**: +5 UBU (24 -> 29, +20.83%)
@@ -686,6 +745,8 @@ Feature: Subtask Management
 
 ## Application: MANTISBT (v1.2.0)
 
+- **Runtime & Benchmark Version**: `1.2.0` (Commit: `d06bf60f5e`)
+- **Version Cross-Reference**: Target runtime 1.2.0 vs historical BEWT exploratory wait folder `mantisbt-2.25.4`
 - **Baseline Test Suite Classes**: 37
 - **Baseline Behavioral Units ($D_{base}$)**: 26 UBU
 - **Projected Coverage Gain (RQ2)**: +5 UBU (26 -> 31, +19.23%)

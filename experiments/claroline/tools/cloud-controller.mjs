@@ -95,6 +95,12 @@ export const ALLOWLISTED_REMOTE_ACTIONS = Object.freeze({
     timeoutMs: 60000,
     description: 'Fetch and checkout latest main commit on Cloud VM',
   },
+  'env-check': {
+    requiresRunId: false,
+    sideEffecting: false,
+    timeoutMs: 30000,
+    description: 'Check sudo permissions and installed docker images',
+  },
 });
 
 export function scrubCloudText(value) {
@@ -186,6 +192,13 @@ export function buildRemoteCommandScript(action, params = {}) {
       ].join('; ');
     case 'git-sync':
       return `set -eu; cd ${repo} && git fetch origin main && git checkout main && git reset --hard origin/main && git rev-parse HEAD`;
+    case 'env-check':
+      return [
+        'set -eu',
+        'sudo -n iptables -L DOCKER-USER -n || true',
+        'printf "CHROME=%s\\n" "$(which google-chrome google-chrome-stable chromium chromium-browser 2>/dev/null || echo NONE)"',
+        'docker images',
+      ].join('; ');
     default:
       throw new Error(`Unhandled allowlisted action: ${action}`);
   }

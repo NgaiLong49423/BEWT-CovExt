@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelId": "gemini-3.8-flash",
+  "promptSha256": "2fb033972dfb45504d1383122b21a3e9a11520e6d85742449599bbdfaaf99201",
+  "callId": "call-02-r2-8e2d11c8e727a6d49530c06fdb53b8d2",
+  "candidateId": "PS-GAP-004",
+  "appId": "prestashop",
+  "revision": 2,
+  "generatedAt": "2026-11-10T16:30:00Z",
+  "sourceSha256": "649b27c499fc0a0b6f02aee05156a2f5fccfaa6190d9515a005da27962e55050"
+}
