@@ -1,0 +1,9 @@
+{
+  "runId": "adapter-lifecycle-3017e3cc-075b-465c-8170-c542ad0010b0",
+  "invocationId": "inv-e5b3338e6311a267a2f922b3-0001",
+  "project": "bewt-t01b-4969c695757171d6d0c3",
+  "outcome": "FAIL",
+  "error": "build context SHA-256 mismatch: expected 3fb02b3a0a0a0bc5f7c507dad4076961d9e1bbc139485e3cc122daa8a135f01a, observed 80795045329afbe512e53ff04f7a4bbab752e875b6b072c20729b0b559b004ad",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19"
+}

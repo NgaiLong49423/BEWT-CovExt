@@ -1,0 +1,25 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< visual-repair:expresscart-1.19 >-------------------
+[INFO] Building expresscart-1.19 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ expresscart-1.19 ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.7.0:compile (default-compile) @ expresscart-1.19 ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ expresscart-1.19 ---
+[INFO] skip non existing resourceDirectory D:\Github-Projects\BEWT-CovExt\experiments\expresscart\bewt-suite\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.7.0:testCompile (default-testCompile) @ expresscart-1.19 ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.429 s
+[INFO] Finished at: 2026-11-10T10:28:26+07:00
+[INFO] ------------------------------------------------------------------------
+

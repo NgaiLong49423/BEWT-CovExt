@@ -21,10 +21,13 @@ function gitBlobHash(data: Buffer): string {
   return createHash("sha1").update(`blob ${cleaned.length}\0`).update(cleaned).digest("hex");
 }
 
+const IGNORED_DIRECTORY_NAMES = new Set([".git", ".svn", ".hg", ".bzr", "CVS"]);
+
 async function filesUnder(root: string): Promise<Array<{ relativePath: string; path: string }>> {
   const found: Array<{ relativePath: string; path: string }> = [];
   async function visit(current: string): Promise<void> {
     for (const item of await readdir(current, { withFileTypes: true })) {
+      if (IGNORED_DIRECTORY_NAMES.has(item.name)) continue;
       const fullPath = join(current, item.name);
       const stat = await lstat(fullPath);
       if (stat.isSymbolicLink()) throw new Error(`source build context contains a symlink: ${relative(root, fullPath)}`);

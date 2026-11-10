@@ -26,3 +26,6 @@ target/
 
 # Local workflow checkpoint databases (never publish durable state)
 .local-state/
+
+# Agent runtime metadata
+.agents/

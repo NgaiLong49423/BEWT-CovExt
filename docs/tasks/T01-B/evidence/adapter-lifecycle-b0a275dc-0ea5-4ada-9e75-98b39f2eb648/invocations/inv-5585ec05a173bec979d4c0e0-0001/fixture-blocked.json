@@ -1,0 +1,9 @@
+{
+  "runId": "adapter-lifecycle-b0a275dc-0ea5-4ada-9e75-98b39f2eb648",
+  "invocationId": "inv-5585ec05a173bec979d4c0e0-0001",
+  "project": "bewt-t01b-53275c6b4ecb4bfc6430",
+  "outcome": "BLOCKED",
+  "error": "Docker image inspection unavailable: failed to connect to the docker API at npip[REDACTED_ABSOLUTE_PATH]: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.\n",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19"
+}

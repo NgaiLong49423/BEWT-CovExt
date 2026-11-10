@@ -1,0 +1,2 @@
+# Enforce CRLF for Dockerfile.experiment to preserve canonical sha256 on checkout
+experiments/expresscart/source/Dockerfile.experiment text eol=crlf
