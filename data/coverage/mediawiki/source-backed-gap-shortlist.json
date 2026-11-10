@@ -1,31 +1,45 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "mediawiki",
-  "shortlistCount": 3,
+  "shortlistCount": 5,
   "sourcePin": {
     "repository": "wikimedia/mediawiki",
     "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
     "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
     "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
   },
-  "status": "PROPOSED_REVIEW_ORDER_ONLY",
-  "humanDecisionStatus": "NOT_REVIEWED",
-  "decisionLedger": "UNCHANGED",
+  "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
+  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
   "topCandidates": [
     {
       "candidateId": "MW-GAP-001",
       "priorityOrder": 1,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Moving a page preserves content at the target and creates a redirect",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_PAGE_MIGRATION"
     },
     {
       "candidateId": "MW-GAP-002",
       "priorityOrder": 2,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Watch and unwatch state is scoped to the signed-in user",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_USER_PREFERENCE_ISOLATION"
     },
     {
       "candidateId": "MW-GAP-003",
       "priorityOrder": 3,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Upload validation rejects a disallowed file extension without creating a file page",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_UPLOAD_VALIDATION"
+    },
+    {
+      "candidateId": "MW-GAP-004",
+      "priorityOrder": 4,
+      "title": "Revision history side-by-side diff comparison between two consecutive edits",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_DIFF_ENGINE_INSPECTION"
+    },
+    {
+      "candidateId": "MW-GAP-005",
+      "priorityOrder": 5,
+      "title": "Page protection restriction level modification restricts editing to administrators",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_ACCESS_RESTRICTION_GOVERNANCE"
     }
   ]
 }

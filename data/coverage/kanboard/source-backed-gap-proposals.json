@@ -1,0 +1,276 @@
+{
+  "schemaVersion": "2.0.0",
+  "application": "kanboard",
+  "applicationVersion": "1.2.15",
+  "sourcePin": {
+    "repository": "benchmark/kanboard",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "baselinePin": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 20,
+  "rq2Contribution": "5/20 (+25.0%)",
+  "candidates": [
+    {
+      "candidateId": "KB-GAP-001",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Reopen a closed task",
+      "actor": "Project Member",
+      "role": "Authenticated project member with task management rights",
+      "preconditions": "A task with title 'Task to Reopen' exists in project 'Test Project' and is currently closed.",
+      "testData": {
+        "project": "Test Project",
+        "taskTitle": "Task to Reopen",
+        "targetStatus": "open"
+      },
+      "gherkinScenario": "Feature: Task Lifecycle Management\n  Scenario: Reopen a closed task\n    Given the user is logged into Kanboard as \"admin\"\n    And a closed task \"Task to Reopen\" exists in project \"Test Project\"\n    When the user navigates to the task page for \"Task to Reopen\"\n    And the user clicks the \"Reopen this task\" link in the sidebar\n    And the user confirms \"Yes\" in the confirmation modal\n    Then the task status badge displays \"open\"\n    And searching \"status:open Task to Reopen\" in the project board returns the task in the board column",
+      "fixture": "Setup: Create project, add task, close task. Teardown: Remove task and project.",
+      "oracle": {
+        "observable": "Task status changes from closed to open in database and UI badge; task reappears on active Kanban board and matches status:open query.",
+        "sourceRefs": [
+          "app/Template/task/sidebar.php",
+          "app/Controller/TaskStatusController.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Template/task/sidebar.php",
+          "lines": "81",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "Reopen action in sidebar"
+        },
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Controller/TaskStatusController.php",
+          "lines": "28-36",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "open() action transitions task is_active to 1"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_LIFECYCLE_TRANSITION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: KB-018 closes a task, and KB-027 searches closed tasks. Baseline never exercises task reopening.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "KB-018 closes a task, and KB-027 searches closed tasks. Baseline never exercises task reopening.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "A user without task modification permission sees no 'Reopen this task' link and direct POST is rejected.",
+      "priorityReviewOrder": 1,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "KB-GAP-002",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Create and view a task comment",
+      "actor": "Project Collaborator",
+      "role": "Authenticated user with comment permissions",
+      "preconditions": "An open task 'Task With Comments' exists in 'Test Project'.",
+      "testData": {
+        "taskTitle": "Task With Comments",
+        "commentText": "This is a verified test comment for task verification."
+      },
+      "gherkinScenario": "Feature: Task Collaboration\n  Scenario: Create and view a task comment\n    Given the user is logged into Kanboard as \"admin\"\n    And an open task \"Task With Comments\" exists in project \"Test Project\"\n    When the user navigates to the task page for \"Task With Comments\"\n    And the user enters \"This is a verified test comment for task verification.\" in the comment area\n    And the user clicks the \"Save\" comment button\n    Then the comment \"This is a verified test comment for task verification.\" appears in the comments stream\n    And the comment header displays the author \"admin\" with timestamp \"just now\"",
+      "fixture": "Setup: Create project and task. Teardown: Delete created comment, task, and project.",
+      "oracle": {
+        "observable": "Comment record is inserted into comments table linked to task_id; comment text and author username render in the task comment stream.",
+        "sourceRefs": [
+          "app/Template/task_comments/create.php",
+          "app/Controller/CommentController.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Template/task_comments/create.php",
+          "lines": "1-25",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "Comment creation template"
+        },
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Controller/CommentController.php",
+          "lines": "30-65",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "create/save comment handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_COLLABORATION_FEATURE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has zero comment coverage across all 30 tests (KB-001..KB-030).",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has zero comment coverage across all 30 tests (KB-001..KB-030).",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Submitting an empty comment field triggers validation error and no comment row is created.",
+      "priorityReviewOrder": 2,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "KB-GAP-003",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Duplicate a task to another project",
+      "actor": "Project Manager",
+      "role": "Manager with permissions across source and target projects",
+      "preconditions": "Source project 'Project Alpha' with task 'Task to Clone' and target project 'Project Beta' exist.",
+      "testData": {
+        "sourceProject": "Project Alpha",
+        "targetProject": "Project Beta",
+        "taskTitle": "Task to Clone"
+      },
+      "gherkinScenario": "Feature: Task Operations\n  Scenario: Duplicate a task to another project\n    Given the user is logged into Kanboard as \"admin\"\n    And project \"Project Alpha\" contains task \"Task to Clone\"\n    And empty project \"Project Beta\" exists\n    When the user navigates to task \"Task to Clone\" in \"Project Alpha\"\n    And the user clicks the \"Duplicate to another project\" link\n    And the user selects \"Project Beta\" as destination project\n    And the user clicks the \"Save\" button\n    Then project \"Project Beta\" board contains task \"Task to Clone\"\n    And original task \"Task to Clone\" remains intact in \"Project Alpha\"",
+      "fixture": "Setup: Create two projects and one task. Teardown: Remove both projects and tasks.",
+      "oracle": {
+        "observable": "New task record created in project Beta with copied title/description; source task record in project Alpha remains unmodified.",
+        "sourceRefs": [
+          "app/Controller/TaskDuplicationController.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Controller/TaskDuplicationController.php",
+          "lines": "45-90",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "duplicate() across projects handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_CROSS_PROJECT_OPERATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline covers local task creation (KB-003) but no inter-project duplication.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline covers local task creation (KB-003) but no inter-project duplication.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Attempting to duplicate to a project where actor has no write access fails with authorization error.",
+      "priorityReviewOrder": 3,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "KB-GAP-004",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Move a task to another project",
+      "actor": "Project Manager",
+      "role": "Manager with permissions across both projects",
+      "preconditions": "Project A with task 'Task to Move' and Project B exist.",
+      "testData": {
+        "sourceProject": "Project A",
+        "targetProject": "Project B",
+        "taskTitle": "Task to Move"
+      },
+      "gherkinScenario": "Feature: Task Operations\n  Scenario: Move a task to another project\n    Given the user is logged into Kanboard as \"admin\"\n    And project \"Project A\" contains task \"Task to Move\"\n    And project \"Project B\" exists\n    When the user navigates to task \"Task to Move\" in \"Project A\"\n    And the user clicks the \"Move to another project\" link\n    And the user selects \"Project B\" as destination\n    And the user clicks the \"Save\" button\n    Then task \"Task to Move\" is displayed on project \"Project B\" board\n    And task \"Task to Move\" is no longer present on project \"Project A\" board",
+      "fixture": "Setup: Create two projects and task. Teardown: Clean up tasks and projects.",
+      "oracle": {
+        "observable": "Task project_id is updated to Project B; task disappears from Project A board and appears in Project B first column.",
+        "sourceRefs": [
+          "app/Controller/TaskDuplicationController.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Controller/TaskDuplicationController.php",
+          "lines": "95-140",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "move() across projects handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_WORKFLOW_MIGRATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has no task move tests across projects.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has no task move tests across projects.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Selecting destination project without required column mapping displays column assignment error.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "KB-GAP-008",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Add an internal subtask to a task",
+      "actor": "Project Member",
+      "role": "Authenticated task editor",
+      "preconditions": "Parent task 'Master Feature' exists in 'Test Project'.",
+      "testData": {
+        "parentTask": "Master Feature",
+        "subtaskTitle": "Subtask Unit 1"
+      },
+      "gherkinScenario": "Feature: Subtask Management\n  Scenario: Add an internal subtask to a task\n    Given the user is logged into Kanboard as \"admin\"\n    And an open task \"Master Feature\" exists in project \"Test Project\"\n    When the user navigates to task \"Master Feature\"\n    And the user clicks \"Add a sub-task\" link\n    And the user enters \"Subtask Unit 1\" in the \"Title\" field\n    And the user clicks the \"Save\" button\n    Then the \"Subtasks\" section of task \"Master Feature\" displays \"Subtask Unit 1\"\n    And the subtask status is displayed as \"Todo\"",
+      "fixture": "Setup: Create task. Teardown: Remove subtask and task.",
+      "oracle": {
+        "observable": "Subtask row inserted into subtasks table with task_id FK; subtask table renders item with default status 'Todo'.",
+        "sourceRefs": [
+          "app/Controller/SubtaskController.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "kanboard/kanboard",
+          "path": "app/Controller/SubtaskController.php",
+          "lines": "30-70",
+          "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+          "note": "create/save subtask handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_HIERARCHICAL_DECOMPOSITION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline tests tasks, columns, swimlanes, and categories, but zero subtask coverage.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline tests tasks, columns, swimlanes, and categories, but zero subtask coverage.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Submitting empty subtask title fails with 'The title is required'.",
+      "priorityReviewOrder": 5,
+      "humanDecision": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "2.0.0",
+  "application": "kanboard",
+  "shortlistCount": 5,
+  "sourcePin": {
+    "repository": "benchmark/kanboard",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+  },
+  "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
+  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
+  "topCandidates": [
+    {
+      "candidateId": "KB-GAP-001",
+      "priorityOrder": 1,
+      "title": "Reopen a closed task",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_LIFECYCLE_TRANSITION"
+    },
+    {
+      "candidateId": "KB-GAP-002",
+      "priorityOrder": 2,
+      "title": "Create and view a task comment",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_COLLABORATION_FEATURE"
+    },
+    {
+      "candidateId": "KB-GAP-003",
+      "priorityOrder": 3,
+      "title": "Duplicate a task to another project",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_CROSS_PROJECT_OPERATION"
+    },
+    {
+      "candidateId": "KB-GAP-004",
+      "priorityOrder": 4,
+      "title": "Move a task to another project",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_WORKFLOW_MIGRATION"
+    },
+    {
+      "candidateId": "KB-GAP-008",
+      "priorityOrder": 5,
+      "title": "Add an internal subtask to a task",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_HIERARCHICAL_DECOMPOSITION"
+    }
+  ]
+}

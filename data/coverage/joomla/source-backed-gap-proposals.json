@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "joomla",
   "applicationVersion": "3.10.11",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 24,
+  "rq2Contribution": "5/24 (+20.8%)",
   "candidates": [
     {
       "candidateId": "JO-GAP-001",
@@ -26,44 +26,42 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Featured article flag appears and is removed from the featured list",
-      "actor": "Administrator",
-      "role": "Content administrator",
-      "preconditions": "Unfeatured published article with unique title; featured-list baseline empty for that title.",
-      "fixture": "Toggle featured on, reload list, then toggle off.",
+      "actor": "Content Administrator",
+      "role": "Joomla Content Manager",
+      "preconditions": "Article 'Featured Launch Article' published and unfeatured.",
+      "testData": {
+        "articleTitle": "Featured Launch Article"
+      },
+      "gherkinScenario": "Feature: Featured Content Management\n  Scenario: Featured article flag appears and is removed from the featured list\n    Given administrator is logged into Joomla admin\n    And published article \"Featured Launch Article\" is currently not featured\n    When administrator toggles the \"Featured\" star on for \"Featured Launch Article\"\n    Then \"Featured Launch Article\" appears in the \"Featured Articles\" view\n    When administrator toggles the \"Featured\" star off\n    Then \"Featured Launch Article\" is removed from the \"Featured Articles\" view\n    And the article remains published in the standard articles list",
+      "fixture": "Teardown: Delete article 'Featured Launch Article'.",
       "oracle": {
-        "observable": "Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.",
+        "observable": "content_frontpage table entry is created then deleted; article published state in #__content remains 1.",
         "sourceRefs": [
-          "JO-S01",
-          "JO-S02"
+          "administrator/components/com_content/models/articles.php"
         ]
       },
       "sourceRefs": [
-        "JO-S01",
-        "JO-S02"
+        {
+          "repo": "joomla/joomla-cms",
+          "path": "administrator/components/com_content/models/articles.php",
+          "lines": "380-420",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "note": "featured toggle handler"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_FEATURED_CONTENT_GOVERNANCE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: JO-08 creates article, JO-10 edits article, JO-21 archives article; none test featured list membership.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "joomla-08-addnewarticle",
-          "joomla-10-editarticle",
-          "joomla-21-archivearticle"
-        ],
-        "rationale": "Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "JO-08 creates article, JO-10 edits article, JO-21 archives article; none test featured list membership.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Use a published but unfeatured article and verify it remains outside the featured list.",
-      "testabilityRisk": "Feature visibility can depend on front-end menu configuration.",
-      "uncertainty": "Model updates the featured table and featured query filters by flag/state/access; public rendering remains configuration-dependent.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Featured article flag appears and is removed from the featured list.",
+      "negativeControl": "An unpublished article marked featured does not render on the public frontpage.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -74,42 +72,44 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Publish-up and publish-down define the article visibility window",
-      "actor": "Administrator and guest",
-      "role": "Admin configures; guest observes",
-      "preconditions": "Published article with start/end timestamps in a controlled timezone; unique alias.",
-      "fixture": "Set future publish-up and future publish-down, then inspect before, within and after the window.",
+      "actor": "Content Administrator and Guest",
+      "role": "Admin schedules; Guest views",
+      "preconditions": "Clean timezone fixture; article with future publish-up date.",
+      "testData": {
+        "articleTitle": "Timed Press Release",
+        "publishUp": "+1 day",
+        "publishDown": "+5 days"
+      },
+      "gherkinScenario": "Feature: Publication Window Scheduling\n  Scenario: Publish-up and publish-down define the article visibility window\n    Given administrator is logged into Joomla admin\n    When administrator creates article \"Timed Press Release\" with publish-up set to future date\n    Then the article status badge shows \"Published but Pending\"\n    And a guest visiting the public category cannot view \"Timed Press Release\"\n    When the system time is within the publish-up and publish-down window\n    Then a guest visiting the public category can view \"Timed Press Release\"\n    When the system time advances past publish-down\n    Then the article status badge shows \"Expired\" and is hidden from public view",
+      "fixture": "Teardown: Remove timed article.",
       "oracle": {
-        "observable": "Article is hidden before start, visible during the window, and hidden after end.",
+        "observable": "SQL queries filter by (publish_up <= NOW() AND (publish_down >= NOW() OR publish_down = '0000-00-00 00:00:00')).",
         "sourceRefs": [
-          "JO-S03"
+          "components/com_content/models/articles.php"
         ]
       },
       "sourceRefs": [
-        "JO-S03"
+        {
+          "repo": "joomla/joomla-cms",
+          "path": "components/com_content/models/articles.php",
+          "lines": "150-210",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "note": "timed publication filter"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_TIMED_PUBLICATION_LIFECYCLE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline tests article publishing state (1 or 0), but zero timed publication window tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "joomla-08-addnewarticle",
-          "joomla-10-editarticle",
-          "joomla-21-archivearticle"
-        ],
-        "rationale": "Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline tests article publishing state (1 or 0), but zero timed publication window tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Keep a normal published article as a control at each observation time.",
-      "testabilityRisk": "Timezone, cache and server clock can make boundaries flaky.",
-      "uncertainty": "Source listing exposes publish_up/down and model assigns publish dates; actual front-end boundary behavior requires runtime check.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Publish-up and publish-down define the article visibility window.",
+      "negativeControl": "An administrator logged into frontend can preview expired articles if configured, but guest cannot.",
       "priorityReviewOrder": 2,
       "humanDecision": null
     },
@@ -120,42 +120,43 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Editor without edit-state permission cannot change publication state",
-      "actor": "Editor and administrator",
-      "role": "Editor lacks core.edit.state; admin has it",
-      "preconditions": "Two accounts with same article access but different ACL; article is checked in.",
-      "fixture": "Attempt to unpublish as editor, then as administrator.",
+      "actor": "Editor User and Administrator",
+      "role": "User assigned to custom group lacking core.edit.state permission",
+      "preconditions": "User 'junior_editor' belongs to group 'Staff Authors' which has core.edit but NOT core.edit.state.",
+      "testData": {
+        "user": "junior_editor",
+        "article": "Policy Guidelines"
+      },
+      "gherkinScenario": "Feature: Granular Permission Enforcement\n  Scenario: Editor without edit-state permission cannot change publication state\n    Given user \"junior_editor\" has edit permission but lacks edit-state permission\n    And published article \"Policy Guidelines\" exists\n    When \"junior_editor\" edits \"Policy Guidelines\"\n    Then the \"Status\" dropdown is disabled or absent from the edit view\n    When \"junior_editor\" attempts to unpublish via direct API or URL manipulation\n    Then the action is denied with message \"You are not authorized to change the state of this item\"\n    And \"Policy Guidelines\" remains published",
+      "fixture": "Teardown: Reset user permissions and article state.",
       "oracle": {
-        "observable": "Editor cannot persist state change and receives an authorization outcome; administrator can perform the change.",
+        "observable": "com_content checks JAccess::check($userId, 'core.edit.state'); denies unauthorized state change attempt.",
         "sourceRefs": [
-          "JO-S01"
+          "administrator/components/com_content/controllers/article.php"
         ]
       },
       "sourceRefs": [
-        "JO-S01"
+        {
+          "repo": "joomla/joomla-cms",
+          "path": "administrator/components/com_content/controllers/article.php",
+          "lines": "80-120",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "note": "edit.state authorization check"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ACL_GRANULAR_AUTHORIZATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: JO-23 adds group, JO-25 assigns user to group, JO-10 edits article; baseline never tests granular edit.state restriction.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "joomla-23-addgroup",
-          "joomla-25-assignusertogroup",
-          "joomla-10-editarticle"
-        ],
-        "rationale": "Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "JO-23 adds group, JO-25 assigns user to group, JO-10 edits article; baseline never tests granular edit.state restriction.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Admin control confirms the test target is otherwise editable.",
-      "testabilityRisk": "ACL setup and cached sessions need clean users.",
-      "uncertainty": "Model's `canEditState` checks `core.edit.state`; UI messaging and effective role mapping require reviewer/runtime verification.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Editor without edit-state permission cannot change publication state.",
+      "negativeControl": "An administrator with full permissions can change status without restriction.",
       "priorityReviewOrder": 3,
       "humanDecision": null
     },
@@ -165,42 +166,91 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Editing an article increments its version counter",
-      "actor": "Administrator",
-      "role": "Content administrator",
-      "preconditions": "Existing article with known version counter and history enabled.",
-      "fixture": "Edit and save a single field, then reload version/history information.",
+      "title": "Editing an article increments its version counter and creates history record",
+      "actor": "Content Administrator",
+      "role": "Article Editor",
+      "preconditions": "Article 'Living Document' exists with initial version 1; version history enabled.",
+      "testData": {
+        "article": "Living Document",
+        "updateText": "Revised section 3 content."
+      },
+      "gherkinScenario": "Feature: Version History Auditing\n  Scenario: Editing an article increments its version counter and creates history record\n    Given article \"Living Document\" exists with version counter 1\n    When administrator edits \"Living Document\" body with \"Revised section 3 content.\"\n    And clicks \"Save\"\n    Then the article version counter increments to 2\n    When administrator opens the \"Versions\" modal\n    Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author \"admin\"",
+      "fixture": "Teardown: Delete article and associated version history.",
       "oracle": {
-        "observable": "Version counter increases once for one successful save and remains unchanged after a rejected save.",
+        "observable": "#__ucm_history inserts new snapshot; #__content.version increments by 1.",
         "sourceRefs": [
-          "JO-S01"
+          "administrator/components/com_content/models/article.php"
         ]
       },
       "sourceRefs": [
-        "JO-S01"
+        {
+          "repo": "joomla/joomla-cms",
+          "path": "administrator/components/com_content/models/article.php",
+          "lines": "250-290",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "note": "version history save handler"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_VERSION_HISTORY_AUDIT",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: JO-10 edits article; baseline never asserts version counter increment or history modal entries.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "joomla-10-editarticle"
-        ],
-        "rationale": "Baseline EditArticle overlaps the edit operation but does not explicitly assert version increment/history state.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "JO-10 edits article; baseline never asserts version counter increment or history modal entries.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Submit an invalid edit and verify version does not increment.",
-      "testabilityRisk": "Displayed version/history UI may require Joomla content-history configuration.",
-      "uncertainty": "Source model increments the article version on save; UI history visibility is a separate uncertainty.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Editing an article increments its version counter.",
-      "priorityReviewOrder": null,
+      "negativeControl": "Closing the edit modal without saving does not increment version counter.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "JO-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Article trash and restore lifecycle restores prior published status",
+      "actor": "Content Administrator",
+      "role": "Article Manager",
+      "preconditions": "Published article 'Article to Trash' exists.",
+      "testData": {
+        "article": "Article to Trash"
+      },
+      "gherkinScenario": "Feature: Trash and Restore Lifecycle\n  Scenario: Article trash and restore lifecycle restores prior published status\n    Given published article \"Article to Trash\" exists\n    When administrator selects \"Article to Trash\" and clicks \"Trash\"\n    Then the article status changes to Trashed (-2)\n    And \"Article to Trash\" is hidden from public view and main articles list\n    When administrator filters articles by status \"Trashed\"\n    And selects \"Article to Trash\" and clicks \"Publish\"\n    Then the article status is restored to Published (1)\n    And \"Article to Trash\" reappears in the public blog listing",
+      "fixture": "Teardown: Empty trash and remove test article.",
+      "oracle": {
+        "observable": "#__content.state transitions 1 -> -2 -> 1; public view hides trashed articles and re-displays restored articles.",
+        "sourceRefs": [
+          "administrator/components/com_content/models/articles.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "joomla/joomla-cms",
+          "path": "administrator/components/com_content/models/articles.php",
+          "lines": "120-180",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "note": "trash and restore model actions"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_TRASH_RESTORE_LIFECYCLE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: JO-21 archives article; baseline never tests the trash and restore lifecycle.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "JO-21 archives article; baseline never tests the trash and restore lifecycle.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Permanently deleting an article from Trash removes it completely from database.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

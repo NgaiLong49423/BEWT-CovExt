@@ -1,0 +1,476 @@
+{
+  "schemaVersion": "2.0.0",
+  "title": "BEWT-CovExt v2.0 Behavioral Taxonomy Baseline & RQ2 Denominator",
+  "verifiedAt": "2026-11-10T04:35:07.707966+00:00",
+  "baselineReference": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06",
+    "sourceStatus": "READ_ONLY_VERIFIED"
+  },
+  "aggregateBaselineCounts": {
+    "totalFeatureFiles": 257,
+    "totalExplicitScenarios": 234,
+    "totalTestSuiteClasses": 258,
+    "totalAssertions": 359
+  },
+  "defensibleDenominator": {
+    "denominatorName": "Unique Behavioral Units (UBU)",
+    "denominatorDefinition": "An orthogonal tuple (Domain Entity, Action / Operational Mode, Observable Invariant / State Transition) invariant to parameter variation or minor syntax rephrasing.",
+    "totalBaselineDenominator": 180,
+    "targetExpansion": 40,
+    "projectedPostExpansionUnits": 220,
+    "projectedProgramCoverageGain": "+22.22%"
+  },
+  "perApplicationBaselines": {
+    "bludit": {
+      "application": "bludit",
+      "baselineVersion": "2.3.4",
+      "physicalFeatureFiles": 23,
+      "explicitScenarioHeaders": 0,
+      "baselineTestSuiteClasses": 23,
+      "baselineAssertions": 27,
+      "baselineUniqueBehavioralUnits": 18,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 7,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "SYSTEM_CONFIGURATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 23,
+      "projectedCoverageGain": "+27.78%"
+    },
+    "claroline": {
+      "application": "claroline",
+      "baselineVersion": "1.11.10",
+      "physicalFeatureFiles": 40,
+      "explicitScenarioHeaders": 40,
+      "baselineTestSuiteClasses": 40,
+      "baselineAssertions": 73,
+      "baselineUniqueBehavioralUnits": 28,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 11,
+        "VALIDATION_BOUNDARY_NEGATIVE": 5,
+        "STATE_TRANSITION_LIFECYCLE": 3,
+        "ACCESS_CONTROL_PERMISSIONS": 5,
+        "SEARCH_FILTER_INSPECTION": 4
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 33,
+      "projectedCoverageGain": "+17.86%"
+    },
+    "expresscart": {
+      "application": "expresscart",
+      "baselineVersion": "1.1.19",
+      "physicalFeatureFiles": 31,
+      "explicitScenarioHeaders": 31,
+      "baselineTestSuiteClasses": 31,
+      "baselineAssertions": 43,
+      "baselineUniqueBehavioralUnits": 21,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 8,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "COMMERCE_TRANSACTION": 6,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 26,
+      "projectedCoverageGain": "+23.81%"
+    },
+    "joomla": {
+      "application": "joomla",
+      "baselineVersion": "3.10.11",
+      "physicalFeatureFiles": 35,
+      "explicitScenarioHeaders": 35,
+      "baselineTestSuiteClasses": 35,
+      "baselineAssertions": 43,
+      "baselineUniqueBehavioralUnits": 24,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 9,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "TAXONOMY_ORGANIZATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 3
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 29,
+      "projectedCoverageGain": "+20.83%"
+    },
+    "kanboard": {
+      "application": "kanboard",
+      "baselineVersion": "1.2.15",
+      "physicalFeatureFiles": 30,
+      "explicitScenarioHeaders": 30,
+      "baselineTestSuiteClasses": 30,
+      "baselineAssertions": 43,
+      "baselineUniqueBehavioralUnits": 20,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 6,
+        "VALIDATION_BOUNDARY_NEGATIVE": 5,
+        "STATE_TRANSITION_LIFECYCLE": 2,
+        "TAXONOMY_ORGANIZATION": 3,
+        "SEARCH_FILTER_INSPECTION": 2,
+        "SYSTEM_CONFIGURATION": 2
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 25,
+      "projectedCoverageGain": "+25.00%"
+    },
+    "mantisbt": {
+      "application": "mantisbt",
+      "baselineVersion": "1.2.0",
+      "physicalFeatureFiles": 38,
+      "explicitScenarioHeaders": 38,
+      "baselineTestSuiteClasses": 37,
+      "baselineAssertions": 51,
+      "baselineUniqueBehavioralUnits": 26,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 10,
+        "VALIDATION_BOUNDARY_NEGATIVE": 6,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "TAXONOMY_ORGANIZATION": 4,
+        "ACCESS_CONTROL_PERMISSIONS": 2
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 31,
+      "projectedCoverageGain": "+19.23%"
+    },
+    "mediawiki": {
+      "application": "mediawiki",
+      "baselineVersion": "1.40.0",
+      "physicalFeatureFiles": 27,
+      "explicitScenarioHeaders": 27,
+      "baselineTestSuiteClasses": 27,
+      "baselineAssertions": 44,
+      "baselineUniqueBehavioralUnits": 19,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 8,
+        "VALIDATION_BOUNDARY_NEGATIVE": 2,
+        "STATE_TRANSITION_LIFECYCLE": 4,
+        "SEARCH_FILTER_INSPECTION": 3,
+        "ACCESS_CONTROL_PERMISSIONS": 2
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 24,
+      "projectedCoverageGain": "+26.32%"
+    },
+    "prestashop": {
+      "application": "prestashop",
+      "baselineVersion": "1.6.1.23",
+      "physicalFeatureFiles": 33,
+      "explicitScenarioHeaders": 33,
+      "baselineTestSuiteClasses": 35,
+      "baselineAssertions": 35,
+      "baselineUniqueBehavioralUnits": 24,
+      "categoryBreakdown": {
+        "RESOURCE_CRUD_NOMINAL": 10,
+        "VALIDATION_BOUNDARY_NEGATIVE": 4,
+        "COMMERCE_TRANSACTION": 5,
+        "TAXONOMY_ORGANIZATION": 3,
+        "SYSTEM_CONFIGURATION": 2
+      },
+      "targetNewCandidates": 5,
+      "projectedPostUBU": 29,
+      "projectedCoverageGain": "+20.83%"
+    }
+  },
+  "candidateToTaxonomyMapping": {
+    "kanboard": [
+      {
+        "candidateId": "KB-GAP-001",
+        "title": "Reopen a closed task",
+        "noveltyClass": "NOVEL_LIFECYCLE_TRANSITION",
+        "projectedBehavioralUnit": "UBU-NEW-KB-GAP-001",
+        "observableContract": "Task status changes from closed to open in database and UI badge; task reappears on active Kanban board and matches status:open query."
+      },
+      {
+        "candidateId": "KB-GAP-002",
+        "title": "Create and view a task comment",
+        "noveltyClass": "NOVEL_COLLABORATION_FEATURE",
+        "projectedBehavioralUnit": "UBU-NEW-KB-GAP-002",
+        "observableContract": "Comment record is inserted into comments table linked to task_id; comment text and author username render in the task comment stream."
+      },
+      {
+        "candidateId": "KB-GAP-003",
+        "title": "Duplicate a task to another project",
+        "noveltyClass": "NOVEL_CROSS_PROJECT_OPERATION",
+        "projectedBehavioralUnit": "UBU-NEW-KB-GAP-003",
+        "observableContract": "New task record created in project Beta with copied title/description; source task record in project Alpha remains unmodified."
+      },
+      {
+        "candidateId": "KB-GAP-004",
+        "title": "Move a task to another project",
+        "noveltyClass": "NOVEL_WORKFLOW_MIGRATION",
+        "projectedBehavioralUnit": "UBU-NEW-KB-GAP-004",
+        "observableContract": "Task project_id is updated to Project B; task disappears from Project A board and appears in Project B first column."
+      },
+      {
+        "candidateId": "KB-GAP-008",
+        "title": "Add an internal subtask to a task",
+        "noveltyClass": "NOVEL_HIERARCHICAL_DECOMPOSITION",
+        "projectedBehavioralUnit": "UBU-NEW-KB-GAP-008",
+        "observableContract": "Subtask row inserted into subtasks table with task_id FK; subtask table renders item with default status 'Todo'."
+      }
+    ],
+    "bludit": [
+      {
+        "candidateId": "BL-GAP-001",
+        "title": "Scheduled pages are promoted on a request after their due time",
+        "noveltyClass": "NOVEL_TEMPORAL_STATE_PROMOTION",
+        "projectedBehavioralUnit": "UBU-NEW-BL-GAP-001",
+        "observableContract": "Database page entry status transitions from scheduled to published; page renders in published public collection."
+      },
+      {
+        "candidateId": "BL-GAP-002",
+        "title": "Cover image selection persists and renders for content",
+        "noveltyClass": "NOVEL_MEDIA_ATTACHMENT_PERSISTENCE",
+        "projectedBehavioralUnit": "UBU-NEW-BL-GAP-002",
+        "observableContract": "page.coverImage field persists the image identifier and theme template resolves and renders image tag."
+      },
+      {
+        "candidateId": "BL-GAP-003",
+        "title": "Static status maps to page type and the static-page collection",
+        "noveltyClass": "NOVEL_CONTENT_TYPE_PARTITIONING",
+        "projectedBehavioralUnit": "UBU-NEW-BL-GAP-003",
+        "observableContract": "dbPages categorizes record under static collection rather than published posts stream; static navigation resolves page."
+      },
+      {
+        "candidateId": "BL-GAP-004",
+        "title": "Administrator can change a non-admin user's role and retain it",
+        "noveltyClass": "NOVEL_AUTHORIZATION_MODIFICATION",
+        "projectedBehavioralUnit": "UBU-NEW-BL-GAP-004",
+        "observableContract": "dbUsers record updates role field to administrator; subsequent session grants admin route permissions."
+      },
+      {
+        "candidateId": "BL-GAP-005",
+        "title": "Category creation and filtered content listing",
+        "noveltyClass": "NOVEL_TAXONOMY_FILTERING",
+        "projectedBehavioralUnit": "UBU-NEW-BL-GAP-005",
+        "observableContract": "dbCategories registers category slug; public category route filters posts by category key."
+      }
+    ],
+    "claroline": [
+      {
+        "candidateId": "CL-GAP-001",
+        "title": "Course document upload, move and delete lifecycle",
+        "noveltyClass": "NOVEL_DOCUMENT_MANAGEMENT",
+        "projectedBehavioralUnit": "UBU-NEW-CL-GAP-001",
+        "observableContract": "Document records in claro_document table update path during move and delete marks record deleted; filesystem confirms file existence then removal."
+      },
+      {
+        "candidateId": "CL-GAP-002",
+        "title": "Group space is inaccessible to a non-member student in a private group",
+        "noveltyClass": "NOVEL_GROUP_AUTHORIZATION_BOUNDARY",
+        "projectedBehavioralUnit": "UBU-NEW-CL-GAP-002",
+        "observableContract": "claro_is_in_a_group check fails; claro_disp_auth_url denies access; HTTP redirect and error message triggered."
+      },
+      {
+        "candidateId": "CL-GAP-003",
+        "title": "Teacher imports an exercise package into a course",
+        "noveltyClass": "NOVEL_PACKAGE_INGESTION",
+        "projectedBehavioralUnit": "UBU-NEW-CL-GAP-003",
+        "observableContract": "exercise and question tables populated from zip package XML schema; imported exercise immediately available for student attempts."
+      },
+      {
+        "candidateId": "CL-GAP-004",
+        "title": "Tracking controls are teacher-only while exercise attempts remain student-facing",
+        "noveltyClass": "NOVEL_ANALYTICS_ACCESS_CONTROL",
+        "projectedBehavioralUnit": "UBU-NEW-CL-GAP-004",
+        "observableContract": "Tracking UI restricted by is_course_allowed('tracking'); tracking database logs student score and renders aggregated analytics for teacher."
+      },
+      {
+        "candidateId": "CL-GAP-005",
+        "title": "Course announcement creation, publication, and student notification visibility",
+        "noveltyClass": "NOVEL_COURSE_COMMUNICATION",
+        "projectedBehavioralUnit": "UBU-NEW-CL-GAP-005",
+        "observableContract": "claro_announcement table receives new record; course home view pulls and displays active announcements."
+      }
+    ],
+    "expresscart": [
+      {
+        "candidateId": "EC-GAP-002",
+        "title": "Stock tracking rejects a cart quantity above available product or variant stock",
+        "noveltyClass": "NOVEL_INVENTORY_BOUNDARY",
+        "projectedBehavioralUnit": "UBU-NEW-EC-GAP-002",
+        "observableContract": "routes/index.js cart update validates against productStock; rejects over-quantity and leaves session cart count at 1."
+      },
+      {
+        "candidateId": "EC-GAP-003",
+        "title": "Customer address update persists and is copied from session into checkout information",
+        "noveltyClass": "NOVEL_CUSTOMER_CHECKOUT_INTEGRATION",
+        "projectedBehavioralUnit": "UBU-NEW-EC-GAP-003",
+        "observableContract": "POST /customer/update updates database and req.session.customer*; checkout view automatically inherits session address."
+      },
+      {
+        "candidateId": "EC-GAP-004",
+        "title": "Invalid discount date windows are rejected during admin update",
+        "noveltyClass": "NOVEL_PROMOTION_DATE_VALIDATION",
+        "projectedBehavioralUnit": "UBU-NEW-EC-GAP-004",
+        "observableContract": "routes/admin.js discount update validates start_date < end_date; rejects invalid range and preserves prior DB state."
+      },
+      {
+        "candidateId": "EC-GAP-005",
+        "title": "Customer registration validation rejects duplicate email address with clear feedback",
+        "noveltyClass": "NOVEL_CUSTOMER_IDENTITY_CONSTRAINT",
+        "projectedBehavioralUnit": "UBU-NEW-EC-GAP-005",
+        "observableContract": "POST /customer/create queries db.customers.findOne; finds duplicate email and returns HTTP 400 error."
+      },
+      {
+        "candidateId": "EC-GAP-006",
+        "title": "Admin product stock update directly updates storefront inventory badge and cart capability",
+        "noveltyClass": "NOVEL_INVENTORY_STOREFRONT_SYNCHRONIZATION",
+        "projectedBehavioralUnit": "UBU-NEW-EC-GAP-006",
+        "observableContract": "Stock update persists in MongoDB; storefront product view dynamically renders in-stock badge and unlocks cart addition."
+      }
+    ],
+    "joomla": [
+      {
+        "candidateId": "JO-GAP-001",
+        "title": "Featured article flag appears and is removed from the featured list",
+        "noveltyClass": "NOVEL_FEATURED_CONTENT_GOVERNANCE",
+        "projectedBehavioralUnit": "UBU-NEW-JO-GAP-001",
+        "observableContract": "content_frontpage table entry is created then deleted; article published state in #__content remains 1."
+      },
+      {
+        "candidateId": "JO-GAP-002",
+        "title": "Publish-up and publish-down define the article visibility window",
+        "noveltyClass": "NOVEL_TIMED_PUBLICATION_LIFECYCLE",
+        "projectedBehavioralUnit": "UBU-NEW-JO-GAP-002",
+        "observableContract": "SQL queries filter by (publish_up <= NOW() AND (publish_down >= NOW() OR publish_down = '0000-00-00 00:00:00'))."
+      },
+      {
+        "candidateId": "JO-GAP-003",
+        "title": "Editor without edit-state permission cannot change publication state",
+        "noveltyClass": "NOVEL_ACL_GRANULAR_AUTHORIZATION",
+        "projectedBehavioralUnit": "UBU-NEW-JO-GAP-003",
+        "observableContract": "com_content checks JAccess::check($userId, 'core.edit.state'); denies unauthorized state change attempt."
+      },
+      {
+        "candidateId": "JO-GAP-004",
+        "title": "Editing an article increments its version counter and creates history record",
+        "noveltyClass": "NOVEL_VERSION_HISTORY_AUDIT",
+        "projectedBehavioralUnit": "UBU-NEW-JO-GAP-004",
+        "observableContract": "#__ucm_history inserts new snapshot; #__content.version increments by 1."
+      },
+      {
+        "candidateId": "JO-GAP-005",
+        "title": "Article trash and restore lifecycle restores prior published status",
+        "noveltyClass": "NOVEL_TRASH_RESTORE_LIFECYCLE",
+        "projectedBehavioralUnit": "UBU-NEW-JO-GAP-005",
+        "observableContract": "#__content.state transitions 1 -> -2 -> 1; public view hides trashed articles and re-displays restored articles."
+      }
+    ],
+    "mantisbt": [
+      {
+        "candidateId": "MB-GAP-001",
+        "title": "User monitors and stops monitoring an issue for their own account",
+        "noveltyClass": "NOVEL_ISSUE_OBSERVATION_STATE",
+        "projectedBehavioralUnit": "UBU-NEW-MB-GAP-001",
+        "observableContract": "mantis_bug_monitor_table adds then deletes (user_id, bug_id) record; UI updates monitor button toggle and list."
+      },
+      {
+        "candidateId": "MB-GAP-002",
+        "title": "Private issue note is hidden from users below the private-note threshold",
+        "noveltyClass": "NOVEL_NOTE_PRIVACY_BOUNDARY",
+        "projectedBehavioralUnit": "UBU-NEW-MB-GAP-002",
+        "observableContract": "bugnote view query filters by view_state == 50; users below private_bugnote_threshold cannot see private notes."
+      },
+      {
+        "candidateId": "MB-GAP-003",
+        "title": "Issue relationship rejects self-link and duplicate links",
+        "noveltyClass": "NOVEL_ISSUE_RELATION_CONSTRAINTS",
+        "projectedBehavioralUnit": "UBU-NEW-MB-GAP-003",
+        "observableContract": "mantis_bug_relationship_table enforces uniqueness and disallows source_bug_id == dest_bug_id."
+      },
+      {
+        "candidateId": "MB-GAP-004",
+        "title": "Issue attachment upload is persisted and rejects invalid input",
+        "noveltyClass": "NOVEL_ATTACHMENT_MANAGEMENT",
+        "projectedBehavioralUnit": "UBU-NEW-MB-GAP-004",
+        "observableContract": "mantis_bug_file_table stores file metadata; file content stored in disk/db and retrievable via file_download.php."
+      },
+      {
+        "candidateId": "MB-GAP-005",
+        "title": "Issue tag attachment, display, and tag-based issue filter retrieval",
+        "noveltyClass": "NOVEL_TAGGING_TAXONOMY",
+        "projectedBehavioralUnit": "UBU-NEW-MB-GAP-005",
+        "observableContract": "mantis_tag_table and mantis_bug_tag_table link tag to bug; filter query joins tag table and returns matching issues."
+      }
+    ],
+    "mediawiki": [
+      {
+        "candidateId": "MW-GAP-001",
+        "title": "Moving a page preserves content at the target and creates a redirect",
+        "noveltyClass": "NOVEL_PAGE_MIGRATION",
+        "projectedBehavioralUnit": "UBU-NEW-MW-GAP-001",
+        "observableContract": "page title is updated in page table; old page title becomes page with redirect flag and body #REDIRECT [[Current Feature Guide]]."
+      },
+      {
+        "candidateId": "MW-GAP-002",
+        "title": "Watch and unwatch state is scoped to the signed-in user",
+        "noveltyClass": "NOVEL_USER_PREFERENCE_ISOLATION",
+        "projectedBehavioralUnit": "UBU-NEW-MW-GAP-002",
+        "observableContract": "watchlist table receives row (wl_user, wl_namespace, wl_title) for Alice only; Bob's query returns null."
+      },
+      {
+        "candidateId": "MW-GAP-003",
+        "title": "Upload validation rejects a disallowed file extension without creating a file page",
+        "noveltyClass": "NOVEL_UPLOAD_VALIDATION",
+        "projectedBehavioralUnit": "UBU-NEW-MW-GAP-003",
+        "observableContract": "UploadBase::checkFileExtension returns FILE_EXTENSION_ERROR; no record in image table or File: page created."
+      },
+      {
+        "candidateId": "MW-GAP-004",
+        "title": "Revision history side-by-side diff comparison between two consecutive edits",
+        "noveltyClass": "NOVEL_DIFF_ENGINE_INSPECTION",
+        "projectedBehavioralUnit": "UBU-NEW-MW-GAP-004",
+        "observableContract": "DifferenceEngine renders table.diff containing class 'diff-deletedline' and class 'diff-addedline' with expected texts."
+      },
+      {
+        "candidateId": "MW-GAP-005",
+        "title": "Page protection restriction level modification restricts editing to administrators",
+        "noveltyClass": "NOVEL_ACCESS_RESTRICTION_GOVERNANCE",
+        "projectedBehavioralUnit": "UBU-NEW-MW-GAP-005",
+        "observableContract": "page_restrictions table receives row (pr_page, pr_type='edit', pr_level='sysop'); userCan checks user_groups; denies non-admin."
+      }
+    ],
+    "prestashop": [
+      {
+        "candidateId": "PS-GAP-001",
+        "title": "Cart-rule per-customer usage limit is enforced",
+        "noveltyClass": "NOVEL_VOUCHER_QUOTA_CONTROL",
+        "projectedBehavioralUnit": "UBU-NEW-PS-GAP-001",
+        "observableContract": "CartRule::checkValidity verifies count in ps_order_cart_rule against quantity_per_user; rejects second redemption."
+      },
+      {
+        "candidateId": "PS-GAP-002",
+        "title": "Carrier eligibility follows configured price/weight range",
+        "noveltyClass": "NOVEL_CARRIER_THRESHOLD_SELECTION",
+        "projectedBehavioralUnit": "UBU-NEW-PS-GAP-002",
+        "observableContract": "Carrier::getCarriersForOrder evaluates ps_range_price; filters available carriers based on order subtotal."
+      },
+      {
+        "candidateId": "PS-GAP-003",
+        "title": "Successful payment creates one order and applies stock synchronization",
+        "noveltyClass": "NOVEL_ORDER_STOCK_SYNCHRONIZATION",
+        "projectedBehavioralUnit": "UBU-NEW-PS-GAP-003",
+        "observableContract": "PaymentModule::validateOrder creates ps_orders row, order history entry, and calls StockAvailable::updateQuantity(-2)."
+      },
+      {
+        "candidateId": "PS-GAP-004",
+        "title": "Available quantity update stays consistent with product combination stock",
+        "noveltyClass": "NOVEL_COMBINATION_STOCK_PARTITIONING",
+        "projectedBehavioralUnit": "UBU-NEW-PS-GAP-004",
+        "observableContract": "ps_stock_available stores distinct rows per id_product_attribute; frontend AJAX update correctly reflects combination quantity."
+      },
+      {
+        "candidateId": "PS-GAP-005",
+        "title": "Customer group discount applies configured percentage reduction to catalog price",
+        "noveltyClass": "NOVEL_GROUP_BASED_PRICING",
+        "projectedBehavioralUnit": "UBU-NEW-PS-GAP-005",
+        "observableContract": "Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00."
+      }
+    ]
+  }
+}

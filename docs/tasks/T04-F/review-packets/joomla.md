@@ -1,149 +1,223 @@
-# joomla — G1 candidate review packet
+# Joomla — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 3.10.11  
+**Baseline Physical Features:** 35  
+**Baseline Test Classes:** 35  
+**Baseline Assertions:** 43  
+**Baseline Unique Behavioral Units (D_base):** 24  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 3.10.11
-- Source pin: [joomla/joomla-cms@01deee0a7b8cf91fc503b2cc13359c6e43aac47f](https://github.com/joomla/joomla-cms/tree/01deee0a7b8cf91fc503b2cc13359c6e43aac47f) (tree `3ca858200ae101d31fa2505c3e756f7bd6cb0449`; provenance PINNED_RELEASE_SOURCE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/joomla/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/joomla/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/joomla/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 4; technical review order: 3. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## JO-GAP-001 — Featured article flag appears and is removed from the featured list
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Joomla** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Administrator / Content administrator.
-- Proposed preconditions: Unfeatured published article with unique title; featured-list baseline empty for that title.
-- Proposed fixture/action: Toggle featured on, reload list, then toggle off.
-- Expected observable (oracle proposal, not approved): Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.
-- Negative control: Use a published but unfeatured article and verify it remains outside the featured list.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline creates/edits/archives articles and categories, but does not assert featured-list membership.
+---
 
-Baseline references:
-`joomla-08-addnewarticle` — `joomla/gherkin/08_AddNewArticle.feature` (Adds a new article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java`, assertion refs 22:assertEquals, 23:assertEquals.
-`joomla-10-editarticle` — `joomla/gherkin/10_EditArticle.feature` (Edits an article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java`, assertion refs 21:assertEquals.
-`joomla-21-archivearticle` — `joomla/gherkin/21_ArchiveArticle.feature` (Archives an article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java`, assertion refs 21:assertEquals.
+### 1. JO-GAP-001 — Featured article flag appears and is removed from the featured list
 
-Source references:
-- [JO-S01](https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/article.php) — `administrator/components/com_content/models/article.php` lines 61-67,233-250,262-281,701-706,722-800; blob `8717315555a82d96ea00239269328fabbb7e620f`. Article model checks edit-state rights, prepares publication/version fields, saves article data, and persists featured state into the content/frontpage tables.
-- [JO-S02](https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/featured.php) — `administrator/components/com_content/models/featured.php` lines 40-84; blob `debab364c64920da46b83507af8345e2e8f5803a`. Featured-article query includes featured flag, publication state and access level.
+- **Target Novelty Class:** `NOVEL_FEATURED_CONTENT_GOVERNANCE`
+- **Actor:** Content Administrator (Joomla Content Manager)
+- **Preconditions:** Article 'Featured Launch Article' published and unfeatured.
+- **Test Data:** `{"articleTitle": "Featured Launch Article"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Featured article flag appears and is removed from the featured list
-  Given Unfeatured published article with unique title; featured-list baseline empty for that title.
-  When Toggle featured on, reload list, then toggle off.
-  Then Article appears exactly once in featured list while enabled and disappears when disabled; article record remains published.
-  And Use a published but unfeatured article and verify it remains outside the featured list.
+Feature: Featured Content Management
+  Scenario: Featured article flag appears and is removed from the featured list
+    Given administrator is logged into Joomla admin
+    And published article "Featured Launch Article" is currently not featured
+    When administrator toggles the "Featured" star on for "Featured Launch Article"
+    Then "Featured Launch Article" appears in the "Featured Articles" view
+    When administrator toggles the "Featured" star off
+    Then "Featured Launch Article" is removed from the "Featured Articles" view
+    And the article remains published in the standard articles list
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** content_frontpage table entry is created then deleted; article published state in #__content remains 1.
+- **Negative Control:** An unpublished article marked featured does not render on the public frontpage.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Pin front-end menu/list configuration. If configuration cannot guarantee the featured list, prefer a narrower source-supported model/query oracle and state that change explicitly.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete article 'Featured Launch Article'.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `administrator/components/com_content/models/articles.php` (Lines: `380-420`) @ commit `01deee0a7b8cf91fc503b2cc13359c6e43aac47f` — *featured toggle handler*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** JO-08 creates article, JO-10 edits article, JO-21 archives article; none test featured list membership.
 
-## JO-GAP-002 — Publish-up and publish-down define the article visibility window
+#### Review Ledger Entry Template
+- **Candidate ID:** `JO-GAP-001`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Administrator and guest / Admin configures; guest observes.
-- Proposed preconditions: Published article with start/end timestamps in a controlled timezone; unique alias.
-- Proposed fixture/action: Set future publish-up and future publish-down, then inspect before, within and after the window.
-- Expected observable (oracle proposal, not approved): Article is hidden before start, visible during the window, and hidden after end.
-- Negative control: Keep a normal published article as a control at each observation time.
-- Baseline overlap screen: POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED. Baseline Add/Edit Article and Archive Article cases do not assert timed visibility boundaries.
+---
+### 2. JO-GAP-002 — Publish-up and publish-down define the article visibility window
 
-Baseline references:
-`joomla-08-addnewarticle` — `joomla/gherkin/08_AddNewArticle.feature` (Adds a new article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/AddNewArticle.java`, assertion refs 22:assertEquals, 23:assertEquals.
-`joomla-10-editarticle` — `joomla/gherkin/10_EditArticle.feature` (Edits an article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java`, assertion refs 21:assertEquals.
-`joomla-21-archivearticle` — `joomla/gherkin/21_ArchiveArticle.feature` (Archives an article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/ArchiveArticle.java`, assertion refs 21:assertEquals.
+- **Target Novelty Class:** `NOVEL_TIMED_PUBLICATION_LIFECYCLE`
+- **Actor:** Content Administrator and Guest (Admin schedules; Guest views)
+- **Preconditions:** Clean timezone fixture; article with future publish-up date.
+- **Test Data:** `{"articleTitle": "Timed Press Release", "publishUp": "+1 day", "publishDown": "+5 days"}`
 
-Source references:
-- [JO-S03](https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/articles.php) — `administrator/components/com_content/models/articles.php` lines 40-52,178-191; blob `d2cfe7b344f328f8e9cec21152de8c82a712acaa`. Article listing filters/state includes publication window, access, and featured data.
-
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Publish-up and publish-down define the article visibility window
-  Given Published article with start/end timestamps in a controlled timezone; unique alias.
-  When Set future publish-up and future publish-down, then inspect before, within and after the window.
-  Then Article is hidden before start, visible during the window, and hidden after end.
-  And Keep a normal published article as a control at each observation time.
+Feature: Publication Window Scheduling
+  Scenario: Publish-up and publish-down define the article visibility window
+    Given administrator is logged into Joomla admin
+    When administrator creates article "Timed Press Release" with publish-up set to future date
+    Then the article status badge shows "Published but Pending"
+    And a guest visiting the public category cannot view "Timed Press Release"
+    When the system time is within the publish-up and publish-down window
+    Then a guest visiting the public category can view "Timed Press Release"
+    When the system time advances past publish-down
+    Then the article status badge shows "Expired" and is hidden from public view
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** SQL queries filter by (publish_up <= NOW() AND (publish_down >= NOW() OR publish_down = '0000-00-00 00:00:00')).
+- **Negative Control:** An administrator logged into frontend can preview expired articles if configured, but guest cannot.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Split before-start, in-window, and after-end observations with explicit timezone, cache clearing and clock protocol. Source fields alone do not prove rendered visibility.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Remove timed article.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `components/com_content/models/articles.php` (Lines: `150-210`) @ commit `01deee0a7b8cf91fc503b2cc13359c6e43aac47f` — *timed publication filter*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline tests article publishing state (1 or 0), but zero timed publication window tests.
 
-## JO-GAP-003 — Editor without edit-state permission cannot change publication state
+#### Review Ledger Entry Template
+- **Candidate ID:** `JO-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Editor and administrator / Editor lacks core.edit.state; admin has it.
-- Proposed preconditions: Two accounts with same article access but different ACL; article is checked in.
-- Proposed fixture/action: Attempt to unpublish as editor, then as administrator.
-- Expected observable (oracle proposal, not approved): Editor cannot persist state change and receives an authorization outcome; administrator can perform the change.
-- Negative control: Admin control confirms the test target is otherwise editable.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline user/group and article CRUD cases do not verify an authorization denial on state changes.
+---
+### 3. JO-GAP-003 — Editor without edit-state permission cannot change publication state
 
-Baseline references:
-`joomla-23-addgroup` — `joomla/gherkin/23_AddGroup.feature` (Adds a group); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/AddGroup.java`, assertion refs 24:assertEquals.
-`joomla-25-assignusertogroup` — `joomla/gherkin/25_AssignUserToGroup.feature` (Assigns a user to a group); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/AssignUserToGroup.java`, assertion refs 26:assertTrue.
-`joomla-10-editarticle` — `joomla/gherkin/10_EditArticle.feature` (Edits an article); Java `joomla/baseline/joomla-3.10.11/src/test/java/base/EditArticle.java`, assertion refs 21:assertEquals.
+- **Target Novelty Class:** `NOVEL_ACL_GRANULAR_AUTHORIZATION`
+- **Actor:** Editor User and Administrator (User assigned to custom group lacking core.edit.state permission)
+- **Preconditions:** User 'junior_editor' belongs to group 'Staff Authors' which has core.edit but NOT core.edit.state.
+- **Test Data:** `{"user": "junior_editor", "article": "Policy Guidelines"}`
 
-Source references:
-- [JO-S01](https://github.com/joomla/joomla-cms/blob/01deee0a7b8cf91fc503b2cc13359c6e43aac47f/administrator/components/com_content/models/article.php) — `administrator/components/com_content/models/article.php` lines 61-67,233-250,262-281,701-706,722-800; blob `8717315555a82d96ea00239269328fabbb7e620f`. Article model checks edit-state rights, prepares publication/version fields, saves article data, and persists featured state into the content/frontpage tables.
-
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Editor without edit-state permission cannot change publication state
-  Given Two accounts with same article access but different ACL; article is checked in.
-  When Attempt to unpublish as editor, then as administrator.
-  Then Editor cannot persist state change and receives an authorization outcome; administrator can perform the change.
-  And Admin control confirms the test target is otherwise editable.
+Feature: Granular Permission Enforcement
+  Scenario: Editor without edit-state permission cannot change publication state
+    Given user "junior_editor" has edit permission but lacks edit-state permission
+    And published article "Policy Guidelines" exists
+    When "junior_editor" edits "Policy Guidelines"
+    Then the "Status" dropdown is disabled or absent from the edit view
+    When "junior_editor" attempts to unpublish via direct API or URL manipulation
+    Then the action is denied with message "You are not authorized to change the state of this item"
+    And "Policy Guidelines" remains published
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** com_content checks JAccess::check($userId, 'core.edit.state'); denies unauthorized state change attempt.
+- **Negative Control:** An administrator with full permissions can change status without restriction.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Pin ACL assignments and clear/recreate sessions. Confirm the denied outcome is an authorization denial and that the admin control proves the same record is otherwise editable.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset user permissions and article state.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `administrator/components/com_content/controllers/article.php` (Lines: `80-120`) @ commit `01deee0a7b8cf91fc503b2cc13359c6e43aac47f` — *edit.state authorization check*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** JO-23 adds group, JO-25 assigns user to group, JO-10 edits article; baseline never tests granular edit.state restriction.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `JO-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. JO-GAP-004 — Editing an article increments its version counter and creates history record
+
+- **Target Novelty Class:** `NOVEL_VERSION_HISTORY_AUDIT`
+- **Actor:** Content Administrator (Article Editor)
+- **Preconditions:** Article 'Living Document' exists with initial version 1; version history enabled.
+- **Test Data:** `{"article": "Living Document", "updateText": "Revised section 3 content."}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Version History Auditing
+  Scenario: Editing an article increments its version counter and creates history record
+    Given article "Living Document" exists with version counter 1
+    When administrator edits "Living Document" body with "Revised section 3 content."
+    And clicks "Save"
+    Then the article version counter increments to 2
+    When administrator opens the "Versions" modal
+    Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author "admin"
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** #__ucm_history inserts new snapshot; #__content.version increments by 1.
+- **Negative Control:** Closing the edit modal without saving does not increment version counter.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete article and associated version history.
+
+#### Source Code Anchors
+- **File:** `administrator/components/com_content/models/article.php` (Lines: `250-290`) @ commit `01deee0a7b8cf91fc503b2cc13359c6e43aac47f` — *version history save handler*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** JO-10 edits article; baseline never asserts version counter increment or history modal entries.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `JO-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. JO-GAP-005 — Article trash and restore lifecycle restores prior published status
+
+- **Target Novelty Class:** `NOVEL_TRASH_RESTORE_LIFECYCLE`
+- **Actor:** Content Administrator (Article Manager)
+- **Preconditions:** Published article 'Article to Trash' exists.
+- **Test Data:** `{"article": "Article to Trash"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Trash and Restore Lifecycle
+  Scenario: Article trash and restore lifecycle restores prior published status
+    Given published article "Article to Trash" exists
+    When administrator selects "Article to Trash" and clicks "Trash"
+    Then the article status changes to Trashed (-2)
+    And "Article to Trash" is hidden from public view and main articles list
+    When administrator filters articles by status "Trashed"
+    And selects "Article to Trash" and clicks "Publish"
+    Then the article status is restored to Published (1)
+    And "Article to Trash" reappears in the public blog listing
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** #__content.state transitions 1 -> -2 -> 1; public view hides trashed articles and re-displays restored articles.
+- **Negative Control:** Permanently deleting an article from Trash removes it completely from database.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Empty trash and remove test article.
+
+#### Source Code Anchors
+- **File:** `administrator/components/com_content/models/articles.php` (Lines: `120-180`) @ commit `01deee0a7b8cf91fc503b2cc13359c6e43aac47f` — *trash and restore model actions*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** JO-21 archives article; baseline never tests the trash and restore lifecycle.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `JO-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---

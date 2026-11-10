@@ -1,137 +1,222 @@
-# prestashop — G1 candidate review packet
+# Prestashop — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 1.6.1.23  
+**Baseline Physical Features:** 33  
+**Baseline Test Classes:** 35  
+**Baseline Assertions:** 35  
+**Baseline Unique Behavioral Units (D_base):** 24  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 1.6.1.23
-- Source pin: [PrestaShop/PrestaShop@475d65fbda93403cd1afde0db09764c5295e952c](https://github.com/PrestaShop/PrestaShop/tree/475d65fbda93403cd1afde0db09764c5295e952c) (tree `49d5f69067638991fca7bf7b16bf79700793cff4`; provenance PINNED_RELEASE_SOURCE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/prestashop/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/prestashop/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/prestashop/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 4; technical review order: 3. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## PS-GAP-001 — Cart-rule per-customer usage limit is enforced
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Prestashop** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Customer and shop administrator / Admin configures; customer redeems.
-- Proposed preconditions: Cart rule with quantity_per_user=1; customer account; eligible cart; rule unused by that customer.
-- Proposed fixture/action: Redeem once, reset cart and attempt to redeem again as the same customer.
-- Expected observable (oracle proposal, not approved): First redemption is accepted; second is rejected or omitted and the order total reflects no second discount.
-- Negative control: A different customer can redeem if global quantity remains available.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline adds/edits products, customers and address data but has no mapped cart-rule redemption case.
+---
 
-Source references:
-- [PS-S01](https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/CartRule.php) — `classes/CartRule.php` lines 41-57,88-97,504-532; blob `762371fb28f33c162be00c92a47a409a4b331de7`. Cart-rule model carries per-customer quantity, minimum amount, carrier/product restrictions and checks validity.
+### 1. PS-GAP-001 — Cart-rule per-customer usage limit is enforced
 
-### Gherkin sketch — draft for review only
+- **Target Novelty Class:** `NOVEL_VOUCHER_QUOTA_CONTROL`
+- **Actor:** Customer and Shop Administrator (Admin creates voucher; Customer redeems)
+- **Preconditions:** Cart rule 'WELCOME10' configured with discount 10%, global quantity 100, and quantity_per_user=1; customer 'cust1@example.com'.
+- **Test Data:** `{"voucherCode": "WELCOME10", "customer": "cust1@example.com"}`
 
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Cart-rule per-customer usage limit is enforced
-  Given Cart rule with quantity_per_user=1; customer account; eligible cart; rule unused by that customer.
-  When Redeem once, reset cart and attempt to redeem again as the same customer.
-  Then First redemption is accepted; second is rejected or omitted and the order total reflects no second discount.
-  And A different customer can redeem if global quantity remains available.
+Feature: Voucher Usage Quotas
+  Scenario: Cart-rule per-customer usage limit is enforced
+    Given cart rule "WELCOME10" is active with a usage limit of 1 per customer
+    And customer "cust1@example.com" has an active cart with qualifying items
+    When the customer applies voucher "WELCOME10"
+    Then voucher "WELCOME10" is accepted and a 10% discount is deducted from order total
+    When the customer completes the order
+    And creates a second cart and attempts to apply voucher "WELCOME10" again
+    Then voucher application is rejected with message "You cannot use this voucher anymore (usage limit reached)"
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** CartRule::checkValidity verifies count in ps_order_cart_rule against quantity_per_user; rejects second redemption.
+- **Negative Control:** A different customer account can redeem WELCOME10 for their first order.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Define first and second redemption as separate completed order/usage observations; reset the cart without resetting the per-customer usage record. Verify totals and usage count.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete cart rule and test orders.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `classes/CartRule.php` (Lines: `450-520`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *per-user voucher quota validation*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline adds products, customers, and categories, but zero voucher/cart-rule tests.
 
-## PS-GAP-002 — Carrier eligibility follows configured price/weight range
+#### Review Ledger Entry Template
+- **Candidate ID:** `PS-GAP-001`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Customer and administrator / Admin configures; customer selects carrier.
-- Proposed preconditions: Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary.
-- Proposed fixture/action: Proceed to carrier selection with cart value/weight below, at and above configured ranges.
-- Expected observable (oracle proposal, not approved): The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies.
-- Negative control: Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline address/category/product cases do not check shipping carrier selection or range boundaries.
+---
+### 2. PS-GAP-002 — Carrier eligibility follows configured price/weight range
 
-Source references:
-- [PS-S02](https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/Carrier.php) — `classes/Carrier.php` lines 30-47,66-93,248-299,330-412,602-686,1283-1419; blob `704763700a5deb01b4f69fdc5a864e4c76e9d92d`. Carrier model calculates range-based delivery prices and filters carriers for an order; range_behavior=disabled removes out-of-range carriers, while other configured behavior permits fallback pricing.
+- **Target Novelty Class:** `NOVEL_CARRIER_THRESHOLD_SELECTION`
+- **Actor:** Customer and Administrator (Admin sets carrier ranges; Customer selects delivery)
+- **Preconditions:** Carrier 'Express Air' configured for cart total >= $50.00; Carrier 'Standard Ground' configured for all carts.
+- **Test Data:** `{"carrierAir": "Express Air", "threshold": 50.0}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Carrier eligibility follows configured price/weight range
-  Given Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary.
-  When Proceed to carrier selection with cart value/weight below, at and above configured ranges.
-  Then The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies.
-  And Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.
+Feature: Shipping Carrier Eligibility
+  Scenario: Carrier eligibility follows configured price/weight range
+    Given carrier "Express Air" is configured for minimum order total $50.00
+    And carrier "Standard Ground" is configured for all order amounts
+    When customer has a cart with total value $30.00 and proceeds to shipping step
+    Then only "Standard Ground" is displayed as an available shipping option
+    When customer increases cart quantity so total value becomes $75.00
+    And proceeds to shipping step
+    Then both "Standard Ground" and "Express Air" are selectable options
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** Carrier::getCarriersForOrder evaluates ps_range_price; filters available carriers based on order subtotal.
+- **Negative Control:** If carrier range behavior is set to disable carrier when out of range, carrier is omitted rather than erroring.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Separate price-range and weight-range scenarios, and separately pin fallback mode. The current combined oracle has multiple branches that should not be conflated.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset carrier ranges.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `classes/Carrier.php` (Lines: `320-390`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *carrier range eligibility calculation*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline tests addresses and checkout steps, but never tests carrier price/weight threshold eligibility.
 
-## PS-GAP-003 — Successful payment creates one order and applies stock synchronization
+#### Review Ledger Entry Template
+- **Candidate ID:** `PS-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Customer / Registered customer with checkout access.
-- Proposed preconditions: One available product, known initial stock, valid address and deterministic test payment module.
-- Proposed fixture/action: Complete checkout once; reload order confirmation and product stock.
-- Expected observable (oracle proposal, not approved): Exactly one order/history entry exists and stock quantity changes according to configured stock-dependency mode.
-- Negative control: Force payment validation failure and verify no completed order/stock decrement is falsely recorded.
-- Baseline overlap screen: POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED. Baseline out-of-stock validity concerns product state but does not exercise payment-to-order transition or stock delta.
+---
+### 3. PS-GAP-003 — Successful payment creates one order and applies stock synchronization
 
-Baseline references:
-`prestashop-28-outofstockvalidity` — `prestashop/gherkin/28_OutOfStockValidity.feature` (Tries to create an order for an out of stock product and fails); Java `prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/OutOfStockValidity.java`, assertion refs 23:assertTrue.
-`prestashop-01-addnewproduct` — `prestashop/gherkin/01_AddNewProduct.feature` (Adds a new product); Java `prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewProduct.java`, assertion refs 20:assertTrue.
+- **Target Novelty Class:** `NOVEL_ORDER_STOCK_SYNCHRONIZATION`
+- **Actor:** Customer (Shopper completing checkout)
+- **Preconditions:** Product 'Printed Summer Dress' has stock=10; customer at payment step with valid cart.
+- **Test Data:** `{"product": "Printed Summer Dress", "initialStock": 10, "orderedQty": 2}`
 
-Source references:
-- [PS-S03](https://github.com/PrestaShop/PrestaShop/blob/475d65fbda93403cd1afde0db09764c5295e952c/classes/PaymentModule.php) — `classes/PaymentModule.php` lines 145-162,265-373,680-696,798-800; blob `74ab460c0115e2db281490bbc8cba72111d822f3`. Order validation writes order and history data and synchronizes stock where configured.
-
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Successful payment creates one order and applies stock synchronization
-  Given One available product, known initial stock, valid address and deterministic test payment module.
-  When Complete checkout once; reload order confirmation and product stock.
-  Then Exactly one order/history entry exists and stock quantity changes according to configured stock-dependency mode.
-  And Force payment validation failure and verify no completed order/stock decrement is falsely recorded.
+Feature: Order Placement and Stock Sync
+  Scenario: Successful payment creates one order and applies stock synchronization
+    Given product "Printed Summer Dress" has available stock 10
+    And customer has 2 units of "Printed Summer Dress" in cart
+    When customer completes payment using "Bank wire" payment module
+    Then an order confirmation screen is displayed with a unique Order Reference
+    And exactly one order record is created in the orders table
+    And the available stock for "Printed Summer Dress" updates to 8
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** PaymentModule::validateOrder creates ps_orders row, order history entry, and calls StockAvailable::updateQuantity(-2).
+- **Negative Control:** If payment validation fails, no order is inserted and stock remains at 10.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Use an offline deterministic payment module only. Pin stock-dependency mode and assert one order/history record plus the correct stock delta; no real payment provider.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Cancel order and restore product stock to 10.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `classes/PaymentModule.php` (Lines: `250-340`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *order creation and stock decrement on payment*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** PS-28 tests out-of-stock validity flag; baseline never executes full payment-to-order-creation flow with stock decrement.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `PS-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. PS-GAP-004 — Available quantity update stays consistent with product combination stock
+
+- **Target Novelty Class:** `NOVEL_COMBINATION_STOCK_PARTITIONING`
+- **Actor:** Catalog Administrator (Stock Manager)
+- **Preconditions:** Product 'T-Shirt' has two combinations: Size S and Size L; initial quantities S=5, L=10.
+- **Test Data:** `{"product": "T-Shirt", "comboS": "Size S", "comboL": "Size L", "newQtyS": 8}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Combination Stock Management
+  Scenario: Available quantity update stays consistent with product combination stock
+    Given product "T-Shirt" has combinations "Size S" (qty 5) and "Size L" (qty 10)
+    When administrator edits combination "Size S" and sets quantity to 8
+    And clicks "Save"
+    Then the admin combinations list displays "Size S" quantity 8 and "Size L" quantity 10
+    When a customer views product "T-Shirt" on storefront with "Size S" selected
+    Then availability shows "8 items in stock"
+    When customer switches combination to "Size L"
+    Then availability dynamically updates to show "10 items in stock"
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** ps_stock_available stores distinct rows per id_product_attribute; frontend AJAX update correctly reflects combination quantity.
+- **Negative Control:** Attempting to enter a non-integer or negative quantity in admin triggers validation error.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset combination quantities.
+
+#### Source Code Anchors
+- **File:** `classes/StockAvailable.php` (Lines: `140-210`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *combination stock management*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** PS-01 adds product, PS-28 tests out of stock; baseline never tests multi-combination stock partitioning.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `PS-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. PS-GAP-005 — Customer group discount applies configured percentage reduction to catalog price
+
+- **Target Novelty Class:** `NOVEL_GROUP_BASED_PRICING`
+- **Actor:** Shop Administrator and VIP Customer (Admin sets group pricing; VIP customer shops)
+- **Preconditions:** Customer group 'VIP Gold' configured with 20% discount on catalog; customer 'vip_buyer@example.com' assigned to 'VIP Gold'; product price $100.00.
+- **Test Data:** `{"group": "VIP Gold", "discount": 20, "customer": "vip_buyer@example.com", "productPrice": 100.0, "expectedPrice": 80.0}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Customer Group Pricing
+  Scenario: Customer group discount applies configured percentage reduction to catalog price
+    Given customer group "VIP Gold" has a 20% group discount
+    And customer "vip_buyer@example.com" belongs to group "VIP Gold"
+    And product "Luxury Leather Bag" has a retail price of $100.00
+    When customer "vip_buyer@example.com" logs in and views "Luxury Leather Bag"
+    Then the displayed product price reflects the 20% discount at $80.00
+    And adding the product to cart shows unit price $80.00 in checkout summary
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00.
+- **Negative Control:** A guest or regular default customer sees the unreduced price $100.00.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset customer group assignment.
+
+#### Source Code Anchors
+- **File:** `classes/Product.php` (Lines: `2700-2780`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *getPriceStatic with group reduction*
+- **File:** `classes/Group.php` (Lines: `120-170`) @ commit `475d65fbda93403cd1afde0db09764c5295e952c` — *group reduction percentage*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline tests addresses and customers, but zero customer group discount tests.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `PS-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---

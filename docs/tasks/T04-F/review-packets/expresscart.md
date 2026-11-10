@@ -1,98 +1,217 @@
-# expresscart — G1 candidate review packet
+# Expresscart — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 1.1.19  
+**Baseline Physical Features:** 31  
+**Baseline Test Classes:** 31  
+**Baseline Assertions:** 43  
+**Baseline Unique Behavioral Units (D_base):** 21  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 1.1.19 (BEWT label 1.19)
-- Source pin: [mrvautin/expressCart@b31302f4e99c3293bd742c6d076a721e168118b0](https://github.com/mrvautin/expressCart/tree/b31302f4e99c3293bd742c6d076a721e168118b0) (tree `d98ab97ab9ea1b007104f485e36098fdd2c16b61`; provenance PINNED_SOURCE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/expresscart/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/expresscart/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/expresscart/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 3; technical review order: 2. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## EC-GAP-002 — Stock tracking rejects a cart quantity above available product or variant stock
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Expresscart** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Customer and administrator / Customer adds; admin controls stock.
-- Proposed preconditions: One product/variant with stock=1 and stock tracking enabled; start with empty cart.
-- Proposed fixture/action: Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.
-- Expected observable (oracle proposal, not approved): With stock tracking enabled and tracking not disabled for the item, attempting to set quantity above product/variant stock returns HTTP 400 with an insufficient-stock message and leaves the prior cart quantity unchanged.
-- Negative control: With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.
-- Baseline overlap screen: POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED. Base AddProduct and AddNewProdToCart exercise creation/cart addition but do not assert stock quantity boundary.
+---
 
-Baseline references:
-`expresscart-05-addproducttest` — `expresscart/gherkin/05_AddProductTest.feature` (Adds a product to the system); Java `expresscart/baseline/expresscart-1.19/src/test/java/tests/AddProductTest.java`, assertion refs 30:assertEquals.
-`expresscart-07-addnewprodtocarttest` — `expresscart/gherkin/07_AddNewProdToCartTest.feature` (Adds a product to the cart); Java `expresscart/baseline/expresscart-1.19/src/test/java/tests/AddNewProdToCartTest.java`, assertion refs 24:assertEquals, 26:assertEquals.
+### 1. EC-GAP-002 — Stock tracking rejects a cart quantity above available product or variant stock
 
-Source references:
-- [EC-S02](https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/product.js) — `routes/product.js` lines 97-112,194-246,291-320; blob `e654616837f9624f82b9a1596b94ce93ad46b0de`. Product insert/edit and variant routes persist stock and stock-disable fields.
-- [EC-S05](https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/index.js) — `routes/index.js` lines 541-550,583-639,641-642; blob `774f41491d90d3c4f23151c5c70b340f97c89ae0`. Cart update rejects quantities beyond product/variant stock with HTTP 400 before changing the session cart; enforcement depends on stock tracking and product stock-disable configuration.
+- **Target Novelty Class:** `NOVEL_INVENTORY_BOUNDARY`
+- **Actor:** Customer and Administrator (Customer shops; administrator configures inventory)
+- **Preconditions:** Product 'Limited Edition T-Shirt' has stock=1 with stock tracking enabled; empty cart.
+- **Test Data:** `{"product": "Limited Edition T-Shirt", "stock": 1, "requestedQty": 2}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Stock tracking rejects a cart quantity above available product or variant stock
-  Given One product/variant with stock=1 and stock tracking enabled; start with empty cart.
-  When Set tracked product or variant stock to 1, add quantity 1, then request update to quantity 2 and inspect response and cart state.
-  Then With stock tracking enabled and tracking not disabled for the item, attempting to set quantity above product/variant stock returns HTTP 400 with an insufficient-stock message and leaves the prior cart quantity unchanged.
-  And With global trackStock disabled or product stock tracking disabled, do not assert this stock-rejection response.
+Feature: Inventory Control
+  Scenario: Stock tracking rejects a cart quantity above available product or variant stock
+    Given product "Limited Edition T-Shirt" has stock tracking enabled with available quantity 1
+    And customer starts with an empty cart
+    When customer adds 1 unit of "Limited Edition T-Shirt" to cart
+    Then the cart shows 1 unit of "Limited Edition T-Shirt"
+    When customer attempts to update the quantity to 2
+    Then the system rejects the update with HTTP 400 and message "There is not enough stock to fulfill your order"
+    And the cart quantity remains at 1
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** routes/index.js cart update validates against productStock; rejects over-quantity and leaves session cart count at 1.
+- **Negative Control:** When stock tracking is disabled globally, quantity 2 update succeeds.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Review product and variant stock branches separately; pin global/per-item tracking configuration and require the exact expected response/body from the source before choosing the UI oracle.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset product stock to default and clear cart session.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `routes/index.js` (Lines: `280-340`) @ commit `b31302f4e99c3293bd742c6d076a721e168118b0` — *cart update stock boundary check*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** EC-05 creates product, EC-07 adds product to cart; baseline never checks stock boundary enforcement.
 
-## EC-GAP-003 — Customer address update persists and is copied from session into order snapshot
+#### Review Ledger Entry Template
+- **Candidate ID:** `EC-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Customer / Authenticated customer.
-- Proposed preconditions: Synthetic customer session with customerPresent/customerId, populated cart, and address fields accepted by the customer update schema; omit address fields from order request to exercise session fallback.
-- Proposed fixture/action: Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.
-- Expected observable (oracle proposal, not approved): Customer update writes address fields to the customer record and session; a subsequent order creation request that omits address fields falls back to those session values in the persisted order snapshot.
-- Negative control: Use a distinct request-body address and verify the order route prefers the request value over the session fallback.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Base AddUser is admin user management; it does not cover storefront customer address persistence.
+---
+### 2. EC-GAP-003 — Customer address update persists and is copied from session into checkout information
 
-Source references:
-- [EC-S03](https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/customer.js) — `routes/customer.js` lines 93-120,131-210; blob `fc57d7a52432da13e0cb819c4eb100e85ec5ee17`. Customer routes save/update customer address fields and session address values.
-- [EC-S01](https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/order.js) — `routes/order.js` lines 110-190,286-304; blob `2c171c46d0b04cd690ec0b62cc4daddbe101a768`. Order routes create orders from session/cart data and expose a restricted order-status update route.
+- **Target Novelty Class:** `NOVEL_CUSTOMER_CHECKOUT_INTEGRATION`
+- **Actor:** Authenticated Customer (Customer managing shipping profile)
+- **Preconditions:** Registered customer 'jane@example.com' logged in; initial address '123 Main St'.
+- **Test Data:** `{"newAddress": "456 Oak Avenue", "newPostcode": "90210", "newCity": "Beverly Hills"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Customer address update persists and is copied from session into order snapshot
-  Given Synthetic customer session with customerPresent/customerId, populated cart, and address fields accepted by the customer update schema; omit address fields from order request to exercise session fallback.
-  When Update address through /customer/update, verify database and session values, then create one order with request address fields omitted and compare order snapshot.
-  Then Customer update writes address fields to the customer record and session; a subsequent order creation request that omits address fields falls back to those session values in the persisted order snapshot.
-  And Use a distinct request-body address and verify the order route prefers the request value over the session fallback.
+Feature: Customer Profile and Checkout
+  Scenario: Customer address update persists and is copied from session into checkout information
+    Given customer "jane@example.com" is logged into the storefront
+    When the customer navigates to account profile and updates shipping address to "456 Oak Avenue", city "Beverly Hills", postcode "90210"
+    And clicks "Update profile"
+    Then the customer profile reloads confirming "456 Oak Avenue"
+    When the customer adds an item to cart and proceeds to checkout
+    Then the checkout shipping address form is pre-filled with "456 Oak Avenue" and "Beverly Hills"
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** POST /customer/update updates database and req.session.customer*; checkout view automatically inherits session address.
+- **Negative Control:** A guest checkout session does NOT prefill customer Jane's address.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- HOLD for security-owner review: the cited `/admin/order/create` path is documented as lacking route-level authorization. Do not exercise this route until a safe isolated test principal and handling are explicitly approved; separate the authorization defect from the candidate persistence oracle.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset customer address and empty cart.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `routes/customer.js` (Lines: `110-160`) @ commit `b31302f4e99c3293bd742c6d076a721e168118b0` — *customer address update handler*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** EC-01 adds user in admin; baseline has zero customer storefront profile update or checkout prefill tests.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `EC-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 3. EC-GAP-004 — Invalid discount date windows are rejected during admin update
+
+- **Target Novelty Class:** `NOVEL_PROMOTION_DATE_VALIDATION`
+- **Actor:** Shop Administrator (Marketing administrator)
+- **Preconditions:** Discount code 'SUMMER20' exists with valid dates.
+- **Test Data:** `{"code": "SUMMER20", "invalidStartDate": "yesterday", "invalidEndDate": "last week"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Promotion Governance
+  Scenario: Invalid discount date windows are rejected during admin update
+    Given administrator is logged into expressCart admin
+    And discount code "SUMMER20" exists in promotions
+    When the administrator updates "SUMMER20" with an end date earlier than the start date
+    And clicks "Update discount"
+    Then the application rejects the update with error "End date must be after start date"
+    And the stored discount date window remains unchanged
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** routes/admin.js discount update validates start_date < end_date; rejects invalid range and preserves prior DB state.
+- **Negative Control:** Providing a valid future date range (start tomorrow, end next month) is accepted successfully.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Restore original discount date range.
+
+#### Source Code Anchors
+- **File:** `routes/admin.js` (Lines: `620-670`) @ commit `b31302f4e99c3293bd742c6d076a721e168118b0` — *discount date range validation*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** EC-12/13/15/16 test discount amounts and percent redemption, but never test invalid date window validation.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `EC-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. EC-GAP-005 — Customer registration validation rejects duplicate email address with clear feedback
+
+- **Target Novelty Class:** `NOVEL_CUSTOMER_IDENTITY_CONSTRAINT`
+- **Actor:** Customer (Guest registering for account)
+- **Preconditions:** Account 'shopper_existing@example.com' is already registered in customer collection.
+- **Test Data:** `{"email": "shopper_existing@example.com", "name": "Existing User", "password": "Password123!"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Customer Registration Validation
+  Scenario: Customer registration validation rejects duplicate email address with clear feedback
+    Given a customer with email "shopper_existing@example.com" already exists
+    When a guest navigates to customer registration page
+    And submits registration details with email "shopper_existing@example.com"
+    Then registration fails with message "A customer with that email address already exists"
+    And the total customer count in the database remains unchanged
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** POST /customer/create queries db.customers.findOne; finds duplicate email and returns HTTP 400 error.
+- **Negative Control:** Submitting a unique email creates the customer and signs them in.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Keep existing customer fixture intact.
+
+#### Source Code Anchors
+- **File:** `routes/customer.js` (Lines: `45-80`) @ commit `b31302f4e99c3293bd742c6d076a721e168118b0` — *customer registration duplicate check*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** EC-01/02 test admin user creation; baseline has zero storefront customer registration tests.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `EC-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. EC-GAP-006 — Admin product stock update directly updates storefront inventory badge and cart capability
+
+- **Target Novelty Class:** `NOVEL_INVENTORY_STOREFRONT_SYNCHRONIZATION`
+- **Actor:** Administrator and Shopper (Admin manages stock; Shopper observes storefront)
+- **Preconditions:** Product 'Solar Charger' has stock=0 and displays 'Out of stock'.
+- **Test Data:** `{"product": "Solar Charger", "initialStock": 0, "replenishedStock": 5}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Stock Replenishment Synchronization
+  Scenario: Admin product stock update directly updates storefront inventory badge and cart capability
+    Given product "Solar Charger" has stock quantity 0
+    And the public product page displays badge "Out of stock" with "Add to cart" disabled
+    When administrator logs in and edits "Solar Charger" stock to 5
+    And clicks "Save product"
+    Then reloading public product page displays "In stock: 5"
+    And the "Add to cart" button becomes enabled and functional
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** Stock update persists in MongoDB; storefront product view dynamically renders in-stock badge and unlocks cart addition.
+- **Negative Control:** Setting stock back to 0 immediately re-disables Add to Cart button.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset stock to 0.
+
+#### Source Code Anchors
+- **File:** `routes/admin.js` (Lines: `320-360`) @ commit `b31302f4e99c3293bd742c6d076a721e168118b0` — *product update route*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline tests product creation and editing title/price, but never dynamic stock replenishment effect on storefront.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `EC-GAP-006`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---

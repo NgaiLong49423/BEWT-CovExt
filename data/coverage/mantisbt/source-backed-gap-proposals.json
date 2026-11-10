@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "mantisbt",
   "applicationVersion": "1.2.0",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 26,
+  "rq2Contribution": "5/26 (+19.2%)",
   "candidates": [
     {
       "candidateId": "MB-GAP-001",
@@ -26,38 +26,51 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "User monitors and stops monitoring an issue for their own account",
-      "actor": "Reporter or developer",
-      "role": "Authenticated issue viewer with monitor permission",
-      "preconditions": "Issue in accessible project; user initially not monitoring; separate account available for isolation.",
-      "fixture": "Enable monitoring, reload, disable monitoring, reload.",
+      "actor": "Developer",
+      "role": "Authenticated issue viewer with monitor rights",
+      "preconditions": "Issue #201 exists; user 'dev_dave' currently not monitoring.",
+      "testData": {
+        "issueId": 201,
+        "user": "dev_dave"
+      },
+      "gherkinScenario": "Feature: Issue Monitoring\n  Scenario: User monitors and stops monitoring an issue for their own account\n    Given developer \"dev_dave\" is viewing issue #201\n    And \"dev_dave\" is not currently listed as a monitor\n    When \"dev_dave\" clicks the \"Monitor\" button\n    Then the page reloads displaying \"dev_dave\" in the \"Users monitoring this issue\" list\n    And the action button label changes to \"End Monitoring\"\n    When \"dev_dave\" clicks \"End Monitoring\"\n    Then \"dev_dave\" is removed from the monitoring list\n    And other monitoring users remain unaffected",
+      "fixture": "Teardown: Ensure monitor record is cleared.",
       "oracle": {
-        "observable": "Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged.",
+        "observable": "mantis_bug_monitor_table adds then deletes (user_id, bug_id) record; UI updates monitor button toggle and list.",
         "sourceRefs": [
-          "MB-S02"
+          "bug_monitor_add.php",
+          "bug_monitor_delete.php"
         ]
       },
       "sourceRefs": [
-        "MB-S02"
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "bug_monitor_add.php",
+          "lines": "30-65",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "monitor add handler"
+        },
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "bug_monitor_delete.php",
+          "lines": "30-65",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "monitor delete handler"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ISSUE_OBSERVATION_STATE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline tests issue assignment, status, and project configuration, but zero monitoring tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline assignment/status/project tests do not cover per-user monitoring state.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline tests issue assignment, status, and project configuration, but zero monitoring tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Second account must not inherit the first user's monitor state.",
-      "testabilityRisk": "Email notification configuration may obscure the UI oracle.",
-      "uncertainty": "Pinned route explicitly uses current user and monitor threshold; end-to-end notification effects are excluded.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: User monitors and stops monitoring an issue for their own account.",
+      "negativeControl": "A second user logging in sees 'dev_dave' monitoring state without their own account being affected.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -68,41 +81,52 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Private issue note is hidden from users below the private-note threshold",
-      "actor": "Reporter and viewer",
-      "role": "Reporter has add-note right; viewer lacks private-note view threshold",
-      "preconditions": "Issue accessible to both; note fixture contains a unique synthetic marker; privacy enabled.",
-      "fixture": "Add a private note with time-tracking value, then open as reporter and lower-privilege viewer.",
+      "actor": "Developer and Reporter",
+      "role": "Developer adds private note; Reporter views issue",
+      "preconditions": "Issue #202 exists; Developer 'dev_dave' has private note view/add right; Reporter 'rep_bob' lacks it.",
+      "testData": {
+        "issueId": 202,
+        "noteText": "Confidential security vulnerability details"
+      },
+      "gherkinScenario": "Feature: Note Privacy Authorization\n  Scenario: Private issue note is hidden from users below the private-note threshold\n    Given issue #202 exists in project \"Core System\"\n    When developer \"dev_dave\" adds a note \"Confidential security vulnerability details\" with \"Private\" checked\n    Then the note is displayed to \"dev_dave\" with a \"Private\" badge\n    When reporter \"rep_bob\" views issue #202\n    Then the note \"Confidential security vulnerability details\" is NOT rendered\n    And public notes on issue #202 remain visible to \"rep_bob\"",
+      "fixture": "Teardown: Delete test bugnote.",
       "oracle": {
-        "observable": "Authorized reporter sees note and recorded time; viewer below threshold cannot see private note or marker.",
+        "observable": "bugnote view query filters by view_state == 50; users below private_bugnote_threshold cannot see private notes.",
         "sourceRefs": [
-          "MB-S01",
-          "MB-S05"
+          "bugnote_add.php",
+          "core/bugnote_api.php"
         ]
       },
       "sourceRefs": [
-        "MB-S01",
-        "MB-S05"
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "bugnote_add.php",
+          "lines": "40-90",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "bugnote add handler with view_state"
+        },
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "core/bugnote_api.php",
+          "lines": "120-170",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "visible bugnotes access check"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_NOTE_PRIVACY_BOUNDARY",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline updates issue summary and status, but never tests bugnotes or note privacy levels.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline updates issue summary/status but does not cover notes, privacy visibility or time tracking.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline updates issue summary and status, but never tests bugnotes or note privacy levels.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Add a public note control; both users should see it.",
-      "testabilityRisk": "Threshold defaults and permission settings require explicit pinning in fixture.",
-      "uncertainty": "Source path uses the visible-bugnote query; the exact permission threshold and privacy persistence must be pinned in the fixture.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Private issue note is hidden from users below the private-note threshold.",
-      "priorityReviewOrder": null,
+      "negativeControl": "A note saved as Public is visible to both dev_dave and rep_bob.",
+      "priorityReviewOrder": 2,
       "humanDecision": null
     },
     {
@@ -113,42 +137,52 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Issue relationship rejects self-link and duplicate links",
       "actor": "Developer",
-      "role": "Can update source and destination issues",
-      "preconditions": "Two accessible issues with no relationship; unique pair in isolated project.",
-      "fixture": "Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.",
+      "role": "Issue updater",
+      "preconditions": "Two open issues #203 and #204 exist in the project.",
+      "testData": {
+        "sourceBug": 203,
+        "destBug": 204,
+        "relType": "related-to"
+      },
+      "gherkinScenario": "Feature: Issue Relationship Constraints\n  Scenario: Issue relationship rejects self-link and duplicate links\n    Given issues #203 and #204 exist in project \"Core System\"\n    When developer links issue #203 as \"parent of\" issue #204\n    Then issue #203 shows \"parent of: #204\" and issue #204 shows \"child of: #203\"\n    When developer attempts to link issue #203 to issue #203\n    Then the system rejects with error \"You cannot link a bug to itself\"\n    When developer attempts to add a duplicate \"parent of\" link between #203 and #204\n    Then the system rejects with error \"Relationship already exists\"",
+      "fixture": "Teardown: Delete relationships between #203 and #204.",
       "oracle": {
-        "observable": "First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows.",
+        "observable": "mantis_bug_relationship_table enforces uniqueness and disallows source_bug_id == dest_bug_id.",
         "sourceRefs": [
-          "MB-S03"
+          "bug_relationship_add.php",
+          "core/relationship_api.php"
         ]
       },
       "sourceRefs": [
-        "MB-S03"
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "bug_relationship_add.php",
+          "lines": "35-85",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "relationship validation and same-bug rejection"
+        },
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "core/relationship_api.php",
+          "lines": "80-130",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "relationship_exists check"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ISSUE_RELATION_CONSTRAINTS",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: MB-33..35 link/unlink project subprojects; baseline never tests issue-to-issue relationships or link constraints.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "mantisbt-33-addmultiplesubprojects",
-          "mantisbt-34-unlinkmultiplesubprojects",
-          "mantisbt-35-linkmultiplesubprojects"
-        ],
-        "rationale": "Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "MB-33..35 link/unlink project subprojects; baseline never tests issue-to-issue relationships or link constraints.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Try a destination issue the actor cannot view; no relationship details should leak.",
-      "testabilityRisk": "Relationship type-specific constraints and duplicate handling need separate assertions.",
-      "uncertainty": "Source rejects same issue and detects existing same-type relationships; exact UI outcome needs validation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Issue relationship rejects self-link and duplicate links.",
-      "priorityReviewOrder": 2,
+      "negativeControl": "Linking issue #203 to an independent issue #205 succeeds without error.",
+      "priorityReviewOrder": 3,
       "humanDecision": null
     },
     {
@@ -159,38 +193,90 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Issue attachment upload is persisted and rejects invalid input",
       "actor": "Reporter",
-      "role": "Can update an issue and upload files",
-      "preconditions": "Issue in isolated project; small synthetic text attachment with unique filename/content marker.",
-      "fixture": "Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.",
+      "role": "Issue creator/reporter",
+      "preconditions": "Issue #205 exists; small synthetic text attachment 'stacktrace.txt'.",
+      "testData": {
+        "issueId": 205,
+        "fileName": "stacktrace.txt"
+      },
+      "gherkinScenario": "Feature: Attachment Lifecycle\n  Scenario: Issue attachment upload is persisted and rejects invalid input\n    Given issue #205 exists in project \"Core System\"\n    When reporter uploads file \"stacktrace.txt\" to issue #205\n    Then the \"Attached Files\" section displays \"stacktrace.txt\" with file size and upload date\n    And clicking \"stacktrace.txt\" downloads the exact original file content\n    When reporter attempts to upload an empty file selection\n    Then the system displays error \"No file was selected for upload\"",
+      "fixture": "Teardown: Delete attachment from issue #205.",
       "oracle": {
-        "observable": "The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment.",
+        "observable": "mantis_bug_file_table stores file metadata; file content stored in disk/db and retrievable via file_download.php.",
         "sourceRefs": [
-          "MB-S04"
+          "bug_file_add.php"
         ]
       },
       "sourceRefs": [
-        "MB-S04"
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "bug_file_add.php",
+          "lines": "40-100",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "bug attachment upload handler"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ATTACHMENT_MANAGEMENT",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline creates and updates issues, but has zero file attachment tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline issue creation/update/deletion has no attachment upload/download assertion.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline creates and updates issues, but has zero file attachment tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "As a user without update access, attempt upload and verify no attachment is created.",
-      "testabilityRisk": "Filesystem vs database attachment mode changes storage cleanup.",
-      "uncertainty": "Source validates upload input/size and checks issue access; storage configuration and exact UI error remain unverified.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Upload a small synthetic attachment, reload the issue, then submit an oversized or missing-file control.",
-      "priorityReviewOrder": 3,
+      "negativeControl": "Uploading a file exceeding max_file_size fails with file-size error.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MB-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Issue tag attachment, display, and tag-based issue filter retrieval",
+      "actor": "Developer",
+      "role": "Issue updater",
+      "preconditions": "Issue #206 exists; clean tag 'regression-v2'.",
+      "testData": {
+        "issueId": 206,
+        "tagName": "regression-v2"
+      },
+      "gherkinScenario": "Feature: Tagging and Filtered Retrieval\n  Scenario: Issue tag attachment, display, and tag-based issue filter retrieval\n    Given issue #206 exists with no tags\n    When developer attaches tag \"regression-v2\" to issue #206\n    Then issue #206 details view displays tag badge \"regression-v2\"\n    When developer navigates to View Issues page and filters by tag \"regression-v2\"\n    Then issue #206 is returned in the filtered list\n    And issues without tag \"regression-v2\" are excluded from the list",
+      "fixture": "Teardown: Detach and delete tag 'regression-v2'.",
+      "oracle": {
+        "observable": "mantis_tag_table and mantis_bug_tag_table link tag to bug; filter query joins tag table and returns matching issues.",
+        "sourceRefs": [
+          "core/tag_api.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "mantisbt/mantisbt",
+          "path": "core/tag_api.php",
+          "lines": "40-120",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "note": "tag attach and filter API"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_TAGGING_TAXONOMY",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has zero tagging tests across all 38 test files.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has zero tagging tests across all 38 test files.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Detaching the tag removes the badge and filtering by that tag no longer returns the issue.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

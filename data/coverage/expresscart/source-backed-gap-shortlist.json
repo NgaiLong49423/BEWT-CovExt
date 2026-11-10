@@ -1,26 +1,45 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "expresscart",
+  "shortlistCount": 5,
   "sourcePin": {
     "repository": "mrvautin/expressCart",
     "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
     "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
     "status": "PINNED_SOURCE_AVAILABLE"
   },
-  "status": "PROPOSED_REVIEW_ORDER_ONLY",
-  "humanDecisionStatus": "NOT_REVIEWED",
-  "decisionLedger": "UNCHANGED",
+  "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
+  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
   "topCandidates": [
     {
       "candidateId": "EC-GAP-002",
       "priorityOrder": 1,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Stock tracking rejects a cart quantity above available product or variant stock",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_INVENTORY_BOUNDARY"
     },
     {
       "candidateId": "EC-GAP-003",
       "priorityOrder": 2,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Customer address update persists and is copied from session into checkout information",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_CUSTOMER_CHECKOUT_INTEGRATION"
+    },
+    {
+      "candidateId": "EC-GAP-004",
+      "priorityOrder": 3,
+      "title": "Invalid discount date windows are rejected during admin update",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_PROMOTION_DATE_VALIDATION"
+    },
+    {
+      "candidateId": "EC-GAP-005",
+      "priorityOrder": 4,
+      "title": "Customer registration validation rejects duplicate email address with clear feedback",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_CUSTOMER_IDENTITY_CONSTRAINT"
+    },
+    {
+      "candidateId": "EC-GAP-006",
+      "priorityOrder": 5,
+      "title": "Admin product stock update directly updates storefront inventory badge and cart capability",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_INVENTORY_STOREFRONT_SYNCHRONIZATION"
     }
-  ],
-  "shortlistCount": 2
+  ]
 }

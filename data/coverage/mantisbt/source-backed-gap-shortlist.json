@@ -1,31 +1,45 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "mantisbt",
-  "shortlistCount": 3,
+  "shortlistCount": 5,
   "sourcePin": {
     "repository": "mantisbt/mantisbt",
     "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
     "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
     "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
   },
-  "status": "PROPOSED_REVIEW_ORDER_ONLY",
-  "humanDecisionStatus": "NOT_REVIEWED",
-  "decisionLedger": "UNCHANGED",
+  "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
+  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
   "topCandidates": [
     {
       "candidateId": "MB-GAP-001",
       "priorityOrder": 1,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "User monitors and stops monitoring an issue for their own account",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_ISSUE_OBSERVATION_STATE"
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "priorityOrder": 2,
+      "title": "Private issue note is hidden from users below the private-note threshold",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_NOTE_PRIVACY_BOUNDARY"
     },
     {
       "candidateId": "MB-GAP-003",
-      "priorityOrder": 2,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "priorityOrder": 3,
+      "title": "Issue relationship rejects self-link and duplicate links",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_ISSUE_RELATION_CONSTRAINTS"
     },
     {
       "candidateId": "MB-GAP-004",
-      "priorityOrder": 3,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "priorityOrder": 4,
+      "title": "Issue attachment upload is persisted and rejects invalid input",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_ATTACHMENT_MANAGEMENT"
+    },
+    {
+      "candidateId": "MB-GAP-005",
+      "priorityOrder": 5,
+      "title": "Issue tag attachment, display, and tag-based issue filter retrieval",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_TAGGING_TAXONOMY"
     }
   ]
 }

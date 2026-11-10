@@ -1,138 +1,221 @@
-# claroline — G1 candidate review packet
+# Claroline — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 1.11.10  
+**Baseline Physical Features:** 40  
+**Baseline Test Classes:** 40  
+**Baseline Assertions:** 73  
+**Baseline Unique Behavioral Units (D_base):** 28  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 1.11.10
-- Source pin: [zefredz/claroline@22d852f93081bc36b1d08b93f5e0c14b49a573f6](https://github.com/zefredz/claroline/tree/22d852f93081bc36b1d08b93f5e0c14b49a573f6) (tree `f10d5b9747f13e0256b3f52f7663a1475340bfe4`; provenance PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/claroline/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/claroline/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/claroline/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 4; technical review order: 3. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## CL-GAP-001 — Course document upload, move and delete lifecycle
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Claroline** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Teacher / Course editor.
-- Proposed preconditions: Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.
-- Proposed fixture/action: Upload the file, move it to a different course-folder path, then delete it through the document tool.
-- Expected observable (oracle proposal, not approved): Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.
-- Negative control: Student without edit permission attempts rename/delete; content remains unchanged.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. T04-D maps user/course/exercise/event operations but no document file lifecycle.
+---
 
-Source references:
-- [CL-S01](https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/document/document.php) — `claroline/document/document.php` lines 20-51,69-104,202-375,742-767,1208-1224; blob `8afb874f28190449bb604e413b40d9236ac56eda`. Document tool implements upload, move and delete commands and gates course/group access.
+### 1. CL-GAP-001 — Course document upload, move and delete lifecycle
 
-### Gherkin sketch — draft for review only
+- **Target Novelty Class:** `NOVEL_DOCUMENT_MANAGEMENT`
+- **Actor:** Teacher (Course teacher / manager)
+- **Preconditions:** Course 'CL-DOC-101' exists; clean document directory; synthetic file 'syllabus.pdf'.
+- **Test Data:** `{"course": "CL-DOC-101", "fileName": "syllabus.pdf", "targetFolder": "LectureNotes"}`
 
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Course document upload, move and delete lifecycle
-  Given Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.
-  When Upload the file, move it to a different course-folder path, then delete it through the document tool.
-  Then Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.
-  And Student without edit permission attempts rename/delete; content remains unchanged.
+Feature: Course Document Management
+  Scenario: Course document upload, move and delete lifecycle
+    Given teacher "prof_smith" is logged into Claroline course "CL-DOC-101"
+    When the teacher navigates to Documents and uploads file "syllabus.pdf"
+    Then "syllabus.pdf" appears in the course root document directory
+    When the teacher moves "syllabus.pdf" into folder "LectureNotes"
+    Then "syllabus.pdf" is displayed inside "LectureNotes" directory
+    When the teacher deletes "syllabus.pdf"
+    Then "syllabus.pdf" is removed from "LectureNotes" and no longer visible
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** Document records in claro_document table update path during move and delete marks record deleted; filesystem confirms file existence then removal.
+- **Negative Control:** An enrolled student without edit rights cannot see Move or Delete action buttons.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Claroline source availability is PARTIAL: only pinned core Git source is represented; CLCHAT files are release-archive-only. Confirm document tool semantics and safe filesystem cleanup fixture.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Setup: Create course and folder. Teardown: Remove document and clean directory.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `claroline/document/document.php` (Lines: `120-210`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *document upload/move/delete controller*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline exercises exercises, user enrollment, and calendar events, but zero document lifecycle tests.
 
-## CL-GAP-002 — Group space is inaccessible to a non-member student
+#### Review Ledger Entry Template
+- **Candidate ID:** `CL-GAP-001`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Teacher and student / Teacher manages; student is not in target group.
-- Proposed preconditions: Course with two groups and one enrolled student assigned only to group A; group B has private content.
-- Proposed fixture/action: As the student, open group B directly, then join only if the interface permits self-registration.
-- Expected observable (oracle proposal, not approved): Unauthorized group content is not rendered; self-registration changes access only for the configured open group.
-- Negative control: Repeat against the student's assigned group A and verify access succeeds.
-- Baseline overlap screen: POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED. Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.
+---
+### 2. CL-GAP-002 — Group space is inaccessible to a non-member student in a private group
 
-Baseline references:
-`claroline-27-adddeniedcoursetest` — `claroline/gherkin/27_AddDeniedCourseTest.feature` (Adds a denied (closed registrations) course); Java `claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_AddDeniedCourseTest.java`, assertion refs 20:assertEquals.
-`claroline-28-enroldeniedcoursetest` — `claroline/gherkin/28_EnrolDeniedCourseTest.feature` (Tries to enrol to a closed registration course and fails); Java `claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolDeniedCourseTest.java`, assertion refs 20:assertEquals.
-`claroline-30-enrolpasswordcoursewrongpasswordusertest` — `claroline/gherkin/30_EnrolPasswordCourseWrongPasswordUserTest.feature` (The user tries to enrol to a password protected course using a wrong password and fails); Java `claroline/baseline/claroline-1.11.10/src/test/java/test/Claroline_EnrolPasswordCourseWrongPasswordUserTest.java`, assertion refs 20:assertEquals.
+- **Target Novelty Class:** `NOVEL_GROUP_AUTHORIZATION_BOUNDARY`
+- **Actor:** Teacher and Student (Teacher configures private group; student is non-member)
+- **Preconditions:** Course has closed private Group B; Student 1 is enrolled in course but NOT in Group B.
+- **Test Data:** `{"course": "CL-GRP-101", "groupName": "Private Group B", "studentUser": "student_bob"}`
 
-Source references:
-- [CL-S03](https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/group/group_space.php) — `claroline/group/group_space.php` lines 29-41; blob `825d811e822c687968fc0c48c59dad7b8fae2261`. Group space checks course/group authorization and redirects or denies access.
-
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Group space is inaccessible to a non-member student
-  Given Course with two groups and one enrolled student assigned only to group A; group B has private content.
-  When As the student, open group B directly, then join only if the interface permits self-registration.
-  Then Unauthorized group content is not rendered; self-registration changes access only for the configured open group.
-  And Repeat against the student's assigned group A and verify access succeeds.
+Feature: Group Space Authorization
+  Scenario: Group space is inaccessible to a non-member student in a private group
+    Given course "CL-GRP-101" has private group "Private Group B" with closed registration
+    And student "student_bob" is enrolled in course "CL-GRP-101" but is not a member of "Private Group B"
+    When student "student_bob" attempts to access the URL for "Private Group B" space
+    Then the student is redirected to the main groups list with notification "Not allowed"
+    And the private group document repository and group forum are NOT rendered
+    And no self-registration option is displayed for the private group
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** claro_is_in_a_group check fails; claro_disp_auth_url denies access; HTTP redirect and error message triggered.
+- **Negative Control:** When student_bob visits an open group or a group they belong to, group space renders normally.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Resolve exact group visibility and whether self-registration is enabled for the tested group. Keep access-to-course controls distinct from group membership.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete groups and test course.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `claroline/group/group_space.php` (Lines: `40-80`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *group space authorization gate*
+- **File:** `claroline/inc/lib/group.lib.inc.php` (Lines: `110-145`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *membership verification function*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** CL-27/28/30 test course-level access and passwords; none test group-level authorization boundaries.
 
-## CL-GAP-003 — Teacher imports an exercise package into a course
+#### Review Ledger Entry Template
+- **Candidate ID:** `CL-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Teacher / Course editor.
-- Proposed preconditions: Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question.
-- Proposed fixture/action: Use the exercise import command to import the fixture.
-- Expected observable (oracle proposal, not approved): Import reports success and the new exercise/questions appear exactly once in the course list.
-- Negative control: Submit a malformed package and verify no partial exercise is created.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline creates exercises and questions manually; it does not cover package import.
+---
+### 3. CL-GAP-003 — Teacher imports an exercise package into a course
 
-Source references:
-- [CL-S02](https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/exercise/exercise.php) — `claroline/exercise/exercise.php` lines 17-23,66-92; blob `0fa1ed922ae3f40cde4528b0c144c56565f135df`. Exercise page checks course access, separates edit/tracking rights and imports exercises for editors.
+- **Target Novelty Class:** `NOVEL_PACKAGE_INGESTION`
+- **Actor:** Teacher (Course teacher)
+- **Preconditions:** Teacher authenticated in empty course; synthetic IMS QTI / Claroline exercise zip package.
+- **Test Data:** `{"course": "CL-EX-101", "package": "math-quiz-pkg.zip", "quizTitle": "Calculus Quiz 1"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Teacher imports an exercise package into a course
-  Given Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question.
-  When Use the exercise import command to import the fixture.
-  Then Import reports success and the new exercise/questions appear exactly once in the course list.
-  And Submit a malformed package and verify no partial exercise is created.
+Feature: Exercise Import
+  Scenario: Teacher imports an exercise package into a course
+    Given teacher "prof_smith" is logged into course "CL-EX-101"
+    And the exercise tool has no exercises
+    When the teacher navigates to Exercises and selects "Import exercise"
+    And uploads package "math-quiz-pkg.zip" and submits
+    Then a success message "Exercise imported successfully" is displayed
+    And the exercise list displays "Calculus Quiz 1" with 5 questions
+    And clicking "Calculus Quiz 1" presents the imported questions correctly
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** exercise and question tables populated from zip package XML schema; imported exercise immediately available for student attempts.
+- **Negative Control:** Uploading a corrupted zip package displays validation error and creates zero exercise records.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Specify a valid import package format and an observable atomicity oracle before implementation; malformed-package rollback is not established by the current source note.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete imported exercise and questions.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `claroline/exercise/exercise.php` (Lines: `180-240`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *import_exercise handler and QTI parser*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** CL-07..CL-11 manually create and answer exercises; none test package import mechanism.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `CL-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. CL-GAP-004 — Tracking controls are teacher-only while exercise attempts remain student-facing
+
+- **Target Novelty Class:** `NOVEL_ANALYTICS_ACCESS_CONTROL`
+- **Actor:** Teacher and Student (Role differentiation in course tracking)
+- **Preconditions:** Course tracking enabled; exercise 'Midterm Quiz' attempted by 'student_alice'.
+- **Test Data:** `{"course": "CL-TRK-101", "exercise": "Midterm Quiz", "student": "student_alice"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Course Tracking Governance
+  Scenario: Tracking controls are teacher-only while exercise attempts remain student-facing
+    Given student "student_alice" completed exercise "Midterm Quiz" in course "CL-TRK-101"
+    When student "student_alice" views the course tool menu
+    Then the "Tracking" administration link is NOT visible to "student_alice"
+    When teacher "prof_smith" logs into course "CL-TRK-101"
+    And navigates to "Tracking" -> "Exercise statistics"
+    Then the teacher views "student_alice" submission with score, duration, and attempt date
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** Tracking UI restricted by is_course_allowed('tracking'); tracking database logs student score and renders aggregated analytics for teacher.
+- **Negative Control:** Disabling course tracking in tool settings hides the tracking tool even from teachers.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Reset tracking logs and student attempts.
+
+#### Source Code Anchors
+- **File:** `claroline/tracking/courseLog.php` (Lines: `35-95`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *teacher tracking authorization gate*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** CL-12 views user profile statistics; baseline never tests course-wide tracking governance.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `CL-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. CL-GAP-005 — Course announcement creation, publication, and student notification visibility
+
+- **Target Novelty Class:** `NOVEL_COURSE_COMMUNICATION`
+- **Actor:** Teacher and Student (Teacher publishes announcement; student reads)
+- **Preconditions:** Course 'CL-ANN-101' exists; teacher and student enrolled; no prior announcements.
+- **Test Data:** `{"course": "CL-ANN-101", "title": "Classroom Relocation", "content": "Classroom moved to Room 302 for Friday."}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Course Announcements
+  Scenario: Course announcement creation, publication, and student notification visibility
+    Given teacher "prof_smith" is logged into course "CL-ANN-101"
+    When the teacher navigates to Announcements and clicks "Add announcement"
+    And enters title "Classroom Relocation" and body "Classroom moved to Room 302 for Friday."
+    And submits the announcement
+    Then the announcement "Classroom Relocation" appears in the course announcements table
+    When student "student_bob" logs into course "CL-ANN-101"
+    Then "Classroom Relocation" is prominently displayed on the course welcome banner
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** claro_announcement table receives new record; course home view pulls and displays active announcements.
+- **Negative Control:** An announcement set to 'Invisible' is hidden from students while visible to teachers.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete announcement record.
+
+#### Source Code Anchors
+- **File:** `claroline/announcements/announcements.php` (Lines: `50-110`) @ commit `22d852f93081bc36b1d08b93f5e0c14b49a573f6` — *announcement creation and visibility handler*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline covers calendar events (CL-15), but zero announcement tool tests.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `CL-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---

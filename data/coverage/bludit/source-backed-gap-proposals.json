@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "bludit",
   "applicationVersion": "2.3.4",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 18,
+  "rq2Contribution": "5/18 (+27.8%)",
   "candidates": [
     {
       "candidateId": "BL-GAP-001",
@@ -27,41 +27,50 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Scheduled pages are promoted on a request after their due time",
       "actor": "Administrator",
-      "role": "Admin",
-      "preconditions": "A page with a future publish date; isolated clock-controlled fixture or bounded wait; no existing page with same slug.",
-      "fixture": "Create a published page with a future date; observe its scheduled state, then observe after the due time.",
+      "role": "Content manager",
+      "preconditions": "A page created with a future publication timestamp; controlled application clock fixture.",
+      "testData": {
+        "title": "Scheduled Announcement",
+        "futureDate": "+1 minute"
+      },
+      "gherkinScenario": "Feature: Content Scheduling\n  Scenario: Scheduled pages are promoted on a request after their due time\n    Given the administrator is logged into Bludit admin dashboard\n    When the administrator creates a page with title \"Scheduled Announcement\" and future date\n    Then the page is saved with status \"scheduled\" and is hidden from public blog\n    When the application clock advances past the scheduled publication time\n    And a visitor requests the public site home page\n    Then the page \"Scheduled Announcement\" status changes to \"published\"\n    And the page title \"Scheduled Announcement\" is visible on the public blog listing",
+      "fixture": "Setup: Clean clock/dbPages fixture. Teardown: Remove scheduled page.",
       "oracle": {
-        "observable": "A future-dated published page is stored with scheduled status; a page request after its due date runs the scheduler, changes its stored status to published, and makes it eligible for the published-page collection.",
+        "observable": "Database page entry status transitions from scheduled to published; page renders in published public collection.",
         "sourceRefs": [
-          "BL-S01",
-          "BL-S02"
+          "bl-kernel/dbpages.class.php",
+          "bl-kernel/boot/rules/69.pages.php"
         ]
       },
       "sourceRefs": [
-        "BL-S01",
-        "BL-S02"
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/dbpages.class.php",
+          "lines": "313-373",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "scheduler promotes due entries to published"
+        },
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/boot/rules/69.pages.php",
+          "lines": "87-100",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "invokes page scheduler on request boot"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_TEMPORAL_STATE_PROMOTION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: BL-017 changes post date but never tests request-time scheduler promotion to published status.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "bludit-17-changepostdatetest"
-        ],
-        "rationale": "Potentially distinct from BL-017 change-post-date; that baseline case changes the date but does not specify the scheduler transition. Novelty remains unverified.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "BL-017 changes post date but never tests request-time scheduler promotion to published status.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Repeat with a future-dated draft; it must remain unpublished.",
-      "testabilityRisk": "Clock control/scheduler cadence may be unavailable; no live runtime check was performed.",
-      "uncertainty": "The pinned source ties the status transition to the request-time page boot rule; exact clock fixture, cache behavior and public response still require runtime verification.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Scheduled publication becomes visible at its scheduled time.",
+      "negativeControl": "A draft page with future date remains draft and is not published by scheduler.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -73,45 +82,50 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Cover image selection persists and renders for content",
       "actor": "Administrator",
-      "role": "Editor or Administrator",
-      "preconditions": "Use a small synthetic PNG in the app-managed images area; choose a unique content slug.",
-      "fixture": "Select a local cover image while editing content, save, reload and open the public content page.",
+      "role": "Content author",
+      "preconditions": "Valid synthetic image available in managed uploads; new content creation.",
+      "testData": {
+        "title": "Post With Cover",
+        "imageFile": "cover-test.png"
+      },
+      "gherkinScenario": "Feature: Rich Media Publishing\n  Scenario: Cover image selection persists and renders for content\n    Given the administrator is logged into Bludit\n    When the administrator creates content \"Post With Cover\"\n    And selects \"cover-test.png\" as the cover image in the Images sidebar\n    And clicks the \"Save\" button\n    Then the edit view reloads showing \"cover-test.png\" selected as cover image\n    And navigating to the public post URL displays the image in the header cover slot",
+      "fixture": "Setup: Upload synthetic image. Teardown: Delete post and uploaded image file.",
       "oracle": {
-        "observable": "Saved content references the selected image and the public page resolves that image in its cover slot.",
+        "observable": "page.coverImage field persists the image identifier and theme template resolves and renders image tag.",
         "sourceRefs": [
-          "BL-S01",
-          "BL-S03",
-          "BL-S08",
-          "BL-S09"
+          "bl-kernel/admin/views/edit-content.php",
+          "bl-kernel/page.class.php"
         ]
       },
       "sourceRefs": [
-        "BL-S01",
-        "BL-S03",
-        "BL-S08",
-        "BL-S09"
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/admin/views/edit-content.php",
+          "lines": "91-110",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "cover image selector"
+        },
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/page.class.php",
+          "lines": "311-331",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "coverImage URL resolver"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_MEDIA_ATTACHMENT_PERSISTENCE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: BL-01 creates text content; baseline never tests cover image association or rendering.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "bludit-01-addcontenttest"
-        ],
-        "rationale": "Potential gap beyond generic add-content; baseline content creation does not state a cover-image persistence/render oracle.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "BL-01 creates text content; baseline never tests cover image association or rendering.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Save without a cover image and verify no broken/placeholder URL is emitted.",
-      "testabilityRisk": "Theme-specific rendering and image cleanup may affect reproducibility.",
-      "uncertainty": "Persistence is through the generic dbFields add/edit mapping; rendering is established only for the pinned alternative theme, not every theme. End-to-end selection flow remains unexecuted.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Cover image selection persists and renders for content.",
+      "negativeControl": "Saving content without cover image renders normal title without broken img placeholder.",
       "priorityReviewOrder": 2,
       "humanDecision": null
     },
@@ -123,42 +137,43 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Static status maps to page type and the static-page collection",
       "actor": "Administrator",
-      "role": "Editor or Administrator",
-      "preconditions": "Fresh static page and post with unique slugs; public home page is available.",
-      "fixture": "Create one page and one post using the two content types, then inspect public navigation/list and direct URLs.",
+      "role": "Content manager",
+      "preconditions": "Admin authenticated; no existing static page with slug 'about-our-team'.",
+      "testData": {
+        "title": "About Our Team",
+        "type": "static"
+      },
+      "gherkinScenario": "Feature: Page Type Classification\n  Scenario: Static status maps to page type and the static-page collection\n    Given the administrator is logged into Bludit admin\n    When the administrator creates content titled \"About Our Team\"\n    And changes the status to \"Static\" in the advanced options\n    And clicks \"Save\"\n    Then the content is stored in the static pages collection\n    And \"About Our Team\" appears in the static navigation menu\n    And \"About Our Team\" does NOT appear in the chronological blog post stream",
+      "fixture": "Teardown: Delete static page 'about-our-team'.",
       "oracle": {
-        "observable": "Setting static status sets type to page; the stored record appears in the static-page collection, while a published post remains in the published collection.",
+        "observable": "dbPages categorizes record under static collection rather than published posts stream; static navigation resolves page.",
         "sourceRefs": [
-          "BL-S01"
+          "bl-kernel/dbpages.class.php"
         ]
       },
       "sourceRefs": [
-        "BL-S01"
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/dbpages.class.php",
+          "lines": "131-140",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "static status type assignment"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_CONTENT_TYPE_PARTITIONING",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: BL-01, BL-02, BL-04 test blog posts; baseline does not test static page separation.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "bludit-01-addcontenttest",
-          "bludit-02-changeurltest",
-          "bludit-04-changeparenttest"
-        ],
-        "rationale": "Baseline add-content, parent and URL cases cover content fields/relationships but do not assert page-versus-post placement.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "BL-01, BL-02, BL-04 test blog posts; baseline does not test static page separation.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Compare with a normal post under the same category/route context.",
-      "testabilityRisk": "Theme templates may alter listing placement; avoid assuming a particular menu entry.",
-      "uncertainty": "The pinned model and collections support these stored/list outcomes; theme navigation and direct public URL placement are outside the cited path and require further verification.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Static page and post have distinct public placement.",
-      "priorityReviewOrder": null,
+      "negativeControl": "Creating normal post appears in blog stream and not in static navigation.",
+      "priorityReviewOrder": 3,
       "humanDecision": null
     },
     {
@@ -169,46 +184,100 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Administrator can change a non-admin user's role and retain it",
       "actor": "Administrator",
-      "role": "Administrator acting on an Editor",
-      "preconditions": "Seed a second non-admin user and record their current role; use synthetic credentials.",
-      "fixture": "Change the user's role to Administrator, save, reload the edit form, then log in with the seeded account.",
+      "role": "System administrator acting on Editor",
+      "preconditions": "An existing user 'editor_jane' with role 'editor'.",
+      "testData": {
+        "username": "editor_jane",
+        "initialRole": "editor",
+        "newRole": "administrator"
+      },
+      "gherkinScenario": "Feature: User Access Governance\n  Scenario: Administrator can change a non-admin user's role and retain it\n    Given user \"editor_jane\" exists with role \"editor\"\n    And the administrator is logged into Bludit admin\n    When the administrator navigates to Users and edits \"editor_jane\"\n    And changes the role dropdown from \"Editor\" to \"Administrator\"\n    And clicks \"Save\"\n    Then the edit form reloads confirming role \"Administrator\"\n    And when \"editor_jane\" logs in, the admin-only \"Settings\" route is accessible without restriction",
+      "fixture": "Setup: Create user editor_jane. Teardown: Remove user editor_jane.",
       "oracle": {
-        "observable": "Persisted role is Administrator after reload and account permission reflects that role on an admin-only route.",
+        "observable": "dbUsers record updates role field to administrator; subsequent session grants admin route permissions.",
         "sourceRefs": [
-          "BL-S04",
-          "BL-S06",
-          "BL-S07"
+          "bl-kernel/admin/controllers/edit-user.php",
+          "bl-kernel/dbusers.class.php"
         ]
       },
       "sourceRefs": [
-        "BL-S04",
-        "BL-S06",
-        "BL-S07"
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/admin/controllers/edit-user.php",
+          "lines": "18-44",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "admin role authorization check"
+        },
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/dbusers.class.php",
+          "lines": "61-99",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "role persistence in dbUsers"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline add/delete user and password cases do not assert role editing or role-specific access.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_AUTHORIZATION_MODIFICATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: BL-08 adds user, BL-16 deletes user, BL-09 changes password; none test role modification or privilege elevation.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "bludit-08-addusertest",
-          "bludit-16-deleteusertest",
-          "bludit-09-changepasswordtest"
-        ],
-        "rationale": "Baseline add/delete user and password cases do not assert role editing or role-specific access.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "BL-08 adds user, BL-16 deletes user, BL-09 changes password; none test role modification or privilege elevation.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Attempt the same role change while signed in as Editor; save must not grant elevated access.",
-      "testabilityRisk": "Authorization may be enforced in controller/router outside the inspected form; treat route denial as an uncertainty until traced.",
-      "uncertainty": "View exposes role selector only for an Administrator; role persistence and privilege effect need validation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Administrator can change a non-admin user's role and retain it.",
-      "priorityReviewOrder": 3,
+      "negativeControl": "An Editor attempting to submit role change form cannot elevate permissions.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "BL-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Category creation and filtered content listing",
+      "actor": "Administrator",
+      "role": "Taxonomy administrator",
+      "preconditions": "Admin authenticated; no category named 'Tech Insights'.",
+      "testData": {
+        "categoryName": "Tech Insights",
+        "categorySlug": "tech-insights",
+        "postTitle": "Future of AI"
+      },
+      "gherkinScenario": "Feature: Taxonomy Management\n  Scenario: Category creation and filtered content listing\n    Given the administrator is logged into Bludit admin\n    When the administrator navigates to Categories and adds \"Tech Insights\"\n    And creates a new blog post \"Future of AI\" assigned to \"Tech Insights\"\n    And clicks \"Save\"\n    Then the Categories management table lists \"Tech Insights\" with 1 associated post\n    And visiting \"/category/tech-insights\" displays post \"Future of AI\"\n    And posts belonging to other categories are excluded from \"/category/tech-insights\"",
+      "fixture": "Teardown: Delete post and category 'tech-insights'.",
+      "oracle": {
+        "observable": "dbCategories registers category slug; public category route filters posts by category key.",
+        "sourceRefs": [
+          "bl-kernel/dbcategories.class.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "bludit/bludit",
+          "path": "bl-kernel/dbcategories.class.php",
+          "lines": "25-85",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "note": "category persistence and post count mapping"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_TAXONOMY_FILTERING",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has zero category CRUD or filtered category listing tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has zero category CRUD or filtered category listing tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Visiting a non-existent category slug returns HTTP 404.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

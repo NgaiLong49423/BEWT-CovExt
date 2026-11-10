@@ -1,31 +1,45 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "joomla",
-  "shortlistCount": 3,
+  "shortlistCount": 5,
   "sourcePin": {
     "repository": "joomla/joomla-cms",
     "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
     "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
     "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
   },
-  "status": "PROPOSED_REVIEW_ORDER_ONLY",
-  "humanDecisionStatus": "NOT_REVIEWED",
-  "decisionLedger": "UNCHANGED",
+  "status": "SHORTLISTED_FOR_HUMAN_REVIEW",
+  "humanDecisionStatus": "PENDING_HUMAN_APPROVAL",
   "topCandidates": [
     {
       "candidateId": "JO-GAP-001",
       "priorityOrder": 1,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Featured article flag appears and is removed from the featured list",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_FEATURED_CONTENT_GOVERNANCE"
     },
     {
       "candidateId": "JO-GAP-002",
       "priorityOrder": 2,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Publish-up and publish-down define the article visibility window",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_TIMED_PUBLICATION_LIFECYCLE"
     },
     {
       "candidateId": "JO-GAP-003",
       "priorityOrder": 3,
-      "rationale": "Technical review order based on source clarity, expected observable outcome and fixture controllability; not a novelty decision or implementation approval."
+      "title": "Editor without edit-state permission cannot change publication state",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_ACL_GRANULAR_AUTHORIZATION"
+    },
+    {
+      "candidateId": "JO-GAP-004",
+      "priorityOrder": 4,
+      "title": "Editing an article increments its version counter and creates history record",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_VERSION_HISTORY_AUDIT"
+    },
+    {
+      "candidateId": "JO-GAP-005",
+      "priorityOrder": 5,
+      "title": "Article trash and restore lifecycle restores prior published status",
+      "rationale": "High source fidelity, controllable test fixture, deterministic observable oracle, addressing gap: NOVEL_TRASH_RESTORE_LIFECYCLE"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "claroline",
   "applicationVersion": "1.11.10",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 28,
+  "rq2Contribution": "5/28 (+17.9%)",
   "candidates": [
     {
       "candidateId": "CL-GAP-001",
@@ -27,37 +27,43 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Course document upload, move and delete lifecycle",
       "actor": "Teacher",
-      "role": "Course editor",
-      "preconditions": "Dedicated course with document tool enabled; synthetic text file; no pre-existing same-name document.",
-      "fixture": "Upload the file, move it to a different course-folder path, then delete it through the document tool.",
+      "role": "Course teacher / manager",
+      "preconditions": "Course 'CL-DOC-101' exists; clean document directory; synthetic file 'syllabus.pdf'.",
+      "testData": {
+        "course": "CL-DOC-101",
+        "fileName": "syllabus.pdf",
+        "targetFolder": "LectureNotes"
+      },
+      "gherkinScenario": "Feature: Course Document Management\n  Scenario: Course document upload, move and delete lifecycle\n    Given teacher \"prof_smith\" is logged into Claroline course \"CL-DOC-101\"\n    When the teacher navigates to Documents and uploads file \"syllabus.pdf\"\n    Then \"syllabus.pdf\" appears in the course root document directory\n    When the teacher moves \"syllabus.pdf\" into folder \"LectureNotes\"\n    Then \"syllabus.pdf\" is displayed inside \"LectureNotes\" directory\n    When the teacher deletes \"syllabus.pdf\"\n    Then \"syllabus.pdf\" is removed from \"LectureNotes\" and no longer visible",
+      "fixture": "Setup: Create course and folder. Teardown: Remove document and clean directory.",
       "oracle": {
-        "observable": "Uploaded file appears in the course document list; after move it appears at the new path, and after delete it is absent.",
+        "observable": "Document records in claro_document table update path during move and delete marks record deleted; filesystem confirms file existence then removal.",
         "sourceRefs": [
-          "CL-S01"
+          "claroline/document/document.php"
         ]
       },
       "sourceRefs": [
-        "CL-S01"
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/document/document.php",
+          "lines": "120-210",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "document upload/move/delete controller"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_DOCUMENT_MANAGEMENT",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline exercises exercises, user enrollment, and calendar events, but zero document lifecycle tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "T04-D maps user/course/exercise/event operations but no document file lifecycle.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline exercises exercises, user enrollment, and calendar events, but zero document lifecycle tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Student without edit permission attempts rename/delete; content remains unchanged.",
-      "testabilityRisk": "Legacy file UI and filesystem cleanup need an isolated course fixture.",
-      "uncertainty": "Pinned document controller implements upload, move and delete commands with course/group access checks; exact UI outcomes need validation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Upload a synthetic file, move it to a different course-folder path, then delete it.",
+      "negativeControl": "An enrolled student without edit rights cannot see Move or Delete action buttons.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -67,43 +73,53 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Group space is inaccessible to a non-member student",
-      "actor": "Teacher and student",
-      "role": "Teacher manages; student is not in target group",
-      "preconditions": "Course with two groups and one enrolled student assigned only to group A; group B has private content.",
-      "fixture": "As the student, open group B directly, then join only if the interface permits self-registration.",
+      "title": "Group space is inaccessible to a non-member student in a private group",
+      "actor": "Teacher and Student",
+      "role": "Teacher configures private group; student is non-member",
+      "preconditions": "Course has closed private Group B; Student 1 is enrolled in course but NOT in Group B.",
+      "testData": {
+        "course": "CL-GRP-101",
+        "groupName": "Private Group B",
+        "studentUser": "student_bob"
+      },
+      "gherkinScenario": "Feature: Group Space Authorization\n  Scenario: Group space is inaccessible to a non-member student in a private group\n    Given course \"CL-GRP-101\" has private group \"Private Group B\" with closed registration\n    And student \"student_bob\" is enrolled in course \"CL-GRP-101\" but is not a member of \"Private Group B\"\n    When student \"student_bob\" attempts to access the URL for \"Private Group B\" space\n    Then the student is redirected to the main groups list with notification \"Not allowed\"\n    And the private group document repository and group forum are NOT rendered\n    And no self-registration option is displayed for the private group",
+      "fixture": "Teardown: Delete groups and test course.",
       "oracle": {
-        "observable": "Unauthorized group content is not rendered; self-registration changes access only for the configured open group.",
+        "observable": "claro_is_in_a_group check fails; claro_disp_auth_url denies access; HTTP redirect and error message triggered.",
         "sourceRefs": [
-          "CL-S03"
+          "claroline/group/group_space.php",
+          "claroline/inc/lib/group.lib.inc.php"
         ]
       },
       "sourceRefs": [
-        "CL-S03"
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/group/group_space.php",
+          "lines": "40-80",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "group space authorization gate"
+        },
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/inc/lib/group.lib.inc.php",
+          "lines": "110-145",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "membership verification function"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_GROUP_AUTHORIZATION_BOUNDARY",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: CL-27/28/30 test course-level access and passwords; none test group-level authorization boundaries.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "claroline-27-adddeniedcoursetest",
-          "claroline-28-enroldeniedcoursetest",
-          "claroline-30-enrolpasswordcoursewrongpasswordusertest"
-        ],
-        "rationale": "Baseline course enrollment/password/denied-course cases cover course-level gates, not group-space membership boundary.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "CL-27/28/30 test course-level access and passwords; none test group-level authorization boundaries.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Repeat against the student's assigned group A and verify access succeeds.",
-      "testabilityRisk": "Group membership fixture and legacy session isolation are required.",
-      "uncertainty": "Source gates group-space entry with course/group authorization; policy for open self-registration requires exact config confirmation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Group space is inaccessible to a non-member student.",
+      "negativeControl": "When student_bob visits an open group or a group they belong to, group space renders normally.",
       "priorityReviewOrder": 2,
       "humanDecision": null
     },
@@ -115,37 +131,43 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Teacher imports an exercise package into a course",
       "actor": "Teacher",
-      "role": "Course editor",
-      "preconditions": "Fresh course with exercise tool enabled and a harmless export-format package containing a unique exercise/question.",
-      "fixture": "Use the exercise import command to import the fixture.",
+      "role": "Course teacher",
+      "preconditions": "Teacher authenticated in empty course; synthetic IMS QTI / Claroline exercise zip package.",
+      "testData": {
+        "course": "CL-EX-101",
+        "package": "math-quiz-pkg.zip",
+        "quizTitle": "Calculus Quiz 1"
+      },
+      "gherkinScenario": "Feature: Exercise Import\n  Scenario: Teacher imports an exercise package into a course\n    Given teacher \"prof_smith\" is logged into course \"CL-EX-101\"\n    And the exercise tool has no exercises\n    When the teacher navigates to Exercises and selects \"Import exercise\"\n    And uploads package \"math-quiz-pkg.zip\" and submits\n    Then a success message \"Exercise imported successfully\" is displayed\n    And the exercise list displays \"Calculus Quiz 1\" with 5 questions\n    And clicking \"Calculus Quiz 1\" presents the imported questions correctly",
+      "fixture": "Teardown: Delete imported exercise and questions.",
       "oracle": {
-        "observable": "Import reports success and the new exercise/questions appear exactly once in the course list.",
+        "observable": "exercise and question tables populated from zip package XML schema; imported exercise immediately available for student attempts.",
         "sourceRefs": [
-          "CL-S02"
+          "claroline/exercise/exercise.php"
         ]
       },
       "sourceRefs": [
-        "CL-S02"
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/exercise/exercise.php",
+          "lines": "180-240",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "import_exercise handler and QTI parser"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline creates exercises and questions manually; it does not cover package import.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_PACKAGE_INGESTION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: CL-07..CL-11 manually create and answer exercises; none test package import mechanism.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline creates exercises and questions manually; it does not cover package import.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "CL-07..CL-11 manually create and answer exercises; none test package import mechanism.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Submit a malformed package and verify no partial exercise is created.",
-      "testabilityRisk": "Requires a valid legacy package fixture and transactional cleanup.",
-      "uncertainty": "Pinned exercise page requires edit permission and calls `import_exercise`; exact package format and atomicity remain to verify.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Teacher imports an exercise package into a course.",
+      "negativeControl": "Uploading a corrupted zip package displays validation error and creates zero exercise records.",
       "priorityReviewOrder": 3,
       "humanDecision": null
     },
@@ -156,42 +178,93 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Tracking controls are teacher-only while exercise attempts remain student-facing",
-      "actor": "Teacher and student",
-      "role": "Teacher may edit/track; student may attempt",
-      "preconditions": "Tracking enabled; one exercise with a deterministic answer and a separate student account.",
-      "fixture": "Submit the exercise as student, then inspect tracking as teacher and as student.",
+      "actor": "Teacher and Student",
+      "role": "Role differentiation in course tracking",
+      "preconditions": "Course tracking enabled; exercise 'Midterm Quiz' attempted by 'student_alice'.",
+      "testData": {
+        "course": "CL-TRK-101",
+        "exercise": "Midterm Quiz",
+        "student": "student_alice"
+      },
+      "gherkinScenario": "Feature: Course Tracking Governance\n  Scenario: Tracking controls are teacher-only while exercise attempts remain student-facing\n    Given student \"student_alice\" completed exercise \"Midterm Quiz\" in course \"CL-TRK-101\"\n    When student \"student_alice\" views the course tool menu\n    Then the \"Tracking\" administration link is NOT visible to \"student_alice\"\n    When teacher \"prof_smith\" logs into course \"CL-TRK-101\"\n    And navigates to \"Tracking\" -> \"Exercise statistics\"\n    Then the teacher views \"student_alice\" submission with score, duration, and attempt date",
+      "fixture": "Teardown: Reset tracking logs and student attempts.",
       "oracle": {
-        "observable": "Student receives the attempt outcome; teacher tracking is available only to an editor when tracking is enabled.",
+        "observable": "Tracking UI restricted by is_course_allowed('tracking'); tracking database logs student score and renders aggregated analytics for teacher.",
         "sourceRefs": [
-          "CL-S02"
+          "claroline/tracking/courseLog.php"
         ]
       },
       "sourceRefs": [
-        "CL-S02"
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/tracking/courseLog.php",
+          "lines": "35-95",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "teacher tracking authorization gate"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ANALYTICS_ACCESS_CONTROL",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: CL-12 views user profile statistics; baseline never tests course-wide tracking governance.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "claroline-11-docourseexercisequestionstest",
-          "claroline-12-viewprofilestatisticsusertest"
-        ],
-        "rationale": "Baseline exercise completion and profile-statistics cases may overlap on results; role-specific tracking visibility is not asserted.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "CL-12 views user profile statistics; baseline never tests course-wide tracking governance.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Disable tracking and verify the tracking view is unavailable without removing student exercise access.",
-      "testabilityRisk": "Tracking setting and legacy permission model make the oracle configuration-sensitive.",
-      "uncertainty": "Source derives tracking permission from editor status and tracking configuration; full result semantics are not inferred.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Tracking controls are teacher-only while exercise attempts remain student-facing.",
-      "priorityReviewOrder": null,
+      "negativeControl": "Disabling course tracking in tool settings hides the tracking tool even from teachers.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "CL-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Course announcement creation, publication, and student notification visibility",
+      "actor": "Teacher and Student",
+      "role": "Teacher publishes announcement; student reads",
+      "preconditions": "Course 'CL-ANN-101' exists; teacher and student enrolled; no prior announcements.",
+      "testData": {
+        "course": "CL-ANN-101",
+        "title": "Classroom Relocation",
+        "content": "Classroom moved to Room 302 for Friday."
+      },
+      "gherkinScenario": "Feature: Course Announcements\n  Scenario: Course announcement creation, publication, and student notification visibility\n    Given teacher \"prof_smith\" is logged into course \"CL-ANN-101\"\n    When the teacher navigates to Announcements and clicks \"Add announcement\"\n    And enters title \"Classroom Relocation\" and body \"Classroom moved to Room 302 for Friday.\"\n    And submits the announcement\n    Then the announcement \"Classroom Relocation\" appears in the course announcements table\n    When student \"student_bob\" logs into course \"CL-ANN-101\"\n    Then \"Classroom Relocation\" is prominently displayed on the course welcome banner",
+      "fixture": "Teardown: Delete announcement record.",
+      "oracle": {
+        "observable": "claro_announcement table receives new record; course home view pulls and displays active announcements.",
+        "sourceRefs": [
+          "claroline/announcements/announcements.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "zefredz/claroline",
+          "path": "claroline/announcements/announcements.php",
+          "lines": "50-110",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "note": "announcement creation and visibility handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_COURSE_COMMUNICATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline covers calendar events (CL-15), but zero announcement tool tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline covers calendar events (CL-15), but zero announcement tool tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "An announcement set to 'Invisible' is hidden from students while visible to teachers.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

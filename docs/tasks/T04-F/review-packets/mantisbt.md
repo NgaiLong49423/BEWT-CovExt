@@ -1,138 +1,223 @@
-# mantisbt — G1 candidate review packet
+# Mantisbt — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 1.2.0  
+**Baseline Physical Features:** 38  
+**Baseline Test Classes:** 37  
+**Baseline Assertions:** 51  
+**Baseline Unique Behavioral Units (D_base):** 26  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 1.2.0
-- Source pin: [mantisbt/mantisbt@d06bf60f5ed9f96029bb830a005d4819a4f87b45](https://github.com/mantisbt/mantisbt/tree/d06bf60f5ed9f96029bb830a005d4819a4f87b45) (tree `55de24eebb87e4337e31b2f668554466c591d99d`; provenance PINNED_RELEASE_SOURCE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/mantisbt/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/mantisbt/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/mantisbt/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 4; technical review order: 3. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## MB-GAP-001 — User monitors and stops monitoring an issue for their own account
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Mantisbt** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Reporter or developer / Authenticated issue viewer with monitor permission.
-- Proposed preconditions: Issue in accessible project; user initially not monitoring; separate account available for isolation.
-- Proposed fixture/action: Enable monitoring, reload, disable monitoring, reload.
-- Expected observable (oracle proposal, not approved): Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged.
-- Negative control: Second account must not inherit the first user's monitor state.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline assignment/status/project tests do not cover per-user monitoring state.
+---
 
-Source references:
-- [MB-S02](https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_monitor_add.php) — `bug_monitor_add.php` lines 30-67; blob `6bcc02763e4639108dd10dd9f92d150ed209c196`. Monitor route acts on current user and verifies monitoring permission.
+### 1. MB-GAP-001 — User monitors and stops monitoring an issue for their own account
 
-### Gherkin sketch — draft for review only
+- **Target Novelty Class:** `NOVEL_ISSUE_OBSERVATION_STATE`
+- **Actor:** Developer (Authenticated issue viewer with monitor rights)
+- **Preconditions:** Issue #201 exists; user 'dev_dave' currently not monitoring.
+- **Test Data:** `{"issueId": 201, "user": "dev_dave"}`
 
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: User monitors and stops monitoring an issue for their own account
-  Given Issue in accessible project; user initially not monitoring; separate account available for isolation.
-  When Enable monitoring, reload, disable monitoring, reload.
-  Then Monitoring indicator and per-user state change only for the acting account; a second user remains unchanged.
-  And Second account must not inherit the first user's monitor state.
+Feature: Issue Monitoring
+  Scenario: User monitors and stops monitoring an issue for their own account
+    Given developer "dev_dave" is viewing issue #201
+    And "dev_dave" is not currently listed as a monitor
+    When "dev_dave" clicks the "Monitor" button
+    Then the page reloads displaying "dev_dave" in the "Users monitoring this issue" list
+    And the action button label changes to "End Monitoring"
+    When "dev_dave" clicks "End Monitoring"
+    Then "dev_dave" is removed from the monitoring list
+    And other monitoring users remain unaffected
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** mantis_bug_monitor_table adds then deletes (user_id, bug_id) record; UI updates monitor button toggle and list.
+- **Negative Control:** A second user logging in sees 'dev_dave' monitoring state without their own account being affected.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Assert per-user monitor state only; explicitly exclude email delivery/notifications unless separately configured and evidenced.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Ensure monitor record is cleared.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `bug_monitor_add.php` (Lines: `30-65`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *monitor add handler*
+- **File:** `bug_monitor_delete.php` (Lines: `30-65`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *monitor delete handler*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline tests issue assignment, status, and project configuration, but zero monitoring tests.
 
-## MB-GAP-003 — Issue relationship rejects self-link and duplicate links
+#### Review Ledger Entry Template
+- **Candidate ID:** `MB-GAP-001`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Developer / Can update source and destination issues.
-- Proposed preconditions: Two accessible issues with no relationship; unique pair in isolated project.
-- Proposed fixture/action: Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.
-- Expected observable (oracle proposal, not approved): First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows.
-- Negative control: Try a destination issue the actor cannot view; no relationship details should leak.
-- Baseline overlap screen: POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED. Baseline links/unlinks project subprojects; issue-to-issue relationship semantics are not covered.
+---
+### 2. MB-GAP-002 — Private issue note is hidden from users below the private-note threshold
 
-Baseline references:
-`mantisbt-33-addmultiplesubprojects` — `mantisbt/gherkin/33_AddMultipleSubprojects.feature` (Adds a new project and then adds two subprojects); Java `mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/AddMultipleSubprojects.java`, assertion refs 35:assertTrue, 43:assertTrue.
-`mantisbt-34-unlinkmultiplesubprojects` — `mantisbt/gherkin/34_UnlinkMultipleSubprojects.feature` (Unlinks two subprojects from their parent project); Java `mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/UnlinkMultipleSubprojects.java`, assertion refs 20:assertFalse, 23:assertFalse.
-`mantisbt-35-linkmultiplesubprojects` — `mantisbt/gherkin/35_LinkMultipleSubprojects.feature` (Links two subprojects to another project); Java `mantisbt/baseline/mantisbt-1.2.0/src/test/java/base/LinkMultipleSubprojects.java`, assertion refs 23:assertTrue, 29:assertTrue.
+- **Target Novelty Class:** `NOVEL_NOTE_PRIVACY_BOUNDARY`
+- **Actor:** Developer and Reporter (Developer adds private note; Reporter views issue)
+- **Preconditions:** Issue #202 exists; Developer 'dev_dave' has private note view/add right; Reporter 'rep_bob' lacks it.
+- **Test Data:** `{"issueId": 202, "noteText": "Confidential security vulnerability details"}`
 
-Source references:
-- [MB-S03](https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_relationship_add.php) — `bug_relationship_add.php` lines 31-83; blob `2af42c0d97251e2f6e4ad6914177d42c1d128643`. Relationship route validates source/destination, same-issue and existing relationship cases.
-
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Issue relationship rejects self-link and duplicate links
-  Given Two accessible issues with no relationship; unique pair in isolated project.
-  When Create a related/duplicate/dependency link, repeat it, then try linking an issue to itself.
-  Then First relation is recorded once; duplicate and self-link are rejected or safely handled without duplicate rows.
-  And Try a destination issue the actor cannot view; no relationship details should leak.
+Feature: Note Privacy Authorization
+  Scenario: Private issue note is hidden from users below the private-note threshold
+    Given issue #202 exists in project "Core System"
+    When developer "dev_dave" adds a note "Confidential security vulnerability details" with "Private" checked
+    Then the note is displayed to "dev_dave" with a "Private" badge
+    When reporter "rep_bob" views issue #202
+    Then the note "Confidential security vulnerability details" is NOT rendered
+    And public notes on issue #202 remain visible to "rep_bob"
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** bugnote view query filters by view_state == 50; users below private_bugnote_threshold cannot see private notes.
+- **Negative Control:** A note saved as Public is visible to both dev_dave and rep_bob.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Current oracle says “rejected or safely handled,” which is not a single deterministic expectation. Reviewer must choose the source-supported duplicate outcome and exact UI/API signal before approval.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete test bugnote.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `bugnote_add.php` (Lines: `40-90`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *bugnote add handler with view_state*
+- **File:** `core/bugnote_api.php` (Lines: `120-170`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *visible bugnotes access check*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline updates issue summary and status, but never tests bugnotes or note privacy levels.
 
-## MB-GAP-004 — Issue attachment upload is persisted and rejects invalid input
+#### Review Ledger Entry Template
+- **Candidate ID:** `MB-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Reporter / Can update an issue and upload files.
-- Proposed preconditions: Issue in isolated project; small synthetic text attachment with unique filename/content marker.
-- Proposed fixture/action: Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.
-- Expected observable (oracle proposal, not approved): The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment.
-- Negative control: As a user without update access, attempt upload and verify no attachment is created.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline issue creation/update/deletion has no attachment upload/download assertion.
+---
+### 3. MB-GAP-003 — Issue relationship rejects self-link and duplicate links
 
-Source references:
-- [MB-S04](https://github.com/mantisbt/mantisbt/blob/d06bf60f5ed9f96029bb830a005d4819a4f87b45/bug_file_add.php) — `bug_file_add.php` lines 30-52; blob `ae768da9cb2a16fd946107f3718132811e27d7d8`. Attachment route validates bug/file input, upload limit and bug access.
+- **Target Novelty Class:** `NOVEL_ISSUE_RELATION_CONSTRAINTS`
+- **Actor:** Developer (Issue updater)
+- **Preconditions:** Two open issues #203 and #204 exist in the project.
+- **Test Data:** `{"sourceBug": 203, "destBug": 204, "relType": "related-to"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Issue attachment upload is persisted and rejects invalid input
-  Given Issue in isolated project; small synthetic text attachment with unique filename/content marker.
-  When Upload attachment, reload issue, download it as authorized user, then attempt as unauthorized user.
-  Then The issue page shows the uploaded attachment after reload; oversized/missing input produces an error and leaves no partial attachment.
-  And As a user without update access, attempt upload and verify no attachment is created.
+Feature: Issue Relationship Constraints
+  Scenario: Issue relationship rejects self-link and duplicate links
+    Given issues #203 and #204 exist in project "Core System"
+    When developer links issue #203 as "parent of" issue #204
+    Then issue #203 shows "parent of: #204" and issue #204 shows "child of: #203"
+    When developer attempts to link issue #203 to issue #203
+    Then the system rejects with error "You cannot link a bug to itself"
+    When developer attempts to add a duplicate "parent of" link between #203 and #204
+    Then the system rejects with error "Relationship already exists"
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** mantis_bug_relationship_table enforces uniqueness and disallows source_bug_id == dest_bug_id.
+- **Negative Control:** Linking issue #203 to an independent issue #205 succeeds without error.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Pin filesystem/database attachment storage mode. Test oversize and missing-file controls separately; prove no partial database or filesystem artifact remains.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete relationships between #203 and #204.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `bug_relationship_add.php` (Lines: `35-85`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *relationship validation and same-bug rejection*
+- **File:** `core/relationship_api.php` (Lines: `80-130`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *relationship_exists check*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** MB-33..35 link/unlink project subprojects; baseline never tests issue-to-issue relationships or link constraints.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MB-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. MB-GAP-004 — Issue attachment upload is persisted and rejects invalid input
+
+- **Target Novelty Class:** `NOVEL_ATTACHMENT_MANAGEMENT`
+- **Actor:** Reporter (Issue creator/reporter)
+- **Preconditions:** Issue #205 exists; small synthetic text attachment 'stacktrace.txt'.
+- **Test Data:** `{"issueId": 205, "fileName": "stacktrace.txt"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Attachment Lifecycle
+  Scenario: Issue attachment upload is persisted and rejects invalid input
+    Given issue #205 exists in project "Core System"
+    When reporter uploads file "stacktrace.txt" to issue #205
+    Then the "Attached Files" section displays "stacktrace.txt" with file size and upload date
+    And clicking "stacktrace.txt" downloads the exact original file content
+    When reporter attempts to upload an empty file selection
+    Then the system displays error "No file was selected for upload"
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** mantis_bug_file_table stores file metadata; file content stored in disk/db and retrievable via file_download.php.
+- **Negative Control:** Uploading a file exceeding max_file_size fails with file-size error.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete attachment from issue #205.
+
+#### Source Code Anchors
+- **File:** `bug_file_add.php` (Lines: `40-100`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *bug attachment upload handler*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline creates and updates issues, but has zero file attachment tests.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MB-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. MB-GAP-005 — Issue tag attachment, display, and tag-based issue filter retrieval
+
+- **Target Novelty Class:** `NOVEL_TAGGING_TAXONOMY`
+- **Actor:** Developer (Issue updater)
+- **Preconditions:** Issue #206 exists; clean tag 'regression-v2'.
+- **Test Data:** `{"issueId": 206, "tagName": "regression-v2"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Tagging and Filtered Retrieval
+  Scenario: Issue tag attachment, display, and tag-based issue filter retrieval
+    Given issue #206 exists with no tags
+    When developer attaches tag "regression-v2" to issue #206
+    Then issue #206 details view displays tag badge "regression-v2"
+    When developer navigates to View Issues page and filters by tag "regression-v2"
+    Then issue #206 is returned in the filtered list
+    And issues without tag "regression-v2" are excluded from the list
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** mantis_tag_table and mantis_bug_tag_table link tag to bug; filter query joins tag table and returns matching issues.
+- **Negative Control:** Detaching the tag removes the badge and filtering by that tag no longer returns the issue.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Detach and delete tag 'regression-v2'.
+
+#### Source Code Anchors
+- **File:** `core/tag_api.php` (Lines: `40-120`) @ commit `d06bf60f5ed9f96029bb830a005d4819a4f87b45` — *tag attach and filter API*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline has zero tagging tests across all 38 test files.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MB-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---

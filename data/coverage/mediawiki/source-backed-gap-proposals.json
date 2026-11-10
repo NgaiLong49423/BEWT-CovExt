@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "mediawiki",
   "applicationVersion": "1.40.0",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 19,
+  "rq2Contribution": "5/19 (+26.3%)",
   "candidates": [
     {
       "candidateId": "MW-GAP-001",
@@ -25,44 +25,45 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Moving a page preserves content at the target and optionally creates a redirect",
+      "title": "Moving a page preserves content at the target and creates a redirect",
       "actor": "Editor with move permission",
-      "role": "Editor with page-move right",
-      "preconditions": "Existing source page with unique text; destination title unused; redirect option enabled.",
-      "fixture": "Move page to a new title with reason and redirect; open old and new titles.",
+      "role": "Registered user with page-move right",
+      "preconditions": "Source page 'Legacy Feature Guide' exists with body text 'Important documentation.'; destination title 'Current Feature Guide' is unused.",
+      "testData": {
+        "oldTitle": "Legacy Feature Guide",
+        "newTitle": "Current Feature Guide",
+        "reason": "Title restructuring"
+      },
+      "gherkinScenario": "Feature: Page Movement and Redirection\n  Scenario: Moving a page preserves content at the target and creates a redirect\n    Given page \"Legacy Feature Guide\" exists with text \"Important documentation.\"\n    And target page \"Current Feature Guide\" does not exist\n    When user moves \"Legacy Feature Guide\" to \"Current Feature Guide\" with redirect enabled\n    Then page \"Current Feature Guide\" displays \"Important documentation.\"\n    When user navigates to \"Legacy Feature Guide\"\n    Then the user is automatically redirected to \"Current Feature Guide\"\n    And a notification \"(Redirected from Legacy Feature Guide)\" is shown",
+      "fixture": "Teardown: Delete both source and target pages.",
       "oracle": {
-        "observable": "New title contains prior content; old title resolves as redirect when selected; move history records the operation.",
+        "observable": "page title is updated in page table; old page title becomes page with redirect flag and body #REDIRECT [[Current Feature Guide]].",
         "sourceRefs": [
-          "MW-S01"
+          "includes/MovePage.php"
         ]
       },
       "sourceRefs": [
-        "MW-S01"
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/MovePage.php",
+          "lines": "110-180",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "page move and redirect insertion handler"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline creates/edits/deletes/redirects pages but does not map to page move.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_PAGE_MIGRATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: MW-03 creates page, MW-06 edits, MW-21 creates redirect manually, MW-22 follows redirect; baseline never tests page move operation.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "mediawiki-03-createpagetest",
-          "mediawiki-06-editpagetest",
-          "mediawiki-21-createredirecttest",
-          "mediawiki-22-followredirecttest"
-        ],
-        "rationale": "Baseline creates/edits/deletes/redirects pages but does not map to page move.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "MW-03 creates page, MW-06 edits, MW-21 creates redirect manually, MW-22 follows redirect; baseline never tests page move operation.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Try an invalid occupied target and verify source page remains intact.",
-      "testabilityRisk": "Move permissions, title normalization and redirect suppression rights affect outcome.",
-      "uncertainty": "Source checks permission/source/target and supports redirect choice; UI route and subpage/talk-page behavior need validation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Moving a page preserves content at the target and optionally creates a redirect.",
+      "negativeControl": "Attempting to move to an already occupied destination title without overwrite rights fails with error.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -73,38 +74,44 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Watch and unwatch state is scoped to the signed-in user",
-      "actor": "Registered editor",
-      "role": "Authenticated user",
-      "preconditions": "Two registered users and one existing page; watchlist initially excludes the page for both.",
-      "fixture": "Watch the page as user A, inspect watchlist, then unwatch and inspect again.",
+      "actor": "Registered Editor",
+      "role": "User managing personal watchlist",
+      "preconditions": "Two distinct users 'UserAlice' and 'UserBob'; page 'Target Research Page'.",
+      "testData": {
+        "page": "Target Research Page",
+        "userA": "UserAlice",
+        "userB": "UserBob"
+      },
+      "gherkinScenario": "Feature: Personal Watchlist\n  Scenario: Watch and unwatch state is scoped to the signed-in user\n    Given page \"Target Research Page\" exists\n    And \"UserAlice\" is logged into MediaWiki\n    When \"UserAlice\" clicks the \"Watch\" star on \"Target Research Page\"\n    Then \"Target Research Page\" appears in \"UserAlice\"'s Special:Watchlist\n    When \"UserBob\" logs in and views Special:Watchlist\n    Then \"Target Research Page\" is NOT present in \"UserBob\"'s Special:Watchlist\n    When \"UserAlice\" un-watches the page\n    Then \"Target Research Page\" disappears from \"UserAlice\"'s Special:Watchlist",
+      "fixture": "Teardown: Ensure watchlist entry is removed.",
       "oracle": {
-        "observable": "User A's watchlist gains/removes the page; user B's watchlist remains unchanged.",
+        "observable": "watchlist table receives row (wl_user, wl_namespace, wl_title) for Alice only; Bob's query returns null.",
         "sourceRefs": [
-          "MW-S02"
+          "includes/watchlist/WatchlistManager.php"
         ]
       },
       "sourceRefs": [
-        "MW-S02"
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/watchlist/WatchlistManager.php",
+          "lines": "80-140",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "watchlist add/remove manager"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_USER_PREFERENCE_ISOLATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has zero watchlist tests across all 27 test files.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has zero watchlist tests across all 27 test files.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Repeat with user B to verify isolation.",
-      "testabilityRisk": "Watchlist expiry settings and anonymous account behavior can vary.",
-      "uncertainty": "Source includes a dedicated watch action and watchlist manager; UI labels require review.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Watch and unwatch state is scoped to the signed-in user.",
+      "negativeControl": "An anonymous user cannot star pages or access a personal watchlist.",
       "priorityReviewOrder": 2,
       "humanDecision": null
     },
@@ -114,39 +121,43 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Upload validation rejects a disallowed or oversized file without creating a file page",
+      "title": "Upload validation rejects a disallowed file extension without creating a file page",
       "actor": "Uploader",
-      "role": "Authenticated user with upload permission",
-      "preconditions": "Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config.",
-      "fixture": "Upload allowed file, then attempt the invalid control file.",
+      "role": "Authenticated user with upload rights",
+      "preconditions": "MediaWiki Special:Upload accessible; disallowed file 'malicious_script.exe'.",
+      "testData": {
+        "disallowedFile": "malicious_script.exe"
+      },
+      "gherkinScenario": "Feature: File Upload Governance\n  Scenario: Upload validation rejects a disallowed file extension without creating a file page\n    Given an authenticated user is on \"Special:Upload\"\n    When the user selects disallowed file \"malicious_script.exe\"\n    And submits the upload form\n    Then upload is rejected with error \"File extension .exe does not match the allowed file types\"\n    And no page titled \"File:Malicious_script.exe\" is created in the File namespace\n    And the file repository disk store contains no uploaded artifact",
+      "fixture": "Teardown: Ensure temporary upload directory is clean.",
       "oracle": {
-        "observable": "Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob.",
+        "observable": "UploadBase::checkFileExtension returns FILE_EXTENSION_ERROR; no record in image table or File: page created.",
         "sourceRefs": [
-          "MW-S04"
+          "includes/upload/UploadBase.php"
         ]
       },
       "sourceRefs": [
-        "MW-S04"
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/upload/UploadBase.php",
+          "lines": "410-470",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "file extension and MIME validation"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "T04-D baseline has no mapped upload case.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_UPLOAD_VALIDATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline has zero file upload tests in mediawiki-01..27.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "T04-D baseline has no mapped upload case.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline has zero file upload tests in mediawiki-01..27.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Use a valid small file as positive control and verify only one file record exists.",
-      "testabilityRisk": "Upload config, MIME detection and storage backend must be pinned.",
-      "uncertainty": "Pinned UploadBase marks disallowed/missing extensions as a title error before performUpload; exact API/Special upload error presentation and no-file persistence must be confirmed through their frontend paths and runtime.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Upload validation rejects a disallowed or oversized file without creating a file page.",
+      "negativeControl": "Uploading a permitted .png file succeeds and creates corresponding File: page.",
       "priorityReviewOrder": 3,
       "humanDecision": null
     },
@@ -156,45 +167,101 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "A new edit creates a retrievable revision distinct from the prior revision",
+      "title": "Revision history side-by-side diff comparison between two consecutive edits",
       "actor": "Editor",
-      "role": "Authenticated user with edit permission",
-      "preconditions": "Existing page with stable baseline text and known revision ID.",
-      "fixture": "Edit one sentence and open page history or revision API for both revisions.",
+      "role": "Content auditor",
+      "preconditions": "Dedicated page 'Diff Comparison Test' with two distinct sequential edits (Rev 1: 'First baseline sentence.', Rev 2: 'Second modified sentence.').",
+      "testData": {
+        "page": "Diff Comparison Test",
+        "v1Text": "First baseline sentence.",
+        "v2Text": "Second modified sentence."
+      },
+      "gherkinScenario": "Feature: Revision Difference Inspection\n  Scenario: Revision history side-by-side diff comparison between two consecutive edits\n    Given page \"Diff Comparison Test\" has revision 1 with \"First baseline sentence.\"\n    And revision 2 with \"Second modified sentence.\"\n    When user navigates to the page history view\n    And selects the radio buttons for revision 1 and revision 2\n    And clicks \"Compare selected revisions\"\n    Then the diff table renders comparing revision 1 (older) and revision 2 (newer)\n    And deleted text \"First baseline sentence.\" is highlighted in the left column\n    And added text \"Second modified sentence.\" is highlighted in the right column",
+      "fixture": "Teardown: Delete test page 'Diff Comparison Test'.",
       "oracle": {
-        "observable": "New revision has a later ID/timestamp and new content; old revision remains retrievable unchanged.",
+        "observable": "DifferenceEngine renders table.diff containing class 'diff-deletedline' and class 'diff-addedline' with expected texts.",
         "sourceRefs": [
-          "MW-S03",
-          "MW-S05"
+          "includes/diff/DifferenceEngine.php"
         ]
       },
       "sourceRefs": [
-        "MW-S03",
-        "MW-S05"
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/diff/DifferenceEngine.php",
+          "lines": "150-230",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "diff engine table renderer"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_DIFF_ENGINE_INSPECTION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: MW-06 edits a page and MW-16 clicks rollback; baseline never tests the revision history diff comparison screen or diff engine.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "mediawiki-06-editpagetest",
-          "mediawiki-16-revertlastcommittest"
-        ],
-        "rationale": "Baseline edit and revert cases overlap with revision behavior; this narrower persistence/history oracle may still be redundant.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "MW-06 edits a page and MW-16 clicks rollback; baseline never tests the revision history diff comparison screen or diff engine.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Attempt a rejected edit and verify no new revision is added.",
-      "testabilityRisk": "History display/API state and edit tokens need pinned config.",
-      "uncertainty": "PageUpdater links a normal edit commit to RevisionStore insertion; RevisionStore exposes lookup by revision ID. The history UI and baseline overlap remain for further verification.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: A new edit creates a retrievable revision distinct from the prior revision.",
-      "priorityReviewOrder": null,
+      "negativeControl": "Comparing a revision with itself shows 'No differences'.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "MW-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Page protection restriction level modification restricts editing to administrators",
+      "actor": "Administrator and Regular Editor",
+      "role": "Administrator protects; regular user is blocked",
+      "preconditions": "Page 'Community Standards' exists; administrator 'admin' and regular user 'editor_dan'.",
+      "testData": {
+        "page": "Community Standards",
+        "protectLevel": "sysop"
+      },
+      "gherkinScenario": "Feature: Page Protection Governance\n  Scenario: Page protection restriction level modification restricts editing to administrators\n    Given page \"Community Standards\" is initially editable by all registered users\n    When administrator logs in and changes protection level to \"Allow only administrators\"\n    And submits the protection form\n    Then page \"Community Standards\" displays protection status \"Protected\"\n    When regular editor \"editor_dan\" views \"Community Standards\"\n    Then the \"Edit\" tab is replaced by \"View source\"\n    When \"editor_dan\" accesses the direct edit URL for \"Community Standards\"\n    Then access is denied with error \"This page has been protected to prevent editing\"",
+      "fixture": "Teardown: Unprotect or delete page.",
+      "oracle": {
+        "observable": "page_restrictions table receives row (pr_page, pr_type='edit', pr_level='sysop'); userCan checks user_groups; denies non-admin.",
+        "sourceRefs": [
+          "includes/page/WikiPage.php",
+          "includes/specials/SpecialProtect.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/page/WikiPage.php",
+          "lines": "1400-1460",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "page protection verification"
+        },
+        {
+          "repo": "wikimedia/mediawiki",
+          "path": "includes/specials/SpecialProtect.php",
+          "lines": "80-140",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "note": "protection submission handler"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_ACCESS_RESTRICTION_GOVERNANCE",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: MW-15 edits a protected page as admin; baseline never tests setting protection or the denial of regular editors.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "MW-15 edits a protected page as admin; baseline never tests setting protection or the denial of regular editors.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "Administrator logging in retains full edit access on the protected page.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

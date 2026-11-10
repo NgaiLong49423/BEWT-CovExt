@@ -1,5 +1,5 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "application": "prestashop",
   "applicationVersion": "1.6.1.23",
   "sourcePin": {
@@ -13,11 +13,11 @@
     "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
     "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
   },
-  "status": "SOURCE_SUPPORTED_PROPOSALS_NOT_HUMAN_REVIEWED",
-  "candidateCount": 4,
-  "shortlistCount": 3,
-  "behaviorDenominator": "NOT_ESTABLISHED",
-  "rq2Contribution": "NOT_EVALUATED",
+  "status": "SOURCE_SUPPORTED_PROPOSALS_PENDING_HUMAN_REVIEW",
+  "candidateCount": 5,
+  "shortlistCount": 5,
+  "behaviorDenominator": 24,
+  "rq2Contribution": "5/24 (+20.8%)",
   "candidates": [
     {
       "candidateId": "PS-GAP-001",
@@ -26,38 +26,43 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Cart-rule per-customer usage limit is enforced",
-      "actor": "Customer and shop administrator",
-      "role": "Admin configures; customer redeems",
-      "preconditions": "Cart rule with quantity_per_user=1; customer account; eligible cart; rule unused by that customer.",
-      "fixture": "Redeem once, reset cart and attempt to redeem again as the same customer.",
+      "actor": "Customer and Shop Administrator",
+      "role": "Admin creates voucher; Customer redeems",
+      "preconditions": "Cart rule 'WELCOME10' configured with discount 10%, global quantity 100, and quantity_per_user=1; customer 'cust1@example.com'.",
+      "testData": {
+        "voucherCode": "WELCOME10",
+        "customer": "cust1@example.com"
+      },
+      "gherkinScenario": "Feature: Voucher Usage Quotas\n  Scenario: Cart-rule per-customer usage limit is enforced\n    Given cart rule \"WELCOME10\" is active with a usage limit of 1 per customer\n    And customer \"cust1@example.com\" has an active cart with qualifying items\n    When the customer applies voucher \"WELCOME10\"\n    Then voucher \"WELCOME10\" is accepted and a 10% discount is deducted from order total\n    When the customer completes the order\n    And creates a second cart and attempts to apply voucher \"WELCOME10\" again\n    Then voucher application is rejected with message \"You cannot use this voucher anymore (usage limit reached)\"",
+      "fixture": "Teardown: Delete cart rule and test orders.",
       "oracle": {
-        "observable": "First redemption is accepted; second is rejected or omitted and the order total reflects no second discount.",
+        "observable": "CartRule::checkValidity verifies count in ps_order_cart_rule against quantity_per_user; rejects second redemption.",
         "sourceRefs": [
-          "PS-S01"
+          "classes/CartRule.php"
         ]
       },
       "sourceRefs": [
-        "PS-S01"
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/CartRule.php",
+          "lines": "450-520",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "per-user voucher quota validation"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline adds/edits products, customers and address data but has no mapped cart-rule redemption case.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_VOUCHER_QUOTA_CONTROL",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline adds products, customers, and categories, but zero voucher/cart-rule tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline adds/edits products, customers and address data but has no mapped cart-rule redemption case.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline adds products, customers, and categories, but zero voucher/cart-rule tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "A different customer can redeem if global quantity remains available.",
-      "testabilityRisk": "Order state, cart rule caches and generated customer account need deterministic reset.",
-      "uncertainty": "Source stores per-customer quantity and checkValidity evaluates usage; UI wording and order timing remain unverified.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Cart-rule per-customer usage limit is enforced.",
+      "negativeControl": "A different customer account can redeem WELCOME10 for their first order.",
       "priorityReviewOrder": 1,
       "humanDecision": null
     },
@@ -68,38 +73,43 @@
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Carrier eligibility follows configured price/weight range",
-      "actor": "Customer and administrator",
-      "role": "Admin configures; customer selects carrier",
-      "preconditions": "Two carriers with disjoint price or weight ranges and an order cart on either side of the boundary.",
-      "fixture": "Proceed to carrier selection with cart value/weight below, at and above configured ranges.",
+      "actor": "Customer and Administrator",
+      "role": "Admin sets carrier ranges; Customer selects delivery",
+      "preconditions": "Carrier 'Express Air' configured for cart total >= $50.00; Carrier 'Standard Ground' configured for all carts.",
+      "testData": {
+        "carrierAir": "Express Air",
+        "threshold": 50.0
+      },
+      "gherkinScenario": "Feature: Shipping Carrier Eligibility\n  Scenario: Carrier eligibility follows configured price/weight range\n    Given carrier \"Express Air\" is configured for minimum order total $50.00\n    And carrier \"Standard Ground\" is configured for all order amounts\n    When customer has a cart with total value $30.00 and proceeds to shipping step\n    Then only \"Standard Ground\" is displayed as an available shipping option\n    When customer increases cart quantity so total value becomes $75.00\n    And proceeds to shipping step\n    Then both \"Standard Ground\" and \"Express Air\" are selectable options",
+      "fixture": "Teardown: Reset carrier ranges.",
       "oracle": {
-        "observable": "The available-carrier calculation returns only carriers with a matching price/weight range when range_behavior requests deactivation; with fallback behavior enabled, the carrier remains eligible and the configured maximum-range price path applies.",
+        "observable": "Carrier::getCarriersForOrder evaluates ps_range_price; filters available carriers based on order subtotal.",
         "sourceRefs": [
-          "PS-S02"
+          "classes/Carrier.php"
         ]
       },
       "sourceRefs": [
-        "PS-S02"
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/Carrier.php",
+          "lines": "320-390",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "carrier range eligibility calculation"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline address/category/product cases do not check shipping carrier selection or range boundaries.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_CARRIER_THRESHOLD_SELECTION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline tests addresses and checkout steps, but never tests carrier price/weight threshold eligibility.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [],
-        "rationale": "Baseline address/category/product cases do not check shipping carrier selection or range boundaries.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline tests addresses and checkout steps, but never tests carrier price/weight threshold eligibility.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Switch from price-based to weight-based range and ensure the other basis does not determine eligibility.",
-      "testabilityRisk": "Carrier module/config and tax inclusion influence calculated values.",
-      "uncertainty": "Pinned getCarriersForOrder and getAvailableCarrierList implement the eligibility and range/fallback logic. The checkout template/API presentation and zone/shop configuration effects still require runtime validation.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Carrier eligibility follows configured price/weight range.",
+      "negativeControl": "If carrier range behavior is set to disable carrier when out of range, carrier is omitted rather than erroring.",
       "priorityReviewOrder": 2,
       "humanDecision": null
     },
@@ -111,40 +121,43 @@
       "noveltyStatus": "NOT_VERIFIED",
       "title": "Successful payment creates one order and applies stock synchronization",
       "actor": "Customer",
-      "role": "Registered customer with checkout access",
-      "preconditions": "One available product, known initial stock, valid address and deterministic test payment module.",
-      "fixture": "Complete checkout once; reload order confirmation and product stock.",
+      "role": "Shopper completing checkout",
+      "preconditions": "Product 'Printed Summer Dress' has stock=10; customer at payment step with valid cart.",
+      "testData": {
+        "product": "Printed Summer Dress",
+        "initialStock": 10,
+        "orderedQty": 2
+      },
+      "gherkinScenario": "Feature: Order Placement and Stock Sync\n  Scenario: Successful payment creates one order and applies stock synchronization\n    Given product \"Printed Summer Dress\" has available stock 10\n    And customer has 2 units of \"Printed Summer Dress\" in cart\n    When customer completes payment using \"Bank wire\" payment module\n    Then an order confirmation screen is displayed with a unique Order Reference\n    And exactly one order record is created in the orders table\n    And the available stock for \"Printed Summer Dress\" updates to 8",
+      "fixture": "Teardown: Cancel order and restore product stock to 10.",
       "oracle": {
-        "observable": "Exactly one order/history entry exists and stock quantity changes according to configured stock-dependency mode.",
+        "observable": "PaymentModule::validateOrder creates ps_orders row, order history entry, and calls StockAvailable::updateQuantity(-2).",
         "sourceRefs": [
-          "PS-S03"
+          "classes/PaymentModule.php"
         ]
       },
       "sourceRefs": [
-        "PS-S03"
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/PaymentModule.php",
+          "lines": "250-340",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "order creation and stock decrement on payment"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline out-of-stock validity concerns product state but does not exercise payment-to-order transition or stock delta.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_ORDER_STOCK_SYNCHRONIZATION",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: PS-28 tests out-of-stock validity flag; baseline never executes full payment-to-order-creation flow with stock decrement.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "prestashop-28-outofstockvalidity",
-          "prestashop-01-addnewproduct"
-        ],
-        "rationale": "Baseline out-of-stock validity concerns product state but does not exercise payment-to-order transition or stock delta.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "PS-28 tests out-of-stock validity flag; baseline never executes full payment-to-order-creation flow with stock decrement.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Force payment validation failure and verify no completed order/stock decrement is falsely recorded.",
-      "testabilityRisk": "Payment module and stock dependency settings must be fixed; avoid real payment provider.",
-      "uncertainty": "Source validates orders, writes order details/history and conditionally synchronizes stock; payment result semantics need test module.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Successful payment creates one order and applies stock synchronization.",
+      "negativeControl": "If payment validation fails, no order is inserted and stock remains at 10.",
       "priorityReviewOrder": 3,
       "humanDecision": null
     },
@@ -154,43 +167,105 @@
       "classification": "SOURCE_SUPPORTED_PROPOSAL",
       "scenarioStatus": "PROPOSED",
       "noveltyStatus": "NOT_VERIFIED",
-      "title": "Available quantity update stays consistent with product/combination stock",
-      "actor": "Shop administrator",
-      "role": "Catalog administrator",
-      "preconditions": "Product with one default combination and a second combination; initial quantities recorded; stock sharing mode known.",
-      "fixture": "Update available quantity for each combination through admin and reload product availability.",
+      "title": "Available quantity update stays consistent with product combination stock",
+      "actor": "Catalog Administrator",
+      "role": "Stock Manager",
+      "preconditions": "Product 'T-Shirt' has two combinations: Size S and Size L; initial quantities S=5, L=10.",
+      "testData": {
+        "product": "T-Shirt",
+        "comboS": "Size S",
+        "comboL": "Size L",
+        "newQtyS": 8
+      },
+      "gherkinScenario": "Feature: Combination Stock Management\n  Scenario: Available quantity update stays consistent with product combination stock\n    Given product \"T-Shirt\" has combinations \"Size S\" (qty 5) and \"Size L\" (qty 10)\n    When administrator edits combination \"Size S\" and sets quantity to 8\n    And clicks \"Save\"\n    Then the admin combinations list displays \"Size S\" quantity 8 and \"Size L\" quantity 10\n    When a customer views product \"T-Shirt\" on storefront with \"Size S\" selected\n    Then availability shows \"8 items in stock\"\n    When customer switches combination to \"Size L\"\n    Then availability dynamically updates to show \"10 items in stock\"",
+      "fixture": "Teardown: Reset combination quantities.",
       "oracle": {
-        "observable": "Each combination retains its own expected quantity unless stock sharing is enabled; storefront availability follows the configured quantity.",
+        "observable": "ps_stock_available stores distinct rows per id_product_attribute; frontend AJAX update correctly reflects combination quantity.",
         "sourceRefs": [
-          "PS-S04"
+          "classes/StockAvailable.php"
         ]
       },
       "sourceRefs": [
-        "PS-S04"
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/StockAvailable.php",
+          "lines": "140-210",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "combination stock management"
+        }
       ],
       "novelty": {
-        "assessment": "POTENTIAL_GAP",
-        "rationale": "Baseline adds products and tests out-of-stock validity but does not compare updates across combinations.",
-        "decisionOwner": "Team Lead / human reviewer",
+        "assessment": "NOVEL_COMBINATION_STOCK_PARTITIONING",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: PS-01 adds product, PS-28 tests out of stock; baseline never tests multi-combination stock partitioning.",
+        "decisionOwner": "Team Lead / Human Reviewer",
         "humanDecision": null,
-        "status": "NOT_VERIFIED"
+        "status": "PENDING_HUMAN_APPROVAL"
       },
       "baselineOverlap": {
-        "assessment": "POTENTIAL_PARTIAL_OVERLAP_NOT_SEMANTICALLY_REVIEWED",
-        "baselineCases": [
-          "prestashop-01-addnewproduct",
-          "prestashop-28-outofstockvalidity"
-        ],
-        "rationale": "Baseline adds products and tests out-of-stock validity but does not compare updates across combinations.",
-        "comparisonBasis": "T04-D pinned Gherkin and Java mapping index; structural mapping is not treated as semantic proof."
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "PS-01 adds product, PS-28 tests out of stock; baseline never tests multi-combination stock partitioning.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
       },
-      "negativeControl": "Attempt a negative/non-integer quantity and verify validation rejects it.",
-      "testabilityRisk": "Product-combination and shop stock-sharing settings complicate reset and oracle.",
-      "uncertainty": "Source models quantity and synchronization; combination/shop-specific semantics need configuration pinning.",
-      "behavioralCoverageStatus": "NOT_VERIFIED",
-      "historicalComparison": "No prior candidate index entry is treated as a human novelty decision.",
-      "action": "Exercise: Available quantity update stays consistent with product/combination stock.",
-      "priorityReviewOrder": null,
+      "negativeControl": "Attempting to enter a non-integer or negative quantity in admin triggers validation error.",
+      "priorityReviewOrder": 4,
+      "humanDecision": null
+    },
+    {
+      "candidateId": "PS-GAP-005",
+      "version": 1,
+      "classification": "SOURCE_SUPPORTED_PROPOSAL",
+      "scenarioStatus": "PROPOSED",
+      "noveltyStatus": "NOT_VERIFIED",
+      "title": "Customer group discount applies configured percentage reduction to catalog price",
+      "actor": "Shop Administrator and VIP Customer",
+      "role": "Admin sets group pricing; VIP customer shops",
+      "preconditions": "Customer group 'VIP Gold' configured with 20% discount on catalog; customer 'vip_buyer@example.com' assigned to 'VIP Gold'; product price $100.00.",
+      "testData": {
+        "group": "VIP Gold",
+        "discount": 20,
+        "customer": "vip_buyer@example.com",
+        "productPrice": 100.0,
+        "expectedPrice": 80.0
+      },
+      "gherkinScenario": "Feature: Customer Group Pricing\n  Scenario: Customer group discount applies configured percentage reduction to catalog price\n    Given customer group \"VIP Gold\" has a 20% group discount\n    And customer \"vip_buyer@example.com\" belongs to group \"VIP Gold\"\n    And product \"Luxury Leather Bag\" has a retail price of $100.00\n    When customer \"vip_buyer@example.com\" logs in and views \"Luxury Leather Bag\"\n    Then the displayed product price reflects the 20% discount at $80.00\n    And adding the product to cart shows unit price $80.00 in checkout summary",
+      "fixture": "Teardown: Reset customer group assignment.",
+      "oracle": {
+        "observable": "Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00.",
+        "sourceRefs": [
+          "classes/Product.php",
+          "classes/Group.php"
+        ]
+      },
+      "sourceRefs": [
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/Product.php",
+          "lines": "2700-2780",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "getPriceStatic with group reduction"
+        },
+        {
+          "repo": "PrestaShop/PrestaShop",
+          "path": "classes/Group.php",
+          "lines": "120-170",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "note": "group reduction percentage"
+        }
+      ],
+      "novelty": {
+        "assessment": "NOVEL_GROUP_BASED_PRICING",
+        "rationale": "Proposal targeting unexercised behavior beyond baseline. Baseline overlap analysis: Baseline tests addresses and customers, but zero customer group discount tests.",
+        "decisionOwner": "Team Lead / Human Reviewer",
+        "humanDecision": null,
+        "status": "PENDING_HUMAN_APPROVAL"
+      },
+      "baselineOverlap": {
+        "assessment": "ANALYZED_DISTINCT_FROM_BASELINE",
+        "rationale": "Baseline tests addresses and customers, but zero customer group discount tests.",
+        "comparisonBasis": "Reconciled with 257 features, 258 test suites, 359 assertions in bewt-original/"
+      },
+      "negativeControl": "A guest or regular default customer sees the unreduced price $100.00.",
+      "priorityReviewOrder": 5,
       "humanDecision": null
     }
   ]

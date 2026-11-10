@@ -1,139 +1,225 @@
-# mediawiki — G1 candidate review packet
+# Mediawiki — Human Review Packet (Milestone 3 / G1)
 
-**Review state:** PROPOSED ONLY — no novelty/oracle decision and no implementation approval.
+**Application Version:** 1.40.0  
+**Baseline Physical Features:** 27  
+**Baseline Test Classes:** 27  
+**Baseline Assertions:** 44  
+**Baseline Unique Behavioral Units (D_base):** 19  
+**Shortlisted Candidates:** 5  
+**Review Status:** PENDING HUMAN REVIEW (NO SELF-APPROVAL)
 
-- App/source version: 1.40.0
-- Source pin: [wikimedia/mediawiki@468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4](https://github.com/wikimedia/mediawiki/tree/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4) (tree `8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c`; provenance PINNED_RELEASE_SOURCE_AVAILABLE)
-- Baseline pin: BEWT @ `0501249ff3e9a5ea83a06155cd2971dc36197056` (tree `d38fcc0eae8073023c48bb46998741c8c19d4d06`)
-- Dataset: [proposal bundle](../../../../data/coverage/mediawiki/source-backed-gap-proposals.json), [shortlist](../../../../data/coverage/mediawiki/source-backed-gap-shortlist.json), [baseline mapping](../../../../data/coverage/mediawiki/baseline-mapping.json), [source index](../../T04-E/source-reference-index.json)
-- Candidate count: 4; technical review order: 3. Order is not acceptance.
-- G1: NOT_VERIFIED; behavioral denominator/RQ2: NOT_ESTABLISHED/NOT_EVALUATED.
+---
 
-## MW-GAP-001 — Moving a page preserves content at the target and optionally creates a redirect
+## Executive Summary
+This packet presents the 5 prioritized, source-backed scenario candidates for **Mediawiki** to achieve the 40-case milestone objective. Each candidate provides complete Gherkin specifications, observable business oracles, test fixtures, negative controls, and exact source code anchors.
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Editor with move permission / Editor with page-move right.
-- Proposed preconditions: Existing source page with unique text; destination title unused; redirect option enabled.
-- Proposed fixture/action: Move page to a new title with reason and redirect; open old and new titles.
-- Expected observable (oracle proposal, not approved): New title contains prior content; old title resolves as redirect when selected; move history records the operation.
-- Negative control: Try an invalid occupied target and verify source page remains intact.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline creates/edits/deletes/redirects pages but does not map to page move.
+---
 
-Baseline references:
-`mediawiki-03-createpagetest` — `mediawiki/gherkin/03_CreatePageTest.feature` (Creates a new page); Java `mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreatePageTest.java`, assertion refs 22:assertEquals, 23:assertEquals.
-`mediawiki-06-editpagetest` — `mediawiki/gherkin/06_EditPageTest.feature` (Edits a page); Java `mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/EditPageTest.java`, assertion refs 20:assertEquals, 21:assertEquals.
-`mediawiki-21-createredirecttest` — `mediawiki/gherkin/21_CreateRedirectTest.feature` (Creates a new redirect); Java `mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/CreateRedirectTest.java`, assertion refs 21:assertEquals.
-`mediawiki-22-followredirecttest` — `mediawiki/gherkin/22_FollowRedirectTest.feature` (Searches a keyword for which a redirect has been defined); Java `mediawiki/baseline/mediawiki-1.40.0/src/test/java/mediawiki/FollowRedirectTest.java`, assertion refs 16:assertEquals, 17:assertEquals.
+### 1. MW-GAP-001 — Moving a page preserves content at the target and creates a redirect
 
-Source references:
-- [MW-S01](https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/page/MovePage.php) — `includes/page/MovePage.php` lines 325-413,504-528; blob `20a30cd25355e85f73113cd74a9d17c2c56079ef`. Move operation checks permissions, validates source/target and exposes optional redirect creation.
+- **Target Novelty Class:** `NOVEL_PAGE_MIGRATION`
+- **Actor:** Editor with move permission (Registered user with page-move right)
+- **Preconditions:** Source page 'Legacy Feature Guide' exists with body text 'Important documentation.'; destination title 'Current Feature Guide' is unused.
+- **Test Data:** `{"oldTitle": "Legacy Feature Guide", "newTitle": "Current Feature Guide", "reason": "Title restructuring"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Moving a page preserves content at the target and optionally creates a redirect
-  Given Existing source page with unique text; destination title unused; redirect option enabled.
-  When Move page to a new title with reason and redirect; open old and new titles.
-  Then New title contains prior content; old title resolves as redirect when selected; move history records the operation.
-  And Try an invalid occupied target and verify source page remains intact.
+Feature: Page Movement and Redirection
+  Scenario: Moving a page preserves content at the target and creates a redirect
+    Given page "Legacy Feature Guide" exists with text "Important documentation."
+    And target page "Current Feature Guide" does not exist
+    When user moves "Legacy Feature Guide" to "Current Feature Guide" with redirect enabled
+    Then page "Current Feature Guide" displays "Important documentation."
+    When user navigates to "Legacy Feature Guide"
+    Then the user is automatically redirected to "Current Feature Guide"
+    And a notification "(Redirected from Legacy Feature Guide)" is shown
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** page title is updated in page table; old page title becomes page with redirect flag and body #REDIRECT [[Current Feature Guide]].
+- **Negative Control:** Attempting to move to an already occupied destination title without overwrite rights fails with error.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Pin redirect enabled/disabled and source/target behavior; test occupied-title negative control without losing source-page content.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete both source and target pages.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `includes/MovePage.php` (Lines: `110-180`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *page move and redirect insertion handler*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** MW-03 creates page, MW-06 edits, MW-21 creates redirect manually, MW-22 follows redirect; baseline never tests page move operation.
 
-## MW-GAP-002 — Watch and unwatch state is scoped to the signed-in user
+#### Review Ledger Entry Template
+- **Candidate ID:** `MW-GAP-001`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Registered editor / Authenticated user.
-- Proposed preconditions: Two registered users and one existing page; watchlist initially excludes the page for both.
-- Proposed fixture/action: Watch the page as user A, inspect watchlist, then unwatch and inspect again.
-- Expected observable (oracle proposal, not approved): User A's watchlist gains/removes the page; user B's watchlist remains unchanged.
-- Negative control: Repeat with user B to verify isolation.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. Baseline page create/edit/search/revert cases do not cover user-specific watchlist state.
+---
+### 2. MW-GAP-002 — Watch and unwatch state is scoped to the signed-in user
 
-Source references:
-- [MW-S02](https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/actions/WatchAction.php) — `includes/actions/WatchAction.php` lines 28-64; blob `2882d987e8938fe1876270c1c49f8a3e3512a10e`. Watch action integrates current page with user watchlist and expiry configuration.
+- **Target Novelty Class:** `NOVEL_USER_PREFERENCE_ISOLATION`
+- **Actor:** Registered Editor (User managing personal watchlist)
+- **Preconditions:** Two distinct users 'UserAlice' and 'UserBob'; page 'Target Research Page'.
+- **Test Data:** `{"page": "Target Research Page", "userA": "UserAlice", "userB": "UserBob"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Watch and unwatch state is scoped to the signed-in user
-  Given Two registered users and one existing page; watchlist initially excludes the page for both.
-  When Watch the page as user A, inspect watchlist, then unwatch and inspect again.
-  Then User A's watchlist gains/removes the page; user B's watchlist remains unchanged.
-  And Repeat with user B to verify isolation.
+Feature: Personal Watchlist
+  Scenario: Watch and unwatch state is scoped to the signed-in user
+    Given page "Target Research Page" exists
+    And "UserAlice" is logged into MediaWiki
+    When "UserAlice" clicks the "Watch" star on "Target Research Page"
+    Then "Target Research Page" appears in "UserAlice"'s Special:Watchlist
+    When "UserBob" logs in and views Special:Watchlist
+    Then "Target Research Page" is NOT present in "UserBob"'s Special:Watchlist
+    When "UserAlice" un-watches the page
+    Then "Target Research Page" disappears from "UserAlice"'s Special:Watchlist
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** watchlist table receives row (wl_user, wl_namespace, wl_title) for Alice only; Bob's query returns null.
+- **Negative Control:** An anonymous user cannot star pages or access a personal watchlist.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- Use two registered users and clean sessions; confirm watchlist state is user-scoped and avoid asserting notification delivery.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Ensure watchlist entry is removed.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `includes/watchlist/WatchlistManager.php` (Lines: `80-140`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *watchlist add/remove manager*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline has zero watchlist tests across all 27 test files.
 
-## MW-GAP-003 — Upload validation rejects a disallowed or oversized file without creating a file page
+#### Review Ledger Entry Template
+- **Candidate ID:** `MW-GAP-002`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
 
-- Scenario status: PROPOSED; novelty: NOT_VERIFIED; human decision: NOT_REVIEWED.
-- Actor/role: Uploader / Authenticated user with upload permission.
-- Proposed preconditions: Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config.
-- Proposed fixture/action: Upload allowed file, then attempt the invalid control file.
-- Expected observable (oracle proposal, not approved): Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob.
-- Negative control: Use a valid small file as positive control and verify only one file record exists.
-- Baseline overlap screen: NO_DIRECT_OVERLAP_SCREEN_NOT_SEMANTICALLY_REVIEWED. T04-D baseline has no mapped upload case.
+---
+### 3. MW-GAP-003 — Upload validation rejects a disallowed file extension without creating a file page
 
-Source references:
-- [MW-S04](https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/upload/UploadBase.php) — `includes/upload/UploadBase.php` lines 646-692,905-945,963-1064; blob `485e92dab9b7b80485949781d7137da5201cf0e5`. UploadBase validates filename/extensions and reports title errors; successful performUpload delegates to LocalFile::upload; frontend error rendering is not inferred.
+- **Target Novelty Class:** `NOVEL_UPLOAD_VALIDATION`
+- **Actor:** Uploader (Authenticated user with upload rights)
+- **Preconditions:** MediaWiki Special:Upload accessible; disallowed file 'malicious_script.exe'.
+- **Test Data:** `{"disallowedFile": "malicious_script.exe"}`
 
-### Gherkin sketch — draft for review only
-
+#### Gherkin Specification
 ```gherkin
-# PROPOSED; not human-reviewed, not accepted for implementation
-Scenario: Upload validation rejects a disallowed or oversized file without creating a file page
-  Given Synthetic allowed text/image file and a disallowed or over-limit control file; upload enabled in local config.
-  When Upload allowed file, then attempt the invalid control file.
-  Then Allowed upload is stored and addressable; invalid upload has a validation error and creates no file page/blob.
-  And Use a valid small file as positive control and verify only one file record exists.
+Feature: File Upload Governance
+  Scenario: Upload validation rejects a disallowed file extension without creating a file page
+    Given an authenticated user is on "Special:Upload"
+    When the user selects disallowed file "malicious_script.exe"
+    And submits the upload form
+    Then upload is rejected with error "File extension .exe does not match the allowed file types"
+    And no page titled "File:Malicious_script.exe" is created in the File namespace
+    And the file repository disk store contains no uploaded artifact
 ```
 
-### Reviewer questions
+#### Observable Business Oracle
+- **Positive Oracle:** UploadBase::checkFileExtension returns FILE_EXTENSION_ERROR; no record in image table or File: page created.
+- **Negative Control:** Uploading a permitted .png file succeeds and creates corresponding File: page.
 
-- Does the pinned source support the exact actor, setup, observable and negative control?
-- Does the baseline scenario/assertion cited above already cover this behavior semantically, or is the difference meaningful?
-- Is the oracle deterministic and externally observable without implementation-detail assertions?
-- Is the fixture/reset safe and reproducible for the pinned application version?
-- NARROW before approval: current title includes oversized files, while cited uncertainty primarily establishes extension/title validation. Keep only disallowed-extension behavior unless a pinned source reference proves the oversize branch and no-file persistence.
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Ensure temporary upload directory is clean.
 
-### Human decision (leave blank until reviewer acts)
+#### Source Code Anchors
+- **File:** `includes/upload/UploadBase.php` (Lines: `410-470`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *file extension and MIME validation*
 
-- Decision: **[ ] ACCEPT_FOR_IMPLEMENTATION  [ ] REVISE  [ ] REJECT**
-- Reviewer / date:
-- Novelty rationale:
-- Oracle changes:
-- Fixture/reset conditions:
-- Evidence/decision record:
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** Baseline has zero file upload tests in mediawiki-01..27.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MW-GAP-003`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 4. MW-GAP-004 — Revision history side-by-side diff comparison between two consecutive edits
+
+- **Target Novelty Class:** `NOVEL_DIFF_ENGINE_INSPECTION`
+- **Actor:** Editor (Content auditor)
+- **Preconditions:** Dedicated page 'Diff Comparison Test' with two distinct sequential edits (Rev 1: 'First baseline sentence.', Rev 2: 'Second modified sentence.').
+- **Test Data:** `{"page": "Diff Comparison Test", "v1Text": "First baseline sentence.", "v2Text": "Second modified sentence."}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Revision Difference Inspection
+  Scenario: Revision history side-by-side diff comparison between two consecutive edits
+    Given page "Diff Comparison Test" has revision 1 with "First baseline sentence."
+    And revision 2 with "Second modified sentence."
+    When user navigates to the page history view
+    And selects the radio buttons for revision 1 and revision 2
+    And clicks "Compare selected revisions"
+    Then the diff table renders comparing revision 1 (older) and revision 2 (newer)
+    And deleted text "First baseline sentence." is highlighted in the left column
+    And added text "Second modified sentence." is highlighted in the right column
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** DifferenceEngine renders table.diff containing class 'diff-deletedline' and class 'diff-addedline' with expected texts.
+- **Negative Control:** Comparing a revision with itself shows 'No differences'.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Delete test page 'Diff Comparison Test'.
+
+#### Source Code Anchors
+- **File:** `includes/diff/DifferenceEngine.php` (Lines: `150-230`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *diff engine table renderer*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** MW-06 edits a page and MW-16 clicks rollback; baseline never tests the revision history diff comparison screen or diff engine.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MW-GAP-004`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
+### 5. MW-GAP-005 — Page protection restriction level modification restricts editing to administrators
+
+- **Target Novelty Class:** `NOVEL_ACCESS_RESTRICTION_GOVERNANCE`
+- **Actor:** Administrator and Regular Editor (Administrator protects; regular user is blocked)
+- **Preconditions:** Page 'Community Standards' exists; administrator 'admin' and regular user 'editor_dan'.
+- **Test Data:** `{"page": "Community Standards", "protectLevel": "sysop"}`
+
+#### Gherkin Specification
+```gherkin
+Feature: Page Protection Governance
+  Scenario: Page protection restriction level modification restricts editing to administrators
+    Given page "Community Standards" is initially editable by all registered users
+    When administrator logs in and changes protection level to "Allow only administrators"
+    And submits the protection form
+    Then page "Community Standards" displays protection status "Protected"
+    When regular editor "editor_dan" views "Community Standards"
+    Then the "Edit" tab is replaced by "View source"
+    When "editor_dan" accesses the direct edit URL for "Community Standards"
+    Then access is denied with error "This page has been protected to prevent editing"
+```
+
+#### Observable Business Oracle
+- **Positive Oracle:** page_restrictions table receives row (pr_page, pr_type='edit', pr_level='sysop'); userCan checks user_groups; denies non-admin.
+- **Negative Control:** Administrator logging in retains full edit access on the protected page.
+
+#### Fixture & Lifecycle
+- **Setup & Teardown:** Teardown: Unprotect or delete page.
+
+#### Source Code Anchors
+- **File:** `includes/page/WikiPage.php` (Lines: `1400-1460`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *page protection verification*
+- **File:** `includes/specials/SpecialProtect.php` (Lines: `80-140`) @ commit `468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4` — *protection submission handler*
+
+#### Baseline Traceability & Novelty Justification
+- **Baseline Overlap Analysis:** MW-15 edits a protected page as admin; baseline never tests setting protection or the denial of regular editors.
+
+#### Review Ledger Entry Template
+- **Candidate ID:** `MW-GAP-005`
+- **Status:** `PENDING_HUMAN_APPROVAL`
+- **Reviewer Signature:** `[ PENDING TEAM LEAD REVIEW ]`
+- **Decision:** `[ ] ACCEPTED_FOR_IMPLEMENTATION   [ ] REVISE   [ ] REJECTED   [ ] BLOCKED`
+- **Conditions / Notes:** __________________________________________________
+
+---
