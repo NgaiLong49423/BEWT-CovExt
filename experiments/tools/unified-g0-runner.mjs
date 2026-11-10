@@ -256,7 +256,7 @@ export const APPS = {
     getAppUrl: (host, port, appName) => `http://${appName}/mantisbt/`,
     testEnv: {
       BEWT_ADMIN_USERNAME: 'administrator',
-      BEWT_ADMIN_PASSWORD: 'root',
+      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
     },
   },
   mediawiki: {
@@ -473,15 +473,15 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         dockerCli([
           'exec', appName,
           'php', '/var/www/html/install/index_cli.php',
-          '--db_server', dbName,
-          '--db_user', 'root',
-          '--db_password', 'root',
-          '--db_name', 'prestashop',
-          '--db_create', '1',
-          '--domain', appName,
-          '--name', 'PrestaShop',
-          '--email', 'admin@prestashop.com',
-          '--password', 'adminpassword123',
+          `--db_server=${dbName}`,
+          '--db_user=root',
+          '--db_password=root',
+          '--db_name=prestashop',
+          '--db_create=1',
+          `--domain=${appName}`,
+          '--name=PrestaShop',
+          '--email=admin@prestashop.com',
+          '--password=adminpassword123',
         ]);
         dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/install']);
         dockerCli(['exec', appName, 'mv', '/var/www/html/admin', '/var/www/html/administrator']);

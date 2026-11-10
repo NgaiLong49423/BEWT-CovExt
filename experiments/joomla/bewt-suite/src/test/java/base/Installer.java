@@ -52,7 +52,11 @@ public class Installer {
                 driver.findElement(By.xpath("//*[@id=\"adminForm\"]/div[1]/div/a[2]")).click();
                 driver.findElement(By.id("jform_sample_file1")).click();
                 driver.findElement(By.xpath("//*[@id=\"adminForm\"]/div[1]/div/a[2]")).click();
-                driver.findElement(By.xpath("//*[@id=\"adminForm\"]/div[4]/div/input")).click();
+                try {
+                    driver.findElement(By.xpath("//*[@id=\"adminForm\"]/div[4]/div/input")).click();
+                } catch (Exception ignored) {
+                    // Installation folder cleanup is handled by runner via docker exec
+                }
 
                 System.out.println("Setup complete. Remember to close the popup and hide the received messages.");
                 driver.quit();

@@ -59,7 +59,11 @@ public class PageCreationPage extends PageObject {
         }
 
         public PageCreationPage closePopups() {
-                driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div/div[3]/div/div[2]/div[2]/div[1]/div[1]/span[3]/a/span[1]")).click();
+                try {
+                        driver.findElement(By.xpath("//*[@id=\"content\"]/div/div[1]/div/div[3]/div/div[2]/div[2]/div[1]/div[1]/span[3]/a/span[1]")).click();
+                } catch (Exception ignored) {
+                        // Popup is optional in non-VisualEditor mode
+                }
                 return new PageCreationPage(driver);
         }
 

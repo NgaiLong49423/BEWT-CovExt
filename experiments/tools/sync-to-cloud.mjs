@@ -5,6 +5,8 @@ import { resolveVmExternalIp } from '../claroline/tools/cloud-controller.mjs';
 
 const FILES_TO_SYNC = [
   'experiments/kanboard/bewt-suite/src/test/java/tests/BaseTest.java',
+  'experiments/joomla/bewt-suite/src/test/java/base/Installer.java',
+  'experiments/mediawiki/bewt-suite/src/main/java/po/PageCreationPage.java',
   'framework/src/runtime/maven-command.ts',
   'experiments/tools/unified-g0-runner.mjs',
   'experiments/tools/run-all-g0-cloud.mjs',
