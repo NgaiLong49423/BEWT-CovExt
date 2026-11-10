@@ -1,0 +1,40 @@
+{
+  "capturedAtUtc": "2026-11-10T03:28:39.496Z",
+  "outcome": "PASS",
+  "projectId": "gen-lang-client-0311012609",
+  "vm": {
+    "instanceId": "3042402845209891905",
+    "instanceName": "bewt-covext-runner",
+    "status": "RUNNING",
+    "machineType": "c4d-highmem-8",
+    "zone": "asia-southeast1-a",
+    "creationTimestamp": "2026-11-09T12:18:54.625-08:00",
+    "lastStartTimestamp": "2026-11-09T19:18:05.347-08:00",
+    "lastStopTimestamp": "2026-11-09T18:19:48.167-08:00",
+    "maxRunDurationSeconds": 18000,
+    "instanceTerminationAction": "STOP",
+    "terminationTimestampUtc": "2026-11-10T08:18:05.347Z",
+    "remainingSeconds": 17367,
+    "networkStackType": "IPV4_ONLY",
+    "diskSizeGb": 200
+  },
+  "remoteEnvironment": {
+    "uname": "Linux 7.0.0-1017-gcp x86_64 GNU/Linux",
+    "vCpuCount": 8,
+    "memTotalBytes": 66362474496,
+    "memAvailableBytes": 65322192896,
+    "memAvailableGiB": 60.836,
+    "diskFreeBytes": 197983055872,
+    "diskFreeGiB": 184.386,
+    "dockerServerVersion": "29.9.3",
+    "gitBranch": "feature/t03b2-claroline-g0",
+    "gitHead": "b9e48196e0168ac5412d7601e35841ab00714fce",
+    "gitTrackedDirtyCount": 0,
+    "bewtOriginalCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "appImageId": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+    "browserImageId": "sha256:07392595426553888046f795b66ea942ff7d2e185e9aecb1dd61bbbd5bfead8f",
+    "activeDockerContainers": 0,
+    "activeDockerNetworks": 3,
+    "activeDockerVolumes": 0
+  }
+}
