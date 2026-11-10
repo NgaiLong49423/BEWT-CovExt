@@ -1,0 +1,24 @@
+{
+  "receiptBaseline": "99811537e81d01f25f9210939a78800251662981",
+  "taskBase": "22d3813bd92cc6ec0c5b2d0d766b6ba3fcb72170",
+  "files": [
+    {
+      "app": "mediawiki",
+      "path": "data/coverage/mediawiki/source-backed-gap-proposals.json",
+      "gitBlob": "d6b73f25b0f419738f9fcba77a08669149e58905",
+      "sameAtBothCommits": true
+    },
+    {
+      "app": "expresscart",
+      "path": "data/coverage/expresscart/source-backed-gap-proposals.json",
+      "gitBlob": "6b394c08276fba663274905d106eb383e8019ddd",
+      "sameAtBothCommits": true
+    },
+    {
+      "app": "claroline",
+      "path": "data/coverage/claroline/source-backed-gap-proposals.json",
+      "gitBlob": "239089858342ac7432c25316739600b9c90be034",
+      "sameAtBothCommits": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "recordType": "TEAM_LEAD_REVISION_DIRECTION_RECEIPT",
+  "recordedAt": "2026-11-10T07:00:00+07:00",
+  "timeNote": "Receipt time is approximate to the minute; the client did not supply an exact response timestamp.",
+  "reviewer": "Team Lead (user in this conversation)",
+  "source": "Responses to the three human-review questions submitted in this conversation; no identity beyond the Team Lead role is asserted.",
+  "baselineCommit": "99811537e81d01f25f9210939a78800251662981",
+  "batchCommit": "6acba48a0a7dc822b0c181ac56bc115b87d42d04",
+  "scope": "Revision direction only; not approval of novelty, oracle, implementation, G1, or validation. A revised candidate requires independent review.",
+  "decisions": [
+    {
+      "candidateId": "MW-GAP-004", "version": 1,
+      "candidateSha256": "5f5fcbda89777227ed91537a8ef100c350c4d54aaaf7cdabdf3605b8e1ab1ca7",
+      "decision": "REVISE", "userResponse": "REVISE: làm rõ revision và oracle",
+      "packetCommit": "5e09e93407f3abd622e73af40c367eabb1a0dd5f", "packetPath": "docs/tasks/T04-H/MW-GAP-004-REVIEW.md",
+      "rationale": "Not separately supplied by the user; decision addresses the question's stated lack of evidence for revision ID/timestamp and overlap with rollback.",
+      "remaining": "Specify identity and observable oracle with source evidence; independent novelty/oracle review and runtime remain pending."
+    },
+    {
+      "candidateId": "EC-GAP-003", "version": 1,
+      "candidateSha256": "85ee047a535ad369647db563acdf3395b0af80bc592bf9325269cee9ab287732",
+      "decision": "REVISE", "userResponse": "REVISE: customer và instore",
+      "packetCommit": "34812340917c6bf6d37c48535ce55c828f990dff", "packetPath": "docs/tasks/T04-I/EC-GAP-003-REVIEW.md",
+      "rationale": "Not separately supplied by the user; selection identifies customer and instore direction from the presented route distinction.",
+      "remaining": "Draft a source-backed revised flow and fixture; prove an isolated email sink and seek independent novelty/oracle review."
+    },
+    {
+      "candidateId": "CL-GAP-002", "version": 1,
+      "candidateSha256": "0cf749b43a953bc35fe0eb0d5a63a65b5b8b2f0eb428b27fe6f982b24f43db08",
+      "decision": "REVISE", "userResponse": "REVISE: ordinary private-group access",
+      "packetCommit": "f023d7a66a4a33ce52874f140ab159d68d3ca721", "packetPath": "docs/tasks/T04-J/CL-GAP-002-REVIEW.md",
+      "rationale": "Not separately supplied by the user; selection identifies ordinary private-group access from the presented options.",
+      "remaining": "Find authoritative privacy policy and observable denial oracle, pin configuration/fixture and obtain independent review."
+    }
+  ]
+}

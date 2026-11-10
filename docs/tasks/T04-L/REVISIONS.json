@@ -1,0 +1,130 @@
+{
+  "schemaVersion": "1.0.0",
+  "baseCommit": "22d3813bd92cc6ec0c5b2d0d766b6ba3fcb72170",
+  "candidateCount": 3,
+  "v1Preserved": true,
+  "receiptPath": "docs/tasks/T04-L/evidence/team-lead-revision-directions.json",
+  "receiptSha256": "4efb661f273683f4e408c59d9258775a8dc51d663c98397807347267a7e3db8d",
+  "records": [
+    {
+      "candidateId": "MW-GAP-004",
+      "version": 2,
+      "supersedes": {
+        "version": 1,
+        "canonicalSha256": "5f5fcbda89777227ed91537a8ef100c350c4d54aaaf7cdabdf3605b8e1ab1ca7"
+      },
+      "direction": "REVISE",
+      "directionReceiptSha256": "4efb661f273683f4e408c59d9258775a8dc51d663c98397807347267a7e3db8d",
+      "featurePath": "docs/tasks/T04-L/revisions/MW-GAP-004-v2.feature",
+      "featureSha256": "b0556d6d804f6c94ec786c55b3d08a91ed64fac0edadde0d2b5e49e7b4a914d6",
+      "status": "PROPOSED",
+      "implementationApproval": "NOT_GRANTED",
+      "novelty": "NOT_VERIFIED",
+      "oracleApproval": "NOT_GRANTED",
+      "reviewerDecisions": [],
+      "runtime": "NOT_RUN",
+      "app": "mediawiki",
+      "baseVersion": "1.40.0",
+      "appSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "fixture": "Unique page with known original content and R0; authorized editor; explicit history/version routes and page ID captured.",
+      "cleanup": "Reset the isolated database/page fixture to the same known initial state; verification NOT_RUN.",
+      "oracle": "R1 differs from R0; selecting R0 yields original content and selecting R1 yields revised content. No timestamp or ordering rule is asserted.",
+      "sourceRefs": [
+        "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Revision/RevisionStore.php#L417",
+        "https://github.com/wikimedia/mediawiki/blob/468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4/includes/Storage/PageUpdater.php#L1328"
+      ],
+      "reviewQuestions": [
+        "Does the pinned user-visible route expose both identities and contents?",
+        "Is this semantically distinct from the ordered Base 15/16 edit/rollback flow?",
+        "Can the page be reset reproducibly without modifying shared data?"
+      ],
+      "blockers": [
+        "Identity and page-history UI not runtime verified",
+        "Novelty and oracle not approved",
+        "G0 and clean-state fixture not accepted"
+      ]
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "version": 2,
+      "supersedes": {
+        "version": 1,
+        "canonicalSha256": "85ee047a535ad369647db563acdf3395b0af80bc592bf9325269cee9ab287732"
+      },
+      "direction": "REVISE",
+      "directionReceiptSha256": "4efb661f273683f4e408c59d9258775a8dc51d663c98397807347267a7e3db8d",
+      "featurePath": "docs/tasks/T04-L/revisions/EC-GAP-003-v2.feature",
+      "featureSha256": "44e76d1c643d0d12208cee38308fca312768244915533f7002408b33f39d055d",
+      "status": "PROPOSED",
+      "implementationApproval": "NOT_GRANTED",
+      "novelty": "NOT_VERIFIED",
+      "oracleApproval": "NOT_GRANTED",
+      "reviewerDecisions": [],
+      "runtime": "NOT_RUN",
+      "app": "expresscart",
+      "baseVersion": "1.19 (BEWT label); 1.1.19 (observed upstream package)",
+      "appSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "fixture": "Synthetic customer and product, instore enabled, known address, fresh login; configure and verify an isolated email sink before any order attempt.",
+      "cleanup": "Remove only verified run-owned order/customer/product and reset the isolated database; verify no external mail delivery and no residual owned resources. NOT_RUN.",
+      "oracle": "A new authenticated session displays the updated address and the customer order details display that address after instore checkout.",
+      "sourceRefs": [
+        "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/customer.js#L158",
+        "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/routes/customer.js#L442",
+        "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/lib/payments/instore.js#L9",
+        "https://github.com/mrvautin/expressCart/blob/b31302f4e99c3293bd742c6d076a721e168118b0/views/themes/Cloth/customer-account.hbs#L95"
+      ],
+      "reviewQuestions": [
+        "Can customer order details expose the exact order and address through the selected UI?",
+        "Is post-update account persistence a distinct baseline behavior?",
+        "Is the sink and reset protocol independently verifiable?"
+      ],
+      "blockers": [
+        "Email sink isolation not proven",
+        "Novelty and oracle not approved",
+        "Instore and fixture not runtime verified"
+      ]
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "version": 2,
+      "supersedes": {
+        "version": 1,
+        "canonicalSha256": "0cf749b43a953bc35fe0eb0d5a63a65b5b8b2f0eb428b27fe6f982b24f43db08"
+      },
+      "direction": "REVISE",
+      "directionReceiptSha256": "4efb661f273683f4e408c59d9258775a8dc51d663c98397807347267a7e3db8d",
+      "featurePath": "docs/tasks/T04-L/revisions/CL-GAP-002-v2.feature",
+      "featureSha256": "f613ae0775384801eda70e9b4e71572215e29c44666ea00cf47c4e9311b3d803",
+      "status": "PROPOSED",
+      "implementationApproval": "NOT_GRANTED",
+      "novelty": "NOT_VERIFIED",
+      "oracleApproval": "NOT_GRANTED",
+      "reviewerDecisions": [],
+      "runtime": "NOT_RUN",
+      "app": "claroline",
+      "baseVersion": "1.11.10 benchmark derivative",
+      "appSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "bewtCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "fixture": "One isolated course with explicitly private group settings, groups A/B and distinct synthetic documents; student enrolled in course, member of A only and not manager or tutor; ordinary B request without registration parameters.",
+      "cleanup": "Reset only owned course, groups, users and data within isolated runtime; verify cleanup and equivalent start state. NOT_RUN.",
+      "oracle": "Ordinary B group-space request redirects to group listing without B document marker; student can access A document. This is a proposed policy requiring independent confirmation.",
+      "sourceRefs": [
+        "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/group/group_space.php#L29",
+        "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/group/group.php#L678",
+        "https://github.com/zefredz/claroline/blob/22d852f93081bc36b1d08b93f5e0c14b49a573f6/claroline/group/group_properties.php#L34"
+      ],
+      "reviewQuestions": [
+        "Is group privacy policy authoritative and what does claro_is_group_allowed mean in the pinned image?",
+        "Does ordinary request redirect to listing under the selected settings?",
+        "Can A fixture document be accessed and B remain private under exact role configuration?"
+      ],
+      "blockers": [
+        "Authoritative privacy policy and oracle not approved",
+        "Group helper/runtime-image applicability not established",
+        "G0 and clean-state fixture not accepted"
+      ]
+    }
+  ]
+}

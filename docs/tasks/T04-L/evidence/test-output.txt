@@ -1,0 +1,11 @@
+test_changed_feature_rejected (__main__.RevisionTests.test_changed_feature_rejected) ... ok
+test_changed_source_pin_rejected (__main__.RevisionTests.test_changed_source_pin_rejected) ... ok
+test_current_inputs (__main__.RevisionTests.test_current_inputs) ... ok
+test_modified_receipt_rejected (__main__.RevisionTests.test_modified_receipt_rejected) ... ok
+test_unauthorized_approval_rejected (__main__.RevisionTests.test_unauthorized_approval_rejected) ... ok
+test_wrong_v1_hash_rejected (__main__.RevisionTests.test_wrong_v1_hash_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.281s
+
+OK
