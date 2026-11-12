@@ -49,6 +49,7 @@ public class JO_GAP_004_G3_Suite {
         String cleanupOutcome = "NOT_REQUIRED";
         String optionsRoutePath = "NOT_REACHED";
         String optionsPageTitle = "NOT_REACHED";
+        String optionsContext = "NOT_REACHED";
         boolean optionsFormVisible = false;
         int saveHistoryRadioCount = 0;
         int versionCounter = 0;
@@ -103,8 +104,9 @@ public class JO_GAP_004_G3_Suite {
             }
             optionsButtons.get(0).click();
             try {
-                new WebDriverWait(driver, Duration.ofSeconds(10))
-                        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
+                new WebDriverWait(driver, Duration.ofSeconds(10)).until(currentDriver ->
+                        !currentDriver.findElements(By.id("sbox-content")).isEmpty()
+                                || isContentOptionsRoute(currentDriver.getCurrentUrl()));
             } catch (org.openqa.selenium.TimeoutException e) {
                 optionsRoutePath = safePath(driver.getCurrentUrl());
                 optionsPageTitle = safeTitle(driver);
@@ -112,9 +114,39 @@ public class JO_GAP_004_G3_Suite {
                 reason = "CONTENT_OPTIONS_MODAL_UNAVAILABLE";
                 throw new IllegalStateException("Joomla Articles Options did not open its configuration dialog", e);
             }
+            List<WebElement> optionsFrames = driver.findElements(By.id("sbox-content"));
+            if (!optionsFrames.isEmpty()) {
+                try {
+                    new WebDriverWait(driver, Duration.ofSeconds(10))
+                            .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
+                } catch (org.openqa.selenium.TimeoutException e) {
+                    optionsRoutePath = safePath(driver.getCurrentUrl());
+                    optionsPageTitle = safeTitle(driver);
+                    outcome = "BLOCKED";
+                    reason = "CONTENT_OPTIONS_FRAME_UNAVAILABLE";
+                    throw new IllegalStateException("Joomla Articles Options dialog frame was not available", e);
+                }
+                optionsContext = "SQUEEZEBOX_IFRAME";
+            } else if (isContentOptionsRoute(driver.getCurrentUrl())) {
+                optionsContext = "TOP_LEVEL_OPTIONS_PAGE";
+            } else {
+                outcome = "BLOCKED";
+                reason = "CONTENT_OPTIONS_ROUTE_UNVERIFIED";
+                throw new IllegalStateException("Joomla Articles Options route did not resolve to com_content configuration");
+            }
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10)).until(
+                        currentDriver -> !currentDriver.findElements(By.id("component-form")).isEmpty());
+            } catch (org.openqa.selenium.TimeoutException e) {
+                optionsRoutePath = safePath(driver.getCurrentUrl());
+                optionsPageTitle = safeTitle(driver);
+                outcome = "BLOCKED";
+                reason = "CONTENT_OPTIONS_FORM_UNAVAILABLE";
+                throw new IllegalStateException("Joomla com_content configuration form was not present", e);
+            }
             optionsRoutePath = safePath(driver.getCurrentUrl());
             optionsPageTitle = safeTitle(driver);
-            optionsFormVisible = !driver.findElements(By.id("component-form")).isEmpty();
+            optionsFormVisible = true;
             List<WebElement> saveHistoryRadios = driver.findElements(
                     By.cssSelector("#component-form input[type='radio'][name='jform[params][save_history]']"));
             saveHistoryRadioCount = saveHistoryRadios.size();
@@ -190,7 +222,7 @@ public class JO_GAP_004_G3_Suite {
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                     fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                    optionsFormVisible, saveHistoryRadioCount);
+                    optionsContext, optionsFormVisible, saveHistoryRadioCount);
             throw e;
         } finally {
             if (driver != null) {
@@ -199,7 +231,13 @@ public class JO_GAP_004_G3_Suite {
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                 fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                optionsFormVisible, saveHistoryRadioCount);
+                optionsContext, optionsFormVisible, saveHistoryRadioCount);
+    }
+
+    private static boolean isContentOptionsRoute(String url) {
+        return url.contains("option=com_config")
+                && url.contains("view=component")
+                && url.contains("component=com_content");
     }
 
     private static String safePath(String url) {
@@ -283,7 +321,7 @@ public class JO_GAP_004_G3_Suite {
     private static void writeEvidence(String evidencePath, String runId, String outcome, String reason,
             int version, int historyRows, boolean fixtureCreated, String saveHistorySetting,
             String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
-            boolean optionsFormVisible, int saveHistoryRadioCount) throws Exception {
+            String optionsContext, boolean optionsFormVisible, int saveHistoryRadioCount) throws Exception {
         Path path = Path.of(evidencePath);
         Files.createDirectories(path.getParent());
         String json = "{\n"
@@ -299,6 +337,7 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"fixtureCleanupOutcome\": \"" + cleanupOutcome + "\",\n"
                 + "  \"optionsRoutePath\": \"" + optionsRoutePath + "\",\n"
                 + "  \"optionsPageTitle\": \"" + optionsPageTitle + "\",\n"
+                + "  \"optionsContext\": \"" + optionsContext + "\",\n"
                 + "  \"optionsFormVisible\": " + optionsFormVisible + ",\n"
                 + "  \"saveHistoryRadioCount\": " + saveHistoryRadioCount + ",\n"
                 + "  \"candidateJavaSha256\": \"" + required("BEWT_CANDIDATE_JAVA_SHA256") + "\",\n"
