@@ -1,0 +1,19 @@
+{
+  "runId": "g0-claroline-20261112-a",
+  "appId": "claroline",
+  "stoppedContainers": [
+    "bewt-covext-claroline-selenium-g0-claroline-20261112-a",
+    "bewt-covext-claroline-g0-claroline-20261112-a"
+  ],
+  "removedContainers": [
+    "bewt-covext-claroline-selenium-g0-claroline-20261112-a",
+    "bewt-covext-claroline-g0-claroline-20261112-a"
+  ],
+  "removedVolumes": [],
+  "removedNetwork": "bewt-covext-claroline-g0-claroline-20261112-a-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

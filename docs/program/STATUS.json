@@ -26,6 +26,43 @@
       "status": "MERGED",
       "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    },
+    "G0-CLOUD-20261112": {
+      "status": "G0_BASE_SMOKE_ENGINEERING_PASS_8_OF_8_ACCEPTANCE_PARTIAL_PROVENANCE",
+      "branch": "task/g0-cloud-runtime-acceptance-pr27",
+      "baseBranch": "task/final-remediation-audit",
+      "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+      "runtimeSourceCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+      "vm": {
+        "project": "gen-lang-client-0311012609",
+        "name": "bewt-covext-runner",
+        "instanceId": "3042402845209891905",
+        "zone": "asia-southeast1-a",
+        "machineType": "c4d-highmem-8",
+        "state": "RUNNING"
+      },
+      "outcome": {
+        "applications": 8,
+        "smokeTestsPassed": 8,
+        "junitTests": 8,
+        "junitFailures": 0,
+        "junitErrors": 0,
+        "junitSkipped": 0,
+        "cleanupZeroResidual": 8,
+        "correctedExtensionCandidatesRun": 0
+      },
+      "limitations": [
+        "No per-container IDs or direct image-ID binding in the runner records; app references and VM RepoDigests are recorded in the runtime manifest.",
+        "Installer Maven exit codes are not recorded by the runner.",
+        "Bludit baseline Gherkin version is 3.13.1 while the tested application and Java suite are 2.3.4.",
+        "Five active smoke classes have source-hash differences from pinned BEWT Java; semantic equivalence needs review."
+      ],
+      "evidence": [
+        "docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md",
+        "docs/tasks/G0-CLOUD-20261112/evidence/g0-runtime-manifest.json",
+        "docs/tasks/G0-CLOUD-20261112/evidence/g0-safe-evidence.tgz",
+        "docs/tasks/g0-evidence/"
+      ]
     }
   },
   "targets": {
@@ -134,7 +171,7 @@
       "proposalOriginalCases": 23,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -163,7 +200,7 @@
       "proposalOriginalCases": 40,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -192,7 +229,7 @@
       "proposalOriginalCases": 31,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -226,7 +263,7 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -255,7 +292,7 @@
       "proposalOriginalCases": 30,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -284,7 +321,7 @@
       "proposalOriginalCases": 37,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -313,7 +350,7 @@
       "proposalOriginalCases": 27,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -342,7 +379,7 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G0": "PARTIALLY_VERIFIED_FRESH_BASE_SMOKE_PASS_PROVENANCE_GAPS",
         "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
         "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
         "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
@@ -392,10 +429,10 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "FINAL-REMEDIATION-AUDIT",
-    "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
-    "currentTaskBranch": "task/final-remediation-audit",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
+    "currentTaskId": "G0-CLOUD-20261112",
+    "currentTaskStatus": "G0_BASE_SMOKE_PASS_8_OF_8_ACCEPTANCE_PARTIAL_PROVENANCE_GAPS",
+    "currentTaskBranch": "task/g0-cloud-runtime-acceptance-pr27",
+    "currentTaskPrUrl": null,
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },
@@ -423,7 +460,8 @@
   "notes": [
     "Current audit is based on main SHA da6399536ff75a1edf4417819eb4d166cc1d781c; origin/main matched at fetch time.",
     "The current evidence audit supersedes prior acceptance claims where primary review, source, runtime, or metric evidence conflicts.",
-    "See docs/final-acceptance/ for case traceability and evidence-linked blockers. No gate or deliverable is self-accepted."
+    "See docs/final-acceptance/ for case traceability and evidence-linked blockers. No gate or deliverable is self-accepted.",
+    "Fresh G0 base smoke runs on the existing Google Cloud VM passed for all eight apps on 2026-11-12; see repositoryMilestones.G0-CLOUD-20261112. Overall acceptance remains blocked by provenance gaps and G1/G3 scientific gates."
   ],
   "currentAudit": {
     "baselineCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
