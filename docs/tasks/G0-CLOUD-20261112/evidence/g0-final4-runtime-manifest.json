@@ -1,0 +1,975 @@
+{
+  "schemaVersion": "1.0.0",
+  "capturedAtUtc": "2026-11-12",
+  "gate": "G0",
+  "executionStatus": "BASE_SMOKE_ENGINEERING_PASS_8_OF_8",
+  "acceptanceStatus": "PARTIALLY_VERIFIED_GHERKIN_HASH_AND_MAPPING_GAPS",
+  "repository": {
+    "url": "https://github.com/NgaiLong49423/BEWT-CovExt",
+    "commit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+    "branch": "PR #28 task/g0-runner-provenance; clean tracked files in fresh VM worktree",
+    "runnerSourcePath": "experiments/tools/unified-g0-runner.mjs",
+    "runnerSourceSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+    "workingTreeScope": "tracked-files-only; untracked run evidence excluded"
+  },
+  "googleCloud": {
+    "projectId": "gen-lang-client-0311012609",
+    "vmName": "bewt-covext-runner",
+    "instanceId": "3042402845209891905",
+    "zone": "asia-southeast1-a",
+    "machineType": "c4d-highmem-8",
+    "state": "RUNNING",
+    "cpuCount": 8,
+    "memoryTotalGiB": 61,
+    "memoryAvailableBeforeRunsGiB": 60,
+    "rootFilesystemGiB": 193,
+    "rootDiskAvailableGiB": 173,
+    "externalIp": "OMITTED"
+  },
+  "runtime": {
+    "os": "Ubuntu 24.04 LTS",
+    "kernel": "7.0.0-1017-gcp",
+    "dockerEngine": "29.9.3",
+    "node": "20.20.2",
+    "java": "21.0.13.0.3",
+    "maven": "3.8.7",
+    "chrome": "157.0.8103.38",
+    "chromeDriver": "157.0.8103.38"
+  },
+  "baselineBenchmark": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "workingTree": "CLEAN_READ_ONLY per prior verified G0 source record"
+  },
+  "runs": [
+    {
+      "application": "bludit",
+      "runId": "g0-bludit-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:28:24.170Z",
+      "applicationVersion": "2.3.4",
+      "applicationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "applicationImageReference": "bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "tests.AddContentTest",
+      "testSource": {
+        "path": "experiments/bludit/bewt-suite/src/test/java/tests/AddContentTest.java",
+        "sha256": "34eb6db98025713fd24c79b0aa666d1f9e57f1fe3155ab8b31b1887da05dbfb4"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+        "gitBlobSha1": "a1d6f286aa5a66057dfa419d38cac730d87e775d",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "bludit-01-addcontenttest"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:28:26.649Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/install.php",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:28:26.663Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/",
+              "toPath": "/install.php",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {
+        "installer": {
+          "outcome": "PASS",
+          "exitCode": 0,
+          "steps": []
+        }
+      },
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/bludit/bewt-suite/pom.xml",
+        "-Dtest=tests.AddContentTest",
+        "-Dapp.url=http://bewt-covext-bludit-g0-bludit-20261112-final4/admin",
+        "-Dwebdriver.remoteUrl=http://127.0.0.1:35681/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/bludit/g0-bludit-20261112-final4/TEST-tests.AddContentTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "bd5b0de8f4cdd51cdf0dc15032cc0acee66de3ed1ebe8edc912ce160b543ecf4",
+        "sanitizedXmlSha256": "4a332df7d1ea65f8e3f8b080956dba611cc1ad384db1773b6c70bdc8c8ca9c66"
+      },
+      "containers": [
+        {
+          "role": "browser",
+          "containerId": "1203c679bb729e966a865b966a704052b1da6f2e33bf7eaa29b1de9ba01580ce",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-bludit-selenium-g0-bludit-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "cd4356ac16dc80ed4c4c4c2c4acae63fc4b78bbb76e777b5c3d9f613d7c6867a",
+          "imageReference": "bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+          "imageId": "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+          "name": "bewt-covext-bludit-g0-bludit-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "e191455447c9e0e480dd48cbfd832ac03ed107b8f9372e5a635237aadfc7068d",
+        "name": "bewt-covext-bludit-g0-bludit-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "claroline",
+      "runId": "g0-claroline-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:29:10.537Z",
+      "applicationVersion": "1.11.10",
+      "applicationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "applicationImageReference": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "test.Claroline_AddUserTest",
+      "testSource": {
+        "path": "experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java",
+        "sha256": "ad17a3b98c0f31489d9fab96cf23bba66d43eb31659752c5185a75dec844d006"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "claroline/gherkin/01_AddUserTest.feature",
+        "gitBlobSha1": "7a78f664016674e5e126af320d4581f7f04905fc",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "claroline-01-addusertest"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:29:13.004Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/claroline11110/",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:29:13.036Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/claroline11110/claroline/index.php",
+              "toPath": "/claroline11110/",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {},
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/claroline/bewt-suite/pom.xml",
+        "-Dtest=test.Claroline_AddUserTest",
+        "-Dapp.url=http://bewt-covext-claroline-g0-claroline-20261112-final4/claroline11110/claroline/index.php",
+        "-Dwebdriver.remote.url=http://127.0.0.1:40551/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/claroline/g0-claroline-20261112-final4/TEST-test.Claroline_AddUserTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "beb1dd932f25256394cc3dd8eb38dacb7c933a97d2a8dfd17d682e733cbcf508",
+        "sanitizedXmlSha256": "7f4449d9fe5b27884284d238d7e60694c6c7d0ea4478a44efce84887f412b3d0"
+      },
+      "containers": [
+        {
+          "role": "browser",
+          "containerId": "4205cfc27c93fc9c0d7ec990564aeafe67b90f7da1eabfc3f9d75662d8e3fbb5",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-claroline-selenium-g0-claroline-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "5a828586da9070e6eff6811106158cb621a08b89a599856429cb507b411df190",
+          "imageReference": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "imageId": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+          "name": "bewt-covext-claroline-g0-claroline-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "23635bc8c8c697ed5a3610b928d4a7f34fc55eb0034e82b17cbe64a3db7181bd",
+        "name": "bewt-covext-claroline-g0-claroline-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "expresscart",
+      "runId": "g0-expresscart-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:29:49.361Z",
+      "applicationVersion": "1.19",
+      "applicationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "applicationImageReference": "bewt-covext/expresscart:1.1.19-b31302f",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "tests.AddUserTest",
+      "testSource": {
+        "path": "experiments/expresscart/bewt-suite/src/test/java/tests/AddUserTest.java",
+        "sha256": "68c3629d58e84fb22dab9e8becb603fef79e9fce83861a2d0457d944c567312d"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "expresscart/gherkin/01_AddUserTest.feature",
+        "gitBlobSha1": "bb4d5680a478fe9b5f3f3ce001da2df0164593eb",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "expresscart-01-addusertest"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:30:03.987Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:30:04.083Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {},
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/expresscart/bewt-suite/pom.xml",
+        "-Dtest=tests.AddUserTest",
+        "-Dexpresscart.baseUrl=http://127.0.0.1:36825",
+        "-Dwebdriver.remote.url=http://127.0.0.1:41867/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/expresscart/g0-expresscart-20261112-final4/TEST-tests.AddUserTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "565901df6989f6c76daaa89aa5bde01ea94a8ac1755b3e3fb6d5e937785eca92",
+        "sanitizedXmlSha256": "20d41cc3a971cfce63f8e46fca7cc77c7e13a767d86b89b7a59c18be8eb46a30"
+      },
+      "containers": [
+        {
+          "role": "db",
+          "containerId": "e7cf9afe63b4698541f53235c271c5c05c74145ff465b3fee20a792f363a6e41",
+          "imageReference": "mongo:4.4.29",
+          "imageId": "sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0",
+          "name": "bewt-covext-expresscart-db-g0-expresscart-20261112-final4"
+        },
+        {
+          "role": "browser",
+          "containerId": "5043bffb657483c0abb4ce0b186badeebdf81625b46b69bb4e159743fd7b46cd",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-expresscart-selenium-g0-expresscart-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "f7f025551c6c94027db1e22f39ed07e8bcd8d7bf5d7019ed8e1284515999141f",
+          "imageReference": "bewt-covext/expresscart:1.1.19-b31302f",
+          "imageId": "sha256:6bdde03731b1d4931af572f626aae6be7d14494e189f795bedc8d71bafa3ff06",
+          "name": "bewt-covext-expresscart-g0-expresscart-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "e2c41a3d39a3285a27f193b131bbf0b82a63be6598e98e9575fb32c2cc624d8e",
+        "name": "bewt-covext-expresscart-g0-expresscart-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      },
+      "sourceLockPackageVersion": "1.1.19"
+    },
+    {
+      "application": "joomla",
+      "runId": "g0-joomla-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:30:35.280Z",
+      "applicationVersion": "3.10.11",
+      "applicationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "applicationImageReference": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "base.AdminLoginTest",
+      "testSource": {
+        "path": "experiments/joomla/bewt-suite/src/test/java/base/AdminLoginTest.java",
+        "sha256": "0e1f0383d86c952f83e57bf740b73f46561d7b1fbf0249505806f23cb574eea5"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "joomla/gherkin/01_AdminLoginTest.feature",
+        "gitBlobSha1": "3dafb9c130791d84fec6f23d76160ed3c89bfbe3",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "joomla-01-adminlogintest"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:30:49.936Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/installation/index.php",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:30:50.000Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/",
+              "toPath": "/installation/index.php",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {
+        "installer": {
+          "outcome": "PASS",
+          "exitCode": 0,
+          "steps": []
+        }
+      },
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/joomla/bewt-suite/pom.xml",
+        "-Dtest=base.AdminLoginTest",
+        "-Dapp.url=http://bewt-covext-joomla-g0-joomla-20261112-final4/",
+        "-Dwebdriver.remote.url=http://127.0.0.1:40621/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/joomla/g0-joomla-20261112-final4/TEST-base.AdminLoginTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "e59d6d6fe09d38ceb55766cb55d7ae00ba6335b116172c0c1ace5f1c61ce6756",
+        "sanitizedXmlSha256": "0c233802a8b89f445bf66083e6cad47fd8d9a358229fd9d6c2fcdac26c1dc5f9"
+      },
+      "containers": [
+        {
+          "role": "db",
+          "containerId": "d273e31adde67340e1fc556817850f74952461d2d49823463cf687db18c56825",
+          "imageReference": "mysql:5.6",
+          "imageId": "sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae",
+          "name": "bewt-covext-joomla-db-g0-joomla-20261112-final4"
+        },
+        {
+          "role": "browser",
+          "containerId": "499707e57ed9f8a04dd20792ade9e67cc2202c18aa49b8e03d44fb8cd41afedc",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-joomla-selenium-g0-joomla-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "d42843d468d55af8a418ef9faf50de8f0ff210b6b2bd14c21266bb27554014fb",
+          "imageReference": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+          "imageId": "sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+          "name": "bewt-covext-joomla-g0-joomla-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "05ff1c50c65ecf8cc0798d00e2d31f42be3cc31d2a48b8b2e745d77c65d36f33",
+        "name": "bewt-covext-joomla-g0-joomla-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "kanboard",
+      "runId": "g0-kanboard-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:31:40.768Z",
+      "applicationVersion": "1.2.15",
+      "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+      "applicationImageReference": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "tests.AddNewProject",
+      "testSource": {
+        "path": "experiments/kanboard/bewt-suite/src/test/java/tests/AddNewProject.java",
+        "sha256": "026ef30394dd9833869bbc900ecad93b428742f2f767c623233c59102d713ecd"
+      },
+      "baselineGherkin": {
+        "status": "NOT_AVAILABLE",
+        "path": "NOT_AVAILABLE",
+        "gitBlobSha1": "NOT_AVAILABLE"
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:31:43.276Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/login",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:31:43.746Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/",
+              "toPath": "/login",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {},
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/kanboard/bewt-suite/pom.xml",
+        "-Dtest=tests.AddNewProject",
+        "-Dapp.url=http://bewt-covext-kanboard-g0-kanboard-20261112-final4/",
+        "-Dwebdriver.remote.url=http://127.0.0.1:35443/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/kanboard/g0-kanboard-20261112-final4/TEST-tests.AddNewProject.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "e96a82370da6b61e5004075e2df87611733c6d30d8b7e0714fa7d8ad085f135d",
+        "sanitizedXmlSha256": "6c75bcf8bc3f80ac4c9804f6f0c1569df23be89651e43174c2467759c757e0e2"
+      },
+      "containers": [
+        {
+          "role": "browser",
+          "containerId": "bd40660dcc2a3357d1e3f7d285e07713e6e46879d327944b58898b9583327566",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-kanboard-selenium-g0-kanboard-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "4b6aa1c7ba73475784e3510f7a98fff90c5ac65cf3ba2933d6ed7e06f034e175",
+          "imageReference": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+          "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+          "name": "bewt-covext-kanboard-g0-kanboard-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "a9e2ad31f3f274ad6086ef5753f6572a2126bd37beeef42a4c70cb98eaa63440",
+        "name": "bewt-covext-kanboard-g0-kanboard-20261112-final4-net"
+      },
+      "volumes": [
+        {
+          "name": "bewt-covext-kanboard-data-g0-kanboard-20261112-final4",
+          "mount": "/var/www/app/data"
+        },
+        {
+          "name": "bewt-covext-kanboard-plugins-g0-kanboard-20261112-final4",
+          "mount": "/var/www/app/plugins"
+        }
+      ],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "mantisbt",
+      "runId": "g0-mantisbt-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:32:12.706Z",
+      "applicationVersion": "1.2.0",
+      "applicationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "applicationImageReference": "olianasd/mantisbt-strongpsw:1.2.0@sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "base.AddUser",
+      "testSource": {
+        "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddUser.java",
+        "sha256": "11c1bdbf0be9e1855f69c4e72da47c47b5fffc6f1c7136379232d5d95aa6d605"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "mantisbt/gherkin/01_AddUser.feature",
+        "gitBlobSha1": "ff86f3e677ac6733463f781ceddf185848c9fbf9",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "mantisbt-01-adduser"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:32:15.164Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/mantisbt/",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:32:15.179Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {},
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/mantisbt/bewt-suite/pom.xml",
+        "-Dtest=base.AddUser",
+        "-Dapp.url=http://bewt-covext-mantisbt-g0-mantisbt-20261112-final4/mantisbt/",
+        "-Dwebdriver.remote.url=http://127.0.0.1:39639/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/mantisbt/g0-mantisbt-20261112-final4/TEST-base.AddUser.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "ec61a71268181a387e816357f3e683a9f1d98997ae1947dbce225f03ebd2e287",
+        "sanitizedXmlSha256": "0784255a30b6f19efd2f1ad6adf248e09d0a2881be1ac4325b2f2d7174bc105e"
+      },
+      "containers": [
+        {
+          "role": "browser",
+          "containerId": "325de613be6ea0204f9caf88ec60b05754c80783f70d14c9b6d7301cd678721e",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-mantisbt-selenium-g0-mantisbt-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "b726a9fc0b55491a6b8ed13f8ec5caf5af2cde71070886756eaeb5952f3aae8f",
+          "imageReference": "olianasd/mantisbt-strongpsw:1.2.0@sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01",
+          "imageId": "sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01",
+          "name": "bewt-covext-mantisbt-g0-mantisbt-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "89b945a2815ddc4863eec5dca32e0334ce1e828362dfcc0d0972b730b6f78de0",
+        "name": "bewt-covext-mantisbt-g0-mantisbt-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "mediawiki",
+      "runId": "g0-mediawiki-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:26:30.160Z",
+      "applicationVersion": "1.40.0",
+      "applicationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "applicationImageReference": "mediawiki:1.40.0@sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "mediawiki.CreatePageTest",
+      "testSource": {
+        "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreatePageTest.java",
+        "sha256": "a837fb26abc637185d2329871dafc2dbbf2100a76056ca921ffb3d2262d6b1e9"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "mediawiki/gherkin/03_CreatePageTest.feature",
+        "gitBlobSha1": "d4a1d563069fdf3a5223d9b160539a398dc8a463",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "mediawiki-03-createpagetest"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:26:45.040Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:26:45.070Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appLogin": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/index.php/Main_Page",
+          "validator": "mediawiki-installed-login-link",
+          "checkedAtUtc": "2026-11-12T16:26:46.185Z",
+          "redirects": [
+            {
+              "status": 301,
+              "fromPath": "/",
+              "toPath": "/index.php/Main_Page",
+              "targetKind": "configured-app-hostname-mapped"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {
+        "mediawiki": {
+          "outcome": "PASS",
+          "exitCode": 0,
+          "steps": [
+            {
+              "step": "install",
+              "exitCode": 0,
+              "errorCode": null
+            },
+            {
+              "step": "configure-extensions",
+              "exitCode": 0,
+              "errorCode": null
+            }
+          ]
+        }
+      },
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/mediawiki/bewt-suite/pom.xml",
+        "-Dtest=mediawiki.CreatePageTest",
+        "-Dapp.url=http://bewt-covext-mediawiki-g0-mediawiki-20261112-final4/",
+        "-Dwebdriver.remote.url=http://127.0.0.1:35819/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/mediawiki/g0-mediawiki-20261112-final4/TEST-mediawiki.CreatePageTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "008c6762e57e9a19a417f9efae3ae549a44d400d945023ca67d10edcff5c8b13",
+        "sanitizedXmlSha256": "28276e8ce3351624e433b76b98e87540a646a56ac690d57cef4501031305c1fd"
+      },
+      "containers": [
+        {
+          "role": "db",
+          "containerId": "39e7b2104e85ce9b2ff87e5d6061bb2afab229abb81a56f15a883dd5ed480a7c",
+          "imageReference": "mariadb:10.5",
+          "imageId": "sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce",
+          "name": "bewt-covext-mediawiki-db-g0-mediawiki-20261112-final4"
+        },
+        {
+          "role": "browser",
+          "containerId": "c90664d20724d82c1b0921cd1c69a843b0c5393d7f51466906ab632387b2b129",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-mediawiki-selenium-g0-mediawiki-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "dc068e4cca3d686f632a0cf1f561b4843f1e9607821782fe4723ad4a30500925",
+          "imageReference": "mediawiki:1.40.0@sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d",
+          "imageId": "sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d",
+          "name": "bewt-covext-mediawiki-g0-mediawiki-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "d8c48ed7dd6bf87b36e3a5f9ae37106be953a7b0cd09e243599ee2ab1ba6d57c",
+        "name": "bewt-covext-mediawiki-g0-mediawiki-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    },
+    {
+      "application": "prestashop",
+      "runId": "g0-prestashop-20261112-final4",
+      "startedAtUtc": "2026-11-12T16:32:56.943Z",
+      "applicationVersion": "1.6.1.23",
+      "applicationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "applicationImageReference": "prestashop/prestashop:1.6.1.23@sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e",
+      "repositoryCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
+      "trackedWorkingTreeDirty": false,
+      "runnerSha256": "18956cb5f9d1aa0ee01b5e1ae7b17fe15703f17c4e66a816369e9326c2d5159a",
+      "testClass": "tests.AddNewCategory",
+      "testSource": {
+        "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewCategory.java",
+        "sha256": "a6ac0b7ca4eaad8915bd24e27c52ae36e122bf660928cd22ffdb35603819f2f9"
+      },
+      "baselineGherkin": {
+        "status": "MAPPED",
+        "path": "prestashop/gherkin/14_AddNewCategory.feature",
+        "gitBlobSha1": "193ff284dc574d1810593c1e3acde399967dc228",
+        "mappingCatalogPath": "docs/tasks/T04-G/evidence/cat.json",
+        "mappingCatalogSha256": "b41bb5f0e0bce0ccb6647bda5a7e2b95b38f92edb317bbaef8a309d722496feb",
+        "baselineCaseIds": [
+          "prestashop-14-addnewcategory"
+        ]
+      },
+      "readiness": {
+        "selenium": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/status",
+          "validator": "selenium-status-value-ready",
+          "checkedAtUtc": "2026-11-12T16:33:11.552Z",
+          "redirects": [],
+          "completedBeforeMaven": true
+        },
+        "appHttp": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/install/",
+          "validator": "http-status-2xx-3xx",
+          "checkedAtUtc": "2026-11-12T16:33:12.617Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/",
+              "toPath": "/install/",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        },
+        "appLogin": {
+          "outcome": "PASS",
+          "status": 200,
+          "endpointPath": "/administrator/index.php",
+          "validator": "prestashop-admin-email-and-password-controls",
+          "checkedAtUtc": "2026-11-12T16:35:23.939Z",
+          "redirects": [
+            {
+              "status": 302,
+              "fromPath": "/administrator/",
+              "toPath": "/administrator/index.php",
+              "targetKind": "same-origin"
+            }
+          ],
+          "completedBeforeMaven": true
+        }
+      },
+      "setupFixtures": {
+        "prestashop": {
+          "outcome": "PASS",
+          "exitCode": 0,
+          "steps": []
+        }
+      },
+      "mavenExitCode": 0,
+      "mavenArgvSanitized": [
+        "-B",
+        "-f",
+        "experiments/prestashop/bewt-suite/pom.xml",
+        "-Dtest=tests.AddNewCategory",
+        "-Dapp.url=http://bewt-covext-prestashop-g0-prestashop-20261112-final4/administrator/",
+        "-Dwebdriver.remote.url=http://127.0.0.1:41685/wd/hub",
+        "clean",
+        "test"
+      ],
+      "junit": {
+        "path": "docs/tasks/g0-evidence/prestashop/g0-prestashop-20261112-final4/TEST-tests.AddNewCategory.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "originalXmlSha256": "0ac8b747ab5f519d36fb625b687147432874ff694239b6b039d0c30d3a8fd4c1",
+        "sanitizedXmlSha256": "d5be135d03523f492d5b0b8988461a78c831d39623f974e267032a3ee2fbb30d"
+      },
+      "containers": [
+        {
+          "role": "db",
+          "containerId": "ddd01fac766081a37158dfa61d54636be5f92246470494ccc6a32f3a4c4ec13c",
+          "imageReference": "mysql:5.7",
+          "imageId": "sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb",
+          "name": "bewt-covext-prestashop-db-g0-prestashop-20261112-final4"
+        },
+        {
+          "role": "browser",
+          "containerId": "49b22f0499f918e29d5d859c7bbac0fd149e0a8bbc1fd02f239218376354fcb6",
+          "imageReference": "selenium/standalone-chrome:latest",
+          "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+          "name": "bewt-covext-prestashop-selenium-g0-prestashop-20261112-final4"
+        },
+        {
+          "role": "app",
+          "containerId": "93ff5f8c9a395e39a751d2673e51c1517fb0dd2052b1c2dc7494cd90951e358b",
+          "imageReference": "prestashop/prestashop:1.6.1.23@sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e",
+          "imageId": "sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e",
+          "name": "bewt-covext-prestashop-g0-prestashop-20261112-final4"
+        }
+      ],
+      "network": {
+        "id": "9e013352b996a214b921c060de348a998d04771412effa3bc742f175d6af4726",
+        "name": "bewt-covext-prestashop-g0-prestashop-20261112-final4-net"
+      },
+      "volumes": [],
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainers": [],
+        "residualNetworks": [],
+        "residualVolumes": []
+      }
+    }
+  ],
+  "summary": {
+    "applications": 8,
+    "junitTests": 8,
+    "junitFailures": 0,
+    "junitErrors": 0,
+    "junitSkipped": 0,
+    "mavenExitZero": 8,
+    "cleanupZeroResidual": 8,
+    "distinctApplications": 8
+  },
+  "finalDockerInventory": {
+    "containers": 0,
+    "networks": 3,
+    "networksAreDefaultOnly": true,
+    "experimentVolumes": 0
+  },
+  "limitations": [
+    "This G0 run exercised one original BEWT base smoke class per application; it did not execute corrected extension candidates or G3 reruns.",
+    "Five active Java smoke classes have SHA-256 values that differ from the pinned BEWT source Java; equivalence is not asserted here.",
+    "Bludit Gherkin source is version 3.13.1 while the exercised app and suite are 2.3.4.",
+    "The runner binds test Java SHA-256 and image/container IDs, but its Gherkin binding is a Git blob SHA-1 and it does not provide a Gherkin content SHA-256 in these records.",
+    "The Kanboard final4 run record reports baseline Gherkin mapping NOT_AVAILABLE; its earlier G0 run had a mapping, but that earlier record does not bind this final4 invocation.",
+    "Only structured run records, hashed JUnit summaries, sanitized JUnit XML, and Docker inventory JSON are in the public archive; raw Maven, setup, and container logs remain excluded.",
+    "All Maven invocations and installer setup steps recorded in final4 returned exit code 0 where applicable; setup was not needed for apps with no fixture setup step.",
+    "The final4 run record reports ExpressCart applicationVersion as 1.19, while SOURCE-LOCK.json and the image tag identify package version 1.1.19; this metadata discrepancy remains to be reconciled."
+  ]
+}

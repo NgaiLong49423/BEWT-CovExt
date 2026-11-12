@@ -34,7 +34,7 @@
       "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
       "pullRequest": 29,
       "pullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/29",
-      "runtimeSourceCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+      "runtimeSourceCommit": "08f3c32ed723f938e351b304859a35c2bdac4f9e",
       "vm": {
         "project": "gen-lang-client-0311012609",
         "name": "bewt-covext-runner",
@@ -54,16 +54,19 @@
         "correctedExtensionCandidatesRun": 0
       },
       "limitations": [
-        "No per-container IDs or direct image-ID binding in the runner records; app references and VM RepoDigests are recorded in the runtime manifest.",
-        "Installer Maven exit codes are not recorded by the runner.",
-        "Bludit baseline Gherkin version is 3.13.1 while the tested application and Java suite are 2.3.4.",
-        "Five active smoke classes have source-hash differences from pinned BEWT Java; semantic equivalence needs review."
+        "Five active smoke classes have SHA-256 values different from the pinned BEWT Java; semantic equivalence remains unreviewed.",
+        "Bludit baseline Gherkin reference is version 3.13.1 while the exercised app and suite are 2.3.4.",
+        "Final4 records bind the test source by SHA-256 and record per-container IDs/image IDs, but Gherkin is recorded as Git blob SHA-1 rather than content SHA-256.",
+        "The final4 Kanboard run record reports baseline Gherkin mapping NOT_AVAILABLE; an earlier run mapping does not bind this invocation.",
+        "ExpressCart run record reports version 1.19 while SOURCE-LOCK and image tag identify 1.1.19; metadata discrepancy needs reconciliation."
       ],
       "evidence": [
         "docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md",
         "docs/tasks/G0-CLOUD-20261112/evidence/g0-runtime-manifest.json",
         "docs/tasks/G0-CLOUD-20261112/evidence/g0-safe-evidence.tgz",
-        "docs/tasks/g0-evidence/"
+        "docs/tasks/g0-evidence/",
+        "docs/tasks/G0-CLOUD-20261112/evidence/g0-final4-runtime-manifest.json",
+        "docs/tasks/G0-CLOUD-20261112/evidence/g0-final4-safe-evidence.tgz"
       ]
     }
   },
