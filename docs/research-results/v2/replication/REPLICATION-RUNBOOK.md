@@ -5,7 +5,7 @@
 This runbook reproduces the current offline audit and its metrics outputs. It does **not** reproduce the historical Docker/Google Cloud G0 or G3 executions, establish human approval, or generate a new model response.
 
 - Source/data snapshot: `main` commit `da6399536ff75a1edf4417819eb4d166cc1d781c` (confirmed as `origin/main` on 12 November 2026).
-- Analysis and evidence revision: `e32b25e027573a63de3da8dbb3d89ee135517cc2` (PR #27 head when fetched).
+- Metrics computation revision: `569ca47d40dcc8dd8d5138718078c5f4ec7217bc` (the checked-in RQ metrics artifact records this commit as `auditBaselineCommit`). Its tracked research inputs descend from the source/data snapshot above.
 - The later approved Gemini attempt and its failure evidence were introduced in `3c6ca2014ef60384e3c23a9dcd4c0880af76f099`; it failed with `expected object, received null`, with zero retries and no review packet or Java artifact.
 - Runtime: Node.js 22 or newer. Framework package versions are pinned in `framework/package-lock.json`.
 
@@ -14,7 +14,7 @@ This runbook reproduces the current offline audit and its metrics outputs. It do
 ```bash
 git clone https://github.com/NgaiLong49423/BEWT-CovExt.git
 cd BEWT-CovExt
-git checkout e32b25e027573a63de3da8dbb3d89ee135517cc2
+git checkout 569ca47d40dcc8dd8d5138718078c5f4ec7217bc
 git status --short
 
 cd framework

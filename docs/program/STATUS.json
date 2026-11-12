@@ -26,6 +26,33 @@
       "status": "MERGED",
       "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    },
+    "PAPER-PROVENANCE-20261113": {
+      "status": "PARTIAL_DOCUMENTATION_CORRECTED_LOCAL_METRICS_FIXTURE_MISMATCH",
+      "branch": "task/paper-provenance-correction",
+      "baseBranch": "task/final-remediation-audit",
+      "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+      "pullRequest": null,
+      "sourceDataBaseline": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+      "metricsComputationRevision": "569ca47d40dcc8dd8d5138718078c5f4ec7217bc",
+      "liveGeminiFailureEvidenceCommit": "3c6ca2014ef60384e3c23a9dcd4c0880af76f099",
+      "verification": {
+        "metricsRevisionIsAncestorOfBase": true,
+        "gitDiffCheck": "PASS",
+        "g3AccountingTests": "2_PASS_1_FAIL_EXPECTED_84_ACTUAL_85_WITH_LOCAL_ATTEMPT6_EVIDENCE",
+        "metricsNegativeTests": "27_PASS_1_FAIL_EXPECTED_84_ACTUAL_85_WITH_LOCAL_ATTEMPT6_EVIDENCE_1_WINDOWS_SYMLINK_SKIP",
+        "paperPdfCompile": "NOT_RUN_TEX_TOOLCHAIN_UNAVAILABLE_AND_SPRINGER_CLASS_FILES_ABSENT"
+      },
+      "limitations": [
+        "The working tree contains preserved supplementary preliminary Joomla attempt6 evidence; metrics tests see 85 run records and 86 JUnit XML files instead of their historical fixture counts of 84 and 85.",
+        "Attempt6 is not part of the canonical 79-run sample and does not establish candidate execution or validation; recomputed metrics and tests need reconciliation after its evidence is committed."
+      ],
+      "evidence": [
+        "docs/tasks/PAPER-PROVENANCE-20261113/TASK-REPORT.md",
+        "docs/final-acceptance/RQ1-RQ4-results.json",
+        "docs/research-results/v2/replication/recompute-metrics.mjs",
+        "docs/tasks/CONTINUOUS-REMEDIATION/PROGRESS.md"
+      ]
     }
   },
   "targets": {
