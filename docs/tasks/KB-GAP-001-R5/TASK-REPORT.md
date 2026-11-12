@@ -1,25 +1,28 @@
-# KB-GAP-001 Revision 5 — Task Report
+# KB-GAP-001 Revisions 5–6 — Task Report
 
 ## Scope
 
-This task adds an immutable Revision 5 implementation of the Kanboard `KB-GAP-001` closed-task revival scenario and integrates it into the pinned Kanboard Maven suite. It remains preliminary engineering work pending independent human oracle and novelty review.
+This task integrates successive immutable technical revisions of the Kanboard `KB-GAP-001` closed-task revival scenario. The work is preliminary engineering only; independent human oracle and novelty review remain pending.
 
 ## Changes
 
-- Preserved Revision 4 unchanged and created Revision 5 with its own source hash and parent provenance.
-- Added the `Test Project` fixture setup through the application's project creation UI before creating and closing the task. This removes the assumption that G0 pre-seeded the project.
-- Added the Revision 5 class to `experiments/kanboard/bewt-suite/src/test/java/tests/`.
-- Retained the business assertions for the reopened status badge and exact task result from the `status:open` search.
+- Preserved Revision 4 unchanged. Revision 5 and Revision 6 each have separate source hashes, registrations, and parent provenance.
+- Added the `Test Project` fixture through the application UI; this removes dependence on preseeded project state.
+- Integrated each candidate revision into the pinned Kanboard Maven suite.
+- Revision 6 returns to the app dashboard after creating the fixture before opening the project. This addresses the navigation defect observed in Revision 5.
+- The test uses a unique task title, closes and reopens that task through the UI, asserts the `open` status badge, then asserts that `status:open` search returns that exact task.
 
 ## Verification
 
 | Check | Result | Evidence |
 |---|---|---|
-| Maven test compilation | PASS; 38 test sources compiled with Java 21 | Local command: `mvn -B -DskipTests test-compile` in `experiments/kanboard/bewt-suite`; exit 0 on 2026-11-12 |
-| G3 Docker/Selenium execution | NOT_RUN at report creation; awaiting VM run | — |
-| Clean-state reruns | NOT_RUN | — |
-| Human oracle/novelty approval | PENDING | Existing decision records remain unsigned/unapproved for research acceptance |
+| Revision 5 Maven test compilation | PASS; Java 21, 38 test sources compiled | `mvn -B -DskipTests test-compile`, exit 0, 2026-11-12 |
+| Revision 5 preliminary Cloud G3 run | FAIL; 1 test error | Run `g3-kb-gap001-r5-20261112-prelim-a`; app readiness HTTP 302; sanitized JUnit reports `NoSuchElementException` at `KanboardHomePage.goToProject` because the driver remained on the project summary page after fixture creation |
+| Revision 5 cleanup | PASS; zero residual containers, networks, and volumes | `docs/tasks/g3-evidence/kanboard/KB-GAP-001/revision-5/g3-kb-gap001-r5-20261112-prelim-a/cleanup-result.json` on runner VM |
+| Revision 6 Maven test compilation | PASS; Java 21, 39 test sources compiled | `mvn -B -DskipTests test-compile`, exit 0, 2026-11-12 |
+| Revision 6 preliminary Cloud G3 run and reruns | NOT_RUN yet | — |
+| Human oracle/novelty approval | PENDING | No signed decision is evidenced; research acceptance remains blocked |
 
 ## Acceptance boundary
 
-Compilation does not establish runtime behavior or scientific validation. Revision 5 cannot be marked `VALIDATED` until the exact business oracle passes the approved runtime protocol, the required three clean-state reruns pass, provenance is complete, and human oracle/novelty decisions are evidenced.
+Revision 5's FAIL is retained and is not counted as a candidate PASS. Revision 6 is not `VALIDATED` based on compile success. It requires live execution, three additional clean-state passes after an initial pass, complete source/runtime provenance, and actual human oracle/novelty decisions.
