@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { readFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { delimiter, join } from 'node:path';
 import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
 import {
@@ -12,12 +14,18 @@ import {
   expressCartAdminBootstrapScript,
   followHttpRedirects,
   findBaselineGherkinBinding,
+  getAppConfig,
   hostAppReadinessUrl,
   loginControlsReady,
   mediawikiTestEnvironment,
   readinessEvidence,
   readinessFailureEvidence,
   resolveReadinessRedirect,
+  resolveAppConfigPath,
+  resolveCommandInvocation,
+  resolveCommandPath,
+  resolveEvidenceDirectory,
+  runG0Workflow,
   requiredEnvironment,
   resolveEnvironmentConfig,
   sanitizeCommandArgv,
@@ -49,6 +57,76 @@ test('required runner configuration fails closed when an environment value is mi
     if (previous === undefined) delete process.env[key];
     else process.env[key] = previous;
   }
+});
+
+test('app configuration uses an own-key allowlist and contained config paths', () => {
+  assert.equal(getAppConfig('kanboard').appId, 'kanboard');
+  for (const appId of ['unknown-app', '__proto__', 'constructor', 'toString', '../joomla', '..\\joomla']) {
+    assert.throws(() => getAppConfig(appId), /UNKNOWN_APP_ID/);
+    assert.throws(() => resolveAppConfigPath(appId), /UNKNOWN_APP_ID/);
+  }
+  assert.equal(resolveAppConfigPath('kanboard').endsWith(join('config', 'apps', 'kanboard.json')), true);
+});
+
+test('evidence paths are relative, contained, and limited to known evidence roots', () => {
+  const defaultPath = resolveEvidenceDirectory(undefined, 'kanboard', 'run-123');
+  assert.ok(defaultPath.endsWith(join('docs', 'tasks', 'g0-evidence', 'kanboard', 'run-123')));
+  assert.throws(() => resolveEvidenceDirectory('../outside', 'kanboard', 'run-123'), /contained relative evidence path/);
+  assert.throws(() => resolveEvidenceDirectory('docs/tasks/g0-evidence/../../outside', 'kanboard', 'run-123'), /contained relative evidence path/);
+  assert.throws(() => resolveEvidenceDirectory(join(tmpdir(), 'outside'), 'kanboard', 'run-123'), /contained relative evidence path/);
+  assert.throws(() => resolveEvidenceDirectory('', 'kanboard', 'run-123'), /non-empty relative path/);
+  assert.throws(() => resolveEvidenceDirectory('temp/kanboard/run-123', 'kanboard', 'run-123'), /must be under/);
+  assert.throws(() => resolveEvidenceDirectory('docs/tasks/g0-evidence/kanboard/run-123', '__proto__', 'run-123'), /UNKNOWN_APP_ID/);
+});
+
+test('runner rejects invalid evidence destinations before creating output', async (t) => {
+  const tempRoot = mkdtempSync(join(tmpdir(), 'bewt-invalid-evidence-'));
+  t.after(() => rmSync(tempRoot, { recursive: true, force: true }));
+  const outside = join(tempRoot, 'must-not-exist');
+  await assert.rejects(runG0Workflow('kanboard', 'run-123', { evidenceDir: outside }), /contained relative evidence path/);
+  assert.equal(existsSync(outside), false);
+});
+
+test('tool resolution requires an allowlisted executable and returns a trusted absolute path', (t) => {
+  const tempRoot = mkdtempSync(join(tmpdir(), 'bewt-tool-resolution-'));
+  t.after(() => rmSync(tempRoot, { recursive: true, force: true }));
+  const executable = join(tempRoot, process.platform === 'win32' ? 'docker.exe' : 'docker');
+  writeFileSync(executable, 'synthetic executable fixture');
+  if (process.platform !== 'win32') chmodSync(executable, 0o755);
+  const env = process.platform === 'win32'
+    ? { PATH: tempRoot, BEWT_DOCKER_CLI_PATH: executable }
+    : { PATH: tempRoot };
+  const expected = process.platform === 'win32' ? executable.toLowerCase() : executable;
+  if (process.platform === 'win32') {
+    assert.throws(() => resolveCommandPath('docker', { PATH: tempRoot }), /must be set to an absolute executable path/);
+  }
+  const resolvedPath = resolveCommandPath('docker', env);
+  assert.equal(process.platform === 'win32' ? resolvedPath.toLowerCase() : resolvedPath, expected);
+  assert.throws(() => resolveCommandPath('unknown', env), /Unsupported executable/);
+  assert.throws(() => resolveCommandPath('docker', { ...env, BEWT_DOCKER_CLI_PATH: 'relative/docker' }), /absolute path/);
+  const explicitPath = resolveCommandPath('docker', { ...env, BEWT_DOCKER_CLI_PATH: executable });
+  assert.equal(process.platform === 'win32' ? explicitPath.toLowerCase() : explicitPath, expected);
+  assert.throws(() => resolveCommandPath('docker', { PATH: process.cwd() }), process.platform === 'win32'
+    ? /must be set to an absolute executable path/
+    : /No trusted absolute executable/);
+});
+
+test('Windows batch tools use an absolute command processor and reject shell metacharacters', (t) => {
+  const tempRoot = mkdtempSync(join(tmpdir(), 'bewt-cmd-resolution-'));
+  t.after(() => rmSync(tempRoot, { recursive: true, force: true }));
+  const systemRoot = join(tempRoot, 'Windows Root');
+  const system32 = join(systemRoot, 'System32');
+  const processor = join(system32, 'cmd.exe');
+  const batch = join(tempRoot, 'mvn.cmd');
+  mkdirSync(system32, { recursive: true });
+  writeFileSync(processor, 'synthetic command processor');
+  writeFileSync(batch, 'synthetic batch file');
+  if (process.platform !== 'win32') chmodSync(processor, 0o755);
+  const invocation = resolveCommandInvocation(batch, ['-B', 'verify'], { SystemRoot: systemRoot }, 'win32');
+  assert.equal(invocation.executable, processor);
+  assert.deepEqual(invocation.args.slice(0, 3), ['/d', '/s', '/c']);
+  assert.match(invocation.args[3], /^CALL ".+mvn\.cmd" -B verify$/);
+  assert.throws(() => resolveCommandInvocation(batch, ['-Dvalue=a&b'], { SystemRoot: systemRoot }, 'win32'), /shell metacharacter/);
 });
 
 test('non-ExpressCart app configuration resolves lazily and rejects missing credentials', () => {
@@ -316,6 +394,15 @@ test('evidence sanitization redacts configured usernames and secrets', () => {
   const safe = sanitizeEvidenceText('login synthetic-user rejected with synthetic-pass', values);
   assert.equal(safe.includes('synthetic-user'), false);
   assert.equal(safe.includes('synthetic-pass'), false);
+});
+
+test('setup logs and persisted run metadata never contain configured secret values', () => {
+  const values = credentialValuesFrom({ BEWT_ADMIN_PASSWORD: 'synthetic-admin-secret', PRESTASHOP_DB_PASSWORD: 'synthetic-db-secret' });
+  const setup = setupCommandEvidence({ status: 1, stdout: 'installer echoed synthetic-admin-secret', stderr: 'DB refused synthetic-db-secret' }, values);
+  const evidence = JSON.stringify({ setupFixtures: { prestashop: setup }, logs: sanitizeEvidenceText('app log synthetic-admin-secret synthetic-db-secret', values) });
+  assert.equal(evidence.includes('synthetic-admin-secret'), false);
+  assert.equal(evidence.includes('synthetic-db-secret'), false);
+  assert.match(evidence, /REDACTED_CREDENTIAL/);
 });
 
 test('baseline Gherkin binding returns the catalog path and source blob hash', () => {

@@ -1,9 +1,9 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import { createServer } from 'node:net';
-import { dirname, join, resolve } from 'node:path';
+import { delimiter, dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -13,6 +13,86 @@ const REPO_ROOT = resolve(__dirname, '../..');
 export const DOCKER_CLI = 'docker';
 export const MAVEN_CLI = 'mvn';
 export const DATABASE_NETWORK_ALIAS = 'database';
+
+const COMMAND_PATH_ENV = Object.freeze({
+  docker: 'BEWT_DOCKER_CLI_PATH',
+  mvn: 'BEWT_MAVEN_CLI_PATH',
+  git: 'BEWT_GIT_CLI_PATH',
+});
+
+function isWithin(parentPath, childPath) {
+  const rel = relative(parentPath, childPath);
+  return rel === '' || (!rel.startsWith(`..${sep}`) && rel !== '..' && !isAbsolute(rel));
+}
+
+function isSafeExecutable(candidate, repoRoot = REPO_ROOT) {
+  try {
+    const realPath = realpathSync(candidate);
+    const info = statSync(realPath);
+    if (!info.isFile() || isWithin(repoRoot, realPath) || isWithin(resolve(process.cwd()), realPath)) return false;
+    if (process.platform !== 'win32' && (info.mode & 0o111) === 0) return false;
+    if (process.platform !== 'win32' && (info.mode & 0o022) !== 0) return false;
+    let current = dirname(realPath);
+    while (current !== dirname(current)) {
+      const parentInfo = statSync(current);
+      if (process.platform !== 'win32' && (parentInfo.mode & 0o022) !== 0 && (parentInfo.mode & 0o1000) === 0) return false;
+      current = dirname(current);
+    }
+    return realPath;
+  } catch {
+    return false;
+  }
+}
+
+export function resolveCommandPath(commandName, env = process.env) {
+  if (!Object.prototype.hasOwnProperty.call(COMMAND_PATH_ENV, commandName)) {
+    throw new Error(`Unsupported executable: ${commandName}`);
+  }
+  const override = env[COMMAND_PATH_ENV[commandName]];
+  const candidates = [];
+  if (override) {
+    if (!isAbsolute(override)) throw new Error(`${COMMAND_PATH_ENV[commandName]} must be an absolute path.`);
+    candidates.push(override);
+  } else {
+    if (process.platform === 'win32') {
+      throw new Error(`${COMMAND_PATH_ENV[commandName]} must be set to an absolute executable path on Windows.`);
+    }
+    const pathEntries = String(env.PATH || '').split(delimiter).filter((entry) => entry && isAbsolute(entry));
+    for (const entry of pathEntries) {
+      candidates.push(resolve(entry, commandName));
+    }
+  }
+  for (const candidate of candidates) {
+    const safePath = isSafeExecutable(candidate);
+    if (safePath) return safePath;
+  }
+  throw new Error(`No trusted absolute executable found for ${commandName}; configure ${COMMAND_PATH_ENV[commandName]} or a safe absolute PATH entry.`);
+}
+
+export function resolveCommandInvocation(commandPath, args, env = process.env, platform = process.platform) {
+  if (platform !== 'win32' || !['.cmd', '.bat'].includes(extname(commandPath).toLowerCase())) {
+    return { executable: commandPath, args };
+  }
+  const systemRoot = env.SystemRoot || env.SYSTEMROOT;
+  if (!systemRoot || !isAbsolute(systemRoot)) throw new Error('SystemRoot must be configured to invoke Windows batch tools safely.');
+  const processor = resolve(systemRoot, 'System32', 'cmd.exe');
+  const realProcessor = isSafeExecutable(processor);
+  if (!realProcessor) throw new Error('Windows command processor is not a trusted executable.');
+  if (args.some((arg) => /["&|<>^%!\s]/.test(String(arg)))) throw new Error('Unsafe shell metacharacter or whitespace in Windows batch command arguments.');
+  if (/["&|<>^%!\r\n]/.test(commandPath)) throw new Error('Unsafe executable path for Windows batch invocation.');
+  const command = `CALL "${commandPath}"${args.length ? ` ${args.map(String).join(' ')}` : ''}`;
+  return { executable: realProcessor, args: ['/d', '/s', '/c', command] };
+}
+
+export function safeExecFileSync(commandName, args, options = {}) {
+  const invocation = resolveCommandInvocation(resolveCommandPath(commandName), args);
+  return execFileSync(invocation.executable, invocation.args, options);
+}
+
+export function safeSpawnSync(commandName, args, options = {}) {
+  const invocation = resolveCommandInvocation(resolveCommandPath(commandName), args);
+  return spawnSync(invocation.executable, invocation.args, options);
+}
 
 export function requiredEnvironment(name) {
   const value = process.env[name];
@@ -156,7 +236,7 @@ export async function waitAndRecordReadiness(runRecord, stage, url, label, timeo
   }
 }
 
-export function hostAppReadinessUrl(appId, port, cfg = APPS[appId]) {
+export function hostAppReadinessUrl(appId, port, cfg = getAppConfig(appId)) {
   const path = appId === 'prestashop' ? '/administrator/' : (cfg?.appUrlPath || '/');
   return `http://127.0.0.1:${port}${path}`;
 }
@@ -276,7 +356,7 @@ export function selectLoopbackPort() {
 }
 
 export function dockerCli(args) {
-  return execFileSync(DOCKER_CLI, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+  return safeExecFileSync(DOCKER_CLI, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 }
 
 export function snapshotInventory() {
@@ -577,17 +657,71 @@ export const APPS = {
   },
 };
 
+export function getAppConfig(appId) {
+  if (typeof appId !== 'string' || !Object.prototype.hasOwnProperty.call(APPS, appId)) {
+    throw new Error(`UNKNOWN_APP_ID: '${String(appId)}'`);
+  }
+  return APPS[appId];
+}
+
+function assertNoSymlinkComponents(targetPath, rootPath) {
+  const normalizedRoot = resolve(rootPath);
+  const normalizedTarget = resolve(targetPath);
+  if (!isWithin(normalizedRoot, normalizedTarget)) throw new Error('Requested path escapes its allowed root.');
+  const rel = relative(normalizedRoot, normalizedTarget);
+  let current = normalizedRoot;
+  for (const segment of rel.split(sep).filter(Boolean)) {
+    current = join(current, segment);
+    try {
+      if (lstatSync(current).isSymbolicLink()) throw new Error('Symlink components are not allowed in protected paths.');
+    } catch (error) {
+      if (error.code !== 'ENOENT') throw error;
+    }
+  }
+}
+
+export function resolveAppConfigPath(appId, repoRoot = REPO_ROOT) {
+  getAppConfig(appId);
+  const configRoot = resolve(repoRoot, 'config', 'apps');
+  const configPath = resolve(configRoot, `${appId}.json`);
+  if (!isWithin(configRoot, configPath)) throw new Error('App config path escapes config/apps.');
+  assertNoSymlinkComponents(configPath, resolve(repoRoot));
+  return configPath;
+}
+
+export function resolveEvidenceDirectory(evidenceDir, appId, runId, repoRoot = REPO_ROOT) {
+  getAppConfig(appId);
+  const validRunId = validateRunId(runId);
+  const requested = evidenceDir === undefined
+    ? `docs/tasks/g0-evidence/${appId}/${validRunId}`
+    : evidenceDir;
+  if (typeof requested !== 'string' || requested.trim() === '' || requested.includes('\0')) {
+    throw new Error('evidenceDir must be a non-empty relative path.');
+  }
+  if (isAbsolute(requested) || requested.split(/[\\/]/).some((segment) => segment === '..')) {
+    throw new Error('evidenceDir must be a contained relative evidence path.');
+  }
+  const resolved = resolve(repoRoot, requested);
+  const allowedRoots = ['docs/tasks/g0-evidence', 'docs/tasks/g3-evidence'].map((path) => resolve(repoRoot, path));
+  const allowedRoot = allowedRoots.find((root) => isWithin(root, resolved) && root !== resolved);
+  if (!allowedRoot) throw new Error('evidenceDir must be under docs/tasks/g0-evidence or docs/tasks/g3-evidence.');
+  assertNoSymlinkComponents(resolved, resolve(repoRoot));
+  return resolved;
+}
+
 export async function runG0Workflow(appId, rawRunId, options = {}) {
+  const cfg = getAppConfig(appId);
   const validRunId = validateRunId(rawRunId);
-  const cfg = APPS[appId];
-  if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
+  const evidenceDir = resolveEvidenceDirectory(options.evidenceDir, appId, validRunId);
+  const sourceConfigPath = resolveAppConfigPath(appId);
+  const sourceConfig = JSON.parse(readFileSync(sourceConfigPath, 'utf8'));
   const configuredTestEnv = resolveEnvironmentConfig(cfg.testEnv) || {};
   const configuredDbEnv = resolveEnvironmentConfig(cfg.dbEnv) || {};
   const appEnvPreflight = cfg.appEnv ? cfg.appEnv('__BEWT_G0_PREFLIGHT__') : {};
   const evidenceSecrets = credentialValuesFrom(process.env, configuredTestEnv, configuredDbEnv, appEnvPreflight);
 
-  const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
+  assertNoSymlinkComponents(evidenceDir, REPO_ROOT);
 
   const labels = labelsForRun(appId, validRunId);
   const labelsCli = labelArgs(labels);
@@ -619,9 +753,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
   const activeTestClass = options.testClass || cfg.testClass;
   const sourcePath = resolve(REPO_ROOT, cfg.suitePath, 'src/test/java', `${activeTestClass.replaceAll('.', '/')}.java`);
-  const sourceConfig = JSON.parse(readFileSync(resolve(REPO_ROOT, `config/apps/${appId}.json`), 'utf8'));
-  const repositoryCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
-  const trackedStatus = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
+  const repositoryCommit = safeExecFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
+  const trackedStatus = safeExecFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
   const workingTreeDirty = trackedStatus.length > 0;
   const gherkinCatalogPath = resolve(REPO_ROOT, 'docs/tasks/T04-G/evidence/cat.json');
   const gherkinCatalog = existsSync(gherkinCatalogPath) ? readFileSync(gherkinCatalogPath, 'utf8') : null;
@@ -749,7 +882,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     if (appId === 'mediawiki') {
       const fixtureState = runRecord.setupFixtures.mediawiki = { steps: [] };
       const runSetupStep = (step, args) => {
-        const result = spawnSync(DOCKER_CLI, args, { encoding: 'utf8', timeout: 180000 });
+        const result = safeSpawnSync(DOCKER_CLI, args, { encoding: 'utf8', timeout: 180000 });
         const safeResult = setupCommandEvidence(result, evidenceSecrets);
         const stdoutPath = `setup-mediawiki-${step}.stdout.log`;
         const stderrPath = `setup-mediawiki-${step}.stderr.log`;
@@ -824,7 +957,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     } else if (appId === 'expresscart') {
       try {
         dockerCli(['exec', appName, 'npm', 'run', 'testdata']);
-        const bootstrap = spawnSync(DOCKER_CLI, ['exec', '-i', appName, 'node', '-e', expressCartAdminBootstrapScript()], {
+        const bootstrap = safeSpawnSync(DOCKER_CLI, ['exec', '-i', appName, 'node', '-e', expressCartAdminBootstrapScript()], {
           encoding: 'utf8',
           input: JSON.stringify({
             userEmail: configuredTestEnv.BEWT_ADMIN_EMAIL,
@@ -861,7 +994,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
           'test',
         ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
+        const instRes = safeSpawnSync(MAVEN_CLI, instArgs, {
           cwd: REPO_ROOT,
           encoding: 'utf8',
           env: {
@@ -888,7 +1021,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
           'test',
         ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
+        const instRes = safeSpawnSync(MAVEN_CLI, instArgs, {
           cwd: REPO_ROOT,
           encoding: 'utf8',
           env: {
@@ -951,7 +1084,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       'clean', 'test',
     ];
 
-    const mvnRes = spawnSync(MAVEN_CLI, mvnArgs, {
+    const mvnRes = safeSpawnSync(MAVEN_CLI, mvnArgs, {
       cwd: REPO_ROOT,
       encoding: 'utf8',
       env: testEnvVars,
