@@ -50,4 +50,16 @@ R9 addresses the independent semantic audit finding that R8 did not assert the G
 - R9 Maven test-compile: PASS, exit 0, 42 test sources observed in the earlier compile; this repeat compile reported BUILD SUCCESS but Maven could not update its incremental status files in this checkout, so VM compilation is the authoritative follow-up.
 - R9 G3: NOT_RUN at this report revision.
 - R9 SHA-256 is registered over UTF-8 LF-normalized source bytes to match the Linux VM checkout; the runner-side observed hash must be compared after execution.
-- R8 4/4 remains historical preliminary evidence only. R9 supersedes it for current engineering verification if its live run and three clean-state reruns pass. No scientific validation is implied; human oracle and novelty decisions remain pending.
+- R8 4/4 remains historical preliminary evidence only.  No scientific validation is implied; human oracle and novelty decisions remain pending.
+
+## Revision 10 update — 2026-11-12
+
+R9 was executed four times (one initial run plus three clean-state reruns); all four failed at the board-card open-state assertion. Sanitized JUnit consistently identifies an XPath defect: contains(@class, 'task-board') also matched the descendant class task-board-title, so the code inspected the title wrapper instead of the card. Cleanup reported zero residual resources in all four attempts. This failure is retained and not counted as a pass.
+
+The pinned Kanboard template at application source commit 00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b confirms task-board-status-open on the exact task-board container, with data-column-id on that same container. R10 changes both ancestor lookups to exact CSS-class-token XPath checks and retains the board-column/header assertions. The Gherkin remains unchanged.
+
+- R10 source is registered as a new immutable revision.
+- R10 local compilation: NOT_RUN after this correction.
+- R10 G3: NOT_RUN.
+- R9 result: FAIL 0/4; all 4 cleanups reported zero residual.
+- Research validation remains NOT_ACCEPTED; human oracle and novelty decisions remain pending.

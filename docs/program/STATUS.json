@@ -28,11 +28,11 @@
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
     },
     "KB-GAP-001-R5": {
-      "status": "R9_COMPILE_PASS_G3_NOT_RUN_PENDING_HUMAN_REVIEW",
+      "status": "R9_FAIL_0_OF_4_R10_COMPILE_AND_G3_PENDING",
       "branch": "task/claroline-kanboard-r4",
       "candidateId": "KB-GAP-001",
-      "revision": 9,
-      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-9/T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.java",
+      "revision": 10,
+      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-10/T01C_244fbbc3c7e19c2ceb6a56738e493041_R10.java",
       "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
       "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
       "compile": "PASS_LOCAL_EXIT_0_VM_COMPILE_PENDING",
@@ -49,8 +49,12 @@
       "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
       "researchValidated": false,
       "r9Compile": "PASS_LOCAL_EXIT_0_INCREMENTAL_STATUS_WRITE_WARNING",
-      "r9G3": "NOT_RUN",
-      "r9EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r9-acceptance-manifest.json"
+      "r9G3": "FAIL_0_OF_4_BOARD_CARD_ANCESTOR_SELECTOR",
+      "r9EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r9-acceptance-manifest.json",
+      "r9Cleanup": "PASS_ZERO_RESIDUAL_4_OF_4",
+      "r10Compile": "NOT_RUN",
+      "r10G3": "NOT_RUN",
+      "r10EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r10-acceptance-manifest.json"
     }
   },
   "targets": {
@@ -417,8 +421,8 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "KB-GAP-001-REVISION-9",
-    "currentTaskStatus": "R9_COMPILE_PASS_G3_NOT_RUN_HUMAN_REVIEW_PENDING",
+    "currentTaskId": "KB-GAP-001-REVISION-10",
+    "currentTaskStatus": "R9_FAILED_R10_PENDING_COMPILE_AND_G3_HUMAN_REVIEW_PENDING",
     "currentTaskBranch": "task/claroline-kanboard-r4",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/30",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
