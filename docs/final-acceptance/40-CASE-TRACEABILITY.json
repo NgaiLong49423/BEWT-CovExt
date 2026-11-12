@@ -1,0 +1,2240 @@
+{
+  "schemaVersion": "1.0",
+  "auditBaselineCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+  "auditBranchAtGeneration": "task/final-remediation-audit",
+  "auditScope": "Static Gherkin-to-Java semantic comparison and provenance reconciliation; no runtime reruns.",
+  "summary": {
+    "candidateCount": 40,
+    "matched": 0,
+    "wrongBehavior": 22,
+    "weakOracle": 4,
+    "partiallyImplemented": 14,
+    "humanOracleApprovalsEvidenced": 0,
+    "validatedEligible": 0,
+    "registrationHashesMatchingJava": 40,
+    "gherkinScenarioHashesMatchingDataset": 40,
+    "primaryReviewRecords": 40
+  },
+  "candidates": [
+    {
+      "candidateId": "BL-GAP-001",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/bludit/selenium/7d72afaea3ffefd10d0939bda2aae48a/revision-2/T01C_7d72afaea3ffefd10d0939bda2aae48a_R2.java",
+      "javaSourceSha256Declared": "8ccbc3c41b9c85bff6797745d53fd5af6525537506bf71d923510435569ce468",
+      "javaSourceSha256Observed": "8ccbc3c41b9c85bff6797745d53fd5af6525537506bf71d923510435569ce468",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-44",
+      "declaredGherkinSha256": "95e5fb0dfa4f1301a4ebde94d42008462fb6e8179d4abd4868d080dcc0d7b837",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FLAKY",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-001/g3-blgap001-20261110190053",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 2,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Creates and lists content but omits scheduling date, public hiding, clock advance, and promotion.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/bludit/selenium/7d72afaea3ffefd10d0939bda2aae48a/revision-2/registration.json",
+      "registrationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "registrationSourceVersion": "2.3.4",
+      "registrationSourceSha256": "8ccbc3c41b9c85bff6797745d53fd5af6525537506bf71d923510435569ce468",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "95e5fb0dfa4f1301a4ebde94d42008462fb6e8179d4abd4868d080dcc0d7b837",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/bludit/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "00a7137e8b28d4f22850ce568bee60de2d32ce8c318ac690554248de59c08dfe"
+    },
+    {
+      "candidateId": "BL-GAP-002",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/bludit/selenium/4b05dc3e3caa3daec5f080180a09f349/revision-2/T01C_4b05dc3e3caa3daec5f080180a09f349_R2.java",
+      "javaSourceSha256Declared": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349",
+      "javaSourceSha256Observed": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-42",
+      "declaredGherkinSha256": "3fc0acf00d812d4345126729576ab7992771abd05caeea2c52c4201defde252f",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-002/g3-blgap002-20261110190053",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WEAK_ORACLE",
+        "mismatch": "Creates content and checks a row/container; never selects, persists, or publicly renders its cover image.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/bludit/selenium/4b05dc3e3caa3daec5f080180a09f349/revision-2/registration.json",
+      "registrationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "registrationSourceVersion": "2.3.4",
+      "registrationSourceSha256": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "3fc0acf00d812d4345126729576ab7992771abd05caeea2c52c4201defde252f",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/bludit/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "10422d4181072fd3b4626ea9456de7f7f9816094f613332c6442c931038acfc3"
+    },
+    {
+      "candidateId": "BL-GAP-003",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/bludit/selenium/bc2781aeccd21cfbed609074615611ed/revision-2/T01C_bc2781aeccd21cfbed609074615611ed_R2.java",
+      "javaSourceSha256Declared": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
+      "javaSourceSha256Observed": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-44",
+      "declaredGherkinSha256": "866dd83d936ab5490ea8a491cd68e024ebe55654a5740d499953a43849d5874f",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-003/g3-blgap003-20261110190053",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Creates content without Static status or checks for static navigation and exclusion from the blog stream.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/bludit/selenium/bc2781aeccd21cfbed609074615611ed/revision-2/registration.json",
+      "registrationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "registrationSourceVersion": "2.3.4",
+      "registrationSourceSha256": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "866dd83d936ab5490ea8a491cd68e024ebe55654a5740d499953a43849d5874f",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/bludit/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "281cc6d4d0ca8b0868a2383dd2dddc8a2ee03e6f82caa70c1b4b8a227f1f1b34"
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/bludit/selenium/e03c64abc7e2b08cf37e50a1654d4ac0/revision-2/T01C_e03c64abc7e2b08cf37e50a1654d4ac0_R2.java",
+      "javaSourceSha256Declared": "1360bfec214ba193ee8b4ce7853c469db037272ee204a2749c82849652a3e43d",
+      "javaSourceSha256Observed": "1360bfec214ba193ee8b4ce7853c469db037272ee204a2749c82849652a3e43d",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-46",
+      "declaredGherkinSha256": "ea1ea119bd1f9188cb8ed66021a5326f6b319da7ec93717c8526897331d848c2",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-004/g3-blgap004-20261110190053",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Changes a role dropdown but asserts another user field and generic admin title; no target-role confirmation or access check.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/bludit/selenium/e03c64abc7e2b08cf37e50a1654d4ac0/revision-2/registration.json",
+      "registrationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "registrationSourceVersion": "2.3.4",
+      "registrationSourceSha256": "1360bfec214ba193ee8b4ce7853c469db037272ee204a2749c82849652a3e43d",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "ea1ea119bd1f9188cb8ed66021a5326f6b319da7ec93717c8526897331d848c2",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/bludit/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "aff361522c34bfccf1917ac74fbe1d5918aa8c4cc2c8018e21c4fcb72b8c30e3"
+    },
+    {
+      "candidateId": "BL-GAP-005",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/bludit/selenium/b562c8a66b0e3b937a5058867bbfb761/revision-2/T01C_b562c8a66b0e3b937a5058867bbfb761_R2.java",
+      "javaSourceSha256Declared": "0bc51ae1707b1e2863dee8f31888d4bf8dcaa0b410f7102b15e6e72b55e04bd4",
+      "javaSourceSha256Observed": "0bc51ae1707b1e2863dee8f31888d4bf8dcaa0b410f7102b15e6e72b55e04bd4",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-46",
+      "declaredGherkinSha256": "a0dc0944a6018d88307017ff0ff67f89e96ac276fb2927c591f5c1a7448ce338",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-005/g3-blgap005-20261110190053",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Creates a category only; omits assigned post, count, filtered public route, and exclusion of other-category posts.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/bludit/selenium/b562c8a66b0e3b937a5058867bbfb761/revision-2/registration.json",
+      "registrationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "registrationSourceVersion": "2.3.4",
+      "registrationSourceSha256": "0bc51ae1707b1e2863dee8f31888d4bf8dcaa0b410f7102b15e6e72b55e04bd4",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "a0dc0944a6018d88307017ff0ff67f89e96ac276fb2927c591f5c1a7448ce338",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/bludit/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "b17925fc124e427a476e870ab5c35161bea61e73ba1a7d4d14834ebb6e67d3d9"
+    },
+    {
+      "candidateId": "CL-GAP-001",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-2/T01C_acd2c6ed41c79d11057a038360ef1dba_R2.java",
+      "javaSourceSha256Declared": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
+      "javaSourceSha256Observed": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-44",
+      "declaredGherkinSha256": "c3d0537a9ffd9a8ac793dfb03305290cb070d9f451dd16f6ed26c05080772c35",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/claroline/CL-GAP-001/g3-clgap001-20261110191216",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Creates a directory; performs none of the requested upload, move, or delete lifecycle.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-2/registration.json",
+      "registrationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "registrationSourceVersion": "1.11.10",
+      "registrationSourceSha256": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-3/T01C_acd2c6ed41c79d11057a038360ef1dba_R3.java",
+        "registrationPath": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-3/registration.json",
+        "sourceSha256Observed": "9c9e6df99545fca3a9b46c7529a7779ce8caf2c7acd43ed1f95beaef80b58bbd",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "c3d0537a9ffd9a8ac793dfb03305290cb070d9f451dd16f6ed26c05080772c35",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/claroline/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "dcbeece5443bbc37c8907b2b2932af7c54b2dc2ac5e7c82090e555a5b3481cf0"
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-2/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2.java",
+      "javaSourceSha256Declared": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
+      "javaSourceSha256Observed": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-40",
+      "declaredGherkinSha256": "d8e56c9f4b3fb3c327de5d3cb95b3e1772e0a694b91bff2b4ca8b2e87189fccc",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/claroline/CL-GAP-002/g3-clgap002-20261110191216",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Opens Groups and checks its title; no non-member setup, denied access, hidden resources, or registration check.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-2/registration.json",
+      "registrationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "registrationSourceVersion": "1.11.10",
+      "registrationSourceSha256": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-3/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3.java",
+        "registrationPath": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-3/registration.json",
+        "sourceSha256Observed": "e51c8a2a67ac151ada76bcea80a4e935b51fbb5e8701e256cfe80690fe086e80",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "d8e56c9f4b3fb3c327de5d3cb95b3e1772e0a694b91bff2b4ca8b2e87189fccc",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/claroline/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "dd3608f5b449a45f3095d6060b27e1956f01874be1727e33634ab8a5541706d6"
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-2/T01C_e9eda84d440eec2453ed7ae17199f4d5_R2.java",
+      "javaSourceSha256Declared": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
+      "javaSourceSha256Observed": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-45",
+      "declaredGherkinSha256": "1ba9a9165d45eebec6c6c6c289601412ba506b783e99ad2a0afa9b5a92c25cb4",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/claroline/CL-GAP-003/g3-clgap003-20261110191216",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Manually creates an exercise instead of importing a ZIP package; does not verify imported package contents.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-2/registration.json",
+      "registrationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "registrationSourceVersion": "1.11.10",
+      "registrationSourceSha256": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-3/T01C_e9eda84d440eec2453ed7ae17199f4d5_R3.java",
+        "registrationPath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-3/registration.json",
+        "sourceSha256Observed": "7dd735bfed59ad35e3bbcdd058e1aa1536b445f31b8609055a5f9f9a331af8a6",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "1ba9a9165d45eebec6c6c6c289601412ba506b783e99ad2a0afa9b5a92c25cb4",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/claroline/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "79034bb56f0327e2f7d2c487bf9a986853fcdf89ef03f51f38debe3bf35ccc87"
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-2/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2.java",
+      "javaSourceSha256Declared": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
+      "javaSourceSha256Observed": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-42",
+      "declaredGherkinSha256": "c9d94a6c663ee854075ec5887a46cda66b954c02e5b7d400d95b35b535a83c19",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/claroline/CL-GAP-004/g3-clgap004-20261110191216",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks generic exercise statistics, not student tracking denial or teacher analytics for the named attempt.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-2/registration.json",
+      "registrationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "registrationSourceVersion": "1.11.10",
+      "registrationSourceSha256": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-3/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3.java",
+        "registrationPath": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-3/registration.json",
+        "sourceSha256Observed": "e438b16dd468bf8b9412b6dd27fe6ba9a58126dae8927e8914cad35e6fd45195",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "c9d94a6c663ee854075ec5887a46cda66b954c02e5b7d400d95b35b535a83c19",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/claroline/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "53cbcf77c6f6911b8bab2af2c52b25818e91868a236af6743fbdf67e4e607ef9"
+    },
+    {
+      "candidateId": "CL-GAP-005",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-2/T01C_1027165465722d6b6fd9ab1607fba1d8_R2.java",
+      "javaSourceSha256Declared": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+      "javaSourceSha256Observed": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-43",
+      "declaredGherkinSha256": "822cea2f8adb0a55d8b5ce40bdf2c1c58c1b21ad6e7794922bc100d168355f0f",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/claroline/CL-GAP-005/g3-clgap005-20261110191216",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Begins announcement creation but omits body and student banner verification; assertion searches course text for title.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-2/registration.json",
+      "registrationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "registrationSourceVersion": "1.11.10",
+      "registrationSourceSha256": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-3/T01C_1027165465722d6b6fd9ab1607fba1d8_R3.java",
+        "registrationPath": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-3/registration.json",
+        "sourceSha256Observed": "3081b79e929bfc2b3b43b5e9fd63f5848335868efa3b98921bd9e1a5c1e4ebbe",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "822cea2f8adb0a55d8b5ce40bdf2c1c58c1b21ad6e7794922bc100d168355f0f",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/claroline/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "e1d7652b12878561d0eb93025250e8bcd47b01d2032f3c8ee147ab03007b5bd1"
+    },
+    {
+      "candidateId": "EC-GAP-002",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-2/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R2.java",
+      "javaSourceSha256Declared": "208357eb4bd49279c7b4778707fdf7123d939110b23be67dc53e550ca156da00",
+      "javaSourceSha256Observed": "208357eb4bd49279c7b4778707fdf7123d939110b23be67dc53e550ca156da00",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-44",
+      "declaredGherkinSha256": "5bc564d998d736639188f554111446a63860641bafe61fb065ba1b375dfe0ad5",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-002/g3-ecgap002-20261110185226",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Adds one product and checks cart count; never tries quantity above stock or verifies rejection and unchanged quantity.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-2/registration.json",
+      "registrationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "registrationSourceVersion": "1.1.19",
+      "registrationSourceSha256": "208357eb4bd49279c7b4778707fdf7123d939110b23be67dc53e550ca156da00",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "5bc564d998d736639188f554111446a63860641bafe61fb065ba1b375dfe0ad5",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "e32b5f27102b5b0e11b95dcd3ecf2c2bafc9630048caec053a8c70cc7014872b"
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/expresscart/selenium/3a9bea145c1f05e4dffb3fcb27abd8c7/revision-2/T01C_3a9bea145c1f05e4dffb3fcb27abd8c7_R2.java",
+      "javaSourceSha256Declared": "c0cf8f428d4a786678f15c21f3faf54ebc670dffcfc9b27a884f6d4cd076894d",
+      "javaSourceSha256Observed": "c0cf8f428d4a786678f15c21f3faf54ebc670dffcfc9b27a884f6d4cd076894d",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-43",
+      "declaredGherkinSha256": "85c802c8d6993b3b3b583b6ff3edfc830e4017a09fa4a1f087b609d3239e2ee0",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-003/g3-ecgap003-20261110185226",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Adds an item and opens checkout; never updates/persists the address or checks checkout prefill.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/expresscart/selenium/3a9bea145c1f05e4dffb3fcb27abd8c7/revision-2/registration.json",
+      "registrationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "registrationSourceVersion": "1.1.19",
+      "registrationSourceSha256": "c0cf8f428d4a786678f15c21f3faf54ebc670dffcfc9b27a884f6d4cd076894d",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "85c802c8d6993b3b3b583b6ff3edfc830e4017a09fa4a1f087b609d3239e2ee0",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "a099063696348ad91ab978b20b12c950ea60d4c952366d4d0c6e4c31889fa90f"
+    },
+    {
+      "candidateId": "EC-GAP-004",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/expresscart/selenium/6f3be8200d2b1bc4232b8af1b623ed0d/revision-2/T01C_6f3be8200d2b1bc4232b8af1b623ed0d_R2.java",
+      "javaSourceSha256Declared": "73d5fc21e2367b398578d571da649401dc99a8d324ecdb83aed5014d2f4441b4",
+      "javaSourceSha256Observed": "73d5fc21e2367b398578d571da649401dc99a8d324ecdb83aed5014d2f4441b4",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-47",
+      "declaredGherkinSha256": "f552bda15b98302157edd1f00dcc8a247a41d4051e3167222bbd9faf3fda7683",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-004/g3-ecgap004-20261110185226",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WEAK_ORACLE",
+        "mismatch": "Creates an invalid-date promotion instead of updating existing SUMMER20; generic page/title text substitutes for exact error and unchanged dates.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/expresscart/selenium/6f3be8200d2b1bc4232b8af1b623ed0d/revision-2/registration.json",
+      "registrationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "registrationSourceVersion": "1.1.19",
+      "registrationSourceSha256": "73d5fc21e2367b398578d571da649401dc99a8d324ecdb83aed5014d2f4441b4",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "f552bda15b98302157edd1f00dcc8a247a41d4051e3167222bbd9faf3fda7683",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "7bec0a7959c5d74650957871c1c71132a2d099c92afdbe1642615ef0a26eb6eb"
+    },
+    {
+      "candidateId": "EC-GAP-005",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/expresscart/selenium/0affc59171fdc4286b78929f3dbbe2e3/revision-2/T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.java",
+      "javaSourceSha256Declared": "a4d9d655b1a1a5dc87f5758bbbf1d380b57e51b7e5a36e3807113792b90ada98",
+      "javaSourceSha256Observed": "a4d9d655b1a1a5dc87f5758bbbf1d380b57e51b7e5a36e3807113792b90ada98",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-22",
+      "oracleCommentLines": "24-26",
+      "implementationLines": "30-45",
+      "declaredGherkinSha256": "9353c55722f768dd39f02a73c5a217c011a8e3fae5d3f8e4ce16c6bcfdc79731",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110185226",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Uses admin user creation instead of guest storefront registration; no customer-count invariant.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/expresscart/selenium/0affc59171fdc4286b78929f3dbbe2e3/revision-2/registration.json",
+      "registrationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "registrationSourceVersion": "1.1.19",
+      "registrationSourceSha256": "a4d9d655b1a1a5dc87f5758bbbf1d380b57e51b7e5a36e3807113792b90ada98",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "9353c55722f768dd39f02a73c5a217c011a8e3fae5d3f8e4ce16c6bcfdc79731",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "244ec12639d9813df2a60fcbebd7449219b25e0ed5a296c342e2defd5c576f2c"
+    },
+    {
+      "candidateId": "EC-GAP-006",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/expresscart/selenium/f02b9ed81a318c005e31982c144907a2/revision-2/T01C_f02b9ed81a318c005e31982c144907a2_R2.java",
+      "javaSourceSha256Declared": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
+      "javaSourceSha256Observed": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-47",
+      "declaredGherkinSha256": "98f43ee85809e2d99d26cca27b1a11a02bf414de6534d495f5381f06d81ab332",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-006/g3-ecgap006-20261110185226",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Creates/lists an inventory item instead of changing stock 0→5 and checking storefront badge/cart capability.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/expresscart/selenium/f02b9ed81a318c005e31982c144907a2/revision-2/registration.json",
+      "registrationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "registrationSourceVersion": "1.1.19",
+      "registrationSourceSha256": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "98f43ee85809e2d99d26cca27b1a11a02bf414de6534d495f5381f06d81ab332",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "a222e93de10c4566e431e89cad1916968ab61e940cc8ecf19794bb1d145de842"
+    },
+    {
+      "candidateId": "JO-GAP-001",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/joomla/selenium/89cc3c54cef991d9d154f33111433d61/revision-2/T01C_89cc3c54cef991d9d154f33111433d61_R2.java",
+      "javaSourceSha256Declared": "71465916987904fa579cbfa738042b3b0bc71cdef9a5c1548b0bed3ba085264f",
+      "javaSourceSha256Observed": "71465916987904fa579cbfa738042b3b0bc71cdef9a5c1548b0bed3ba085264f",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-49",
+      "declaredGherkinSha256": "612e1a1f303298cc2ff44eefd071c4a47e55982c299e06648e08db092aaf49ce",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-001/g3-jogap001-20261110191702",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Saves an article but does not toggle Featured or verify featured-list transitions.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/joomla/selenium/89cc3c54cef991d9d154f33111433d61/revision-2/registration.json",
+      "registrationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "registrationSourceVersion": "3.10.11",
+      "registrationSourceSha256": "71465916987904fa579cbfa738042b3b0bc71cdef9a5c1548b0bed3ba085264f",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "612e1a1f303298cc2ff44eefd071c4a47e55982c299e06648e08db092aaf49ce",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/joomla/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "8f195080f784fbee054fe3de2d92de078a4420ff987baca076d2ddb1ec91516d"
+    },
+    {
+      "candidateId": "JO-GAP-002",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/joomla/selenium/80b1dfff69f7f00680658ed64a4b7315/revision-2/T01C_80b1dfff69f7f00680658ed64a4b7315_R2.java",
+      "javaSourceSha256Declared": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
+      "javaSourceSha256Observed": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-47",
+      "declaredGherkinSha256": "56bbbc8181827f41c9c4c7524e665e26ff816de960817527f0880c52d4597beb",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-002/g3-jogap002-20261110191702",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks editor rendering; no publish-up/down changes or visibility-window behavior.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/joomla/selenium/80b1dfff69f7f00680658ed64a4b7315/revision-2/registration.json",
+      "registrationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "registrationSourceVersion": "3.10.11",
+      "registrationSourceSha256": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "56bbbc8181827f41c9c4c7524e665e26ff816de960817527f0880c52d4597beb",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/joomla/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "07760063c1c146b244e82f4a84769e78aebacceac420ba746f84e6e61786cae1"
+    },
+    {
+      "candidateId": "JO-GAP-003",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/T01C_2fe8982badb9713cf8935bc53c1d61ad_R2.java",
+      "javaSourceSha256Declared": "9b3f82ac4466f3694fa2c6ab67ff6cc4c8ec204c3a2796f49d0537697c7374ef",
+      "javaSourceSha256Observed": "9b3f82ac4466f3694fa2c6ab67ff6cc4c8ec204c3a2796f49d0537697c7374ef",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-41",
+      "declaredGherkinSha256": "c4387d8ee3adfc73fa588e8cc38255ccaeba4bc595831bffc937b6a115e4a8f1",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FLAKY",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-003/g3-jogap003-20261110191702",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 1,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Logs in as author and checks a page, but does not attempt the restricted state change or assert denial.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/registration.json",
+      "registrationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "registrationSourceVersion": "3.10.11",
+      "registrationSourceSha256": "9b3f82ac4466f3694fa2c6ab67ff6cc4c8ec204c3a2796f49d0537697c7374ef",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "c4387d8ee3adfc73fa588e8cc38255ccaeba4bc595831bffc937b6a115e4a8f1",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/joomla/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "f6e94b3d75be1b6bb9a29a3daea9e2ff3372a60c7bbf12d7920cd976544aa1ee"
+    },
+    {
+      "candidateId": "JO-GAP-004",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-2/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R2.java",
+      "javaSourceSha256Declared": "be4ebbb71519cd7da0c0a15b3c2dd770afd76f85fa0bf9da1723031fe789989b",
+      "javaSourceSha256Observed": "38db64c520357f33311e10b3ec20f6d20f25b347cfa23dffd61bff48d4c1e6ec",
+      "javaHashMatchesDataset": false,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-44",
+      "declaredGherkinSha256": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-20261110191702",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Inspects article category/listing; never edits or verifies version increment/history.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-2/registration.json",
+      "registrationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "registrationSourceVersion": "3.10.11",
+      "registrationSourceSha256": "38db64c520357f33311e10b3ec20f6d20f25b347cfa23dffd61bff48d4c1e6ec",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/joomla/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "445ddd38c4c033da2f84c5b6da4188ec27af676bc721196522d56279455912f7"
+    },
+    {
+      "candidateId": "JO-GAP-005",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/joomla/selenium/e43d4dcc5e13acf7d90604fe49850216/revision-2/T01C_e43d4dcc5e13acf7d90604fe49850216_R2.java",
+      "javaSourceSha256Declared": "5c4745bc032ec78f9a929394c47bb5765186c91076da63da6860c890ebee9445",
+      "javaSourceSha256Observed": "5c4745bc032ec78f9a929394c47bb5765186c91076da63da6860c890ebee9445",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-46",
+      "declaredGherkinSha256": "b1ce15bf484ce09e8857b40ef909b6258360256d284b8dbf2f72ffdabb48c103",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-005/g3-jogap005-20261110191702",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WEAK_ORACLE",
+        "mismatch": "Asserts a generic alert; does not verify trash, restore, or restored publication status.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/joomla/selenium/e43d4dcc5e13acf7d90604fe49850216/revision-2/registration.json",
+      "registrationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "registrationSourceVersion": "3.10.11",
+      "registrationSourceSha256": "5c4745bc032ec78f9a929394c47bb5765186c91076da63da6860c890ebee9445",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "b1ce15bf484ce09e8857b40ef909b6258360256d284b8dbf2f72ffdabb48c103",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/joomla/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "7e753384f563a6366c7ecf610e1986fd0ad0b124c4d053447ac5e166b4423b6e"
+    },
+    {
+      "candidateId": "KB-GAP-001",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-2/T01C_244fbbc3c7e19c2ceb6a56738e493041_R2.java",
+      "javaSourceSha256Declared": "17de88b31a68b3ca4f41203b21f1dea1e7a5e3fc018f407a15ecab3d27015a2a",
+      "javaSourceSha256Observed": "17de88b31a68b3ca4f41203b21f1dea1e7a5e3fc018f407a15ecab3d27015a2a",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-44",
+      "declaredGherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110193016",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Navigates to a closed task and asserts it remains closed; no reopen action or reopened-state assertion.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-2/registration.json",
+      "registrationSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "registrationSourceVersion": "1.2.15",
+      "registrationSourceSha256": "17de88b31a68b3ca4f41203b21f1dea1e7a5e3fc018f407a15ecab3d27015a2a",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+        "registrationPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/registration.json",
+        "sourceSha256Observed": "02053480d03a7fe13a174a59d4bbc4c4b8508eeb408300211646a4a188d8090b",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "8df50c71a1eccf5c969168bc19fbdde762c3399eb2402b7ad35d7736a15f628d"
+    },
+    {
+      "candidateId": "KB-GAP-002",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-2/T01C_ca582c83d0559c38508bf3e1a5420ca9_R2.java",
+      "javaSourceSha256Declared": "669e7fc063052b2ed771d1e7ad134ea5b38a707749b2acfbd6fecb6b1fafa731",
+      "javaSourceSha256Observed": "669e7fc063052b2ed771d1e7ad134ea5b38a707749b2acfbd6fecb6b1fafa731",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-45",
+      "declaredGherkinSha256": "6e34bb50261f538ce29916631ba82ad97015f6b0ab4c438f53f1b21b66a487c2",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/kanboard/KB-GAP-002/g3-kbgap002-20261110193016",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Types a comment without submitting; assertion permits page/title presence instead of persisted comment stream.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-2/registration.json",
+      "registrationSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "registrationSourceVersion": "1.2.15",
+      "registrationSourceSha256": "669e7fc063052b2ed771d1e7ad134ea5b38a707749b2acfbd6fecb6b1fafa731",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-3/T01C_ca582c83d0559c38508bf3e1a5420ca9_R3.java",
+        "registrationPath": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-3/registration.json",
+        "sourceSha256Observed": "2f8c9c1f1345bc7c4e3c8996055b27bb0b65df4df6f868413ad40373e3a96f8a",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "6e34bb50261f538ce29916631ba82ad97015f6b0ab4c438f53f1b21b66a487c2",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "02cf3057c475b4cd56738f37d9a53e370cc397813725601be44bdce0f8d08981"
+    },
+    {
+      "candidateId": "KB-GAP-003",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-2/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R2.java",
+      "javaSourceSha256Declared": "dde4efe8c3077504c8f7a1f422489b8af35a21938fa843fb07d633a68fff987f",
+      "javaSourceSha256Observed": "dde4efe8c3077504c8f7a1f422489b8af35a21938fa843fb07d633a68fff987f",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-26",
+      "oracleCommentLines": "28-30",
+      "implementationLines": "34-46",
+      "declaredGherkinSha256": "6ce8d0211d97e3c10f24571167faff80c654595a1cd3d83b890df641b8e8bc73",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/kanboard/KB-GAP-003/g3-kbgap003-20261110193016",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Opens/checks duplicate modal but never completes duplication or verifies target task.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-2/registration.json",
+      "registrationSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "registrationSourceVersion": "1.2.15",
+      "registrationSourceSha256": "dde4efe8c3077504c8f7a1f422489b8af35a21938fa843fb07d633a68fff987f",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-3/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3.java",
+        "registrationPath": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-3/registration.json",
+        "sourceSha256Observed": "f7a9cb8e7dee7f22b964b4265fd8a9e212bf6188d1faaf2f42e23fb46df30ee3",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "6ce8d0211d97e3c10f24571167faff80c654595a1cd3d83b890df641b8e8bc73",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "6ad24d0f82b202fd74078a692da079e1515ab3de885aa231e13c889b1948b247"
+    },
+    {
+      "candidateId": "KB-GAP-004",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-2/T01C_233eaf16319686f2ab6c351b189cd929_R2.java",
+      "javaSourceSha256Declared": "036cecff5fee2a9e2ee82bcf98bd34174c4cf718bfb92147c780f7c064f05c22",
+      "javaSourceSha256Observed": "036cecff5fee2a9e2ee82bcf98bd34174c4cf718bfb92147c780f7c064f05c22",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-26",
+      "oracleCommentLines": "28-30",
+      "implementationLines": "34-46",
+      "declaredGherkinSha256": "9d6d38b318911d156dcc9bae80af09405357fa5b13b0e3f5714953ad902fbc5d",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/kanboard/KB-GAP-004/g3-kbgap004-20261110193016",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Opens/checks move modal but does not select destination or verify moved task.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-2/registration.json",
+      "registrationSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "registrationSourceVersion": "1.2.15",
+      "registrationSourceSha256": "036cecff5fee2a9e2ee82bcf98bd34174c4cf718bfb92147c780f7c064f05c22",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-3/T01C_233eaf16319686f2ab6c351b189cd929_R3.java",
+        "registrationPath": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-3/registration.json",
+        "sourceSha256Observed": "74fbf733e60655735d61e30b694e0c3e5fcca5ad639b794ed0582cda2a793527",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "9d6d38b318911d156dcc9bae80af09405357fa5b13b0e3f5714953ad902fbc5d",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "43c8f31a006ea470318e7276b7bf137825a9b86f8aee2b1c9accd945bc88ec31"
+    },
+    {
+      "candidateId": "KB-GAP-008",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-2/T01C_882860986d9907549f10245367191c30_R2.java",
+      "javaSourceSha256Declared": "d9d31365c128be72fbac531dde5ab89570e07411253659b10ad6b79ea6672896",
+      "javaSourceSha256Observed": "d9d31365c128be72fbac531dde5ab89570e07411253659b10ad6b79ea6672896",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-47",
+      "declaredGherkinSha256": "3ab599680a90f311e076eaa619a54c8d0dbba29e8ff91497f2ccd6fc21715cc7",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/kanboard/KB-GAP-008/g3-kbgap008-20261110193016",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WEAK_ORACLE",
+        "mismatch": "Enters subtask text but accepts container presence; does not verify persisted named subtask.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-2/registration.json",
+      "registrationSourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "registrationSourceVersion": "1.2.15",
+      "registrationSourceSha256": "d9d31365c128be72fbac531dde5ab89570e07411253659b10ad6b79ea6672896",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-3/T01C_882860986d9907549f10245367191c30_R3.java",
+        "registrationPath": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-3/registration.json",
+        "sourceSha256Observed": "7d7ffcdb9d5dddaad5cad9ad693644bafe29b63738eb7dcda007823dc27f7175",
+        "registrationHashMatches": true,
+        "origin": "SECURITY_REMEDIATION",
+        "semanticStatus": "UNCHANGED_NOT_VALIDATED"
+      },
+      "gherkinScenarioSha256Observed": "3ab599680a90f311e076eaa619a54c8d0dbba29e8ff91497f2ccd6fc21715cc7",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "17ae7c6d89e1a0694e0559ff80e9b6cda8901ccf990eef5c06cb6bdeb13abc66"
+    },
+    {
+      "candidateId": "MB-GAP-001",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mantisbt/selenium/1406ecc3352e264ca199a0cf7476c671/revision-2/T01C_1406ecc3352e264ca199a0cf7476c671_R2.java",
+      "javaSourceSha256Declared": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
+      "javaSourceSha256Observed": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-44",
+      "declaredGherkinSha256": "7eee5e8926eb29b256295af76b8c8b86b1f1447360c635185472562f1c54f927",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-001/g3-mbgap001-20261110193403",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Opens issue and checks summary/title; never monitors/unmonitors or verifies monitor-list isolation.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mantisbt/selenium/1406ecc3352e264ca199a0cf7476c671/revision-2/registration.json",
+      "registrationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "registrationSourceVersion": "1.2.0",
+      "registrationSourceSha256": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "7eee5e8926eb29b256295af76b8c8b86b1f1447360c635185472562f1c54f927",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mantisbt/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "2dfcf75943acc841d9b3c1afc2b3022bd64f7274076649e70d5272bf86325e47"
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mantisbt/selenium/6bb62c5782120fa9f4b349accb4351d2/revision-2/T01C_6bb62c5782120fa9f4b349accb4351d2_R2.java",
+      "javaSourceSha256Declared": "bd0a134385a61ba53b7f32ff6540b57c4f559a3b605180f9f41bd87ba7279991",
+      "javaSourceSha256Observed": "bd0a134385a61ba53b7f32ff6540b57c4f559a3b605180f9f41bd87ba7279991",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-42",
+      "declaredGherkinSha256": "00d18a2eec447c13aa80df9df4689953b64fd8eb2f579f4d9ba728754e070e34",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-002/g3-mbgap002-20261110193403",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks status and notes-container presence; does not create private note or compare visibility across roles.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mantisbt/selenium/6bb62c5782120fa9f4b349accb4351d2/revision-2/registration.json",
+      "registrationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "registrationSourceVersion": "1.2.0",
+      "registrationSourceSha256": "bd0a134385a61ba53b7f32ff6540b57c4f559a3b605180f9f41bd87ba7279991",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "00d18a2eec447c13aa80df9df4689953b64fd8eb2f579f4d9ba728754e070e34",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mantisbt/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "02d0d6f407e086a8f969a500b752f3a3a54f2c4290ee94818a6a24d913630f70"
+    },
+    {
+      "candidateId": "MB-GAP-003",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mantisbt/selenium/a4f2ce95a2a722305bf2ee9bb788d336/revision-2/T01C_a4f2ce95a2a722305bf2ee9bb788d336_R2.java",
+      "javaSourceSha256Declared": "1fa28e0373ccbc8f771c9da61abce6e2df8f68cff8f0889ba2be895633b84014",
+      "javaSourceSha256Observed": "1fa28e0373ccbc8f771c9da61abce6e2df8f68cff8f0889ba2be895633b84014",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-41",
+      "declaredGherkinSha256": "46df6810371e69659e5e595f8169f1a3eb3c0af114beb85bb339f043c61324b5",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-003/g3-mbgap003-20261110193403",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks priority and relationship-control presence; does not create links or test self/duplicate rejection.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mantisbt/selenium/a4f2ce95a2a722305bf2ee9bb788d336/revision-2/registration.json",
+      "registrationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "registrationSourceVersion": "1.2.0",
+      "registrationSourceSha256": "1fa28e0373ccbc8f771c9da61abce6e2df8f68cff8f0889ba2be895633b84014",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "46df6810371e69659e5e595f8169f1a3eb3c0af114beb85bb339f043c61324b5",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mantisbt/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "fac69323bd2ee32f27e4fdadb7701a4f0483b9ec7ceb41422fca63f19c33ccd3"
+    },
+    {
+      "candidateId": "MB-GAP-004",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mantisbt/selenium/3b10cef3f23dff894317fc9c42e9ecd4/revision-2/T01C_3b10cef3f23dff894317fc9c42e9ecd4_R2.java",
+      "javaSourceSha256Declared": "c9fec19003850ff06549ef4b31a43793aff1ba9ba262eae8d5c09c6049644819",
+      "javaSourceSha256Observed": "c9fec19003850ff06549ef4b31a43793aff1ba9ba262eae8d5c09c6049644819",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-40",
+      "declaredGherkinSha256": "76915d561f4e1093b424b3f0c17fb83599afe65f32d508394f0350a79a63993d",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-004/g3-mbgap004-20261110193403",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks severity/upload input; does not upload/download or reject an empty selection.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mantisbt/selenium/3b10cef3f23dff894317fc9c42e9ecd4/revision-2/registration.json",
+      "registrationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "registrationSourceVersion": "1.2.0",
+      "registrationSourceSha256": "c9fec19003850ff06549ef4b31a43793aff1ba9ba262eae8d5c09c6049644819",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "76915d561f4e1093b424b3f0c17fb83599afe65f32d508394f0350a79a63993d",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mantisbt/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "209ccbcb6c4f7696b1c1aa4f9dc73f1fdbfc7f902b98de295ef060833150fe78"
+    },
+    {
+      "candidateId": "MB-GAP-005",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mantisbt/selenium/04d0e89a5f7d9303bc9ab5c08d0cfb9c/revision-2/T01C_04d0e89a5f7d9303bc9ab5c08d0cfb9c_R2.java",
+      "javaSourceSha256Declared": "0ba675755d5853f1a2c12ceb8527131b2a2c541ba90ed04be1bbffe8baed5f2d",
+      "javaSourceSha256Observed": "0ba675755d5853f1a2c12ceb8527131b2a2c541ba90ed04be1bbffe8baed5f2d",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-40",
+      "declaredGherkinSha256": "81b8d3346d97b8273b01fe147e769f110523b482cd849011b27964a6e5681804",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-005/g3-mbgap005-20261110193403",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks category/tag-control presence; does not attach or filter by a tag.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mantisbt/selenium/04d0e89a5f7d9303bc9ab5c08d0cfb9c/revision-2/registration.json",
+      "registrationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "registrationSourceVersion": "1.2.0",
+      "registrationSourceSha256": "0ba675755d5853f1a2c12ceb8527131b2a2c541ba90ed04be1bbffe8baed5f2d",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "81b8d3346d97b8273b01fe147e769f110523b482cd849011b27964a6e5681804",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mantisbt/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "b022a1f0d8606ce65aaf90b115b9bee11f086b140f951a618426803015d6d594"
+    },
+    {
+      "candidateId": "MW-GAP-001",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mediawiki/selenium/b078f939f78ca3088b197ccf89f026ba/revision-2/T01C_b078f939f78ca3088b197ccf89f026ba_R2.java",
+      "javaSourceSha256Declared": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
+      "javaSourceSha256Observed": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-39",
+      "declaredGherkinSha256": "558160ad60b8d9cd4d94a6b898638e0c1a86acf82ed009bf77623d9d5fc15ad9",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-001/g3-mwgap001-20261110193836",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Searches a fixed page and checks unchanged title/nonempty body; does not move page or verify redirect.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mediawiki/selenium/b078f939f78ca3088b197ccf89f026ba/revision-2/registration.json",
+      "registrationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "registrationSourceVersion": "1.40.0",
+      "registrationSourceSha256": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "558160ad60b8d9cd4d94a6b898638e0c1a86acf82ed009bf77623d9d5fc15ad9",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mediawiki/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "4a7fb80011b7bf13af1820696e7d5b4748792d48f29b80df130f70e93c09feb6"
+    },
+    {
+      "candidateId": "MW-GAP-002",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mediawiki/selenium/cc9b738b705812d5a51f43f2b4b7c0ce/revision-2/T01C_cc9b738b705812d5a51f43f2b4b7c0ce_R2.java",
+      "javaSourceSha256Declared": "84840efb854fa55519a0b655db68b24ab684b49c8ce3bd38a66e6b9b1ee53e56",
+      "javaSourceSha256Observed": "84840efb854fa55519a0b655db68b24ab684b49c8ce3bd38a66e6b9b1ee53e56",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-43",
+      "declaredGherkinSha256": "cd65ae3aab0c7fe837305cc1f90d57317cda7e8b4dd48ccd16c35087b003ed3f",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-002/g3-mwgap002-20261110193836",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Clicks Watch but uses broad page text; no user scoping, watchlist verification, or unwatch.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mediawiki/selenium/cc9b738b705812d5a51f43f2b4b7c0ce/revision-2/registration.json",
+      "registrationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "registrationSourceVersion": "1.40.0",
+      "registrationSourceSha256": "84840efb854fa55519a0b655db68b24ab684b49c8ce3bd38a66e6b9b1ee53e56",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "cd65ae3aab0c7fe837305cc1f90d57317cda7e8b4dd48ccd16c35087b003ed3f",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mediawiki/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "2a1ea1c96ec0d34dc5cfe87e6ea7f3adcd7e12344e94f86183bc84e5e384bd84"
+    },
+    {
+      "candidateId": "MW-GAP-003",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mediawiki/selenium/5c24156fc88caa06da8d4370e60766fc/revision-2/T01C_5c24156fc88caa06da8d4370e60766fc_R2.java",
+      "javaSourceSha256Declared": "c22b40c2e03dbc4b21b4eb3f29264e3e4f56478d95ae3ccfced0ef09213c62fe",
+      "javaSourceSha256Observed": "c22b40c2e03dbc4b21b4eb3f29264e3e4f56478d95ae3ccfced0ef09213c62fe",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-41",
+      "declaredGherkinSha256": "3bf7852fad42a83c3e9ad520d9a5acfd8f7beddc3bf2a82396c3ffe9d5a6b5ad",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-003/g3-mwgap003-20261110193836",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Checks upload form presence; never selects/submits a disallowed file or verifies rejection/no artifact.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mediawiki/selenium/5c24156fc88caa06da8d4370e60766fc/revision-2/registration.json",
+      "registrationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "registrationSourceVersion": "1.40.0",
+      "registrationSourceSha256": "c22b40c2e03dbc4b21b4eb3f29264e3e4f56478d95ae3ccfced0ef09213c62fe",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "3bf7852fad42a83c3e9ad520d9a5acfd8f7beddc3bf2a82396c3ffe9d5a6b5ad",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mediawiki/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "78381e0d2844063c5620ed758045765d23d12853ce1038d2f17ad906d998f259"
+    },
+    {
+      "candidateId": "MW-GAP-004",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mediawiki/selenium/5dbff5381952f882bfd47c571ee4b019/revision-2/T01C_5dbff5381952f882bfd47c571ee4b019_R2.java",
+      "javaSourceSha256Declared": "db7d43622b41ce11474f5b1d6f064f301a593b6b9238b029ed63ed870001b267",
+      "javaSourceSha256Observed": "db7d43622b41ce11474f5b1d6f064f301a593b6b9238b029ed63ed870001b267",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-41",
+      "declaredGherkinSha256": "13bca825046df387c2c3f51d2816a18d82515d6fa9a0040e359ee4dac28b775b",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-004/g3-mwgap004-20261110193836",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Loads history only; does not select two revisions or assert diff contents.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mediawiki/selenium/5dbff5381952f882bfd47c571ee4b019/revision-2/registration.json",
+      "registrationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "registrationSourceVersion": "1.40.0",
+      "registrationSourceSha256": "db7d43622b41ce11474f5b1d6f064f301a593b6b9238b029ed63ed870001b267",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "13bca825046df387c2c3f51d2816a18d82515d6fa9a0040e359ee4dac28b775b",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mediawiki/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "0adf30f8dabb1971922748fde77e028434bbaa9c6782c4f88e2a930e60b18150"
+    },
+    {
+      "candidateId": "MW-GAP-005",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/mediawiki/selenium/83ecf3d51792c82eeb8a3e404724ed8b/revision-2/T01C_83ecf3d51792c82eeb8a3e404724ed8b_R2.java",
+      "javaSourceSha256Declared": "668c184c325731ae5c96ab677feecd3357faf5f5d235a6847bff144b855ca56f",
+      "javaSourceSha256Observed": "668c184c325731ae5c96ab677feecd3357faf5f5d235a6847bff144b855ca56f",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-41",
+      "declaredGherkinSha256": "5c0bd636ec19f39c3590970906cbb976104821a9391cf5290310a5c3d9b89d05",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-005/g3-mwgap005-20261110193836",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Loads protection form only; does not change protection or test editor/direct-edit denial.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/mediawiki/selenium/83ecf3d51792c82eeb8a3e404724ed8b/revision-2/registration.json",
+      "registrationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "registrationSourceVersion": "1.40.0",
+      "registrationSourceSha256": "668c184c325731ae5c96ab677feecd3357faf5f5d235a6847bff144b855ca56f",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "5c0bd636ec19f39c3590970906cbb976104821a9391cf5290310a5c3d9b89d05",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/mediawiki/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "82db0379a518b1650fc575d2dba313e1c86900b5a0626325cb160e8bf6846b0f"
+    },
+    {
+      "candidateId": "PS-GAP-001",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/prestashop/selenium/25166db489865765701792687cd9d40e/revision-2/T01C_25166db489865765701792687cd9d40e_R2.java",
+      "javaSourceSha256Declared": "6c119a38dffa47542223a7c0bfa25bf95f3c32b917a86708898234cb527274ae",
+      "javaSourceSha256Observed": "6c119a38dffa47542223a7c0bfa25bf95f3c32b917a86708898234cb527274ae",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-43",
+      "declaredGherkinSha256": "5a639eb746eddb19f5674f474dec06c24fbc95818eb8b9e3822fc4902e3c332f",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-001/g3-psgap001-20261110194240",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Enters voucher name but does not configure quota, redeem/place order, or verify second-use rejection.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/prestashop/selenium/25166db489865765701792687cd9d40e/revision-2/registration.json",
+      "registrationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "registrationSourceVersion": "1.6.1.23",
+      "registrationSourceSha256": "6c119a38dffa47542223a7c0bfa25bf95f3c32b917a86708898234cb527274ae",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "5a639eb746eddb19f5674f474dec06c24fbc95818eb8b9e3822fc4902e3c332f",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/prestashop/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 1,
+      "humanReviewRecordSha256": "62e9014beef440af372b1cc548b24d342788ae279bee76a65d7b64cb2b858e26"
+    },
+    {
+      "candidateId": "PS-GAP-002",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/prestashop/selenium/b02cc209824bfa1f986ea340332df898/revision-2/T01C_b02cc209824bfa1f986ea340332df898_R2.java",
+      "javaSourceSha256Declared": "8fea440146a44281440f48559a93bd8665ac09f8471f79a9b21c7e019b61e032",
+      "javaSourceSha256Observed": "8fea440146a44281440f48559a93bd8665ac09f8471f79a9b21c7e019b61e032",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-24",
+      "oracleCommentLines": "26-28",
+      "implementationLines": "32-43",
+      "declaredGherkinSha256": "5999e34b60849995f086eb3eb9826efd66bab11a40c76c1c53925b24869d56ae",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-002/g3-psgap002-20261110194240",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Creates carrier name only; does not set price range or test eligibility by cart total.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/prestashop/selenium/b02cc209824bfa1f986ea340332df898/revision-2/registration.json",
+      "registrationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "registrationSourceVersion": "1.6.1.23",
+      "registrationSourceSha256": "8fea440146a44281440f48559a93bd8665ac09f8471f79a9b21c7e019b61e032",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "5999e34b60849995f086eb3eb9826efd66bab11a40c76c1c53925b24869d56ae",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/prestashop/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 2,
+      "humanReviewRecordSha256": "49bf9cd3dca37bb27d98bccbd0e6b5e3f4d3953e7242cc7844ac7dc3406707d5"
+    },
+    {
+      "candidateId": "PS-GAP-003",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/prestashop/selenium/202336fd43c393a7395e8722b9e82c8f/revision-2/T01C_202336fd43c393a7395e8722b9e82c8f_R2.java",
+      "javaSourceSha256Declared": "65692bb27b32f5a6282e044fdd88bf4f37177fb4b28b25e7ea77a73a3d90a063",
+      "javaSourceSha256Observed": "65692bb27b32f5a6282e044fdd88bf4f37177fb4b28b25e7ea77a73a3d90a063",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-45",
+      "declaredGherkinSha256": "b73fe08af4349eb7d02a7e88658ad50987095e800ad02281494b7be29c4b8eec",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-003/g3-psgap003-20261110194240",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "WRONG_BEHAVIOR",
+        "mismatch": "Creates admin order with quantity 1000 and expects error, opposite to successful payment/order and stock decrement.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/prestashop/selenium/202336fd43c393a7395e8722b9e82c8f/revision-2/registration.json",
+      "registrationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "registrationSourceVersion": "1.6.1.23",
+      "registrationSourceSha256": "65692bb27b32f5a6282e044fdd88bf4f37177fb4b28b25e7ea77a73a3d90a063",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "b73fe08af4349eb7d02a7e88658ad50987095e800ad02281494b7be29c4b8eec",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/prestashop/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 3,
+      "humanReviewRecordSha256": "7e0f525a2fc67409c188b6921c3ffc9556bcf71a37e414ca5a4c1f69cf129fe3"
+    },
+    {
+      "candidateId": "PS-GAP-004",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/prestashop/selenium/8e2d11c8e727a6d49530c06fdb53b8d2/revision-2/T01C_8e2d11c8e727a6d49530c06fdb53b8d2_R2.java",
+      "javaSourceSha256Declared": "3aa2333717ddb07049177ff7e6bf87bee780f2193686feaa273428760ca20ec2",
+      "javaSourceSha256Observed": "3aa2333717ddb07049177ff7e6bf87bee780f2193686feaa273428760ca20ec2",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-25",
+      "oracleCommentLines": "27-29",
+      "implementationLines": "33-44",
+      "declaredGherkinSha256": "23b385c4f409af26c128963ba8592f9470dab4e30602ef0fecef0154a88a057a",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "VALIDATED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-004/g3-psgap004-20261110194240",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 3,
+        "total": 3
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Opens product/combinations form but does not create/adjust combination or verify storefront stock/AJAX.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/prestashop/selenium/8e2d11c8e727a6d49530c06fdb53b8d2/revision-2/registration.json",
+      "registrationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "registrationSourceVersion": "1.6.1.23",
+      "registrationSourceSha256": "3aa2333717ddb07049177ff7e6bf87bee780f2193686feaa273428760ca20ec2",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "23b385c4f409af26c128963ba8592f9470dab4e30602ef0fecef0154a88a057a",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/prestashop/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 4,
+      "humanReviewRecordSha256": "0c18af4a68bd42743a0c1ffd7bbd544cb3a64749190d02d2d2a5ff9fb0200634"
+    },
+    {
+      "candidateId": "PS-GAP-005",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSourcePath": "extension/prestashop/selenium/b0ad1666e8e14b7de6c48bf6947cd977/revision-2/T01C_b0ad1666e8e14b7de6c48bf6947cd977_R2.java",
+      "javaSourceSha256Declared": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
+      "javaSourceSha256Observed": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
+      "javaHashMatchesDataset": true,
+      "gherkinArtifactPath": null,
+      "gherkinEmbeddedInJavaLines": "17-23",
+      "oracleCommentLines": "25-27",
+      "implementationLines": "31-42",
+      "declaredGherkinSha256": "2095719852b8b0d016bbdb81a7dcee873f73ae322a416041a760bd924d568d1d",
+      "rawCompileOutcomeDeclared": "PASS",
+      "rawE2eOutcomeDeclared": "FAILED",
+      "rawE2eEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-005/g3-psgap005-20261110194240",
+      "rawE2eEvidenceDirectoryExists": true,
+      "rawRerunsDeclared": {
+        "passed": 0,
+        "total": 0
+      },
+      "humanReview": {
+        "implementationDecision": "APPROVED_FOR_IMPLEMENTATION",
+        "reviewStatus": "PENDING_HUMAN_SIGNATURE",
+        "reviewerAssigned": false,
+        "reviewerIdentityAssigned": false,
+        "signaturePresent": false,
+        "approvedAtPresent": false,
+        "humanOracleOrNoveltyApproval": "NOT_EVIDENCED"
+      },
+      "semanticAudit": {
+        "status": "PARTIALLY_IMPLEMENTED",
+        "mismatch": "Creates customer group only; does not set discount, assign customer, or verify effective catalog/cart price.",
+        "reviewerDecision": "PENDING_HUMAN_REVIEW"
+      },
+      "runtimeProvenance": {
+        "runBoundToAppCommitTestHashAndImageDigest": false
+      },
+      "eligibilityForValidated": "NOT_ELIGIBLE_SEMANTIC_MISMATCH_OR_WEAK_ORACLE",
+      "registrationPath": "extension/prestashop/selenium/b0ad1666e8e14b7de6c48bf6947cd977/revision-2/registration.json",
+      "registrationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "registrationSourceVersion": "1.6.1.23",
+      "registrationSourceSha256": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
+      "registrationHashMatchesObservedJava": true,
+      "securityRemediationRevision": {
+        "status": "NOT_CREATED"
+      },
+      "gherkinScenarioSha256Observed": "2095719852b8b0d016bbdb81a7dcee873f73ae322a416041a760bd924d568d1d",
+      "gherkinScenarioHashMatchesDataset": true,
+      "humanReviewRecordPath": "data/reviews/prestashop/human-review-decisions.jsonl",
+      "humanReviewRecordLine": 5,
+      "humanReviewRecordSha256": "2ae49a25dba799306d0c00e2f31c9de4146193dcbec1540f2bf5c7957f2410e2"
+    }
+  ]
+}

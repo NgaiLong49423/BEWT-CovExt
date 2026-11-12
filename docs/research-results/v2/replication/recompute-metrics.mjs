@@ -1,381 +1,852 @@
 #!/usr/bin/env node
 /**
- * BEWT-CovExt v2.0 - Empirical Metrics Verification & Recomputation Engine
+ * Evidence-first BEWT-CovExt metric audit.
  *
- * This script independently audits, recalculates, and verifies quantitative metrics for
- * Research Questions RQ1 through RQ4 directly from immutable source artifacts and runtime evidence.
- *
- * Designed to satisfy remediation requirements for DEFECT-002:
- * 1. RQ1: True structural Gherkin validation and source-backed semantic novelty verification.
- * 2. RQ2: Behavioral coverage gain calculated against defensible baseline denominator (180 UBU),
- *         distinguishing nominal/proposed extension from empirically verified test yield.
- * 3. RQ3: Static anti-trivial contract enforcement (rejection of currentUrl.length() >= 0),
- *         Maven compilation audit, bounded repair verification (<= 2), and JUnit execution evidence.
- * 4. RQ4: Operational economics distinguishing MEASURED from ESTIMATED metrics, accurate Gemini 3.8
- *         Flash pricing ($0.15/1M input, $0.60/1M output), and full disclosure of bounds.
+ * This tool reports what the checked-in evidence can establish. It does not
+ * convert implementation authorization, proposal labels, raw JUnit passes,
+ * missing values, or token estimates into research acceptance.
+ * Install the pinned parser dependency with `npm ci --prefix framework`.
  */
 
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { readFileSync, existsSync, readdirSync, writeFileSync, statSync, realpathSync } from 'node:fs';
+import { resolve, join, relative, dirname, basename, isAbsolute, sep } from 'node:path';
+import { createHash, createPublicKey, verify as verifySignature } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '../../../../framework/node_modules/@cucumber/gherkin/dist/index.js';
 
 export const APPS = ['bludit', 'claroline', 'expresscart', 'joomla', 'kanboard', 'mantisbt', 'mediawiki', 'prestashop'];
+export const TARGET_CASES = 40;
 
-/**
- * Structural Gherkin syntax and clause validator.
- * Replaces naive string inclusion with step keyword parsing, clause validation, and non-empty checks.
- */
-export function validateGherkinSyntax(gherkinSource) {
-  if (!gherkinSource || typeof gherkinSource !== 'string') {
-    return { valid: false, error: 'Empty or non-string Gherkin source', steps: 0 };
+export function validateGherkinSyntax(source) {
+  if (typeof source !== 'string' || source.trim() === '') {
+    return { valid: false, error: 'Empty or non-string Gherkin source', scenarioCount: 0, steps: 0 };
   }
-  const lines = gherkinSource.split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#'));
-  const featureLine = lines.find(l => /^Feature:\s*.+/i.test(l));
-  if (!featureLine) {
-    return { valid: false, error: 'Missing Feature declaration or empty feature title', steps: 0 };
-  }
-  const scenarioLine = lines.find(l => /^Scenario:\s*.+/i.test(l));
-  if (!scenarioLine) {
-    return { valid: false, error: 'Missing Scenario declaration or empty scenario title', steps: 0 };
-  }
-
-  const steps = lines.filter(l => /^(?:Given|When|Then|And|But)\s+.+/i.test(l));
-  if (steps.length === 0) {
-    return { valid: false, error: 'Scenario contains no steps', steps: 0 };
-  }
-
-  const hasGiven = steps.some(s => /^Given\s+/i.test(s));
-  const hasWhen = steps.some(s => /^When\s+/i.test(s));
-  const hasThen = steps.some(s => /^Then\s+/i.test(s));
-
-  if (!hasGiven || !hasWhen || !hasThen) {
+  try {
+    let nextId = 0;
+    const parser = new Parser(new AstBuilder(() => `metrics-${++nextId}`), new GherkinClassicTokenMatcher());
+    const document = parser.parse(source);
+    const scenarios = (document.feature?.children ?? []).filter((child) => child.scenario).map((child) => child.scenario);
+    if (scenarios.length !== 1) {
+      return { valid: false, error: `Expected exactly one scenario; found ${scenarios.length}`, scenarioCount: scenarios.length, steps: 0 };
+    }
+    const steps = scenarios[0].steps ?? [];
+    const hasKeyword = (keyword) => steps.some((step) => step.keyword.trim() === keyword);
+    if (!hasKeyword('Given') || !hasKeyword('When') || !hasKeyword('Then')) {
+      return {
+        valid: false,
+        error: `Scenario must contain Given, When and Then steps (Given: ${hasKeyword('Given')}, When: ${hasKeyword('When')}, Then: ${hasKeyword('Then')})`,
+        scenarioCount: 1,
+        steps: steps.length,
+      };
+    }
     return {
-      valid: false,
-      error: `Missing core Gherkin step clause (Given: ${hasGiven}, When: ${hasWhen}, Then: ${hasThen})`,
+      valid: true,
+      feature: document.feature.name,
+      scenario: scenarios[0].name,
+      scenarioCount: 1,
       steps: steps.length,
+    };
+  } catch (error) {
+    return { valid: false, error: error instanceof Error ? error.message : 'Gherkin parse failure', scenarioCount: 0, steps: 0 };
+  }
+}
+
+export function reviewSignaturePayload(record) {
+  const fields = ['candidateId', 'application', 'behavioralUnitId', 'baselineCommit', 'inventorySha256', 'baselineDenominator', 'decision', 'reviewStatus', 'oracleDecision', 'noveltyDecision', 'reviewerIdentity', 'reviewerRole', 'approvedAt', 'rationale'];
+  const payload = Object.fromEntries(fields.map((field) => [field, record?.[field] ?? null]));
+  return JSON.stringify(payload);
+}
+
+export function verifySignedStatement(record, trustedReviewers = {}) {
+  const signature = record?.signature;
+  if (!signature || typeof signature !== 'object' || signature.algorithm !== 'Ed25519' || typeof signature.keyId !== 'string' || typeof signature.value !== 'string') return false;
+  const key = trustedReviewers[signature.keyId];
+  if (!key || key.reviewerIdentity !== record.reviewerIdentity || key.reviewerRole !== record.reviewerRole || typeof key.publicKeyPem !== 'string') return false;
+  try {
+    return verifySignature(null, Buffer.from(reviewSignaturePayload(record), 'utf8'), createPublicKey(key.publicKeyPem), Buffer.from(signature.value, 'base64'));
+  } catch {
+    return false;
+  }
+}
+
+export function isHumanOracleAndNoveltyApproval(record, trustedReviewers = {}) {
+  if (!record || typeof record !== 'object') return false;
+  const reviewer = typeof record.reviewerIdentity === 'string' ? record.reviewerIdentity.trim() : '';
+  const assigned = Boolean(reviewer && reviewer !== 'UNASSIGNED_PENDING_TEAM_LEAD_REVIEW');
+  const timestamp = Date.parse(record.approvedAt ?? '');
+  return assigned &&
+    typeof record.reviewerRole === 'string' && record.reviewerRole.trim().length > 0 &&
+    Number.isFinite(timestamp) &&
+    typeof record.rationale === 'string' && record.rationale.trim().length > 0 &&
+    record.reviewStatus === 'APPROVED' &&
+    record.oracleDecision === 'APPROVED' &&
+    record.noveltyDecision === 'APPROVED' &&
+    verifySignedStatement(record, trustedReviewers);
+}
+
+export function verifyPrimaryReviewRecord(line, expectedSha256, candidateId) {
+  if (typeof line !== 'string' || typeof expectedSha256 !== 'string' || !candidateId) return false;
+  const observed = createHash('sha256').update(line, 'utf8').digest('hex');
+  if (observed !== expectedSha256) return false;
+  try { return JSON.parse(line).candidateId === candidateId; } catch { return false; }
+}
+
+export function isContainedRelativePath(relativePath) {
+  if (typeof relativePath !== 'string') return false;
+  if (relativePath === '.' || relativePath === '') return true;
+  if (relativePath === '..' || relativePath.startsWith(`..${sep}`) || relativePath.startsWith('../') || relativePath.startsWith('..\\')) return false;
+  if (isAbsolute(relativePath) || /^[a-z]:/i.test(relativePath) || /^[/\\]{2}/.test(relativePath)) return false;
+  return true;
+}
+
+function resolveContainedPath(rootDir, targetPath) {
+  try {
+    if (!existsSync(rootDir) || !existsSync(targetPath)) return null;
+    const canonicalRoot = realpathSync(rootDir);
+    const canonicalTarget = realpathSync(targetPath);
+    return isContainedRelativePath(relative(canonicalRoot, canonicalTarget)) ? canonicalTarget : null;
+  } catch {
+    return null;
+  }
+}
+function readRefCommit(commonDir, gitDir, refName) {
+  const refPattern = /^refs\/(?:heads|remotes|tags)\/[A-Za-z0-9._/-]+$/;
+  if (!refPattern.test(refName) || refName.includes('..') || refName.endsWith('/')) {
+    throw new Error('INVALID_GIT_HEAD_REF');
+  }
+  for (const directory of [gitDir, commonDir]) {
+    const refPath = join(directory, ...refName.split('/'));
+    if (existsSync(refPath)) {
+      const sha = readFileSync(refPath, 'utf8').trim();
+      if (/^[0-9a-f]{40,64}$/i.test(sha)) return sha;
+      throw new Error('INVALID_GIT_REF_CONTENT');
+    }
+  }
+  for (const directory of new Set([gitDir, commonDir])) {
+    const packedRefs = join(directory, 'packed-refs');
+    if (!existsSync(packedRefs)) continue;
+    const line = readFileSync(packedRefs, 'utf8').split(/\r?\n/).find((entry) => entry.endsWith(` ${refName}`));
+    const sha = line?.split(' ')[0];
+    if (sha && /^[0-9a-f]{40,64}$/i.test(sha)) return sha;
+  }
+  throw new Error('GIT_HEAD_REF_NOT_FOUND');
+}
+
+/** Read the current commit from Git metadata without launching a PATH-resolved process. */
+export function readGitHeadCommit(rootDir) {
+  const markerPath = join(resolve(rootDir), '.git');
+  if (!existsSync(markerPath)) throw new Error('GIT_METADATA_NOT_FOUND');
+  let gitDir;
+  if (statSync(markerPath).isDirectory()) {
+    gitDir = markerPath;
+  } else {
+    const marker = readFileSync(markerPath, 'utf8').trim();
+    if (marker.slice(0, 7).toLowerCase() !== 'gitdir:') throw new Error('INVALID_GIT_DIRECTORY_POINTER');
+    const pointer = marker.slice(7).trim();
+    if (!pointer) throw new Error('INVALID_GIT_DIRECTORY_POINTER');
+    gitDir = resolve(rootDir, pointer);
+  }
+  let commonDir = gitDir;
+  const commonDirFile = join(gitDir, 'commondir');
+  if (existsSync(commonDirFile)) commonDir = resolve(gitDir, readFileSync(commonDirFile, 'utf8').trim());
+  const head = readFileSync(join(gitDir, 'HEAD'), 'utf8').trim();
+  if (/^[0-9a-f]{40,64}$/i.test(head)) return head;
+  const symbolic = head.match(/^ref:\s*(\S+)$/);
+  if (!symbolic) throw new Error('INVALID_GIT_HEAD');
+  return readRefCommit(commonDir, gitDir, symbolic[1]);
+}
+
+/** A heuristic screen only; this cannot establish scenario/oracle equivalence. */
+export function auditJavaSeleniumQuality(javaSource) {
+  if (typeof javaSource !== 'string' || !javaSource.trim()) return { pass: false, error: 'Empty Java source' };
+  if (/currentUrl\.length\(\)\s*>=?\s*0/.test(javaSource)) return { pass: false, error: 'Tautological URL-length assertion' };
+  if (/Assert\.assertTrue\s*\(\s*true\s*\)/.test(javaSource)) return { pass: false, error: 'Tautological true assertion' };
+  if (/Assert\.assertFalse\s*\(\s*false\s*\)/.test(javaSource)) return { pass: false, error: 'Tautological false assertion' };
+  if (/Assert\.assertNotNull\s*\(\s*driver\s*\)/.test(javaSource)) return { pass: false, error: 'Driver presence is not a business oracle' };
+  if (!/(driver\.get\(|findElement\(|\.click\(|\.sendKeys\(|\.submit\()/.test(javaSource)) return { pass: false, error: 'No browser interaction found' };
+  if (!/(assertEquals|assertTrue|assertFalse|assertNotNull)\s*\(/.test(javaSource)) return { pass: false, error: 'No assertion found' };
+  return { pass: true, limitation: 'Heuristic only; semantic review is still required.' };
+}
+
+function readJson(path, label) {
+  if (!existsSync(path)) throw new Error(`MISSING_REQUIRED_EVIDENCE: ${label}: ${path}`);
+  try {
+    return JSON.parse(readFileSync(path, 'utf8'));
+  } catch (error) {
+    throw new Error(`INVALID_REQUIRED_EVIDENCE: ${label}: ${error instanceof Error ? error.message : 'invalid JSON'}`);
+  }
+}
+
+export function readTrustedReviewers(root, externallyPinnedSha256) {
+  const path = join(root, 'data', 'reviews', 'trusted-reviewers.json');
+  if (!/^[0-9a-f]{64}$/i.test(externallyPinnedSha256 ?? '')) return { reviewers: {}, status: 'UNTRUSTED_EXTERNAL_REGISTRY_PIN_MISSING' };
+  if (!existsSync(path)) return { reviewers: {}, status: 'UNTRUSTED_REGISTRY_FILE_MISSING' };
+  if (fileSha256(path) !== externallyPinnedSha256.toLowerCase()) return { reviewers: {}, status: 'UNTRUSTED_REGISTRY_PIN_MISMATCH' };
+  const data = readJson(path, 'trusted reviewer key registry');
+  if (!Array.isArray(data.trustedReviewers)) throw new Error('INVALID_TRUSTED_REVIEWER_REGISTRY');
+  const result = {};
+  for (const key of data.trustedReviewers) {
+    if (!key.keyId || !key.reviewerIdentity || !key.reviewerRole || !key.publicKeyPem || result[key.keyId]) throw new Error('INVALID_TRUSTED_REVIEWER_KEY');
+    result[key.keyId] = key;
+  }
+  return { reviewers: result, status: 'EXTERNALLY_PINNED_REGISTRY' };
+}
+
+function readReviews(root) {
+  const records = new Map();
+  for (const app of APPS) {
+    const path = join(root, 'data', 'reviews', app, 'human-review-decisions.jsonl');
+    if (!existsSync(path)) throw new Error(`MISSING_REQUIRED_EVIDENCE: human review ledger for ${app}: ${path}`);
+    const lines = readFileSync(path, 'utf8').split(/\r?\n/).filter((line) => line.trim());
+    for (const [index, line] of lines.entries()) {
+      let record;
+      try { record = JSON.parse(line); } catch { throw new Error(`INVALID_REVIEW_RECORD: ${relative(root, path)}:${index + 1}`); }
+      if (!record.candidateId || records.has(record.candidateId)) throw new Error(`DUPLICATE_OR_MISSING_REVIEW_ID: ${relative(root, path)}:${index + 1}`);
+      records.set(record.candidateId, record);
+    }
+  }
+  return records;
+}
+
+function candidateSemanticAudit(candidate, traceabilityById) {
+  return traceabilityById.get(candidate.candidateId)?.semanticAudit ?? candidate.semanticAudit ?? { status: 'NOT_EVALUATED', reviewerDecision: 'NOT_RECORDED' };
+}
+
+function summarizeCandidates(candidates, traceabilityById, reviews, trustedReviewers = {}) {
+  const details = candidates.map((candidate) => {
+    const parsed = validateGherkinSyntax(candidate.gherkinScenario);
+    const review = reviews.get(candidate.candidateId) ?? {};
+    const semanticAudit = candidateSemanticAudit(candidate, traceabilityById);
+    const humanApproved = isHumanOracleAndNoveltyApproval(review, trustedReviewers);
+    const semanticMatched = semanticAudit.status === 'MATCHED' && semanticAudit.reviewerDecision === 'APPROVED';
+    return {
+      candidateId: candidate.candidateId,
+      application: candidate.application,
+      gherkinSyntaxValid: parsed.valid,
+      gherkinError: parsed.valid ? null : parsed.error,
+      implementationAuthorization: review.decision ?? 'UNKNOWN',
+      humanOracleAndNoveltyApproved: humanApproved,
+      semanticMappingStatus: semanticAudit.status,
+      semanticMappingApproved: semanticMatched,
+      eligibleForValidated: humanApproved && semanticMatched,
+    };
+  });
+  return details;
+}
+
+function loadTraceability(root, candidates) {
+  const path = join(root, 'docs', 'final-acceptance', '40-CASE-TRACEABILITY.json');
+  if (!existsSync(path)) return { byId: new Map(), hashMismatches: null, unavailable: true };
+  const data = readJson(path, 'case-level semantic traceability');
+  if (!Array.isArray(data.candidates)) throw new Error('INVALID_TRACEABILITY: candidates array missing');
+  const byId = new Map(data.candidates.map((entry) => [entry.candidateId, entry]));
+  if (byId.size !== data.candidates.length) throw new Error('DUPLICATE_TRACEABILITY_ID');
+  const candidateIds = new Set(candidates.map((candidate) => candidate.candidateId));
+  if (candidateIds.size !== candidates.length || candidateIds.size !== byId.size || [...candidateIds].some((id) => !byId.has(id))) {
+    throw new Error('INCONSISTENT_CANDIDATE_IDS: dataset and semantic traceability differ');
+  }
+  const sourceHashMismatches = [];
+  const gherkinHashMismatches = [];
+  for (const candidate of candidates) {
+    const entry = byId.get(candidate.candidateId);
+    const reviewPath = resolve(root, entry.humanReviewRecordPath ?? '');
+    if (!entry.humanReviewRecordLine || !existsSync(reviewPath)) throw new Error(`MISSING_PRIMARY_REVIEW_RECORD: ${candidate.candidateId}`);
+    const reviewLine = readFileSync(reviewPath, 'utf8').split(/\r?\n/)[entry.humanReviewRecordLine - 1];
+    if (!reviewLine) throw new Error(`MISSING_PRIMARY_REVIEW_LINE: ${candidate.candidateId}`);
+    if (!verifyPrimaryReviewRecord(reviewLine, entry.humanReviewRecordSha256, candidate.candidateId)) throw new Error(`PRIMARY_REVIEW_RECORD_INTEGRITY_MISMATCH: ${candidate.candidateId}`);
+    const observedGherkinHash = createHash('sha256').update(candidate.gherkinScenario, 'utf8').digest('hex');
+    if (entry.gherkinScenarioSha256Observed !== observedGherkinHash) throw new Error(`STALE_GHERKIN_TRACEABILITY_HASH: ${candidate.candidateId}`);
+    if (candidate.gherkinSha256 !== observedGherkinHash) gherkinHashMismatches.push(candidate.candidateId);
+    const sourcePath = resolve(root, candidate.javaSourcePath);
+    if (!existsSync(sourcePath)) throw new Error(`MISSING_JAVA_SOURCE: ${candidate.candidateId}`);
+    const observedHash = createHash('sha256').update(readFileSync(sourcePath, 'utf8').replace(/\r\n/g, '\n'), 'utf8').digest('hex');
+    if (entry.javaSourceSha256Observed !== observedHash) throw new Error(`STALE_TRACEABILITY_HASH: ${candidate.candidateId}`);
+    const registrationPath = join(dirname(sourcePath), 'registration.json');
+    const registration = readJson(registrationPath, `artifact registration for ${candidate.candidateId}`);
+    if (registration.sourceSha256 !== observedHash) throw new Error(`REGISTRATION_HASH_MISMATCH: ${candidate.candidateId}`);
+    if (candidate.javaSourceSha256 !== observedHash) sourceHashMismatches.push(candidate.candidateId);
+  }
+  return { byId, sourceHashMismatches, gherkinHashMismatches, unavailable: false };
+}
+
+function rawExecutionSummary(root) {
+  const path = join(root, 'docs', 'tasks', 'g3-evidence', 'all-40-candidates-g3-consolidated-summary.json');
+  if (!existsSync(path)) return { status: 'NOT_AVAILABLE', source: relative(root, path) };
+  const data = readJson(path, 'G3 consolidated raw outcome summary');
+  const countFiles = (directory, targetName) => {
+    if (!existsSync(directory)) return 0;
+    let count = 0;
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = join(directory, entry.name);
+      if (entry.isDirectory()) count += countFiles(path, targetName);
+      else if (targetName === 'junit' ? entry.name.startsWith('TEST-') && entry.name.endsWith('.xml') : entry.name === targetName) count++;
+    }
+    return count;
+  };
+  let cleanupResidualFailuresObserved = 0;
+  let runRecordsWithCompleteIdentity = 0;
+  const requiredIdentityFields = ['sourceCommit', 'testSourceSha256', 'imageDigest', 'runtimeManifest', 'javaVersion', 'dockerVersion'];
+  const g3Root = join(root, 'docs', 'tasks', 'g3-evidence');
+  const inspectCleanup = (directory) => {
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = join(directory, entry.name);
+      if (entry.isDirectory()) inspectCleanup(path);
+      else if (entry.name === 'cleanup-result.json') {
+        const cleanup = readJson(path, 'G3 cleanup result');
+        if (cleanup.zeroResidualVerified === false) cleanupResidualFailuresObserved++;
+      } else if (entry.name === 'run-record.json') {
+        const run = readJson(path, 'G3 run record');
+        if (requiredIdentityFields.every((field) => typeof run[field] === 'string' && run[field].trim())) runRecordsWithCompleteIdentity++;
+      }
+    }
+  };
+  if (existsSync(g3Root)) inspectCleanup(g3Root);
+  return {
+    status: 'REPORTED_RAW_OUTCOMES_NOT_SEMANTICALLY_VALIDATED',
+    source: relative(root, path),
+    totalCandidates: data.totalCandidates ?? null,
+    initialPassCandidates: data.initialPassCandidates ?? (Number.isFinite(data.initialPassRate) && Number.isInteger(data.totalCandidates) ? Math.round(data.initialPassRate * data.totalCandidates) : null),
+    validatedCandidatesReported: data.validatedCandidates ?? null,
+    flakyCandidatesReported: data.flakyCandidates ?? null,
+    failedCandidatesReported: data.failedCandidates ?? null,
+    totalRunInvocationsReported: data.totalIndividualRuns ?? data.totalRunInvocations ?? null,
+    runRecordFilesObserved: countFiles(g3Root, 'run-record.json'),
+    junitXmlFilesObserved: countFiles(g3Root, 'junit'),
+    runRecordsWithCompleteIdentity,
+    cleanupResidualFailuresObserved,
+  };
+}
+
+function fileSha256(path) {
+  return createHash('sha256').update(readFileSync(path)).digest('hex');
+}
+
+function evidencePath(root, runDirectory, artifactPath) {
+  if (typeof artifactPath !== 'string' || !artifactPath.trim()) return null;
+  const resolvedPath = resolve(root, artifactPath);
+  const canonicalPath = resolveContainedPath(root, resolvedPath);
+  return canonicalPath && resolveContainedPath(runDirectory, canonicalPath) ? canonicalPath : null;
+}
+
+function verifyEvidenceArtifact(root, runDirectory, artifact) {
+  const path = evidencePath(root, runDirectory, artifact?.path);
+  if (!path || !existsSync(path) || typeof artifact?.sha256 !== 'string' || !/^[0-9a-f]{64}$/i.test(artifact.sha256)) return { valid: false, reason: 'MISSING_OR_INVALID_EVIDENCE_ARTIFACT' };
+  const observed = fileSha256(path);
+  return observed === artifact.sha256 ? { valid: true, path } : { valid: false, reason: 'EVIDENCE_ARTIFACT_HASH_MISMATCH' };
+}
+
+function collectRunRecords(root) {
+  const base = join(root, 'docs', 'tasks', 'g3-evidence');
+  const records = [];
+  const walk = (directory) => {
+    if (!existsSync(directory)) return;
+    for (const entry of readdirSync(directory, { withFileTypes: true })) {
+      const path = join(directory, entry.name);
+      if (entry.isDirectory()) walk(path);
+      else if (entry.name === 'run-record.json') {
+        try { records.push({ path, record: JSON.parse(readFileSync(path, 'utf8')) }); }
+        catch { records.push({ path, record: null }); }
+      }
+    }
+  };
+  walk(base);
+  return records;
+}
+
+function parseJUnitOutcome(xml, expectedClass) {
+  const match = xml.match(/<testsuite\b([^>]*)>/i);
+  if (!match) return { valid: false, reason: 'JUNIT_TESTSUITE_MISSING' };
+  const attribute = (name) => {
+    const value = match[1].match(new RegExp('\\b' + name + '="(\\d+)"'));
+    return value ? Number(value[1]) : null;
+  };
+  const tests = attribute('tests');
+  const failures = attribute('failures');
+  const errors = attribute('errors');
+  const skipped = attribute('skipped') ?? 0;
+  const classMatch = xml.match(/<testcase\b[^>]*className="([^"]+)"|<testcase\b[^>]*classname="([^"]+)"/i);
+  const actualClass = classMatch?.[1] ?? classMatch?.[2] ?? null;
+  if (![tests, failures, errors].every(Number.isInteger) || tests < 1) return { valid: false, reason: 'INVALID_JUNIT_COUNTS' };
+  if (actualClass && expectedClass && actualClass !== expectedClass) return { valid: false, reason: 'JUNIT_CLASS_MISMATCH', tests, failures, errors, skipped };
+  return { valid: true, tests, failures, errors, skipped, outcome: failures === 0 && errors === 0 && skipped === 0 ? 'PASS' : 'FAIL' };
+}
+
+function readArtifactJson(root, runDirectory, artifact) {
+  const verified = verifyEvidenceArtifact(root, runDirectory, artifact);
+  if (!verified.valid) return { ...verified, data: null };
+  try { return { ...verified, data: JSON.parse(readFileSync(verified.path, 'utf8')) }; }
+  catch { return { valid: false, reason: 'INVALID_JSON_EVIDENCE_ARTIFACT', data: null }; }
+}
+
+function summarizedRunIds(summary) {
+  const ids = new Set();
+  for (const candidate of summary?.results ?? []) {
+    if (candidate.initialRun?.runId) ids.add(candidate.initialRun.runId);
+    for (const run of candidate.reruns ?? []) if (run.runId) ids.add(run.runId);
+  }
+  return ids;
+}
+
+function runRecordAccounting(root, summary, records) {
+  const summaryIds = summarizedRunIds(summary);
+  const fileIds = new Set(records.map((item) => item.record?.runId).filter(Boolean));
+  const runRecordCountByCandidate = {};
+  for (const item of records) {
+    const parts = relative(root, dirname(item.path)).replaceAll('\\', '/').split('/');
+    const index = parts.indexOf('g3-evidence');
+    const candidateId = index >= 0 ? parts[index + 2] : null;
+    if (candidateId) runRecordCountByCandidate[candidateId] = (runRecordCountByCandidate[candidateId] ?? 0) + 1;
+  }
+  const extraRunRecords = records.filter((item) => item.record?.runId && !summaryIds.has(item.record.runId)).map((item) => {
+    const parts = relative(root, dirname(item.path)).replaceAll('\\', '/').split('/');
+    const index = parts.indexOf('g3-evidence');
+    const app = index >= 0 ? parts[index + 1] : null;
+    const candidateId = index >= 0 ? parts[index + 2] : null;
+    return { runId: item.record.runId, applicationByDirectory: app, candidateIdByDirectory: candidateId, taskLabel: item.record.labels?.task ?? null, purpose: item.record.purpose ?? item.record.runPurpose ?? 'NOT_RECORDED', classification: 'UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED', evidencePath: relative(root, item.path) };
+  });
+  const candidateOutcomesReported = (summary?.results ?? []).map((candidate) => {
+    const reruns = candidate.reruns ?? [];
+    const attempts = [candidate.initialRun, ...reruns].filter(Boolean);
+    const failures = attempts.filter((run) => run.outcome === 'FAIL').length;
+    const rerunFailures = reruns.filter((run) => run.outcome === 'FAIL').length;
+    return {
+      candidateId: candidate.candidateId,
+      application: candidate.application,
+      initialOutcomeReported: candidate.initialRun?.outcome ?? null,
+      rerunOutcomesReported: reruns.map((run) => run.outcome),
+      rerunFailureRateAmongReruns: reruns.length === 3 ? rerunFailures / 3 : null,
+      failureRateAcrossInitialAndReruns: attempts.length === 4 ? failures / 4 : null,
+      runIdsReported: attempts.map((run) => run.runId).filter(Boolean),
+    };
+  });
+  return {
+    summaryRunIds: summaryIds.size,
+    runRecordFileCount: records.length,
+    matchingRunRecords: records.filter((item) => summaryIds.has(item.record?.runId)).length,
+    runRecordCountByCandidate,
+    missingRunRecordIds: [...summaryIds].filter((id) => !fileIds.has(id)),
+    extraRunRecords,
+    candidateOutcomesReported,
+  };
+}
+
+function validateSourceBoundRun(root, candidate, trace, config, item, reviewValid) {
+  const run = item.record;
+  const runDirectory = dirname(item.path);
+  const errors = [];
+  if (!run || run.schemaVersion !== '1.0.0') return { valid: false, errors: ['RUN_RECORD_SCHEMA_INVALID'], outcome: null };
+  const expectedRelative = ['docs', 'tasks', 'g3-evidence', candidate.application, candidate.candidateId, run.runId].join('/');
+  const actualRelative = relative(root, runDirectory).replaceAll('\\', '/');
+  if (actualRelative !== expectedRelative) errors.push('RUN_DIRECTORY_IDENTITY_MISMATCH');
+  if (run.candidateId !== candidate.candidateId || run.runId !== basename(runDirectory)) errors.push('RUN_CANDIDATE_OR_ID_MISMATCH');
+  if (!['INITIAL', 'RERUN'].includes(run.runType) || (run.runType === 'INITIAL' && run.rerunIndex !== 0) || (run.runType === 'RERUN' && ![1, 2, 3].includes(run.rerunIndex))) errors.push('RUN_TYPE_OR_INDEX_INVALID');
+  if (!run.startedAtUtc || !run.finishedAtUtc || !Number.isFinite(Date.parse(run.startedAtUtc)) || !Number.isFinite(Date.parse(run.finishedAtUtc)) || Date.parse(run.finishedAtUtc) < Date.parse(run.startedAtUtc)) errors.push('RUN_TIMESTAMP_INVALID');
+  if (!config) errors.push('APPLICATION_RUNTIME_MANIFEST_MISSING');
+  else {
+    if (run.application?.appId !== candidate.application || run.application?.sourceCommit !== config.source?.commit || run.application?.version !== config.benchmarkBaseVersion) errors.push('APPLICATION_SOURCE_PROVENANCE_MISMATCH');
+    if (!config.runtime?.imageDigest) errors.push('CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST');
+    else if (run.application?.imageDigest !== config.runtime.imageDigest) errors.push('APPLICATION_IMAGE_DIGEST_MISMATCH');
+  }
+  if (run.test?.javaSourceSha256 !== trace.javaSourceSha256Observed || run.test?.javaSourceSha256 !== candidate.javaSourceSha256 || run.test?.gherkinSha256 !== trace.gherkinScenarioSha256Observed || run.test?.gherkinSha256 !== candidate.gherkinSha256) errors.push('TEST_SOURCE_HASH_MISMATCH');
+  if (!['javaVersion', 'mavenVersion', 'seleniumVersion', 'dockerVersion'].every((field) => typeof run.runtime?.[field] === 'string' && run.runtime[field].trim())) errors.push('RUNTIME_VERSION_INCOMPLETE');
+
+  const compileLog = verifyEvidenceArtifact(root, runDirectory, run.compile?.log);
+  if (!compileLog.valid || !['PASS', 'FAIL'].includes(run.compile?.outcome) || typeof run.compile?.command !== 'string' || !run.compile.command.toLowerCase().includes('mvn')) errors.push('COMPILE_EVIDENCE_MISSING_OR_INVALID');
+  const junitPath = evidencePath(root, runDirectory, run.execution?.junitXmlPath);
+  let junit = { valid: false, reason: 'JUNIT_EVIDENCE_MISSING' };
+  if (junitPath && existsSync(junitPath)) {
+    const observedJunitHash = fileSha256(junitPath);
+    if (observedJunitHash !== run.execution?.junitXmlSha256) errors.push('JUNIT_HASH_MISMATCH');
+    else junit = parseJUnitOutcome(readFileSync(junitPath, 'utf8'), candidate.javaClass);
+  }
+  if (!junit.valid) errors.push(junit.reason);
+  if (!['PASS', 'FAIL'].includes(run.compile?.outcome)) errors.push('COMPILE_OUTCOME_INVALID');
+  if (!Number.isInteger(run.execution?.exitCode)) errors.push('MAVEN_EXIT_CODE_MISSING');
+  if (!['PASS', 'FAIL'].includes(run.oracleVerification?.status) || run.oracleVerification?.javaSourceSha256 !== run.test?.javaSourceSha256 || run.oracleVerification?.gherkinSha256 !== run.test?.gherkinSha256) errors.push('ORACLE_VERIFICATION_MISSING_OR_MISMATCHED');
+
+  const reset = readArtifactJson(root, runDirectory, run.reset?.evidence);
+  if (!reset.valid || run.reset?.outcome !== 'PASS' || reset.data?.appId !== candidate.application || reset.data?.runId !== run.runId || reset.data?.outcome !== 'PASS') errors.push(reset.reason ?? 'RESET_NOT_VERIFIED');
+  const cleanup = readArtifactJson(root, runDirectory, run.cleanup?.evidence);
+  if (!cleanup.valid || run.cleanup?.outcome !== 'PASS' || cleanup.data?.appId !== candidate.application || cleanup.data?.runId !== run.runId || cleanup.data?.zeroResidualVerified !== true || cleanup.data?.outcome !== 'PASS') errors.push(cleanup.reason ?? 'CLEANUP_NOT_VERIFIED');
+
+  const outcome = errors.length === 0 && run.compile?.outcome === 'PASS' && run.execution?.exitCode === 0 && junit.outcome === 'PASS' && run.oracleVerification?.status === 'PASS' ? 'PASS' : 'FAIL';
+  if (errors.length) return { valid: false, errors: [...new Set(errors)], outcome, junit };
+  return { valid: true, errors: [], outcome, junit, runType: run.runType, rerunIndex: run.rerunIndex, durationSeconds: (Date.parse(run.finishedAtUtc) - Date.parse(run.startedAtUtc)) / 1000 };
+}
+
+export function evaluateRq3Evidence({ rootDir = '.', candidates, traceabilityById, reviews, trustedReviewers = {}, rawExecution = null }) {
+  const root = resolve(rootDir);
+  const raw = rawExecution ?? rawExecutionSummary(root);
+  const allRecords = collectRunRecords(root);
+  const summaryPath = join(root, 'docs', 'tasks', 'g3-evidence', 'all-40-candidates-g3-consolidated-summary.json');
+  const rawSummary = existsSync(summaryPath) ? readJson(summaryPath, 'G3 summarized run accounting') : null;
+  const runAccounting = runRecordAccounting(root, rawSummary, allRecords);
+  const seenIds = new Set();
+  const duplicates = new Set();
+  for (const item of allRecords) {
+    if (!item.record?.runId) continue;
+    if (seenIds.has(item.record.runId)) duplicates.add(item.record.runId);
+    seenIds.add(item.record.runId);
+  }
+  const byCandidate = new Map(candidates.map((candidate) => [candidate.candidateId, []]));
+  const unboundRunRecordCount = allRecords.filter((item) => !item.record?.candidateId || !byCandidate.has(item.record?.candidateId)).length;
+  for (const item of allRecords) if (byCandidate.has(item.record?.candidateId)) byCandidate.get(item.record.candidateId).push(item);
+  const dispositions = candidates.map((candidate) => {
+    const trace = traceabilityById.get(candidate.candidateId) ?? {};
+    const reviewValid = isHumanOracleAndNoveltyApproval(reviews.get(candidate.candidateId), trustedReviewers);
+    const configPath = join(root, 'config', 'apps', candidate.application + '.json');
+    const config = existsSync(configPath) ? readJson(configPath, 'application runtime manifest') : null;
+    const manifestSchemaErrors = !config ? ['APPLICATION_RUNTIME_MANIFEST_MISSING'] : !config.runtime?.imageDigest ? ['CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST'] : [];
+    const records = byCandidate.get(candidate.candidateId) ?? [];
+    const evaluations = records.map((item) => ({ item, evaluation: validateSourceBoundRun(root, candidate, trace, config, item, reviewValid) }));
+    if (duplicates.size) for (const entry of evaluations) if (duplicates.has(entry.item.record?.runId)) entry.evaluation = { valid: false, outcome: entry.evaluation.outcome, errors: [...(entry.evaluation.errors ?? []), 'DUPLICATE_RUN_ID'] };
+    const verified = evaluations.filter((entry) => entry.evaluation.valid);
+    const isProtocolTrial = (entry) => (entry.item.record?.runType === 'INITIAL' && entry.item.record?.rerunIndex === 0) || (entry.item.record?.runType === 'RERUN' && [1, 2, 3].includes(entry.item.record?.rerunIndex));
+    const protocolEntries = evaluations.filter(isProtocolTrial);
+    const protocolSlot = (entry) => entry.item.record?.runType === 'INITIAL' ? 'INITIAL' : `RERUN-${entry.item.record?.rerunIndex}`;
+    const protocolSlotCounts = new Map();
+    for (const entry of protocolEntries) protocolSlotCounts.set(protocolSlot(entry), (protocolSlotCounts.get(protocolSlot(entry)) ?? 0) + 1);
+    const duplicateSlotEntries = protocolEntries.filter((entry) => protocolSlotCounts.get(protocolSlot(entry)) > 1);
+    const extraEntries = [
+      ...evaluations.filter((entry) => !isProtocolTrial(entry)).map((entry) => ({ entry, classification: 'NON_PROTOCOL_EXTRA' })),
+      ...duplicateSlotEntries.map((entry) => ({ entry, classification: 'DUPLICATE_PROTOCOL_SLOT' })),
+    ];
+    const initial = protocolEntries.filter((entry) => entry.item.record?.runType === 'INITIAL');
+    const reruns = protocolEntries.filter((entry) => entry.item.record?.runType === 'RERUN');
+    const oneInitial = initial.length === 1 && initial[0].evaluation.valid;
+    const exactReruns = [1, 2, 3].every((index) => {
+      const indexedRuns = reruns.filter((entry) => entry.item.record?.rerunIndex === index);
+      return indexedRuns.length === 1 && indexedRuns[0].evaluation.valid;
+    }) && reruns.length === 3;
+    const allVerified = oneInitial && exactReruns;
+    const orderedEntries = allVerified ? [initial[0], ...[1, 2, 3].map((index) => reruns.find((entry) => entry.item.record?.rerunIndex === index))] : [];
+    const orderedOutcomes = orderedEntries.map((entry) => entry.evaluation.outcome);
+    const reviewApproved = reviewValid && trace.semanticAudit?.status === 'MATCHED' && trace.semanticAudit?.reviewerDecision === 'APPROVED';
+    const validated = allVerified && orderedOutcomes.every((outcome) => outcome === 'PASS') && reviewApproved && trace.javaSourceSha256Observed === candidate.javaSourceSha256 && trace.gherkinScenarioSha256Observed === candidate.gherkinSha256;
+    const pathRunRecordCount = runAccounting.runRecordCountByCandidate[candidate.candidateId] ?? 0;
+    const hasEvidence = records.length > 0 || pathRunRecordCount > 0;
+    const completeButFailing = allVerified && orderedOutcomes.some((outcome) => outcome !== 'PASS');
+    const status = validated ? 'VALIDATED' : completeButFailing ? 'FAIL' : !hasEvidence ? 'NOT_RUN' : verified.length ? 'PARTIALLY_VERIFIED' : 'BLOCKED';
+    const canonicalObservedOutcomes = protocolEntries.filter((entry) => protocolSlotCounts.get(protocolSlot(entry)) === 1 && entry.evaluation.valid).map((entry) => entry.evaluation.outcome);
+    const outcomeCounts = { PASS: canonicalObservedOutcomes.filter((outcome) => outcome === 'PASS').length, FAIL: canonicalObservedOutcomes.filter((outcome) => outcome === 'FAIL').length };
+    const rerunFailCount = orderedOutcomes.slice(1).filter((outcome) => outcome === 'FAIL').length;
+    const allTrialFailCount = orderedOutcomes.filter((outcome) => outcome === 'FAIL').length;
+    return {
+      candidateId: candidate.candidateId,
+      application: candidate.application,
+      manifestSchemaErrors,
+      status,
+      validated,
+      sourceBoundRunRecords: records.length,
+      unboundPathRunRecords: Math.max(0, pathRunRecordCount - records.length),
+      verifiedRunRecords: verified.length,
+      protocolComplete: allVerified,
+      initialOutcome: oneInitial ? initial[0].evaluation.outcome : null,
+      rerunOutcomes: exactReruns ? [1, 2, 3].map((index) => reruns.find((entry) => entry.item.record?.rerunIndex === index).evaluation.outcome) : [],
+      outcomeCounts,
+      extraSourceBoundRunRecords: extraEntries.map(({ entry, classification }) => ({ runId: entry.item.record?.runId ?? null, runType: entry.item.record?.runType ?? null, rerunIndex: entry.item.record?.rerunIndex ?? null, verified: entry.evaluation.valid, outcome: entry.evaluation.outcome, classification, evidenceErrors: entry.evaluation.errors ?? [] })),
+      outcome: completeButFailing ? 'FAIL' : allVerified ? 'PASS' : verified.length ? 'PARTIALLY_VERIFIED' : 'BLOCKED',
+      rerunFailureRate: exactReruns ? rerunFailCount / 3 : null,
+      allTrialFailureRate: allVerified ? allTrialFailCount / 4 : null,
+      evidenceErrors: [...new Set([...manifestSchemaErrors, ...evaluations.flatMap((entry) => entry.evaluation.errors ?? []), ...(pathRunRecordCount > records.length ? ['UNBOUND_LEGACY_RUN_RECORD'] : [])])],
+    };
+  });
+  const verifiedRunRecords = dispositions.reduce((sum, item) => sum + item.verifiedRunRecords, 0);
+  const protocolCompleteCandidates = dispositions.filter((item) => item.protocolComplete).length;
+  const validatedCandidates = dispositions.filter((item) => item.validated).length;
+  const recordedProtocolCandidates = dispositions.filter((item) => item.sourceBoundRunRecords > 0).length;
+  const outcome = protocolCompleteCandidates === candidates.length && candidates.length > 0
+    ? 'PASS'
+    : verifiedRunRecords > 0 || raw.status !== 'NOT_AVAILABLE' ? 'PARTIALLY_VERIFIED' : 'NOT_EVALUATED';
+  return {
+    outcome,
+    interpretation: 'PASS means all registered candidates have complete, source-bound 1+3 trial evidence and the research outcomes are calculable; it does not mean every candidate passed.',
+    candidateCount: candidates.length,
+    sourceBoundCandidateCount: recordedProtocolCandidates,
+    verifiedRunRecords,
+    protocolCompleteCandidates,
+    validatedCandidates,
+    failedCandidates: dispositions.filter((item) => item.status === 'FAIL').length,
+    rawExecution: raw,
+    rawRunRecordFilesObserved: allRecords.length,
+    runRecordAccounting: runAccounting,
+    unboundRunRecordFilesObserved: unboundRunRecordCount,
+    duplicateRunIds: [...duplicates],
+    requiredCleanReruns: 3,
+    flakinessDefinition: 'A candidate is flaky when its initial run and three reruns do not all have the same derived JUnit outcome; rerunFailureRate and allTrialFailureRate use separate denominators.',
+    candidates: dispositions,
+    applicationManifestIdentityGaps: [...new Set(dispositions.flatMap((candidate) => candidate.manifestSchemaErrors.map((error) => `${candidate.application}:${error}`)))],
+    reason: protocolCompleteCandidates === candidates.length ? null : 'Source-bound protocol evidence is incomplete; reported historical outcomes remain separate and do not establish VALIDATED cases.',
+  };
+}
+
+function validateBaselineTaxonomy(root, taxonomy, trustedReviewers) {
+  if (!taxonomy || taxonomy.auditStatus !== 'VERIFIED_BY_INDEPENDENT_REVIEW' || !taxonomy.baselineReview) return { valid: false, reason: 'BASELINE_REVIEW_OR_TAXONOMY_STATUS_MISSING', denominator: null, ids: new Set() };
+  const review = taxonomy.baselineReview;
+  if (review.decision !== 'APPROVED' || review.baselineCommit !== taxonomy.baselineReference?.commit || !/^[0-9a-f]{64}$/i.test(review.inventorySha256 ?? '') || !verifySignedStatement(review, trustedReviewers)) return { valid: false, reason: 'BASELINE_ATTESTATION_INVALID', denominator: null, ids: new Set() };
+  const ids = new Set();
+  const perApplicationBaselineCounts = {};
+  let total = 0;
+  const digestRows = [];
+  for (const app of APPS) {
+    const units = taxonomy.perApplicationBaselines?.[app]?.baselineBehavioralUnits;
+    if (!Array.isArray(units)) return { valid: false, reason: 'BASELINE_UNIT_INVENTORY_MISSING:' + app, denominator: null, ids };
+    if (taxonomy.perApplicationBaselines[app].baselineUniqueBehavioralUnits !== units.length) return { valid: false, reason: 'BASELINE_UNIT_COUNT_MISMATCH:' + app, denominator: null, ids };
+    perApplicationBaselineCounts[app] = units.length;
+    for (const unit of units) {
+      if (!unit.behavioralUnitId || !unit.evidence?.path || !/^[0-9a-f]{64}$/i.test(unit.evidence.sha256 ?? '') || ids.has(unit.behavioralUnitId)) return { valid: false, reason: 'BASELINE_UNIT_INVALID_OR_DUPLICATE:' + app, denominator: null, ids };
+      const evidencePath = resolveContainedPath(root, resolve(root, unit.evidence.path));
+      if (!evidencePath || fileSha256(evidencePath) !== unit.evidence.sha256) return { valid: false, reason: 'BASELINE_SOURCE_HASH_MISMATCH:' + unit.behavioralUnitId, denominator: null, ids };
+      ids.add(unit.behavioralUnitId);
+      digestRows.push({ application: app, behavioralUnitId: unit.behavioralUnitId, sourceSha256: unit.evidence.sha256 });
+      total++;
+    }
+  }
+  digestRows.sort((a, b) => a.application.localeCompare(b.application) || a.behavioralUnitId.localeCompare(b.behavioralUnitId));
+  const digest = createHash('sha256').update(JSON.stringify(digestRows), 'utf8').digest('hex');
+  const denominator = taxonomy.defensibleDenominator?.totalBaselineDenominator;
+  if (!Number.isInteger(denominator) || denominator <= 0 || denominator !== total || denominator !== taxonomy.aggregateBaselineCounts?.totalBehavioralUnits || review.inventorySha256 !== digest) return { valid: false, reason: 'BASELINE_DENOMINATOR_OR_INVENTORY_DIGEST_MISMATCH', denominator: null, ids };
+  return { valid: true, reason: null, denominator, ids, perApplicationBaselineCounts };
+}
+
+export function evaluateRq2Evidence({ rootDir = '.', taxonomy, candidates, reviews, trustedReviewers = {}, traceabilityById, rq3 }) {
+  const root = resolve(rootDir);
+  const baseline = validateBaselineTaxonomy(root, taxonomy, trustedReviewers);
+  if (!baseline.valid) {
+    const perApplicationResults = Object.fromEntries(APPS.map((app) => [app, {
+      proposedCandidates: candidates.filter((candidate) => candidate.application === app).length,
+      finalHumanDispositionCount: 0,
+      baselineBehaviorUnits: null,
+      approvedNewBehaviorUnits: null,
+      implementedNewBehaviorUnits: null,
+      validatedNewBehaviorUnits: null,
+      coverageGain: null,
+      coverageGainPercent: null,
+    }]));
+    return { outcome: 'NOT_EVALUATED', baselineStatus: 'NOT_VERIFIED', baselineDenominator: null, proposedCandidates: candidates.length, finalHumanDispositionCount: 0, approvedNewBehaviorUnits: null, implementedNewBehaviorUnits: null, validatedNewBehaviorUnits: null, coverageGain: null, coverageGainPercent: null, perApplicationResults, reason: baseline.reason };
+  }
+  const mappings = taxonomy.candidateToTaxonomyMapping ?? {};
+  const allEntries = APPS.flatMap((app) => Array.isArray(mappings[app]) ? mappings[app].map((entry) => ({ ...entry, application: app })) : []);
+  const byId = new Map(allEntries.map((entry) => [entry.candidateId, entry]));
+  const rows = [];
+  const seenBehaviorIds = new Set();
+  for (const candidate of candidates) {
+    const entry = byId.get(candidate.candidateId);
+    const review = reviews.get(candidate.candidateId);
+    const trace = traceabilityById.get(candidate.candidateId) ?? {};
+    const approval = entry?.approval;
+    const unitId = entry?.behavioralUnitId;
+    const sourceEvidenceValid = Array.isArray(entry?.sourceEvidence) && entry.sourceEvidence.length > 0 && entry.sourceEvidence.every((evidence) => {
+      const path = resolveContainedPath(root, resolve(root, evidence.path ?? ''));
+      return evidence.path && /^[0-9a-f]{64}$/i.test(evidence.sha256 ?? '') && path && fileSha256(path) === evidence.sha256;
+    });
+    const approved = Boolean(entry && entry.candidateId === candidate.candidateId && entry.application === candidate.application && unitId && !baseline.ids.has(unitId) && !seenBehaviorIds.has(unitId) && approval?.decision === 'APPROVED' && approval.candidateId === candidate.candidateId && approval.application === candidate.application && approval.behavioralUnitId === unitId && verifySignedStatement(approval, trustedReviewers) && isHumanOracleAndNoveltyApproval(review, trustedReviewers) && trace.semanticAudit?.status === 'MATCHED' && trace.semanticAudit?.reviewerDecision === 'APPROVED' && sourceEvidenceValid);
+    if (approved) seenBehaviorIds.add(unitId);
+    const implemented = approved && trace.javaSourceSha256Observed === candidate.javaSourceSha256 && trace.registrationHashMatchesObservedJava === true && trace.gherkinScenarioSha256Observed === candidate.gherkinSha256;
+    const run = rq3.candidates.find((item) => item.candidateId === candidate.candidateId);
+    const validated = implemented && run?.status === 'VALIDATED';
+    rows.push({ candidateId: candidate.candidateId, application: candidate.application, behavioralUnitId: unitId ?? null, approved, implemented, validated, reason: !entry ? 'MAPPING_MISSING' : !approved ? 'APPROVAL_OR_SOURCE_EVIDENCE_INVALID' : !implemented ? 'IMPLEMENTATION_HASH_NOT_MATCHED' : !validated ? 'SOURCE_BOUND_1_PLUS_3_RERUNS_NOT_VALIDATED' : null });
+  }
+  const finalDispositionCount = candidates.filter((candidate) => {
+    const review = reviews.get(candidate.candidateId);
+    return isHumanOracleAndNoveltyApproval(review, trustedReviewers) || (review?.decision === 'REJECTED' && verifySignedStatement(review, trustedReviewers));
+  }).length;
+  const approvedNewBehaviorUnits = rows.filter((row) => row.approved).length;
+  const implementedNewBehaviorUnits = rows.filter((row) => row.implemented).length;
+  const validatedNewBehaviorUnits = rows.filter((row) => row.validated).length;
+  const perApplicationResults = Object.fromEntries(APPS.map((app) => {
+    const appRows = rows.filter((row) => row.application === app);
+    const appCandidates = candidates.filter((candidate) => candidate.application === app);
+    const approved = appRows.filter((row) => row.approved).length;
+    const implemented = appRows.filter((row) => row.implemented).length;
+    const validated = appRows.filter((row) => row.validated).length;
+    const baselineCount = baseline.perApplicationBaselineCounts[app];
+    return [app, {
+      proposedCandidates: appCandidates.length,
+      finalHumanDispositionCount: appCandidates.filter((candidate) => {
+        const review = reviews.get(candidate.candidateId);
+        return isHumanOracleAndNoveltyApproval(review, trustedReviewers) || (review?.decision === 'REJECTED' && verifySignedStatement(review, trustedReviewers));
+      }).length,
+      baselineBehaviorUnits: baselineCount,
+      approvedNewBehaviorUnits: approved,
+      implementedNewBehaviorUnits: implemented,
+      validatedNewBehaviorUnits: validated,
+      coverageGain: baselineCount > 0 ? validated / baselineCount : null,
+      coverageGainPercent: baselineCount > 0 ? validated / baselineCount * 100 : null,
+    }];
+  }));
+  const outcome = finalDispositionCount === candidates.length && rows.length === candidates.length ? 'PASS' : finalDispositionCount > 0 ? 'PARTIALLY_VERIFIED' : 'BLOCKED';
+  return {
+    outcome,
+    baselineStatus: 'VERIFIED_BY_SIGNED_INDEPENDENT_REVIEW',
+    baselineDenominator: baseline.denominator,
+    proposedCandidates: candidates.length,
+    finalHumanDispositionCount: finalDispositionCount,
+    approvedNewBehaviorUnits,
+    implementedNewBehaviorUnits,
+    validatedNewBehaviorUnits,
+    coverageGain: validatedNewBehaviorUnits / baseline.denominator,
+    coverageGainPercent: validatedNewBehaviorUnits / baseline.denominator * 100,
+    perApplicationResults,
+    candidateDetails: rows,
+    reason: outcome === 'PASS' ? null : 'Only signed candidate decisions and source-backed, non-overlapping behavioral units are included; unresolved proposals remain pending.',
+  };
+}
+
+function modelUsageSummary(root) {
+  const reportPath = join(root, 'docs', 'tasks', 'T01-C', 'MODEL-USAGE-AND-COST.md');
+  if (!existsSync(reportPath)) return { status: 'UNKNOWN', source: relative(root, reportPath), successfulCalls: null, tokens: null, actualCost: null };
+  const report = readFileSync(reportPath, 'utf8');
+  const firstRow = report.split(/\r?\n/).find((line) => line.includes('gemini-3.1-flash-lite')) ?? '';
+  const attempts = Number(firstRow.match(/\|\s*(\d+)\s*\/\s*\d+/)?.[1] ?? Number.NaN);
+  return {
+    status: 'PARTIALLY_REPORTED_USAGE_NO_SUCCESSFUL_RESPONSE_TELEMETRY',
+    source: relative(root, reportPath),
+    modelReported: 'gemini-3.1-flash-lite',
+    attemptsReported: Number.isFinite(attempts) ? attempts : null,
+    successfulCalls: 0,
+    inputTokens: null,
+    outputTokens: null,
+    actualCostUsd: null,
+    comparisonOrSavings: 'NOT_MEASURED',
+  };
+}
+
+export function runRecompute(options = {}) {
+  const root = resolve(options.rootDir || '.');
+  if (options.overrideCandidates) {
+    const candidates = options.overrideCandidates;
+    const trustedReviewers = options.trustedReviewers ?? {};
+    const details = summarizeCandidates(candidates, new Map(), new Map(candidates.map((candidate) => [candidate.candidateId, candidate.humanReview ?? candidate.review ?? {}])), trustedReviewers);
+    const syntacticallyValid = details.filter((entry) => entry.gherkinSyntaxValid).length;
+    const humanApproved = details.filter((entry) => entry.humanOracleAndNoveltyApproved).length;
+    const semanticMatched = details.filter((entry) => entry.semanticMappingApproved).length;
+    const syntaxInvalid = syntacticallyValid !== candidates.length;
+    return {
+      rq1: { outcome: syntaxInvalid ? 'FAIL' : humanApproved < candidates.length ? 'BLOCKED' : semanticMatched < candidates.length ? 'NOT_EVALUATED' : 'PASS', totalCandidates: candidates.length, validGherkinSyntax: syntacticallyValid, humanApprovedCount: humanApproved, semanticNoveltyCount: semanticMatched, details },
+      rq2: { outcome: 'NOT_EVALUATED', reason: 'Override candidates do not include a verified baseline and behavioral-unit mapping.' },
+      rq3: { outcome: 'NOT_EVALUATED', reason: 'Override candidates do not include source-bound runtime evidence.' },
+      rq4: { outcome: 'NOT_EVALUATED', reason: 'Override candidates do not include provider usage telemetry.' },
     };
   }
 
+  const datasetPath = join(root, 'docs', 'research-results', 'v2', 'dataset', '40-candidate-dataset.json');
+  const dataset = readJson(datasetPath, 'candidate registry');
+  const candidates = dataset.candidates;
+  if (!Array.isArray(candidates) || candidates.length !== TARGET_CASES) throw new Error(`INCONSISTENT_CANDIDATE_COUNT: expected ${TARGET_CASES}`);
+  const ids = candidates.map((candidate) => candidate.candidateId);
+  if (new Set(ids).size !== ids.length) throw new Error('DUPLICATE_CANDIDATE_ID');
+  const reviews = readReviews(root);
+  const reviewerTrust = options.trustedReviewers
+    ? { reviewers: options.trustedReviewers, status: 'CALLER_SUPPLIED_KEYS_TEST_ONLY' }
+    : readTrustedReviewers(root, process.env.BEWT_TRUSTED_REVIEWERS_SHA256);
+  const trustedReviewers = reviewerTrust.reviewers;
+  if (reviews.size !== TARGET_CASES || ids.some((id) => !reviews.has(id))) throw new Error('INCONSISTENT_CANDIDATE_IDS: registry and review ledgers differ');
+  const traceability = loadTraceability(root, candidates);
+  const details = summarizeCandidates(candidates, traceability.byId, reviews, trustedReviewers);
+  const validGherkinSyntax = details.filter((entry) => entry.gherkinSyntaxValid).length;
+  const humanApprovedCount = details.filter((entry) => entry.humanOracleAndNoveltyApproved).length;
+  const semanticNoveltyCount = details.filter((entry) => entry.semanticMappingApproved).length;
+  const eligibleCount = details.filter((entry) => entry.eligibleForValidated).length;
+  const rq1Outcome = validGherkinSyntax !== TARGET_CASES ? 'FAIL' : humanApprovedCount < TARGET_CASES ? 'BLOCKED' : semanticNoveltyCount < TARGET_CASES ? 'NOT_EVALUATED' : 'PASS';
+
+  const taxonomyPath = join(root, 'data', 'coverage', 'behavioral-taxonomy-baseline.json');
+  const taxonomy = existsSync(taxonomyPath) ? readJson(taxonomyPath, 'behavioral baseline taxonomy') : null;
+  const g3 = rawExecutionSummary(root);
+  const rq3 = evaluateRq3Evidence({ rootDir: root, candidates, traceabilityById: traceability.byId, reviews, trustedReviewers, rawExecution: g3 });
+  rq3.eligibleBehaviorallyValidatedCases = rq3.validatedCandidates;
+  rq3.sourceHashMismatches = traceability.sourceHashMismatches;
+  rq3.gherkinHashMismatches = traceability.gherkinHashMismatches;
+  const rq2 = evaluateRq2Evidence({ rootDir: root, taxonomy, candidates, reviews, trustedReviewers, traceabilityById: traceability.byId, rq3 });
+  rq2.validatedCases = rq2.validatedNewBehaviorUnits;
+
+  const invocationLedgerPath = join(root, 'data', 'runs', 'model-invocation-ledger.json');
+  const invocationLedger = existsSync(invocationLedgerPath) ? readJson(invocationLedgerPath, 'model invocation ledger') : null;
+  const rq4 = invocationLedger && Array.isArray(invocationLedger.invocations)
+    ? { outcome: 'PARTIALLY_VERIFIED', source: relative(root, invocationLedgerPath), successfulCalls: invocationLedger.invocations.filter((call) => call.status === 'SUCCESS' && call.responseHash).length, inputTokens: null, outputTokens: null, actualCostUsd: null, comparisonOrSavings: 'NOT_MEASURED' }
+    : { outcome: 'PARTIALLY_VERIFIED', ...modelUsageSummary(root), reason: 'No structured successful-response usage telemetry or actual billing record is available.' };
+
   return {
-    valid: true,
-    feature: featureLine.replace(/^Feature:\s*/i, '').trim(),
-    scenario: scenarioLine.replace(/^Scenario:\s*/i, '').trim(),
-    steps: steps.length,
+    schemaVersion: '1.0.0',
+    auditBaselineCommit: options.baselineCommit ?? 'UNSPECIFIED',
+    candidateCount: TARGET_CASES,
+    checks: { uniqueCandidateIds: true, reviewRecords: reviews.size, traceabilityAvailable: !traceability.unavailable, datasetSourceHashMismatches: traceability.sourceHashMismatches?.length ?? null, datasetGherkinHashMismatches: traceability.gherkinHashMismatches?.length ?? null },
+    reviewTrust: { status: reviewerTrust.status, trustedReviewerKeyCount: Object.keys(trustedReviewers).length, trustRoot: 'A repository-local public key registry is trusted only when its SHA-256 is pinned outside the repository via BEWT_TRUSTED_REVIEWERS_SHA256. Missing pin means all approvals remain untrusted.' },
+    rq1: { outcome: rq1Outcome, totalCandidates: TARGET_CASES, validGherkinSyntax, humanApprovedCount, semanticNoveltyCount, details },
+    rq2,
+    rq3,
+    rq4,
   };
 }
 
-/**
- * Validates Java Selenium source against the Anti-Trivial Quality Gate contract.
- */
-export function auditJavaSeleniumQuality(javaSource) {
-  if (!javaSource || typeof javaSource !== 'string') {
-    return { pass: false, error: 'Empty or non-string Java source' };
-  }
-  if (/currentUrl\.length\(\)\s*>=?\s*0/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: currentUrl.length() >= 0 is a non-behavioral tautology' };
-  }
-  if (/Assert\.assertTrue\s*\(\s*(?:"[^"]*"\s*,\s*)?true\s*\)/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Assert.assertTrue(true) is tautological' };
-  }
-  if (/Assert\.assertFalse\s*\(\s*(?:"[^"]*"\s*,\s*)?false\s*\)/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Assert.assertFalse(false) is tautological' };
-  }
-  if (/By\.tagName\s*\(\s*["']body["']\s*\)/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Generic <body> tag lookup is prohibited as a surrogate oracle' };
-  }
-  if (/(?:Assert\.assertTrue|assertTrue)\s*\(\s*(?:"[^"]*"\s*,\s*)?[a-zA-Z0-9_]*body[a-zA-Z0-9_]*\.isDisplayed\(\)\s*\)/i.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Asserting body visibility is a trivial non-behavioral oracle' };
-  }
-  if (/(?:Assert\.assertNotNull|assertNotNull)\s*\(\s*(?:"[^"]*"\s*,\s*)?driver\s*\)/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Asserting driver nullness is not a business oracle' };
-  }
-  if (/catch\s*\(\s*(?:Throwable|AssertionError)\s+[a-zA-Z0-9_]+\s*\)\s*\{(?![^}]*throw)/.test(javaSource)) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Catch block swallows assertion failures' };
-  }
-
-  const hasInteraction = /(?:driver\.(?:get|findElement|findElements|navigate\(\)|getTitle\(\)|getCurrentUrl\(\)|getPageSource\(\))|\.click\(|\.sendKeys\(|\.clear\(|\.submit\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|new\s+[A-Za-z0-9_]+Page\s*\(|loginAs\w*\(|WebDriverWait|ExpectedConditions|new\s+Select\s*\()/.test(javaSource);
-  if (!hasInteraction) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Method lacks browser or PageObject interactions' };
-  }
-
-  const hasStateCheck = /(?:\.click\(|\.sendKeys\(|\.getText\(|\.isDisplayed\(|\.isSelected\(|\.isEnabled\(|\.getAttribute\(|new\s+Select|WebDriverWait|Page\(|ExpectedConditions|assert(?:Equals|True|False|NotNull|Null)\s*\([^;]+(?:\.contains|\.equals|selected|enabled|size|count|element|alert|status|message|category|article|title|text))/i.test(javaSource);
-  if (!hasStateCheck) {
-    return { pass: false, error: 'TRIVIAL_TEST_REJECTED: Test performs only generic checks without business assertions' };
-  }
-
-  return { pass: true };
+function csvEscape(value) {
+  const text = value === null || value === undefined ? '' : String(value);
+  return `"${text.replaceAll('"', '""')}"`;
 }
 
-/**
- * Recomputes all research questions RQ1 through RQ4 from repository evidence.
- */
-export function runRecompute(options = {}) {
-  const root = options.rootDir || resolve('.');
-  const silent = Boolean(options.silent);
-  const log = silent ? () => {} : console.log;
-
-  log('======================================================================');
-  log('   BEWT-CovExt v2.0 - Empirical Metrics Recomputation Engine (RQ1-RQ4) ');
-  log('======================================================================\n');
-
-  // --- RQ1: Scenario Validity & Novelty ---
-  let totalCandidates = 0;
-  let validGherkinSyntax = 0;
-  let humanApprovedCount = 0;
-  let semanticNoveltyCount = 0;
-  const rq1Details = [];
-
-  const candidateSource = options.overrideCandidates || null;
-
-  if (candidateSource) {
-    for (const c of candidateSource) {
-      totalCandidates++;
-      const gResult = validateGherkinSyntax(c.gherkinScenario || c.gherkin);
-      if (gResult.valid) validGherkinSyntax++;
-      if (c.decision === 'ACCEPTED_FOR_IMPLEMENTATION' || c.decision === 'APPROVED_FOR_IMPLEMENTATION' || c.scenarioStatus === 'APPROVED_FOR_IMPLEMENTATION') {
-        humanApprovedCount++;
-      }
-      if (c.noveltyAssessment?.gapClass || c.classification === 'SOURCE_SUPPORTED_PROPOSAL' || c.noveltyVerified) {
-        semanticNoveltyCount++;
-      }
-      rq1Details.push({ id: c.candidateId, app: c.app || c.application, validGherkin: gResult.valid, approved: true });
-    }
-  } else {
-    for (const app of APPS) {
-      const propPath = join(root, 'data', 'coverage', app, 'source-backed-gap-proposals.json');
-      const reviewPath = join(root, 'data', 'reviews', app, 'human-review-decisions.jsonl');
-
-      if (!existsSync(propPath)) {
-        throw new Error(`MISSING_SOURCE_ARTIFACT: Proposals file missing for ${app}: ${propPath}`);
-      }
-      const props = JSON.parse(readFileSync(propPath, 'utf8'));
-
-      const reviews = new Map();
-      if (existsSync(reviewPath)) {
-        const lines = readFileSync(reviewPath, 'utf8').trim().split('\n');
-        for (const l of lines) {
-          if (!l.trim()) continue;
-          try {
-            const dec = JSON.parse(l);
-            reviews.set(dec.candidateId, dec.decision);
-          } catch (_) {}
-        }
-      }
-
-      for (const c of props.candidates) {
-        totalCandidates++;
-        const gResult = validateGherkinSyntax(c.gherkinScenario);
-        if (gResult.valid) {
-          validGherkinSyntax++;
-        } else {
-          rq1Details.push({ id: c.candidateId, app, error: gResult.error });
-        }
-
-        const dec = reviews.get(c.candidateId);
-        if (dec === 'ACCEPTED_FOR_IMPLEMENTATION' || dec === 'APPROVED_FOR_IMPLEMENTATION') {
-          humanApprovedCount++;
-        }
-
-        // Semantic novelty requires source-backed gap classification AND confirmed baseline non-overlap
-        const hasNoveltyProof = (c.classification === 'SOURCE_SUPPORTED_PROPOSAL' || Boolean(c.noveltyAssessment?.gapClass)) &&
-          Array.isArray(c.sourceRefs) && c.sourceRefs.length > 0;
-        if (hasNoveltyProof) {
-          semanticNoveltyCount++;
-        }
-      }
-    }
-  }
-
-  const syntaxRate = totalCandidates > 0 ? ((validGherkinSyntax / totalCandidates) * 100).toFixed(1) : '0.0';
-  const approvalRate = totalCandidates > 0 ? ((humanApprovedCount / totalCandidates) * 100).toFixed(1) : '0.0';
-  const noveltyRate = totalCandidates > 0 ? ((semanticNoveltyCount / totalCandidates) * 100).toFixed(1) : '0.0';
-
-  const rq1Outcome = (validGherkinSyntax === totalCandidates && humanApprovedCount === totalCandidates && semanticNoveltyCount === totalCandidates) ? 'PASS' : 'FAIL';
-
-  log('--- RQ1: Scenario Validity & Semantic Novelty ---');
-  log(`Total Target Candidates:       ${totalCandidates}`);
-  log(`Valid Gherkin Syntax (AST):    ${validGherkinSyntax} / ${totalCandidates} (${syntaxRate}%)`);
-  log(`Human Review Approvals:        ${humanApprovedCount} / ${totalCandidates} (${approvalRate}%)`);
-  log(`Semantic Novelty Verified:     ${semanticNoveltyCount} / ${totalCandidates} (${noveltyRate}%)`);
-  log(`RQ1 Evaluation:                ${rq1Outcome}\n`);
-
-  // --- RQ2: Behavioral Coverage Gain ---
-  const taxPath = join(root, 'data', 'coverage', 'behavioral-taxonomy-baseline.json');
-  let totalBaselineUBU = 180;
-  let tax = null;
-  if (existsSync(taxPath)) {
-    tax = JSON.parse(readFileSync(taxPath, 'utf8'));
-    totalBaselineUBU = tax.defensibleDenominator?.totalBaselineDenominator || 180;
-  }
-
-  // Load empirical G3 execution summary if available
-  const g3Path = join(root, 'docs', 'tasks', 'g3-evidence', 'all-40-candidates-g3-consolidated-summary.json');
-  let g3Data = null;
-  if (existsSync(g3Path)) {
-    try {
-      g3Data = JSON.parse(readFileSync(g3Path, 'utf8'));
-    } catch (_) {}
-  }
-
-  const nominalGainPct = ((totalCandidates / totalBaselineUBU) * 100).toFixed(2);
-  const nominalPostUBU = totalBaselineUBU + totalCandidates;
-  const validatedCount = g3Data?.validatedCandidates ?? 11;
-  const validatedGainPct = ((validatedCount / totalBaselineUBU) * 100).toFixed(2);
-  const validatedPostUBU = totalBaselineUBU + validatedCount;
-
-  log('--- RQ2: Behavioral Coverage Gain ---');
-  log(`Baseline Unique Behavioral Units (D_base): ${totalBaselineUBU} UBU`);
-  log(`Nominal Proposed Scenarios (Delta_nom):    +${totalCandidates} UBU`);
-  log(`Nominal Post-Extension Total (D_nom):      ${nominalPostUBU} UBU (+${nominalGainPct}%)`);
-  log(`Empirically Validated Units (Delta_val):   +${validatedCount} UBU (0% flakiness, 3/3 reruns)`);
-  log(`Empirically Validated Coverage (D_val):     ${validatedPostUBU} UBU (+${validatedGainPct}%)`);
-
-  const perAppGains = [];
-  if (tax && tax.perApplicationBaselines) {
-    log('\nPer-Application Baseline Breakdown:');
-    for (const app of APPS) {
-      const appBase = tax.perApplicationBaselines[app];
-      const bUBU = appBase?.baselineUniqueBehavioralUnits || 0;
-      const appCandidates = 5;
-      const appVal = g3Data?.perAppSummary?.[app]?.validated ?? 0;
-      const gain = bUBU > 0 ? ((appCandidates / bUBU) * 100).toFixed(2) : '0.00';
-      const valGain = bUBU > 0 ? ((appVal / bUBU) * 100).toFixed(2) : '0.00';
-      perAppGains.push({ app, baseline: bUBU, post: bUBU + appCandidates, gainPct: gain, validated: appVal, validatedGainPct: valGain });
-      log(` - ${app.padEnd(12)}: ${bUBU} -> ${bUBU + appCandidates} UBU (+${gain}% nom) | Validated: ${appVal}/5 (+${valGain}%)`);
-    }
-  }
-  const rq2Outcome = totalBaselineUBU === 180 && totalCandidates === 40 ? 'PASS' : 'FAIL';
-  log(`RQ2 Evaluation:                ${rq2Outcome}\n`);
-
-  // --- RQ3: Java Synthesis, Anti-Trivial Quality & Compilation ---
-  let r1ClassCount = 0;
-  let r2ClassCount = 0;
-  let r1TrivialRejected = 0;
-  let r2QualityPassed = 0;
-  let boundedRepairViolations = 0;
-
-  for (const app of APPS) {
-    const selDir = join(root, 'extension', app, 'selenium');
-    if (!existsSync(selDir)) continue;
-
-    const hashes = readdirSync(selDir);
-    for (const h of hashes) {
-      // Check revision 1 (historical)
-      const r1Dir = join(selDir, h, 'revision-1');
-      if (existsSync(r1Dir)) {
-        r1ClassCount++;
-        const javaFiles = readdirSync(r1Dir).filter(f => f.endsWith('.java'));
-        if (javaFiles.length > 0) {
-          const content = readFileSync(join(r1Dir, javaFiles[0]), 'utf8');
-          const audit = auditJavaSeleniumQuality(content);
-          if (!audit.pass) r1TrivialRejected++;
-        }
-      }
-
-      // Check revision 2 (remediated)
-      const r2Dir = join(selDir, h, 'revision-2');
-      if (existsSync(r2Dir)) {
-        r2ClassCount++;
-        const javaFiles = readdirSync(r2Dir).filter(f => f.endsWith('.java'));
-        if (javaFiles.length > 0) {
-          const content = readFileSync(join(r2Dir, javaFiles[0]), 'utf8');
-          const audit = auditJavaSeleniumQuality(content);
-          if (audit.pass) r2QualityPassed++;
-        }
-        const regFile = join(r2Dir, 'registration.json');
-        if (existsSync(regFile)) {
-          try {
-            const reg = JSON.parse(readFileSync(regFile, 'utf8'));
-            if (reg.repairAttempt && reg.repairAttempt > 2) boundedRepairViolations++;
-          } catch (_) {}
-        }
-      }
-    }
-  }
-
-  log('--- RQ3: Executability, Compilation & Live E2E Validation ---');
-  log(`Revision 1 (Historical) Classes: ${r1ClassCount} / ${totalCandidates}`);
-  log(`Revision 1 Trivial Rejections:   ${r1TrivialRejected} / ${r1ClassCount} (Audited DEFECT-001)`);
-  log(`Revision 2 (Remediated) Classes: ${r2ClassCount} / ${totalCandidates}`);
-  log(`Revision 2 Quality Gate Passed:  ${r2QualityPassed} / ${r2ClassCount || 1} (100% Anti-Trivial)`);
-  log(`Bounded Repair Budget Violations: ${boundedRepairViolations} (Budget <= 2 per candidate)`);
-  if (g3Data) {
-    log(`Live Isolated Docker E2E Evaluated: ${g3Data.totalCandidates} / 40 (100%)`);
-    log(`Initial E2E Pass:                ${g3Data.validatedCandidates + g3Data.flakyCandidates} / ${g3Data.totalCandidates} (${(g3Data.initialPassRate * 100).toFixed(1)}%)`);
-    log(`3-Rerun Fully Validated (0% flk): ${g3Data.validatedCandidates} / ${g3Data.totalCandidates} (${(g3Data.validationRate * 100).toFixed(1)}%)`);
-    log(`Flaky Tests Identified:          ${g3Data.flakyCandidates} / ${g3Data.totalCandidates} (BL-GAP-001: 33%, JO-GAP-003: 67%)`);
-    log(`Total Container Executions:      ${g3Data.totalIndividualRuns} runs (Passed: ${g3Data.totalPassedRuns})`);
-  }
-
-  const rq3Outcome = (r1ClassCount === 40 && boundedRepairViolations === 0) ? 'PASS' : 'FAIL';
-  log(`RQ3 Evaluation:                ${rq3Outcome}\n`);
-
-  // --- RQ4: Utility & Operational Economics ---
-  // Model pricing rates: Google Gemini 3.8 Flash (Official Pricing: $0.15 / 1M input, $0.60 / 1M output)
-  const inputRatePerMillion = 0.15;
-  const outputRatePerMillion = 0.60;
-
-  // Distinguish MEASURED token data from BOUNDED ESTIMATE
-  const promptLogPath = join(root, 'data', 'runs', 'model-invocation-ledger.json');
-  let measuredCalls = 0;
-  let totalInputTokens = 0;
-  let totalOutputTokens = 0;
-  let isMeasured = false;
-
-  if (existsSync(promptLogPath)) {
-    try {
-      const runLog = JSON.parse(readFileSync(promptLogPath, 'utf8'));
-      if (Array.isArray(runLog.invocations) && runLog.invocations.length > 0) {
-        isMeasured = true;
-        for (const inv of runLog.invocations) {
-          measuredCalls++;
-          totalInputTokens += Number(inv.inputTokens || 0);
-          totalOutputTokens += Number(inv.outputTokens || 0);
-        }
-      }
-    } catch (_) {}
-  }
-
-  // Fallback to bounded conservative profile if invocation ledger is not yet flushed
-  if (!isMeasured) {
-    // Bounded Conservative Profile based on Gherkin (1200 in, 400 out) + Java Synthesis (2800 in, 900 out)
-    totalInputTokens = 40 * (1200 + 2800); // 160,000 input tokens across 40 candidates
-    totalOutputTokens = 40 * (400 + 900);   // 52,000 output tokens across 40 candidates
-  }
-
-  const inputCost = (totalInputTokens / 1_000_000) * inputRatePerMillion;
-  const outputCost = (totalOutputTokens / 1_000_000) * outputRatePerMillion;
-  const totalCost = inputCost + outputCost;
-  const costPerCandidate = totalCost / (totalCandidates || 40);
-
-  log('--- RQ4: Utility & Operational Economics ---');
-  log(`Foundation Model:              Google Gemini 3.8 Flash`);
-  log(`Data Category:                 ${isMeasured ? 'MEASURED (from model invocation ledger)' : 'ESTIMATED (Bounded Conservative Profile)'}`);
-  log(`Total Input Tokens:            ${totalInputTokens.toLocaleString()} tokens`);
-  log(`Total Output Tokens:           ${totalOutputTokens.toLocaleString()} tokens`);
-  log(`Input Token Cost ($0.15/1M):   $${inputCost.toFixed(6)} USD`);
-  log(`Output Token Cost ($0.60/1M):  $${outputCost.toFixed(6)} USD`);
-  log(`Total Synthesis Cost:          $${totalCost.toFixed(4)} USD`);
-  log(`Cost Per Validated Candidate:  $${costPerCandidate.toFixed(6)} USD (~${(costPerCandidate * 100).toFixed(2)} cents/case)`);
-  log(`RQ4 Evaluation:                PASS (Highly Cost-Efficient Multi-Agent Architecture)\n`);
-
-  log('======================================================================');
-  log('   Audit Evaluation Complete                                          ');
-  log('======================================================================');
-
-  return {
-    rq1: { outcome: rq1Outcome, totalCandidates, validGherkinSyntax, humanApprovedCount, semanticNoveltyCount, syntaxRate, approvalRate, noveltyRate },
-    rq2: { outcome: rq2Outcome, totalBaselineUBU, nominalPostUBU, nominalGainPct, validatedCount, validatedGainPct, perAppGains },
-    rq3: { outcome: rq3Outcome, r1ClassCount, r1TrivialRejected, r2ClassCount, r2QualityPassed, boundedRepairViolations, g3Summary: g3Data },
-    rq4: { outcome: 'PASS', isMeasured, totalInputTokens, totalOutputTokens, totalCost, costPerCandidate },
-  };
+export function toCsv(result) {
+  const raw = result.rq3.rawExecution ?? {};
+  const runAccounting = result.rq3.runRecordAccounting ?? {};
+  const rows = [
+    ['researchQuestion', 'status', 'measure', 'value', 'denominator', 'evidenceOrReason'],
+    ['RQ1', result.rq1.outcome, 'syntacticValidity', result.rq1.validGherkinSyntax, result.rq1.totalCandidates, 'Cucumber Gherkin parser'],
+    ['RQ1', result.rq1.outcome, 'humanOracleNoveltyApprovals', result.rq1.humanApprovedCount, result.rq1.totalCandidates, 'Signed primary review records only'],
+    ['RQ1', result.rq1.outcome, 'semanticMappingsApproved', result.rq1.semanticNoveltyCount, result.rq1.totalCandidates, 'Case traceability audit'],
+    ['RQ2', result.rq2.outcome, 'baselineBehaviorUnits', result.rq2.baselineDenominator, '', result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'baselineStatus', result.rq2.baselineStatus, '', result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'approvedNewBehaviorUnits', result.rq2.approvedNewBehaviorUnits, result.rq2.proposedCandidates, result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'implementedNewBehaviorUnits', result.rq2.implementedNewBehaviorUnits, result.rq2.proposedCandidates, result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'validatedNewBehaviorUnits', result.rq2.validatedNewBehaviorUnits, result.rq2.baselineDenominator, result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'coverageGain', result.rq2.coverageGain, result.rq2.baselineDenominator, result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'coverageGainPercent', result.rq2.coverageGainPercent, '', result.rq2.reason],
+    ['RQ2', result.rq2.outcome, 'validatedCases', result.rq2.validatedCases, result.candidateCount, result.rq2.reason],
+    ...(Object.entries(result.rq2.perApplicationResults ?? {}).flatMap(([app, measures]) => [
+      ['RQ2_APP', result.rq2.outcome, `${app}_baselineBehaviorUnits`, measures.baselineBehaviorUnits, '', 'Independently reviewed baseline inventory'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_approvedNewBehaviorUnits`, measures.approvedNewBehaviorUnits, measures.proposedCandidates, 'Signed candidate approval plus source evidence'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_implementedNewBehaviorUnits`, measures.implementedNewBehaviorUnits, measures.proposedCandidates, 'Verified implementation hashes'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_validatedNewBehaviorUnits`, measures.validatedNewBehaviorUnits, measures.baselineBehaviorUnits, 'Validated cases divided by app baseline inventory'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_coverageGain`, measures.coverageGain, measures.baselineBehaviorUnits, 'Validated new UBUs / baseline UBUs'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_coverageGainPercent`, measures.coverageGainPercent, '', 'Percent of baseline inventory'],
+    ])),
+    ['RQ3', result.rq3.outcome, 'eligibleBehaviorallyValidatedCases', result.rq3.eligibleBehaviorallyValidatedCases, result.candidateCount, result.rq3.reason],
+    ['RQ3', result.rq3.outcome, 'protocolCompleteSourceBoundCandidates', result.rq3.protocolCompleteCandidates, result.rq3.candidateCount, 'One initial plus three source-bound reruns'],
+    ['RQ3', result.rq3.outcome, 'sourceBoundCandidates', result.rq3.sourceBoundCandidateCount, result.rq3.candidateCount, 'Per-run candidate identity and provenance required'],
+    ['RQ3', result.rq3.outcome, 'verifiedSourceBoundRunRecords', result.rq3.verifiedRunRecords, result.rq3.rawRunRecordFilesObserved, 'Schema, source hashes, compile, JUnit, reset and cleanup verified'],
+    ['RQ3', result.rq3.outcome, 'summaryRunIds', runAccounting.summaryRunIds, '', 'G3 consolidated summary'],
+    ['RQ3', result.rq3.outcome, 'matchingRunRecords', runAccounting.matchingRunRecords, runAccounting.runRecordFileCount, 'Run IDs matched to physical run-record JSON'],
+    ['RQ3', result.rq3.outcome, 'unsummarizedRunRecords', runAccounting.extraRunRecords?.length ?? '', runAccounting.runRecordFileCount, 'Purpose unresolved unless explicitly recorded'],
+    ['RQ3', result.rq3.outcome, 'unboundRunRecordFilesObserved', result.rq3.unboundRunRecordFilesObserved, result.rq3.rawRunRecordFilesObserved, 'Candidate identity absent or unregistered'],
+    ['RQ3', result.rq3.outcome, 'applicationManifestIdentityGaps', result.rq3.applicationManifestIdentityGaps?.length ?? '', '', (result.rq3.applicationManifestIdentityGaps ?? []).join('|')],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawInitialPassCandidatesReported', raw.initialPassCandidates ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawThreeRerunPassCandidatesReported', raw.validatedCandidatesReported ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawFlakyCandidatesReported', raw.flakyCandidatesReported ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawFailedCandidatesReported', raw.failedCandidatesReported ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'runRecordsWithCompleteIdentity', raw.runRecordsWithCompleteIdentity ?? '', raw.runRecordFilesObserved ?? '', 'Required app/test/image/runtime identity fields'],
+    ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'cleanupResidualFailuresObserved', raw.cleanupResidualFailuresObserved ?? '', raw.totalRunInvocationsReported ?? '', 'Raw cleanup-result.json files'],
+    ...(runAccounting.candidateOutcomesReported ?? []).flatMap((candidate) => [
+      ['RQ3_REPORTED', 'REPORTED_ONLY', `${candidate.candidateId}_rerunFailureRate`, candidate.rerunFailureRateAmongReruns, 3, `Outcomes: ${(candidate.rerunOutcomesReported ?? []).join('|')}`],
+      ['RQ3_REPORTED', 'REPORTED_ONLY', `${candidate.candidateId}_allTrialFailureRate`, candidate.failureRateAcrossInitialAndReruns, 4, `Initial: ${candidate.initialOutcomeReported ?? 'UNKNOWN'}`],
+    ]),
+    ['RQ4', result.rq4.outcome, 'successfulModelCalls', result.rq4.successfulCalls ?? '', '', result.rq4.reason ?? result.rq4.status],
+    ['RQ4', result.rq4.outcome, 'actualCostUsd', result.rq4.actualCostUsd ?? '', '', 'UNKNOWN unless provider billing evidence exists'],
+    ['REVIEW_TRUST', result.reviewTrust?.status ?? 'NOT_REPORTED', 'trustedReviewerKeyCount', result.reviewTrust?.trustedReviewerKeyCount ?? '', '', result.reviewTrust?.trustRoot ?? ''],
+  ];
+  return `${rows.map((row) => row.map(csvEscape).join(',')).join('\n')}\n`;
 }
 
-// Direct execution
-if (process.argv[1] && process.argv[1].endsWith('recompute-metrics.mjs')) {
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
-    runRecompute();
-  } catch (err) {
-    console.error('RECOMPUTE_METRICS_ERROR:', err.message);
-    process.exit(1);
+    const root = resolve('.');
+    const baselineCommit = readGitHeadCommit(root);
+    const result = runRecompute({ rootDir: root, baselineCommit });
+    const outDir = join(root, 'docs', 'final-acceptance');
+    const jsonOut = join(outDir, 'RQ1-RQ4-results.json');
+    const csvOut = join(outDir, 'RQ1-RQ4-results.csv');
+    writeFileSync(jsonOut, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+    writeFileSync(csvOut, toCsv(result), 'utf8');
+    console.log(JSON.stringify({ json: relative(root, jsonOut), csv: relative(root, csvOut), rq1: result.rq1.outcome, rq2: result.rq2.outcome, rq3: result.rq3.outcome, rq4: result.rq4.outcome }, null, 2));
+  } catch (error) {
+    console.error('METRICS_AUDIT_BLOCKED:', error instanceof Error ? error.message : 'unknown error');
+    process.exitCode = 1;
   }
 }
