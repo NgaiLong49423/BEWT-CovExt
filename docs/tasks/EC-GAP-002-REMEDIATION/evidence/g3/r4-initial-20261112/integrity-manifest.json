@@ -1,0 +1,11 @@
+{
+  "hash": "SHA-256",
+  "basis": "SHA-256 over exact bytes of the committed structured evidence artifacts listed below; source hashes are recorded separately in runtime-provenance.json.",
+  "files": {
+    "cleanup-result.json": "97345230679b2822b58caadcbc6faac6d04bea63f70476efe9c04533f1120264",
+    "docker-before.json": "e11840edf60ed0ab377440de3e0bbb04b72d04c6f62a66a9168ff98a1a97a117",
+    "run-record.json": "292e9fc12d8486fc7bf118972a55eae2d80c729738692385233273749e709709",
+    "runner-failure-summary.json": "c010bc00f724445a962cd8b35660e6335b64b92e4695c26cf4b0c98ff167c7e3",
+    "runtime-provenance.json": "38b5fbb19131f7749868be0eccb0920cc91dc2186064e81f58c3c224ce6d7197"
+  }
+}

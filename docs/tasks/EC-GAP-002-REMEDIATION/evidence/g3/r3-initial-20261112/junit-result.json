@@ -1,0 +1,11 @@
+{
+  "outcome": "FAIL",
+  "summary": {
+    "outcome": "FAIL",
+    "tests": 1,
+    "failures": 0,
+    "errors": 1,
+    "skipped": 0,
+    "expectedClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "hash": "SHA-256",
+  "basis": "Exact bytes of committed structured evidence artifacts; source hashes are recorded in runtime-provenance.json.",
+  "files": {
+    "TEST-tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5.xml": "d45a6d41faf85dc3d171bda6d2124f2343391312c7736de965ba0f63b2a3e5a0",
+    "cleanup-result.json": "5ef2b204ce32c8c1e02955c81b3dc24c6486271c5a5c37e8085d071cdc850d37",
+    "docker-before.json": "6d8aad264ba45b1744148baeec8d94060f07a17654c4086cfd0cd430edabef44",
+    "junit-result.json": "b11a049932566349c0fa27b23d224dfd75aa5daa2599ffacfec34e9c74f3680f",
+    "maven-exit.json": "b9358c12b25d52664a0daff3e86d0809eb4cf92edf60c98b6fe39ba463b597e3",
+    "maven-invocation-reconstruction.json": "bf6ead76cf1c142334589b5fabc7d056d352bddf41ca74e541beedc4c1b85c8f",
+    "run-record.json": "87d5c451bedce3a83817d9ff317ad06eefc25b407f0ce42b00b2b4a11b03392d",
+    "runtime-provenance.json": "91ff3e5db2c6a6807fd78f40cc287a8989eeb006820c60bc86db60268c97a755",
+    "surefire-hash.json": "a3dbe3b28677eb3edbc761c5ad5afca88ed569faa1bbde0e54282ea2765bcb2f"
+  }
+}

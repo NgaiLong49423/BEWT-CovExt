@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "candidateId": "EC-GAP-002",
+  "revision": 6,
+  "origin": "MANUAL_SOURCE_BACKED_REMEDIATION",
+  "generator": "Codex coding agent; no model-generation call claimed",
+  "parentRevisionPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "sourceEvidence": [
+    "experiments/expresscart/source/routes/index.js:603-643",
+    "experiments/expresscart/source/public/javascripts/expressCart.js:646-666"
+  ],
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "sourceSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
+  "humanReviewStatus": "PENDING_HUMAN_SIGNATURE",
+  "compileOutcome": "PASS_48_TEST_SOURCES",
+  "e2eOutcome": "NOT_RUN",
+  "oracleChange": "Compare the JSON `message` property exactly with the pinned source response after HTTP 400 for quantity 2 > available stock 1; R5 used a substring containment assertion.",
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)"
+}

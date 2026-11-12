@@ -1,0 +1,9 @@
+{
+  "outcome": "FAIL_PRE_MAVEN",
+  "errorType": "ReferenceError",
+  "message": "relative is not defined",
+  "mavenInvoked": false,
+  "junitCreated": false,
+  "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+  "rawRunnerFailureRetainedOnVm": true
+}

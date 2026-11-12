@@ -1,0 +1,12 @@
+{
+  "recordType": "DerivedMavenInvocationReconstruction",
+  "derivedFrom": [
+    "experiments/tools/unified-g0-runner.mjs at f39272d363ec94b51a978f53c6231174c67140e2",
+    "run-record.json appPort/browserPort",
+    "maven-exit.json exit code"
+  ],
+  "notOriginalRunnerArgv": true,
+  "command": "mvn -B -f experiments/expresscart/bewt-suite/pom.xml -Dtest=tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5 -Dexpresscart.baseUrl=http://127.0.0.1:36791 -Dwebdriver.remote.url=http://127.0.0.1:46839/wd/hub -Dexperiment.evidence.dir=../../../docs/tasks/g3-evidence/expresscart/EC-GAP-002/ecgap002-r5-r1-20261112 clean test",
+  "reason": "Original command field was malformed by the Windows-drive-path redaction rule matching the p:// substring in HTTP URLs; the runner correction is separately committed and regression-tested.",
+  "exitCode": 0
+}

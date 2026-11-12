@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateId": "EC-GAP-002",
+  "revision": 6,
+  "observedAtUtc": "2026-11-12T20:48:47Z",
+  "command": "mvn -B -ntp -DskipTests test-compile",
+  "workingDirectory": "experiments/expresscart/bewt-suite",
+  "repositoryHeadAtCompile": "5e5d70b664035b1e22eefba919c9e5476ba0448a",
+  "workingTreeContainedUncommittedR6": true,
+  "javaSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "mavenExitCode": 0,
+  "compileOutcome": "PASS",
+  "testSourcesCompiled": 48,
+  "testsExecuted": 0,
+  "dockerOrCloudUsed": false,
+  "g3Outcome": "NOT_RUN",
+  "limitations": [
+    "This is test compilation only; it does not establish the live stock oracle or cleanup behavior.",
+    "R5's four live passes do not transfer to R6 because R6 strengthens the response assertion."
+  ]
+}

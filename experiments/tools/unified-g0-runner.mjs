@@ -1,9 +1,9 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import { createServer } from 'node:net';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, isAbsolute, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -117,7 +117,7 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
 export function sanitizeEvidenceText(text) {
   return String(text || '')
     .replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>')
-    .replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>')
+    .replace(/\b[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>')
     .replace(/\/home\/[a-zA-Z0-9._-]+\/[^\r\n"'<>\s]*/g, '<LOCAL_PATH>')
     .replaceAll(REPO_ROOT, '<REPOSITORY_ROOT>')
     .replaceAll(REPO_ROOT.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');
@@ -152,6 +152,114 @@ export function parseSurefireSummary(xmlContent, expectedClass) {
     skipped,
     expectedClass,
   };
+}
+
+export function requireExpressCartAdminCredentials(env = process.env) {
+  const adminEmail = env.ADMIN_EMAIL;
+  const adminPassword = env.ADMIN_PASSWORD;
+  if (typeof adminEmail !== 'string' || adminEmail.trim() === '') {
+    throw new Error('MISSING_REQUIRED_ENV: ADMIN_EMAIL');
+  }
+  if (typeof adminPassword !== 'string' || adminPassword.trim() === '') {
+    throw new Error('MISSING_REQUIRED_ENV: ADMIN_PASSWORD');
+  }
+  return { ADMIN_EMAIL: adminEmail, ADMIN_PASSWORD: adminPassword };
+}
+
+export function resolveTestEnv(cfg, env = process.env) {
+  if (typeof cfg.testEnv === 'function') return cfg.testEnv(env);
+  return cfg.testEnv || {};
+}
+
+export function buildTrustedMavenRuntime(env = process.env, platform = process.platform) {
+  const configuredExecutable = env.BEWT_MAVEN_EXECUTABLE;
+  if (typeof configuredExecutable !== 'string' || !isAbsolute(configuredExecutable)) {
+    throw new Error('MISSING_OR_INVALID_ENV: BEWT_MAVEN_EXECUTABLE must be an absolute path');
+  }
+
+  let executable;
+  try {
+    executable = realpathSync(configuredExecutable);
+  } catch {
+    throw new Error('INVALID_MAVEN_EXECUTABLE: configured path does not exist');
+  }
+  const executableStat = statSync(executable);
+  if (!executableStat.isFile() || (platform !== 'win32' && ((executableStat.mode & 0o111) === 0 || (executableStat.mode & 0o022) !== 0))) {
+    throw new Error('INVALID_MAVEN_EXECUTABLE: path must be an executable file');
+  }
+
+  const executableDirectory = dirname(executable);
+  const trustedDirectories = [];
+  const addTrustedDirectory = (directory) => {
+    if (!isAbsolute(directory) || !existsSync(directory) || !statSync(directory).isDirectory()) return;
+    const directoryStat = statSync(directory);
+    const ownerWritableByRunner = typeof process.getuid === 'function'
+      && directoryStat.uid === process.getuid()
+      && (directoryStat.mode & 0o200) !== 0;
+    if (platform !== 'win32' && ((directoryStat.mode & 0o022) !== 0 || ownerWritableByRunner)) {
+      throw new Error('UNTRUSTED_RUNTIME_DIRECTORY: child PATH contains a writable directory');
+    }
+    if (!trustedDirectories.includes(directory)) trustedDirectories.push(directory);
+  };
+
+  addTrustedDirectory(executableDirectory);
+
+  const javaHome = env.JAVA_HOME;
+  if (javaHome) {
+    if (!isAbsolute(javaHome)) throw new Error('INVALID_JAVA_HOME: JAVA_HOME must be an absolute path');
+    addTrustedDirectory(join(javaHome, 'bin'));
+  } else if (platform === 'win32') {
+    throw new Error('MISSING_REQUIRED_ENV: JAVA_HOME');
+  }
+
+  const systemDirectories = platform === 'win32'
+    ? [join(env.SystemRoot || env.WINDIR || 'C:\\Windows', 'System32')]
+    : ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'];
+  for (const directory of systemDirectories) addTrustedDirectory(directory);
+
+  if (trustedDirectories.length === 0) throw new Error('UNTRUSTED_RUNTIME_PATH: no trusted child PATH directories found');
+  return {
+    executable,
+    path: trustedDirectories.join(platform === 'win32' ? ';' : ':'),
+    shell: platform === 'win32' && /\.(cmd|bat)$/i.test(executable),
+  };
+}
+
+function runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evidenceDir, includeInstallUrlEnv = false, appSpecificEnv = {} }) {
+  const installUrl = cfg.installerUrl
+    ? cfg.installerUrl('127.0.0.1', appPort, appName)
+    : `http://${appName}/`;
+  const webdriverUrl = `http://127.0.0.1:${browserPort}/wd/hub`;
+  const args = [
+    '-B',
+    '-f', `${cfg.suitePath}/pom.xml`,
+    `-Dtest=${cfg.installerClass}`,
+    `-D${cfg.appUrlProperty}=${installUrl}`,
+    `-D${cfg.webdriverUrlProperty}=${webdriverUrl}`,
+    'test',
+  ];
+  const mavenRuntime = buildTrustedMavenRuntime();
+  const childEnv = {
+    ...process.env,
+    ...appTestEnv,
+    ...(includeInstallUrlEnv ? { BEWT_INSTALL_URL: installUrl } : {}),
+    ...appSpecificEnv,
+    BEWT_APP_URL: installUrl,
+    BEWT_WEBDRIVER_URL: webdriverUrl,
+  };
+  for (const key of Object.keys(childEnv)) {
+    if (key.toLowerCase() === 'path') delete childEnv[key];
+  }
+  childEnv.PATH = mavenRuntime.path;
+  const result = spawnSync(mavenRuntime.executable, args, {
+    cwd: REPO_ROOT,
+    encoding: 'utf8',
+    shell: mavenRuntime.shell,
+    env: childEnv,
+    timeout: 180000,
+  });
+  writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(result.stdout));
+  writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(result.stderr));
 }
 
 export const APPS = {
@@ -191,6 +299,7 @@ export const APPS = {
     appUrlProperty: 'expresscart.baseUrl',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://127.0.0.1:${port}`,
+    testEnv: requireExpressCartAdminCredentials,
     appEnv: (dbHost) => ({
       NODE_ENV: 'production',
       PORT: '1111',
@@ -315,6 +424,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const validRunId = validateRunId(rawRunId);
   const cfg = APPS[appId];
   if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
+  // Resolve required app credentials before creating evidence or touching Docker.
+  const appTestEnv = resolveTestEnv(cfg);
 
   const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
@@ -497,67 +608,35 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       try {
         dockerCli(['exec', appName, 'npm', 'run', 'testdata']);
         dockerCli([
-          'exec', appName,
+          'exec', '-e', 'ADMIN_EMAIL', '-e', 'ADMIN_PASSWORD', appName,
           'node', '-e',
-          "const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { await client.db('expresscart_experiment').collection('users').updateOne({ userEmail: 'owner@test.com' }, { $set: { userPassword: bcrypt.hashSync('e2eW3Bt3s71nGB3nchM4rK', 10) } }); await client.close(); });",
+"const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); const email = process.env.ADMIN_EMAIL; const password = process.env.ADMIN_PASSWORD; if (!email || !email.trim() || !password || !password.trim()) throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD are required'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { try { const result = await client.db('expresscart_experiment').collection('users').updateOne({ isOwner: true }, { $set: { userEmail: email, userPassword: bcrypt.hashSync(password, 10) } }); if (result.matchedCount !== 1 && result.result?.n !== 1) throw new Error('Expected exactly one seeded owner account'); } finally { await client.close(); } }).catch(error => { console.error('ExpressCart credential fixture failed:', error.message); process.exitCode = 1; });",
         ]);
       } catch (e) {
         console.error(`ExpressCart fixture error: ${e.message}`);
+        throw e;
       }
     } else if (appId === 'bludit') {
       if (cfg.installerClass) {
-        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
-        const instArgs = [
-          '-B',
-          '-f', `${cfg.suitePath}/pom.xml`,
-          `-Dtest=${cfg.installerClass}`,
-          `-D${cfg.appUrlProperty}=${instUrl}`,
-          `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
-          'test',
-        ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
-          cwd: REPO_ROOT,
-          encoding: 'utf8',
-          env: {
-            ...process.env,
-            ...(cfg.testEnv || {}),
-            BEWT_APP_URL: instUrl,
-            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
-          },
-          timeout: 180000,
-        });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+        runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evidenceDir });
       }
     } else if (appId === 'joomla') {
       if (cfg.installerClass) {
-        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
-        const instArgs = [
-          '-B',
-          '-f', `${cfg.suitePath}/pom.xml`,
-          `-Dtest=${cfg.installerClass}`,
-          `-D${cfg.appUrlProperty}=${instUrl}`,
-          `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
-          'test',
-        ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
-          cwd: REPO_ROOT,
-          encoding: 'utf8',
-          env: {
-            ...process.env,
-            ...(cfg.testEnv || {}),
-            BEWT_INSTALL_URL: instUrl,
-            BEWT_APP_URL: instUrl,
-            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
+        runInstallerMaven({
+          cfg,
+          appPort,
+          browserPort,
+          appName,
+          appTestEnv,
+          evidenceDir,
+          includeInstallUrlEnv: true,
+          appSpecificEnv: {
             BEWT_DB_HOST: dbName,
             BEWT_DB_USER: 'root',
             BEWT_DB_PASSWORD: 'root',
             BEWT_DB_NAME: 'joomla',
           },
-          timeout: 180000,
         });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
         try {
           dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/installation']);
         } catch {}
@@ -572,7 +651,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     const testEnvVars = {
       ...process.env,
-      ...(cfg.testEnv || {}),
+      ...appTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
@@ -589,6 +668,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       `-Dtest=${activeTestClass}`,
       `-D${cfg.appUrlProperty}=${targetAppUrl}`,
       `-D${cfg.webdriverUrlProperty}=${remoteWebdriverUrl}`,
+      `-Dexperiment.evidence.dir=${relative(resolve(REPO_ROOT, cfg.suitePath), evidenceDir)}`,
       'clean', 'test',
     ];
 
@@ -604,7 +684,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify({
       exitCode: mvnRes.status,
       signal: mvnRes.signal,
-      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} test`,
+      command: sanitizeEvidenceText([MAVEN_CLI, ...mvnArgs].join(' ')),
     }, null, 2));
 
     // 8. Capture and sanitize Surefire JUnit report

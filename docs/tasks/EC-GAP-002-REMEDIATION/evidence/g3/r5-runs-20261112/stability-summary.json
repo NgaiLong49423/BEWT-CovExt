@@ -1,0 +1,64 @@
+{
+  "revision": 5,
+  "testClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5",
+  "sourceSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "runs": [
+    {
+      "runId": "ecgap002-r5-initial-20261112",
+      "startedAtUtc": "2026-11-12T14:08:01.009Z",
+      "outcome": "PASS",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mavenExitCode": 0,
+      "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+      "evidence": "ecgap002-r5-initial-20261112/"
+    },
+    {
+      "runId": "ecgap002-r5-r1-20261112",
+      "startedAtUtc": "2026-11-12T14:09:11.009Z",
+      "outcome": "PASS",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mavenExitCode": 0,
+      "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+      "evidence": "ecgap002-r5-r1-20261112/"
+    },
+    {
+      "runId": "ecgap002-r5-r2-20261112",
+      "startedAtUtc": "2026-11-12T14:09:37.226Z",
+      "outcome": "PASS",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mavenExitCode": 0,
+      "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+      "evidence": "ecgap002-r5-r2-20261112/"
+    },
+    {
+      "runId": "ecgap002-r5-r3-20261112",
+      "startedAtUtc": "2026-11-12T14:10:03.467Z",
+      "outcome": "PASS",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "mavenExitCode": 0,
+      "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+      "evidence": "ecgap002-r5-r3-20261112/"
+    }
+  ],
+  "stability": {
+    "initial": "PASS",
+    "cleanStateReruns": 3,
+    "cleanStateRerunsPassed": 3,
+    "allFourPass": true,
+    "validated": false,
+    "reason": "Human oracle and novelty reviews remain pending."
+  }
+}

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="1" failures="0" name="tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5" time="2.963" errors="0" skipped="0">
+  <properties/>
+  <testcase classname="tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5" name="testEC_GAP_002_stockRejectionPreservesCart_R5" time="2.963"/>
+</testsuite>

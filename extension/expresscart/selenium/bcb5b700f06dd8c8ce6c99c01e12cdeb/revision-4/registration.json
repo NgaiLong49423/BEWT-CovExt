@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "candidateId": "EC-GAP-002",
+  "revision": 4,
+  "parentRevision": 3,
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "testClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4",
+  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4.java",
+  "testHarnessPath": "experiments/expresscart/bewt-suite/src/test/java/tests/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4.java",
+  "sourceSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
+  "origin": "SOURCE_BACKED_REMEDIATION",
+  "reviewStatus": "PENDING_HUMAN_ORACLE_AND_NOVELTY_REVIEW",
+  "executionStatus": "COMPILE_PASS_G3_NOT_RUN_PENDING_PUSH",
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)"
+}
