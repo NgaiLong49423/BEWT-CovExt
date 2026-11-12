@@ -26,3 +26,9 @@ Fetched current `origin/main`, read required scope/governance documents, inspect
 ## Required next decisions
 
 The Team Lead must review and sign or reject the 40 oracle/novelty packets, decide how to handle proposals incompatible with pinned app behavior, and confirm whether credential literals are test-only or require rotation. Once those decisions exist, engineering can register corrected revisions and run the exact G0/G3 protocol. The metrics engine and scientific manuscript must then be reconciled against those verified results.
+
+## Post-audit update (2026-11-12)
+
+The original baseline conclusions above are preserved. Subsequent work added fresh eight-application G0 smoke evidence and one corrected Kanboard candidate R8 with four clean-state G3 passes. This is one preliminary engineering result, not a research acceptance: the required human oracle/novelty decisions remain absent, 39 other candidates have no corrected G3 execution in this task, and R8 has a browser image/container identity limitation. R5–R7 failures and three R8 fixture-configuration attempts are also preserved. The current recommendation remains `ACCEPTANCE_BLOCKED`.
+
+Details: `docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md`, `docs/tasks/KB-GAP-001-R5/TASK-REPORT.md`, `docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md`, and `docs/tasks/KB-GAP-001-R5/evidence/`.

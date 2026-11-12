@@ -11,3 +11,9 @@ These states are the audit's evidence-based recommendation, not Team Lead accept
 | G4 Research Release | `PARTIALLY_VERIFIED; acceptance blocked` | Historical defect: regex checks, default denominators, and fallbacks permitted unsupported PASS values. Fixed in the current revision: Cucumber parser, primary review/hash checks, evidence-aware blockers, and negative tests are verified (17/17). Remaining limitation: current RQ2/RQ3 paths return `NOT_EVALUATED` unconditionally; evidence-driven final computation and valid state-transition controls are still required. |
 
 These are evidence-based technical recommendations, not Team Lead acceptance. No gate is `ACCEPTED_WITH_EVIDENCE` or `READY_FOR_HUMAN_ACCEPTANCE` at this point.
+
+## Post-audit runtime update (2026-11-12)
+
+- G0 now has a fresh Cloud baseline smoke task with 8/8 application/base-test passes and zero-residual cleanup for each. Status remains `PARTIALLY_VERIFIED` because installer exit codes, five active smoke classes have source-hash differences, and per-container identity/image bindings are incomplete. See `docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md` and PR #29.
+- G3 now has one candidate-level preliminary engineering result: Kanboard `KB-GAP-001` R8 passed an initial run plus three clean-state reruns. The case remains outside `VALIDATED` pending human oracle/novelty approval and reviewer resolution of the Gherkin/UI label difference. Its runner also lacks per-container image binding. The historical 0/40 semantic audit and 79-run accounting remain unchanged; new attempts are separately reported in `docs/tasks/KB-GAP-001-R5/` and PR #30.
+- Overall G1, G2, and G4 statuses are not promoted by these runtime results; final acceptance remains blocked.
