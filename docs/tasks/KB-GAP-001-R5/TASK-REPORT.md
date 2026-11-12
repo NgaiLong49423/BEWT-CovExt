@@ -35,3 +35,12 @@ Revision 5's FAIL is retained and is not counted as a candidate PASS. Revision 6
 - The Gherkin remains unchanged. Revision 7 targets the observed source-backed UI label. See `HUMAN-DECISION-PACKET.md`; reviewer decision remains pending.
 - Revision 7 Maven test compilation: **PASS**, 40 test sources compiled; `mvn -B -DskipTests test-compile`, exit 0, 2026-11-12.
 - Revision 7 preliminary Cloud G3 and reruns: **NOT_RUN yet**.
+
+### Revision 7 preliminary run
+
+- Outcome: **FAIL**; one test error while waiting for the first search result; run `g3-kb-gap001-r7-20261112-prelim-a`.
+- Cleanup: **PASS**, zero residual containers, networks, and volumes.
+- The test used a generated task title while the Gherkin specifies `Task to Reopen`; the current error occurred at the search-result lookup. This run does not establish whether the mismatch or the prior absolute XPath alone caused the empty lookup.
+- Revision 8 restores the exact Gherkin task title and uses a CSS selector supported by the pinned `app/Template/search/results.php` and `app/Template/task_list/task_title.php` markup.
+- Revision 8 Maven test compilation: **PASS**, 41 test sources compiled; `mvn -B -DskipTests test-compile`, exit 0, 2026-11-12.
+- Revision 8 preliminary Cloud G3 and reruns: **NOT_RUN yet**.

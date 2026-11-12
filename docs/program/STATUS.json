@@ -28,10 +28,10 @@
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
     },
     "KB-GAP-001-R5": {
-      "status": "R5_R6_PRELIMINARY_G3_FAIL_R7_COMPILE_PASS_G3_PENDING_HUMAN_REVIEW_PENDING",
+      "status": "R5_R6_R7_PRELIMINARY_G3_FAIL_R8_COMPILE_PASS_G3_PENDING_HUMAN_REVIEW_PENDING",
       "branch": "task/claroline-kanboard-r4",
       "candidateId": "KB-GAP-001",
-      "revision": 7,
+      "revision": 8,
       "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-5/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
       "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
       "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
@@ -40,8 +40,10 @@
       "r5Cleanup": "PASS_ZERO_RESIDUAL",
       "r6G3": "FAIL_NO_SUCH_ELEMENT_SOURCE_LABEL_MISMATCH",
       "r6Cleanup": "PASS_ZERO_RESIDUAL",
-      "r7Compile": "PASS",
-      "r7G3": "NOT_RUN_PENDING",
+      "r7G3": "FAIL_SEARCH_RESULT_TIMEOUT_ROOT_CAUSE_UNCONFIRMED",
+      "r7Cleanup": "PASS_ZERO_RESIDUAL",
+      "r8Compile": "PASS",
+      "r8G3": "NOT_RUN_PENDING",
       "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
       "researchValidated": false
     }
@@ -410,7 +412,7 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "KB-GAP-001-REVISION-7",
+    "currentTaskId": "KB-GAP-001-REVISION-8",
     "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
     "currentTaskBranch": "task/claroline-kanboard-r4",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/30",
