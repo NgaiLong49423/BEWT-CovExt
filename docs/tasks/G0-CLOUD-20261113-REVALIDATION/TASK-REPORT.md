@@ -2,7 +2,7 @@
 
 ## Outcome
 
-The authorized existing VM was rechecked before a fresh G0 run. It was already `RUNNING`, so no start/restart command was issued. Docker was active and all eight configured application image references resolved locally. No application container, network, volume, Maven process, or G0 evidence directory was created by this revalidation.
+The first read-only recheck found the authorized VM `RUNNING`, so no unnecessary start was issued then. A later read-only state check found the same instance `TERMINATED`; I started that existing VM under the prior authorization. GCP's `lastStartTimestamp` is `2026-11-12T20:40:25.329Z`, and a follow-up SSH inspection confirmed `RUNNING`, Docker active, 0 containers, and 17 images. No replacement VM was created. No application container, network, volume, Maven process, or G0 evidence directory was created by this revalidation.
 
 **Current G0 outcome: `BLOCKED` before runtime startup because secure runtime test credentials are unavailable on the VM.** The `runner` process environment had none of the required credential variable names, and a bounded path scan found only `.env.example` files, no runtime `.env` file. Secret Manager could not be listed because its API is disabled and the current identity lacks permission to enable/access it. The API was not enabled. No credential values were read or recorded.
 
@@ -13,7 +13,7 @@ The previous 2026-11-12 final4 result remains historical evidence: eight base sm
 - Project: `gen-lang-client-0311012609`
 - VM: `bewt-covext-runner`, instance ID `3042402845209891905`
 - Zone and machine type: `asia-southeast1-a`, `c4d-highmem-8`
-- State: `RUNNING` before and after inspection; restart was unnecessary
+- State: initially `RUNNING`, later `TERMINATED`, then started; currently `RUNNING`
 - OS: Ubuntu 24.04.5 LTS
 - Resources: 8 CPUs; 61 GiB RAM total, 60 GiB available; root filesystem 193 GiB total, 173 GiB available
 - Docker service: `active`; Docker Engine `29.9.3`; Compose `5.7.0`; storage driver `overlayfs`

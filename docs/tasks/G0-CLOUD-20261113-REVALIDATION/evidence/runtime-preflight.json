@@ -9,13 +9,25 @@
     "zone": "asia-southeast1-a",
     "machineType": "c4d-highmem-8",
     "state": "RUNNING",
-    "startAction": "NOT_NEEDED_ALREADY_RUNNING",
+    "startAction": "STARTED_AFTER_LATER_TERMINATED_OBSERVATION",
     "os": "Ubuntu 24.04.5 LTS",
     "cpuCount": 8,
     "memoryTotal": "61 GiB",
     "memoryAvailable": "60 GiB",
     "rootDiskTotal": "193 GiB",
     "rootDiskAvailable": "173 GiB"
+  },
+  "restartRevalidation": {
+    "observedTerminated": true,
+    "startAuthorized": true,
+    "lastStartTimestampUtc": "2026-11-12T20:40:25.329Z",
+    "stateAfterStart": "RUNNING",
+    "dockerService": "active",
+    "dockerEngineVersion": "29.9.3",
+    "dockerContainers": 0,
+    "composeVersion": "5.7.0",
+    "runnerEnvironmentCredentialKeyNamesPresent": false,
+    "nonExampleEnvironmentFilesFound": false
   },
   "docker": {
     "service": "active",
