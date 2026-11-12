@@ -1,0 +1,8 @@
+# Manuscript quality review
+
+- Research snapshot: `0c7f1e35fc0ad82ccf37df82c86b08863e83b9cf`; final acceptance execution: `55a3a3a6c3ea9fbffa72e773aaab57496e84a93f`. Earlier semantic audit concerns its historical R2 revisions.
+- Scientific consistency: PASS for explicit separation of 40 registered, 40 syntax-valid in earlier audit, historical 11 raw rerun passes, zero evidenced approvals and zero validated cases. Coverage gain and cost remain unknown.
+- LaTeX compilation: PASS with Tectonic 0.17.0, Springer class and numeric BibTeX style; no undefined references, missing characters or overfull boxes were reported in the final log. Underfull box warnings and a BibTeX sort warning for the project artifact remain. Fontconfig emitted a nonfatal warning.
+- PDF: 10 pages, one architecture figure, three tables, nine bibliography entries. All pages were rendered to images and inspected together at reduced scale; full-resolution page-by-page visual inspection remains outstanding. The result is a review draft, not a confirmed publication-ready layout.
+- DOCX: Pandoc 3.14 conversion produced an editable file with abstract, three tables and one architecture image. Its bibliography uses author-year citations rather than the numeric PDF style. Automated render failed because LibreOffice was unavailable; pagination, figure placement, table layout and exact full-content parity remain NOT VERIFIED. Do not treat the Word layout as publication-ready.
+- Author names, affiliations, funding and other declarations require author confirmation. Independent Team Lead scientific review has not occurred.
