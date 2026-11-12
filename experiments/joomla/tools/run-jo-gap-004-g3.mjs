@@ -1,6 +1,6 @@
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runG0Workflow } from '../../tools/unified-g0-runner.mjs';
@@ -19,6 +19,14 @@ if (!/^[a-f0-9]{40}$/.test(taskCommit)) {
 const hashFile = (relativePath) => createHash('sha256')
   .update(readFileSync(resolve(repoRoot, relativePath)).toString('utf8').replace(/\r\n/g, '\n'))
   .digest('hex');
+const reportedVersion = (command, args, pattern) => {
+  const result = spawnSync(command, args, { cwd: repoRoot, encoding: 'utf8', windowsHide: true });
+  if (result.error || result.status !== 0) return 'VERSION_UNAVAILABLE';
+  const output = `${result.stdout || ''}\n${result.stderr || ''}`;
+  return pattern.exec(output)?.[1] || 'VERSION_NOT_REPORTED';
+};
+const javaVersion = reportedVersion('java', ['-version'], /version "([^"]+)"/);
+const mavenVersion = reportedVersion('mvn', ['-version'], /Apache Maven ([^\s]+)/);
 const evidenceDirRelative = `docs/tasks/g3-evidence/joomla/JO-GAP-004/${runId}`;
 const evidenceDir = resolve(repoRoot, evidenceDirRelative);
 mkdirSync(evidenceDir, { recursive: true });
@@ -71,9 +79,11 @@ const provenance = {
   harness: {
     runnerSourcePath: runnerPath,
     runnerSourceSha256: hashFile(runnerPath),
+    runRecordCapturesContainerIdsAndResolvedImageIds: true,
     pomPath: 'experiments/joomla/bewt-suite/pom.xml',
     pomSha256: hashFile('experiments/joomla/bewt-suite/pom.xml'),
   },
+  runtime: { javaVersion, mavenVersion, seleniumAndBrowserDetails: 'CAPTURED_AFTER_RUN_IN_RUN_RECORD' },
   command: `node experiments/joomla/tools/run-jo-gap-004-g3.mjs ${runId}`,
   candidateMavenCommand: 'mvn -B -f experiments/joomla/bewt-suite/pom.xml -Dtest=base.JO_GAP_004_G3_Suite clean test',
   g3Status: 'PRELIMINARY_ENGINEERING_EXECUTION',
@@ -96,6 +106,18 @@ try {
 } catch (error) {
   result = { appId: 'joomla', runId, outcome: 'BLOCKED', exitCode: 1, errorName: error.name };
   writeFileSync(join(evidenceDir, 'run-exception.json'), `${JSON.stringify(result, null, 2)}\n`);
+}
+
+const runRecordPath = join(evidenceDir, 'run-record.json');
+if (existsSync(runRecordPath)) {
+  const runRecord = JSON.parse(readFileSync(runRecordPath, 'utf8'));
+  provenance.runtime = {
+    javaVersion,
+    mavenVersion,
+    seleniumRuntime: runRecord.seleniumRuntime || null,
+    containers: runRecord.containers || [],
+  };
+  writeFileSync(join(evidenceDir, 'g3-provenance.json'), `${JSON.stringify(provenance, null, 2)}\n`);
 }
 
 writeFileSync(join(evidenceDir, 'g3-result.json'), `${JSON.stringify({

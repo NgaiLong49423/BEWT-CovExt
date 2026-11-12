@@ -60,6 +60,41 @@ export function dockerCli(args) {
   return execFileSync(DOCKER_CLI, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
 }
 
+export function inspectContainerProvenance(containerName) {
+  const container = JSON.parse(dockerCli(['inspect', containerName]))[0];
+  const image = JSON.parse(dockerCli(['image', 'inspect', container.Image]))[0];
+  return {
+    containerId: container.Id,
+    imageId: container.Image,
+    requestedImage: container.Config.Image,
+    imageRepoDigests: image.RepoDigests || [],
+    imageCreatedAt: image.Created,
+  };
+}
+
+export async function inspectSeleniumRuntime(statusUrl) {
+  const response = await probeHttp(statusUrl);
+  let value = {};
+  try {
+    value = JSON.parse(await response.text()).value || {};
+  } catch {
+    // The pinned/recorded browser image ID remains available when status JSON differs.
+  }
+  return {
+    httpStatus: response.status,
+    ready: value.ready === true,
+    buildVersion: value.build?.version || null,
+    nodes: (value.nodes || []).map((node) => ({
+      version: node.version || null,
+      browserStereotypes: (node.slots || []).map((slot) => ({
+        browserName: slot.stereotype?.browserName || null,
+        browserVersion: slot.stereotype?.browserVersion || null,
+        platformName: slot.stereotype?.platformName || null,
+      })),
+    })),
+  };
+}
+
 export function snapshotInventory() {
   const list = (cmd) => {
     try {
@@ -373,7 +408,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         cfg.dbImage,
       ]);
       createdContainers.push(dbName);
-      runRecord.containers.push({ role: 'db', name: dbName });
+      runRecord.containers.push({ role: 'db', name: dbName, ...inspectContainerProvenance(dbName) });
       // Wait for DB port to accept connections inside network
       await new Promise((r) => setTimeout(r, 12000));
     }
@@ -397,7 +432,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       'selenium/standalone-chrome:latest',
     ]);
     createdContainers.push(browserName);
-    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort });
+    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort, ...inspectContainerProvenance(browserName) });
 
     // App container
     const appEnvObj = cfg.appEnv ? cfg.appEnv(dbName) : {};
@@ -431,7 +466,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       ]);
     }
     createdContainers.push(appName);
-    runRecord.containers.push({ role: 'app', name: appName, port: appPort });
+    runRecord.containers.push({ role: 'app', name: appName, port: appPort, ...inspectContainerProvenance(appName) });
 
     // 5. Readiness verification
     const seleniumStatusUrl = `http://127.0.0.1:${browserPort}/status`;
@@ -442,6 +477,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         return false;
       }
     });
+    runRecord.seleniumRuntime = await inspectSeleniumRuntime(seleniumStatusUrl);
 
     const hostAppProbeUrl = `http://127.0.0.1:${appPort}${cfg.appUrlPath || '/'}`;
     await waitHttpReady(hostAppProbeUrl, `${appId} App`, 120000);
