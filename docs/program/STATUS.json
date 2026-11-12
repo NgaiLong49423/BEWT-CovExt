@@ -402,7 +402,8 @@
         "extension/prestashop/selenium/",
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/prestashop/",
-        "docs/tasks/g0-evidence/prestashop/"
+        "docs/tasks/g0-evidence/prestashop/",
+        "docs/tasks/PS-GAP-003-ORACLE-REVIEW/TASK-REPORT.md"
       ],
       "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     }
