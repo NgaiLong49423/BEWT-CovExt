@@ -1,4 +1,4 @@
-# KB-GAP-001 Revisions 5–8 — Task Report
+# KB-GAP-001 Revisions 5–9 — Task Report
 
 ## Result
 
@@ -42,3 +42,12 @@ Commands and per-run IDs are in `evidence/g3-r8-acceptance-manifest.json` and `e
 ## Acceptance boundary
 
 R8 has preliminary technical evidence of the requested UI behavior and 3/3 clean-state reruns. It is **not `VALIDATED`**: G1 oracle/novelty decisions remain unsigned, the task-label mismatch needs reviewer resolution, and runtime provenance has the documented per-container gaps. No RQ result, G0 gate, or deliverable is promoted by this candidate task. Overall program acceptance remains blocked.
+
+## Revision 9 update — 2026-11-12
+
+R9 addresses the independent semantic audit finding that R8 did not assert the Gherkin board-column postcondition. After the exact status:open search assertion, R9 navigates back to Test Project and asserts that the exact task appears in a board card, the card has the pinned Kanboard open-state class, the card belongs to a non-empty board-column ID, and the visible column heading has a title. Gherkin remains unchanged pending human resolution of the source UI label (Open this task) versus the authored step (Reopen this task).
+
+- R9 Maven test-compile: PASS, exit 0, 42 test sources observed in the earlier compile; this repeat compile reported BUILD SUCCESS but Maven could not update its incremental status files in this checkout, so VM compilation is the authoritative follow-up.
+- R9 G3: NOT_RUN at this report revision.
+- R9 SHA-256 is registered over UTF-8 LF-normalized source bytes to match the Linux VM checkout; the runner-side observed hash must be compared after execution.
+- R8 4/4 remains historical preliminary evidence only. R9 supersedes it for current engineering verification if its live run and three clean-state reruns pass. No scientific validation is implied; human oracle and novelty decisions remain pending.

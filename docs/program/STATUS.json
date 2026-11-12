@@ -28,14 +28,14 @@
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
     },
     "KB-GAP-001-R5": {
-      "status": "R8_PRELIMINARY_G3_PASS_4_OF_4_PENDING_HUMAN_REVIEW_AND_PROVENANCE",
+      "status": "R9_COMPILE_PASS_G3_NOT_RUN_PENDING_HUMAN_REVIEW",
       "branch": "task/claroline-kanboard-r4",
       "candidateId": "KB-GAP-001",
-      "revision": 8,
-      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-8/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
+      "revision": 9,
+      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-9/T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.java",
       "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
       "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
-      "compile": "PASS",
+      "compile": "PASS_LOCAL_EXIT_0_VM_COMPILE_PENDING",
       "r5G3": "FAIL_NO_SUCH_ELEMENT_PROJECT_LINK_AFTER_CREATE_FIXTURE",
       "r5Cleanup": "PASS_ZERO_RESIDUAL",
       "r6G3": "FAIL_NO_SUCH_ELEMENT_SOURCE_LABEL_MISMATCH",
@@ -47,7 +47,10 @@
       "r8HumanReview": "PENDING_UNSIGNED_ORACLE_NOVELTY",
       "r8EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json",
       "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
-      "researchValidated": false
+      "researchValidated": false,
+      "r9Compile": "PASS_LOCAL_EXIT_0_INCREMENTAL_STATUS_WRITE_WARNING",
+      "r9G3": "NOT_RUN",
+      "r9EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r9-acceptance-manifest.json"
     }
   },
   "targets": {
@@ -414,8 +417,8 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "KB-GAP-001-REVISION-8",
-    "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
+    "currentTaskId": "KB-GAP-001-REVISION-9",
+    "currentTaskStatus": "R9_COMPILE_PASS_G3_NOT_RUN_HUMAN_REVIEW_PENDING",
     "currentTaskBranch": "task/claroline-kanboard-r4",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/30",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
