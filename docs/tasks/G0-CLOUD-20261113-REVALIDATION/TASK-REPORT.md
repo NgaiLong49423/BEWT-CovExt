@@ -18,6 +18,7 @@ The previous 2026-11-12 final4 result remains historical evidence: eight base sm
 - Resources: 8 CPUs; 61 GiB RAM total, 60 GiB available; root filesystem 193 GiB total, 173 GiB available
 - Docker service: `active`; Docker Engine `29.9.3`; Compose `5.7.0`; storage driver `overlayfs`
 - Docker inventory: 0 containers, 17 images; no cleanup or prune was performed
+- VM policy: standard, non-preemptible, automatic restart enabled, live migration on host maintenance; configured maximum run duration is 18,000 seconds with termination action `STOP`. The policy was observed only and not changed; plan the authorized G0 work within this runtime window.
 - All eight configured application image references resolved by read-only `docker image inspect`; see `evidence/runtime-preflight.json`.
 
 ## Checkout isolation and credential boundary

@@ -95,6 +95,8 @@
         "state": "RUNNING",
         "startAction": "STARTED_AFTER_TERMINATED_UNDER_PRIOR_USER_AUTHORIZATION",
         "lastStartTimestampUtc": "2026-11-12T20:40:25.329Z",
+        "maxRunDurationSeconds": 18000,
+        "terminationAction": "STOP",
         "dockerEngine": "29.9.3"
       },
       "outcome": {

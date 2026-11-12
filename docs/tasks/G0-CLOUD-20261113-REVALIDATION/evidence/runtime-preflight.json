@@ -15,7 +15,15 @@
     "memoryTotal": "61 GiB",
     "memoryAvailable": "60 GiB",
     "rootDiskTotal": "193 GiB",
-    "rootDiskAvailable": "173 GiB"
+    "rootDiskAvailable": "173 GiB",
+    "scheduling": {
+      "provisioningModel": "STANDARD",
+      "preemptible": false,
+      "automaticRestart": true,
+      "onHostMaintenance": "MIGRATE",
+      "maxRunDurationSeconds": 18000,
+      "terminationAction": "STOP"
+    }
   },
   "restartRevalidation": {
     "observedTerminated": true,
