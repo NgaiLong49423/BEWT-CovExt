@@ -51,6 +51,7 @@
     "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
     "t01cLiveGenerationAttempt": "ONE_APPROVED_CALL_GEMINI_38_FLASH_FAIL_PROVIDER_SCHEMA_NULL_NO_RETRY_NO_JAVA_ARTIFACT",
     "t01cLiveGenerationFailureEvidence": "docs/tasks/T01-C/evidence/t01c-0d69a24e-5d54-42eb-bbf3-4bd44b7204cc/model-generation-failure.json",
+    "t01cLiveGenerationCallEvidence": "docs/tasks/T01-C/evidence/t01c-0d69a24e-5d54-42eb-bbf3-4bd44b7204cc/model-calls/",
     "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",

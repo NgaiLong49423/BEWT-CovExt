@@ -24,25 +24,16 @@ test('uses the Cucumber parser to accept a complete scenario', () => {
   assert.equal(result.steps, 3);
 });
 
-test('rejects empty input', () => {
-  assert.equal(validateGherkinSyntax('').valid, false);
-});
-
-test('rejects a scenario missing Feature', () => {
-  assert.equal(validateGherkinSyntax('Scenario: Missing feature\n Given a state\n When an action\n Then a result').valid, false);
-});
-
-test('rejects malformed Gherkin that regex line scanning would accept', () => {
-  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n When an action\n Then a result\n And').valid, false);
-});
-
-test('rejects scenario missing When', () => {
-  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n Then a result').valid, false);
-});
-
-test('rejects a scenario missing Then', () => {
-  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n When an action').valid, false);
-});
+const rejectedGherkinCases = [
+  ['empty input', ''],
+  ['scenario missing Feature', 'Scenario: Missing feature\n Given a state\n When an action\n Then a result'],
+  ['malformed input that regex line scanning would accept', 'Feature: X\n Scenario: Y\n Given a state\n When an action\n Then a result\n And'],
+  ['scenario missing When', 'Feature: X\n Scenario: Y\n Given a state\n Then a result'],
+  ['scenario missing Then', 'Feature: X\n Scenario: Y\n Given a state\n When an action'],
+];
+for (const [description, scenario] of rejectedGherkinCases) {
+  test(`rejects ${description}`, () => assert.equal(validateGherkinSyntax(scenario).valid, false));
+}
 
 test('rejects tautological Java assertions', () => {
   const result = auditJavaSeleniumQuality('driver.get("/x"); Assert.assertTrue(currentUrl.length() >= 0);');
