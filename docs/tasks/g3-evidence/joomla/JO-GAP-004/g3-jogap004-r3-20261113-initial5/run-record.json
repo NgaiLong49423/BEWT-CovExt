@@ -1,0 +1,74 @@
+{
+  "appId": "joomla",
+  "runId": "g3-jogap004-r3-20261113-initial5",
+  "startedAtUtc": "2026-11-12T18:46:29.536Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "joomla",
+    "task": "g0-joomla",
+    "runId": "g3-jogap004-r3-20261113-initial5"
+  },
+  "containers": [
+    {
+      "role": "db",
+      "name": "bewt-covext-joomla-db-g3-jogap004-r3-20261113-initial5",
+      "containerId": "e68eaa44639bb9c36b19df7a78376aa7c0a6b6b2ac3c1be49781765d1066d66f",
+      "imageId": "sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae",
+      "requestedImage": "mysql:5.6",
+      "imageRepoDigests": [
+        "mysql@sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae"
+      ],
+      "imageCreatedAt": "2021-12-21T02:57:59.587337844Z"
+    },
+    {
+      "role": "browser",
+      "name": "bewt-covext-joomla-selenium-g3-jogap004-r3-20261113-initial5",
+      "port": 39121,
+      "containerId": "4742da06279bdd7eca47cf373410c0065bbd91734448987ef5b8181e3fca802f",
+      "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+      "requestedImage": "selenium/standalone-chrome:latest",
+      "imageRepoDigests": [
+        "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec"
+      ],
+      "imageCreatedAt": "2026-11-04T23:50:29.122098629Z"
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-joomla-g3-jogap004-r3-20261113-initial5",
+      "port": 39073,
+      "containerId": "d91913fd6f65fac6359a40b01caf0d182121c6ca3dd320c61abec2ecfcf5fd60",
+      "imageId": "sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+      "requestedImage": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+      "imageRepoDigests": [
+        "joomla@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971"
+      ],
+      "imageCreatedAt": "2023-07-05T07:23:38.783263307Z"
+    }
+  ],
+  "network": {
+    "id": "c0023d24cfd162150897c57f1d9234e662c9232dea79793834a2e4f39b4a9e65",
+    "name": "bewt-covext-joomla-g3-jogap004-r3-20261113-initial5-net"
+  },
+  "volumes": [],
+  "appPort": 39073,
+  "browserPort": 39121,
+  "seleniumRuntime": {
+    "httpStatus": 200,
+    "ready": true,
+    "buildVersion": null,
+    "nodes": [
+      {
+        "version": "4.52.0 (revision 5b37fd4 5b37fd4d98c08d6a43a0790417f91b8f6f32fb5c)",
+        "browserStereotypes": [
+          {
+            "browserName": "chrome",
+            "browserVersion": "157.0",
+            "platformName": "linux"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -10,6 +10,18 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const REPO_ROOT = resolve(__dirname, '../..');
 
+function requiredRuntimeEnv(name) {
+  const value = process.env[name];
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error(`MISSING_RUNTIME_ENV: ${name}`);
+  }
+  return value;
+}
+
+export function resolveTestEnvironment(cfg) {
+  return typeof cfg.testEnv === 'function' ? cfg.testEnv() : (cfg.testEnv || {});
+}
+
 export const DOCKER_CLI = 'docker';
 export const MAVEN_CLI = 'mvn';
 
@@ -58,6 +70,41 @@ export function selectLoopbackPort() {
 
 export function dockerCli(args) {
   return execFileSync(DOCKER_CLI, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+}
+
+export function inspectContainerProvenance(containerName) {
+  const container = JSON.parse(dockerCli(['inspect', containerName]))[0];
+  const image = JSON.parse(dockerCli(['image', 'inspect', container.Image]))[0];
+  return {
+    containerId: container.Id,
+    imageId: container.Image,
+    requestedImage: container.Config.Image,
+    imageRepoDigests: image.RepoDigests || [],
+    imageCreatedAt: image.Created,
+  };
+}
+
+export async function inspectSeleniumRuntime(statusUrl) {
+  const response = await probeHttp(statusUrl);
+  let value = {};
+  try {
+    value = JSON.parse(await response.text()).value || {};
+  } catch {
+    // The pinned/recorded browser image ID remains available when status JSON differs.
+  }
+  return {
+    httpStatus: response.status,
+    ready: value.ready === true,
+    buildVersion: value.build?.version || null,
+    nodes: (value.nodes || []).map((node) => ({
+      version: node.version || null,
+      browserStereotypes: (node.slots || []).map((slot) => ({
+        browserName: slot.stereotype?.browserName || null,
+        browserVersion: slot.stereotype?.browserVersion || null,
+        platformName: slot.stereotype?.platformName || null,
+      })),
+    })),
+  };
 }
 
 export function snapshotInventory() {
@@ -212,22 +259,23 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
     installerUrl: (host, port, appName) => `http://${appName}/`,
-    dbEnv: {
-      MYSQL_ROOT_PASSWORD: 'root',
+    dbEnv: (runtimeEnv) => ({
+      MYSQL_ROOT_PASSWORD: runtimeEnv.BEWT_DB_PASSWORD,
       MYSQL_DATABASE: 'joomla',
-    },
-    appEnv: (dbHost) => ({
+    }),
+    appEnv: (dbHost, runtimeEnv) => ({
       JOOMLA_DB_HOST: dbHost,
       JOOMLA_DB_USER: 'root',
-      JOOMLA_DB_PASSWORD: 'root',
+      JOOMLA_DB_PASSWORD: runtimeEnv.BEWT_DB_PASSWORD,
       JOOMLA_DB_NAME: 'joomla',
     }),
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'administrator',
-      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
-      BEWT_ADMIN_EMAIL: 'admin@example.com',
-      BEWT_ADMIN_PASSWORD_ROTATED: 'e2eW3Bt3s71nGB3nchM4rK',
-    },
+    testEnv: () => ({
+      BEWT_ADMIN_USERNAME: requiredRuntimeEnv('BEWT_ADMIN_USERNAME'),
+      BEWT_ADMIN_PASSWORD: requiredRuntimeEnv('BEWT_ADMIN_PASSWORD'),
+      BEWT_ADMIN_PASSWORD_ROTATED: requiredRuntimeEnv('BEWT_ADMIN_PASSWORD_ROTATED'),
+      BEWT_ADMIN_EMAIL: requiredRuntimeEnv('BEWT_ADMIN_EMAIL'),
+      BEWT_DB_PASSWORD: requiredRuntimeEnv('BEWT_DB_PASSWORD'),
+    }),
   },
   kanboard: {
     appId: 'kanboard',
@@ -315,6 +363,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const validRunId = validateRunId(rawRunId);
   const cfg = APPS[appId];
   if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
+  const runtimeTestEnv = resolveTestEnvironment(cfg);
+  const runtimeDbEnv = typeof cfg.dbEnv === 'function' ? cfg.dbEnv(runtimeTestEnv) : (cfg.dbEnv || {});
 
   const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
@@ -363,7 +413,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 3. Start DB container if needed
     if (cfg.hasDb) {
-      const dbEnvArgs = Object.entries(cfg.dbEnv || {}).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
+      const dbEnvArgs = Object.entries(runtimeDbEnv).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
       dockerCli([
         'run', '-d',
         '--name', dbName,
@@ -373,7 +423,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         cfg.dbImage,
       ]);
       createdContainers.push(dbName);
-      runRecord.containers.push({ role: 'db', name: dbName });
+      runRecord.containers.push({ role: 'db', name: dbName, ...inspectContainerProvenance(dbName) });
       // Wait for DB port to accept connections inside network
       await new Promise((r) => setTimeout(r, 12000));
     }
@@ -397,10 +447,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       'selenium/standalone-chrome:latest',
     ]);
     createdContainers.push(browserName);
-    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort });
+    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort, ...inspectContainerProvenance(browserName) });
 
     // App container
-    const appEnvObj = cfg.appEnv ? cfg.appEnv(dbName) : {};
+    const appEnvObj = cfg.appEnv ? cfg.appEnv(dbName, runtimeTestEnv) : {};
     const appEnvArgs = Object.entries(appEnvObj).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
     const volArgs = (cfg.volumes || []).flatMap((v) => {
       const vName = `bewt-covext-${appId}-${v.suffix}-${validRunId}`;
@@ -431,7 +481,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       ]);
     }
     createdContainers.push(appName);
-    runRecord.containers.push({ role: 'app', name: appName, port: appPort });
+    runRecord.containers.push({ role: 'app', name: appName, port: appPort, ...inspectContainerProvenance(appName) });
 
     // 5. Readiness verification
     const seleniumStatusUrl = `http://127.0.0.1:${browserPort}/status`;
@@ -442,6 +492,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         return false;
       }
     });
+    runRecord.seleniumRuntime = await inspectSeleniumRuntime(seleniumStatusUrl);
 
     const hostAppProbeUrl = `http://127.0.0.1:${appPort}${cfg.appUrlPath || '/'}`;
     await waitHttpReady(hostAppProbeUrl, `${appId} App`, 120000);
@@ -520,7 +571,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           encoding: 'utf8',
           env: {
             ...process.env,
-            ...(cfg.testEnv || {}),
+            ...runtimeTestEnv,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
           },
@@ -551,7 +602,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
             BEWT_DB_HOST: dbName,
             BEWT_DB_USER: 'root',
-            BEWT_DB_PASSWORD: 'root',
+            BEWT_DB_PASSWORD: runtimeTestEnv.BEWT_DB_PASSWORD || 'root',
             BEWT_DB_NAME: 'joomla',
           },
           timeout: 180000,
@@ -572,12 +623,12 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     const testEnvVars = {
       ...process.env,
-      ...(cfg.testEnv || {}),
+      ...runtimeTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
       BEWT_DB_USER: 'root',
-      BEWT_DB_PASSWORD: 'root',
+      BEWT_DB_PASSWORD: runtimeTestEnv.BEWT_DB_PASSWORD || 'root',
       BEWT_DB_NAME: cfg.appId,
     };
 
@@ -596,7 +647,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       cwd: REPO_ROOT,
       encoding: 'utf8',
       env: testEnvVars,
-      timeout: 300000,
+      timeout: options.testTimeoutMs ?? 300000,
     });
 
     writeFileSync(join(evidenceDir, 'maven.stdout.log'), sanitizeEvidenceText(mvnRes.stdout));

@@ -1,0 +1,10 @@
+{
+  "appId": "joomla",
+  "runId": "g3-jogap004-r3-20261113-initial",
+  "exitCode": 1,
+  "outcome": "FAIL",
+  "evidenceDir": "/home/runner/BEWT-CovExt-g3-jogap004-27dccec/docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial",
+  "preliminaryEngineeringExecution": true,
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}

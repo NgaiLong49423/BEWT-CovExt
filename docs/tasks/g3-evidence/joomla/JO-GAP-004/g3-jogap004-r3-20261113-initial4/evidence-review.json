@@ -1,0 +1,21 @@
+{
+  "candidateId": "JO-GAP-004",
+  "runId": "g3-jogap004-r3-20261113-initial4",
+  "candidateOutcome": "NOT_RUN",
+  "fixtureSetupOutcome": "FAIL",
+  "fixtureAbsenceStatus": "NOT_INDEPENDENTLY_VERIFIED",
+  "reason": "The setup wait and cleanup absence check both used the harness-only #articleList a selector; its empty result may be a selector false negative.",
+  "creationEvidence": "CreatePostPage.save returned a LoggedHome wrapper, but the method does not itself assert persistence; attempt4 had no independent frontend title/body verification.",
+  "adminListMatch": "Timed out in JO_GAP_004_G3_Suite.waitForArticleTitle at line 166 while waiting for articleTitleLinks using #articleList a.",
+  "editorNavigation": "NOT_REACHED",
+  "versionFieldRead": "NOT_REACHED",
+  "historyRowsCheck": "NOT_REACHED",
+  "uiCleanupRawOutcome": "PASS_EXACT_ARTICLE_ABSENT; downgraded because it reused the same selector",
+  "runnerCleanupOutcome": "PASS_ZERO_RESIDUAL_CONTAINERS_NETWORKS_VOLUMES",
+  "evidenceBasis": [
+    "fixture-setup.json",
+    "junit-result.json",
+    "TEST-base.JO_GAP_004_G3_Suite.xml",
+    "cleanup-result.json"
+  ]
+}

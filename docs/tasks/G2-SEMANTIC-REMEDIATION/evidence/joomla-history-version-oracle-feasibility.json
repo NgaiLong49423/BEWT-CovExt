@@ -1,0 +1,76 @@
+{
+  "scope": "JO-GAP-004 history-row version-label oracle feasibility review",
+  "candidateId": "JO-GAP-004",
+  "reviewedRevision": 3,
+  "application": "Joomla 3.10.11",
+  "sourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+  "sourceTree": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+  "javaSourcePath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-3/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R3.java",
+  "javaSourceSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+  "gherkinSha256": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
+  "gherkinRequirement": "Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author admin",
+  "sourceFindings": [
+    {
+      "path": "administrator/components/com_contenthistory/views/history/tmpl/modal.php",
+      "lines": "117-127, 148-150, 162-178",
+      "finding": "The history list renders Date, version note, Keep, Author, and Character Count columns. Each save-date link opens a preview using the history row's version_id. The list has no numeric article-version column; version_id is the history record key."
+    },
+    {
+      "path": "installation/sql/mysql/joomla.sql",
+      "lines": "416-416",
+      "finding": "The pinned default com_content.article content-history options identify article.xml as the form and include version in hideFields, along with asset_id and checkout fields."
+    },
+    {
+      "path": "administrator/components/com_contenthistory/models/preview.php",
+      "lines": "31-32, 66-69",
+      "finding": "The preview loads the selected history record by version_id and prepares its version_data for rendering."
+    },
+    {
+      "path": "administrator/components/com_contenthistory/helpers/contenthistory.php",
+      "lines": "234-245, 339-347",
+      "finding": "prepareData decodes version_data and applies hideFields before the preview layout receives the fields."
+    },
+    {
+      "path": "administrator/components/com_contenthistory/views/preview/tmpl/preview.php",
+      "lines": "26-36",
+      "finding": "The preview renders the prepared field labels and values, so the default hideFields option prevents a Version row from being displayed."
+    },
+    {
+      "path": "administrator/components/com_content/models/forms/article.xml",
+      "lines": "192-200",
+      "finding": "The article form defines a readonly field named version with the Version label."
+    },
+    {
+      "path": "libraries/src/Helper/ContentHistoryHelper.php",
+      "lines": "109-126",
+      "finding": "History storage serializes the full data object into version_data."
+    },
+    {
+      "path": "libraries/src/Helper/CMSHelper.php",
+      "lines": "129-139",
+      "finding": "The data object includes every database table field, including the article version field, before the preview hideFields filter."
+    },
+    {
+      "path": "administrator/components/com_content/models/article.php",
+      "lines": "276-276",
+      "finding": "Article save increments the article version counter."
+    }
+  ],
+  "conclusion": {
+    "exactVersionLabelsObservableInDefaultHistoryUi": false,
+    "snapshotContainsVersionFieldBeforeUiFiltering": true,
+    "reason": "The history table has no numeric version label, and the default pinned com_content.article history configuration hides version from the linked preview. Therefore the stock UI cannot expose a row-associated visible version 1/2 assertion without changing application configuration or using a non-UI data channel.",
+    "r3SemanticStatus": "PARTIALLY_IMPLEMENTED",
+    "r4Created": false
+  },
+  "reviewerDecisionRequested": "Decide whether the Gherkin oracle should be revised to assert two distinct saved history snapshots plus the separately asserted article version increment, or whether a different source-backed observable oracle is intended. No Gherkin or human decision was changed by this review.",
+  "runtime": {
+    "executed": false,
+    "dockerOrVmAccessed": false,
+    "attempt9Started": false
+  },
+  "acceptance": {
+    "humanOracleNoveltyReview": "PENDING",
+    "validated": false
+  }
+}

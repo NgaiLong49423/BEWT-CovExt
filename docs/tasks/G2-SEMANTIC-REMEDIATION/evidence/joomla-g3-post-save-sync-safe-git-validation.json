@@ -1,0 +1,27 @@
+{
+  "scope": "JO-GAP-004 G3 post-save synchronization, safe message codes, and provenance Git execution safety",
+  "worktreeHeadBeforeCommit": "6f5a5cbf688213f6f8ce8f14cef8e085f69d6fa6",
+  "focusedNodeTest": {
+    "command": "node --test experiments/g0-safety/test/joomla-fixture-precondition.test.mjs",
+    "passed": 3,
+    "failed": 0,
+    "result": "PASS"
+  },
+  "syntaxAndDiffChecks": "PASS: Joomla wrapper syntax, STATUS JSON parse, git diff --check",
+  "maven": {
+    "command": "mvn -B clean test-compile",
+    "module": "experiments/joomla/bewt-suite",
+    "result": "BUILD_SUCCESS",
+    "mainSourcesCompiled": 31,
+    "testSourcesCompiled": 47,
+    "exitCode": 0
+  },
+  "postSaveSynchronization": "WAIT_FOR_NAVIGATION_AWAY_FROM_CREATE_FORM_AND_BOUNDED_EXACT_ADMIN_ROW_APPEARANCE",
+  "gitExecutable": "VERIFIED_FIXED_ABSOLUTE_PATH_PER_PLATFORM_NO_PATH_FALLBACK",
+  "systemMessageDiagnostics": "ALLOWLISTED_REASON_CODES_ONLY; NO_RAW_MESSAGE_TEXT_PERSISTED",
+  "immutableCandidateJavaOrGherkinChanged": false,
+  "attempt8": "SETUP_BLOCKED_ADMIN_ROW_WAIT_TIMEOUT; CANDIDATE_NOT_RUN; EXACT_TABLE_ABSENCE_AND_RUNNER_TEARDOWN_PASS",
+  "attempt9Started": false,
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}

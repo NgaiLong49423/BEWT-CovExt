@@ -1,0 +1,28 @@
+{
+  "runId": "g3-jogap004-r3-20261113-initial6",
+  "reviewBasis": "Copied strict allowlist of structured VM JSON and sanitized JUnit XML; raw stdout/stderr and temporary archive excluded.",
+  "candidateOutcome": "NOT_RUN",
+  "junit": {
+    "suiteErrors": 1,
+    "assertionFailures": 0
+  },
+  "fixtureSetup": {
+    "outcome": "BLOCKED",
+    "reason": "FRONTEND_ARTICLE_NOT_CONFIRMED",
+    "currentStage": "FRONTEND_SAVE",
+    "exceptionClass": "IllegalStateException",
+    "frontendArticleConfirmed": false,
+    "fixtureCreatedThroughJoomlaUi": false,
+    "versionCounter": 0,
+    "initialHistoryRows": 0
+  },
+  "fixtureAbsenceStatus": "NOT_INDEPENDENTLY_VERIFIED",
+  "fixtureCleanupOutcome": "FAILED_TITLE_REMAINS_IN_ADMIN_LIST_TEXT",
+  "browserReachabilityAtFailure": "REACHABLE_HTTP_200",
+  "runnerCleanup": "PASS_ZERO_RESIDUAL_CONTAINERS_NETWORKS_AND_VOLUMES",
+  "sourceEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial6/",
+  "attempt7ReviewPath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial7/evidence-review.json",
+  "attempt8ReviewPath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial8/evidence-review.json",
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}
