@@ -1,0 +1,14 @@
+{
+  "candidateId": "JO-GAP-004",
+  "runId": "g3-jogap004-r3-20261113-initial",
+  "fixtureTitle": "Living Document",
+  "outcome": "BLOCKED",
+  "reason": "SAVE_HISTORY_SETTING_NOT_VISIBLE",
+  "versionCounter": 0,
+  "initialHistoryRows": 0,
+  "saveHistorySettingValue": "NOT_VERIFIED",
+  "fixtureCreatedThroughJoomlaUi": false,
+  "fixtureCleanupOutcome": "NOT_REQUIRED",
+  "candidateJavaSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+  "fixtureSetupSha256": "c4ee264d379c189f32e5c569e0b17f5100094b6bba745136e9470e54f2e4318a"
+}

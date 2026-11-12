@@ -47,6 +47,10 @@ public class JO_GAP_004_G3_Suite {
         String reason = "FIXTURE_SETUP_EXCEPTION";
         String saveHistorySetting = "NOT_VERIFIED";
         String cleanupOutcome = "NOT_REQUIRED";
+        String optionsRoutePath = "NOT_REACHED";
+        String optionsPageTitle = "NOT_REACHED";
+        boolean optionsFormVisible = false;
+        int saveHistoryRadioCount = 0;
         int versionCounter = 0;
         int initialHistoryRows = 0;
 
@@ -80,12 +84,46 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Refusing to modify an existing article fixture title");
             }
 
-            driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_config&view=component&component=com_content");
-            List<WebElement> historyOptions = driver.findElements(By.cssSelector("input[name='jform[params][save_history]']:checked"));
+            driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
+            optionsRoutePath = safePath(driver.getCurrentUrl());
+            optionsPageTitle = safeTitle(driver);
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10)).until(
+                        currentDriver -> !currentDriver.findElements(By.id("toolbar-options")).isEmpty());
+            } catch (org.openqa.selenium.TimeoutException e) {
+                outcome = "BLOCKED";
+                reason = "CONTENT_OPTIONS_PERMISSION_OR_TOOLBAR_UNAVAILABLE";
+                throw new IllegalStateException("Joomla Articles Options control is unavailable for the logged-in admin", e);
+            }
+            List<WebElement> optionsButtons = driver.findElements(By.id("toolbar-options"));
+            if (optionsButtons.size() != 1) {
+                outcome = "BLOCKED";
+                reason = "CONTENT_OPTIONS_PERMISSION_OR_TOOLBAR_UNAVAILABLE";
+                throw new IllegalStateException("Joomla Articles Options control is unavailable for the logged-in admin");
+            }
+            optionsButtons.get(0).click();
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
+            } catch (org.openqa.selenium.TimeoutException e) {
+                optionsRoutePath = safePath(driver.getCurrentUrl());
+                optionsPageTitle = safeTitle(driver);
+                outcome = "BLOCKED";
+                reason = "CONTENT_OPTIONS_MODAL_UNAVAILABLE";
+                throw new IllegalStateException("Joomla Articles Options did not open its configuration dialog", e);
+            }
+            optionsRoutePath = safePath(driver.getCurrentUrl());
+            optionsPageTitle = safeTitle(driver);
+            optionsFormVisible = !driver.findElements(By.id("component-form")).isEmpty();
+            List<WebElement> saveHistoryRadios = driver.findElements(
+                    By.cssSelector("#component-form input[type='radio'][name='jform[params][save_history]']"));
+            saveHistoryRadioCount = saveHistoryRadios.size();
+            List<WebElement> historyOptions = driver.findElements(
+                    By.cssSelector("#component-form input[type='radio'][name='jform[params][save_history]']:checked"));
             if (historyOptions.size() != 1) {
                 outcome = "BLOCKED";
                 reason = "SAVE_HISTORY_SETTING_NOT_VISIBLE";
-                throw new IllegalStateException("Unable to verify Joomla article save-history setting through admin UI");
+                throw new IllegalStateException("Joomla Articles Options did not expose one selected save-history value");
             }
             saveHistorySetting = historyOptions.get(0).getAttribute("value");
             if (!"1".equals(saveHistorySetting)) {
@@ -94,6 +132,7 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Joomla article save-history is not enabled; refusing to change application configuration");
             }
 
+            driver.switchTo().defaultContent();
             driver.switchTo().window(frontendWindow);
             LoggedHome home = loggedIn.createPost()
                     .setTitle(ARTICLE_TITLE)
@@ -150,7 +189,8 @@ public class JO_GAP_004_G3_Suite {
                 cleanupOutcome = cleanupCreatedFixture(driver, adminWindow);
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                    fixtureCreated, saveHistorySetting, cleanupOutcome);
+                    fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                    optionsFormVisible, saveHistoryRadioCount);
             throw e;
         } finally {
             if (driver != null) {
@@ -158,7 +198,25 @@ public class JO_GAP_004_G3_Suite {
             }
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                fixtureCreated, saveHistorySetting, cleanupOutcome);
+                fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                optionsFormVisible, saveHistoryRadioCount);
+    }
+
+    private static String safePath(String url) {
+        try {
+            return new URL(url).getPath();
+        } catch (MalformedURLException e) {
+            return "UNAVAILABLE";
+        }
+    }
+
+    private static String safeTitle(WebDriver driver) {
+        try {
+            String title = driver.getTitle();
+            return title == null ? "UNAVAILABLE" : title.replaceAll("[\\r\\n\\t]", " ").trim();
+        } catch (RuntimeException e) {
+            return "UNAVAILABLE";
+        }
     }
 
     private static List<WebElement> articleTitleLinks(WebDriver driver) {
@@ -224,7 +282,8 @@ public class JO_GAP_004_G3_Suite {
 
     private static void writeEvidence(String evidencePath, String runId, String outcome, String reason,
             int version, int historyRows, boolean fixtureCreated, String saveHistorySetting,
-            String cleanupOutcome) throws Exception {
+            String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
+            boolean optionsFormVisible, int saveHistoryRadioCount) throws Exception {
         Path path = Path.of(evidencePath);
         Files.createDirectories(path.getParent());
         String json = "{\n"
@@ -238,6 +297,10 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"saveHistorySettingValue\": \"" + saveHistorySetting + "\",\n"
                 + "  \"fixtureCreatedThroughJoomlaUi\": " + fixtureCreated + ",\n"
                 + "  \"fixtureCleanupOutcome\": \"" + cleanupOutcome + "\",\n"
+                + "  \"optionsRoutePath\": \"" + optionsRoutePath + "\",\n"
+                + "  \"optionsPageTitle\": \"" + optionsPageTitle + "\",\n"
+                + "  \"optionsFormVisible\": " + optionsFormVisible + ",\n"
+                + "  \"saveHistoryRadioCount\": " + saveHistoryRadioCount + ",\n"
                 + "  \"candidateJavaSha256\": \"" + required("BEWT_CANDIDATE_JAVA_SHA256") + "\",\n"
                 + "  \"fixtureSetupSha256\": \"" + required("BEWT_FIXTURE_SETUP_SHA256") + "\"\n"
                 + "}\n";
