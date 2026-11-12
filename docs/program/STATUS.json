@@ -7,8 +7,8 @@
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "798d65371c63656e868f752915ba5f88b55c0219",
-    "note": "Verified on 2026-11-10; includes Remediation Sprint commits e451a7a, 1c048d9, 79eab8e, and 798d653 by Agent 0."
+    "observedHeadSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+    "note": "Verified from the GitHub API on 2026-11-12; current main HEAD is da6399536ff75a1edf4417819eb4d166cc1d781c. PR #27 remains open as a draft against this base."
   },
   "repositoryMilestones": {
     "T02": {
@@ -45,13 +45,15 @@
     "validationContractFinalCorrections": "IMPLEMENTED_LOCAL_TESTED_AWAITING_REREVIEW",
     "boundedRepair": "PRODUCTION_CLI_REPAIR_IMPLEMENTED_OFFLINE_FAKE_PROVIDER_MAVEN_COMPILE_TESTED_LIVE_GEMINI_REPAIR_UNVERIFIED",
     "humanReview": "PARTIALLY_EVIDENCED_EXPRESSCART",
-    "modelGenerationProvider": "GEMINI_38_FLASH_OPERATIONAL_40_TESTS_GENERATED",
+    "modelGenerationProvider": "HISTORICAL_GEMINI_38_FLASH_40_ARTIFACT_REGISTRATION; LIVE_GENERATION_PROVENANCE_FOR_40_NOT_ESTABLISHED_BY_CURRENT_AUDIT; LATEST_APPROVED_CALL_FAILED_SCHEMA_NULL",
     "generatedJavaRegistry": "40_TESTS_REGISTERED_IMMUTABLE_SHA256_VERIFIED",
     "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS_LOCAL_AND_CLOUD_VM",
     "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
     "t01cLiveGenerationAttempt": "ONE_APPROVED_CALL_GEMINI_38_FLASH_FAIL_PROVIDER_SCHEMA_NULL_NO_RETRY_NO_JAVA_ARTIFACT",
     "t01cLiveGenerationFailureEvidence": "docs/tasks/T01-C/evidence/t01c-0d69a24e-5d54-42eb-bbf3-4bd44b7204cc/model-generation-failure.json",
     "t01cLiveGenerationCallEvidence": "docs/tasks/T01-C/evidence/t01c-0d69a24e-5d54-42eb-bbf3-4bd44b7204cc/model-calls/",
+    "manuscriptAudit": "RQ1_RQ2_RQ3_RQ4_AND_CONCLUSION_CORRECTED_TO_2026_11_12_EVIDENCE_AUDIT",
+    "manuscriptPdfBuild": "COMPILED_DRAFT_TECTONIC_0_17_0_WITH_TEMPORARY_EXTERNAL_SPRINGER_TEMPLATE; 33_PAGES_A4; PDF_VISUALLY_CHECKED; AUTHOR_AFFILIATION_PLACEHOLDERS_REMAIN",
     "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",
@@ -455,7 +457,7 @@
     "metricsOutput": "docs/final-acceptance/RQ1-RQ4-results.json",
     "g3RunAccounting": "docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json",
     "sonarCloudReview": "docs/final-acceptance/SONARCLOUD-REVIEW.md",
-    "sonarCloudGate": "FAILED_LATEST_CHECK_DUPLICATION_3_0_PERCENT_AND_D_RELIABILITY_ANNOTATIONS_FIXED_LOCALLY_PENDING_RERUN",
+    "sonarCloudGate": "PASS_CHECK_131077184684_0_NEW_ISSUES_0_HOTSPOTS_0_0_DUPLICATION_0_0_COVERAGE_REPORT_NOT_UPLOADED",
     "taskReport": "docs/tasks/FINAL-REMEDIATION-AUDIT/TASK-REPORT.md"
   },
   "previousTaskReviewSnapshot": {

@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "auditBaselineCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+  "auditBaselineCommit": "e32b25e027573a63de3da8dbb3d89ee135517cc2",
   "candidateCount": 40,
   "checks": {
     "uniqueCandidateIds": true,

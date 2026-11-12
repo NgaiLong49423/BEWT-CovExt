@@ -22,17 +22,17 @@
 
 \title[BEWT-CovExt: AI Agent Framework for Coverage-Guided Benchmark Expansion]{BEWT-CovExt: AI Agent Framework for Coverage-Guided Expansion of the BEWT End-to-End Testing Benchmark}
 
-\author*[1]{\fnm{BEWT-CovExt} \sur{Research Team}}\email{contact@bewt-covext.org}
-\affil*[1]{\orgdiv{Software Engineering Research Initiative}, \orgname{Benchmark Engineering Project}, \orgaddress{\country{Global}}}
+\author*[1]{\fnm{Author information not supplied}}
+\affil*[1]{\orgname{Affiliation to be supplied by the research team}}
 
 \abstract{
 Automated End-to-End (E2E) web testing is indispensable for verifying that distributed software systems operate reliably across heterogeneous browsers, graphical interfaces, application servers, and transactional databases. Despite its vital industrial role, academic research in automated web test generation has been severely impeded by the scarcity of realistic, standardized, and reproducible test benchmarks. The recently introduced Benchmark for End-to-End Web Testing (BEWT; Olianas et al., 2026, \textit{Journal of Systems and Software}) represents a landmark advancement by curating 258 literature business test cases across eight open-source web applications using Page Object-based Selenium WebDriver implementations and declarative Gherkin specifications. 
 
-However, an empirical physical repository audit of the official BEWT baseline (commit \texttt{0501249}) reveals substantial behavioral coverage gaps and structural anomalies: existing test suites overwhelmingly concentrate on standard success paths (happy paths), leaving negative input validations, edge conditions, role-based authorization boundaries, and stateful lifecycle transitions largely unexercised. Furthermore, six structural baseline mismatches (M1--M6) exist across the physical repository, including 23 Bludit specification files that entirely omit the \texttt{Scenario:} keyword, an unreferenced surplus login feature in MantisBT, and two PrestaShop Java test cases lacking corresponding Gherkin specifications.
+The research proposal motivates evaluating whether the BEWT baseline leaves gaps in validation, authorization, and lifecycle behavior, but the current evidence audit has not established the prevalence of those behaviors across all baseline cases. Separately, a physical repository audit of the official BEWT baseline (commit \texttt{0501249}) records six structural mismatches (M1--M6), including 23 Bludit specification files without the \texttt{Scenario:} keyword, an unreferenced surplus login feature in MantisBT, and two PrestaShop Java test cases lacking corresponding Gherkin specifications.
 
-To overcome these fundamental limitations, this paper proposes \textbf{BEWT-CovExt}, a coverage-guided, stateful multi-agent framework designed to systematically expand the BEWT benchmark across all eight target applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. Rather than relying on unconstrained, single-prompt Large Language Model (LLM) code generation, BEWT-CovExt establishes a disciplined multi-agent orchestration architecture utilizing LangGraph. The framework decomposes the benchmark expansion challenge into four specialized collaborative roles: a \textit{Coverage Analysis Agent} that identifies source-anchored behavioral gaps, a \textit{Gherkin Generation Agent} that synthesizes domain-aligned behavior-driven specifications, a \textit{Selenium Implementation Agent} that generates robust Page Object-compliant test scripts, and a \textit{Validation Agent} that executes isolated containerized tests and orchestrates bounded repair loops. The architecture enforces rigid security boundaries through a closed tool allowlist, path confinement, deterministic SQLite checkpointing with process-crash recovery, and an append-only financial model call budget ledger.
+To address these limitations, this paper proposes \textbf{BEWT-CovExt}, a stateful multi-agent workflow targeting all eight BEWT applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. Its LangGraph design separates coverage analysis, Gherkin generation, Selenium implementation, and validation. The repository implements tool allowlists, path confinement, SQLite checkpointing, and an append-only model-call budget ledger; the current audit does not establish that the full generation and validation flow has completed across all eight applications.
 
-Crucially, BEWT-CovExt incorporates formal Human-in-the-Loop (HITL) review gates to prevent semantic hallucination, verify test oracle correctness, and guard against superficial data-variation duplicates. The target benchmark extension encompasses 40 new Gherkin scenarios and 40 corresponding Java/Selenium test suites (5 distinct cases per application), expanding the benchmark inventory from 258 to 298 cases. On the verified \texttt{origin/main} baseline (commit \texttt{22d3813}), we report comprehensive empirical progress: complete physical auditing of all eight applications, 227 provisional baseline behavior records, 27 source-backed gap proposals across seven applications in addition to five Kanboard proposals, clean compilation across all eight test suites, and empirical pilot validation on ExpressCart. The ExpressCart pilot successfully produced two fully passing E2E tests (\texttt{EC-C04} and \texttt{EC-C05}) that achieved 100\% stability across 3/3 clean-state reruns, identified one genuine application UI rendering defect (\texttt{EC-C02}), and documented one inconclusive timeout (\texttt{EC-C01}). Automated multi-application pipeline execution and complete empirical validation of the 40-case expansion remain under active development.
+The target remains 40 new Gherkin scenarios and 40 corresponding Java/Selenium cases (5 per application); this is a study target, not a completed benchmark delta. The source/data audit uses main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the later recomputation is recorded on analysis revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}. The candidate dataset contains 40 parseable Gherkin scenarios, but the audit found no evidenced signed oracle-and-novelty approvals and no semantic mappings eligible for validation. RQ1 is therefore blocked, RQ2 is not evaluated because the baseline behavioral-unit denominator is unverified, and RQ3 is not evaluated for candidate behavior: the current computation reports 0/40 eligible cases, while historical raw execution accounting remains unbound. No new case currently qualifies as behaviorally validated. A single approved Gemini Gherkin request, recorded in later remediation commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}, failed with a provider schema error; it produced no review packet or Java artifact, and actual token usage and billing remain unknown. The 40-case expansion remains under development.
 }
 
 \keywords{End-to-End Web Testing, Benchmark Expansion, AI Agents, Coverage-Guided Testing, LangGraph, Selenium WebDriver, Gherkin, Software Engineering Reproducibility}
@@ -48,21 +48,21 @@ However, the practical execution of E2E web testing has long been plagued by for
 
 To advance automated test generation techniques, repair heuristics, and flakiness reduction algorithms, the software engineering research community relies on standardized, reproducible, and representative benchmarks \cite{sim2003benchmark}. Historically, researchers in web testing evaluated their proposals on ad-hoc, proprietary, or toy web applications, severely restricting empirical comparability and external validity. A decisive milestone in addressing this deficiency was the publication of \textbf{BEWT} (\textit{Extended Benchmarking for End-to-End Web Testing}) by Olianas, Leotta, and Ricca (2026) in the \textit{Journal of Systems and Software} \cite{olianas2026bewt}. BEWT established a standardized benchmark ecosystem comprising eight open-source web applications, 258 literature business test cases, 36 Java/Selenium test suites, and 1,166 test case implementations across five structural variants: Base (utilizing the Page Object Pattern with implicit waits), Base+ (evaluating upgraded application versions on four systems), Exp-Wait (using explicit conditional waits), No-PO (procedural tests omitting Page Objects), and Full-XPath (utilizing absolute XPath locators).
 
-Despite its monumental contribution, a deep scientific examination of BEWT reveals critical research opportunities and structural limitations. First, the baseline test suites exhibit severe \textit{behavioral coverage skew}: test scenarios are overwhelmingly concentrated on conventional success workflows ("happy paths"), such as adding a new article or completing a valid purchase. Essential non-happy path behaviors---including client-side and server-side input validation errors, negative authentication, privilege boundary escalations, transactional rollbacks, and concurrent state transitions---are largely omitted. Second, our empirical physical repository audit of BEWT reveals six distinct structural mismatches (M1--M6) between the published literature claims and the physical repository artifacts, such as entire suites omitting standard Gherkin syntax or test cases lacking declarative specifications.
+The research proposal identifies potential limitations in baseline behavioral coverage, including validation boundaries, authorization, and lifecycle behavior. The current audit does not establish how prevalent these behaviors are across the baseline, so it treats them as candidate areas for source-backed review rather than measured omissions. Separately, the physical repository audit records six structural mismatches (M1--M6) between literature claims and repository artifacts, including feature files without standard Gherkin scenario headers and Java tests without corresponding declarative specifications.
 
 The emergence of Large Language Models (LLMs) and autonomous multi-agent architectures presents a compelling opportunity to automate the expansion of software benchmarks. However, naive application of LLMs through unguided single-prompt engineering suffers from critical failure modes: LLMs frequently hallucinate nonexistent DOM locators, invent unrealistic business workflows, generate superficial tests that merely vary data literals without exercising new code branches, and produce brittle test scripts that fail to compile or execute reliably against live application runtimes.
 
-To solve these fundamental challenges, this paper presents \textbf{BEWT-CovExt}, a coverage-guided, stateful multi-agent framework specifically engineered to expand and harden the BEWT benchmark across all eight constituent web applications. BEWT-CovExt repudiates unconstrained generation in favor of a disciplined, verifiable multi-agent pipeline governed by LangGraph \cite{langgraph2024}. The framework decomposes benchmark expansion into four coordinated roles: (1)~\textit{Coverage Analysis Agent}, which extracts baseline behaviors and identifies unexercised source-code anchors; (2)~\textit{Gherkin Generation Agent}, which generates domain-aligned, declarative BDD specifications; (3)~\textit{Selenium Implementation Agent}, which maps specifications to Java Page Object classes; and (4)~\textit{Validation Agent}, which compiles test code, executes tests in isolated container environments, and conducts bounded repair loops.
+To address these challenges, this paper presents \textbf{BEWT-CovExt}, a multi-agent workflow designed for expansion of the eight-application BEWT benchmark. The proposed workflow uses LangGraph \cite{langgraph2024} to coordinate four roles: (1)~\textit{Coverage Analysis Agent}, intended to compare baseline artifacts with source behavior; (2)~\textit{Gherkin Generation Agent}, intended to draft BDD specifications; (3)~\textit{Selenium Implementation Agent}, intended to map reviewed specifications to Java Page Objects; and (4)~\textit{Validation Agent}, intended to compile and execute candidate tests with bounded repair. The current audit does not establish that this full process has accepted all 40 candidates.
 
-Crucially, BEWT-CovExt establishes strict human-in-the-loop (HITL) review gates to govern semantic novelty and oracle validity before Java code is synthesized. The target benchmark expansion encompasses 40 new Gherkin scenarios and 40 corresponding Java/Selenium test cases (5 per application), expanding the benchmark from 258 to 298 cases.
+The workflow includes human-in-the-loop (HITL) checkpoints intended to review semantic novelty and oracle validity before Java generation. The study target is 40 new Gherkin scenarios and 40 corresponding Java/Selenium test cases (5 per application), which would expand the benchmark from 258 to 298 cases if accepted; the delta is not yet accepted.
 
 \subsection{Research Contributions}
 
 This work provides three primary scientific contributions:
 \begin{itemize}
     \item \textbf{C1 --- Coverage-Guided Benchmark Expansion:} We formulate a systematic, source-anchored methodology for auditing existing benchmark test suites, establishing structured pre-expansion behavioral inventories, and identifying concrete behavioral gaps in target web applications. We define an expansion target of 40 new, non-duplicative test cases across all eight BEWT applications.
-    \item \textbf{C2 --- Stateful Multi-Agent Test Engineering Framework:} We design and implement a production-grade multi-agent framework utilizing LangGraph. The framework integrates four specialized agent roles, an append-only model call budget ledger, SQLite-based checkpointing for process crash recovery, a closed tool allowlist with filesystem path confinement, and a bounded repair mechanism (maximum two iterations) to resolve compilation and locator faults without corrupting business assertions.
-    \item \textbf{C3 --- Reproducible Evaluation and Validation Protocol:} We establish a rigorous five-stage evaluation protocol (G0--G4) enforcing environment isolation, application version pinning, independent human review, clean-state database seeding and reset verification, and a mandatory 3-rerun stability protocol ($100\%$ pass requirement across three consecutive clean executions) to guarantee test reproducibility.
+    \item \textbf{C2 --- Stateful Multi-Agent Test Engineering Framework:} We implement a LangGraph workflow with four specialized roles, an append-only model-call budget ledger, SQLite checkpointing, a closed tool allowlist, filesystem path confinement, and bounded repair controls. Offline tests cover workflow behavior; production readiness and candidate acceptance are not established by this study snapshot.
+    \item \textbf{C3 --- Reproducible Evaluation and Validation Protocol:} We specify a five-stage evaluation protocol (G0--G4) requiring environment isolation, application version pinning, independent human review, reset verification, and three clean-state reruns. The protocol defines acceptance criteria; this audit does not show that all gates have passed or that the 40-case target is reproducible.
 \end{itemize}
 
 \subsection{Research Questions}
@@ -120,7 +120,7 @@ In benchmark engineering, flakiness is catastrophic: an unstable test cannot ser
 
 \subsection{Scientific Positioning of BEWT-CovExt}
 
-BEWT-CovExt bridges the gap between static benchmark artifacts and autonomous AI agents. Unlike prior works that evaluate LLMs on single applications using unverified prompt pipelines, BEWT-CovExt provides a coverage-guided, stateful multi-agent architecture with closed tool execution, human oracle verification, and repeated clean-state execution across all eight BEWT applications.
+BEWT-CovExt is designed to connect static benchmark artifacts with autonomous agents through source analysis, closed tool execution, human oracle review, and repeated clean-state execution. The present evidence covers framework checks and historical application-specific runs; it does not establish signed oracle review or current end-to-end execution across all eight applications.
 
 
 \section{Empirical Analysis of the Original BEWT Benchmark}\label{sec:bewt-analysis}
@@ -217,13 +217,13 @@ Our audit taxonomizes six structural anomalies (M1--M6) inherent in the original
 
 \subsection{Behavioral Coverage Gaps in the Baseline Benchmark}
 
-Beyond structural file mismatches, our static analysis examined the substantive behavioral coverage of the 258 baseline test cases. We identified three pervasive behavioral blind spots:
+Beyond structural file mismatches, the research proposal identifies behavioral areas for future baseline classification. The current audit has not verified a complete semantic inventory of the 258 published cases; the items below are candidate concerns, not measured absences:
 \begin{enumerate}
-    \item \textbf{Happy-Path Monoculture:} Over $85\%$ of the test cases exercise valid input data leading to successful state creation (e.g., creating a valid user, publishing a blog post, or adding an item to the cart). Error-handling branches, validation banners, and invalid input submissions are virtually unrepresented.
-    \item \textbf{Absence of Negative and Boundary Validation:} Critical input boundary conditions (e.g., zero-quantity cart updates, duplicate primary keys, empty required fields, and oversized payload handling) are systematically absent.
-    \item \textbf{Omission of Stateful Lifecycle Operations:} While entities are frequently created, comprehensive lifecycle sequences---such as editing existing entities, verifying audit trails, deactivating user privileges, and validating cascading deletions---are omitted.
+    \item \textbf{Happy-Path Emphasis:} The historical inventory suggests that baseline scenarios emphasize successful workflows, but the current audit does not validate a percentage of cases by behavioral unit. Negative input, boundary, authorization, and lifecycle behaviors remain candidate areas for source-backed review.
+    \item \textbf{Negative and Boundary Validation:} Conditions such as zero-quantity cart updates, empty required fields, or oversized payload handling need source-backed inventory and review before their presence or absence can be claimed.
+    \item \textbf{Stateful Lifecycle Operations:} Sequences such as editing entities, checking audit trails, changing privileges, and validating cascading deletions are candidate behaviors for a verified coverage taxonomy.
 \end{enumerate}
-These behavioral deficiencies demonstrate that expanding BEWT requires coverage-guided gap identification anchored in application source code, rather than simple data permutation.
+These candidate behaviors motivate a coverage-guided gap-identification method; they are not established as omissions by the current evidence snapshot.
 
 
 \section{Research Gaps and Improvement Objectives}\label{sec:research-gaps}
@@ -233,7 +233,7 @@ To systematically advance beyond the limitations of the original BEWT benchmark,
 \subsection{Identified Research Gaps}
 
 \begin{itemize}
-    \item \textbf{Gap G1 --- Behavioral Blind Spots and Happy-Path Monoculture:} Existing web testing benchmarks suffer from an overwhelming concentration on nominal success paths. In BEWT, the 258 baseline cases rarely verify negative boundary conditions, role-based permission boundaries, or transactional failure recoveries. Without coverage guidance anchored in application source code, automated generation techniques simply duplicate existing nominal behavior under different syntactic labels.
+    \item \textbf{Gap G1 --- Need for Behavioral Coverage Evidence:} The current audit does not establish the distribution of nominal, boundary, authorization, or lifecycle behavior across the 258 published baseline cases. A reproducible, source-backed behavioral taxonomy is required before concluding that a class of behavior is missing or duplicated.
     \item \textbf{Gap G2 --- Brittleness of Single-Prompt LLM Generation:} Contemporary approaches to AI-assisted test generation predominantly rely on stateless, single-turn prompts submitted to commercial LLMs. In E2E web automation, this approach fails catastrophically: LLMs hallucinate nonexistent Page Object methods, produce syntactically invalid Gherkin steps, violate Maven classpath conventions, and generate fragile DOM selectors that fail upon initial browser invocation.
     \item \textbf{Gap G3 --- Absence of Semantic Novelty and Oracle Governance:} Without explicit semantic filtering, automated test generation algorithms produce "pseudo-tests" that merely perturb literal data inputs (e.g., submitting a different user name) while traversing identical application execution paths. Furthermore, LLMs frequently fabricate weak assertions (e.g., checking only that the browser URL changed) rather than verifying deep database mutations or transactional UI state changes. Rigorous benchmark expansion demands independent human governance of test oracles and novelty.
     \item \textbf{Gap G4 --- Lack of Execution Isolation and Rerun Stability Protocols:} Many experimental evaluations in automated testing report test success after a single execution on an unclean, persistent application container. In web testing, lingering database records, active user sessions, and unclosed browser processes distort subsequent test executions. Without container isolation, verified seed/reset protocols, and repeated clean-state executions, reported pass rates are scientifically untrustworthy.
@@ -243,9 +243,9 @@ To systematically advance beyond the limitations of the original BEWT benchmark,
 
 BEWT-CovExt addresses gaps G1--G4 through a coherent, multi-tiered framework corresponding to contributions C1--C3:
 \begin{enumerate}
-    \item \textbf{Addressing G1 $\rightarrow$ Contribution C1 (Coverage-Guided Benchmark Expansion):} We replace ad-hoc test generation with an empirical gap analysis methodology. By extracting baseline behavioral inventories from Gherkin and Java suites and linking them to application routing and controller logic, BEWT-CovExt identifies concrete, source-supported gaps representing unexercised business capabilities.
-    \item \textbf{Addressing G2 \& G3 $\rightarrow$ Contribution C2 (Stateful Multi-Agent Framework):} We design a cyclic, stateful multi-agent system powered by LangGraph. The framework decomposes generation into four discrete roles, establishes rigid tool execution policies, logs financial token expenditures in an append-only ledger, and enforces a bounded repair loop (maximum 2 rounds). Furthermore, mandatory Human-in-the-Loop (HITL) gates intercept candidate scenarios prior to Java implementation, guaranteeing that only semantically novel and oracle-valid candidates proceed to code generation.
-    \item \textbf{Addressing G4 $\rightarrow$ Contribution C3 (Reproducible Evaluation Protocol):} We institute a five-stage evaluation gate structure (G0--G4). Crucially, G3 mandates a 3-rerun stability protocol: every generated test must pass three consecutive, independent executions, each preceded by a verified database seed and container reset, thereby eliminating flaky artifacts from the benchmark.
+    \item \textbf{Addressing G1 $\rightarrow$ Contribution C1 (Coverage-Guided Benchmark Expansion):} The proposed method links baseline Gherkin and Java artifacts to application source logic to identify candidate behavioral gaps. Current extraction records are provisional, and the audit found no approved semantic mappings among the 40 candidates.
+    \item \textbf{Addressing G2 \& G3 $\rightarrow$ Contribution C2 (Stateful Multi-Agent Framework):} The LangGraph implementation defines four roles, tool policies, an append-only model-call ledger, and bounded repair. HITL checkpoints are implemented, but the current candidate batch has zero evidenced signed oracle-and-novelty approvals; the implementation gate does not prove that a candidate is semantically valid.
+    \item \textbf{Addressing G4 $\rightarrow$ Contribution C3 (Reproducible Evaluation Protocol):} The five-stage gate structure (G0--G4) specifies a three-rerun stability criterion with reset and provenance evidence. It is an acceptance protocol, not evidence that every generated test has passed three clean, independent executions.
 \end{enumerate}
 
 \subsection{Preservation of the Eight-Application Forty-Scenario Scope}
@@ -350,20 +350,20 @@ Rather than utilizing a monolithic LLM prompt, BEWT-CovExt assigns distinct oper
 
 \subsection{Deterministic Tool Execution and Security Policies}
 
-Allowing AI agents to execute arbitrary shell commands poses severe security and environmental hazards, including data destruction, process pollution, and non-reproducible executions. BEWT-CovExt enforces a \textit{closed tool allowlist} governed by rigid safety policies:
+Allowing AI agents to execute arbitrary shell commands poses severe security and environmental hazards, including data destruction, process pollution, and non-reproducible executions. The framework is designed around a \textit{closed tool allowlist}. The implementation includes command and path validation; the audit verified repository-root confinement, not confinement to one experiment directory. The intended policy is:
 \begin{itemize}
     \item \textbf{Command Confinement:} Agents can only invoke whitelisted executable binaries: \texttt{git} (in read-only mode), \texttt{mvn} (restricted to \texttt{test-compile} and targeted \texttt{-Dtest=... test}), and controlled container health checks. Shell built-ins and unverified scripts are strictly blocked.
-    \item \textbf{Filesystem Path Confinement:} Tool dispatchers enforce safe-path validation. File reads and writes are rigidly restricted to the target experiment directory (e.g., \texttt{experiments/expresscart/bewt-suite/}). The original benchmark directory (\texttt{bewt-original/}) is mounted strictly read-only.
+    \item \textbf{Filesystem Path Confinement:} The checked safe-path implementation confines operations to the repository root, while tool and application policies define allowed paths. It does not restrict every read/write to a single experiment directory. The original benchmark directory (\texttt{bewt-original/}) is treated as read-only under repository policy.
 \end{itemize}
 
 \subsection{SQLite Checkpointing, Crash Recovery, and Model Budget Ledger}
 
-Long-running multi-agent pipelines are vulnerable to workstation reboots, network drops, and memory exhaustion. BEWT-CovExt incorporates an embedded SQLite-based checkpointer via LangGraph's persistent storage engine. Every state transition, generated artifact, and review decision is committed transactionally with an immutable revision hash. If execution halts unexpectedly, the orchestrator resumes exactly from the last verified checkpoint without re-running prior generation steps.
+Long-running multi-agent pipelines are vulnerable to process interruption and resource exhaustion. The framework uses LangGraph checkpointing and records versioned artifacts. A process-termination/replay smoke was exercised for one reused ExpressCart artifact; this does not establish transactional guarantees for every state transition or recovery after host reboot, power loss, Docker daemon failure, or concurrent recovery. Candidate artifacts remain immutable by revision in the registry.
 
 Furthermore, to prevent uncontrolled financial expenditure during live model generation, the framework implements an \textit{append-only model call budget ledger} (\texttt{model-call-ledger.ts}). The ledger enforces:
 \begin{enumerate}
     \item Strict bounds on model requests per session (enforcing $1 \le N \le 4$ calls).
-    \item Per-call financial ceilings (e.g., \$0.001--\$0.02 USD per request).
+    \item Per-call financial ceilings are configured per authorized task. In the latest approved live attempt, the cap was USD~0.04; actual usage and billing were not returned, so no cost-efficiency result is inferred.
     \item Cumulative session expenditure limits, halting execution immediately if the financial ceiling is reached.
 \end{enumerate}
 
@@ -387,37 +387,37 @@ To provide scalable, concurrent validation across the entire benchmark, a distri
 
 \section{Coverage-Guided Benchmark Expansion Methodology}\label{sec:methodology}
 
-Expanding an existing testing benchmark requires a rigorous methodological foundation to guarantee that newly added test cases represent genuine, non-redundant behavioral coverage. This section formalizes the BEWT-CovExt expansion pipeline from baseline behavioral extraction to candidate registration.
+Expanding an existing testing benchmark requires a rigorous methodological foundation to assess whether proposed test cases represent new behavior. This section specifies the intended BEWT-CovExt pipeline from provisional baseline extraction to candidate registration; the current audit does not establish a verified baseline UBU taxonomy.
 
 \subsection{Baseline Behavioral Extraction and Pre-Expansion Taxonomy}
 
-Benchmark expansion begins by constructing a formal pre-expansion behavioral inventory ($\mathcal{B}_{\text{base}}$) of the target application. Given a set of existing Gherkin feature files $\mathcal{F}_{\text{base}}$ and corresponding Java Page Object test suites $\mathcal{T}_{\text{base}}$, our framework executes static behavioral extraction:
+The intended benchmark-expansion procedure constructs a pre-expansion behavioral inventory ($\mathcal{B}_{\text{base}}$) of the target application. The current repository audit did not verify an executable extraction pipeline that maps each original Gherkin scenario to its Java test and business assertions. The historical extraction report lists provisional counts only. The planned extraction steps are:
 \begin{enumerate}
     \item \textbf{Syntactic Step Extraction:} Parsing each Gherkin file into a sequence of normalized step tuples $s = \langle \text{keyword}, \text{pattern}, \text{arguments} \rangle$, abstracting concrete data literals (e.g., replacing \texttt{"admin"} with \texttt{\{string\}}).
     \item \textbf{Feature-to-Java Mapping:} Mapping each scenario to its executing Java test class and recording the set of exercised Page Object methods and business assertion statements (e.g., \texttt{assertEquals}, \texttt{assertTrue}).
     \item \textbf{Behavioral Taxonomy:} Classifying each baseline test into functional categories, including Account Management, Content Creation, Catalog Browsing, Checkout, and Administrative Configuration.
 \end{enumerate}
-Across seven target applications (excluding Kanboard, which was taxonomized separately), this process cataloged \textbf{227 provisional baseline behavior records}, \textbf{204 explicit scenario headers}, and \textbf{316 assertion calls}, establishing the empirical baseline denominator.
+The historical extraction report lists \textbf{227 provisional feature-level records}, \textbf{204 explicit scenario headers}, and \textbf{316 assertion calls} across seven applications. These records were not established as unique behavioral units; they do not form the verified baseline denominator for RQ2.
 
 \subsection{Source-Backed Behavioral Gap Identification}
 
-Rather than prompting an LLM to invent arbitrary test scenarios, BEWT-CovExt mandates that every proposed scenario must be grounded in verified application source code. The Coverage Analysis Agent inspects application source trees:
+The intended protocol requires source-grounded proposals. Existing source references alone do not prove that all proposals were verified against the pinned application or that their business behavior is novel. The planned Coverage Analysis procedure is:
 \begin{itemize}
     \item \textbf{Route and Endpoint Discovery:} Extracting registered HTTP routes, URL patterns, and supported HTTP request methods from framework routing files (e.g., Express router definitions in ExpressCart, route configurations in Joomla and Claroline).
     \item \textbf{Controller Logic and Validation Branching:} Inspecting controller methods for unexercised conditional branches, such as input validation guards (\texttt{if (!name) return res.status(400)}), authentication role checks, and database error handlers.
     \item \textbf{Source Anchor Binding:} Formulating a gap proposal that explicitly binds the proposed scenario to a specific source file, Git blob hash, and line range (e.g., \texttt{routes/cart.js\#L45-L62}).
 \end{itemize}
-This source-anchoring rule prevents the generation of tests targeting nonexistent features or unviable application states.
+The current audit found zero approved semantic mappings; therefore, the source-anchoring procedure has not been shown to prevent proposals for nonexistent features or unviable application states.
 
 \subsection{Candidate Gherkin Generation and Lexical Duplicate Screening}
 
 Given an approved gap proposal, the Gherkin Generation Agent synthesizes a declarative specification adhering to standard BDD syntax. The agent is prompted with: (1)~the source anchor description; (2)~existing domain vocabulary extracted from the baseline Gherkin files; and (3)~reusable Page Object method signatures.
 
-To filter trivial duplicates prior to human review, the synthesized scenario undergoes automated \textit{lexical duplicate screening}. The screener computes the Jaccard similarity coefficient between the candidate's normalized step set $S_{\text{cand}}$ and every baseline scenario's step set $S_{\text{base}}$:
+The proposed protocol includes automated \textit{lexical duplicate screening}. No executable Jaccard screener and corresponding run evidence were found in the current implementation audit; the following equation describes the intended method, not a verified step in the reported experiment. It compares the candidate's normalized step set $S_{\text{cand}}$ with a baseline scenario's step set $S_{\text{base}}$:
 \begin{equation}
     J(S_{\text{cand}}, S_{\text{base}}) = \frac{|S_{\text{cand}} \cap S_{\text{base}}|}{|S_{\text{cand}} \cup S_{\text{base}}|}
 \end{equation}
-If $J(S_{\text{cand}}, S_{\text{base}}) > \theta_{\text{lex}}$ (where $\theta_{\text{lex}} = 0.80$), the candidate is flagged as a potential lexical duplicate. This screening ensures that candidates differing only in cosmetic wording or literal parameters are filtered out before reaching human evaluators.
+If $J(S_{\text{cand}}, S_{\text{base}}) > \theta_{\text{lex}}$ (where $\theta_{\text{lex}} = 0.80$), the proposed screen flags a potential lexical duplicate. Even if implemented, this lexical screen would not establish behavioral non-overlap or semantic novelty.
 
 \subsection{Human Review Protocol: Semantic Novelty and Oracle Verification}
 
@@ -428,7 +428,7 @@ Because lexical similarity cannot capture deep semantic redundancy (e.g., two di
     \item \textbf{Precondition Feasibility:} Are the \texttt{Given} preconditions achievable via automated browser actions or pre-seeded database fixtures?
     \item \textbf{Absence of External Dependencies:} Is the scenario self-contained within the application container, avoiding external payment gateways, SMTP mail servers, or third-party APIs?
 \end{enumerate}
-Reviewers assign formal verdicts (\texttt{ACCEPT\_FOR\_IMPLEMENTATION}, \texttt{REVISE}, or \texttt{REJECT}) along with detailed technical rationales recorded in immutable review manifests.
+The intended protocol asks reviewers to assign \texttt{ACCEPT\_FOR\_IMPLEMENTATION}, \texttt{REVISE}, or \texttt{REJECT} with a technical rationale. In the current primary review records, 0/40 candidates have evidenced signed oracle-and-novelty decisions; implementation-authorization labels are not treated as those approvals, and the JSON review files are not described here as immutable signed decisions.
 
 \subsection{Automated Scenario Re-Synthesis and Benchmark Registration (Under Development)}\label{subsec:registration-dev}
 
@@ -465,9 +465,9 @@ Node transitions in the graph are governed by conditional edge routers. For inst
 
 \subsection{Model Provider Abstraction and Gemini Reference Adapter}
 
-To avoid vendor lock-in and enable rigorous comparative research across diverse foundation models, BEWT-CovExt defines a decoupled model interface in \texttt{framework/src/runtime/model-provider.ts}. The reference implementation leverages the Google Gemini API (utilizing \texttt{gemini-1.5-flash} and \texttt{gemini-1.5-pro} models \cite{gemini2024flash}).
+To avoid vendor lock-in and enable future comparison across foundation models, BEWT-CovExt defines a decoupled model interface in \texttt{framework/src/runtime/model-provider.ts}. The current T01-C CLI is configured for Google Gemini 3.8 Flash and Gemini 3.1 Flash-Lite. Historical records using other models are not treated as current provider behavior.
 
-The provider enforces structured JSON output via strict schema definitions, eliminating nondeterministic conversational preamble (e.g., "Here is your test code:"). The candidate generator prompt incorporates:
+The provider requests structured output and validates returned data against schemas; malformed or null provider results can still fail validation. The approved live request in this audit failed with a null structured result. The candidate generator prompt incorporates:
 \begin{enumerate}
     \item System instructions defining the role of an expert Java/Selenium automation engineer.
     \item Domain vocabulary constraints prohibiting unverified locator identifiers.
@@ -488,17 +488,17 @@ The isolated test harness features:
 
 \subsection{Multi-Application Adapters and Offline G0 Test Suites}
 
-To support all eight target applications uniformly, BEWT-CovExt implements lightweight adapters in \texttt{adapters/<app>/}. Each adapter encapsulates:
+The repository contains lightweight adapter code under \texttt{adapters/<app>/} for the eight target applications. The design intends each adapter to encapsulate:
 \begin{enumerate}
     \item Application-specific database seeding and reset scripts (e.g., MySQL dump restoration, SQLite database copying).
     \item Container readiness probes (e.g., HTTP polling on login endpoints until HTTP 200 is returned).
     \item Base suite test runners verifying that at least one baseline test passes before extension generation begins.
 \end{enumerate}
-In Task T03-A1 (merged via PR \#19, bringing the remote main branch to commit \texttt{22d3813}), we established offline G0 test suite baselines for Joomla, MantisBT, MediaWiki, and PrestaShop. These suites remove hardcoded workstation-specific paths, eliminate static benchmark credentials, parameterize RemoteWebDriver endpoints, and confirm clean Maven compilation across all four environments. Together with earlier adaptations for Kanboard, Bludit, Claroline, and ExpressCart, clean baseline compilation is established across all eight suites.
+Earlier task records report offline Maven compilation for application suites. Compilation evidence is narrower than G0 acceptance: the current audit marks G0 partially verified because source, image, test-hash, and runtime identity are incomplete. The compilation results do not establish live reset correctness or candidate-level test behavior.
 
 \subsection{Automated Multi-Application Pipeline Execution (Under Development)}\label{subsec:multi-app-pipeline-dev}
 
-While the individual application adapters, offline G0 suites, and isolated Maven harnesses are fully implemented, an automated, headless continuous integration pipeline capable of executing the full multi-agent generation and validation loop across all eight applications sequentially or concurrently is currently \textbf{(Under Development)}. 
+Application adapters and offline Maven harnesses exist, but runtime and per-run provenance remain incomplete. An automated, headless pipeline for end-to-end generation and validation across all eight applications is currently \textbf{(Under Development)}.
 
 Currently, multi-application execution requires manual invocation of per-app adapters. The planned unified CLI runner will orchestrate container startup, baseline smoke verification, model generation, and multi-rerun validation across the entire eight-application benchmark through a single configuration manifest.
 
@@ -519,7 +519,7 @@ Our empirical investigation addresses four research questions:
 
 \subsection{Five-Stage Evaluation Gate Protocol (G0--G4)}
 
-To ensure complete empirical traceability, every candidate test must progress through five quality gates, summarized in Table~\ref{tab:gate-matrix}.
+The program defines five quality gates for each candidate, summarized in Table~\ref{tab:gate-matrix}. At the current audit snapshot, the program has not passed these gates across the 40-case target.
 
 \begin{table*}[t]
 \caption{The five-stage evaluation gate protocol (G0--G4) governing BEWT-CovExt.}\label{tab:gate-matrix}
@@ -530,10 +530,10 @@ To ensure complete empirical traceability, every candidate test must progress th
 \toprule
 \textbf{Gate} & \textbf{Objective} & \textbf{Entry Preconditions} & \textbf{Minimum PASS Criteria} & \textbf{Mandatory Evidence} \\
 \midrule
-\textbf{G0 Environment} & Baseline reproducibility \& runtime isolation. & Pinned Git commit, container image digest, port bindings. & $\ge 1$ Base smoke test passes with assertion; seed/reset verified. & \texttt{config/apps/<app>.json}, Surefire XML, reset logs. \\
-\textbf{G1 Coverage} & Source-backed gap identification. & Pre-expansion behavioral inventory ($\mathcal{B}_{\text{base}}$). & Verified source anchor; non-duplicative scenario; human approval. & Baseline inventory JSON, gap proposals, review ledger. \\
+\textbf{G0 Environment} & Baseline reproducibility \& runtime isolation. & Pinned app source commit or immutable image digest, runtime manifest, owned isolated services. & HTTP/DB readiness; meaningful Base assertion; fixture/reset and cleanup verified. & App config, source/image/runtime identity, ownership, Base XML/log, reset and cleanup evidence. \\
+\textbf{G1 Coverage} & Source-backed gap identification. & Reproducible baseline taxonomy and candidate-to-behavior traceability. & Source-supported behavior, semantic non-overlap, sound oracle, and signed human approval. & Baseline extraction/dedup procedure, source hashes, gap proposals, signed review decisions. \\
 \textbf{G2 Framework} & Stateful multi-agent execution. & Approved Gherkin scenario, active tool allowlist. & Vertical slice execution; SQLite checkpointing; bounded repair. & Framework test logs, node execution trace, PR diff. \\
-\textbf{G3 Validation} & Executability \& rerun stability. & Generated Java class, clean container state. & First/final compile logs; oracle reached; 3/3 clean reruns PASS. & JUnit XML, DB state diff, Surefire execution reports. \\
+\textbf{G3 Validation} & Executability \& rerun stability. & Exact Gherkin and Java revisions, pinned app/runtime, verified fixture and clean initial state. & Essential Given/When/Then actions and business assertions align; initial run passes; then 3/3 clean reruns pass; each run resets and cleans up. & Per-run app/image/runtime identity, Gherkin/Java hashes, fixture/reset/cleanup proof, JUnit XML and logs, semantic mapping. \\
 \textbf{G4 Release} & Benchmark dataset publication. & 40 validated test cases across 8 applications. & Provenance manifest; reproduction scripts; reviewer sign-off. & Full benchmark delta release package, replication runbook. \\
 \bottomrule
 \end{tabular}%
@@ -542,9 +542,9 @@ To ensure complete empirical traceability, every candidate test must progress th
 
 \subsection{Execution Environment, Container Isolation, and Reset Protocols}
 
-E2E testing experiments require strict environmental control. All web applications in BEWT-CovExt are deployed using Docker containers configured with isolated bridge networks. Application databases (MySQL, MongoDB, SQLite) are decoupled from the host operating system.
+E2E testing requires strict environmental control. The protocol calls for Docker isolation and application-specific database resets; the audit does not establish that these controls were source-bound and verified for every historical run.
 
-Before each test execution, the framework enforces a two-phase reset protocol:
+For an eligible run, the protocol requires a two-phase reset:
 \begin{enumerate}
     \item \textbf{Database Restoration:} Dropping dynamic transactional tables and re-importing the official BEWT baseline SQL dump (or MongoDB collection state), restoring the database to a known clean initial state.
     \item \textbf{Session and Browser Eviction:} Closing all active browser contexts, terminating orphaned WebDriver chromedriver daemons, clearing browser caches and cookies, and re-initializing the browser driver with fresh session capabilities.
@@ -552,14 +552,14 @@ Before each test execution, the framework enforces a two-phase reset protocol:
 
 \subsection{Independent Review Rubric and Decision Criteria}
 
-Human reviewers assess candidate Gherkin scenarios using a standardized 4-dimension scoring rubric:
+The proposed reviewer rubric has four dimensions:
 \begin{itemize}
     \item \textbf{Criterion 1 --- Semantic Novelty (Score 0--2):} 0 = duplicate of existing test; 1 = superficial parameter variation; 2 = distinct behavioral path or state transition.
     \item \textbf{Criterion 2 --- Oracle Soundness (Score 0--2):} 0 = no assertion or trivial URL check; 1 = weak UI element check; 2 = strong business outcome assertion (e.g., error alert text, updated table count).
     \item \textbf{Criterion 3 --- Step Feasibility (Score 0--2):} 0 = references impossible state; 1 = requires manual external setup; 2 = fully automatable via standard Page Object interactions.
     \item \textbf{Criterion 4 --- Architectural Alignment (Score 0--2):} 0 = violates application domain vocabulary; 1 = inconsistent terminology; 2 = fully aligned with existing Gherkin step conventions.
 \end{itemize}
-A candidate is approved (\texttt{ACCEPT\_FOR\_IMPLEMENTATION}) if and only if it achieves a total score $\ge 7/8$ with no individual criterion scoring 0.
+A proposed implementation-screening decision requires a total score $\ge 7/8$ with no individual criterion scoring 0. This screening rule is distinct from signed oracle and novelty approval; no such signed approvals are evidenced for the current 40-candidate batch.
 
 \subsection{Error Classification and Failure Taxonomy}
 
@@ -605,7 +605,7 @@ We define formal quantitative metrics to answer RQ1--RQ4:
     \begin{equation}
         \text{RS}(c) = \frac{1}{K} \sum_{k=1}^K \mathbb{I}(\text{result}(c, k) = \text{PASS})
     \end{equation}
-    A test case is accepted into the benchmark if and only if $\text{RS}(c) = 1.0$ ($100\%$).
+    A 3/3 rerun result is necessary but not sufficient for benchmark acceptance. Acceptance also requires signed novelty and oracle review, an approved semantic mapping, source and fixture provenance, a meaningful business assertion, and verified cleanup.
     \item \textbf{Bounded Repair Efficiency (RE; RQ4):}
     \begin{equation}
         \text{RE} = \frac{|\mathcal{T}_{\text{repaired}}|}{|\mathcal{T}_{\text{failedInitial}}|}
@@ -616,25 +616,21 @@ We define formal quantitative metrics to answer RQ1--RQ4:
 
 \section{Results and Empirical Findings}\label{sec:results}
 
-This section presents empirical results grounded strictly in the verified baseline of \texttt{origin/main} (commit \texttt{22d3813}) and historical research records. In accordance with our rigorous scientific reporting standards, we clearly separate completed empirical verifications from components currently under development.
+This section reports the 12 November 2026 source/data audit of main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}. Recomputed RQ outputs and later live-call evidence are recorded in analysis revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}; the failed live attempt itself is recorded in commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}. Candidate files and raw execution reports do not, by themselves, establish approval, semantic coverage gain, or a validated benchmark case.
 
 \subsection{RQ1: Scenario Novelty, Validity, and Human Review}
 
-To evaluate RQ1, we analyze candidate scenario generation across two datasets: the ExpressCart empirical pilot and the multi-application source-backed gap proposals.
-
-In the ExpressCart pilot, the Gherkin Generation Agent synthesized five candidate scenarios (\texttt{EC-C01} through \texttt{EC-C05}). All five candidates ($100\%$ SVR) complied with standard Gherkin syntax and passed lexical duplicate screening against the 31 baseline ExpressCart scenarios ($J(S_{\text{cand}}, S_{\text{base}}) < 0.80$). During human review, four candidates were approved (\texttt{ACCEPT\_FOR\_IMPLEMENTATION}), yielding a Scenario Acceptance Rate of $\text{SAR} = 4/5 = 80\%$. One candidate (\texttt{EC-C03}, testing voucher code removal) was flagged as \texttt{REVISE} because it lacked intermediate cart item preconditions; zero candidates were rejected. All four accepted candidates proceeded to official Java generation.
-
-Across the wider benchmark, the framework audited and synthesized source-backed gap proposals across the remaining seven applications (Task T04-E/T04-F/T04-G). As detailed in Table~\ref{tab:gap-proposals-summary}, the framework identified \textbf{27 source-backed proposals} anchored in verified application controllers and routes (in addition to 5 Kanboard proposals formulated in Task T04-A/B, totaling 32 proposals across the 8 applications).
+The current candidate dataset has 40/40 syntactically parseable Gherkin scenarios. This establishes syntax only. The audit found zero evidenced signed oracle-and-novelty approvals, zero approved semantic mappings, and zero cases eligible for the study's VALIDATED status. Earlier implementation authorizations and pilot review records are historical workflow evidence; they do not substitute for the current signed review and semantic-mapping requirements. The proposal inventory below is retained as a historical candidate catalog, not a count of accepted or validated behaviors.
 
 \begin{table*}[t]
-\caption{Summary of source-backed gap proposals identified across the eight benchmark applications.}\label{tab:gap-proposals-summary}
+\caption{Historical gap proposal inventory across the eight benchmark applications; proposals are not current approvals.}\label{tab:gap-proposals-summary}
 \centering
 \scriptsize
 \resizebox{\textwidth}{!}{%
 \begin{tabular}{lccp{4.5cm}p{5.5cm}}
 \toprule
-\textbf{Application} & \textbf{Baseline} & \textbf{Source Gaps} & \textbf{Example Candidate} & \textbf{Targeted Code Entity /} \\
-& \textbf{Cases} & \textbf{Identified} & \textbf{Identifiers} & \textbf{Subsystem Boundary} \\
+\textbf{Application} & \textbf{Baseline} & \textbf{Historical} & \textbf{Example Candidate} & \textbf{Targeted Code Entity /} \\
+& \textbf{Cases} & \textbf{Proposal Count} & \textbf{Identifiers} & \textbf{Subsystem Boundary} \\
 \midrule
 Bludit & 23 & 4 & \texttt{BL-GAP-001} to \texttt{004} & Content slug validation, user role limits. \\
 Claroline & 40 & 4 & \texttt{CL-GAP-001} to \texttt{004} & Course enrollment constraints, exercise limits. \\
@@ -645,120 +641,67 @@ MantisBT & 37 & 4 & \texttt{MB-GAP-001} to \texttt{004} & Custom field validatio
 MediaWiki & 27 & 4 & \texttt{MW-GAP-001} to \texttt{004} & Page protection levels, rollback permission gates. \\
 PrestaShop & 35 & 4 & \texttt{PS-GAP-001} to \texttt{004} & Tax calculation boundary, voucher expiration rules. \\
 \midrule
-\textbf{Total} & \textbf{258} & \textbf{32} & \textbf{32 Proposals} & \textbf{Target Expansion: 40 Cases (5/app)} \\
+\textbf{Total} & \textbf{258} & \textbf{32} & \textbf{32 Historical Proposals} & \textbf{Target Expansion: 40 Cases (5/app)} \\
 \bottomrule
 \end{tabular}%
 }
 \end{table*}
 
 \begin{quote}
-\textbf{Answer to RQ1:} The framework achieves $100\%$ syntactic validity on candidate Gherkin scenarios and an $80\%$ human acceptance rate on the pilot application. Thirty-two concrete source-backed proposals are established across all eight applications, grounded directly in application controllers and routing logic.
+\textbf{Answer to RQ1:} RQ1 is \texttt{BLOCKED}. All 40 candidate Gherkin files parse, but the audit found no signed oracle-and-novelty approvals and no approved semantic mappings. The historical proposal counts are not evidence of novelty or validity.
 \end{quote}
 
 \subsection{RQ2: Behavioral Baseline Analysis and Coverage Opportunities}
 
-To answer RQ2, we constructed a comprehensive baseline behavior catalog across seven applications (Task T04-G), cataloging \textbf{227 provisional feature-level records}, \textbf{204 explicit scenario headers}, and \textbf{316 assertion-call lines}. 
-
-Analysis of this inventory confirms that the original BEWT test suites exercise predominantly positive transaction flows. For instance, in PrestaShop, while 35 baseline tests exercise product browsing and checkout creation, zero tests evaluate coupon expiration boundaries, invalid tax codes, or shipping restriction errors. In MediaWiki, baseline tests cover page creation and editing, but omit edit-conflict resolution, permission revoking, and history rollback operations.
-
-The 32 identified gap proposals directly target these unexercised decision branches:
-\begin{itemize}
-    \item \textbf{Input Validation Guards:} Submitting negative quantities, empty mandatory fields, and over-length character strings.
-    \item \textbf{Role-Based Privilege Boundaries:} Verifying that unprivileged users cannot access administrative endpoints (e.g., non-admin users in Claroline and MediaWiki).
-    \item \textbf{Transactional Rollbacks:} Canceling pending operations and verifying that database state remains uncontaminated.
-\end{itemize}
+The baseline inventory contains provisional records, but the audit did not establish a signed, source-hashed baseline of unique behavioral units or approved mappings from candidates to previously uncovered units. Therefore no denominator or incremental UBU count can currently be computed. The earlier proposal catalog may guide future review, but it does not measure behavioral coverage gain.
 
 \begin{quote}
-\textbf{Answer to RQ2:} The BEWT baseline exhibits significant behavioral coverage blind spots, with over $85\%$ of test cases concentrated on nominal happy paths. The proposed benchmark extension systematically targets 32 documented behavioral gaps across all eight applications, addressing negative validation, access control, and stateful lifecycle boundaries.
+\textbf{Answer to RQ2:} \texttt{NOT\_EVALUATED}. The baseline denominator and approved new-UBU mappings are not verified. No coverage-gain percentage is reported.
 \end{quote}
 
 \subsection{RQ3: Executability, Oracle Adherence, and Rerun Stability}
 
-RQ3 evaluates the executability and stability of synthesized Java/Selenium code on live containerized runtimes. Table~\ref{tab:expresscart-pilot-results} summarizes empirical execution results for the four accepted ExpressCart candidates.
+RQ3 evaluates execution evidence, provenance, oracle alignment, and stability. The consolidated historical summary lists 79 run IDs and reports 13 initial passes, 11 candidates with three reported passing reruns, two flaky candidates, and 27 failed candidates. The audit found 84 physical run-record files, of which 79 IDs match the summary and five are additional unsummarized records; there is also one JUnit execution artifact without a run record. None of the 84 run records satisfies the required source-bound provenance contract. These reported outcomes are therefore raw historical results, not validated case outcomes.
 
 \begin{table*}[t]
-\caption{Empirical execution outcomes, oracle validation, and rerun stability for ExpressCart pilot candidates.}\label{tab:expresscart-pilot-results}
+\caption{Audit accounting of historical G3 execution evidence.}\label{tab:g3-audit-accounting}
 \centering
-\scriptsize
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{llcccccp{4.5cm}}
+\small
+\begin{tabular}{lp{2.5cm}p{9cm}}
 \toprule
-\textbf{Candidate} & \textbf{Scenario Intent} & \textbf{HITL} & \textbf{Compile} & \textbf{Initial} & \textbf{Oracle} & \textbf{3-Rerun} & \textbf{Final Scientific} \\
-\textbf{ID} & & \textbf{Review} & \textbf{Repairs} & \textbf{Outcome} & \textbf{Reached?} & \textbf{Stability} & \textbf{Verdict / Failure Cause} \\
+\textbf{Evidence item} & \textbf{Count} & \textbf{Current interpretation} \\
 \midrule
-\texttt{EC-C01} & Percentage discount & ACCEPT & 1 & BLOCKED & No & N/A & \texttt{INCONCLUSIVE} (element timeout) \\
-\texttt{EC-C02} & Cart item removal & ACCEPT & 1 & FAIL & Yes & N/A & \texttt{APP\_DEFECT} (transient UI render) \\
-\texttt{EC-C03} & Voucher code reset & REVISE & --- & --- & --- & --- & \texttt{REVISED} (missing setup steps) \\
-\texttt{EC-C04} & Quantity update & ACCEPT & 1 & PASS & Yes & \textbf{3/3 (100\%)} & \textbf{VALIDATED PASS} \\
-\texttt{EC-C05} & Empty cart validation & ACCEPT & 2 & PASS & Yes & \textbf{3/3 (100\%)} & \textbf{VALIDATED PASS} \\
+Consolidated summary IDs & 79 & Historical reported invocations; not source-bound to all required run identities. \\
+Physical run records & 84 & 79 IDs match the summary; 5 additional records have unresolved purpose. \\
+JUnit XML files & 85 & One execution ID has no corresponding run record. \\
+Source-bound run records & 0 & None meets the current application, source, image, test, runtime, reset, and cleanup evidence contract. \\
+Eligible validated cases & 0 / 40 & No candidate qualifies for \texttt{VALIDATED} under the current acceptance criteria. \\
 \bottomrule
-\end{tabular}%
-}
+\end{tabular}
 \end{table*}
 
-\begin{itemize}
-    \item \textbf{Compilation:} Initial Maven compilation of the generated suite failed due to method signature mismatches on Page Object helper classes. The bounded repair loop executed 5 class-level repair calls across the 4 classes, successfully achieving clean module compilation (\texttt{test-compile} PASS).
-    \item \textbf{Execution and Oracle Evaluation:} Across 14 official E2E test invocations in Sprint 04, 11 invocations successfully navigated all interaction steps and reached the business assertion, achieving an Oracle Reach Rate of $\text{ORR} = 11/14 = 78.6\%$. Among invocations reaching the oracle, 8 passed ($\text{PR}_{\text{oracle}} = 8/11 = 72.7\%$), 3 failed behaviorally, and 3 were blocked by pre-oracle locator timeouts.
-    \item \textbf{Rerun Stability (100\%):} Both passing candidates (\texttt{EC-C04} and \texttt{EC-C05}) were subjected to the mandatory 3-rerun stability protocol. Each candidate executed three consecutive times, with each execution preceded by a full MongoDB database drop and collection restore. All six repeat invocations passed cleanly:
-    \begin{equation}
-        \text{RS}(\texttt{EC-C04}) = 3/3 = 1.0, \quad \text{RS}(\texttt{EC-C05}) = 3/3 = 1.0
-    \end{equation}
-    yielding $100\%$ rerun stability with zero observed flakiness.
-    \item \textbf{Detection of a Real Application Defect:} Candidate \texttt{EC-C02} reached its oracle assertion but failed consistently. Deep investigation confirmed that the failure was not an automation flaw: \texttt{EC-C02} uncovered a genuine application bug in ExpressCart's cart rendering logic, where rapid item removal fails to update the DOM total due to a race condition in an asynchronous AJAX callback.
-    \item \textbf{Inconclusive Verdict:} Candidate \texttt{EC-C01} encountered a wait timeout on a dynamic discount input. Targeted re-execution showed contradictory manual behavior upon browser reload; conforming to our strict reporting standard, \texttt{EC-C01} is cataloged as \texttt{INCONCLUSIVE}.
-\end{itemize}
+The summary's 11 rerun-pass candidates remain historical reported results. Run identity, source hashes, image digests, reset evidence, cleanup evidence, and independent semantic review are incomplete; consequently, no candidate qualifies as behaviorally validated under the current acceptance contract. The run-accounting audit also identified one cleanup record with \texttt{zeroResidualVerified=false}; other residual resource ownership remains unverified. No application defect claim is made here without a source-linked reproducible confirmation.
 
 \begin{quote}
-\textbf{Answer to RQ3:} The framework successfully generated two fully validated E2E test suites (\texttt{EC-C04} and \texttt{EC-C05}) that achieved $100\%$ stability across repeated clean-state reruns. Crucially, the validation protocol demonstrated its sensitivity by detecting a genuine application UI defect (\texttt{EC-C02}) rather than masking it.
+\textbf{Answer to RQ3:} Candidate-level executability and stability are \texttt{NOT\_EVALUATED} under the current source-bound protocol. Historical raw run accounting is only partially observable and does not qualify as validated outcomes. Zero of 40 candidates currently qualifies as \texttt{VALIDATED}.
 \end{quote}
 
 \subsection{RQ4: AI Agent Workflow Utility, Repair Effort, and Telemetry}
 
-Table~\ref{tab:telemetry-summary} details the operational telemetry and model resource consumption recorded across the generation and validation phases.
-
-\begin{table*}[t]
-\caption{Operational telemetry, token consumption, and repair effort across experimental phases.}\label{tab:telemetry-summary}
-\centering
-\scriptsize
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{lcccccc}
-\toprule
-\textbf{Phase /} & \textbf{Model} & \textbf{Prompt} & \textbf{Candidate} & \textbf{Reported} & \textbf{Repair} & \textbf{Elapsed Wall-Clock} \\
-\textbf{Workflow Stage} & \textbf{Requests} & \textbf{Tokens} & \textbf{Tokens} & \textbf{Total Tokens} & \textbf{Calls} & \textbf{Latency (Mean)} \\
-\midrule
-Sprint 01 Gherkin Generation & 1 (final) / 4 (att.) & 6,210 & 1,189 & 9,246 & 0 & 32.4 s \\
-Sprint 03 Java Code Generation & 9 structured responses & 25,180 & 10,500 & 66,750 & 5 & 142.1 s \\
-Sprint 04 Test Execution \& Repair & 0 model calls & --- & --- & --- & 4 (script repairs) & 18.5 s / test run \\
-Sprint 05 Defect Diagnostics & 0 model calls & --- & --- & --- & 0 & Manual validation \\
-\bottomrule
-\end{tabular}%
-}
-\end{table*}
-
-\begin{itemize}
-    \item \textbf{Token Consumption:} Synthesizing five candidate Gherkin scenarios consumed 6,210 prompt tokens and 1,189 candidate tokens. Generating Java test classes across four accepted candidates required nine structured model responses consuming 25,180 prompt tokens and 10,500 candidate tokens.
-    \item \textbf{Repair Efficiency:} The bounded repair mechanism successfully resolved all initial Maven compilation errors in five automated iterations without human intervention, maintaining assertion integrity across all classes.
-    \item \textbf{Execution Latency:} End-to-end generation, compilation, and initial test execution required an average wall-clock duration of approximately 142 seconds per candidate.
-\end{itemize}
-
-\begin{quote}
-\textbf{Answer to RQ4:} The multi-agent workflow operates with modest token expenditure ($\approx 35\text{k}$ total tokens for four complete E2E test suites) and automates compilation error recovery within five bounded iterations, requiring human intervention only at formal review gates.
-\end{quote}
+RQ4 is \texttt{PARTIALLY\_VERIFIED}. Historical records describe prior failed model attempts, but they do not include complete successful-response usage telemetry or an actual billing record. In the current audit, one approved Gemini~3.8~Flash Gherkin request used a 7,690-character prompt and failed after one attempt with a provider schema error (expected an object, received null). The conservative maximum-cost estimate was USD~0.03057 within the authorized USD~0.04 ceiling; actual token usage and charge are unknown. The workflow produced no human-review packet or Java artifact, and no retry was authorized. Human effort savings, per-candidate economics, and a successful model-generation rate therefore remain \texttt{NOT\_EVALUATED}.
 
 \subsection{Full Benchmark 40-Scenario Empirical Validation (Under Development)}\label{subsec:full-benchmark-dev}
 
-While the ExpressCart pilot establishes the end-to-end feasibility of the multi-agent generation and validation pipeline, and Tasks T04-E/T04-G have established source-backed gap proposals across all eight applications, the complete empirical execution and validation of the entire 40-scenario benchmark expansion is currently \textbf{(Under Development)}. 
-
-To date, 32 gap proposals have been identified and baseline compilation verified across all eight test suites. Executing live model generation, formal two-reviewer panel evaluation, and 3-rerun containerized validation across the remaining seven applications constitutes the active next phase of the research program.
+The 40-scenario, eight-application expansion remains the target. Current evidence does not establish 40 accepted novel scenarios, 40 validated implementations, or RQ2 coverage gain. Work remains on semantic correction, signed independent review, source-bound runtime evidence, and complete G0--G4 evaluation.
 
 
 \section{Comparison With the Original BEWT Benchmark}\label{sec:comparison}
 
-A core objective of this research is to advance beyond the static boundaries of the original BEWT benchmark. In this section, we present an evidence-supported, multi-dimensional comparison between original BEWT and BEWT-CovExt, followed by an analysis of qualitative advancements and explicit empirical boundaries.
+A core objective of this research is to study how the original BEWT benchmark could be extended. This section compares the benchmark with the proposed BEWT-CovExt design and reports current evidence status.
 
 \subsection{Structured 14-Dimension Benchmark Comparison}
 
-Table~\ref{tab:bewt-comparison} contrasts the original BEWT benchmark with BEWT-CovExt across fourteen essential dimensions of benchmark engineering and automated testing.
+Table~\ref{tab:bewt-comparison} contrasts the original BEWT benchmark with the BEWT-CovExt target and current implementation evidence across fourteen dimensions of benchmark engineering and automated testing.
 
 \begin{table*}[t]
 \caption{Systematic 14-dimension comparison between the original BEWT benchmark and BEWT-CovExt.}\label{tab:bewt-comparison}
@@ -770,19 +713,19 @@ Table~\ref{tab:bewt-comparison} contrasts the original BEWT benchmark with BEWT-
 \textbf{Dimension} & \textbf{Original BEWT (Baseline) \cite{olianas2026bewt}} & \textbf{BEWT-CovExt Proposed Architecture} & \textbf{Current Baseline Implementation} & \textbf{Evaluation Maturity} \\
 \midrule
 \textbf{1. Objectives} & Benchmark comparison across 5 E2E test implementation variants. & Coverage-guided benchmark expansion via multi-agent AI orchestration. & Stateful LangGraph graph, gap analyzer, and isolated harness. & Verified in Framework; Multi-app (Under Development) \\
-\textbf{2. App Scope} & 8 web applications; 258 literature business test cases. & 8 web applications; expand to 298 cases (+40 target cases; 5/app). & 8 apps audited; 32 source gap proposals; 2 cases validated. & Baseline Verified; Target 40 (Under Development) \\
-\textbf{3. Specifications} & 257 physical \texttt{.feature} files; 23 Bludit files omit \texttt{Scenario:}. & Syntactically valid, BDD-compliant Gherkin specifications. & 5/5 valid Gherkin in pilot; 27 standardized gap proposals. & Verified Syntactic Engine \\
+\textbf{2. App Scope} & 8 web applications; 258 literature business test cases. & Target: expand to 298 cases (+40; 5/app). & 40 candidate records; 0 cases currently qualify as validated. & Scope defined; acceptance blocked \\
+\textbf{3. Specifications} & 257 physical \texttt{.feature} files; 23 Bludit files omit \texttt{Scenario:}. & Gherkin specifications with reviewable business oracles. & 40/40 parse; 0 signed oracle/novelty approvals; 0 approved semantic mappings. & Syntax verified; RQ1 blocked \\
 \textbf{4. Coverage Analysis} & No coverage analysis; tests manually written by original authors. & Static source-backed gap analysis linking routes and controllers. & Pre-expansion catalog (227 records); 32 gap proposals. & Static Analysis Complete; Dynamic Coverage (Under Development) \\
-\textbf{5. Scenario Discovery} & Fixed test set; no expansion mechanism. & Automated gap identification grounded in source-code branching. & Controller/router AST inspection tool implemented. & Verified in Toolchain \\
-\textbf{6. Gherkin Generation} & Static human authoring. & Agentic Gherkin synthesis with lexical duplicate screening. & Gemini-backed Gherkin generator with Jaccard filter. & Verified in Pilot \\
-\textbf{7. Java Generation} & Static human implementation in Java 21 / Selenium WebDriver. & Automated synthesis of Page Object-compliant Java test classes. & Template-guided Java generator with Page Object reuse. & Verified in Pilot \\
+\textbf{5. Scenario Discovery} & Fixed test set; no expansion mechanism. & Source-informed candidate gap identification. & Static/source review exists; current semantic audit: 0/40 matched. & Candidate inventory; not accepted \\
+\textbf{6. Gherkin Generation} & Static human authoring. & Agentic Gherkin synthesis with duplicate screening. & Offline workflow tested; latest approved live request failed schema validation. & Live generation not demonstrated \\
+\textbf{7. Java Generation} & Static human implementation in Java 21 / Selenium WebDriver. & Automated synthesis of Page Object-compliant Java test classes. & Historical Java artifacts exist; current live request produced no Java. & Candidate artifacts; validation pending \\
 \textbf{8. AI Orchestration} & None; pure manual software engineering benchmark. & Stateful multi-agent graph with 4 specialized roles (LangGraph). & 4 role nodes, typed state, SQLite checkpointing. & Verified in Framework \\
-\textbf{9. Human Governance} & Informal peer review during original paper publication. & Formal Human-in-the-Loop review gates (novelty \& oracle rubric). & Structured review ledgers; 4/5 pilot cases approved. & Review Protocol Verified; Full Panel (Under Development) \\
-\textbf{10. Test Execution} & Manual Maven executions; test suites execute sequentially. & Containerized execution with clean-state DB resets and isolation. & Isolated harnesses; Docker health and reset scripts. & Verified in Test Suites \\
-\textbf{11. Error Recovery} & Manual test script debugging and repair. & Automated bounded self-repair loop ($r \le 2$ iterations). & 5 compile repairs resolved; assertion preservation verified. & Verified in Pilot \\
-\textbf{12. Reproducibility} & Public GitHub repository with Docker Compose configurations. & Pinned Git commits, Docker image digests, and runtime manifests. & All 8 app suites pinned; provenance metadata logged. & Verified in Repository \\
-\textbf{13. Datasets} & 36 static Java suites; 1,166 variant test files. & Public benchmark delta packages with execution traces (D1--D8). & ExpressCart pilot dataset; multi-app inventories. & Pilot Verified; Release Package (Under Development) \\
-\textbf{14. Evaluation} & Pass rates and execution times across 5 test variants. & Four research questions (RQ1--RQ4) and five gates (G0--G4). & Evaluated on ExpressCart; baseline audits on 8 apps. & Pilot Complete; Multi-App (Under Development) \\
+\textbf{9. Human Governance} & Informal peer review during original paper publication. & Signed independent oracle and novelty decisions. & Existing authorizations/review records do not meet current signature requirement; 0 evidenced approvals. & Review acceptance blocked \\
+\textbf{10. Test Execution} & Manual Maven executions; test suites execute sequentially. & Containerized execution with clean-state DB resets and isolation. & Historical raw runs exist; 0 source-bound run records under current contract. & G0 partial; G3 blocked \\
+\textbf{11. Error Recovery} & Manual test script debugging and repair. & Automated bounded self-repair loop ($r \le 2$ iterations). & Historical repair reports exist; current candidate validation incomplete. & Offline repair controls tested \\
+\textbf{12. Reproducibility} & Public GitHub repository with Docker Compose configurations. & Pinned source, image, test, runtime, reset, and cleanup evidence. & 84 run records lack complete source-bound identity. & Not established for candidates \\
+\textbf{13. Datasets} & 36 static Java suites; 1,166 variant test files. & Accepted 40-case delta with traces. & Candidate files and partial historical evidence; no accepted release. & Release not ready \\
+\textbf{14. Evaluation} & Pass rates and execution times across 5 test variants. & Four research questions (RQ1--RQ4) and five gates (G0--G4). & RQ1 blocked; RQ2 not evaluated; RQ3 not evaluated for candidate outcomes (raw accounting partial); RQ4 partial. & Acceptance blocked \\
 \bottomrule
 \end{tabular}%
 }
@@ -790,11 +733,11 @@ Table~\ref{tab:bewt-comparison} contrasts the original BEWT benchmark with BEWT-
 
 \subsection{Qualitative and Methodological Advancements}
 
-The comparison in Table~\ref{tab:bewt-comparison} underscores three fundamental paradigm shifts introduced by BEWT-CovExt:
+Table~\ref{tab:bewt-comparison} contrasts the original benchmark with the proposed BEWT-CovExt design and the current evidence state:
 \begin{enumerate}
-    \item \textbf{From Static Benchmarking to Extensible Benchmarks:} Traditional benchmarks remain frozen at publication time, leading to benchmark decay and overfitting. BEWT-CovExt transforms BEWT into an extensible, evolving benchmark infrastructure capable of systematic expansion.
-    \item \textbf{From Unconstrained AI Generation to Disciplined Multi-Agent Governance:} Rather than treating LLMs as infallible code generators, BEWT-CovExt constrains AI through four specialized roles, closed tool allowlists, path confinement, and human review gates, preventing hallucinated tests from entering the benchmark.
-    \item \textbf{From Single-Run Pass Claims to Strict Rerun Stability Invariants:} Unlike studies that report test success after an isolated execution on a dirty container, BEWT-CovExt enforces a 3-rerun stability protocol ($100\%$ pass requirement preceded by verified database resets), establishing a new reproducibility benchmark in web testing research.
+    \item \textbf{From Static Benchmarking to an Expansion Target:} BEWT-CovExt specifies a process intended to support controlled extension; the 40-case delta has not yet been accepted or released.
+    \item \textbf{From Unconstrained Generation to Governed Workflow Design:} The implementation includes typed workflow state, tool allowlists, path confinement, and review checkpoints; current candidate artifacts still require signed semantic review.
+    \item \textbf{From Single-Run Reports to a Rerun Acceptance Criterion:} The program requires three clean reruns plus independent review, provenance, oracle, and cleanup evidence. The current historical run records do not satisfy that full contract.
 \end{enumerate}
 
 \subsection{What BEWT-CovExt Proves vs. What Remains Under Development}
@@ -804,15 +747,15 @@ To maintain rigorous scientific integrity, we explicitly demarcate the boundarie
     \item \textbf{What is Proven by Evidence:}
     \begin{itemize}
         \item The original BEWT benchmark contains documented structural anomalies (M1--M6) and happy-path behavioral skew.
-        \item The stateful multi-agent architecture successfully coordinates gap analysis, Gherkin synthesis, Page Object-compliant Java generation, and bounded compilation repair.
-        \item On the ExpressCart pilot, the framework produced two fully validated E2E test suites with $100\%$ rerun stability across three clean executions, while accurately detecting a genuine application UI defect (\texttt{EC-C02}).
-        \item Thirty-two source-backed gap proposals are established across all eight applications.
+        \item Offline workflow tests exercise graph coordination and bounded-repair behavior; this does not establish acceptance of the current candidate set.
+        \item The checked-in candidate dataset contains 40 Gherkin scenarios that parse; this is syntax evidence only. Current audit results show zero signed oracle-and-novelty approvals and zero approved semantic mappings.
+        \item The consolidated G3 summary reports 79 run IDs, with 84 physical run records and one orphan JUnit artifact observed. None of the run records meets the source-bound evidence contract, so zero cases qualify as behaviorally validated.
     \end{itemize}
     \item \textbf{What Remains Under Development:}
     \begin{itemize}
-        \item The empirical generation, execution, and validation of the full 40-case target across all eight applications.
-        \item The formal independent two-reviewer panel sign-off for the full benchmark delta.
-        \item The unified, distributed multi-app cloud execution harness.
+        \item RQ1 acceptance, a verified UBU denominator and coverage gain for RQ2, and source-bound candidate execution for RQ3.
+        \item Signed independent oracle and novelty reviews, candidate-level source/runtime provenance, and complete G0--G4 evidence for the 40-case target.
+        \item A successful live generation with structured usage telemetry; current RQ4 usage, cost, and human-effort estimates are incomplete.
     \end{itemize}
 \end{itemize}
 
@@ -825,8 +768,8 @@ In this section, we analyze potential threats to the validity of our empirical f
 
 Construct validity concerns whether our evaluation metrics accurately reflect the underlying theoretical constructs being evaluated:
 \begin{itemize}
-    \item \textbf{Behavioral Coverage vs. Code Coverage:} A potential threat is measuring benchmark expansion through scenario counts rather than source-level statement or branch coverage. We mitigate this by establishing a structured behavioral taxonomy and anchoring every candidate scenario in specific application controllers, routes, and validation guards.
-    \item \textbf{Oracle Correctness:} Automated test generation can produce tests with trivial or vacuous oracles (e.g., verifying merely that a page loaded). We mitigate this by subjecting all candidate scenarios to Human-in-the-Loop review, which explicitly scores oracle soundness and requires verifiable business assertions (e.g., specific error banners, modified shopping cart totals).
+    \item \textbf{Behavioral Coverage vs. Code Coverage:} Scenario counts do not establish source-level or behavioral coverage. The proposed taxonomy and candidate mapping require a verified baseline; the current denominator and semantic mappings are not established.
+    \item \textbf{Oracle Correctness:} The review rubric is a proposed control. No signed oracle-and-novelty approvals are evidenced for the current candidate batch, so oracle correctness remains unverified.
     \item \textbf{Denominator Ambiguity:} As discovered in Section~\ref{sec:bewt-analysis}, the original BEWT baseline exhibits discrepancies between published literature counts (258 cases), physical files (257 \texttt{.feature} files), and explicit scenarios (234 headers). To preserve construct validity, we maintain explicit, separate metrics for literature claims, physical repository files, and behavioral units, never conflating them.
 \end{itemize}
 
@@ -834,10 +777,10 @@ Construct validity concerns whether our evaluation metrics accurately reflect th
 
 Internal validity concerns whether observed experimental outcomes are attributable to the proposed framework rather than uncontrolled confounding variables:
 \begin{itemize}
-    \item \textbf{LLM Stochasticity:} Foundation models exhibit output variability across identical prompts. We mitigate this by setting model temperature to $0.0$, enforcing strict JSON output schemas, and utilizing deterministic tool allowlists.
-    \item \textbf{Human Reviewer Subjectivity:} Human review decisions could be biased by individual reviewer preferences. We mitigate this threat by formalizing an objective 4-dimension scoring rubric with explicit numerical thresholds ($\ge 7/8$), logging written justifications for every decision, and planning an independent two-reviewer consensus protocol.
-    \item \textbf{Test Flakiness and Asynchronous Timing:} E2E web tests are notoriously susceptible to timing delays and race conditions. We mitigate flakiness by parameterizing explicit wait conditions in Page Object classes, enforcing full database drops and re-seeding prior to each run, and mandating a 3-rerun stability protocol ($100\%$ pass requirement).
-    \item \textbf{Model Token Telemetry Discrepancies:} As noted in Section~\ref{sec:results}, provider token telemetry occasionally exhibits minor internal inconsistencies between reported total tokens and the sum of prompt and candidate tokens. We report all raw telemetry numbers transparently and avoid inferring billed dollar costs from partial token counters.
+    \item \textbf{LLM Stochasticity:} The provider requests structured outputs, but schema validation can fail; the latest approved call returned a null result. A deterministic prompt or tool allowlist does not make model output deterministic.
+    \item \textbf{Human Reviewer Subjectivity:} The rubric and independent two-reviewer protocol are specified, but current signed approvals are absent; review reliability has not been measured.
+    \item \textbf{Test Flakiness and Asynchronous Timing:} The three-rerun rule is an acceptance criterion. Incomplete run identity and reset/cleanup evidence prevent attributing historical pass rates to candidate stability.
+    \item \textbf{Model Usage and Cost:} The latest failed call provides a conservative maximum-cost estimate, not actual usage or billing. Historical usage records are incomplete.
 \end{itemize}
 
 \subsection{External Validity}
@@ -852,9 +795,9 @@ External validity concerns the generalizability of our findings to other softwar
 
 Conclusion validity concerns whether our statistical and qualitative conclusions are mathematically sound and supported by empirical evidence:
 \begin{itemize}
-    \item \textbf{Scope Demarcation:} We scrupulously avoid generalizing findings from the ExpressCart feasibility pilot to the entire eight-application benchmark. Claims regarding full 40-case expansion are explicitly marked \textbf{(Under Development)}.
-    \item \textbf{Honest Outcome Reporting:} We do not discard or conceal ambiguous experimental outcomes. Inconclusive executions (\texttt{EC-C01}) and application defects (\texttt{EC-C02}) are reported with full root-cause diagnoses, demonstrating that our validation protocol detects real application behavior rather than forcing artificial passes.
-    \item \textbf{Preservation of Historical Evidence:} Historical pilot experiments (Sprints 01--05) are preserved with exact commit hashes and original metrics; we do not retroactively alter historical numbers to conform to subsequent program conventions.
+    \item \textbf{Scope Demarcation:} The current audit reports no validated candidate and does not generalize historical ExpressCart runs to all eight applications.
+    \item \textbf{Historical Outcome Limits:} Prior ExpressCart classifications and rerun counts are retained as historical reports, but the available provenance does not support current benchmark VALIDATED status. The earlier application-defect explanation is not repeated as confirmed without a reproducible source-linked diagnosis.
+    \item \textbf{Evidence Reconciliation:} Historical reports are preserved, while this paper uses the current audit to qualify claims that the evidence contract does not support.
 \end{itemize}
 
 
@@ -879,9 +822,9 @@ The cloud infrastructure will provision dedicated, pre-warmed Google Cloud Platf
 
 \subsection{Independent Two-Reviewer Panel for 40 Extension Scenarios (Under Development)}\label{subsec:reviewer-panel-dev}
 
-While 32 source-backed gap proposals have been identified and preliminary human reviews conducted, establishing a formal, blinded two-reviewer consensus panel across all 40 proposed benchmark scenarios is currently \textbf{(Under Development)}.
+The candidate inventory contains 40 proposals, but source-backed semantic matches and signed oracle-and-novelty approvals are not evidenced for the current batch. A formal, blinded two-reviewer consensus panel across all 40 proposed benchmark scenarios is currently \textbf{(Under Development)}.
 
-The planned protocol will engage two independent senior software testing researchers who will independently score each candidate scenario according to our standardized 4-dimension rubric. Candidates will only proceed to final benchmark inclusion upon achieving mutual consensus (Cohen's Kappa $\kappa \ge 0.80$), guaranteeing that every extended benchmark case satisfies the highest standards of semantic novelty and oracle validity.
+The planned protocol will invite two independent software testing reviewers to score each candidate using the proposed four-dimension rubric. A consensus threshold (Cohen's Kappa $\kappa \ge 0.80$) is a future acceptance criterion; no reviewer consensus is evidenced in the current audit.
 
 \subsection{Full Benchmark Extension Dataset Release and Packaging (Under Development)}\label{subsec:release-packaging-dev}
 
@@ -892,28 +835,28 @@ Upon completion of the 40-scenario validation, the research initiative will publ
 
 \section{Conclusion}\label{sec:conclusion}
 
-This paper has presented \textbf{BEWT-CovExt}, a coverage-guided, stateful multi-agent framework designed to systematically expand and harden the Benchmark for End-to-End Web Testing (BEWT; Olianas et al., 2026, \textit{Journal of Systems and Software}) across eight open-source web applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. 
+This study defines \textbf{BEWT-CovExt}, a coverage-guided, stateful multi-agent framework intended to expand the Benchmark for End-to-End Web Testing (BEWT; Olianas et al., 2026, \textit{Journal of Systems and Software}) across eight open-source web applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. The study target remains five new cases per application, 40 total.
 
-Automated E2E web testing is essential for verifying distributed software systems, yet academic progress has been throttled by static, happy-path-skewed benchmarks. Our empirical physical repository audit of BEWT pinned at commit \texttt{0501249} established that the 258 baseline business test cases leave critical negative input validations, edge boundary conditions, role-based access controls, and stateful lifecycle operations unexercised, in addition to exhibiting six distinct structural mismatches (M1--M6) across physical repository files.
+The source/data snapshot is repository main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the later evidence analysis is on remediation revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}. The BEWT source audit remains pinned to its recorded source revision. The audit confirms that the candidate dataset contains 40 parseable scenarios, but found zero signed oracle-and-novelty approvals, zero approved semantic mappings, an unverified behavioral-unit baseline denominator, and no source-bound G3 run records under the current contract.
 
 To resolve these challenges, BEWT-CovExt establishes a disciplined multi-agent architecture powered by LangGraph, organizing generation into four specialized roles: Coverage Analysis, Gherkin Generation, Selenium Implementation, and Validation. The framework incorporates closed tool allowlists, path confinement, deterministic SQLite checkpointing with process crash recovery, append-only financial model call budget ledgers, and Human-in-the-Loop review gates to prevent semantic hallucination and superficial parameter duplication.
 
-On the verified \texttt{origin/main} baseline (commit \texttt{22d3813}), we have established significant empirical progress:
+The evidence-backed status at this snapshot is:
 \begin{enumerate}
-    \item \textbf{Comprehensive Physical Audit:} Cataloging 257 physical \texttt{.feature} files, 234 explicit scenario headers, and 194 Page Object classes across the eight applications.
-    \item \textbf{Source-Backed Gap Taxonomy:} Establishing 32 concrete gap proposals anchored in verified application controllers and routing logic (27 proposals across seven applications in addition to five Kanboard proposals).
-    \item \textbf{Clean Multi-Suite Compilation:} Confirming clean Maven compilation across all eight application test suites under modernized Java 21 and Selenium WebDriver 4.35 configurations.
-    \item \textbf{Empirical Pilot Validation:} In an empirical pilot on ExpressCart, the framework synthesized two fully passing E2E test suites (\texttt{EC-C04} and \texttt{EC-C05}) that achieved $100\%$ rerun stability across three consecutive clean-state reruns preceded by database restores. Crucially, the protocol demonstrated its diagnostic sensitivity by uncovering a genuine application UI defect (\texttt{EC-C02}) and documenting an inconclusive timeout (\texttt{EC-C01}).
+    \item \textbf{RQ1:} \texttt{BLOCKED}; syntax passes for 40/40 candidate scenarios, but approvals and semantic matches are not evidenced.
+    \item \textbf{RQ2:} \texttt{NOT\_EVALUATED}; no verified baseline UBU denominator or approved candidate-to-UBU mappings exist.
+    \item \textbf{RQ3:} Historical raw execution reports are partially accounted (79 summarized run IDs, 84 physical run records, one orphan JUnit artifact), but none of the 84 run records is source-bound and zero cases qualify as validated.
+    \item \textbf{RQ4:} \texttt{PARTIALLY\_VERIFIED}; the latest approved generation request failed, and actual usage, billing, and human-effort savings are not established.
 \end{enumerate}
 
-By rigorously demarcating verified findings from ongoing development, BEWT-CovExt establishes a transparent, reproducible benchmark expansion methodology. As the distributed cloud execution harness and the two-reviewer consensus panel near completion, BEWT-CovExt is positioned to deliver a complete 298-case expanded benchmark delta, providing the global software engineering community with a rich, reproducible foundation for next-generation automated testing research.
+The project has not yet established an accepted 298-case benchmark delta. The next research milestone is to correct and map candidate behavior, obtain cryptographically verifiable independent oracle and novelty review, verify baseline UBU provenance, and record source-bound initial-plus-three-rerun evidence for eligible cases before drawing coverage or stability conclusions.
 
 \section*{Declarations}
 
 \begin{itemize}
     \item \textbf{Funding:} This research was supported by academic and open-source software engineering research initiatives.
     \item \textbf{Conflict of Interest:} The authors declare that they have no competing financial or non-financial interests that are directly or indirectly related to the work submitted for publication.
-    \item \textbf{Data Availability:} All framework source code, application manifests, gap proposal datasets, test harnesses, and experimental logs are publicly available in the official GitHub repository: \url{https://github.com/NgaiLong49423/BEWT-CovExt} pinned at verified commit \texttt{22d3813bd92cc6ec0c5b2d0d766b6ba3fcb72170}.
+    \item \textbf{Data Availability:} Repository artifacts and the current audit report are available at \url{https://github.com/NgaiLong49423/BEWT-CovExt}. The audit snapshot is main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; see the linked PR~\#27 for the remediation revision and its evidence. The 40-case target is not a released, accepted benchmark extension.
 \end{itemize}
 
 \bibliography{bewt-covext-references}
@@ -933,10 +876,10 @@ Table~\ref{tab:app-gate-details} formalizes the detailed entry, execution, and e
 \toprule
 \textbf{Gate} & \textbf{Pre-Flight Checklist} & \textbf{Operational Verification Steps} & \textbf{Terminal Exit Artifacts} \\
 \midrule
-\textbf{G0} & Pinned Git commit; container image digest; isolated bridge network. & 1. Start application container; 2. Poll readiness endpoint until HTTP 200; 3. Execute $\ge 1$ Base smoke test; 4. Restore DB and verify state equality. & \texttt{config/apps/<app>.json}, Surefire XML report, container port allocation log. \\
-\textbf{G1} & Verified G0 pass; baseline behavioral catalog ($\mathcal{B}_{\text{base}}$). & 1. Identify unexercised controller branch; 2. Verify source Git blob hash; 3. Generate Gherkin scenario; 4. Execute lexical duplicate screener. & Gap proposal JSON,, candidate Gherkin file, Jaccard similarity log. \\
+\textbf{G0} & Pinned app source commit or image digest; runtime manifest; owned isolated services and network. & 1. Verify HTTP/DB readiness; 2. execute a meaningful Base assertion; 3. verify fixture and reset; 4. verify cleanup for the same run. & App config and source/image/runtime identities, ownership evidence, Base XML/log, fixture/reset/cleanup records. \\
+\textbf{G1} & Verified G0 pass; independently reviewed baseline behavioral catalog ($\mathcal{B}_{\text{base}}$). & Proposed: identify and source-check a behavior, prepare candidate Gherkin, then conduct novelty/oracle review. No executable Jaccard screener was verified. & Source evidence, candidate Gherkin, review decision; lexical screening output only if actually generated. \\
 \textbf{G2} & Verified G1 pass; active tool allowlist; initialized SQLite checkpointer. & 1. Load candidate into LangGraph; 2. Execute vertical slice node transitions; 3. Trigger simulated process crash and verify resume from SQLite. & Node execution event stream, SQLite checkpoint dump, tool invocation log. \\
-\textbf{G3} & Approved Gherkin scenario; clean application container state. & 1. Compile generated Java class via Maven; 2. Execute Selenium test; 3. Trigger bounded repair ($r \le 2$) if needed; 4. Execute 3 consecutive clean reruns. & First/final Maven compile logs, Surefire XML reports, 3-rerun stability summary. \\
+\textbf{G3} & Signed-approved Gherkin/oracle and exact Java revision; pinned app/runtime; verified fixture and clean state. & 1. Verify Gherkin/Java hashes; 2. compile and run the aligned business scenario; 3. verify oracle and cleanup; 4. after initial PASS, run 3 clean reruns with per-run reset and cleanup. & Per-run app/image/runtime, test hashes, fixture/reset/cleanup records, JUnit XML/logs, and semantic action/assertion mapping. \\
 \textbf{G4} & 40 validated test cases across 8 applications; reviewer consensus sign-off. & 1. Package Gherkin, Java, and manifest files; 2. Verify single-command reproduction scripts; 3. Archive immutable dataset on Zenodo. & Release package zip, replication runbook, cryptographic checksum ledger. \\
 \bottomrule
 \end{tabular}%
@@ -979,28 +922,24 @@ To reproduce the empirical findings reported in this paper on a local Linux or m
 # 1. Clone the repository and fetch the verified research baseline
 git clone https://github.com/NgaiLong49423/BEWT-CovExt.git
 cd BEWT-CovExt
-git checkout 22d3813bd92cc6ec0c5b2d0d766b6ba3fcb72170
+# Analysis/evidence revision. Its data inputs descend from the main snapshot below.
+git checkout e32b25e027573a63de3da8dbb3d89ee135517cc2
+# Source/data audit baseline used by the traceability ledger:
+git show da6399536ff75a1edf4417819eb4d166cc1d781c:docs/program/STATUS.json
 
-# 2. Verify framework dependencies and offline unit/integration test suites
+# 2. Reproduce the framework and evidence-audit calculations (Node.js >= 22)
 cd framework
 npm ci --ignore-scripts
-npm test           # Verifies 45/45 offline framework tests PASS
-npm run build      # Verifies clean TypeScript compilation (tsc)
+npm test
+npm run test:integration
+npm run build
+cd ..
+node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs
+node docs/research-results/v2/replication/audit-g3-run-accounting.mjs
+node docs/research-results/v2/replication/recompute-metrics.mjs
 
-# 3. Verify clean compilation across all eight isolated application suites
-cd ../experiments
-mvn -f expresscart/bewt-suite/pom.xml test-compile   # ExpressCart
-mvn -f joomla/bewt-suite/pom.xml test-compile        # Joomla
-mvn -f kanboard/bewt-suite/pom.xml test-compile      # Kanboard
-mvn -f mantisbt/bewt-suite/pom.xml test-compile      # MantisBT
-mvn -f mediawiki/bewt-suite/pom.xml test-compile      # MediaWiki
-mvn -f prestashop/bewt-suite/pom.xml test-compile     # PrestaShop
-mvn -f bludit/bewt-suite/pom.xml test-compile        # Bludit
-mvn -f claroline/bewt-suite/pom.xml test-compile     # Claroline
-
-# 4. Verify ExpressCart pilot 3-rerun clean-state stability evidence
-cd ../docs/tasks/FINAL-P0
-python -m unittest discover tests/  # Verifies evidence hashes and ledger integrity
+# This reproduces the current offline audit, not the historical Docker/Cloud
+# experiment. Historical G0/G3 runs are not re-executed by these commands.
 \end{lstlisting}
 
 \end{appendices}
