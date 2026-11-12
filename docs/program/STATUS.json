@@ -222,6 +222,8 @@
       "candidateRemediation": {
         "EC-GAP-002": {
           "revision": 3,
+          "implementationCommit": "ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e",
+          "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
           "compile": "PASS",
           "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
           "humanOracleNoveltyReview": "PENDING_HUMAN_SIGNATURE",

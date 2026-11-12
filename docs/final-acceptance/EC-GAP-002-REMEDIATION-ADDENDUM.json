@@ -3,6 +3,8 @@
   "baselineAuditCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "implementationBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
   "revision": 3,
+  "implementationCommit": "ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e",
+  "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
   "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3.java",
   "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/gherkin.feature",
   "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",

@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Replace the semantically incorrect EC-GAP-002 R2 behavior with an immutable source-backed R3; compile and prepare source-bound G3, without changing the human review decision.
 - Base branch + base SHA: 	ask/final-remediation-audit at 8c1abafb5254af73bdc43ef9d2f5849bd5c64b00.
 - Working branch: 	ask/ec-gap002-remediation.
-- Head commit (full 40-char SHA): pending commit.
-- PR: pending push / draft PR creation.
-- Push status: pending.
+- Head commit (full 40-char SHA): `ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e` (R3 implementation snapshot; subsequent report metadata is included in this PR).
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/32 (draft; targets `task/final-remediation-audit`).
+- Push status: PUSHED; branch ref verified at `ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e`.
 - Runtime/commit/version tested: Compile only; pinned ExpressCart 1.1.19, source commit 31302f4e99c3293bd742c6d076a721e168118b0.
 - Status proposed by Agent: PARTIAL; G3 pending parent execution, oracle and novelty review pending.
 
