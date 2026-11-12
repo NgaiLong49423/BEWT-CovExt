@@ -128,3 +128,9 @@ Verification for this follow-up:
 - Removed MariaDB `MYSQL_USER` / `MYSQL_PASSWORD` initialization for MediaWiki. The image had provisioned the app account before MediaWiki's installer attempted to create/grant that same account. The required `MEDIAWIKI_DB_USER` is now explicitly a non-root runtime user distinct from `MEDIAWIKI_DB_INSTALL_USER`; variable names are unchanged. PrestaShop's image-level user provisioning remains as-is.
 - The 40-character Gherkin object identifier uses the explicit `gitBlobSha1` field; it is not labeled SHA-256.
 - This correction is offline-verified only. The next live run must confirm Docker DNS alias resolution and MediaWiki account creation; no live G0 was run here.
+
+## PrestaShop readiness redirect follow-up (2026-11-12)
+
+- Login readiness now follows up to five same-origin HTTP redirects from the published loopback URL and validates the final page's login controls. Cross-origin redirect targets are rejected.
+- `run-record.json` retains each redirect's HTTP status and source/target path only; it omits hosts and query strings. The final readiness endpoint path and status refer to the validated destination.
+- Local mock-HTTP tests cover redirect chains, final PrestaShop login controls, query omission, cross-origin rejection, and the hop limit. No live G0 was run.

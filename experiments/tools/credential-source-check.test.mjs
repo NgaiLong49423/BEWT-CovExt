@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { createServer } from 'node:http';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
@@ -7,12 +8,14 @@ import {
   DATABASE_NETWORK_ALIAS,
   containerProvenance,
   credentialValuesFrom,
+  followHttpRedirects,
   findBaselineGherkinBinding,
   hostAppReadinessUrl,
   loginControlsReady,
   mediawikiTestEnvironment,
   readinessEvidence,
   readinessFailureEvidence,
+  resolveSameOriginRedirect,
   requiredEnvironment,
   resolveEnvironmentConfig,
   sanitizeCommandArgv,
@@ -112,6 +115,7 @@ test('app and login readiness evidence records path, timestamp, status and valid
     endpointPath: '/administrator/',
     validator: 'prestashop-admin-login',
     checkedAtUtc: '2026-11-12T00:00:00.000Z',
+    redirects: [],
   });
   assert.equal('url' in result, false);
 });
@@ -131,6 +135,7 @@ test('failed readiness is persisted with timestamp, status, validator and endpoi
     endpointPath: '/administrator/',
     validator: 'login-controls',
     checkedAtUtc: '2026-11-12T00:00:00.000Z',
+    redirects: [],
     completedBeforeMaven: true,
   });
 });
@@ -167,6 +172,58 @@ test('host-side login readiness uses loopback paths while Maven keeps internal a
   const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
   assert.ok(source.includes("waitAndRecordReadiness(runRecord, 'appLogin', hostAppReadinessUrl(appId, appPort, cfg)"));
   assert.ok(source.includes('BEWT_APP_URL: targetAppUrl'));
+});
+
+test('login readiness follows bounded same-origin redirects and records only redirect paths', async () => {
+  const server = createServer((req, res) => {
+    if (req.url === '/admin-start') {
+      res.writeHead(302, { Location: '/administrator/' }).end();
+    } else if (req.url === '/administrator/') {
+      res.writeHead(301, { Location: '/login?fixture=query-secret' }).end();
+    } else {
+      res.writeHead(200, { 'Content-Type': 'text/html' }).end('<input name="email"><input name="passwd">');
+    }
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const port = server.address().port;
+  try {
+    const result = await waitAndRecordReadiness(
+      { readiness: {} },
+      'appLogin',
+      `http://127.0.0.1:${port}/admin-start`,
+      'PrestaShop login',
+      1000,
+      (body, response) => response.status === 200 && loginControlsReady('prestashop', body),
+      'prestashop-admin-email-and-password-controls',
+    );
+    assert.equal(result.endpointPath, '/login');
+    assert.deepEqual(result.redirects, [
+      { status: 302, fromPath: '/admin-start', toPath: '/administrator/' },
+      { status: 301, fromPath: '/administrator/', toPath: '/login' },
+    ]);
+    assert.equal(JSON.stringify(result).includes('query-secret'), false);
+  } finally {
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
+  }
+});
+
+test('redirect helper rejects cross-origin targets', () => {
+  assert.throws(() => resolveSameOriginRedirect('http://127.0.0.1:8000/admin/', 'http://app:80/login'), /cross-origin/);
+  assert.throws(() => resolveSameOriginRedirect('http://127.0.0.1:8000/admin/', '//example.test/login'), /cross-origin/);
+});
+
+test('redirect following stops at the configured hop bound', async () => {
+  const server = createServer((req, res) => {
+    const index = Number(new URL(req.url, 'http://localhost').pathname.split('/').pop());
+    res.writeHead(302, { Location: `/hop/${index + 1}` }).end();
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const port = server.address().port;
+  try {
+    await assert.rejects(followHttpRedirects(`http://127.0.0.1:${port}/hop/0`, 1000, 2), /redirect limit exceeded/);
+  } finally {
+    await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
+  }
 });
 
 test('evidence sanitization redacts configured usernames and secrets', () => {

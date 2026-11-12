@@ -50,23 +50,25 @@ export function containerProvenance(inspectInfo) {
   return { containerId: inspectInfo.Id, imageReference: inspectInfo.Config.Image, imageId: inspectInfo.Image, createdAt: inspectInfo.Created };
 }
 
-export function readinessEvidence(url, status, validator, checkedAtUtc = new Date().toISOString()) {
+export function readinessEvidence(url, status, validator, checkedAtUtc = new Date().toISOString(), redirects = []) {
   return {
     outcome: 'PASS',
     status,
     endpointPath: new URL(url).pathname,
     validator,
     checkedAtUtc,
+    redirects,
   };
 }
 
-export function readinessFailureEvidence(url, status, validator, checkedAtUtc = new Date().toISOString()) {
+export function readinessFailureEvidence(url, status, validator, checkedAtUtc = new Date().toISOString(), redirects = []) {
   return {
     outcome: 'FAIL',
     status,
     endpointPath: new URL(url).pathname,
     validator,
     checkedAtUtc,
+    redirects,
   };
 }
 
@@ -101,6 +103,13 @@ export async function waitAndRecordReadiness(runRecord, stage, url, label, timeo
 export function hostAppReadinessUrl(appId, port, cfg = APPS[appId]) {
   const path = appId === 'prestashop' ? '/administrator/' : (cfg?.appUrlPath || '/');
   return `http://127.0.0.1:${port}${path}`;
+}
+
+export function resolveSameOriginRedirect(currentUrl, location) {
+  const current = new URL(currentUrl);
+  const target = new URL(location, current);
+  if (target.origin !== current.origin) throw new Error('cross-origin HTTP redirect rejected');
+  return target;
 }
 
 export function credentialValuesFrom(...envObjects) {
@@ -223,7 +232,11 @@ export function probeHttp(url, timeoutMs = 3000) {
       const req = http.get(url, { timeout: timeoutMs }, (res) => {
         let data = '';
         res.on('data', (chunk) => { data += chunk; });
-        res.on('end', () => resolve({ status: res.statusCode || 0, text: () => Promise.resolve(data) }));
+        res.on('end', () => resolve({
+          status: res.statusCode || 0,
+          location: res.headers.location,
+          text: () => Promise.resolve(data),
+        }));
       });
       req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
       req.on('error', (err) => reject(err));
@@ -233,28 +246,55 @@ export function probeHttp(url, timeoutMs = 3000) {
   });
 }
 
+export async function followHttpRedirects(url, timeoutMs = 3000, maxRedirects = 5) {
+  let currentUrl = new URL(url);
+  const redirects = [];
+  try {
+    for (;;) {
+      const response = await probeHttp(currentUrl.href, timeoutMs);
+      const isRedirect = [301, 302, 303, 307, 308].includes(response.status) && Boolean(response.location);
+      if (!isRedirect) return { response, finalUrl: currentUrl, redirects };
+      if (redirects.length >= maxRedirects) throw new Error('HTTP redirect limit exceeded');
+      const nextUrl = resolveSameOriginRedirect(currentUrl.href, response.location);
+      redirects.push({ status: response.status, fromPath: currentUrl.pathname, toPath: nextUrl.pathname });
+      currentUrl = nextUrl;
+    }
+  } catch (error) {
+    error.finalUrl = currentUrl.href;
+    error.redirects = redirects;
+    throw error;
+  }
+}
+
 export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400, validatorName = 'http-status-2xx-3xx') {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
   let lastStatus = null;
+  let lastEndpointUrl = url;
+  let lastRedirects = [];
   console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
   while (Date.now() < deadline) {
     try {
-      const res = await probeHttp(url, 3000);
+      const followed = await followHttpRedirects(url, 3000);
+      const res = followed.response;
+      lastEndpointUrl = followed.finalUrl.href;
+      lastRedirects = followed.redirects;
       lastStatus = res.status;
       const body = await res.text();
       if (validator(body, res)) {
         console.log(`[waitHttpReady] ${label} is ready! HTTP ${res.status}`);
-        return readinessEvidence(url, res.status, validatorName);
+        return readinessEvidence(lastEndpointUrl, res.status, validatorName, new Date().toISOString(), lastRedirects);
       }
       lastErr = `HTTP ${res.status}: validator failed`;
     } catch (e) {
       lastErr = e.message;
+      lastEndpointUrl = e.finalUrl || lastEndpointUrl;
+      lastRedirects = e.redirects || lastRedirects;
     }
     await new Promise((r) => setTimeout(r, 2000));
   }
   const error = new Error(`${label} readiness timeout (${timeoutMs}ms): ${lastErr}`);
-  error.readiness = readinessFailureEvidence(url, lastStatus, validatorName);
+  error.readiness = readinessFailureEvidence(lastEndpointUrl, lastStatus, validatorName, new Date().toISOString(), lastRedirects);
   throw error;
 }
 
