@@ -1,0 +1,27 @@
+{
+  "scope": "JO-GAP-004 G3 fixture diagnostics and Joomla test timeout",
+  "worktreeHeadBeforeCommit": "79bf0b9923573ef8a1a1632c5e5ac7a71214852f",
+  "focusedNodeTest": {
+    "command": "node --test experiments/g0-safety/test/joomla-fixture-precondition.test.mjs",
+    "passed": 2,
+    "failed": 0,
+    "result": "PASS"
+  },
+  "syntaxJsonAndDiffChecks": "PASS: runner syntax, Joomla wrapper syntax, STATUS.json parse, git diff --check",
+  "maven": {
+    "command": "mvn -B clean test-compile",
+    "module": "experiments/joomla/bewt-suite",
+    "result": "BUILD_SUCCESS",
+    "mainSourcesCompiled": 31,
+    "testSourcesCompiled": 47,
+    "exitCode": 0
+  },
+  "timeout": {
+    "joomlaG3Ms": 600000,
+    "sharedRunnerDefaultMs": 300000
+  },
+  "runtimeAttemptStarted": false,
+  "candidateJavaOrGherkinChanged": false,
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}

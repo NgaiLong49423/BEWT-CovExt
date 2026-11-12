@@ -1,6 +1,7 @@
 package base;
 
 import java.net.MalformedURLException;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,6 +62,9 @@ public class JO_GAP_004_G3_Suite {
         int saveHistoryRadioCount = 0;
         int versionCounter = 0;
         int initialHistoryRows = 0;
+        String currentStage = "DRIVER_STARTUP";
+        String exceptionClass = "NONE";
+        String browserReachabilityAtFailure = "NOT_PROBED";
 
         try {
             ChromeOptions options = new ChromeOptions();
@@ -72,8 +76,10 @@ public class JO_GAP_004_G3_Suite {
             }
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
             driver.manage().window().maximize();
+            currentStage = "APPLICATION_NAVIGATION";
             driver.get(ExperimentConfig.appUrl());
 
+            currentStage = "ADMIN_LOGIN";
             frontendWindow = driver.getWindowHandle();
             EditProfilePage loggedIn = new BaseNavBar(driver).authorLogin()
                     .setUsername(ExperimentConfig.adminUsername())
@@ -84,6 +90,7 @@ public class JO_GAP_004_G3_Suite {
                     .setPassword(ExperimentConfig.adminPassword())
                     .login();
             adminWindow = driver.getWindowHandle();
+            currentStage = "FIXTURE_TITLE_PRECHECK";
             ManageArticlesPage articles = adminHome.articles();
             List<WebElement> existing = articleTitleRows(driver);
             if (!existing.isEmpty() || articles.containsArticle(ARTICLE_TITLE)) {
@@ -93,6 +100,7 @@ public class JO_GAP_004_G3_Suite {
             }
 
             driver.switchTo().window(frontendWindow);
+            currentStage = "FRONTEND_SAVE";
             fixtureCreationAttempted = true;
             LoggedHome home = loggedIn.createPost()
                     .setTitle(ARTICLE_TITLE)
@@ -102,8 +110,10 @@ public class JO_GAP_004_G3_Suite {
                 try {
                     frontendArticleConfirmed = ARTICLE_TITLE.equals(home.getFirstArticleTitle())
                             && home.getFirstArticleBody().contains(INITIAL_BODY);
-                } catch (RuntimeException ignored) {
-                    frontendArticleConfirmed = false;
+                } catch (RuntimeException e) {
+                    exceptionClass = e.getClass().getSimpleName();
+                    currentStage = "FRONTEND_VERIFY";
+                    throw e;
                 }
             }
             fixtureCreated = frontendArticleConfirmed;
@@ -113,6 +123,7 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Joomla frontend did not show the exact saved article title and body");
             }
 
+            currentStage = "ADMIN_LIST_MATCH";
             driver.switchTo().window(adminWindow);
             driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
             try {
@@ -132,6 +143,7 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Joomla admin article manager did not show exactly one exact-title fixture row");
             }
             fixtureCreated = true;
+            currentStage = "ARTICLE_EDITOR_NAVIGATION";
             try {
                 created.get(0).findElement(By.linkText(ARTICLE_TITLE)).click();
             } catch (RuntimeException e) {
@@ -148,6 +160,7 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Joomla article editor did not open for the exact-title fixture", e);
             }
             articleEditorOpened = true;
+            currentStage = "VERSION_FIELD_READ";
             String version = driver.findElement(By.id("jform_version")).getAttribute("value");
             versionFieldRead = true;
             versionCounter = "1".equals(version) ? 1 : 0;
@@ -156,6 +169,7 @@ public class JO_GAP_004_G3_Suite {
                 reason = "FIXTURE_VERSION_NOT_ONE";
                 throw new IllegalStateException("Fixture setup requires article version counter 1");
             }
+            currentStage = "HISTORY_MODAL";
             List<WebElement> versionsButtons = driver.findElements(By.cssSelector("a.modal_jform_contenthistory"));
             if (versionsButtons.size() != 1 || !versionsButtons.get(0).isDisplayed()) {
                 outcome = "BLOCKED";
@@ -171,6 +185,7 @@ public class JO_GAP_004_G3_Suite {
                 reason = "HISTORY_MODAL_UNAVAILABLE";
                 throw new IllegalStateException("Joomla version history dialog did not open", e);
             }
+            currentStage = "INITIAL_HISTORY_ROWS";
             List<WebElement> historyRows = driver.findElements(By.cssSelector("#adminForm tbody tr"));
             historyRowsObserved = true;
             initialHistoryRows = historyRows.size();
@@ -181,16 +196,19 @@ public class JO_GAP_004_G3_Suite {
             }
 
             fixtureVerified = true;
+            currentStage = "CANDIDATE_READY";
             outcome = "PASS";
             reason = "EXACT_TITLE_VERSION_AND_HISTORY_VERIFIED";
             System.out.println("JO-GAP-004 fixture setup PASS: exact title, version 1, and one initial history row verified.");
         } catch (Exception | AssertionError e) {
+            if ("NONE".equals(exceptionClass)) exceptionClass = e.getClass().getSimpleName();
+            browserReachabilityAtFailure = seleniumStatusReachability();
             if (fixtureCreationAttempted && !fixtureVerified) {
                 cleanupOutcome = cleanupCreatedFixture(driver, adminWindow);
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                     fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                    optionsContext, optionsFormVisible, saveHistoryRadioCount);
+                    optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
             throw e;
         } finally {
             if (driver != null) {
@@ -199,13 +217,28 @@ public class JO_GAP_004_G3_Suite {
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                 fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                optionsContext, optionsFormVisible, saveHistoryRadioCount);
+                optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
     }
 
     private static List<WebElement> articleTitleRows(WebDriver driver) {
         return driver.findElements(By.cssSelector("#articleList tbody tr")).stream()
                 .filter(row -> row.findElements(By.linkText(ARTICLE_TITLE)).size() == 1)
                 .toList();
+    }
+    private static String seleniumStatusReachability() {
+        HttpURLConnection connection = null;
+        try {
+            String endpoint = ExperimentConfig.webdriverUrl().replaceAll("/+$", "") + "/status";
+            connection = (HttpURLConnection) new URL(endpoint).openConnection();
+            connection.setConnectTimeout(1500);
+            connection.setReadTimeout(1500);
+            int status = connection.getResponseCode();
+            return status >= 200 && status < 500 ? "REACHABLE_HTTP_" + status : "UNREACHABLE";
+        } catch (Exception ignored) {
+            return "UNREACHABLE";
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
     }
     private static String cleanupCreatedFixture(WebDriver driver, String adminWindow) {
         if (driver == null || adminWindow == null) return "FAILED_ADMIN_SESSION_UNAVAILABLE";
@@ -282,7 +315,8 @@ public class JO_GAP_004_G3_Suite {
             boolean articleEditorOpened, boolean versionFieldRead, boolean historyRowsObserved,
             String saveHistorySetting,
             String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
-            String optionsContext, boolean optionsFormVisible, int saveHistoryRadioCount) throws Exception {
+            String optionsContext, boolean optionsFormVisible, int saveHistoryRadioCount,
+            String currentStage, String exceptionClass, String browserReachabilityAtFailure) throws Exception {
         Path path = Path.of(evidencePath);
         Files.createDirectories(path.getParent());
         String json = "{\n"
@@ -303,6 +337,9 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"initialHistoryRowsObserved\": " + historyRowsObserved + ",\n"
                 + "  \"articleEditorOpened\": " + articleEditorOpened + ",\n"
                 + "  \"fixtureCleanupOutcome\": \"" + cleanupOutcome + "\",\n"
+                + "  \"currentStage\": \"" + currentStage + "\",\n"
+                + "  \"exceptionClass\": \"" + exceptionClass + "\",\n"
+                + "  \"browserReachabilityAtFailure\": \"" + browserReachabilityAtFailure + "\",\n"
                 + "  \"optionsRoutePath\": \"" + optionsRoutePath + "\",\n"
                 + "  \"optionsPageTitle\": \"" + optionsPageTitle + "\",\n"
                 + "  \"optionsContext\": \"" + optionsContext + "\",\n"

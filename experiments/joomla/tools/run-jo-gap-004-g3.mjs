@@ -107,6 +107,7 @@ try {
   result = await runG0Workflow('joomla', runId, {
     testClass: 'base.JO_GAP_004_G3_Suite',
     evidenceDir: evidenceDirRelative,
+    testTimeoutMs: 600000,
   });
 } catch (error) {
   result = { appId: 'joomla', runId, outcome: 'BLOCKED', exitCode: 1, errorName: error.name };

@@ -647,7 +647,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       cwd: REPO_ROOT,
       encoding: 'utf8',
       env: testEnvVars,
-      timeout: 300000,
+      timeout: options.testTimeoutMs ?? 300000,
     });
 
     writeFileSync(join(evidenceDir, 'maven.stdout.log'), sanitizeEvidenceText(mvnRes.stdout));

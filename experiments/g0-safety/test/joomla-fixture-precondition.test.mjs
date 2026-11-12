@@ -16,6 +16,10 @@ test('missing history blocks R3 and created fixtures use independently verified 
   assert.match(suiteSource, /if \(fixtureCreationAttempted && !fixtureVerified\) \{\s*cleanupOutcome = cleanupCreatedFixture\(driver, adminWindow\);/);
   assert.match(suiteSource, /articleManagerExactTitleRowCount/);
   assert.match(suiteSource, /articleEditorOpened/);
+  assert.match(suiteSource, /currentStage/);
+  assert.match(suiteSource, /exceptionClass/);
+  assert.match(suiteSource, /browserReachabilityAtFailure/);
+  assert.match(suiteSource, /catch \(RuntimeException e\) \{\s*exceptionClass = e\.getClass\(\)\.getSimpleName\(\);\s*currentStage = "FRONTEND_VERIFY";\s*throw e;/);
 
   const cleanupStart = suiteSource.indexOf('private static String cleanupCreatedFixture');
   assert.notEqual(cleanupStart, -1);
@@ -25,4 +29,11 @@ test('missing history blocks R3 and created fixtures use independently verified 
   assert.match(cleanup, /FAILED_EXACT_TITLE_MATCH_COUNT_/);
   assert.match(cleanup, /new ManageArticlesPage\(currentDriver\)\.containsArticle\(ARTICLE_TITLE\)/);
   assert.match(suiteSource, /row -> row\.findElements\(By\.linkText\(ARTICLE_TITLE\)\)\.size\(\) == 1/);
+});
+
+test('Joomla G3 has a bounded longer timeout while other apps retain the runner default', () => {
+  const runnerSource = readFileSync(resolve(testDirectory, '../../tools/unified-g0-runner.mjs'), 'utf8');
+  const wrapperSource = readFileSync(resolve(testDirectory, '../../joomla/tools/run-jo-gap-004-g3.mjs'), 'utf8');
+  assert.match(runnerSource, /timeout: options\.testTimeoutMs \?\? 300000/);
+  assert.match(wrapperSource, /testTimeoutMs: 600000/);
 });
