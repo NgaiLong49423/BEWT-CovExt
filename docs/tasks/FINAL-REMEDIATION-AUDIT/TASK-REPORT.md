@@ -28,10 +28,14 @@
 | `node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs` | 0 | PASS (31 passed, 1 skipped, 0 failed; 32 total) | Symlink/junction test skipped because creation is unavailable in this execution context. |
 | `node --check docs/research-results/v2/replication/recompute-metrics.mjs` | 0 | PASS | Command output. |
 | `node docs/research-results/v2/replication/recompute-metrics.mjs` | 0 | PASS as an audit run | `docs/final-acceptance/RQ1-RQ4-results.json` and `.csv`; baseline `569ca47`, RQ1 BLOCKED, RQ2 NOT_EVALUATED, RQ3/RQ4 PARTIALLY_VERIFIED. |
+| `node --check docs/research-results/v2/replication/recompute-metrics.mjs`; `node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs` | 0 | PASS (32 passed, 0 skipped, 0 failed; fresh worktree branch `task/metrics-engine-separate-pr` at base `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`) | Metrics and raw G3 accounting suites; Windows junction containment test ran. |
+| `node docs/research-results/v2/replication/recompute-metrics.mjs` | 0 | PASS as an audit run | Regenerated JSON/CSV against base `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`; RQ1 BLOCKED, RQ2 NOT_EVALUATED, RQ3/RQ4 PARTIALLY_VERIFIED. |
 | Secret-safe R3 registration/hash and login-literal check | 0 | PASS (10/10) | `docs/final-acceptance/SECURITY-AND-PROVENANCE-AUDIT.md`; raw credential values were not emitted. |
 | `git diff --check` | 0 | PASS | No whitespace errors; Git reports LF-to-CRLF normalization notices for Node files. |
 | `pdfinfo docs/paper/bewt-covext-paper.pdf` | 0 | PASS; compiled draft only | 33 pages, A4; selected pages visually inspected. Temporary external Springer class/style files were used; author/affiliation placeholders and nonfatal warnings remain. |
 | Java/Maven compile, app E2E, Docker/Cloud, additional model calls | — | NOT_RUN | Runtime identity/ownership and human oracle decisions remain blockers. One separately approved model call failed schema validation and was not retried. |
+
+Metrics follow-up note: the fresh scoped branch is based on the current audit branch, which already contains the RQ2/RQ3 implementation from `a27d093` and hardening from `569ca47`. This follow-up introduced no source or test changes; it reran the checks and refreshed the generated audit baseline commit to `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`. Current evidence remains fail-closed: RQ2 has eight per-app null measures because the baseline is unverified; RQ3 has 0 source-bound records, 84 physical run records (79 summary matches, 5 extras), and 40 BLOCKED candidates. This verification does not change any acceptance gate.
 
 ## 3. Research impact
 
