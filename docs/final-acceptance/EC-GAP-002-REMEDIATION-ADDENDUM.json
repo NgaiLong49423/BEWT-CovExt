@@ -1,0 +1,37 @@
+{
+  "candidateId": "EC-GAP-002",
+  "baselineAuditCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+  "implementationBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+  "revision": 3,
+  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3.java",
+  "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/gherkin.feature",
+  "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
+  "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999",
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+    "version": "1.1.19",
+    "updateRouteLines": "experiments/expresscart/source/routes/index.js:603-643",
+    "failureStatusAndMessageLines": "experiments/expresscart/source/routes/index.js:606-610",
+    "cartMutationAfterStockCheckLines": "experiments/expresscart/source/routes/index.js:641-643",
+    "stockEnabledInTestModeLines": "experiments/expresscart/source/app.js:528-530",
+    "seedStockLines": "experiments/expresscart/source/bin/testdata.json:12",
+    "defaultStockTrackingLines": "experiments/expresscart/source/config/settings.json:25"
+  },
+  "previousRevisionsPreserved": [1,2],
+  "candidateDecision": "APPROVED_FOR_IMPLEMENTATION; HUMAN_ORACLE_AND_NOVELTY_REVIEW_PENDING",
+  "technicalStatus": {
+    "compile": "PASS",
+    "sourceBehaviorAssertions": "IMPLEMENTED_NOT_RUN",
+    "g3Initial": "NOT_RUN_PENDING_ROOT_RUNTIME",
+    "g3CleanReruns": 0,
+    "validated": false
+  },
+  "limitations": [
+    "The original proposal expects a different error string than the pinned source returns; revision 3 records the source response without rewriting the historical proposal.",
+    "Source seed data has stock 10 rather than the proposed product/stock-one fixture; revision 3 creates an isolated product fixture and enables stock tracking through the admin session.",
+    "The runtime path was unavailable locally and no active Cloud authentication was present; G3 and reruns were not attempted."
+  ],
+  "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
+  "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/"
+}

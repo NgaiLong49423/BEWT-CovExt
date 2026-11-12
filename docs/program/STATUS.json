@@ -218,7 +218,18 @@
       "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program.",
       "t01bExecution": "CURRENT_CODE_CRASH_REPLAY_ONE_E2E_PASS_REUSED_ARTIFACT_NOT_VALIDATED",
       "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/",
-      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json",
+      "candidateRemediation": {
+        "EC-GAP-002": {
+          "revision": 3,
+          "compile": "PASS",
+          "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
+          "humanOracleNoveltyReview": "PENDING_HUMAN_SIGNATURE",
+          "validated": false,
+          "traceabilityAddendum": "docs/final-acceptance/EC-GAP-002-REMEDIATION-ADDENDUM.json",
+          "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md"
+        }
+      }
     },
     {
       "app": "joomla",

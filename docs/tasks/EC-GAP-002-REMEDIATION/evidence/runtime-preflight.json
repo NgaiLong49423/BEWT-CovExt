@@ -1,0 +1,11 @@
+{
+  "candidateId": "EC-GAP-002",
+  "observedAt": "2026-11-12",
+  "localAppPort3111Open": false,
+  "adminCredentialsPresentInEnvironment": false,
+  "gcloudInstalled": true,
+  "activeGcloudAccounts": 0,
+  "gcloudProjectConfigured": true,
+  "g3Status": "NOT_RUN_PENDING_ROOT_RUNTIME",
+  "reason": "Local checkout has no app runtime or injected credentials; parent will execute on the explicitly authorized existing VM. This agent did not access Docker/Cloud."
+}
