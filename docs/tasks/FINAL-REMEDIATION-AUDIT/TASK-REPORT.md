@@ -37,6 +37,8 @@
 
 Metrics follow-up note: the fresh scoped branch is based on the current audit branch, which already contains the RQ2/RQ3 implementation from `a27d093` and hardening from `569ca47`. This follow-up introduced no source or test changes; it reran the checks and refreshed the generated audit baseline commit to `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`. Current evidence remains fail-closed: RQ2 has eight per-app null measures because the baseline is unverified; RQ3 has 0 source-bound records, 84 physical run records (79 summary matches, 5 extras), and 40 BLOCKED candidates. This verification does not change any acceptance gate.
 
+R10 candidate-task evidence review: PR #30 head `5cf9bdf1edee2dbd6ba35006d72e29251eb1477b` registers `KB-GAP-001` R10 as a preliminary engineering pass (4/4) after R9 failed 4/4; oracle and novelty review remain pending. This evidence is excluded from source-bound RQ3 runs: its task-level manifest/run records do not supply the metrics schema's per-run candidate and test-source binding, indexed initial/rerun slots, JUnit artifact/hash binding, or resolved image ID per container, and the runner labels the task `g0-kanboard`. The metrics engine requires source-bound, schema-valid records under `docs/tasks/g3-evidence/<app>/<candidate>/<runId>`. RQ3 counts therefore remain 0 source-bound/verified runs, 0 VALIDATED, and all 40 candidates BLOCKED until those binding gaps are repaired.
+
 ## 3. Research impact
 
 - Apps affected: all eight; target remains 5 candidates per app / 40 total.
