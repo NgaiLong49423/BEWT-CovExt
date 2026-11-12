@@ -1184,7 +1184,30 @@
       "gherkinScenarioHashMatchesDataset": true,
       "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
       "humanReviewRecordLine": 1,
-      "humanReviewRecordSha256": "8df50c71a1eccf5c969168bc19fbdde762c3399eb2402b7ad35d7736a15f628d"
+      "humanReviewRecordSha256": "8df50c71a1eccf5c969168bc19fbdde762c3399eb2402b7ad35d7736a15f628d",
+      "semanticRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/T01C_244fbbc3c7e19c2ceb6a56738e493041_R4.java",
+        "registrationPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/registration.json",
+        "sourceSha256Observed": "bc7b036e6be5e04bbb33ee0ff38d6246fbcb143435ea4e859621d6c87eb152ef",
+        "registrationHashMatches": true,
+        "origin": "SEMANTIC_REMEDIATION_PENDING_REVIEW",
+        "parentRevisionPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+        "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+        "lineMapping": {
+          "embeddedGherkin": "24-33",
+          "observableBusinessOracle": "35-36",
+          "givenLoginAndUniqueTaskCreation": "42-49",
+          "givenCloseTaskSetupAndClosedAssertion": "50-54",
+          "whenReopenAndConfirmYes": "56-59",
+          "thenOpenStatusBadgeAssertion": "61-63",
+          "thenStatusOpenSearchAndExactTaskAssertion": "64-68",
+          "confirmationYesAssertionAndClick": "71-77"
+        },
+        "engineeringOutcome": "NOT_RUN",
+        "humanReviewStatus": "PENDING_REVIEW",
+        "validationStatus": "NOT_VALIDATED"
+      }
     },
     {
       "candidateId": "KB-GAP-002",
