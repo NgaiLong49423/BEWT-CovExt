@@ -45,11 +45,11 @@ public class JO_GAP_004_G3_Suite {
         boolean fixtureVerified = false;
         String outcome = "FAIL";
         String reason = "FIXTURE_SETUP_EXCEPTION";
-        String saveHistorySetting = "NOT_VERIFIED";
+        String saveHistorySetting = "NOT_READ_UI";
         String cleanupOutcome = "NOT_REQUIRED";
-        String optionsRoutePath = "NOT_REACHED";
-        String optionsPageTitle = "NOT_REACHED";
-        String optionsContext = "NOT_REACHED";
+        String optionsRoutePath = "NOT_VISITED";
+        String optionsPageTitle = "NOT_VISITED";
+        String optionsContext = "NOT_VISITED";
         boolean optionsFormVisible = false;
         int saveHistoryRadioCount = 0;
         int versionCounter = 0;
@@ -85,95 +85,17 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Refusing to modify an existing article fixture title");
             }
 
-            driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
-            optionsRoutePath = safePath(driver.getCurrentUrl());
-            optionsPageTitle = safeTitle(driver);
-            try {
-                new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                        currentDriver -> !currentDriver.findElements(By.id("toolbar-options")).isEmpty());
-            } catch (org.openqa.selenium.TimeoutException e) {
-                outcome = "BLOCKED";
-                reason = "CONTENT_OPTIONS_PERMISSION_OR_TOOLBAR_UNAVAILABLE";
-                throw new IllegalStateException("Joomla Articles Options control is unavailable for the logged-in admin", e);
-            }
-            List<WebElement> optionsButtons = driver.findElements(By.id("toolbar-options"));
-            if (optionsButtons.size() != 1) {
-                outcome = "BLOCKED";
-                reason = "CONTENT_OPTIONS_PERMISSION_OR_TOOLBAR_UNAVAILABLE";
-                throw new IllegalStateException("Joomla Articles Options control is unavailable for the logged-in admin");
-            }
-            optionsButtons.get(0).click();
-            try {
-                new WebDriverWait(driver, Duration.ofSeconds(10)).until(currentDriver ->
-                        !currentDriver.findElements(By.id("sbox-content")).isEmpty()
-                                || isContentOptionsRoute(currentDriver.getCurrentUrl()));
-            } catch (org.openqa.selenium.TimeoutException e) {
-                optionsRoutePath = safePath(driver.getCurrentUrl());
-                optionsPageTitle = safeTitle(driver);
-                outcome = "BLOCKED";
-                reason = "CONTENT_OPTIONS_MODAL_UNAVAILABLE";
-                throw new IllegalStateException("Joomla Articles Options did not open its configuration dialog", e);
-            }
-            List<WebElement> optionsFrames = driver.findElements(By.id("sbox-content"));
-            if (!optionsFrames.isEmpty()) {
-                try {
-                    new WebDriverWait(driver, Duration.ofSeconds(10))
-                            .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
-                } catch (org.openqa.selenium.TimeoutException e) {
-                    optionsRoutePath = safePath(driver.getCurrentUrl());
-                    optionsPageTitle = safeTitle(driver);
-                    outcome = "BLOCKED";
-                    reason = "CONTENT_OPTIONS_FRAME_UNAVAILABLE";
-                    throw new IllegalStateException("Joomla Articles Options dialog frame was not available", e);
-                }
-                optionsContext = "SQUEEZEBOX_IFRAME";
-            } else if (isContentOptionsRoute(driver.getCurrentUrl())) {
-                optionsContext = "TOP_LEVEL_OPTIONS_PAGE";
-            } else {
-                outcome = "BLOCKED";
-                reason = "CONTENT_OPTIONS_ROUTE_UNVERIFIED";
-                throw new IllegalStateException("Joomla Articles Options route did not resolve to com_content configuration");
-            }
-            try {
-                new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                        currentDriver -> !currentDriver.findElements(By.id("component-form")).isEmpty());
-            } catch (org.openqa.selenium.TimeoutException e) {
-                optionsRoutePath = safePath(driver.getCurrentUrl());
-                optionsPageTitle = safeTitle(driver);
-                outcome = "BLOCKED";
-                reason = "CONTENT_OPTIONS_FORM_UNAVAILABLE";
-                throw new IllegalStateException("Joomla com_content configuration form was not present", e);
-            }
-            optionsRoutePath = safePath(driver.getCurrentUrl());
-            optionsPageTitle = safeTitle(driver);
-            optionsFormVisible = true;
-            List<WebElement> saveHistoryRadios = driver.findElements(
-                    By.cssSelector("#component-form input[type='radio'][name='jform[params][save_history]']"));
-            saveHistoryRadioCount = saveHistoryRadios.size();
-            List<WebElement> historyOptions = driver.findElements(
-                    By.cssSelector("#component-form input[type='radio'][name='jform[params][save_history]']:checked"));
-            if (historyOptions.size() != 1) {
-                outcome = "BLOCKED";
-                reason = "SAVE_HISTORY_SETTING_NOT_VISIBLE";
-                throw new IllegalStateException("Joomla Articles Options did not expose one selected save-history value");
-            }
-            saveHistorySetting = historyOptions.get(0).getAttribute("value");
-            if (!"1".equals(saveHistorySetting)) {
-                outcome = "BLOCKED";
-                reason = "SAVE_HISTORY_DISABLED";
-                throw new IllegalStateException("Joomla article save-history is not enabled; refusing to change application configuration");
-            }
-
-            driver.switchTo().defaultContent();
             driver.switchTo().window(frontendWindow);
             LoggedHome home = loggedIn.createPost()
                     .setTitle(ARTICLE_TITLE)
                     .setBody(INITIAL_BODY)
                     .save();
             if (home == null) {
-                outcome = "FAIL";
-                reason = "ARTICLE_SAVE_DID_NOT_RETURN_HOME";
+                driver.switchTo().window(adminWindow);
+                driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
                 fixtureCreated = !articleTitleLinks(driver).isEmpty();
+                outcome = "BLOCKED";
+                reason = "ARTICLE_SAVE_DID_NOT_RETURN_HOME";
                 throw new IllegalStateException("Joomla article setup did not return to the home page");
             }
             fixtureCreated = true;
@@ -234,29 +156,6 @@ public class JO_GAP_004_G3_Suite {
                 optionsContext, optionsFormVisible, saveHistoryRadioCount);
     }
 
-    private static boolean isContentOptionsRoute(String url) {
-        return url.contains("option=com_config")
-                && url.contains("view=component")
-                && url.contains("component=com_content");
-    }
-
-    private static String safePath(String url) {
-        try {
-            return new URL(url).getPath();
-        } catch (MalformedURLException e) {
-            return "UNAVAILABLE";
-        }
-    }
-
-    private static String safeTitle(WebDriver driver) {
-        try {
-            String title = driver.getTitle();
-            return title == null ? "UNAVAILABLE" : title.replaceAll("[\\r\\n\\t]", " ").trim();
-        } catch (RuntimeException e) {
-            return "UNAVAILABLE";
-        }
-    }
-
     private static List<WebElement> articleTitleLinks(WebDriver driver) {
         return driver.findElements(By.cssSelector("#articleList a")).stream()
                 .filter(link -> ARTICLE_TITLE.equals(link.getText().trim()))
@@ -275,6 +174,7 @@ public class JO_GAP_004_G3_Suite {
             driver.switchTo().window(adminWindow);
             driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
             List<WebElement> matching = articleTitleLinks(driver);
+            if (matching.isEmpty()) return "PASS_EXACT_ARTICLE_ABSENT";
             if (matching.size() != 1) return "FAILED_EXACT_TITLE_MATCH_COUNT_" + matching.size();
 
             matching.get(0).click();

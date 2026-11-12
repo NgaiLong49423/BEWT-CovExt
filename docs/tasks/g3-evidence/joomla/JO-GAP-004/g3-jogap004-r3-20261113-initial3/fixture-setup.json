@@ -1,0 +1,19 @@
+{
+  "candidateId": "JO-GAP-004",
+  "runId": "g3-jogap004-r3-20261113-initial3",
+  "fixtureTitle": "Living Document",
+  "outcome": "BLOCKED",
+  "reason": "SAVE_HISTORY_SETTING_NOT_VISIBLE",
+  "versionCounter": 0,
+  "initialHistoryRows": 0,
+  "saveHistorySettingValue": "NOT_VERIFIED",
+  "fixtureCreatedThroughJoomlaUi": false,
+  "fixtureCleanupOutcome": "NOT_REQUIRED",
+  "optionsRoutePath": "/administrator/index.php",
+  "optionsPageTitle": "Articles: Options - BEWT E2E site - Administration",
+  "optionsContext": "TOP_LEVEL_OPTIONS_PAGE",
+  "optionsFormVisible": true,
+  "saveHistoryRadioCount": 0,
+  "candidateJavaSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+  "fixtureSetupSha256": "413c2db7bd0c09dc07fe0962476cd18a9b9ec7e4bc3a26a8fb254686a683d947"
+}

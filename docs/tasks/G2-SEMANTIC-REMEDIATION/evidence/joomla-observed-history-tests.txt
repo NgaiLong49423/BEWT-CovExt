@@ -1,0 +1,11 @@
+✔ a missing initial history row blocks R3 and routes a created fixture through exact-title cleanup (0.9445ms)
+✔ Joomla G0 runtime credentials fail closed when any required value is missing (1.6595ms)
+✔ Joomla installer and Selenium receive the same per-run credential values without persisting them (0.9188ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 111.5514
