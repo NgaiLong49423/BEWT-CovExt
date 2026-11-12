@@ -1189,7 +1189,7 @@
         "status": "CREATED_NOT_COMPILED_OR_RUN",
         "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/T01C_244fbbc3c7e19c2ceb6a56738e493041_R4.java",
         "registrationPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/registration.json",
-        "sourceSha256Observed": "bc7b036e6be5e04bbb33ee0ff38d6246fbcb143435ea4e859621d6c87eb152ef",
+        "sourceSha256Observed": "f99a47900c8df4e00d536e8ea071439b4be2b791d07f808a6ebdd3f8ad287bd3",
         "registrationHashMatches": true,
         "origin": "SEMANTIC_REMEDIATION_PENDING_REVIEW",
         "parentRevisionPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
