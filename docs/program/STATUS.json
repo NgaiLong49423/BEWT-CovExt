@@ -57,8 +57,7 @@
         "Five active smoke classes have SHA-256 values different from the pinned BEWT Java; semantic equivalence remains unreviewed.",
         "Bludit baseline Gherkin reference is version 3.13.1 while the exercised app and suite are 2.3.4.",
         "Final4 records bind the test source by SHA-256 and record per-container IDs/image IDs, but Gherkin is recorded as Git blob SHA-1 rather than content SHA-256.",
-        "The final4 Kanboard run record reports baseline Gherkin mapping NOT_AVAILABLE; an earlier run mapping does not bind this invocation.",
-        "ExpressCart run record reports version 1.19 while SOURCE-LOCK and image tag identify 1.1.19; metadata discrepancy needs reconciliation."
+        "The final4 Kanboard run record reports baseline Gherkin mapping NOT_AVAILABLE; an earlier run mapping does not bind this invocation."
       ],
       "evidence": [
         "docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md",

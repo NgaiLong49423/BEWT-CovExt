@@ -41,10 +41,10 @@ Every run record includes the app version/source commit, test-source SHA-256, co
 - Latest run manifest: `evidence/g0-final4-runtime-manifest.json`
 - Safe final4 archive: `evidence/g0-final4-safe-evidence.tgz` (56 allowlisted files: structured run/JUnit/cleanup/Maven/Docker records and eight JUnit XML reports; raw logs excluded)
 - Archive SHA-256: `EABB14067D6D9C840DC41610D66294A1E3049F62CA8FF2183633D34F4222CB44`
-- Manifest SHA-256: `8A9F3FAA9DC51C915BC1E7A88ADD5D32697BB4A476F86BDDABDE76D5D2D83B51`
+- Manifest SHA-256: `64147C2EFD5858D3988C86E79C00A3C4FE3FC95259BA841B4496DDBE863DC5B2`
 - Secret-pattern scan of archive: 0 hits for private-key markers and common Google/GitHub/Slack token patterns
 - Run IDs: `g0-<app>-20261112-final4` for all eight applications
-- The records classify the Gherkin mapping ID as a Git blob SHA-1. This is not represented as a SHA-256. The Kanboard final4 record has `baselineGherkin.status=NOT_AVAILABLE`. The ExpressCart run record says `applicationVersion=1.19`, while its pinned SOURCE-LOCK and image tag say 1.1.19; the report uses the source-lock value and keeps the mismatch open.
+- The records classify the Gherkin mapping ID as a Git blob SHA-1. This is not represented as a SHA-256. The Kanboard final4 record has `baselineGherkin.status=NOT_AVAILABLE`. For ExpressCart, the run record uses benchmark shorthand `1.19`; the source lock, package, and image tag identify the exact package version `1.1.19`.
 - The public archive excludes raw Maven, setup, and container logs. Structured setup outcomes and exit codes are retained in the manifest/run records.
 
 The earlier `-a` and failed-run evidence remains preserved; this report does not rewrite it as successful. The final4 records supersede earlier attempts for the latest eight-app smoke result.

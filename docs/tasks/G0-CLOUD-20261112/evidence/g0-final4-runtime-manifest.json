@@ -356,7 +356,9 @@
         "residualNetworks": [],
         "residualVolumes": []
       },
-      "sourceLockPackageVersion": "1.1.19"
+      "sourceLockPackageVersion": "1.1.19",
+      "benchmarkBaseVersionShorthand": "1.19",
+      "pinnedPackageVersion": "1.1.19"
     },
     {
       "application": "joomla",
