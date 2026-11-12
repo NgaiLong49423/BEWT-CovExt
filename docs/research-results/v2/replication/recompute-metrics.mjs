@@ -106,9 +106,10 @@ export function readGitHeadCommit(rootDir) {
     gitDir = markerPath;
   } else {
     const marker = readFileSync(markerPath, 'utf8').trim();
-    const match = marker.match(/^gitdir:\s*(.+)$/i);
-    if (!match) throw new Error('INVALID_GIT_DIRECTORY_POINTER');
-    gitDir = resolve(rootDir, match[1]);
+    if (marker.slice(0, 7).toLowerCase() !== 'gitdir:') throw new Error('INVALID_GIT_DIRECTORY_POINTER');
+    const pointer = marker.slice(7).trim();
+    if (!pointer) throw new Error('INVALID_GIT_DIRECTORY_POINTER');
+    gitDir = resolve(rootDir, pointer);
   }
   let commonDir = gitDir;
   const commonDirFile = join(gitDir, 'commondir');

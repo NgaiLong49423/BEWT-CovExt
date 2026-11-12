@@ -124,7 +124,7 @@ export function buildRunAccounting(rootDir = '.') {
       runRecordFiles: recordFiles.length,
       junitXmlFiles: junitFiles.length,
       uniqueJunitRunIds: junitByRunId.size,
-      summaryRunIdsMissingRunRecord: [...summaryRuns.keys()].filter((id) => !records.has(id)).sort(),
+      summaryRunIdsMissingRunRecord: [...summaryRuns.keys()].filter((id) => !records.has(id)).sort((left, right) => (left < right ? -1 : left > right ? 1 : 0)),
       unlistedRunRecords: extras,
       junitExecutionIdsWithoutRunRecord: orphanJUnit,
     },

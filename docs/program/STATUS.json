@@ -49,6 +49,8 @@
     "generatedJavaRegistry": "40_TESTS_REGISTERED_IMMUTABLE_SHA256_VERIFIED",
     "isolatedGeneratedTestHarness": "8_OF_8_MAVEN_SUITES_CLEAN_TEST_COMPILE_PASS_LOCAL_AND_CLOUD_VM",
     "t01cValidation": "OFFLINE_ACCEPTED_LIVE_BLOCKED_NO_LIVE_CANDIDATE_OR_GENERATED_E2E",
+    "t01cLiveGenerationAttempt": "ONE_APPROVED_CALL_GEMINI_38_FLASH_FAIL_PROVIDER_SCHEMA_NULL_NO_RETRY_NO_JAVA_ARTIFACT",
+    "t01cLiveGenerationFailureEvidence": "docs/tasks/T01-C/evidence/t01c-0d69a24e-5d54-42eb-bbf3-4bd44b7204cc/model-generation-failure.json",
     "t01cLatestCodeVerification": "MAIN_INTEGRATED_NPM_CI_PASS_BUILD_PASS_UNIT_45_PASS_INTEGRATION_19_PASS_0_FAIL_1_OPT_IN_SKIP_EXPRESSCART_AGENT_5_PASS_SONARCLOUD_PASS_0_NEW_ISSUES_0_HOTSPOTS_0_9_DUPLICATION_0_COVERAGE_REPORT_ON_EC93BC8",
     "t01cEvidence": [
       "docs/tasks/T01-C/evidence/verification/rerun-20261108-assertion-preservation-03/",
@@ -448,11 +450,11 @@
     "casesEligibleForValidated": 0,
     "evidence": "docs/final-acceptance/",
     "credentialSecurityRevisionCount": 10,
-    "metricsTests": "17/17_PASS",
+    "metricsTests": "20/20_PASS",
     "metricsOutput": "docs/final-acceptance/RQ1-RQ4-results.json",
     "g3RunAccounting": "docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json",
     "sonarCloudReview": "docs/final-acceptance/SONARCLOUD-REVIEW.md",
-    "sonarCloudGate": "FIXED_LOCALLY_PENDING_HOSTED_RERUN",
+    "sonarCloudGate": "FAILED_LATEST_CHECK_DUPLICATION_3_0_PERCENT_AND_D_RELIABILITY_ANNOTATIONS_FIXED_LOCALLY_PENDING_RERUN",
     "taskReport": "docs/tasks/FINAL-REMEDIATION-AUDIT/TASK-REPORT.md"
   },
   "previousTaskReviewSnapshot": {

@@ -3,16 +3,16 @@
 ## Observed hosted check
 
 - Pull request: `https://github.com/NgaiLong49423/BEWT-CovExt/pull/27`
-- Analyzed head: `acfe1272b3af00350ca929a4e4b69aa97c7c7508`
-- Check run: `131053449920` (`SonarCloud Code Analysis`, completed with failure)
-- Quality gate: `B Security Rating on New Code`; required rating is `A` or better.
-- SonarCloud issue endpoint returned two new-code findings in `docs/research-results/v2/replication/recompute-metrics.mjs`:
+- Latest analyzed head: `9646f075d892f23e23876a5573713e16735ed167`
+- Check run: `131070784266` (`SonarCloud Code Analysis`, completed with failure)
+- The earlier B Security Rating findings on `acfe1272b3af00350ca929a4e4b69aa97c7c7508` were fixed on `9646f07`. The latest check instead failed at 3.0% duplication (required ≤ 3%) and D Reliability Rating (required A or better).
+- Latest annotations:
 
 | Rule | Type/severity | Analyzed line | Finding | Remediation in this revision |
 |---|---|---:|---|---|
-| `javascript:S4036` | `VULNERABILITY` / `MINOR` | 349 | `execFileSync('git', ...)` resolves an executable through inherited `PATH`; Sonar flags that PATH may include writable directories. | Removed the child process and read `.git/HEAD`, linked-worktree `commondir`, loose refs, and packed refs directly. No command is resolved or launched through PATH. |
-| `javascript:S7773` | `CODE_SMELL` / `MINOR` | 229 | Prefer `Number.NaN` over `NaN`. | Changed the parser fallback to `Number.NaN`. |
+| `javascript:S5852` | `CODE_SMELL` / `MAJOR` | `recompute-metrics.mjs:109` | Regex used to parse a `.git` worktree pointer may have super-linear backtracking. | Replaced the regex with bounded prefix validation and direct slicing. |
+| `javascript:S2871` | `CODE_SMELL` / `MINOR` | `audit-g3-run-accounting.mjs:127` | Sort call should provide a comparator. | Added a deterministic code-unit comparator for run IDs. |
 
 ## Local verification and remaining gate
 
-The metrics negative-control suite passes 17/17, including detached-HEAD and linked-worktree ref fixtures. The metrics script and `node --check` pass. The corrected revision has not yet been analyzed by hosted SonarCloud, so the `A` Security Rating requirement remains **pending verification** until the PR check reruns successfully. No issue was suppressed or marked false positive.
+After these annotation fixes, the focused metrics/accounting suite passes 20/20; both scripts pass `node --check`, and `git diff --check` passes. A fresh hosted analysis is still required to determine whether the revised code clears the reliability and duplication conditions. No issue was suppressed or marked false positive.
