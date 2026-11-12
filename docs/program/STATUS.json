@@ -225,7 +225,7 @@
           "implementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
           "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
           "compile": "PASS_R5_47_TEST_SOURCES",
-          "g3": "R3_INITIAL_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS; R4_FAIL_PRE_MAVEN_REFERENCE_ERROR_CLEANUP_PASS; R5_NOT_RUN_PENDING_PUSH",
+          "g3": "R3_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS; R4_FAIL_PRE_MAVEN_RUNNER_IMPORT_CLEANUP_PASS; R5_PASS_1_PLUS_3_RERUNS_CLEANUP_PASS",
           "humanOracleNoveltyReview": "PENDING_HUMAN_SIGNATURE",
           "validated": false,
           "traceabilityAddendum": "docs/final-acceptance/EC-GAP-002-REMEDIATION-ADDENDUM.json",
@@ -238,10 +238,10 @@
             ],
             "failClosedBeforeDocker": true,
             "focusedRunnerTests": "PASS_2",
-            "mavenTestCompile": "PASS_45_TEST_SOURCES",
+            "mavenTestCompile": "PASS_47_TEST_SOURCES",
             "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
             "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
-            "focusedTests": "PASS_3",
+            "focusedTests": "PASS_4",
             "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories",
             "sonarCloud": {
               "headSha": "f9d123bb822fd660dd45742b28c6ab2a5938c202",
@@ -251,10 +251,12 @@
               "acceptedIssues": 0,
               "securityHotspots": 0,
               "newCodeDuplication": "0.0%"
-            }
+            },
+            "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/r5-runner-tests.txt"
           },
           "latestImplementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
-          "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/"
+          "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/",
+          "engineeringStatus": "ENGINEERING_VERIFIED_PRELIMINARY_4_OF_4"
         }
       }
     },

@@ -28,16 +28,18 @@
   "technicalStatus": {
     "compile": "PASS_R5_47_TEST_SOURCES",
     "sourceBehaviorAssertions": "R5_IMPLEMENTED_COMPILE_PASS_NOT_RUN",
-    "g3Initial": "R3_SELECTOR_TIMEOUT; R4_RUNNER_REFERENCE_ERROR; BOTH_CLEANUP_PASS",
-    "g3CleanReruns": 0,
+    "g3Initial": "R5_PASS_1_TEST_CLEANUP_PASS",
+    "g3CleanReruns": 3,
     "validated": false,
     "runnerCredentialHandoff": "IMPLEMENTED_AND_COMPILE_VERIFIED",
-    "latestRevision": "R5_COMPILE_PASS_G3_NOT_RUN_PENDING_PUSH"
+    "latestRevision": "R5_ENGINEERING_PRELIMINARY_4_OF_4_PASS_HUMAN_REVIEW_PENDING",
+    "g3CleanRerunsOutcome": "PASS_3_OF_3"
   },
   "limitations": [
     "The original proposal expects a different error string than the pinned source returns; revision 3 records the source response without rewriting the historical proposal.",
     "Source seed data has stock 10 rather than the proposed product/stock-one fixture; revision 3 creates an isolated product fixture and enables stock tracking through the admin session.",
-    "R3 initial VM execution failed at the cart quantity DOM locator before the stock update request; R4 then failed before Maven because the runner path helper import was missing. Both attempts verified zero residual Docker resources. R5 is compiled and pending G3."
+    "R5 passed one initial and three clean-state VM Docker/Selenium runs (4/4), each with zero-residual cleanup. This is preliminary engineering evidence only; independent human oracle and novelty approval remain pending.",
+    "R5 runner-generated Maven command fields sanitized the p:// portion of HTTP URLs as a local path. A clearly labeled derived invocation record preserves the command shape using run-record ports; a sanitizer regression test and fix are in the follow-up commit."
   ],
   "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
   "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/",
@@ -51,9 +53,9 @@
     "validation": "Fail closed before evidence directory creation or Docker actions when either variable is missing or blank.",
     "fixtureSetup": "Passes the process environment keys into the ExpressCart setup process; no credential literals or values are committed.",
     "focusedTestPath": "experiments/tools/unified-g0-runner.test.mjs",
-    "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
-    "focusedTests": "PASS_3",
-    "mavenTestCompile": "PASS_45_TEST_SOURCES",
+    "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/r5-runner-tests.txt",
+    "focusedTests": "PASS_4",
+    "mavenTestCompile": "PASS_47_TEST_SOURCES",
     "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
     "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories",
     "sonarCloud": {
@@ -69,7 +71,7 @@
   "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)",
   "latestRevision": {
     "revision": 5,
-    "status": "COMPILE_PASS_G3_NOT_RUN_PENDING_PUSH",
+    "status": "ENGINEERING_PRELIMINARY_4_OF_4_PASS_HUMAN_REVIEW_PENDING",
     "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5.java",
     "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/gherkin.feature",
     "javaSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
@@ -107,7 +109,11 @@
       "javaSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
       "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
       "compile": "PASS_47_TEST_SOURCES",
-      "g3Initial": "NOT_RUN_PENDING_PUSH"
+      "g3Initial": "PASS",
+      "g3CleanReruns": "PASS_3_OF_3",
+      "cleanup": "PASS_ZERO_RESIDUAL_ALL_4",
+      "g3Evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/"
     }
-  ]
+  ],
+  "runnerEvidenceSanitizerFixCommit": "PENDING_COMMIT"
 }

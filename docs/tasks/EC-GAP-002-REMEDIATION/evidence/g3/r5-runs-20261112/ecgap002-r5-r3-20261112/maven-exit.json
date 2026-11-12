@@ -1,0 +1,5 @@
+{
+  "exitCode": 0,
+  "signal": null,
+  "command": "mvn -B -f experiments/expresscart/bewt-suite/pom.xml -Dtest=tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5 -Dexpresscart.baseUrl=htt<LOCAL_PATH> -Dwebdriver.remote.url=htt<LOCAL_PATH> -Dexperiment.evidence.dir=../../../docs/tasks/g3-evidence/expresscart/EC-GAP-002/ecgap002-r5-r3-20261112 clean test"
+}

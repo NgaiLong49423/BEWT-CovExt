@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { APPS, buildTrustedMavenRuntime, requireExpressCartAdminCredentials, resolveTestEnv } from './unified-g0-runner.mjs';
+import { APPS, buildTrustedMavenRuntime, requireExpressCartAdminCredentials, resolveTestEnv, sanitizeEvidenceText } from './unified-g0-runner.mjs';
 
 test('ExpressCart credentials fail closed when either required variable is missing or blank', () => {
   assert.throws(
@@ -51,4 +51,12 @@ test('installer Maven runtime requires an absolute executable and drops inherite
   assert.equal(runtime.executable, process.execPath);
   assert.ok(runtime.path.length > 0);
   assert.equal(runtime.path.includes('attacker-controlled'), false);
+});
+
+test('evidence sanitizer preserves HTTP URLs while redacting Windows paths', () => {
+  const input = 'mvn -Dapp.url=http://127.0.0.1:3111 C:\\Users\\Lenovo\\private\\repo';
+  const sanitized = sanitizeEvidenceText(input);
+  assert.match(sanitized, /http:\/\/127\.0\.0\.1:3111/);
+  assert.doesNotMatch(sanitized, /C:\\Users/);
+  assert.match(sanitized, /<LOCAL_PATH>/);
 });

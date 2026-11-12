@@ -117,7 +117,7 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
 export function sanitizeEvidenceText(text) {
   return String(text || '')
     .replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>')
-    .replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>')
+    .replace(/\b[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>')
     .replace(/\/home\/[a-zA-Z0-9._-]+\/[^\r\n"'<>\s]*/g, '<LOCAL_PATH>')
     .replaceAll(REPO_ROOT, '<REPOSITORY_ROOT>')
     .replaceAll(REPO_ROOT.replaceAll('\\', '/'), '<REPOSITORY_ROOT>');

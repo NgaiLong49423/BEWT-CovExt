@@ -1,0 +1,73 @@
+{
+  "runId": "ecgap002-r5-r3-20261112",
+  "startedAtUtc": "2026-11-12T14:10:03.467Z",
+  "gcp": {
+    "projectId": "gen-lang-client-0311012609",
+    "instanceName": "bewt-covext-runner",
+    "instanceId": "3042402845209891905",
+    "zone": "asia-southeast1-a",
+    "machineType": "c4d-highmem-8",
+    "state": "RUNNING",
+    "cpuCount": 8,
+    "memoryBytes": 66362478592,
+    "rootDiskAvailableGiBAtVerification": 174
+  },
+  "docker": {
+    "engineVersion": "29.9.3",
+    "appImage": "bewt-covext/expresscart:1.1.19-b31302f",
+    "appImageId": "sha256:6bdde03731b1d4931af572f626aae6be7d14494e189f795bedc8d71bafa3ff06",
+    "databaseImage": "mongo:4.4.29",
+    "databaseImageId": "sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0",
+    "browserImage": "selenium/standalone-chrome:latest",
+    "browserImageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec"
+  },
+  "runtime": {
+    "java": "21.0.13.0.3",
+    "maven": "3.8.7",
+    "selenium": "4.35.0",
+    "chrome": "157.0.8103.50",
+    "chromedriver": "157.0.8103.78"
+  },
+  "source": {
+    "repository": "mrvautin/expressCart",
+    "version": "1.1.19",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0"
+  },
+  "repositoryCommit": "f39272d363ec94b51a978f53c6231174c67140e2",
+  "test": {
+    "revision": 5,
+    "testClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5",
+    "javaSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
+    "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f"
+  },
+  "execution": {
+    "outcome": "PASS",
+    "junit": {
+      "outcome": "PASS",
+      "summary": {
+        "outcome": "PASS",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "expectedClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5"
+      }
+    },
+    "mavenExitCode": 0,
+    "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+    "containerRoles": [
+      "db",
+      "browser",
+      "app"
+    ],
+    "networkId": "2d490160c112d211f17ceca49aafa178ba3ab717cc11860f697da89232ccb1aa",
+    "appPort": 46147,
+    "browserPort": 46503,
+    "credentials": "Fresh ephemeral ADMIN_EMAIL and ADMIN_PASSWORD generated in-process; values not recorded."
+  },
+  "evidence": {
+    "junitXml": "ecgap002-r5-r3-20261112/TEST-tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5.xml",
+    "junitXmlSha256": "6bf916d2daf590e26ace89f9f028250560307f7cd011eeded2a0060354c30b54",
+    "cleanStateRerun": true
+  }
+}
