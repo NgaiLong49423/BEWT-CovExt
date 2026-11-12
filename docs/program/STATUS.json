@@ -242,7 +242,16 @@
             "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
             "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
             "focusedTests": "PASS_3",
-            "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories"
+            "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories",
+            "sonarCloud": {
+              "headSha": "f9d123bb822fd660dd45742b28c6ab2a5938c202",
+              "checkRunId": 131216484209,
+              "outcome": "PASS",
+              "newIssues": 0,
+              "acceptedIssues": 0,
+              "securityHotspots": 0,
+              "newCodeDuplication": "0.0%"
+            }
           }
         }
       }
