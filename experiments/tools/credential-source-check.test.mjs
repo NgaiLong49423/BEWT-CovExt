@@ -4,11 +4,13 @@ import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
 import {
   APPS,
+  DATABASE_NETWORK_ALIAS,
   containerProvenance,
   credentialValuesFrom,
   findBaselineGherkinBinding,
   hostAppReadinessUrl,
   loginControlsReady,
+  mediawikiTestEnvironment,
   readinessEvidence,
   readinessFailureEvidence,
   requiredEnvironment,
@@ -221,7 +223,7 @@ test('container logs are sanitized before any container stop or removal', () => 
 
 test('MediaWiki and PrestaShop runtime DB names and app users match their fixtures', () => {
   const keys = [
-    'MEDIAWIKI_DB_ROOT_PASSWORD', 'MEDIAWIKI_DB_USER', 'MEDIAWIKI_DB_PASSWORD',
+    'MEDIAWIKI_DB_ROOT_PASSWORD', 'MEDIAWIKI_DB_USER', 'MEDIAWIKI_DB_PASSWORD', 'MEDIAWIKI_DB_INSTALL_USER',
     'PRESTASHOP_DB_ROOT_PASSWORD', 'PRESTASHOP_DB_USER', 'PRESTASHOP_DB_PASSWORD', 'PRESTASHOP_DB_NAME',
     'BEWT_ADMIN_USERNAME', 'BEWT_ADMIN_PASSWORD', 'BEWT_ADMIN_EMAIL', 'PRESTASHOP_ADMIN_NAME',
   ];
@@ -230,9 +232,12 @@ test('MediaWiki and PrestaShop runtime DB names and app users match their fixtur
   Object.assign(process.env, synthetic);
   try {
     const mediawikiDb = resolveEnvironmentConfig(APPS.mediawiki.dbEnv);
+    const mediawikiTest = resolveEnvironmentConfig(APPS.mediawiki.testEnv);
     assert.equal(mediawikiDb.MYSQL_DATABASE, 'mediawiki');
-    assert.equal(mediawikiDb.MYSQL_USER, synthetic.MEDIAWIKI_DB_USER);
-    assert.equal(mediawikiDb.MYSQL_PASSWORD, synthetic.MEDIAWIKI_DB_PASSWORD);
+    assert.equal('MYSQL_USER' in mediawikiDb, false);
+    assert.equal('MYSQL_PASSWORD' in mediawikiDb, false);
+    assert.equal(mediawikiTest.BEWT_DB_USER, synthetic.MEDIAWIKI_DB_USER);
+    assert.equal(mediawikiTest.BEWT_DB_PASSWORD, synthetic.MEDIAWIKI_DB_PASSWORD);
 
     const prestashopDb = resolveEnvironmentConfig(APPS.prestashop.dbEnv);
     const prestashopApp = APPS.prestashop.appEnv('db-host');
@@ -248,4 +253,41 @@ test('MediaWiki and PrestaShop runtime DB names and app users match their fixtur
       else process.env[key] = value;
     }
   }
+});
+
+test('MediaWiki runtime DB user is separate from install privileges and must not be root', () => {
+  const keys = ['MEDIAWIKI_DB_USER', 'MEDIAWIKI_DB_INSTALL_USER', 'MEDIAWIKI_DB_PASSWORD', 'BEWT_ADMIN_USERNAME', 'BEWT_ADMIN_PASSWORD'];
+  const previous = new Map(keys.map((key) => [key, process.env[key]]));
+  const setFixture = (databaseUser, installerUser) => Object.assign(process.env, {
+    MEDIAWIKI_DB_USER: databaseUser,
+    MEDIAWIKI_DB_INSTALL_USER: installerUser,
+    MEDIAWIKI_DB_PASSWORD: 'fixture-db-password',
+    BEWT_ADMIN_USERNAME: 'fixture-admin',
+    BEWT_ADMIN_PASSWORD: 'fixture-admin-password',
+  });
+  try {
+    setFixture('wiki-runtime', 'root-installer');
+    assert.equal(mediawikiTestEnvironment().BEWT_DB_USER, 'wiki-runtime');
+    setFixture('root', 'root-installer');
+    assert.throws(() => mediawikiTestEnvironment(), /non-root runtime account/);
+    setFixture('wiki-runtime', 'wiki-runtime');
+    assert.throws(() => mediawikiTestEnvironment(), /distinct from MEDIAWIKI_DB_INSTALL_USER/);
+    setFixture('Wiki-Runtime', 'wiki-runtime');
+    assert.throws(() => mediawikiTestEnvironment(), /distinct from MEDIAWIKI_DB_INSTALL_USER/);
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
+test('all database clients use a short per-network alias rather than the generated container name', () => {
+  assert.equal(DATABASE_NETWORK_ALIAS, 'database');
+  const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
+  assert.ok(source.includes("'--network-alias', dbHostAlias"));
+  assert.ok(source.includes('cfg.appEnv(dbHostAlias)'));
+  assert.ok(source.includes("'--dbserver', dbHostAlias"));
+  assert.ok(source.includes('`--db_server=${dbHostAlias}`'));
+  assert.ok(source.includes('BEWT_DB_HOST: cfg.hasDb ? dbHostAlias'));
 });

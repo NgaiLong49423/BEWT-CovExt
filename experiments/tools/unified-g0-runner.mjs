@@ -12,6 +12,7 @@ const REPO_ROOT = resolve(__dirname, '../..');
 
 export const DOCKER_CLI = 'docker';
 export const MAVEN_CLI = 'mvn';
+export const DATABASE_NETWORK_ALIAS = 'database';
 
 export function requiredEnvironment(name) {
   const value = process.env[name];
@@ -23,6 +24,23 @@ export function requiredEnvironment(name) {
 
 export function resolveEnvironmentConfig(config) {
   return typeof config === 'function' ? config() : config;
+}
+
+export function mediawikiTestEnvironment() {
+  const databaseUser = requiredEnvironment('MEDIAWIKI_DB_USER');
+  const installerUser = requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER');
+  const normalizedDatabaseUser = databaseUser.trim().toLowerCase();
+  const normalizedInstallerUser = installerUser.trim().toLowerCase();
+  if (normalizedDatabaseUser === 'root' || normalizedDatabaseUser === normalizedInstallerUser) {
+    throw new Error('MEDIAWIKI_DB_USER must be a non-root runtime account distinct from MEDIAWIKI_DB_INSTALL_USER.');
+  }
+  return {
+    BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+    BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+    BEWT_DB_USER: databaseUser,
+    BEWT_DB_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
+    MEDIAWIKI_DB_INSTALL_USER: installerUser,
+  };
 }
 
 export function containerProvenance(inspectInfo) {
@@ -405,17 +423,9 @@ export const APPS = {
     getAppUrl: (host, port, appName) => `http://${appName}/`,
     dbEnv: () => ({
       MYSQL_ROOT_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
-      MYSQL_USER: requiredEnvironment('MEDIAWIKI_DB_USER'),
-      MYSQL_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
       MYSQL_DATABASE: 'mediawiki',
     }),
-    testEnv: () => ({
-      BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
-      BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
-      BEWT_DB_USER: requiredEnvironment('MEDIAWIKI_DB_USER'),
-      BEWT_DB_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
-      MEDIAWIKI_DB_INSTALL_USER: requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER'),
-    }),
+    testEnv: mediawikiTestEnvironment,
   },
   prestashop: {
     appId: 'prestashop',
@@ -475,6 +485,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const netName = `bewt-covext-${appId}-${validRunId}-net`;
   const appName = `bewt-covext-${appId}-${validRunId}`;
   const dbName = `bewt-covext-${appId}-db-${validRunId}`;
+  const dbHostAlias = DATABASE_NETWORK_ALIAS;
   const browserName = `bewt-covext-${appId}-selenium-${validRunId}`;
 
   const createdContainers = [];
@@ -542,12 +553,13 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         'run', '-d',
         '--name', dbName,
         '--network', netName,
+        '--network-alias', dbHostAlias,
         ...labelsCli,
         ...dbEnvArgs,
         cfg.dbImage,
       ]);
       createdContainers.push(dbName);
-      runRecord.containers.push({ role: 'db', name: dbName, ...inspectContainerProvenance(dbName) });
+      runRecord.containers.push({ role: 'db', name: dbName, networkAliases: [dbHostAlias], ...inspectContainerProvenance(dbName) });
       // Wait for DB port to accept connections inside network
       await new Promise((r) => setTimeout(r, 12000));
     }
@@ -574,7 +586,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort, ...inspectContainerProvenance(browserName) });
 
     // App container
-    const appEnvObj = cfg.appEnv ? cfg.appEnv(dbName) : {};
+    const appEnvObj = cfg.appEnv ? cfg.appEnv(dbHostAlias) : {};
     const appEnvArgs = Object.entries(appEnvObj).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
     const volArgs = (cfg.volumes || []).flatMap((v) => {
       const vName = `bewt-covext-${appId}-${v.suffix}-${validRunId}`;
@@ -651,7 +663,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         runSetupStep('install', [
           'exec', appName,
           'php', 'maintenance/run.php', 'install',
-          '--dbserver', dbName,
+          '--dbserver', dbHostAlias,
           '--dbtype', 'mysql',
           '--dbname', 'mediawiki',
           '--dbuser', requiredEnvironment('MEDIAWIKI_DB_USER'),
@@ -679,7 +691,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         dockerCli([
           'exec', appName,
           'php', '/var/www/html/install/index_cli.php',
-          `--db_server=${dbName}`,
+          `--db_server=${dbHostAlias}`,
           `--db_user=${requiredEnvironment("PRESTASHOP_DB_USER")}`,
           `--db_password=${requiredEnvironment("PRESTASHOP_DB_PASSWORD")}`,
           `--db_name=${requiredEnvironment("PRESTASHOP_DB_NAME")}`,
@@ -754,7 +766,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
             BEWT_INSTALL_URL: instUrl,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
-            BEWT_DB_HOST: dbName,
+            BEWT_DB_HOST: dbHostAlias,
             BEWT_DB_NAME: 'joomla',
           },
           timeout: 180000,
@@ -788,7 +800,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       ...configuredTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
-      BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
+      BEWT_DB_HOST: cfg.hasDb ? dbHostAlias : '127.0.0.1',
       BEWT_DB_NAME: configuredTestEnv.BEWT_DB_NAME || cfg.appId,
     };
 
