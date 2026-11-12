@@ -1,4 +1,7 @@
 {
   "originalXmlSha256": "a640968fe32b9133198172499fccb1cd68e1388fe3a9a28bc38e6a45ba22121c",
-  "sanitizedXmlSha256": "c6d9555570f28bbaee1ee48656fd781166afbf914b4d182f94e4d7adeb01b32a"
+  "sanitizedXmlSha256": "c6d9555570f28bbaee1ee48656fd781166afbf914b4d182f94e4d7adeb01b32a",
+  "publicArtifactSha256": "70c634617f38bf52ec326f80c3b746a124871016a5203385ab6b6a33822a8da8",
+  "publicArtifactPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r8-rerun-1-20261112/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.xml",
+  "publicTransformation": "Suite and testcase attributes retained; failure type/message clipped to 240 characters; properties, system output/error, and stack traces omitted; UTF-8 without BOM."
 }

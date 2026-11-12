@@ -5,13 +5,13 @@
   "status": "PRELIMINARY_ENGINEERING_PASS_4_OF_4_PENDING_HUMAN_ORACLE_NOVELTY_REVIEW",
   "repositoryCommit": "3b6dd4141bcf350ff7556ba2121c212a846e5e11",
   "candidateSourcePath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-8/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
-  "candidateJavaSha256": "7fe5d2dfe49e634117aad2d6dae9da6587bcabde4171d6ac60b4b888aa26d98a",
+  "candidateJavaSha256": "e0b73ee820d03889dcea40b011fe88cf366dcd009d1853bf81686f4ef78c5b3f",
   "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
   "application": "Kanboard",
   "applicationVersion": "1.2.15",
   "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
   "runnerSourcePath": "experiments/tools/unified-g0-runner.mjs",
-  "runnerSourceSha256": "0f509857d598dcd685626d727f01f81acac462d62077b0fa48bee53b503be454",
+  "runnerSourceSha256": "023689795ac37e61a6aa3ed8643527081aec26ae6dab7cec9595f4f2b3025cc2",
   "cloud": {
     "project": "gen-lang-client-0311012609",
     "vmName": "bewt-covext-runner",
@@ -271,5 +271,6 @@
     "Raw Maven stdout/stderr remains on the VM and is intentionally excluded from the public evidence bundle.",
     "R5–R7 are retained as failed historical attempts; three initial R8 reruns are retained as fixture-configuration failures because KANBOARD_TEST_USERNAME was not propagated.",
     "No human oracle or novelty approval is evidenced; these results are preliminary engineering only."
-  ]
+  ],
+  "sourceHashBasis": "SHA-256 over UTF-8 LF-normalized source bytes read from the Linux VM worktree at the exact executed commit; independently recomputed from git show and confirmed by sha256sum on 2026-11-12."
 }

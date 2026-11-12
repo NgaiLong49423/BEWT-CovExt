@@ -21,3 +21,9 @@ Review whether the candidate's Gherkin wording should identify the Kanboard side
 - Reviewer identity, timestamp, rationale/signature: not supplied
 
 No human approval or scientific validation is inferred from this packet.
+
+## Engineering evidence update — R10 (2026-11-12)
+
+R9 failed 0/4 because its XPath selected the title wrapper; all four cleanups passed. R10 corrected the selector using Kanboard 1.2.15 source-backed class tokens and passed one initial G3 run plus three clean-state reruns (4/4, one test per run, no failures/errors/skips, cleanup zero residual 4/4). See TASK-REPORT.md, evidence/g3-r10-acceptance-manifest.json, and evidence/g3-runs/.
+
+Team Lead decision remains required for the Open this task source label versus Reopen this task Gherkin wording, source-backed novelty, and oracle completeness. These engineering results are preliminary and do not mark the candidate VALIDATED.

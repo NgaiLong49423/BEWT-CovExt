@@ -28,3 +28,7 @@ Reviewer packet: `docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md`.
 Execution and source provenance: `docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json` and `docs/tasks/KB-GAP-001-R5/evidence/g3-runs/`.
 
 The R8 result is `PRELIMINARY_ENGINEERING_PASS_4_OF_4`; it is not a human decision and must not be promoted to `VALIDATED` by the coding agent.
+
+## 2026-11-12 Kanboard R10 update
+
+KB-GAP-001 now has R10 preliminary engineering evidence: VM compilation passed for 43 test sources, and one initial G3 run plus three clean-state reruns passed (4/4). R9's four failed attempts are preserved with zero-residual cleanup. This does not change human approval totals or scientific validation: oracle/novelty decisions remain unsigned, and the source UI label (Open this task) versus Gherkin wording (Reopen this task) still requires Team Lead review. See the R10 manifest and task report.

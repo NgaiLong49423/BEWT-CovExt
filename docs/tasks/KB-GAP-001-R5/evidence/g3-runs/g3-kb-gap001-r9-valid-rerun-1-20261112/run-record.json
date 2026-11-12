@@ -1,0 +1,41 @@
+{
+  "appId": "kanboard",
+  "runId": "g3-kb-gap001-r9-valid-rerun-1-20261112",
+  "startedAtUtc": "2026-11-12T12:06:23.765Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "kanboard",
+    "task": "g0-kanboard",
+    "runId": "g3-kb-gap001-r9-valid-rerun-1-20261112"
+  },
+  "containers": [
+    {
+      "role": "browser",
+      "name": "bewt-covext-kanboard-selenium-g3-kb-gap001-r9-valid-rerun-1-20261112",
+      "port": 44909
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-kanboard-g3-kb-gap001-r9-valid-rerun-1-20261112",
+      "port": 44245
+    }
+  ],
+  "network": {
+    "id": "52d9d8420a89f8f73ceaa52affc55460b98e1c8c35de0972330c0b44e96835fc",
+    "name": "bewt-covext-kanboard-g3-kb-gap001-r9-valid-rerun-1-20261112-net"
+  },
+  "volumes": [
+    {
+      "name": "bewt-covext-kanboard-data-g3-kb-gap001-r9-valid-rerun-1-20261112",
+      "mount": "/var/www/app/data"
+    },
+    {
+      "name": "bewt-covext-kanboard-plugins-g3-kb-gap001-r9-valid-rerun-1-20261112",
+      "mount": "/var/www/app/plugins"
+    }
+  ],
+  "appPort": 44245,
+  "browserPort": 44909
+}

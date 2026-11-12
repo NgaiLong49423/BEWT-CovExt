@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="1" failures="1" name="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9" time="3.979" errors="0" skipped="0">
+  <testcase classname="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9" name="testKB_GAP_001" time="3.979">
+    <failure type="java.lang.AssertionError" message="Board card must expose the open-state class" />
+  </testcase>
+</testsuite>
