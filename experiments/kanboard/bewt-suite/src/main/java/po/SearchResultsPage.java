@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class SearchResultsPage extends TopNavBar {
 	
-	@FindBy(xpath = "/html/body/section/div[3]/div[2]/div[1]/span/a")
+	@FindBy(css = ".table-list .table-list-row .table-list-title a")
 	protected WebElement firstTask;
 
 	public SearchResultsPage(WebDriver driver) {

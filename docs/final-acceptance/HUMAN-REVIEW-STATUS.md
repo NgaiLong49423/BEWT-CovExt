@@ -19,3 +19,16 @@ The consolidated dataset and human review summary claim a Team Lead and approval
 ## Required Team Lead action
 
 Review the 40 case packets against pinned BEWT source and application behavior. Record a real reviewer identity, decision, rationale, and timestamp using the repository's review schema. Preserve the current records as historical implementation authorizations; do not rewrite them as signed approvals. A second independent reviewer is required where the approved protocol calls for two-reviewer agreement.
+
+## Candidate-level packet added after the primary audit (2026-11-12)
+
+`KB-GAP-001` now has an immutable R8 engineering revision with one initial Cloud G3 pass and three clean-state rerun passes. This does not change the totals above: there is still no signed oracle/novelty approval or final research acceptance for any candidate. The pinned Kanboard UI says **“Open this task”** while the current Gherkin names **“Reopen this task”**; the behavior maps to the source-backed `TaskStatusController::open` action. Review this label/wording alignment, the candidate's source-supported novelty, the observed R8 oracle, and the engineering evidence before deciding acceptance.
+
+Reviewer packet: `docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md`.
+Execution and source provenance: `docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json` and `docs/tasks/KB-GAP-001-R5/evidence/g3-runs/`.
+
+The R8 result is `PRELIMINARY_ENGINEERING_PASS_4_OF_4`; it is not a human decision and must not be promoted to `VALIDATED` by the coding agent.
+
+## 2026-11-12 Kanboard R10 update
+
+KB-GAP-001 now has R10 preliminary engineering evidence: VM compilation passed for 43 test sources, and one initial G3 run plus three clean-state reruns passed (4/4). R9's four failed attempts are preserved with zero-residual cleanup. This does not change human approval totals or scientific validation: oracle/novelty decisions remain unsigned, and the source UI label (Open this task) versus Gherkin wording (Reopen this task) still requires Team Lead review. See the R10 manifest and task report.

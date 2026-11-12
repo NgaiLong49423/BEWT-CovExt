@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite tests="1" failures="0" name="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R10" time="4.037" errors="0" skipped="0">
+  <testcase classname="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R10" name="testKB_GAP_001" time="4.037" />
+</testsuite>

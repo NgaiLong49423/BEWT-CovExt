@@ -1,0 +1,15 @@
+{
+  "testClass": "tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R8",
+  "sourceVersion": "1.2.15",
+  "schemaVersion": "1.0.0",
+  "artifactPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-8/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
+  "sourceSha256": "7fe5d2dfe49e634117aad2d6dae9da6587bcabde4171d6ac60b4b888aa26d98a",
+  "appId": "kanboard",
+  "parentRevisionPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-7/T01C_244fbbc3c7e19c2ceb6a56738e493041_R7.java",
+  "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+  "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+  "origin": "PRELIMINARY_GHERKIN_FIXTURE_AND_SOURCE_SELECTOR_ALIGNMENT_PENDING_HUMAN_REVIEW",
+  "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "revision": 8,
+  "candidateId": "KB-GAP-001"
+}

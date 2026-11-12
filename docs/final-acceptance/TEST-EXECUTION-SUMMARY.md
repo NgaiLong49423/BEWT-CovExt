@@ -20,3 +20,15 @@
 | Security-only R3 validation | 10/10 registration hashes match; no literal credentials remain in login calls | Five Claroline and five Kanboard classes now read required runtime config; Maven compile/runtime checks remain NOT_RUN. |
 
 No browser, Docker, Cloud, or live model operation was run in this continuation. No raw test was reclassified as a behaviorally valid pass.
+
+## Subsequent authorized runtime work (2026-11-12)
+
+The statements above describe the original audit continuation. After that snapshot, the Team Lead authorized restarting the existing Cloud VM. Fresh G0 base smoke tests passed for all eight applications; details and provenance gaps are recorded in `docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md` and its evidence.
+
+A separate Kanboard `KB-GAP-001` remediation then ran R5–R8 on the same VM. R5, R6, and R7 had observed UI/fixture/search failures. R8 passed once plus three valid clean-state reruns (1/1 test each, no JUnit failures/errors/skips); each run's cleanup verified zero residual resources. Three intermediate attempts are classified `BLOCKED_FIXTURE` because the execution command omitted `KANBOARD_TEST_USERNAME`; they are retained and excluded from the valid rerun count. See `docs/tasks/KB-GAP-001-R5/TASK-REPORT.md` and `docs/tasks/KB-GAP-001-R5/evidence/`.
+
+These ten candidate attempts are separate from the historical 79/84/85 accounting above. They do not establish human oracle/novelty approval or research `VALIDATED` status.
+
+## 2026-11-12 Kanboard R10 execution
+
+On the authorized Ubuntu 24.04 runner, mvn -B -DskipTests test-compile compiled 43 test sources successfully. Four sequential isolated Docker G3 runs of R10 each executed one test with zero failures/errors/skips and reported zero-residual cleanup. The four preceding R9 attempts failed at the task-card XPath assertion and also cleaned up to zero residual. Public reduced JUnit XML and hash linkage are under docs/tasks/KB-GAP-001-R5/evidence/g3-runs/; see the manifest for exact IDs and provenance limits.

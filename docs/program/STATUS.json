@@ -26,6 +26,36 @@
       "status": "MERGED",
       "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    },
+    "KB-GAP-001-R5": {
+      "status": "R10_PRELIMINARY_G3_PASS_4_OF_4_PENDING_HUMAN_REVIEW_AND_PROVENANCE",
+      "branch": "task/claroline-kanboard-r4",
+      "candidateId": "KB-GAP-001",
+      "revision": 10,
+      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-10/T01C_244fbbc3c7e19c2ceb6a56738e493041_R10.java",
+      "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R10.java",
+      "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
+      "compile": "PASS_VM_43_TEST_SOURCES",
+      "r5G3": "FAIL_NO_SUCH_ELEMENT_PROJECT_LINK_AFTER_CREATE_FIXTURE",
+      "r5Cleanup": "PASS_ZERO_RESIDUAL",
+      "r6G3": "FAIL_NO_SUCH_ELEMENT_SOURCE_LABEL_MISMATCH",
+      "r6Cleanup": "PASS_ZERO_RESIDUAL",
+      "r7G3": "FAIL_SEARCH_RESULT_TIMEOUT_ROOT_CAUSE_UNCONFIRMED",
+      "r7Cleanup": "PASS_ZERO_RESIDUAL",
+      "r8Compile": "PASS",
+      "r8G3": "PRELIMINARY_PASS_4_OF_4",
+      "r8HumanReview": "PENDING_UNSIGNED_ORACLE_NOVELTY",
+      "r8EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json",
+      "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
+      "researchValidated": false,
+      "r9Compile": "PASS_INCLUDED_IN_VM_43_SOURCE_COMPILE",
+      "r9G3": "FAIL_0_OF_4_XPATH_ANCESTOR_CLASS_SUBSTRING",
+      "r9EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r9-acceptance-manifest.json",
+      "r9Cleanup": "PASS_ZERO_RESIDUAL_4_OF_4",
+      "r10Compile": "PASS_VM_43_TEST_SOURCES",
+      "r10G3": "PRELIMINARY_PASS_4_OF_4",
+      "r10EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r10-acceptance-manifest.json",
+      "r10Cleanup": "PASS_ZERO_RESIDUAL_4_OF_4"
     }
   },
   "targets": {
@@ -392,10 +422,10 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "FINAL-REMEDIATION-AUDIT",
-    "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
-    "currentTaskBranch": "task/final-remediation-audit",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
+    "currentTaskId": "KB-GAP-001-REVISION-10",
+    "currentTaskStatus": "PRELIMINARY_R10_ENGINEERING_PASS_HUMAN_ORACLE_NOVELTY_AND_PROVENANCE_PENDING",
+    "currentTaskBranch": "task/claroline-kanboard-r4",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/30",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },

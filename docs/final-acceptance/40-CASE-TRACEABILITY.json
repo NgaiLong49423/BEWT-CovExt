@@ -1184,7 +1184,59 @@
       "gherkinScenarioHashMatchesDataset": true,
       "humanReviewRecordPath": "data/reviews/kanboard/human-review-decisions.jsonl",
       "humanReviewRecordLine": 1,
-      "humanReviewRecordSha256": "8df50c71a1eccf5c969168bc19fbdde762c3399eb2402b7ad35d7736a15f628d"
+      "humanReviewRecordSha256": "8df50c71a1eccf5c969168bc19fbdde762c3399eb2402b7ad35d7736a15f628d",
+      "semanticRemediationRevision": {
+        "status": "CREATED_NOT_COMPILED_OR_RUN",
+        "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/T01C_244fbbc3c7e19c2ceb6a56738e493041_R4.java",
+        "registrationPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-4/registration.json",
+        "sourceSha256Observed": "f99a47900c8df4e00d536e8ea071439b4be2b791d07f808a6ebdd3f8ad287bd3",
+        "registrationHashMatches": true,
+        "origin": "SEMANTIC_REMEDIATION_PENDING_REVIEW",
+        "parentRevisionPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+        "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+        "lineMapping": {
+          "embeddedGherkin": "24-33",
+          "observableBusinessOracle": "35-36",
+          "givenLoginAndUniqueTaskCreation": "42-49",
+          "givenCloseTaskSetupAndClosedAssertion": "50-54",
+          "whenReopenAndConfirmYes": "56-59",
+          "thenOpenStatusBadgeAssertion": "61-63",
+          "thenStatusOpenSearchAndExactTaskAssertion": "64-68",
+          "confirmationYesAssertionAndClick": "71-77"
+        },
+        "engineeringOutcome": "NOT_RUN",
+        "humanReviewStatus": "PENDING_REVIEW",
+        "validationStatus": "NOT_VALIDATED"
+      },
+      "remediationHistory": [
+        {
+          "revision": 8,
+          "sourceCommit": "3b6dd4141bcf350ff7556ba2121c212a846e5e11",
+          "javaSha256": "e0b73ee820d03889dcea40b011fe88cf366dcd009d1853bf81686f4ef78c5b3f",
+          "outcome": "PRELIMINARY_PASS_4_OF_4",
+          "evidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json",
+          "scientificStatus": "NOT_VALIDATED_HUMAN_REVIEW_PENDING"
+        },
+        {
+          "revision": 9,
+          "sourceCommit": "6e21d4125257103fd62cd0083d12816a644d7703",
+          "javaSha256": "dca38ab306ae8284011d0e75d7f10540d3ee8b8798e3356200a142c2e7b96540",
+          "outcome": "FAIL_0_OF_4",
+          "failure": "XPath substring selected task-board-title wrapper",
+          "cleanup": "ZERO_RESIDUAL_4_OF_4"
+        },
+        {
+          "revision": 10,
+          "sourceCommit": "74736bce602c834c5ba34db0ad8a76b559494703",
+          "javaSha256": "2c20c5dfe7cd2049a87097313670fffe0e6f67ccba3280c716cc9755243bc116",
+          "compile": "PASS_43_TEST_SOURCES",
+          "outcome": "PRELIMINARY_PASS_4_OF_4",
+          "reruns": "3/3_PASS",
+          "cleanup": "ZERO_RESIDUAL_4_OF_4",
+          "evidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r10-acceptance-manifest.json",
+          "scientificStatus": "NOT_VALIDATED_HUMAN_REVIEW_PENDING"
+        }
+      ]
     },
     {
       "candidateId": "KB-GAP-002",
@@ -2236,5 +2288,52 @@
       "humanReviewRecordLine": 5,
       "humanReviewRecordSha256": "2ae49a25dba799306d0c00e2f31c9de4146193dcbec1540f2bf5c7957f2410e2"
     }
-  ]
+  ],
+  "postAuditRemediation": {
+    "recordedOn": "2026-11-12",
+    "baselineSnapshotPreserved": true,
+    "candidateId": "KB-GAP-001",
+    "currentRevision": 10,
+    "status": "PRELIMINARY_ENGINEERING_PASS_NOT_VALIDATED",
+    "sourceCommitUsedForR8Runs": "3b6dd4141bcf350ff7556ba2121c212a846e5e11",
+    "applicationVersion": "1.2.15",
+    "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+    "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+    "javaSha256": "2c20c5dfe7cd2049a87097313670fffe0e6f67ccba3280c716cc9755243bc116",
+    "g3": {
+      "r9": {
+        "outcome": "FAIL_0_OF_4",
+        "cause": "XPath substring matched task-board-title",
+        "cleanup": "ZERO_RESIDUAL_4_OF_4"
+      },
+      "r10": {
+        "compile": "PASS_43_TEST_SOURCES",
+        "initialRun": "PASS",
+        "cleanStateReruns": "3/3_PASS",
+        "totalSuccessfulRuns": "4/4",
+        "cleanup": "ZERO_RESIDUAL_4_OF_4",
+        "researchValidation": "NOT_ACCEPTED_HUMAN_REVIEW_PENDING"
+      }
+    },
+    "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
+    "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
+    "evidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r10-acceptance-manifest.json",
+    "g3R8": {
+      "initialRun": "PASS",
+      "cleanStateReruns": "3/3_PASS",
+      "totalSuccessfulRuns": "4/4",
+      "cleanupZeroResidual": "10/10 attempts",
+      "failedRemediationRevisions": [
+        5,
+        6,
+        7
+      ],
+      "fixtureConfigurationFailuresExcludedFromRerunCount": 3,
+      "researchValidation": "NOT_ACCEPTED_HUMAN_ORACLE_NOVELTY_REVIEW_PENDING",
+      "provenance": "PARTIAL_BROWSER_IMAGE_AND_PER_CONTAINER_BINDING_GAP"
+    },
+    "r8JavaSha256": "e0b73ee820d03889dcea40b011fe88cf366dcd009d1853bf81686f4ef78c5b3f",
+    "sourceCommitUsedForCurrentRuns": "74736bce602c834c5ba34db0ad8a76b559494703",
+    "r8WindowsCheckoutJavaSha256": "7fe5d2dfe49e634117aad2d6dae9da6587bcabde4171d6ac60b4b888aa26d98a"
+  }
 }
