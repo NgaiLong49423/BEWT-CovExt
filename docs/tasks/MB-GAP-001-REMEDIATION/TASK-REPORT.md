@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Implement the existing MB-GAP-001 monitoring scenario as an immutable revision, compile it, and leave runtime/acceptance gates unchanged.
 - Base branch + base SHA: `origin/task/final-remediation-audit` at `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
 - Working branch: `task/mantis-mb-gap001-fix`.
-- Report-introducing commit (full SHA): to be recorded after commit; final branch head will be reported in the handoff.
-- PR: `PR_NOT_CREATED: implementation awaits static review and commit; draft PR will target the existing audit branch`.
-- Push status: `NOT_ATTEMPTED`.
+- Report-introducing commit (full SHA): `5118a8bd9a070d3d611d2b88a607f947d8a77aa4`; the final branch head is recorded in the handoff.
+- PR: [#36](https://github.com/NgaiLong49423/BEWT-CovExt/pull/36) — OPEN DRAFT, stacked on the existing audit branch.
+- Push status: `PUSHED`; the report-introducing commit was verified against the remote task branch.
 - Runtime/version tested: Source implementation and Maven compile only; source pin `d06bf60f5ed9f96029bb830a005d4819a4f87b45`, claimed version `1.2.0`. App-image digest is still null in the G0 plan.
 - Status proposed by Agent: `PARTIAL`.
 
@@ -65,4 +65,4 @@ Revision 3 preserves R1/R2 and the approved Gherkin. It logs out of the suite's 
 ## 6. Review request
 
 - Team Lead review: Confirm that the source-correct UI interpretation preserves the approved oracle, especially that the visible monitor list identifies `dev_dave` as expected. Do not mark accepted or validated based on compile evidence.
-- Next action: Finish static review, publish this scoped task branch/PR, then wait for the authorized VM-ready signal and verify fixture/account/image provenance before G3.
+- Next action: Team Lead reviews R3 semantics; then wait for the authorized VM-ready signal and verify fixture/account/image provenance before G3.
