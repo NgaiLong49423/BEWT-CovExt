@@ -231,15 +231,15 @@
           "traceabilityAddendum": "docs/final-acceptance/EC-GAP-002-REMEDIATION-ADDENDUM.json",
           "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
           "runnerCredentialHandoff": {
-            "status": "IMPLEMENTED_AND_COMPILE_VERIFIED",
+            "status": "IMPLEMENTED_AND_R5_VM_G3_USED",
             "requiredEnvironmentVariables": [
               "ADMIN_EMAIL",
               "ADMIN_PASSWORD"
             ],
             "failClosedBeforeDocker": true,
-            "focusedRunnerTests": "PASS_2",
+            "focusedRunnerTests": "PASS_4",
             "mavenTestCompile": "PASS_47_TEST_SOURCES",
-            "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
+            "g3": "R5_PASS_INITIAL_PLUS_3_CLEAN_RERUNS; ALL_ZERO_RESIDUAL_CLEANUP",
             "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
             "focusedTests": "PASS_4",
             "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories",
@@ -252,7 +252,8 @@
               "securityHotspots": 0,
               "newCodeDuplication": "0.0%"
             },
-            "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/r5-runner-tests.txt"
+            "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/r5-runner-tests.txt",
+            "g3Evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/"
           },
           "latestImplementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
           "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/",
