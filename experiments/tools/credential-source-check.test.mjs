@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { delimiter, join } from 'node:path';
+import { delimiter, dirname, join } from 'node:path';
 import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
 import {
@@ -34,6 +34,7 @@ import {
   setupCommandEvidence,
   setupEvidence,
   waitAndRecordReadiness,
+  withEphemeralEnvFile,
 } from './unified-g0-runner.mjs';
 
 test('credential source checker rejects inline login credentials', () => {
@@ -224,6 +225,42 @@ test('ExpressCart run provenance distinguishes exact pinned version from benchma
     { benchmarkBaseVersion: '1.19', source: { commit: 'not-the-pinned-commit' } },
     'bewt-covext/expresscart:1.1.19-b31302f',
   ), /metadata is inconsistent/);
+});
+
+test('ephemeral Docker environment files are private and removed after success or failure', () => {
+  const syntheticSecret = 'synthetic-g0-secret-never-log';
+  let successfulPath;
+  const successResult = withEphemeralEnvFile({ APP_USER: 'fixture-user', APP_PASSWORD: syntheticSecret }, (path) => {
+    successfulPath = path;
+    assert.equal(readFileSync(path, 'utf8'), `APP_USER=fixture-user\nAPP_PASSWORD=${syntheticSecret}\n`);
+    if (process.platform !== 'win32') {
+      assert.equal(statSync(path).mode & 0o777, 0o600);
+      assert.equal(statSync(dirname(path)).mode & 0o777, 0o700);
+    }
+    return 'spawned';
+  });
+  assert.equal(successResult, 'spawned');
+  assert.equal(existsSync(successfulPath), false);
+
+  let failedPath;
+  assert.throws(() => withEphemeralEnvFile({ APP_PASSWORD: syntheticSecret }, (path) => {
+    failedPath = path;
+    throw new Error('synthetic callback failure');
+  }), /synthetic callback failure/);
+  assert.equal(existsSync(failedPath), false);
+  assert.throws(() => withEphemeralEnvFile({ APP_PASSWORD: 'invalid\nsecond-line' }, () => {}), /single-line string/);
+});
+
+test('Docker runtime and installer credentials are passed through ephemeral files, not host argv', () => {
+  const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
+  assert.match(source, /withEphemeralEnvFile\(configuredDbEnv/);
+  assert.match(source, /withEphemeralEnvFile\(appEnvObj/);
+  assert.match(source, /'exec', '--workdir', '\/var\/www\/html', '--env-file', envFilePath/);
+  assert.match(source, /\$MEDIAWIKI_DB_PASSWORD/);
+  assert.match(source, /\$PRESTASHOP_DB_PASSWORD/);
+  assert.doesNotMatch(source, /flatMap\(\(\[k, v\]\) => \['-e', `\$\{k\}=\$\{v\}`\]\)/);
+  assert.doesNotMatch(source, /`--dbpass`\s*,\s*requiredEnvironment\(/);
+  assert.doesNotMatch(source, /`--password=\$\{requiredEnvironment/);
 });
 
 test('baseline Gherkin remains explicitly unavailable when the catalog has no app mapping', () => {
@@ -464,7 +501,7 @@ test('container logs are sanitized before any container stop or removal', () => 
   assert.ok(source.includes('PrestaShop setup fixture failed.'));
   assert.ok(source.includes("git', ['status', '--porcelain', '--untracked-files=no']"));
   assert.ok(source.includes('workingTreeStatusScope:'));
-  assert.ok(source.includes('php maintenance/run.php install'));
+  assert.ok(source.includes('php /var/www/html/maintenance/run.php install'));
   assert.ok(source.includes('setup-mediawiki-${step}.stdout.log'));
   assert.ok(source.includes('setup-mediawiki-${step}.stderr.log'));
 });
@@ -541,7 +578,8 @@ test('all database clients use a short per-network alias rather than the generat
   const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
   assert.ok(source.includes("'--network-alias', dbHostAlias"));
   assert.ok(source.includes('cfg.appEnv(dbHostAlias)'));
-  assert.ok(source.includes("'--dbserver', dbHostAlias"));
-  assert.ok(source.includes('`--db_server=${dbHostAlias}`'));
+  assert.ok(source.includes('MEDIAWIKI_DB_HOST: dbHostAlias'));
+  assert.ok(source.includes('--dbserver "$MEDIAWIKI_DB_HOST"'));
+  assert.ok(source.includes('PRESTASHOP_DB_SERVER: dbHostAlias'));
   assert.ok(source.includes('BEWT_DB_HOST: cfg.hasDb ? dbHostAlias'));
 });

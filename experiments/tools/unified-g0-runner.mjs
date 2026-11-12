@@ -1,9 +1,10 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
-import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from 'node:fs';
+import { chmodSync, existsSync, lstatSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import { createServer } from 'node:net';
 import { delimiter, dirname, extname, isAbsolute, join, relative, resolve, sep } from 'node:path';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -357,6 +358,33 @@ export function selectLoopbackPort() {
 
 export function dockerCli(args) {
   return safeExecFileSync(DOCKER_CLI, args, { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+}
+
+export function withEphemeralEnvFile(environment, callback) {
+  if (!environment || typeof environment !== 'object' || Array.isArray(environment)
+      || ![Object.prototype, null].includes(Object.getPrototypeOf(environment))) {
+    throw new TypeError('environment must be a plain key/value object.');
+  }
+  if (typeof callback !== 'function') throw new TypeError('callback must be a function.');
+
+  const entries = Object.entries(environment);
+  for (const [name, value] of entries) {
+    if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(name)) throw new Error('Environment file contains an invalid variable name.');
+    if (typeof value !== 'string' || /[\r\n\0]/.test(value)) {
+      throw new Error(`Environment variable '${name}' must be a single-line string.`);
+    }
+  }
+
+  const tempDirectory = mkdtempSync(join(tmpdir(), 'bewt-covext-g0-'));
+  const envFilePath = join(tempDirectory, 'runtime.env');
+  try {
+    chmodSync(tempDirectory, 0o700);
+    writeFileSync(envFilePath, entries.map(([name, value]) => `${name}=${value}\n`).join(''), { encoding: 'utf8', flag: 'wx', mode: 0o600 });
+    chmodSync(envFilePath, 0o600);
+    return callback(envFilePath);
+  } finally {
+    rmSync(tempDirectory, { recursive: true, force: true });
+  }
 }
 
 export function snapshotInventory() {
@@ -799,16 +827,15 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 3. Start DB container if needed
     if (cfg.hasDb) {
-      const dbEnvArgs = Object.entries(configuredDbEnv).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
-      dockerCli([
+      withEphemeralEnvFile(configuredDbEnv, (envFilePath) => dockerCli([
         'run', '-d',
         '--name', dbName,
         '--network', netName,
         '--network-alias', dbHostAlias,
         ...labelsCli,
-        ...dbEnvArgs,
+        '--env-file', envFilePath,
         cfg.dbImage,
-      ]);
+      ]));
       createdContainers.push(dbName);
       runRecord.containers.push({ role: 'db', name: dbName, networkAliases: [dbHostAlias], ...inspectContainerProvenance(dbName) });
       // Wait for DB port to accept connections inside network
@@ -838,7 +865,6 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // App container
     const appEnvObj = cfg.appEnv ? cfg.appEnv(dbHostAlias) : {};
-    const appEnvArgs = Object.entries(appEnvObj).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
     const volArgs = (cfg.volumes || []).flatMap((v) => {
       const vName = `bewt-covext-${appId}-${v.suffix}-${validRunId}`;
       return ['-v', `${vName}:${v.mount}`];
@@ -856,16 +882,21 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         '/bin/sh', '-c', './run-services-docker.sh bash && sleep infinity',
       ]);
     } else {
-      dockerCli([
+      const runAppContainer = (envFilePath) => dockerCli([
         'run', '-d',
         '--name', appName,
         '--network', netName,
         '-p', `127.0.0.1:${appPort}:${cfg.appInternalPort}`,
         ...labelsCli,
-        ...appEnvArgs,
+        ...(envFilePath ? ['--env-file', envFilePath] : []),
         ...volArgs,
         cfg.image,
       ]);
+      if (Object.keys(appEnvObj).length > 0) {
+        withEphemeralEnvFile(appEnvObj, runAppContainer);
+      } else {
+        runAppContainer(null);
+      }
     }
     createdContainers.push(appName);
     runRecord.containers.push({ role: 'app', name: appName, port: appPort, ...inspectContainerProvenance(appName) });
@@ -911,22 +942,20 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         }
       };
       try {
-        runSetupStep('install', [
-          'exec', appName,
-          'php', 'maintenance/run.php', 'install',
-          '--dbserver', dbHostAlias,
-          '--dbtype', 'mysql',
-          '--dbname', 'mediawiki',
-          '--dbuser', requiredEnvironment('MEDIAWIKI_DB_USER'),
-          '--dbpass', requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
-          '--installdbuser', requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER'),
-          '--installdbpass', requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
-          '--pass', requiredEnvironment('BEWT_ADMIN_PASSWORD'),
-          '--scriptpath', '',
-          '--server', `http://${appName}`,
-          'E2E Web Testing wiki',
-          requiredEnvironment('BEWT_ADMIN_USERNAME'),
-        ]);
+        const installEnvironment = {
+          BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+          BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+          MEDIAWIKI_DB_HOST: dbHostAlias,
+          MEDIAWIKI_DB_USER: requiredEnvironment('MEDIAWIKI_DB_USER'),
+          MEDIAWIKI_DB_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
+          MEDIAWIKI_DB_INSTALL_USER: requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER'),
+          MEDIAWIKI_DB_ROOT_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
+        };
+        const installCommand = 'exec php /var/www/html/maintenance/run.php install --dbserver "$MEDIAWIKI_DB_HOST" --dbtype mysql --dbname mediawiki --dbuser "$MEDIAWIKI_DB_USER" --dbpass "$MEDIAWIKI_DB_PASSWORD" --installdbuser "$MEDIAWIKI_DB_INSTALL_USER" --installdbpass "$MEDIAWIKI_DB_ROOT_PASSWORD" --pass "$BEWT_ADMIN_PASSWORD" --scriptpath "" --server "http://' + appName + '" "E2E Web Testing wiki" "$BEWT_ADMIN_USERNAME"';
+        withEphemeralEnvFile(installEnvironment, (envFilePath) => runSetupStep('install', [
+          'exec', '--workdir', '/var/www/html', '--env-file', envFilePath,
+          appName, 'sh', '-lc', installCommand,
+        ]));
         runSetupStep('configure-extensions', [
           'exec', appName,
           'bash', '-c',
@@ -939,19 +968,20 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       }
     } else if (appId === 'prestashop') {
       try {
-        dockerCli([
-          'exec', appName,
-          'php', '/var/www/html/install/index_cli.php',
-          `--db_server=${dbHostAlias}`,
-          `--db_user=${requiredEnvironment("PRESTASHOP_DB_USER")}`,
-          `--db_password=${requiredEnvironment("PRESTASHOP_DB_PASSWORD")}`,
-          `--db_name=${requiredEnvironment("PRESTASHOP_DB_NAME")}`,
-          '--db_create=1',
-          `--domain=${appName}`,
-          `--name=${requiredEnvironment("PRESTASHOP_ADMIN_NAME")}`,
-          `--email=${requiredEnvironment("BEWT_ADMIN_EMAIL")}`,
-          `--password=${requiredEnvironment("BEWT_ADMIN_PASSWORD")}`,
-        ]);
+        const installEnvironment = {
+          PRESTASHOP_DB_SERVER: dbHostAlias,
+          PRESTASHOP_DB_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
+          PRESTASHOP_DB_PASSWORD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
+          PRESTASHOP_DB_NAME: requiredEnvironment('PRESTASHOP_DB_NAME'),
+          PRESTASHOP_ADMIN_NAME: requiredEnvironment('PRESTASHOP_ADMIN_NAME'),
+          BEWT_ADMIN_EMAIL: requiredEnvironment('BEWT_ADMIN_EMAIL'),
+          BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+        };
+        const installCommand = 'exec php /var/www/html/install/index_cli.php --db_server="$PRESTASHOP_DB_SERVER" --db_user="$PRESTASHOP_DB_USER" --db_password="$PRESTASHOP_DB_PASSWORD" --db_name="$PRESTASHOP_DB_NAME" --db_create=1 --domain=' + appName + ' --name="$PRESTASHOP_ADMIN_NAME" --email="$BEWT_ADMIN_EMAIL" --password="$BEWT_ADMIN_PASSWORD"';
+        withEphemeralEnvFile(installEnvironment, (envFilePath) => dockerCli([
+          'exec', '--workdir', '/var/www/html', '--env-file', envFilePath,
+          appName, 'sh', '-lc', installCommand,
+        ]));
         dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/install']);
         dockerCli(['exec', appName, 'mv', '/var/www/html/admin', '/var/www/html/administrator']);
         runRecord.setupFixtures.prestashop = setupEvidence('PASS', 0);

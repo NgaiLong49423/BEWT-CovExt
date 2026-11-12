@@ -134,3 +134,20 @@ Verification for this follow-up:
 - Login readiness now follows up to five same-origin HTTP redirects from the published loopback URL and validates the final page's login controls. Cross-origin redirect targets are rejected.
 - `run-record.json` retains each redirect's HTTP status and source/target path only; it omits hosts and query strings. The final readiness endpoint path and status refer to the validated destination.
 - Local mock-HTTP tests cover redirect chains, final PrestaShop login controls, query omission, cross-origin rejection, and the hop limit. No live G0 was run.
+
+## G0 credential transport hardening (2026-11-13)
+
+- Database and application container startup now pass sensitive environment values using short-lived, randomly named host files with POSIX directory/file modes `0700`/`0600`; files are removed in `finally` after Docker reads them. Names/values are validated to reject malformed keys and line injection.
+- MediaWiki and PrestaShop installer credentials now use Docker `exec --env-file` and static in-container shell variable expansion. Secret values no longer appear in the host `docker` process arguments. Docker still stores runtime environment values in the isolated container configuration, and installer processes necessarily receive their CLI options inside the disposable application container; this is not a claim of secret isolation from VM administrators or container root.
+- No credential values were read, generated, or included in logs/evidence. No Docker containers were started by this code change and G0 remains blocked until the Team Lead supplies the variables through the approved transient VM environment.
+
+Verification:
+
+| Command/action | Result |
+|---|---|
+| `node --check experiments/tools/unified-g0-runner.mjs` | PASS |
+| `node --check experiments/tools/credential-source-check.test.mjs` | PASS |
+| `node --test experiments/tools/credential-source-check.test.mjs` | PASS; 35 tests, 0 failures |
+| `git diff --check` | PASS |
+| VM `docker exec --help` | PASS; installed Docker supports `--env-file` |
+| Live G0 | NOT_RUN; no runtime credentials were present |
