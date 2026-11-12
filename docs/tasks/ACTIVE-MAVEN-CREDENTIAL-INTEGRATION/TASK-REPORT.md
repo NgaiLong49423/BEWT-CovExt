@@ -3,6 +3,7 @@
 - Status: `PARTIAL`; both affected Maven suites compile with credential-safe Revision 3 candidates. No candidate runtime test was executed.
 - Base commit: `acfe1272b3af00350ca929a4e4b69aa97c7c7508`.
 - Branch: `task/active-maven-credential-integration`.
+- Implementation commit: `04892f44309418f0294381e2d33ea54fda2c24dd`.
 - Scope: Claroline and Kanboard active Maven test sources and per-suite extension revision registration manifests.
 
 ## Changes
