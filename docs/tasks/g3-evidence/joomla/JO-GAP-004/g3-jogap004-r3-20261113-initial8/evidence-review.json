@@ -1,0 +1,30 @@
+{
+  "runId": "g3-jogap004-r3-20261113-initial8",
+  "candidateOutcome": "NOT_RUN",
+  "fixtureSetupOutcome": "FAIL",
+  "fixtureSetupReason": "FIXTURE_SETUP_EXCEPTION",
+  "currentStage": "ADMIN_LIST_MATCH",
+  "exceptionClass": "TimeoutException",
+  "browserReachabilityAtFailure": "REACHABLE_HTTP_200",
+  "postSaveNavigationWait": "PASS",
+  "exactAdminTitleRowCount": 0,
+  "exactRowWaitSeconds": 20,
+  "versionCounter": 0,
+  "initialHistoryRows": 0,
+  "frontendSaveMessageCode": "NOT_CAPTURED",
+  "adminListMessageCode": "NOT_CAPTURED",
+  "fixtureCleanupOutcome": "PASS_EXACT_ARTICLE_ABSENT_FROM_ADMIN_TABLE",
+  "fixtureAbsenceStatus": "VERIFIED_BY_EXACT_ADMIN_TABLE_AND_DISPOSABLE_DB_TEARDOWN",
+  "junit": {
+    "tests": 1,
+    "suiteErrors": 1,
+    "assertionFailures": 0,
+    "skipped": 0,
+    "failureLocation": "JO_GAP_004_G3_Suite.waitForArticleTitleRows:221, prepareFixture:128"
+  },
+  "mavenExitCode": 1,
+  "runnerCleanup": "PASS_ZERO_RESIDUAL_CONTAINERS_NETWORKS_AND_VOLUMES",
+  "junitRedactions": "The repository XML is a sanitized derivative, not the original full XML; session ID, debugger address, WebSocket endpoints, browser capabilities, and full stack were removed while retaining counts, error type, wait stage, and source locations.",
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}

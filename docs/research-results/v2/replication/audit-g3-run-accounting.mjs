@@ -80,7 +80,13 @@ export function buildRunAccounting(rootDir = '.') {
         ? 'UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata'
         : runId === 'g3-kbgap001-20261110184802'
           ? 'UNLISTED_KB_GAP_001_INITIAL_FAILURE; purpose not recorded in run metadata'
-          : 'UNLISTED_RUN_RECORD; purpose not established',
+          : runId === 'g3-jogap004-r3-20261113-initial6'
+            ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; runner cleanup PASS'
+            : runId === 'g3-jogap004-r3-20261113-initial7'
+              ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; JUnit XML NOT_AVAILABLE; Maven exit 143; runner cleanup PASS'
+              : runId === 'g3-jogap004-r3-20261113-initial8'
+                ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_SETUP_FAILED; candidate NOT_RUN before oracle; fixture absence VERIFIED_BY_EXACT_ADMIN_TABLE_AND_DISPOSABLE_DB_TEARDOWN; runner cleanup PASS'
+                : 'UNLISTED_RUN_RECORD; purpose not established',
     }));
   const orphanJUnit = [...junitByRunId.entries()]
     .filter(([runId]) => !records.has(runId))
@@ -134,7 +140,7 @@ export function buildRunAccounting(rootDir = '.') {
       additionalJunitExecutionIds: [...junitByRunId.keys()].filter((id) => !summaryRuns.has(id)).length,
       allJunitExecutionIds: junitByRunId.size,
       unregisteredExecutionArtifacts: orphanJUnit.length,
-      interpretation: 'The consolidated experiment denominator remains the 79 explicitly listed run IDs. Additional records/JUnit artifacts are preserved as supplementary, unclassified historical attempts and are not silently added to that denominator.',
+      interpretation: 'The canonical experiment denominator remains the 79 explicitly listed run IDs. Additional records and JUnit artifacts remain outside that denominator; each extra is classified where evidence supports it, while unknown historical attempts remain unclassified.',
     },
     joGap003: {
       candidateId: 'JO-GAP-003',

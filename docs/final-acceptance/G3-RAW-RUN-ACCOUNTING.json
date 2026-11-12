@@ -9,10 +9,10 @@
     "reportedThreeRerunPassCandidates": 11
   },
   "artifacts": {
-    "uniqueRunRecordIds": 84,
-    "runRecordFiles": 84,
-    "junitXmlFiles": 85,
-    "uniqueJunitRunIds": 85,
+    "uniqueRunRecordIds": 87,
+    "runRecordFiles": 87,
+    "junitXmlFiles": 87,
+    "uniqueJunitRunIds": 87,
     "summaryRunIdsMissingRunRecord": [],
     "unlistedRunRecords": [
       {
@@ -100,6 +100,60 @@
         "classification": "UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata"
       },
       {
+        "runId": "g3-jogap004-r3-20261113-initial6",
+        "path": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial6/run-record.json",
+        "appId": "joomla",
+        "task": "g0-joomla",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial6/TEST-base.JO_GAP_004_G3_Suite.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 1,
+            "skipped": 0,
+            "outcome": "FAIL"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial6/cleanup-result.json"
+        ],
+        "classification": "SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; runner cleanup PASS"
+      },
+      {
+        "runId": "g3-jogap004-r3-20261113-initial7",
+        "path": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial7/run-record.json",
+        "appId": "joomla",
+        "task": "g0-joomla",
+        "inSummary": false,
+        "junit": [],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial7/cleanup-result.json"
+        ],
+        "classification": "SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; JUnit XML NOT_AVAILABLE; Maven exit 143; runner cleanup PASS"
+      },
+      {
+        "runId": "g3-jogap004-r3-20261113-initial8",
+        "path": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial8/run-record.json",
+        "appId": "joomla",
+        "task": "g0-joomla",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial8/TEST-base.JO_GAP_004_G3_Suite.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 1,
+            "skipped": 0,
+            "outcome": "FAIL"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial8/cleanup-result.json"
+        ],
+        "classification": "SUPPLEMENTARY_PRELIMINARY_FIXTURE_SETUP_FAILED; candidate NOT_RUN before oracle; fixture absence VERIFIED_BY_EXACT_ADMIN_TABLE_AND_DISPOSABLE_DB_TEARDOWN; runner cleanup PASS"
+      },
+      {
         "runId": "g3-kbgap001-20261110184802",
         "path": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110184802/run-record.json",
         "appId": "kanboard",
@@ -150,11 +204,11 @@
   },
   "accounting": {
     "primarySummaryRunIds": 79,
-    "additionalRunRecordIds": 5,
-    "additionalJunitExecutionIds": 6,
-    "allJunitExecutionIds": 85,
+    "additionalRunRecordIds": 8,
+    "additionalJunitExecutionIds": 8,
+    "allJunitExecutionIds": 87,
     "unregisteredExecutionArtifacts": 1,
-    "interpretation": "The consolidated experiment denominator remains the 79 explicitly listed run IDs. Additional records/JUnit artifacts are preserved as supplementary, unclassified historical attempts and are not silently added to that denominator."
+    "interpretation": "The canonical experiment denominator remains the 79 explicitly listed run IDs. Additional records and JUnit artifacts remain outside that denominator; each extra is classified where evidence supports it, while unknown historical attempts remain unclassified."
   },
   "joGap003": {
     "candidateId": "JO-GAP-003",

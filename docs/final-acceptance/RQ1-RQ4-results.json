@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "auditBaselineCommit": "569ca47d40dcc8dd8d5138718078c5f4ec7217bc",
+  "auditBaselineCommit": "f7ff0d4eb1cadc26c40d7b19cfab6b7de696e73e",
   "candidateCount": 40,
   "checks": {
     "uniqueCandidateIds": true,
@@ -577,15 +577,15 @@
       "flakyCandidatesReported": 2,
       "failedCandidatesReported": 27,
       "totalRunInvocationsReported": 79,
-      "runRecordFilesObserved": 84,
-      "junitXmlFilesObserved": 85,
+      "runRecordFilesObserved": 87,
+      "junitXmlFilesObserved": 87,
       "runRecordsWithCompleteIdentity": 0,
       "cleanupResidualFailuresObserved": 1
     },
-    "rawRunRecordFilesObserved": 84,
+    "rawRunRecordFilesObserved": 87,
     "runRecordAccounting": {
       "summaryRunIds": 79,
-      "runRecordFileCount": 84,
+      "runRecordFileCount": 87,
       "matchingRunRecords": 79,
       "runRecordCountByCandidate": {
         "BL-GAP-001": 4,
@@ -606,7 +606,7 @@
         "JO-GAP-001": 1,
         "JO-GAP-002": 1,
         "JO-GAP-003": 4,
-        "JO-GAP-004": 4,
+        "JO-GAP-004": 7,
         "JO-GAP-005": 4,
         "KB-GAP-001": 2,
         "KB-GAP-002": 1,
@@ -666,6 +666,33 @@
           "purpose": "NOT_RECORDED",
           "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
           "evidencePath": "docs\\tasks\\g3-evidence\\expresscart\\EC-GAP-005\\g3-ecgap005-r3-20261110184936\\run-record.json"
+        },
+        {
+          "runId": "g3-jogap004-r3-20261113-initial6",
+          "applicationByDirectory": "joomla",
+          "candidateIdByDirectory": "JO-GAP-004",
+          "taskLabel": "g0-joomla",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\joomla\\JO-GAP-004\\g3-jogap004-r3-20261113-initial6\\run-record.json"
+        },
+        {
+          "runId": "g3-jogap004-r3-20261113-initial7",
+          "applicationByDirectory": "joomla",
+          "candidateIdByDirectory": "JO-GAP-004",
+          "taskLabel": "g0-joomla",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\joomla\\JO-GAP-004\\g3-jogap004-r3-20261113-initial7\\run-record.json"
+        },
+        {
+          "runId": "g3-jogap004-r3-20261113-initial8",
+          "applicationByDirectory": "joomla",
+          "candidateIdByDirectory": "JO-GAP-004",
+          "taskLabel": "g0-joomla",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\joomla\\JO-GAP-004\\g3-jogap004-r3-20261113-initial8\\run-record.json"
         },
         {
           "runId": "g3-kbgap001-20261110184802",
@@ -1211,7 +1238,7 @@
         }
       ]
     },
-    "unboundRunRecordFilesObserved": 84,
+    "unboundRunRecordFilesObserved": 87,
     "duplicateRunIds": [],
     "requiredCleanReruns": 3,
     "flakinessDefinition": "A candidate is flaky when its initial run and three reruns do not all have the same derived JUnit outcome; rerunFailureRate and allTrialFailureRate use separate denominators.",
@@ -1670,7 +1697,7 @@
         "status": "BLOCKED",
         "validated": false,
         "sourceBoundRunRecords": 0,
-        "unboundPathRunRecords": 4,
+        "unboundPathRunRecords": 7,
         "verifiedRunRecords": 0,
         "protocolComplete": false,
         "initialOutcome": null,

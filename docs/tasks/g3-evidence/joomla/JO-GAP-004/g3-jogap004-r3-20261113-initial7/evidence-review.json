@@ -1,0 +1,27 @@
+{
+  "runId": "g3-jogap004-r3-20261113-initial7",
+  "candidateOutcome": "NOT_RUN",
+  "fixtureSetupOutcome": "BLOCKED",
+  "fixtureSetupReason": "ARTICLE_NOT_LISTED_IN_ADMIN_MANAGER",
+  "currentStage": "ADMIN_LIST_MATCH",
+  "exceptionClass": "IllegalStateException",
+  "browserReachabilityAtFailure": "REACHABLE_HTTP_200",
+  "exactAdminTitleRowCount": 0,
+  "versionCounter": 0,
+  "initialHistoryRows": 0,
+  "fixtureAbsenceStatus": "NOT_INDEPENDENTLY_VERIFIED",
+  "fixtureCleanupOutcome": "FAILED_CLEANUP_UnreachableBrowserException",
+  "mavenExitCode": 143,
+  "mavenTimeoutMs": 600000,
+  "junitOutcome": "NOT_FOUND",
+  "runnerCleanup": "PASS_ZERO_RESIDUAL_CONTAINERS_NETWORKS_AND_VOLUMES",
+  "dockerBefore": {
+    "containers": 0,
+    "volumes": 0,
+    "networksPresent": 3,
+    "nonRunNetworksModified": false
+  },
+  "interpretation": "The immediate admin-table query found no exact-title row. The run does not establish whether the frontend save was incomplete or the article was rejected; article absence remains unverified after the browser became unreachable.",
+  "validated": false,
+  "humanOracleNoveltyApproval": "PENDING"
+}
