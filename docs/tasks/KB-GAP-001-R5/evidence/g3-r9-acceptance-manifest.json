@@ -58,7 +58,7 @@
       "mavenExitCode": 1,
       "originalRunnerJunitSha256": "0ea08a07ef80cb6a40cfe9005f371945d64cf4a23b8fa2e10fc8a4e160d6ccfd",
       "runnerSanitizedJunitSha256": "27f05d07d513cca6864917dab79450aec224079da0127a8bb0ed74535e45b9c3",
-      "publicArtifactSha256": "e01b288885e5752a493e4564259a30e394b17789db2f4781bb98a05304204128",
+      "publicArtifactSha256": "5eac6582ce73c67d75e8db0bceaade587792ea7bb237885c4e6e9bd1a00667bd",
       "publicJunitPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-20261112-prelim-a/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.xml",
       "runRecordPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-20261112-prelim-a/run-record.json",
       "cleanup": "PASS",
@@ -81,7 +81,7 @@
       "mavenExitCode": 1,
       "originalRunnerJunitSha256": "92bff426e4ee298a639d52be511f7f801bcfdbe18b0cf917097388238bba79a5",
       "runnerSanitizedJunitSha256": "1758fc8991df3e5339d2fa736c8e6b43c544e8780da13274b02984f56dfc6013",
-      "publicArtifactSha256": "e8e63eabcae9e71fcd90a6c4d5cd19e9122372b4417234d3d7f5aa570e63821d",
+      "publicArtifactSha256": "669ee241a6ce8e301d682e17b09bd5eae10074c2b5c918314efd78a7aa3843cb",
       "publicJunitPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-1-20261112/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.xml",
       "runRecordPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-1-20261112/run-record.json",
       "cleanup": "PASS",
@@ -104,7 +104,7 @@
       "mavenExitCode": 1,
       "originalRunnerJunitSha256": "33be3eb12350ab3d74e41357b7361cb76f03433952387f56e256b8a28d5b16c5",
       "runnerSanitizedJunitSha256": "ea1fa1543de27003248b7e6dc860c98d77cb3161238169fd3ad6c2e585169995",
-      "publicArtifactSha256": "9b7217508442240642ce39a6ca815a72dc0d0cb427ba8927aac05b73090f7d44",
+      "publicArtifactSha256": "aaa9bb131aadefd5e191ffa2ad690c86b0fce9dbf5a47a9c6b015a02bcb1ecce",
       "publicJunitPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-2-20261112/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.xml",
       "runRecordPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-2-20261112/run-record.json",
       "cleanup": "PASS",
@@ -127,7 +127,7 @@
       "mavenExitCode": 1,
       "originalRunnerJunitSha256": "9b3ceb138acf4dbcab4deab42a98a8cc994f777eb77920bcb898dc555be0cf1d",
       "runnerSanitizedJunitSha256": "b899885bd6e1ac76f5309e1d88613ef59c34a4753093fd0f11de618ec3712952",
-      "publicArtifactSha256": "21d306f077082bfdcdd8edf9955b2bee614500246cbd2dea87912f1fad1b56df",
+      "publicArtifactSha256": "533562c9e33abd0929917bd118fdddaab9429917dfada3a70966ffffecc3dda7",
       "publicJunitPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-3-20261112/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R9.xml",
       "runRecordPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r9-valid-rerun-3-20261112/run-record.json",
       "cleanup": "PASS",
@@ -144,5 +144,6 @@
     "No human oracle or novelty approval is evidenced.",
     "Runner omits per-container image ID binding and has a hard-coded G0 task label.",
     "Raw Maven stdout/stderr is excluded from public evidence."
-  ]
+  ],
+  "publicArtifactHashBasis": "SHA-256 over exact committed Git blob bytes (UTF-8, LF line endings, no BOM); per-run source mapping is recorded in surefire-hash.json."
 }

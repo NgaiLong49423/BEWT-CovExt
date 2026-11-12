@@ -1,7 +1,8 @@
 {
   "originalXmlSha256": "49762377dd356668b956ebe6d578298921c1f97cdbddb08457448ccf33be6d89",
   "sanitizedXmlSha256": "553151c0878fb34125544a148ec8a396d7f7b8c74f0e9903eb11eb17a328be76",
-  "publicArtifactSha256": "8a98f43e21f75d5bd339caa56f1cfc2aad3a9da978307217c43c5d7ccbbe85e3",
+  "publicArtifactSha256": "1e67e10bd82a028ad481a042320a558ad8113e4b2c3b5dfeb3a5943653bd8d8c",
   "publicArtifactPath": "docs/tasks/KB-GAP-001-R5/evidence/g3-runs/g3-kb-gap001-r8-rerun-3-20261112/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.xml",
-  "publicTransformation": "Suite and testcase attributes retained; failure type/message clipped to 240 characters; properties, system output/error, and stack traces omitted; UTF-8 without BOM."
+  "publicTransformation": "Suite and testcase attributes retained; failure type/message clipped to 240 characters; properties, system output/error, and stack traces omitted; UTF-8 without BOM.",
+  "publicArtifactHashBasis": "SHA-256 over exact committed Git blob bytes (UTF-8, LF line endings, no BOM)."
 }

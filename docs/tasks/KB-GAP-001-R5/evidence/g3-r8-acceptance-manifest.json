@@ -272,5 +272,6 @@
     "R5–R7 are retained as failed historical attempts; three initial R8 reruns are retained as fixture-configuration failures because KANBOARD_TEST_USERNAME was not propagated.",
     "No human oracle or novelty approval is evidenced; these results are preliminary engineering only."
   ],
-  "sourceHashBasis": "SHA-256 over UTF-8 LF-normalized source bytes read from the Linux VM worktree at the exact executed commit; independently recomputed from git show and confirmed by sha256sum on 2026-11-12."
+  "sourceHashBasis": "SHA-256 over UTF-8 LF-normalized source bytes read from the Linux VM worktree at the exact executed commit; independently recomputed from git show and confirmed by sha256sum on 2026-11-12.",
+  "publicArtifactHashBasis": "SHA-256 over exact committed Git blob bytes (UTF-8, LF line endings, no BOM); per-run values are recorded in surefire-hash.json."
 }
