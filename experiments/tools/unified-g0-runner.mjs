@@ -26,6 +26,61 @@ export function resolveEnvironmentConfig(config) {
   return typeof config === 'function' ? config() : config;
 }
 
+export function expressCartTestEnvironment() {
+  return {
+    BEWT_ADMIN_EMAIL: requiredEnvironment('BEWT_ADMIN_EMAIL'),
+    BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+  };
+}
+
+export function expressCartAdminBootstrapScript() {
+  return [
+    "const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb');",
+    "let input = ''; process.stdin.setEncoding('utf8'); process.stdin.on('data', chunk => { input += chunk; });",
+    "process.stdin.on('end', async () => {",
+    '  const { userEmail, userPassword } = JSON.parse(input);',
+    "  if (!userEmail || !userPassword) { process.exitCode = 2; return; }",
+    '  const client = await MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true });',
+    "  try { await client.db('expresscart').collection('users').updateOne({ userEmail }, { $set: { userPassword: bcrypt.hashSync(userPassword, 10) } }); }",
+    '  finally { await client.close(); }',
+    '});',
+  ].join(' ');
+}
+
+export function applicationVersionProvenance(appId, sourceConfig, imageReference) {
+  const benchmarkVersionLabel = sourceConfig.benchmarkBaseVersion || 'NOT_AVAILABLE';
+  if (appId !== 'expresscart') {
+    return { applicationVersion: benchmarkVersionLabel, benchmarkVersionLabel };
+  }
+
+  const sourceLockPath = 'experiments/expresscart/SOURCE-LOCK.json';
+  const packageJsonPath = 'experiments/expresscart/source/package.json';
+  const sourceLockContent = readFileSync(resolve(REPO_ROOT, sourceLockPath));
+  const packageJsonContent = readFileSync(resolve(REPO_ROOT, packageJsonPath));
+  const sourceLock = JSON.parse(sourceLockContent.toString('utf8'));
+  const packageJson = JSON.parse(packageJsonContent.toString('utf8'));
+  const exactVersion = sourceLock.packageVersion;
+  const configuredCommit = sourceConfig.source?.commit;
+  const imageTag = String(imageReference || '').split(':').at(-1) || '';
+  const imageVersionPrefix = `${exactVersion}-`;
+  const imageCommitFragment = imageTag.startsWith(imageVersionPrefix) ? imageTag.slice(imageVersionPrefix.length) : '';
+  if (!exactVersion || packageJson.version !== exactVersion || sourceLock.commit !== configuredCommit
+      || imageCommitFragment.length < 7 || !sourceLock.commit.startsWith(imageCommitFragment)) {
+    throw new Error('ExpressCart pinned version metadata is inconsistent.');
+  }
+  return {
+    applicationVersion: exactVersion,
+    benchmarkVersionLabel,
+    applicationVersionEvidence: {
+      sourceLockPath,
+      sourceLockSha256: sha256(sourceLockContent),
+      packageJsonPath,
+      packageJsonSha256: sha256(packageJsonContent),
+      sourceCommit: sourceLock.commit,
+    },
+  };
+}
+
 export function mediawikiTestEnvironment() {
   const databaseUser = requiredEnvironment('MEDIAWIKI_DB_USER');
   const installerUser = requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER');
@@ -396,6 +451,7 @@ export const APPS = {
     appUrlProperty: 'expresscart.baseUrl',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://127.0.0.1:${port}`,
+    testEnv: expressCartTestEnvironment,
     appEnv: (dbHost) => ({
       NODE_ENV: 'production',
       PORT: '1111',
@@ -575,7 +631,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     workingTreeStatusScope: 'tracked-files-only; untracked evidence excluded',
     runnerSha256: sha256(readFileSync(__filename)),
     applicationSourceCommit: sourceConfig.source?.commit || 'NOT_AVAILABLE',
-    applicationVersion: sourceConfig.benchmarkBaseVersion || 'NOT_AVAILABLE',
+    ...applicationVersionProvenance(appId, sourceConfig, cfg.image),
     applicationImageReference: cfg.image,
     testClass: activeTestClass,
     testSource: existsSync(sourcePath)
@@ -768,13 +824,31 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     } else if (appId === 'expresscart') {
       try {
         dockerCli(['exec', appName, 'npm', 'run', 'testdata']);
-        dockerCli([
-          'exec', appName,
-          'node', '-e',
-          "const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { await client.db('expresscart_experiment').collection('users').updateOne({ userEmail: 'owner@test.com' }, { $set: { userPassword: bcrypt.hashSync('e2eW3Bt3s71nGB3nchM4rK', 10) } }); await client.close(); });",
-        ]);
-      } catch (e) {
-        console.error(`ExpressCart fixture error: ${e.message}`);
+        const bootstrap = spawnSync(DOCKER_CLI, ['exec', '-i', appName, 'node', '-e', expressCartAdminBootstrapScript()], {
+          encoding: 'utf8',
+          input: JSON.stringify({
+            userEmail: configuredTestEnv.BEWT_ADMIN_EMAIL,
+            userPassword: configuredTestEnv.BEWT_ADMIN_PASSWORD,
+          }),
+          timeout: 180000,
+        });
+        const safeBootstrap = setupCommandEvidence(bootstrap, evidenceSecrets);
+        runRecord.setupFixtures.expresscart = setupEvidence(
+          safeBootstrap.exitCode === 0 ? 'PASS' : 'FAIL',
+          safeBootstrap.exitCode,
+          new Date().toISOString(),
+          safeBootstrap.errorCode,
+          safeBootstrap.signal,
+        );
+        if (safeBootstrap.exitCode !== 0) throw new Error('ExpressCart fixture bootstrap failed.');
+      } catch (error) {
+        runRecord.setupFixtures.expresscart ||= setupEvidence(
+          'FAIL',
+          Number.isInteger(error.status) ? error.status : null,
+          new Date().toISOString(),
+          typeof error.code === 'string' ? error.code : null,
+        );
+        throw new Error('ExpressCart fixture setup failed.');
       }
     } else if (appId === 'bludit') {
       if (cfg.installerClass) {

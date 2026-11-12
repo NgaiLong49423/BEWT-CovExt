@@ -6,8 +6,10 @@ import { scanJavaSource } from './credential-source-check.mjs';
 import {
   APPS,
   DATABASE_NETWORK_ALIAS,
+  applicationVersionProvenance,
   containerProvenance,
   credentialValuesFrom,
+  expressCartAdminBootstrapScript,
   followHttpRedirects,
   findBaselineGherkinBinding,
   hostAppReadinessUrl,
@@ -72,6 +74,67 @@ test('non-ExpressCart app configuration resolves lazily and rejects missing cred
       else process.env[key] = value;
     }
   }
+});
+
+test('ExpressCart admin credentials are required at runtime and bootstrap input is stdin-only', () => {
+  const keys = ['BEWT_ADMIN_EMAIL', 'BEWT_ADMIN_PASSWORD'];
+  const previous = new Map(keys.map((key) => [key, process.env[key]]));
+  for (const key of keys) delete process.env[key];
+  try {
+    assert.throws(() => APPS.expresscart.testEnv(), /Missing required environment variable/);
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+  const script = expressCartAdminBootstrapScript();
+  assert.match(script, /process\.stdin/);
+  assert.match(script, /userEmail, userPassword/);
+  assert.match(script, /hashSync\(userPassword, 10\)/);
+  assert.doesNotMatch(script, /userEmail\s*:\s*['"][^'"]+['"]/);
+  assert.doesNotMatch(script, /hashSync\(\s*['"][^'"]+['"]/);
+  const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
+  const start = source.indexOf("} else if (appId === 'expresscart') {");
+  const end = source.indexOf('} else if (appId === ', start + 1);
+  assert.ok(start >= 0 && end > start);
+  const fixtureBlock = source.slice(start, end);
+  assert.match(fixtureBlock, /input:\s*JSON\.stringify/);
+  assert.match(fixtureBlock, /configuredTestEnv\.BEWT_ADMIN_PASSWORD/);
+  assert.doesNotMatch(fixtureBlock, /(?:userEmail|userPassword)\s*:\s*['"][^'"]+['"]/);
+  const java = readFileSync(new URL('../expresscart/bewt-suite/src/test/java/tests/AddUserTest.java', import.meta.url), 'utf8');
+  const loginPrefix = java.slice(0, java.indexOf('.doLogin()'));
+  assert.match(loginPrefix, /setEmail\(requiredEnvironment\("BEWT_ADMIN_EMAIL"\)\)/);
+  assert.match(loginPrefix, /setPassword\(requiredEnvironment\("BEWT_ADMIN_PASSWORD"\)\)/);
+  assert.equal(/\.setEmail\(["'][^"']+["']\)/.test(loginPrefix), false);
+  assert.equal(/\.setPassword\(["'][^"']+["']\)/.test(loginPrefix), false);
+  assert.match(java, /UUID\.randomUUID\(\)/);
+  assert.equal(/\.set(?:Confirm)?Password\(["'][^"']+["']\)/.test(java), false);
+});
+
+test('ExpressCart run provenance distinguishes exact pinned version from benchmark shorthand', () => {
+  const result = applicationVersionProvenance(
+    'expresscart',
+    { benchmarkBaseVersion: '1.19', source: { commit: 'b31302f4e99c3293bd742c6d076a721e168118b0' } },
+    'bewt-covext/expresscart:1.1.19-b31302f',
+  );
+  assert.equal(result.applicationVersion, '1.1.19');
+  assert.equal(result.benchmarkVersionLabel, '1.19');
+  assert.match(result.applicationVersionEvidence.sourceLockSha256, /^[a-f0-9]{64}$/);
+  assert.match(result.applicationVersionEvidence.packageJsonSha256, /^[a-f0-9]{64}$/);
+  assert.throws(() => applicationVersionProvenance(
+    'expresscart',
+    { benchmarkBaseVersion: '1.19', source: { commit: 'not-the-pinned-commit' } },
+    'bewt-covext/expresscart:1.1.19-b31302f',
+  ), /metadata is inconsistent/);
+});
+
+test('baseline Gherkin remains explicitly unavailable when the catalog has no app mapping', () => {
+  assert.deepEqual(findBaselineGherkinBinding({ units: [] }, 'kanboard', 'tests.AddNewProject', 'catalog.json', 'a'.repeat(64)), {
+    status: 'NOT_AVAILABLE',
+    path: 'NOT_AVAILABLE',
+    gitBlobSha1: 'NOT_AVAILABLE',
+  });
 });
 test('non-ExpressCart runner credential fields have no inline defaults', () => {
   const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
