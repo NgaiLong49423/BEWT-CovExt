@@ -21,6 +21,10 @@ The latest final4 run executed one original BEWT base smoke class per applicatio
 
 The final4 run used a fresh VM worktree at repository commit `08f3c32ed723f938e351b304859a35c2bdac4f9e`, the then-current head of open PR #28. This is candidate-branch evidence and does not imply that the commit is in `main` or accepted. Each run record reports tracked files clean; generated untracked evidence was excluded from that cleanliness check. The pinned BEWT baseline source commit is `0501249ff3e9a5ea83a06155cd2971dc36197056`.
 
+## Cloud API side effect
+
+During subsequent SSH diagnostics on 2026-11-13, `gcloud compute ssh --troubleshoot` was invoked. The CLI reported enabling `networkmanagement.googleapis.com` and `monitoring.googleapis.com` in project `gen-lang-client-0311012609`. A read-only `gcloud services list --enabled` check on 2026-11-13 confirmed that both APIs were still enabled. No API disable or other Cloud service configuration change was made. This side effect is separate from the eight smoke runs; associated billing impact was not measured.
+
 ## Final4 results
 
 | Application | Base smoke class | App readiness | JUnit | Setup | Cleanup |

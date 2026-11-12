@@ -59,6 +59,17 @@
         "Final4 records bind the test source by SHA-256 and record per-container IDs/image IDs, but Gherkin is recorded as Git blob SHA-1 rather than content SHA-256.",
         "The final4 Kanboard run record reports baseline Gherkin mapping NOT_AVAILABLE; an earlier run mapping does not bind this invocation."
       ],
+      "cloudApiSideEffect": {
+        "observedOn": "2026-11-13",
+        "trigger": "gcloud compute ssh --troubleshoot was invoked during subsequent SSH diagnostics; the CLI reported enabling two APIs",
+        "services": [
+          "networkmanagement.googleapis.com",
+          "monitoring.googleapis.com"
+        ],
+        "currentStateReadOnlyVerified": "ENABLED",
+        "disabled": false,
+        "billingImpact": "NOT_MEASURED"
+      },
       "evidence": [
         "docs/tasks/G0-CLOUD-20261112/TASK-REPORT.md",
         "docs/tasks/G0-CLOUD-20261112/evidence/g0-runtime-manifest.json",
