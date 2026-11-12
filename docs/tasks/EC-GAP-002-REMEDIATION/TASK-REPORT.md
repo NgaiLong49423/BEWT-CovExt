@@ -93,3 +93,9 @@ R4 is registered as a new immutable revision. It reads the cart line from the pi
 The runner's Maven evidence command previously omitted the `clean` goal despite invoking it. The command record is corrected for future runs. The R3 record is preserved unchanged and the discrepancy is noted in its runtime provenance.
 
 The runner follow-up also passes `-Dexperiment.evidence.dir` with a run-specific repository-relative path, so failure screenshots do not overwrite earlier attempts. The R3 failure screenshot was captured after JUnit teardown had navigated back to the admin dashboard; it was not promoted into public evidence. Future `maven-exit.json` records the complete sanitized Maven argv, including the evidence path and all goals. Focused runner checks remain 3/3 PASS.
+
+## 9. R4 pre-Maven failure and R5 registration
+
+A second clean Docker attempt, now against candidate R4 at commit `fb5be00a86b8d41a0ce3fb43cbce7d2291722881`, created the ExpressCart, MongoDB, and Selenium containers and then failed before Maven. The runner threw `ReferenceError: relative is not defined` while assembling the Maven arguments. No JUnit file or Maven exit record was produced. Cleanup again verified zero residual containers, networks, and volumes. Structured evidence is in `docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r4-initial-20261112/`; raw runner failure/console output remains only on the VM and was not copied.
+
+The runner now imports the path helper. Because R4 is immutable, R5 is registered with a distinct Java class/method and the same Gherkin behavior. R5 removes neither historical attempt; its clean local compile compiled 47 test sources, and runner checks passed 3/3. R5 has not yet run on Docker. Latest status is preliminary engineering only; no oracle/novelty approval or `VALIDATED` claim is made.

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "candidateId": "EC-GAP-002",
+  "revision": 5,
+  "origin": "MANUAL_SOURCE_BACKED_REMEDIATION",
+  "generator": "Codex coding agent; no model-generation call claimed",
+  "parentRevisionPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/",
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "sourceEvidence": [
+    "experiments/expresscart/source/routes/index.js:603-643",
+    "experiments/expresscart/source/app.js:528-530",
+    "experiments/expresscart/source/bin/testdata.json:12",
+    "experiments/expresscart/source/config/settings.json:25"
+  ],
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "sourceSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
+  "humanReviewStatus": "PENDING_HUMAN_SIGNATURE",
+  "compileOutcome": "NOT_RUN",
+  "e2eOutcome": "NOT_RUN_PENDING_R5_COMPILE",
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)"
+}

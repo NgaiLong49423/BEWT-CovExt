@@ -1,0 +1,6 @@
+Command: mvn -B -f experiments/expresscart/bewt-suite/pom.xml -DskipTests clean test-compile
+Outcome: PASS (exit 0)
+Compiled: 28 main sources and 47 test sources, including immutable EC-GAP-002 R5
+Observed on: 2026-11-12
+R5 Java SHA-256: fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866
+R5 G3: NOT_RUN_PENDING_PUSH

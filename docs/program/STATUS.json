@@ -221,11 +221,11 @@
       "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json",
       "candidateRemediation": {
         "EC-GAP-002": {
-          "revision": 4,
-          "implementationCommit": "e65482a3a5b93dbeaafa969b1f804ee4b3b73e73",
+          "revision": 5,
+          "implementationCommit": "PENDING_COMMIT",
           "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
-          "compile": "PASS_R4_46_TEST_SOURCES",
-          "g3": "R3_INITIAL_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS; R4_NOT_RUN_PENDING_PUSH",
+          "compile": "PASS_R5_47_TEST_SOURCES",
+          "g3": "R3_INITIAL_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS; R4_FAIL_PRE_MAVEN_REFERENCE_ERROR_CLEANUP_PASS; R5_NOT_RUN_PENDING_PUSH",
           "humanOracleNoveltyReview": "PENDING_HUMAN_SIGNATURE",
           "validated": false,
           "traceabilityAddendum": "docs/final-acceptance/EC-GAP-002-REMEDIATION-ADDENDUM.json",
@@ -253,8 +253,8 @@
               "newCodeDuplication": "0.0%"
             }
           },
-          "latestImplementationCommit": "e65482a3a5b93dbeaafa969b1f804ee4b3b73e73",
-          "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r3-initial-20261112/"
+          "latestImplementationCommit": "PENDING_COMMIT",
+          "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/"
         }
       }
     },
