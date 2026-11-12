@@ -88,10 +88,10 @@ The selector-only Joomla `JO-GAP-003` additionally requires `BEWT_AUTHOR_USERNAM
 
 ## MediaWiki and PrestaShop fixture evidence follow-up (2026-11-12)
 
-- The active runner uses `php maintenance/install.php` inside the MediaWiki app container and PrestaShop's `install/index_cli.php`, followed by its install-directory removal and admin-path rename. The previous configuration descriptions incorrectly said the Maven Selenium `Installer` tests executed; `config/apps/{mediawiki,prestashop}.json` now documents the runner's actual setup path. Setup errors are recorded with exit state and abort before the Maven smoke test instead of being swallowed.
+- The active runner uses MediaWiki 1.40's supported `php maintenance/run.php install` entry point inside the MediaWiki app container and PrestaShop's `install/index_cli.php`, followed by its install-directory removal and admin-path rename. The previous configuration descriptions incorrectly said the Maven Selenium `Installer` tests executed; `config/apps/{mediawiki,prestashop}.json` now documents the runner's actual setup path. Setup errors are recorded with exit state and abort before the Maven smoke test instead of being swallowed.
 - Both MySQL-compatible DB containers now receive the configured app DB user/password alongside the DB name. PrestaShop app and Maven test configuration use the same required `PRESTASHOP_DB_NAME`; MediaWiki install and DB initialization use the same database name and configured app user. No live setup was executed in this task.
-- Readiness records include UTC check time, HTTP status, validator name, URL path only, and `completedBeforeMaven`. MediaWiki and PrestaShop each get an additional post-setup login-control readiness check before Maven. Container stdout/stderr logs are saved per DB/app/browser role before stopping/removing containers, with configured credential values redacted; setup, Maven, and failure logs use the same redaction.
-- Each run record is source-bound to the repository commit, runner SHA-256, active Java test source path/SHA-256, app source commit/version, and configured image reference. Baseline Gherkin path/blob hash and its mapping catalog hash are included when the T04-G catalog maps the selected baseline test; otherwise the fields are explicitly `NOT_AVAILABLE`.
+- Readiness records include UTC check time, HTTP status (or null when unreachable), validator name, URL path only, and `completedBeforeMaven`; failed stages are retained in `run-record.json`. MediaWiki and PrestaShop each get an additional post-setup login-control readiness check through the published loopback port before Maven, while Maven retains the internal Docker hostname. Container stdout/stderr logs are saved per DB/app/browser role before stopping/removing containers, with configured credential values redacted; setup, Maven, and failure logs use the same redaction.
+- Each run record is source-bound to the repository commit, tracked-tree cleanliness (untracked run evidence excluded), runner SHA-256, active Java test source path/SHA-256, app source commit/version, and configured image reference. Baseline Gherkin path/Git blob SHA-1 and its mapping catalog SHA-256 are included when the T04-G catalog maps the selected baseline test; otherwise the fields are explicitly `NOT_AVAILABLE`.
 - Corrected the runner's MediaWiki baseline test selector to `mediawiki.CreatePageTest`, matching `experiments/mediawiki/g0-plan.json`. PrestaShop remains `tests.AddNewCategory`.
 
 Verification for this follow-up:
@@ -103,4 +103,21 @@ Verification for this follow-up:
 | `node experiments/tools/credential-source-check.mjs` | PASS; 35 latest active non-ExpressCart candidate revisions, no inline login username/password literals |
 | Live G0 or application setup | NOT_RUN; this task intentionally performed offline checks only |
 
-The failed MediaWiki/PrestaShop G0 run remains historical evidence; this patch does not rewrite it. The next run will record fixture failure before skipping Maven if setup exits nonzero, and will retain sanitized app/DB/browser logs for diagnosis. Readiness for any future run remains `NOT_RUN` until actually executed.
+The failed MediaWiki/PrestaShop G0 runs remain historical evidence; this patch does not rewrite them. The next run will record fixture failure and sanitized setup stdout/stderr before aborting if setup exits nonzero, and will retain sanitized app/DB/browser logs for diagnosis. Readiness for any future run remains `NOT_RUN` until actually executed.
+
+## G0 failure diagnosis follow-up (2026-11-12)
+
+- MediaWiki 1.40 setup now invokes `php maintenance/run.php install`, the documented entry point for installation and maintenance scripts since 1.40. The previous direct `maintenance/install.php` invocation was deprecated in that version; the existing failed-run evidence does not establish whether deprecation caused the installer exit, so the next offline-source-driven runtime attempt must inspect the newly captured output if it still fails. See the [MediaWiki install script manual](https://www.mediawiki.org/wiki/Manual:Install.php/en).
+- Every MediaWiki setup step stores sanitized stdout/stderr in per-run files and records command label, exit code, signal/error code, and paths in `run-record.json`. Credential values are redacted before evidence is written.
+- MediaWiki and PrestaShop post-setup login probes now use the published `127.0.0.1:<appPort>` endpoint; Maven keeps the app's internal Docker hostname. Readiness failures now record outcome, last HTTP status (or null), validator, UTC timestamp, endpoint path, and pre-Maven ordering in `run-record.json` before aborting.
+- `source.workingTreeDirty` now checks tracked files only, and `workingTreeStatusScope` states that untracked run evidence is excluded. Baseline Gherkin Git object IDs are stored as `gitBlobSha1`; the mapping catalog retains its separate `mappingCatalogSha256` field.
+
+Verification for this follow-up:
+
+| Command/action | Result |
+|---|---|
+| `node --check experiments/tools/unified-g0-runner.mjs` | PASS |
+| `node --test experiments/tools/credential-source-check.test.mjs` | PASS; 18 offline tests, including setup log redaction/exit, loopback readiness, failed-readiness persistence, tracked-tree scope, and Gherkin hash naming |
+| `node experiments/tools/credential-source-check.mjs` | PASS; 35 latest active non-ExpressCart candidate revisions, no inline login username/password literals |
+| App config JSON and `git diff --check` | PASS |
+| Live G0 | NOT_RUN; parent owns runtime reruns and this task did not contact the VM |

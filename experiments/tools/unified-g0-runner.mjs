@@ -42,8 +42,47 @@ export function readinessEvidence(url, status, validator, checkedAtUtc = new Dat
   };
 }
 
+export function readinessFailureEvidence(url, status, validator, checkedAtUtc = new Date().toISOString()) {
+  return {
+    outcome: 'FAIL',
+    status,
+    endpointPath: new URL(url).pathname,
+    validator,
+    checkedAtUtc,
+  };
+}
+
 export function setupEvidence(outcome, exitCode = null, checkedAtUtc = new Date().toISOString(), errorCode = null, signal = null) {
   return { outcome, exitCode, checkedAtUtc, ...(errorCode ? { errorCode } : {}), ...(signal ? { signal } : {}) };
+}
+
+export function setupCommandEvidence(result, secretValues = []) {
+  return {
+    exitCode: Number.isInteger(result?.status) ? result.status : null,
+    signal: result?.signal || null,
+    errorCode: result?.error?.code || null,
+    stdout: sanitizeEvidenceText(result?.stdout, secretValues),
+    stderr: sanitizeEvidenceText(result?.stderr, secretValues),
+  };
+}
+
+export async function waitAndRecordReadiness(runRecord, stage, url, label, timeoutMs, validator, validatorName, waiter = waitHttpReady) {
+  try {
+    const evidence = await waiter(url, label, timeoutMs, validator, validatorName);
+    runRecord.readiness[stage] = { ...evidence, completedBeforeMaven: true };
+    return evidence;
+  } catch (error) {
+    runRecord.readiness[stage] = {
+      ...(error.readiness || readinessFailureEvidence(url, null, validatorName)),
+      completedBeforeMaven: true,
+    };
+    throw error;
+  }
+}
+
+export function hostAppReadinessUrl(appId, port, cfg = APPS[appId]) {
+  const path = appId === 'prestashop' ? '/administrator/' : (cfg?.appUrlPath || '/');
+  return `http://127.0.0.1:${port}${path}`;
 }
 
 export function credentialValuesFrom(...envObjects) {
@@ -59,11 +98,11 @@ export function findBaselineGherkinBinding(catalog, appId, testClass, catalogPat
     && entry.javaAssertionEvidence?.path?.endsWith(sourceSuffix)
     && entry.gherkinEvidence?.path
     && entry.gherkinEvidence?.blobSha);
-  if (!unit) return { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' };
+  if (!unit) return { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', gitBlobSha1: 'NOT_AVAILABLE' };
   return {
     status: 'MAPPED',
     path: unit.gherkinEvidence.path,
-    sha256: unit.gherkinEvidence.blobSha,
+    gitBlobSha1: unit.gherkinEvidence.blobSha,
     mappingCatalogPath: catalogPath,
     mappingCatalogSha256: catalogSha256,
     baselineCaseIds: unit.baselineCaseIds || [],
@@ -179,10 +218,12 @@ export function probeHttp(url, timeoutMs = 3000) {
 export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400, validatorName = 'http-status-2xx-3xx') {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
+  let lastStatus = null;
   console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
   while (Date.now() < deadline) {
     try {
       const res = await probeHttp(url, 3000);
+      lastStatus = res.status;
       const body = await res.text();
       if (validator(body, res)) {
         console.log(`[waitHttpReady] ${label} is ready! HTTP ${res.status}`);
@@ -194,7 +235,9 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
     }
     await new Promise((r) => setTimeout(r, 2000));
   }
-  throw new Error(`${label} readiness timeout (${timeoutMs}ms): ${lastErr}`);
+  const error = new Error(`${label} readiness timeout (${timeoutMs}ms): ${lastErr}`);
+  error.readiness = readinessFailureEvidence(url, lastStatus, validatorName);
+  throw error;
 }
 
 export function sanitizeEvidenceText(text, secretValues = []) {
@@ -454,12 +497,14 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const sourcePath = resolve(REPO_ROOT, cfg.suitePath, 'src/test/java', `${activeTestClass.replaceAll('.', '/')}.java`);
   const sourceConfig = JSON.parse(readFileSync(resolve(REPO_ROOT, `config/apps/${appId}.json`), 'utf8'));
   const repositoryCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
-  const workingTreeDirty = execFileSync('git', ['status', '--porcelain'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim().length > 0;
+  const trackedStatus = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
+  const workingTreeDirty = trackedStatus.length > 0;
   const gherkinCatalogPath = resolve(REPO_ROOT, 'docs/tasks/T04-G/evidence/cat.json');
   const gherkinCatalog = existsSync(gherkinCatalogPath) ? readFileSync(gherkinCatalogPath, 'utf8') : null;
   runRecord.source = {
     repositoryCommit,
     workingTreeDirty,
+    workingTreeStatusScope: 'tracked-files-only; untracked evidence excluded',
     runnerSha256: sha256(readFileSync(__filename)),
     applicationSourceCommit: sourceConfig.source?.commit || 'NOT_AVAILABLE',
     applicationVersion: sourceConfig.benchmarkBaseVersion || 'NOT_AVAILABLE',
@@ -470,7 +515,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       : { path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' },
     baselineGherkin: gherkinCatalog
       ? findBaselineGherkinBinding(JSON.parse(gherkinCatalog), appId, activeTestClass, 'docs/tasks/T04-G/evidence/cat.json', sha256(gherkinCatalog))
-      : { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' },
+      : { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', gitBlobSha1: 'NOT_AVAILABLE' },
   };
 
   try {
@@ -564,29 +609,48 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 5. Readiness verification
     const seleniumStatusUrl = `http://127.0.0.1:${browserPort}/status`;
-    runRecord.readiness.selenium = {
-      ...await waitHttpReady(seleniumStatusUrl, 'Selenium', 90000, (body) => {
+    await waitAndRecordReadiness(runRecord, 'selenium', seleniumStatusUrl, 'Selenium', 90000, (body) => {
       try {
         return JSON.parse(body)?.value?.ready === true;
       } catch {
         return false;
       }
-      }, 'selenium-status-value-ready'),
-      completedBeforeMaven: true,
-    };
+    }, 'selenium-status-value-ready');
 
     const hostAppProbeUrl = `http://127.0.0.1:${appPort}${cfg.appUrlPath || '/'}`;
-    runRecord.readiness.appHttp = {
-      ...await waitHttpReady(hostAppProbeUrl, `${appId} App`, 120000),
-      completedBeforeMaven: true,
-    };
+    await waitAndRecordReadiness(runRecord, 'appHttp', hostAppProbeUrl, `${appId} App`, 120000, undefined, 'http-status-2xx-3xx');
 
     // 6. Application-specific setup fixtures
     if (appId === 'mediawiki') {
+      const fixtureState = runRecord.setupFixtures.mediawiki = { steps: [] };
+      const runSetupStep = (step, args) => {
+        const result = spawnSync(DOCKER_CLI, args, { encoding: 'utf8', timeout: 180000 });
+        const safeResult = setupCommandEvidence(result, evidenceSecrets);
+        const stdoutPath = `setup-mediawiki-${step}.stdout.log`;
+        const stderrPath = `setup-mediawiki-${step}.stderr.log`;
+        writeFileSync(join(evidenceDir, stdoutPath), safeResult.stdout);
+        writeFileSync(join(evidenceDir, stderrPath), safeResult.stderr);
+        fixtureState.steps.push({
+          step,
+          command: step === 'install' ? 'docker exec app php maintenance/run.php install' : 'docker exec app bash -c <extension setup>',
+          exitCode: safeResult.exitCode,
+          signal: safeResult.signal,
+          errorCode: safeResult.errorCode,
+          stdoutPath,
+          stderrPath,
+        });
+        if (safeResult.exitCode !== 0) {
+          const error = new Error(`MediaWiki setup step '${step}' failed (exit code ${safeResult.exitCode ?? 'unavailable'}).`);
+          error.status = safeResult.exitCode;
+          error.signal = safeResult.signal;
+          error.code = safeResult.errorCode;
+          throw error;
+        }
+      };
       try {
-        dockerCli([
+        runSetupStep('install', [
           'exec', appName,
-          'php', 'maintenance/install.php',
+          'php', 'maintenance/run.php', 'install',
           '--dbserver', dbName,
           '--dbtype', 'mysql',
           '--dbname', 'mediawiki',
@@ -600,15 +664,15 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           'E2E Web Testing wiki',
           requiredEnvironment('BEWT_ADMIN_USERNAME'),
         ]);
-        dockerCli([
+        runSetupStep('configure-extensions', [
           'exec', appName,
           'bash', '-c',
           'echo "wfLoadExtension( \'WikiEditor\' );" >> /var/www/html/LocalSettings.php && echo "wfLoadExtension( \'VisualEditor\' );" >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-enable"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-hidebetawelcome"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-welcomedialog"] = 0;\' >> /var/www/html/LocalSettings.php'
         ]);
-        runRecord.setupFixtures.mediawiki = setupEvidence('PASS', 0);
+        Object.assign(fixtureState, setupEvidence('PASS', 0));
       } catch (e) {
-        runRecord.setupFixtures.mediawiki = setupEvidence('FAIL', Number.isInteger(e.status) ? e.status : null, new Date().toISOString(), typeof e.code === 'string' ? e.code : null);
-        throw new Error('MediaWiki setup fixture failed. See per-run setup state and sanitized app/DB logs.');
+        Object.assign(fixtureState, setupEvidence('FAIL', Number.isInteger(e.status) ? e.status : null, new Date().toISOString(), typeof e.code === 'string' ? e.code : null, e.signal));
+        throw new Error('MediaWiki setup fixture failed. See per-run setup state, sanitized setup stdout/stderr, and app/DB logs.');
       }
     } else if (appId === 'prestashop') {
       try {
@@ -716,10 +780,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       const loginValidatorName = appId === 'mediawiki'
         ? 'mediawiki-installed-login-link'
         : 'prestashop-admin-email-and-password-controls';
-      runRecord.readiness.appLogin = {
-        ...await waitHttpReady(targetAppUrl, `${appId} login controls`, 120000, loginReadyValidator, loginValidatorName),
-        completedBeforeMaven: true,
-      };
+      await waitAndRecordReadiness(runRecord, 'appLogin', hostAppReadinessUrl(appId, appPort, cfg), `${appId} login controls`, 120000, loginReadyValidator, loginValidatorName);
     }
 
     const testEnvVars = {

@@ -7,14 +7,18 @@ import {
   containerProvenance,
   credentialValuesFrom,
   findBaselineGherkinBinding,
+  hostAppReadinessUrl,
   loginControlsReady,
   readinessEvidence,
+  readinessFailureEvidence,
   requiredEnvironment,
   resolveEnvironmentConfig,
   sanitizeCommandArgv,
   sanitizeEvidenceText,
   sha256,
+  setupCommandEvidence,
   setupEvidence,
+  waitAndRecordReadiness,
 } from './unified-g0-runner.mjs';
 
 test('credential source checker rejects inline login credentials', () => {
@@ -110,6 +114,25 @@ test('app and login readiness evidence records path, timestamp, status and valid
   assert.equal('url' in result, false);
 });
 
+test('failed readiness is persisted with timestamp, status, validator and endpoint path', async () => {
+  const runRecord = { readiness: {} };
+  const url = 'http://127.0.0.1:8123/administrator/';
+  const failure = new Error('timeout');
+  failure.readiness = readinessFailureEvidence(url, 302, 'login-controls', '2026-11-12T00:00:00.000Z');
+  await assert.rejects(
+    waitAndRecordReadiness(runRecord, 'appLogin', url, 'login', 10, () => false, 'login-controls', async () => { throw failure; }),
+    /timeout/,
+  );
+  assert.deepEqual(runRecord.readiness.appLogin, {
+    outcome: 'FAIL',
+    status: 302,
+    endpointPath: '/administrator/',
+    validator: 'login-controls',
+    checkedAtUtc: '2026-11-12T00:00:00.000Z',
+    completedBeforeMaven: true,
+  });
+});
+
 test('setup evidence persists installer or fixture exit state', () => {
   assert.deepEqual(setupEvidence('PASS', 0, '2026-11-12T00:00:00.000Z'), {
     outcome: 'PASS', exitCode: 0, checkedAtUtc: '2026-11-12T00:00:00.000Z',
@@ -117,11 +140,31 @@ test('setup evidence persists installer or fixture exit state', () => {
   assert.equal(setupEvidence('FAIL', 1).outcome, 'FAIL');
 });
 
+test('MediaWiki setup command evidence records exit state and redacts stdout and stderr', () => {
+  const result = setupCommandEvidence({
+    status: 1,
+    signal: null,
+    stdout: 'installer output synthetic-password',
+    stderr: 'connection failure for synthetic-user',
+  }, ['synthetic-password', 'synthetic-user']);
+  assert.equal(result.exitCode, 1);
+  assert.equal(result.stdout.includes('synthetic-password'), false);
+  assert.equal(result.stderr.includes('synthetic-user'), false);
+});
+
 test('MediaWiki and PrestaShop login readiness validates installed login controls', () => {
   assert.equal(loginControlsReady('mediawiki', '<a id="pt-login">Log in</a>'), true);
   assert.equal(loginControlsReady('mediawiki', '<title>Install MediaWiki</title>'), false);
   assert.equal(loginControlsReady('prestashop', '<input name="email"><input name="passwd">'), true);
   assert.equal(loginControlsReady('prestashop', '<title>Install PrestaShop</title>'), false);
+});
+
+test('host-side login readiness uses loopback paths while Maven keeps internal app URLs', () => {
+  assert.equal(hostAppReadinessUrl('prestashop', 8910), 'http://127.0.0.1:8910/administrator/');
+  assert.equal(hostAppReadinessUrl('mediawiki', 8920), 'http://127.0.0.1:8920/');
+  const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
+  assert.ok(source.includes("waitAndRecordReadiness(runRecord, 'appLogin', hostAppReadinessUrl(appId, appPort, cfg)"));
+  assert.ok(source.includes('BEWT_APP_URL: targetAppUrl'));
 });
 
 test('evidence sanitization redacts configured usernames and secrets', () => {
@@ -143,7 +186,7 @@ test('baseline Gherkin binding returns the catalog path and source blob hash', (
   const result = findBaselineGherkinBinding(catalog, 'prestashop', 'tests.AddNewCategory', 'catalog.json', 'a'.repeat(64));
   assert.equal(result.status, 'MAPPED');
   assert.equal(result.path, 'prestashop/gherkin/14_AddNewCategory.feature');
-  assert.equal(result.sha256, 'f'.repeat(40));
+  assert.equal(result.gitBlobSha1, 'f'.repeat(40));
   assert.equal(result.mappingCatalogPath, 'catalog.json');
 });
 
@@ -155,9 +198,9 @@ test('runtime classes bind to available baseline Gherkin catalog entries', () =>
   const mediawiki = findBaselineGherkinBinding(catalog, 'mediawiki', 'mediawiki.CreatePageTest', 'docs/tasks/T04-G/evidence/cat.json', catalogHash);
   const prestashop = findBaselineGherkinBinding(catalog, 'prestashop', 'tests.AddNewCategory', 'docs/tasks/T04-G/evidence/cat.json', catalogHash);
   assert.equal(mediawiki.path, 'mediawiki/gherkin/03_CreatePageTest.feature');
-  assert.equal(mediawiki.sha256, 'd4a1d563069fdf3a5223d9b160539a398dc8a463');
+  assert.equal(mediawiki.gitBlobSha1, 'd4a1d563069fdf3a5223d9b160539a398dc8a463');
   assert.equal(prestashop.path, 'prestashop/gherkin/14_AddNewCategory.feature');
-  assert.equal(prestashop.sha256, '193ff284dc574d1810593c1e3acde399967dc228');
+  assert.equal(prestashop.gitBlobSha1, '193ff284dc574d1810593c1e3acde399967dc228');
 });
 
 test('container logs are sanitized before any container stop or removal', () => {
@@ -169,6 +212,11 @@ test('container logs are sanitized before any container stop or removal', () => 
   assert.ok(source.includes('sanitizeEvidenceText(logs, evidenceSecrets)'));
   assert.ok(source.includes("setupFixtures.prestashop = setupEvidence('FAIL'"));
   assert.ok(source.includes('PrestaShop setup fixture failed.'));
+  assert.ok(source.includes("git', ['status', '--porcelain', '--untracked-files=no']"));
+  assert.ok(source.includes('workingTreeStatusScope:'));
+  assert.ok(source.includes('php maintenance/run.php install'));
+  assert.ok(source.includes('setup-mediawiki-${step}.stdout.log'));
+  assert.ok(source.includes('setup-mediawiki-${step}.stderr.log'));
 });
 
 test('MediaWiki and PrestaShop runtime DB names and app users match their fixtures', () => {

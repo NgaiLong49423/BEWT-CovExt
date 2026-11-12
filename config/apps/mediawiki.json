@@ -18,7 +18,7 @@
     "experimentKey": "bewt-covext-mediawiki",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Run-scoped app and MariaDB containers on a labeled network. The active G0 runner executes maintenance/install.php inside the app container with environment-injected database and admin credentials, then applies the configured editor extensions. Setup failure is recorded and aborts before the Maven smoke test. Cleanup captures sanitized container logs before stopping and removing run-owned containers.",
+    "resetStrategy": "Run-scoped app and MariaDB containers on a labeled network. The active G0 runner executes php maintenance/run.php install inside the app container with environment-injected database and admin credentials, then applies the configured editor extensions. Setup stdout/stderr are sanitized and persisted; setup failure is recorded and aborts before the Maven smoke test. Cleanup captures sanitized container logs before stopping and removing run-owned containers.",
     "destructive": true
   },
   "allowedTools": [
