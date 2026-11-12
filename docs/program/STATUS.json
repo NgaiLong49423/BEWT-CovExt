@@ -546,6 +546,7 @@
     "testedAcceptanceSource": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
     "manuscript": "docs/paper/springer-nature/bewt-covext-paper.tex",
     "qualityReview": "docs/paper/springer-nature/MANUSCRIPT-QUALITY-REVIEW.md",
-    "note": "PDF compiled; DOCX visual QA and independent author and Team Lead review remain outstanding. No research gate is promoted."
+    "note": "PDF compiled and DOCX rendered; final content parity, author metadata and independent Team Lead review remain outstanding. No research gate is promoted."
   }
 }
+
