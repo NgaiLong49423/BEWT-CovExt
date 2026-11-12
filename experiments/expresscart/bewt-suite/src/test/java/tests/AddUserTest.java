@@ -1,5 +1,7 @@
 package tests;
 
+import java.util.UUID;
+
 
 import po.AdminLoginPage;
 import po.UsersPage;
@@ -15,16 +17,17 @@ public class AddUserTest extends BaseTest {
 
 	@Test
 	public void testExpressCartNewUser() throws Exception {
+		String newUserPassword = UUID.randomUUID().toString();
 			goToAdminHome();
 			UsersPage users = new AdminLoginPage(driver)
-				.setEmail("owner@test.com")
-				.setPassword("e2eW3Bt3s71nGB3nchM4rK")
+				.setEmail(requiredEnvironment("BEWT_ADMIN_EMAIL"))
+				.setPassword(requiredEnvironment("BEWT_ADMIN_PASSWORD"))
 				.doLogin()
 				.newUser()
 				.setUsername("TestUser000")
 				.setEmail("test000@test.com")
-				.setPassword("e2eW3Bt3s71nGB3nchM4rK")
-				.setConfirmPassword("e2eW3Bt3s71nGB3nchM4rK")
+				.setPassword(newUserPassword)
+				.setConfirmPassword(newUserPassword)
 				.addUser()
 				.users();
 			Thread.sleep(2000);

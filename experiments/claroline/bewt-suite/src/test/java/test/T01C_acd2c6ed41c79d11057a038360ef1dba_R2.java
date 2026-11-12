@@ -31,7 +31,7 @@ public class T01C_acd2c6ed41c79d11057a038360ef1dba_R2 extends BaseTest {
     @Test
     public void testCL_GAP_001() throws Exception {
         // Given teacher is logged into Claroline course
-        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        DesktopPage desktop = new IndexPage(driver).login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"));
         CourseIndexPage course = desktop.goInsideCourse();
         // When teacher navigates to Documents and creates lecture directory
         driver.findElement(By.id("CLDOC")).click();

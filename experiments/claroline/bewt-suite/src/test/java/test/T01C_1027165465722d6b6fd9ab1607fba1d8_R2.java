@@ -31,7 +31,7 @@ public class T01C_1027165465722d6b6fd9ab1607fba1d8_R2 extends BaseTest {
     @Test
     public void testCL_GAP_005() throws Exception {
         // Given teacher logs into course to publish announcement
-        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        DesktopPage desktop = new IndexPage(driver).login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"));
         CourseIndexPage course = desktop.goInsideCourse();
         driver.findElement(By.id("CLANN")).click();
         // When announcement is created and published

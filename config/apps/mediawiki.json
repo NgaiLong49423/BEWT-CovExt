@@ -18,7 +18,7 @@
     "experimentKey": "bewt-covext-mediawiki",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Two-container Docker Compose deployment with labels. Setup executes mediawiki.Installer JUnit test to generate LocalSettings.php and copies it into container. Reset stops/removes containers and removes named volumes.",
+    "resetStrategy": "Run-scoped app and MariaDB containers on a labeled network with a short database network alias. MariaDB initializes the database and installer account; MediaWiki's php maintenance/run.php install creates the separate non-root runtime database account from environment-injected credentials. The runner then applies configured editor extensions. Setup stdout/stderr are sanitized and persisted; setup failure is recorded and aborts before Maven. Cleanup captures sanitized container logs before stopping and removing run-owned containers.",
     "destructive": true
   },
   "allowedTools": [

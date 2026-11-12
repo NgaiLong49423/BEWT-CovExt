@@ -12,7 +12,7 @@ public class Claroline_SearchAdminTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException{
 		AdminUsersPage aup = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goToAdminPage()
 				.advancedSearch()
 				.search("testuser3", "Platform administrator");

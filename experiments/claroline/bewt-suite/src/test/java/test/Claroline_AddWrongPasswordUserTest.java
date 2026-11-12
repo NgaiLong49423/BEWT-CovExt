@@ -12,10 +12,10 @@ public class Claroline_AddWrongPasswordUserTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException{
 		AdminAddNewUserPage aanup = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goToAdminPage()
 				.addUser()
-				.addNewStudent("user", "user", "user", "0v3rtlyC0mpl1c4t3dPsW", "D1ff3r3nt_0v3rtlyC0mpl1c4t3dPsW");
+				.addNewStudent("user", "user", "user", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"), requiredDifferentCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD", "CLAROLINE_TEST_MISMATCHED_USER_PASSWORD"));
 		
 		assertEquals("You typed two different passwords",aanup.getMessage());
 		aanup.doLogout();

@@ -12,7 +12,7 @@ public class Claroline_RemoveCourseExerciseTest extends BaseTest {
 	@Test
 	public void removeCourseExerciseTest() throws InterruptedException{
 		ExercisePage ep = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goInsideCourse()
 				.goToExercisePage();
 		

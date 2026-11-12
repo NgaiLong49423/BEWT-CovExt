@@ -90,6 +90,14 @@ public class BaseTest {
 		driver = new ChromeDriver(options);
 	}
 	
+	protected String requiredEnvironment(String name) {
+		String value = System.getenv(name);
+		if (value == null || value.trim().isEmpty()) {
+			throw new IllegalStateException("Missing required environment variable: " + name);
+		}
+		return value;
+	}
+
 	public void goToHome() {
 		driver.get(appUrl);
 	}

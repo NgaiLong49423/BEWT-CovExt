@@ -12,7 +12,7 @@ public class Claroline_ViewProfileStatisticsUserTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException{
 		TrackUserReportPage turp = new IndexPage(driver)
-				.login("user001", "n0tl34k3dy3t")
+				.login("user001", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 				.goToMyUserAccount()
 				.viewStats()
 				.selectCourseStatistics("Course001");

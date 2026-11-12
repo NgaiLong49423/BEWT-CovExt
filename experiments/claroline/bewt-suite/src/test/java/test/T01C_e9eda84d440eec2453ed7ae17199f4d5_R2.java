@@ -32,7 +32,7 @@ public class T01C_e9eda84d440eec2453ed7ae17199f4d5_R2 extends BaseTest {
     public void testCL_GAP_003() throws Exception {
         // Given teacher is logged into Claroline course
         EditExercisePage eep = new IndexPage(driver)
-                .login("admin", "n0tl34k3dy3t")
+                .login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
                 .goInsideCourse()
                 .goToExercisePage()
                 .newExercise()

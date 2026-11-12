@@ -12,7 +12,7 @@ public class Claroline_RemoveEnrolMultipleUsersTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException{
 		UserPage up  = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goInsideCourse()
 				.goToUsersPage()
 				.removeEnrol()
