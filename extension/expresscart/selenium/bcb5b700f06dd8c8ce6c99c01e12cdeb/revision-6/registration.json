@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "expresscart",
+  "candidateId": "EC-GAP-002",
+  "revision": 6,
+  "parentRevision": 5,
+  "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+  "sourceVersion": "1.1.19",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "testClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6",
+  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6.java",
+  "testHarnessPath": "experiments/expresscart/bewt-suite/src/test/java/tests/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6.java",
+  "sourceSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
+  "origin": "SOURCE_BACKED_REMEDIATION",
+  "reviewStatus": "PENDING_HUMAN_ORACLE_AND_NOVELTY_REVIEW",
+  "executionStatus": "COMPILE_PASS_G3_NOT_RUN",
+  "oracleStrengthening": "ASSERT_EXACT_JSON_MESSAGE_PROPERTY_NOT_SUBSTRING",
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)"
+}
