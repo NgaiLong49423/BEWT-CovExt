@@ -31,7 +31,7 @@ public class T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2 extends BaseTest {
     public void testCL_GAP_004() throws Exception {
         // Given teacher logs into course to inspect tracking statistics
         ExercisePage ep = new IndexPage(driver)
-                .login("admin", "n0tl34k3dy3t")
+                .login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
                 .goInsideCourse()
                 .goToExercisePage();
         // When teacher navigates to tracking statistics dashboard

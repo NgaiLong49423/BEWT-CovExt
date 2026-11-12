@@ -13,7 +13,7 @@ public class Claroline_SearchAllowedCourseTest extends BaseTest {
 	public void searchAllowedCourse() throws InterruptedException{
 		
 		AdminCoursesPage acp = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goToAdminPage()
 				.advancedCourseSearch()
 				.searchAllowed("Course001");

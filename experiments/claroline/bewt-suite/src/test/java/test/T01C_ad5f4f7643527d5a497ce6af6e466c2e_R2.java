@@ -30,7 +30,7 @@ public class T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2 extends BaseTest {
     @Test
     public void testCL_GAP_002() throws Exception {
         // Given course has private group settings
-        DesktopPage desktop = new IndexPage(driver).login("admin", "n0tl34k3dy3t");
+        DesktopPage desktop = new IndexPage(driver).login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"));
         CourseIndexPage course = desktop.goInsideCourse();
         // When group authorization boundary is inspected
         driver.findElement(By.id("CLGRP")).click();

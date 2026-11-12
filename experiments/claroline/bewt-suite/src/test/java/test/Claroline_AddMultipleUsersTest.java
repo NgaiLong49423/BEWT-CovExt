@@ -13,14 +13,14 @@ public class Claroline_AddMultipleUsersTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException {
 		AdminUsersPage aup = new IndexPage(driver)
-			.login("admin", "n0tl34k3dy3t")
+			.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 			.goToAdminPage()
 			.addUser()
-			.addNewStudent("testuser1", "testuser1", "testuser1", "n0tl34k3dy3t", "n0tl34k3dy3t")
+			.addNewStudent("testuser1", "testuser1", "testuser1", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"), requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 			.addNewUser()
-			.addNewTeacher("testuser2", "testuser2", "testuser2", "n0tl34k3dy3t", "n0tl34k3dy3t")
+			.addNewTeacher("testuser2", "testuser2", "testuser2", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"), requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 			.addNewUser()
-			.addNewAdmin("testuser3", "testuser3", "testuser3", "n0tl34k3dy3t", "n0tl34k3dy3t")
+			.addNewAdmin("testuser3", "testuser3", "testuser3", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"), requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 			.backToAdmin()
 			.goToUsersList();
 		

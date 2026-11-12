@@ -13,7 +13,7 @@ public class Claroline_AddCourseTest extends BaseTest {
 	public void runTest() throws InterruptedException{
 
 		CourseCreatePage ccp = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goToAdminPage()
 				.addCourse()
 				.addAllowedCourse("Course001", "001", "Sciences", "Economics");

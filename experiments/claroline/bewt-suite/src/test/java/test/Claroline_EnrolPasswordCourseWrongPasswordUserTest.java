@@ -12,10 +12,10 @@ public class Claroline_EnrolPasswordCourseWrongPasswordUserTest extends BaseTest
 	@Test
 	public void enrolPasswordCourseWrongPassword() throws InterruptedException{
 		AuthCoursesPage acp = new IndexPage(driver)
-				.login("user001", "n0tl34k3dy3t")
+				.login("user001", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 				.enrolToCourse()
 				.searchCourse("Course002")
-				.enrolPassword("0v3rtlyC0mpl1c4t3dPsW");
+				.enrolPassword(requiredDifferentCredential("CLAROLINE_TEST_COURSE_PASSWORD", "CLAROLINE_TEST_INVALID_COURSE_PASSWORD"));
 		
 		assertEquals("Invalid enrolment key given", acp.getMessage());
 		acp.doLogout();

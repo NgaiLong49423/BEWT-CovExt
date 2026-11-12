@@ -13,6 +13,25 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 public class BaseTest {
 
 	protected WebDriver driver;
+	protected static String requiredRuntimeCredential(String name) {
+		String value = System.getProperty(name);
+		if (value == null || value.isBlank()) {
+			value = System.getenv(name);
+		}
+		if (value == null || value.isBlank()) {
+			throw new IllegalStateException("Required runtime credential is not configured: " + name);
+		}
+		return value;
+	}
+
+	protected static String requiredDifferentCredential(String expectedName, String rejectedName) {
+		String expected = requiredRuntimeCredential(expectedName);
+		String rejected = requiredRuntimeCredential(rejectedName);
+		if (expected.equals(rejected)) {
+			throw new IllegalStateException(rejectedName + " must differ from " + expectedName);
+		}
+		return rejected;
+	}
 
 	@Before
 	public void setUp() {

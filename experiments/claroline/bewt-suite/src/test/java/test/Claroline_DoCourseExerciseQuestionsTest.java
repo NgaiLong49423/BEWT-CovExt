@@ -12,7 +12,7 @@ public class Claroline_DoCourseExerciseQuestionsTest extends BaseTest {
 	@Test
 	public void runTest() throws InterruptedException{
 		ExerciseSubmitPage esp = new IndexPage(driver)
-				.login("user001", "n0tl34k3dy3t")
+				.login("user001", requiredRuntimeCredential("CLAROLINE_TEST_FIXTURE_USER_PASSWORD"))
 				.goInsideCourse()
 				.goToExercisePage()
 				.goInsideExercise()

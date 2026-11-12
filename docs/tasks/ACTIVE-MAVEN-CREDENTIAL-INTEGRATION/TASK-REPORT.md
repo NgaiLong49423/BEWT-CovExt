@@ -1,38 +1,45 @@
 # Active Maven Credential Integration
 
-- Status: `PARTIAL`; both affected Maven suites compile with credential-safe Revision 3 candidates. No candidate runtime test was executed.
-- Base commit: `acfe1272b3af00350ca929a4e4b69aa97c7c7508`.
-- Branch: `task/active-maven-credential-integration`.
-- Implementation commit: `04892f44309418f0294381e2d33ea54fda2c24dd`.
-- Scope: Claroline and Kanboard active Maven test sources and per-suite extension revision registration manifests.
+- Status: `PARTIAL`; Claroline and Kanboard candidate classes compile. Runtime/E2E validation remains `NOT_RUN`.
+- Worktree branch: `task/active-maven-credential-integration`.
+- Starting HEAD for this remediation pass: `31390d7021da34b0e54a424fd7590bbfcde06f51`.
+- Earlier integration commit: `04892f44309418f0294381e2d33ea54fda2c24dd`.
+- Scope: active Claroline and Kanboard Maven suites; no extension R2 artifact or `bewt-original/` source was modified.
 
-## Changes
+## Active Maven integration
 
-- Added five registered Revision 3 test classes to each active Maven suite under `src/test/java/test/` (Claroline) and `src/test/java/tests/` (Kanboard).
-- Corrected the copied class comments to identify Revision 3 as a security-only credential-configuration revision. The existing extension Revision 2 and Revision 3 artifacts remain unchanged.
-- Added `extension-revisions.json` per suite with candidate IDs, test class names, immutable upstream artifact hashes, active-source SHA-256 hashes, credential variable names, compile outcome, and explicit runtime eligibility limitation.
-- Kept candidate classes out of the broad `TestSuite`. The R3 scenarios need candidate-specific fixture and runtime identity verification; the existing shell scripts start and remove globally named Docker containers and were not run.
-- The R2 source copies remain in both Maven source trees and are not listed in `TestSuite`. A secret-safe scan found five literal login calls in Claroline active R2 copies; exact values were not read into the report. These copies remain a separate cleanup/rotation investigation while historical extension artifacts are preserved.
+- Added five R3 candidate classes to each suite and tracked their normalized-LF SHA-256 hashes in each `extension-revisions.json`.
+- Corrected only the copied R3 comments to identify them as Revision 3 security-only credential-configuration copies; historical extension R2/R3 sources remain unchanged.
+- Kept candidates out of each broad `TestSuite`; they require candidate-specific fixture and runtime identity checks before execution.
+- Claroline R3 classes require `CLAROLINE_TEST_USERNAME` and `CLAROLINE_TEST_PASSWORD`; Kanboard R3 classes require the configured Kanboard variables recorded in its manifest.
 
-## Evidence and verification
+## Claroline credential-only pass
 
-| Command/action | Outcome | Evidence |
+A secret-safe, in-memory comparison classified the 51 active literal-login sites without printing values:
+
+- 37 calls authenticate the same administrator runtime account. They now read `CLAROLINE_TEST_USERNAME` and `CLAROLINE_TEST_PASSWORD` through the required property/environment helper.
+- 14 calls authenticate accounts created by the suite's own fixture flows: 10 student, 2 teacher, and 2 administrator test accounts. Their usernames remain test data; the password is supplied through `CLAROLINE_TEST_FIXTURE_USER_PASSWORD`.
+- The previous shared password literal was also reused in fixture creation, course-password setup, and the correct-course-password enrollment path. These now use required configuration keys instead of a hardcoded value.
+- The mismatched user-password and wrong course-password tests use separately configured values guarded to differ from the corresponding valid fixture value. Their negative checks remain explicit.
+- All five active Maven R2 candidate copies now use runtime properties. Their active source hashes are recorded separately from the immutable extension R2 artifacts.
+- Added `credential-source-check.mjs`; it checks every Java login call and fails if the password argument is an inline string literal.
+- The earlier scan's five extension R2 login lines and five generator literals remain unchanged and outside this active-suite pass. Values were not copied into this report.
+
+## Verification
+
+| Command/action | Result | Evidence |
 |---|---|---|
-| `mvn -B -ntp -DskipTests test` in `experiments/claroline/bewt-suite/` | `PASS`; 22 main and 52 test Java sources compiled, Surefire skipped tests | Maven output from this task execution |
-| `mvn -B -ntp -DskipTests test` in `experiments/kanboard/bewt-suite/` | `PASS`; 27 main and 42 test Java sources compiled, Surefire skipped tests | Maven output from this task execution |
-| Revision registration integrity check | `PASS`; all 10 active normalized-LF SHA-256 values match their manifests, and each upstream R3 Java hash matches its extension registration | `experiments/{claroline,kanboard}/bewt-suite/extension-revisions.json` |
-| Runtime execution | `NOT_RUN` | No verified app/WebDriver ownership, candidate fixtures, or runtime configuration was available; existing 50-run shell scripts have destructive globally named Docker lifecycle commands |
+| `node experiments/claroline/bewt-suite/credential-source-check.mjs` | `PASS`; 56 Java login call sites checked, no inline password literals | Reproducible static regression check |
+| Historical credential fingerprint check against active Claroline Java sources | `PASS`; 0 matches | Only a boolean/count was emitted; credential value was not printed |
+| Active R2 and upstream artifact registration hashes | `PASS`; 5 active source hashes recorded; all 5 upstream hashes match extension registrations | `experiments/claroline/bewt-suite/extension-revisions.json` |
+| `mvn -B -ntp -DskipTests test` in `experiments/claroline/bewt-suite/` | `PASS`; 22 main and 52 test sources compiled; Surefire skipped execution | Maven output from this remediation pass |
+| `mvn -B -ntp -DskipTests test` in `experiments/kanboard/bewt-suite/` | `PASS` on the preceding integration pass; 27 main and 42 test sources compiled | Same command; no Kanboard source changed during this pass |
+| Runtime candidate or full-suite execution | `NOT_RUN` | No verified app/WebDriver ownership or candidate fixture state; full-suite shell scripts have globally named Docker lifecycle commands |
 
-## Discovery commands
+The first Claroline recompile after adding the shared credential helper failed because its name collided with private helpers in the five R3 classes. The helper and active call sites were renamed to `requiredRuntimeCredential`; the subsequent Maven compile passed.
 
-- Existing full legacy suites: `mvn -B -ntp -Dtest=TestSuite test` from either Maven suite root. This runs the explicit `TestSuite` class list, which excludes the candidate R2/R3 classes.
-- Claroline candidate revisions after runtime ownership and fixture setup are verified: `mvn -B -ntp -Dtest=T01C_1027165465722d6b6fd9ab1607fba1d8_R3,T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3,T01C_acd2c6ed41c79d11057a038360ef1dba_R3,T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3,T01C_e9eda84d440eec2453ed7ae17199f4d5_R3 test` from the Claroline suite root.
-- Kanboard candidate revisions after runtime ownership and fixture setup are verified: `mvn -B -ntp -Dtest=T01C_233eaf16319686f2ab6c351b189cd929_R3,T01C_244fbbc3c7e19c2ceb6a56738e493041_R3,T01C_882860986d9907549f10245367191c30_R3,T01C_ca582c83d0559c38508bf3e1a5420ca9_R3,T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3 test` from the Kanboard suite root. These are not run results; do not infer a candidate pass from compilation.
-- Compile test and main sources without executing browser tests: `mvn -B -ntp -DskipTests test`.
+## Rotation risk and remaining work
 
-## Remaining work
+The removed literal appeared in positive admin runtime logins and was reused by test-created fixture/course inputs. The repository does not establish whether it was only a disposable experiment credential. Assess privately and rotate it if it was reused outside the isolated Claroline fixture environment. No credential values are included here. The historical extension R2 and generator findings remain to be reviewed in their owning tasks.
 
-- Verify the approved app and Selenium runtime, fixture ownership, application identity, and credential provisioning before candidate test execution.
-- Resolve or rotate the five Claroline R2 literal credential calls if they were used outside disposable experiment fixtures. No literal values are included here.
-- Correct the original extension R3 comments/registrations only through an authorized immutable next revision; this task preserves those source artifacts.
-- Candidate behavior remains semantically unapproved and not research `VALIDATED`; this integration establishes compile inclusion only.
+Compile success does not establish behavioral correctness, human acceptance, or research `VALIDATED` status. Candidate runtime tests still require verified app and WebDriver ownership, approved fixture configuration, source-bound run manifests, and semantic review.

@@ -5,11 +5,6 @@
   "registrationStatus": "INTEGRATED_COMPILE_PASS_RUNTIME_PENDING",
   "compileCommand": "mvn -B -ntp -DskipTests test",
   "targetedRuntimeSelector": "mvn -B -ntp -Dtest=T01C_1027165465722d6b6fd9ab1607fba1d8_R3,T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3,T01C_acd2c6ed41c79d11057a038360ef1dba_R3,T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3,T01C_e9eda84d440eec2453ed7ae17199f4d5_R3 test",
-  "credentials": [
-    "CLAROLINE_TEST_USERNAME",
-    "CLAROLINE_TEST_PASSWORD"
-  ],
-  "suiteSelection": "Candidate classes are intentionally excluded from broad TestSuite and must be selected explicitly after candidate-specific fixture and runtime ownership are verified.",
   "cases": [
     {
       "candidateId": "CL-GAP-005",
@@ -74,5 +69,99 @@
   ],
   "compileOutcome": "PASS",
   "runtimeOutcome": "NOT_RUN",
-  "runtimeReason": "Application, WebDriver, fixture ownership, and runtime credential configuration were not verified for this worktree; no browser test was executed."
+  "runtimeReason": "Application, WebDriver, fixture ownership, and runtime credential configuration were not verified for this worktree; no browser test was executed.",
+  "credentials": [
+    "CLAROLINE_TEST_USERNAME",
+    "CLAROLINE_TEST_PASSWORD",
+    "CLAROLINE_TEST_FIXTURE_USER_PASSWORD",
+    "CLAROLINE_TEST_MISMATCHED_USER_PASSWORD",
+    "CLAROLINE_TEST_COURSE_PASSWORD",
+    "CLAROLINE_TEST_INVALID_COURSE_PASSWORD"
+  ],
+  "credentialRegressionCheck": "experiments/claroline/bewt-suite/credential-source-check.mjs",
+  "suiteSelection": "Candidate classes remain excluded from broad TestSuite and must be explicitly selected after app/runtime ownership and candidate fixture state are verified.",
+  "activeR2CredentialPatches": [
+    {
+      "candidateId": "CL-GAP-005",
+      "revision": 2,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_1027165465722d6b6fd9ab1607fba1d8_R2",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_1027165465722d6b6fd9ab1607fba1d8_R2.java",
+      "activeSourceSha256": "548a89ba0563bd80f2cdd030b417160ba0e9b4c610fee64c374a5c51d6cf7104",
+      "extensionArtifactPath": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-2/T01C_1027165465722d6b6fd9ab1607fba1d8_R2.java",
+      "extensionArtifactSha256": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+      "registeredExtensionSha256": "30ce4d05eeb81bde33b8b36665825dc96ac555614755052c0bba5075f055fc68",
+      "origin": "ACTIVE_MAVEN_CREDENTIAL_EXTERNALIZATION",
+      "behavioralRevision": "UNCHANGED",
+      "eligibility": "NOT_VALIDATED"
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "revision": 2,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2.java",
+      "activeSourceSha256": "e9754426d30fa3de46eae3f0d2d1b42d24475ebbdbe1e8b1953da2075d106c08",
+      "extensionArtifactPath": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-2/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R2.java",
+      "extensionArtifactSha256": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
+      "registeredExtensionSha256": "b3a1bb8e673afb8e31bcb54e233f888caa2d18eef38d2139c953d166cf6f3f66",
+      "origin": "ACTIVE_MAVEN_CREDENTIAL_EXTERNALIZATION",
+      "behavioralRevision": "UNCHANGED",
+      "eligibility": "NOT_VALIDATED"
+    },
+    {
+      "candidateId": "CL-GAP-001",
+      "revision": 2,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_acd2c6ed41c79d11057a038360ef1dba_R2",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_acd2c6ed41c79d11057a038360ef1dba_R2.java",
+      "activeSourceSha256": "9c208f1eda76ad038dfe7211ede1fca05c3b9973effb9e1eb043db10cf9cbcd9",
+      "extensionArtifactPath": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-2/T01C_acd2c6ed41c79d11057a038360ef1dba_R2.java",
+      "extensionArtifactSha256": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
+      "registeredExtensionSha256": "242d9ae1e5b14a8dc0d81237b1dee6d086f8481b7f57b7912fc85e1b05abfaa8",
+      "origin": "ACTIVE_MAVEN_CREDENTIAL_EXTERNALIZATION",
+      "behavioralRevision": "UNCHANGED",
+      "eligibility": "NOT_VALIDATED"
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "revision": 2,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2.java",
+      "activeSourceSha256": "1f52da1ad3a1577ba25b300e5a12152570d65ceb453c74c87c3067f5b66e364e",
+      "extensionArtifactPath": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-2/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R2.java",
+      "extensionArtifactSha256": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
+      "registeredExtensionSha256": "f3ac073b5a257edf05f1c504ebb943dfb5ac54e9cce247426b3d3d5f89137cfe",
+      "origin": "ACTIVE_MAVEN_CREDENTIAL_EXTERNALIZATION",
+      "behavioralRevision": "UNCHANGED",
+      "eligibility": "NOT_VALIDATED"
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "revision": 2,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_e9eda84d440eec2453ed7ae17199f4d5_R2",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_e9eda84d440eec2453ed7ae17199f4d5_R2.java",
+      "activeSourceSha256": "32083aba2d641a606c134651b1aec6d76bd4feeddfa29ea6e4d0a751a948d2f6",
+      "extensionArtifactPath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-2/T01C_e9eda84d440eec2453ed7ae17199f4d5_R2.java",
+      "extensionArtifactSha256": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
+      "registeredExtensionSha256": "1ac1bc302cf470b8a1417ee70bcda51e4ffe180cc76c3aa79ac1aea9b231de02",
+      "origin": "ACTIVE_MAVEN_CREDENTIAL_EXTERNALIZATION",
+      "behavioralRevision": "UNCHANGED",
+      "eligibility": "NOT_VALIDATED"
+    }
+  ],
+  "credentialAudit": {
+    "originalActiveLiteralLoginCallSites": 51,
+    "adminRuntimeCredentialCallSitesExternalized": 37,
+    "createdFixtureAccountLoginCallSites": 14,
+    "inlineLoginPasswordLiteralsRemaining": 0,
+    "previousAdminPasswordFingerprintMatchesInActiveJava": 0,
+    "activeR2CopiesPatched": 5,
+    "historicalExtensionR2Changed": false,
+    "behavioralChange": "No",
+    "runtimeTest": "NOT_RUN",
+    "runtimeReason": "Application, WebDriver, and fixture ownership/configuration were not verified; browser tests could mutate shared experiment state."
+  }
 }

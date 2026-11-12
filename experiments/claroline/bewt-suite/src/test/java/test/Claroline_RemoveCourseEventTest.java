@@ -12,7 +12,7 @@ public class Claroline_RemoveCourseEventTest extends BaseTest {
 	@Test
 	public void removeCourseEvent() throws InterruptedException{
 		CalendarAgendaPage cap = new IndexPage(driver)
-				.login("admin", "n0tl34k3dy3t")
+				.login(requiredRuntimeCredential("CLAROLINE_TEST_USERNAME"), requiredRuntimeCredential("CLAROLINE_TEST_PASSWORD"))
 				.goInsideCourse()
 				.goToCalendarAgendaPage()
 				.removeEvent();
