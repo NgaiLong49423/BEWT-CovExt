@@ -106,4 +106,14 @@ R5 was executed at VM checkout commit `f39272d363ec94b51a978f53c6231174c67140e2`
 
 The R5 implementation exercised the stock-one fixture through the browser session, submitted quantity 2 to the pinned update route, observed HTTP 400 and the pinned source message, and verified the server cart remained at quantity 1. This is preliminary engineering verification; human oracle and novelty reviews are still pending, so `VALIDATED=false`.
 
+## 11. R6 exact response-message oracle
+
+R5 compared the stock rejection body with `contains(STOCK_ERROR)`, which could pass if an unrelated response text merely embedded the expected sentence. R6 preserves the stock-one fixture, cart interaction, HTTP 400 check, server-cart quantity check, pinned source behavior, and the R5 Gherkin artifact. It strengthens the business oracle to extract the response JSON `message` property and require an exact equality with `There is insufficient stock of this product.` as implemented at `experiments/expresscart/source/routes/index.js:603-643`.
+
+R6 is a new immutable revision; R1-R5 and their historical evidence remain unchanged. Maven `test-compile` passed with 48 test sources on the R6 working-tree content hash `cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189`. The captured compile was performed before the R6 commit; its evidence records that limitation. R6 has no G3 execution or reruns. R5's four preliminary passes are not transferred to R6, and the candidate remains pending independent human oracle/novelty approval and R6 runtime verification. `VALIDATED=false`.
+
+R6 artifact commit: `91f8f809dbb57710cb176a3db6124a73ac8734b4`.
+
+Compile evidence: `docs/tasks/EC-GAP-002-REMEDIATION/evidence/r6/maven-test-compile-summary.json`.
+
 During evidence review, the R5 runner's path sanitizer was found to misclassify the `p://` segment of HTTP URLs as a Windows drive path in the recorded Maven command. The executed run source, exit code, and tests are preserved; each run also includes a clearly labeled command reconstruction derived from the runner source and recorded ports. The path rule has been corrected and a 4th focused regression test passes; this metadata-only runner fix was made after R5 execution and does not alter R5 test behavior.

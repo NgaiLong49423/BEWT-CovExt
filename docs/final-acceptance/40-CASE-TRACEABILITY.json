@@ -638,7 +638,26 @@
       "gherkinScenarioHashMatchesDataset": true,
       "humanReviewRecordPath": "data/reviews/expresscart/human-review-decisions.jsonl",
       "humanReviewRecordLine": 1,
-      "humanReviewRecordSha256": "e32b5f27102b5b0e11b95dcd3ecf2c2bafc9630048caec053a8c70cc7014872b"
+      "humanReviewRecordSha256": "e32b5f27102b5b0e11b95dcd3ecf2c2bafc9630048caec053a8c70cc7014872b",
+      "latestRemediationRevision": {
+        "revision": 6,
+        "status": "COMPILE_PASS_G3_NOT_RUN_HUMAN_REVIEW_PENDING",
+        "javaSourcePath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6.java",
+        "javaSourceSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
+        "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/gherkin.feature",
+        "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+        "parentRevision": 5,
+        "implementationCommit": "91f8f809dbb57710cb176a3db6124a73ac8734b4",
+        "sourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+        "sourceVersion": "1.1.19",
+        "semanticBehavior": "Stock-one product; add one unit; attempt quantity two; require HTTP 400 and exact JSON message property; require server cart remains at one.",
+        "compile": "PASS_48_TEST_SOURCES",
+        "g3Initial": "NOT_RUN",
+        "cleanReruns": 0,
+        "humanOracleAndNoveltyReview": "PENDING",
+        "validated": false,
+        "r5EvidenceTransfer": "NOT_APPLICABLE_R6_ASSERTION_CHANGED"
+      }
     },
     {
       "candidateId": "EC-GAP-003",

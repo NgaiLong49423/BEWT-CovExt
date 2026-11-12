@@ -2,12 +2,12 @@
   "candidateId": "EC-GAP-002",
   "baselineAuditCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "implementationBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
-  "revision": 5,
-  "implementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
+  "revision": 6,
+  "implementationCommit": "91f8f809dbb57710cb176a3db6124a73ac8734b4",
   "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
-  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5.java",
-  "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/gherkin.feature",
-  "javaSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
+  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6.java",
+  "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/gherkin.feature",
+  "javaSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
   "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
   "source": {
     "repository": "mrvautin/expressCart",
@@ -26,20 +26,21 @@
   ],
   "candidateDecision": "APPROVED_FOR_IMPLEMENTATION; HUMAN_ORACLE_AND_NOVELTY_REVIEW_PENDING",
   "technicalStatus": {
-    "compile": "PASS_R5_47_TEST_SOURCES",
-    "sourceBehaviorAssertions": "R5_IMPLEMENTED_COMPILE_PASS_NOT_RUN",
-    "g3Initial": "R5_PASS_1_TEST_CLEANUP_PASS",
-    "g3CleanReruns": 3,
+    "compile": "PASS_R6_48_TEST_SOURCES",
+    "sourceBehaviorAssertions": "R6_EXACT_JSON_MESSAGE_PROPERTY_ASSERTION_COMPILE_PASS",
+    "g3Initial": "NOT_RUN_R6",
+    "g3CleanReruns": 0,
     "validated": false,
     "runnerCredentialHandoff": "IMPLEMENTED_AND_COMPILE_VERIFIED",
-    "latestRevision": "R5_ENGINEERING_PRELIMINARY_4_OF_4_PASS_HUMAN_REVIEW_PENDING",
-    "g3CleanRerunsOutcome": "PASS_3_OF_3"
+    "latestRevision": "R6_COMPILE_PASS_G3_NOT_RUN_HUMAN_REVIEW_PENDING",
+    "g3CleanRerunsOutcome": "NOT_RUN_R6"
   },
   "limitations": [
     "The original proposal expects a different error string than the pinned source returns; revision 3 records the source response without rewriting the historical proposal.",
     "Source seed data has stock 10 rather than the proposed product/stock-one fixture; revision 3 creates an isolated product fixture and enables stock tracking through the admin session.",
     "R5 passed one initial and three clean-state VM Docker/Selenium runs (4/4), each with zero-residual cleanup. This is preliminary engineering evidence only; independent human oracle and novelty approval remain pending.",
-    "R5 runner-generated Maven command fields sanitized the p:// portion of HTTP URLs as a local path. A clearly labeled derived invocation record preserves the command shape using run-record ports; a sanitizer regression test and fix are in the follow-up commit."
+    "R5 runner-generated Maven command fields sanitized the p:// portion of HTTP URLs as a local path. A clearly labeled derived invocation record preserves the command shape using run-record ports; a sanitizer regression test and fix are in the follow-up commit.",
+    "R6 compiles an exact JSON message-property assertion, but it has no R6 Docker/Selenium run; R5 evidence does not transfer after the oracle assertion change."
   ],
   "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
   "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/",
@@ -72,13 +73,13 @@
   },
   "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)",
   "latestRevision": {
-    "revision": 5,
-    "status": "ENGINEERING_PRELIMINARY_4_OF_4_PASS_HUMAN_REVIEW_PENDING",
-    "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R5.java",
-    "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-5/gherkin.feature",
-    "javaSha256": "fb262eacb4bb106bb0f3128d120b4c00347a3e2bd4067fc711a014023e0f7866",
+    "revision": 6,
+    "status": "COMPILE_PASS_G3_NOT_RUN_HUMAN_REVIEW_PENDING",
+    "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R6.java",
+    "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-6/gherkin.feature",
+    "javaSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
     "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
-    "implementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a"
+    "implementationCommit": "91f8f809dbb57710cb176a3db6124a73ac8734b4"
   },
   "revisions": [
     {
@@ -115,6 +116,18 @@
       "g3CleanReruns": "PASS_3_OF_3",
       "cleanup": "PASS_ZERO_RESIDUAL_ALL_4",
       "g3Evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/"
+    },
+    {
+      "revision": 6,
+      "implementationCommit": "91f8f809dbb57710cb176a3db6124a73ac8734b4",
+      "parentRevision": 5,
+      "javaSha256": "cf2e3a502ed19b5cbc6078ea966e0f8c10263a690a15777821b5be62242b1189",
+      "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+      "compile": "PASS_48_TEST_SOURCES",
+      "g3Initial": "NOT_RUN",
+      "g3CleanReruns": 0,
+      "cleanup": "NOT_RUN",
+      "status": "PRELIMINARY_COMPILE_PASS_HUMAN_REVIEW_PENDING"
     }
   ],
   "runnerEvidenceSanitizerFixCommit": "eda7f2af5e3b1a4b3bdd8378cdbbe5ab16da910e"
