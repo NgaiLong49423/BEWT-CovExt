@@ -460,17 +460,27 @@
   },
   "rq2": {
     "outcome": "NOT_EVALUATED",
-    "baselineStatus": "NOT_ESTABLISHED",
+    "baselineStatus": "NOT_VERIFIED",
     "baselineDenominator": null,
     "proposedCandidates": 40,
-    "verifiedNewBehaviorUnits": null,
-    "validatedCases": 0,
+    "finalHumanDispositionCount": 0,
+    "approvedNewBehaviorUnits": null,
+    "implementedNewBehaviorUnits": null,
+    "validatedNewBehaviorUnits": null,
     "coverageGain": null,
-    "reason": "A proposed test count is not a behavioral-unit denominator; no independently approved new-UBU mapping is present."
+    "coverageGainPercent": null,
+    "reason": "BASELINE_REVIEW_OR_TAXONOMY_STATUS_MISSING",
+    "validatedCases": null
   },
   "rq3": {
-    "outcome": "NOT_EVALUATED",
-    "eligibleBehaviorallyValidatedCases": 0,
+    "outcome": "PARTIALLY_VERIFIED",
+    "interpretation": "PASS means all registered candidates have complete, source-bound 1+3 trial evidence and the research outcomes are calculable; it does not mean every candidate passed.",
+    "candidateCount": 40,
+    "sourceBoundCandidateCount": 0,
+    "verifiedRunRecords": 0,
+    "protocolCompleteCandidates": 0,
+    "validatedCandidates": 0,
+    "failedCandidates": 0,
     "rawExecution": {
       "status": "REPORTED_RAW_OUTCOMES_NOT_SEMANTICALLY_VALIDATED",
       "source": "docs\\tasks\\g3-evidence\\all-40-candidates-g3-consolidated-summary.json",
@@ -485,11 +495,1527 @@
       "runRecordsWithCompleteIdentity": 0,
       "cleanupResidualFailuresObserved": 1
     },
+    "rawRunRecordFilesObserved": 84,
+    "runRecordAccounting": {
+      "summaryRunIds": 79,
+      "runRecordFileCount": 84,
+      "matchingRunRecords": 79,
+      "runRecordCountByCandidate": {
+        "BL-GAP-001": 4,
+        "BL-GAP-002": 4,
+        "BL-GAP-003": 4,
+        "BL-GAP-004": 1,
+        "BL-GAP-005": 1,
+        "CL-GAP-001": 1,
+        "CL-GAP-002": 1,
+        "CL-GAP-003": 1,
+        "CL-GAP-004": 1,
+        "CL-GAP-005": 1,
+        "EC-GAP-002": 4,
+        "EC-GAP-003": 4,
+        "EC-GAP-004": 4,
+        "EC-GAP-005": 8,
+        "EC-GAP-006": 4,
+        "JO-GAP-001": 1,
+        "JO-GAP-002": 1,
+        "JO-GAP-003": 4,
+        "JO-GAP-004": 4,
+        "JO-GAP-005": 4,
+        "KB-GAP-001": 2,
+        "KB-GAP-002": 1,
+        "KB-GAP-003": 1,
+        "KB-GAP-004": 1,
+        "KB-GAP-008": 1,
+        "MB-GAP-001": 1,
+        "MB-GAP-002": 1,
+        "MB-GAP-003": 1,
+        "MB-GAP-004": 1,
+        "MB-GAP-005": 1,
+        "MW-GAP-001": 1,
+        "MW-GAP-002": 1,
+        "MW-GAP-003": 1,
+        "MW-GAP-004": 1,
+        "MW-GAP-005": 1,
+        "PS-GAP-001": 1,
+        "PS-GAP-002": 1,
+        "PS-GAP-003": 4,
+        "PS-GAP-004": 4,
+        "PS-GAP-005": 1
+      },
+      "missingRunRecordIds": [],
+      "extraRunRecords": [
+        {
+          "runId": "g3-ecgap005-20261110184936",
+          "applicationByDirectory": "expresscart",
+          "candidateIdByDirectory": "EC-GAP-005",
+          "taskLabel": "g0-expresscart",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\expresscart\\EC-GAP-005\\g3-ecgap005-20261110184936\\run-record.json"
+        },
+        {
+          "runId": "g3-ecgap005-r1-20261110184936",
+          "applicationByDirectory": "expresscart",
+          "candidateIdByDirectory": "EC-GAP-005",
+          "taskLabel": "g0-expresscart",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\expresscart\\EC-GAP-005\\g3-ecgap005-r1-20261110184936\\run-record.json"
+        },
+        {
+          "runId": "g3-ecgap005-r2-20261110184936",
+          "applicationByDirectory": "expresscart",
+          "candidateIdByDirectory": "EC-GAP-005",
+          "taskLabel": "g0-expresscart",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\expresscart\\EC-GAP-005\\g3-ecgap005-r2-20261110184936\\run-record.json"
+        },
+        {
+          "runId": "g3-ecgap005-r3-20261110184936",
+          "applicationByDirectory": "expresscart",
+          "candidateIdByDirectory": "EC-GAP-005",
+          "taskLabel": "g0-expresscart",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\expresscart\\EC-GAP-005\\g3-ecgap005-r3-20261110184936\\run-record.json"
+        },
+        {
+          "runId": "g3-kbgap001-20261110184802",
+          "applicationByDirectory": "kanboard",
+          "candidateIdByDirectory": "KB-GAP-001",
+          "taskLabel": "g0-kanboard",
+          "purpose": "NOT_RECORDED",
+          "classification": "UNSUMMARIZED_RUN_PURPOSE_UNRESOLVED",
+          "evidencePath": "docs\\tasks\\g3-evidence\\kanboard\\KB-GAP-001\\g3-kbgap001-20261110184802\\run-record.json"
+        }
+      ],
+      "candidateOutcomesReported": [
+        {
+          "candidateId": "BL-GAP-001",
+          "application": "bludit",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "FAIL",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0.3333333333333333,
+          "failureRateAcrossInitialAndReruns": 0.25,
+          "runIdsReported": [
+            "g3-blgap001-20261110190053",
+            "g3-blgap001-r1-20261110190053",
+            "g3-blgap001-r2-20261110190053",
+            "g3-blgap001-r3-20261110190053"
+          ]
+        },
+        {
+          "candidateId": "BL-GAP-002",
+          "application": "bludit",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-blgap002-20261110190053",
+            "g3-blgap002-r1-20261110190053",
+            "g3-blgap002-r2-20261110190053",
+            "g3-blgap002-r3-20261110190053"
+          ]
+        },
+        {
+          "candidateId": "BL-GAP-003",
+          "application": "bludit",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-blgap003-20261110190053",
+            "g3-blgap003-r1-20261110190053",
+            "g3-blgap003-r2-20261110190053",
+            "g3-blgap003-r3-20261110190053"
+          ]
+        },
+        {
+          "candidateId": "BL-GAP-004",
+          "application": "bludit",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-blgap004-20261110190053"
+          ]
+        },
+        {
+          "candidateId": "BL-GAP-005",
+          "application": "bludit",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-blgap005-20261110190053"
+          ]
+        },
+        {
+          "candidateId": "CL-GAP-001",
+          "application": "claroline",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-clgap001-20261110191216"
+          ]
+        },
+        {
+          "candidateId": "CL-GAP-002",
+          "application": "claroline",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-clgap002-20261110191216"
+          ]
+        },
+        {
+          "candidateId": "CL-GAP-003",
+          "application": "claroline",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-clgap003-20261110191216"
+          ]
+        },
+        {
+          "candidateId": "CL-GAP-004",
+          "application": "claroline",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-clgap004-20261110191216"
+          ]
+        },
+        {
+          "candidateId": "CL-GAP-005",
+          "application": "claroline",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-clgap005-20261110191216"
+          ]
+        },
+        {
+          "candidateId": "EC-GAP-002",
+          "application": "expresscart",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-ecgap002-20261110185226",
+            "g3-ecgap002-r1-20261110185226",
+            "g3-ecgap002-r2-20261110185226",
+            "g3-ecgap002-r3-20261110185226"
+          ]
+        },
+        {
+          "candidateId": "EC-GAP-003",
+          "application": "expresscart",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-ecgap003-20261110185226",
+            "g3-ecgap003-r1-20261110185226",
+            "g3-ecgap003-r2-20261110185226",
+            "g3-ecgap003-r3-20261110185226"
+          ]
+        },
+        {
+          "candidateId": "EC-GAP-004",
+          "application": "expresscart",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-ecgap004-20261110185226",
+            "g3-ecgap004-r1-20261110185226",
+            "g3-ecgap004-r2-20261110185226",
+            "g3-ecgap004-r3-20261110185226"
+          ]
+        },
+        {
+          "candidateId": "EC-GAP-005",
+          "application": "expresscart",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-ecgap005-20261110185226",
+            "g3-ecgap005-r1-20261110185226",
+            "g3-ecgap005-r2-20261110185226",
+            "g3-ecgap005-r3-20261110185226"
+          ]
+        },
+        {
+          "candidateId": "EC-GAP-006",
+          "application": "expresscart",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-ecgap006-20261110185226",
+            "g3-ecgap006-r1-20261110185226",
+            "g3-ecgap006-r2-20261110185226",
+            "g3-ecgap006-r3-20261110185226"
+          ]
+        },
+        {
+          "candidateId": "JO-GAP-001",
+          "application": "joomla",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-jogap001-20261110191702"
+          ]
+        },
+        {
+          "candidateId": "JO-GAP-002",
+          "application": "joomla",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-jogap002-20261110191702"
+          ]
+        },
+        {
+          "candidateId": "JO-GAP-003",
+          "application": "joomla",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "FAIL",
+            "PASS",
+            "FAIL"
+          ],
+          "rerunFailureRateAmongReruns": 0.6666666666666666,
+          "failureRateAcrossInitialAndReruns": 0.5,
+          "runIdsReported": [
+            "g3-jogap003-20261110191702",
+            "g3-jogap003-r1-20261110191702",
+            "g3-jogap003-r2-20261110191702",
+            "g3-jogap003-r3-20261110191702"
+          ]
+        },
+        {
+          "candidateId": "JO-GAP-004",
+          "application": "joomla",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-jogap004-20261110191702",
+            "g3-jogap004-r1-20261110191702",
+            "g3-jogap004-r2-20261110191702",
+            "g3-jogap004-r3-20261110191702"
+          ]
+        },
+        {
+          "candidateId": "JO-GAP-005",
+          "application": "joomla",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-jogap005-20261110191702",
+            "g3-jogap005-r1-20261110191702",
+            "g3-jogap005-r2-20261110191702",
+            "g3-jogap005-r3-20261110191702"
+          ]
+        },
+        {
+          "candidateId": "KB-GAP-001",
+          "application": "kanboard",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-kbgap001-20261110193016"
+          ]
+        },
+        {
+          "candidateId": "KB-GAP-002",
+          "application": "kanboard",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-kbgap002-20261110193016"
+          ]
+        },
+        {
+          "candidateId": "KB-GAP-003",
+          "application": "kanboard",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-kbgap003-20261110193016"
+          ]
+        },
+        {
+          "candidateId": "KB-GAP-004",
+          "application": "kanboard",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-kbgap004-20261110193016"
+          ]
+        },
+        {
+          "candidateId": "KB-GAP-008",
+          "application": "kanboard",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-kbgap008-20261110193016"
+          ]
+        },
+        {
+          "candidateId": "MB-GAP-001",
+          "application": "mantisbt",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mbgap001-20261110193403"
+          ]
+        },
+        {
+          "candidateId": "MB-GAP-002",
+          "application": "mantisbt",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mbgap002-20261110193403"
+          ]
+        },
+        {
+          "candidateId": "MB-GAP-003",
+          "application": "mantisbt",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mbgap003-20261110193403"
+          ]
+        },
+        {
+          "candidateId": "MB-GAP-004",
+          "application": "mantisbt",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mbgap004-20261110193403"
+          ]
+        },
+        {
+          "candidateId": "MB-GAP-005",
+          "application": "mantisbt",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mbgap005-20261110193403"
+          ]
+        },
+        {
+          "candidateId": "MW-GAP-001",
+          "application": "mediawiki",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mwgap001-20261110193836"
+          ]
+        },
+        {
+          "candidateId": "MW-GAP-002",
+          "application": "mediawiki",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mwgap002-20261110193836"
+          ]
+        },
+        {
+          "candidateId": "MW-GAP-003",
+          "application": "mediawiki",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mwgap003-20261110193836"
+          ]
+        },
+        {
+          "candidateId": "MW-GAP-004",
+          "application": "mediawiki",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mwgap004-20261110193836"
+          ]
+        },
+        {
+          "candidateId": "MW-GAP-005",
+          "application": "mediawiki",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-mwgap005-20261110193836"
+          ]
+        },
+        {
+          "candidateId": "PS-GAP-001",
+          "application": "prestashop",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-psgap001-20261110194240"
+          ]
+        },
+        {
+          "candidateId": "PS-GAP-002",
+          "application": "prestashop",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-psgap002-20261110194240"
+          ]
+        },
+        {
+          "candidateId": "PS-GAP-003",
+          "application": "prestashop",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-psgap003-20261110194240",
+            "g3-psgap003-r1-20261110194240",
+            "g3-psgap003-r2-20261110194240",
+            "g3-psgap003-r3-20261110194240"
+          ]
+        },
+        {
+          "candidateId": "PS-GAP-004",
+          "application": "prestashop",
+          "initialOutcomeReported": "PASS",
+          "rerunOutcomesReported": [
+            "PASS",
+            "PASS",
+            "PASS"
+          ],
+          "rerunFailureRateAmongReruns": 0,
+          "failureRateAcrossInitialAndReruns": 0,
+          "runIdsReported": [
+            "g3-psgap004-20261110194240",
+            "g3-psgap004-r1-20261110194240",
+            "g3-psgap004-r2-20261110194240",
+            "g3-psgap004-r3-20261110194240"
+          ]
+        },
+        {
+          "candidateId": "PS-GAP-005",
+          "application": "prestashop",
+          "initialOutcomeReported": "FAIL",
+          "rerunOutcomesReported": [],
+          "rerunFailureRateAmongReruns": null,
+          "failureRateAcrossInitialAndReruns": null,
+          "runIdsReported": [
+            "g3-psgap005-20261110194240"
+          ]
+        }
+      ]
+    },
+    "unboundRunRecordFilesObserved": 84,
+    "duplicateRunIds": [],
+    "requiredCleanReruns": 3,
+    "flakinessDefinition": "A candidate is flaky when its initial run and three reruns do not all have the same derived JUnit outcome; rerunFailureRate and allTrialFailureRate use separate denominators.",
+    "candidates": [
+      {
+        "candidateId": "BL-GAP-001",
+        "application": "bludit",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "BL-GAP-002",
+        "application": "bludit",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "BL-GAP-003",
+        "application": "bludit",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "BL-GAP-004",
+        "application": "bludit",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "BL-GAP-005",
+        "application": "bludit",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "CL-GAP-001",
+        "application": "claroline",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "CL-GAP-002",
+        "application": "claroline",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "CL-GAP-003",
+        "application": "claroline",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "CL-GAP-004",
+        "application": "claroline",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "CL-GAP-005",
+        "application": "claroline",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "EC-GAP-002",
+        "application": "expresscart",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "EC-GAP-003",
+        "application": "expresscart",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "EC-GAP-004",
+        "application": "expresscart",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "EC-GAP-005",
+        "application": "expresscart",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 8,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "EC-GAP-006",
+        "application": "expresscart",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "JO-GAP-001",
+        "application": "joomla",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "JO-GAP-002",
+        "application": "joomla",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "JO-GAP-003",
+        "application": "joomla",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "JO-GAP-004",
+        "application": "joomla",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "JO-GAP-005",
+        "application": "joomla",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "KB-GAP-001",
+        "application": "kanboard",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 2,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "KB-GAP-002",
+        "application": "kanboard",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "KB-GAP-003",
+        "application": "kanboard",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "KB-GAP-004",
+        "application": "kanboard",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "KB-GAP-008",
+        "application": "kanboard",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MB-GAP-001",
+        "application": "mantisbt",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MB-GAP-002",
+        "application": "mantisbt",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MB-GAP-003",
+        "application": "mantisbt",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MB-GAP-004",
+        "application": "mantisbt",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MB-GAP-005",
+        "application": "mantisbt",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MW-GAP-001",
+        "application": "mediawiki",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MW-GAP-002",
+        "application": "mediawiki",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MW-GAP-003",
+        "application": "mediawiki",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MW-GAP-004",
+        "application": "mediawiki",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "MW-GAP-005",
+        "application": "mediawiki",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "PS-GAP-001",
+        "application": "prestashop",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "PS-GAP-002",
+        "application": "prestashop",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "PS-GAP-003",
+        "application": "prestashop",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "PS-GAP-004",
+        "application": "prestashop",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 4,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      },
+      {
+        "candidateId": "PS-GAP-005",
+        "application": "prestashop",
+        "status": "BLOCKED",
+        "validated": false,
+        "sourceBoundRunRecords": 0,
+        "unboundPathRunRecords": 1,
+        "verifiedRunRecords": 0,
+        "protocolComplete": false,
+        "initialOutcome": null,
+        "rerunOutcomes": [],
+        "outcomeCounts": {
+          "PASS": 0,
+          "FAIL": 0
+        },
+        "outcome": "BLOCKED",
+        "rerunFailureRate": null,
+        "allTrialFailureRate": null,
+        "evidenceErrors": [
+          "UNBOUND_LEGACY_RUN_RECORD"
+        ]
+      }
+    ],
+    "reason": "Source-bound protocol evidence is incomplete; reported historical outcomes remain separate and do not establish VALIDATED cases.",
+    "eligibleBehaviorallyValidatedCases": 0,
     "sourceHashMismatches": [
       "JO-GAP-004"
     ],
-    "gherkinHashMismatches": [],
-    "reason": "Raw runs are not bound to source/test/image identity and do not repair semantic mismatches."
+    "gherkinHashMismatches": []
   },
   "rq4": {
     "outcome": "PARTIALLY_VERIFIED",
