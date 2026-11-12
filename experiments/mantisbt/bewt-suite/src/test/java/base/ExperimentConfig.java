@@ -13,6 +13,8 @@ public final class ExperimentConfig {
     public static String webdriverUrl() { return required("BEWT_WEBDRIVER_URL"); }
     public static String adminUsername() { return required("BEWT_ADMIN_USERNAME"); }
     public static String adminPassword() { return required("BEWT_ADMIN_PASSWORD"); }
+    public static String monitorUsername() { return required("MANTISBT_TEST_USERNAME"); }
+    public static String monitorPassword() { return required("MANTISBT_TEST_PASSWORD"); }
     public static String alternatePassword() { return required("BEWT_ADMIN_PASSWORD_ROTATED"); }
     public static String adminEmail() { return required("BEWT_ADMIN_EMAIL"); }
     public static String databaseHost() { return required("BEWT_DB_HOST"); }

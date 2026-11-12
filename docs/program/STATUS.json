@@ -303,7 +303,8 @@
         "extension/mantisbt/selenium/",
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/mantisbt/",
-        "docs/tasks/g0-evidence/mantisbt/"
+        "docs/tasks/g0-evidence/mantisbt/",
+        "docs/tasks/MB-GAP-001-REMEDIATION/TASK-REPORT.md"
       ],
       "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
