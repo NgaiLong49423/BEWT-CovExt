@@ -25,6 +25,33 @@ export function resolveEnvironmentConfig(config) {
   return typeof config === 'function' ? config() : config;
 }
 
+export function containerProvenance(inspectInfo) {
+  if (!inspectInfo?.Id || !inspectInfo?.Image || !inspectInfo?.Config?.Image) {
+    throw new Error('Docker inspect response is missing container or image identity.');
+  }
+  return { containerId: inspectInfo.Id, imageReference: inspectInfo.Config.Image, imageId: inspectInfo.Image, createdAt: inspectInfo.Created };
+}
+
+function inspectContainerProvenance(name) {
+  const result = JSON.parse(dockerCli(['inspect', name]));
+  return containerProvenance(result[0]);
+}
+
+export function sanitizeCommandArgv(argv) {
+  let redactNext = false;
+  return argv.map((rawArg) => {
+    const arg = String(rawArg);
+    if (redactNext) { redactNext = false; return '<redacted>'; }
+    if (/^--?(?:password|passwd|token|secret|api[-_]?key)$/i.test(arg) || /^-D[\w.-]*(?:password|passwd|token|secret|api[-_]?key|username|email)$/i.test(arg)) { redactNext = true; return arg; }
+    const equals = arg.indexOf('=');
+    if (equals > 0 && /(?:password|passwd|token|secret|api[-_]?key|username|email)/i.test(arg.slice(0, equals))) {
+      return arg.slice(0, equals + 1) + '<redacted>';
+    }
+    return arg.replace(/(https?:\/\/)[^/@\s]+@/i, '$1<redacted>@');
+  });
+}
+
+
 export function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
 }
@@ -396,7 +423,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         cfg.dbImage,
       ]);
       createdContainers.push(dbName);
-      runRecord.containers.push({ role: 'db', name: dbName });
+      runRecord.containers.push({ role: 'db', name: dbName, ...inspectContainerProvenance(dbName) });
       // Wait for DB port to accept connections inside network
       await new Promise((r) => setTimeout(r, 12000));
     }
@@ -420,7 +447,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       'selenium/standalone-chrome:latest',
     ]);
     createdContainers.push(browserName);
-    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort });
+    runRecord.containers.push({ role: 'browser', name: browserName, port: browserPort, ...inspectContainerProvenance(browserName) });
 
     // App container
     const appEnvObj = cfg.appEnv ? cfg.appEnv(dbName) : {};
@@ -454,7 +481,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       ]);
     }
     createdContainers.push(appName);
-    runRecord.containers.push({ role: 'app', name: appName, port: appPort });
+    runRecord.containers.push({ role: 'app', name: appName, port: appPort, ...inspectContainerProvenance(appName) });
 
     // 5. Readiness verification
     const seleniumStatusUrl = `http://127.0.0.1:${browserPort}/status`;
@@ -620,11 +647,15 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     writeFileSync(join(evidenceDir, 'maven.stdout.log'), sanitizeEvidenceText(mvnRes.stdout));
     writeFileSync(join(evidenceDir, 'maven.stderr.log'), sanitizeEvidenceText(mvnRes.stderr));
-    writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify({
+    runRecord.maven = {
+      executable: MAVEN_CLI,
+      argv: sanitizeCommandArgv(mvnArgs),
+      cwd: '.',
+      cwdBase: 'repository root',
       exitCode: mvnRes.status,
       signal: mvnRes.signal,
-      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} test`,
-    }, null, 2));
+    };
+    writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify(runRecord.maven, null, 2));
 
     // 8. Capture and sanitize Surefire JUnit report
     const surefireXmlName = `TEST-${activeTestClass}.xml`;

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
-import { APPS, requiredEnvironment, resolveEnvironmentConfig } from './unified-g0-runner.mjs';
+import { APPS, containerProvenance, requiredEnvironment, resolveEnvironmentConfig, sanitizeCommandArgv } from './unified-g0-runner.mjs';
 
 test('credential source checker rejects inline login credentials', () => {
   const result = scanJavaSource('new LoginPage(d).loginToKanboard("unit-user", configuredPassword());');
@@ -65,4 +65,22 @@ test('non-ExpressCart runner credential fields have no inline defaults', () => {
   assert.equal(inlineCredentialField.test(apps), false);
   const inlineInstallerCredential = /['"]--(?:dbuser|dbpass|installdbuser|installdbpass|pass)['"]\s*,\s*['"][^'"]*['"]|['"]--(?:db_user|db_password|db_name|name|email|password)=[^'"]*['"]/i;
   assert.equal(inlineInstallerCredential.test(source), false);
+});
+
+test('run record container provenance captures resolved image identity', () => {
+  const result = containerProvenance({
+    Id: 'container-id',
+    Image: 'sha256:image-id',
+    Config: { Image: 'example/app:tag' },
+    Created: '2026-11-12T00:00:00Z',
+  });
+  assert.equal(result.containerId, 'container-id');
+  assert.equal(result.imageReference, 'example/app:tag');
+  assert.equal(result.imageId, 'sha256:image-id');
+});
+
+test('Maven argv metadata preserves order while redacting credential values', () => {
+  const actual = sanitizeCommandArgv(['-B', '-Ddb.password=synthetic-secret', '--token', 'synthetic-token', '-Dapp.password', 'synthetic-property-value', '-Dtest=Suite']);
+  assert.deepEqual(actual, ['-B', '-Ddb.password=<redacted>', '--token', '<redacted>', '-Dapp.password', '<redacted>', '-Dtest=Suite']);
+  assert.equal(actual.some((arg) => arg.includes('synthetic')), false);
 });

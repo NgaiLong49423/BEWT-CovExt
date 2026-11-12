@@ -61,7 +61,7 @@ Verification for this follow-up:
 | Command/action | Result |
 |---|---|
 | `node experiments/tools/credential-source-check.mjs` | PASS; 35 latest active non-ExpressCart candidate revisions, no inline login identity/password literals |
-| `node --test experiments/tools/credential-source-check.test.mjs` | PASS; 5 tests, including literal rejection and missing-environment fail-closed behavior |
+| `node --test experiments/tools/credential-source-check.test.mjs` | PASS; 7 tests, including credential literal rejection, missing-environment fail-closed behavior, image-ID mapping, and Maven argv redaction |
 | `node --check experiments/tools/unified-g0-runner.mjs` | PASS |
 | `mvn -B -ntp -DskipTests test` in `experiments/bludit/bewt-suite/` | PASS; 17 main and 31 test sources compiled; tests skipped |
 | Same Maven command in `experiments/joomla/bewt-suite/` | PASS; 31 main and 46 test sources compiled; tests skipped |
@@ -82,3 +82,6 @@ Required runner environment variable names for secure injection:
 | PrestaShop | `PRESTASHOP_DB_ROOT_PASSWORD`, `PRESTASHOP_DB_NAME`, `PRESTASHOP_DB_USER`, `PRESTASHOP_DB_PASSWORD`, `PRESTASHOP_ADMIN_NAME`, `BEWT_ADMIN_USERNAME`, `BEWT_ADMIN_PASSWORD`, `BEWT_ADMIN_EMAIL` |
 
 The selector-only Joomla `JO-GAP-003` additionally requires `BEWT_AUTHOR_USERNAME` and `BEWT_AUTHOR_PASSWORD`; these are not required for the broad G0 runner because the candidate is excluded from `TestSuite`.
+## G0 provenance follow-up (2026-11-12)
+
+`run-record.json` now records each created DB/browser/app container's Docker `containerId`, configured `imageReference`, resolved Docker `imageId`, and creation time, captured from `docker inspect` immediately after creation. The Maven result record now stores the full argv array passed to `spawnSync`, in order, with credential-like assignments and URL credentials redacted; it also records the repository-root working directory and process result. Focused synthetic tests cover image-ID mapping and argv order/redaction. No live G0 run was performed in this change.
