@@ -47,8 +47,8 @@
         "paperPdfCompile": "NOT_RUN_TEX_TOOLCHAIN_UNAVAILABLE_AND_SPRINGER_CLASS_FILES_ABSENT"
       },
       "limitations": [
-        "The working tree contains preserved supplementary preliminary Joomla attempt6 evidence; metrics tests see 85 run records and 86 JUnit XML files instead of their historical fixture counts of 84 and 85.",
-        "Attempt6 is not part of the canonical 79-run sample and does not establish candidate execution or validation; recomputed metrics and tests need reconciliation after its evidence is committed."
+        "At the time of the metrics test commands, supplementary Joomla attempt6 evidence made the local scan see 85 run records and 86 JUnit XML files instead of historical fixture counts of 84 and 85; after attempt7 evidence was also exported, the current local scan sees 86 records and 86 XML files.",
+        "Attempts6 and 7 are preliminary setup-blocked evidence, not part of the canonical 79-run sample and not candidate validation; recomputed metrics and tests need reconciliation after evidence integration."
       ],
       "evidence": [
         "docs/tasks/PAPER-PROVENANCE-20261113/TASK-REPORT.md",

@@ -29,7 +29,7 @@
 | `node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs` | 1 | FAIL: 27 passed; assertion expected 84 records but observed 85; 1 Windows symlink test skipped | Test output; same supplementary attempt6 evidence |
 | Paper/PDF compilation | — | NOT_RUN: no `tectonic`, `latexmk`, or `pdflatex` executable found; `sn-jnl.cls` and `sn-mathphys-num.bst` are absent | `docs/paper/bewt-covext-paper.tex` |
 
-The extra attempt6 record is preserved supplementary evidence and is not part of the canonical 79-run sample. The test failure is reported as observed; metrics output and test expectations need reconciliation after the evidence is committed. No evidence was removed to force a pass.
+The attempt6 record was preserved supplementary evidence during the metrics test commands and is not part of the canonical 79-run sample. Attempt7 evidence was exported to the local tree after those commands; the current scan therefore sees 86 run records and 86 JUnit XML files. The observed test failure remains tied to the test-time 85/86 count. Metrics output and test expectations need reconciliation after attempts6 and 7 are committed. No evidence was removed to force a pass.
 
 ## 3. Research impact
 
@@ -38,15 +38,15 @@ The extra attempt6 record is preserved supplementary evidence and is not part of
 - RQ1/RQ2/RQ3/RQ4 measurable changes: None; this task did not recompute metrics.
 - Gate status before → proposed after: G4 remains `NOT_VERIFIED`; attribution is corrected, while the metrics test mismatch and final review remain.
 - Dataset/metrics artifacts updated: None; `docs/final-acceptance/RQ1-RQ4-results.json` remains the source for the recorded computation revision.
-- Denominator and sampling caveats: The current filesystem contains 85 run records and 86 JUnit XML files after adding supplementary attempt6 evidence; the historical test fixture expected 84 and 85. The canonical sample remains 79 runs.
+- Denominator and sampling caveats: At test time the scanner saw 85 run records and 86 JUnit XML files; after attempt7 export it sees 86 and 86. Both new attempts are supplementary setup-blocked records; the canonical sample remains 79 runs.
 
 ## 4. Safety & integrity
 
 - `bewt-original/` touched? NO.
 - Docker/project resources touched? NONE.
-- Existing unrelated local dirty files preserved? YES; the local attempt6 evidence remains untracked and unstaged.
+- Existing unrelated local dirty files preserved? YES; local attempt6 and attempt7 evidence remain untracked and unstaged.
 - Secret scan / staged diff review result: Documentation-only changes; staged diff review pending.
-- Failed/blocked tasks and honest reasons: Metrics tests report the 84→85 local evidence-count mismatch; paper PDF compilation was unavailable because the TeX toolchain and Springer class files are absent.
+- Failed/blocked tasks and honest reasons: Metrics tests report the 84→85 test-time local evidence-count mismatch; paper PDF compilation was unavailable because the TeX toolchain and Springer class files are absent.
 
 ## 5. Evidence and reproduction
 
