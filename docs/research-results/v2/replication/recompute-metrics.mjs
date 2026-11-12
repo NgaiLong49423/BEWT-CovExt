@@ -8,9 +8,8 @@
  * Install the pinned parser dependency with `npm ci --prefix framework`.
  */
 
-import { readFileSync, existsSync, readdirSync, writeFileSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, writeFileSync, statSync } from 'node:fs';
 import { resolve, join, relative, dirname } from 'node:path';
-import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '../../../../framework/node_modules/@cucumber/gherkin/dist/index.js';
@@ -73,6 +72,52 @@ export function verifyPrimaryReviewRecord(line, expectedSha256, candidateId) {
   const observed = createHash('sha256').update(line, 'utf8').digest('hex');
   if (observed !== expectedSha256) return false;
   try { return JSON.parse(line).candidateId === candidateId; } catch { return false; }
+}
+
+function readRefCommit(commonDir, gitDir, refName) {
+  const refPattern = /^refs\/(?:heads|remotes|tags)\/[A-Za-z0-9._/-]+$/;
+  if (!refPattern.test(refName) || refName.includes('..') || refName.endsWith('/')) {
+    throw new Error('INVALID_GIT_HEAD_REF');
+  }
+  for (const directory of [gitDir, commonDir]) {
+    const refPath = join(directory, ...refName.split('/'));
+    if (existsSync(refPath)) {
+      const sha = readFileSync(refPath, 'utf8').trim();
+      if (/^[0-9a-f]{40,64}$/i.test(sha)) return sha;
+      throw new Error('INVALID_GIT_REF_CONTENT');
+    }
+  }
+  for (const directory of new Set([gitDir, commonDir])) {
+    const packedRefs = join(directory, 'packed-refs');
+    if (!existsSync(packedRefs)) continue;
+    const line = readFileSync(packedRefs, 'utf8').split(/\r?\n/).find((entry) => entry.endsWith(` ${refName}`));
+    const sha = line?.split(' ')[0];
+    if (sha && /^[0-9a-f]{40,64}$/i.test(sha)) return sha;
+  }
+  throw new Error('GIT_HEAD_REF_NOT_FOUND');
+}
+
+/** Read the current commit from Git metadata without launching a PATH-resolved process. */
+export function readGitHeadCommit(rootDir) {
+  const markerPath = join(resolve(rootDir), '.git');
+  if (!existsSync(markerPath)) throw new Error('GIT_METADATA_NOT_FOUND');
+  let gitDir;
+  if (statSync(markerPath).isDirectory()) {
+    gitDir = markerPath;
+  } else {
+    const marker = readFileSync(markerPath, 'utf8').trim();
+    const match = marker.match(/^gitdir:\s*(.+)$/i);
+    if (!match) throw new Error('INVALID_GIT_DIRECTORY_POINTER');
+    gitDir = resolve(rootDir, match[1]);
+  }
+  let commonDir = gitDir;
+  const commonDirFile = join(gitDir, 'commondir');
+  if (existsSync(commonDirFile)) commonDir = resolve(gitDir, readFileSync(commonDirFile, 'utf8').trim());
+  const head = readFileSync(join(gitDir, 'HEAD'), 'utf8').trim();
+  if (/^[0-9a-f]{40,64}$/i.test(head)) return head;
+  const symbolic = head.match(/^ref:\s*(\S+)$/);
+  if (!symbolic) throw new Error('INVALID_GIT_HEAD');
+  return readRefCommit(commonDir, gitDir, symbolic[1]);
 }
 
 /** A heuristic screen only; this cannot establish scenario/oracle equivalence. */
@@ -226,7 +271,7 @@ function modelUsageSummary(root) {
   if (!existsSync(reportPath)) return { status: 'UNKNOWN', source: relative(root, reportPath), successfulCalls: null, tokens: null, actualCost: null };
   const report = readFileSync(reportPath, 'utf8');
   const firstRow = report.split(/\r?\n/).find((line) => line.includes('gemini-3.1-flash-lite')) ?? '';
-  const attempts = Number(firstRow.match(/\|\s*(\d+)\s*\/\s*\d+/)?.[1] ?? NaN);
+  const attempts = Number(firstRow.match(/\|\s*(\d+)\s*\/\s*\d+/)?.[1] ?? Number.NaN);
   return {
     status: 'PARTIALLY_REPORTED_USAGE_NO_SUCCESSFUL_RESPONSE_TELEMETRY',
     source: relative(root, reportPath),
@@ -346,7 +391,7 @@ export function toCsv(result) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const root = resolve('.');
-    const baselineCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }).trim();
+    const baselineCommit = readGitHeadCommit(root);
     const result = runRecompute({ rootDir: root, baselineCommit });
     const outDir = join(root, 'docs', 'final-acceptance');
     const jsonOut = join(outDir, 'RQ1-RQ4-results.json');

@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0.0",
+  "source": "docs/tasks/g3-evidence/all-40-candidates-g3-consolidated-summary.json",
+  "summary": {
+    "candidateCount": 40,
+    "runIds": 79,
+    "reportedIndividualRuns": 79,
+    "reportedInitialPassCandidates": 13,
+    "reportedThreeRerunPassCandidates": 11
+  },
+  "artifacts": {
+    "uniqueRunRecordIds": 84,
+    "runRecordFiles": 84,
+    "junitXmlFiles": 85,
+    "uniqueJunitRunIds": 85,
+    "summaryRunIdsMissingRunRecord": [],
+    "unlistedRunRecords": [
+      {
+        "runId": "g3-ecgap005-20261110184936",
+        "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110184936/run-record.json",
+        "appId": "expresscart",
+        "task": "g0-expresscart",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110184936/TEST-tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "outcome": "PASS"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110184936/cleanup-result.json"
+        ],
+        "classification": "UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata"
+      },
+      {
+        "runId": "g3-ecgap005-r1-20261110184936",
+        "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r1-20261110184936/run-record.json",
+        "appId": "expresscart",
+        "task": "g0-expresscart",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r1-20261110184936/TEST-tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "outcome": "PASS"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r1-20261110184936/cleanup-result.json"
+        ],
+        "classification": "UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata"
+      },
+      {
+        "runId": "g3-ecgap005-r2-20261110184936",
+        "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r2-20261110184936/run-record.json",
+        "appId": "expresscart",
+        "task": "g0-expresscart",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r2-20261110184936/TEST-tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "outcome": "PASS"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r2-20261110184936/cleanup-result.json"
+        ],
+        "classification": "UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata"
+      },
+      {
+        "runId": "g3-ecgap005-r3-20261110184936",
+        "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r3-20261110184936/run-record.json",
+        "appId": "expresscart",
+        "task": "g0-expresscart",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r3-20261110184936/TEST-tests.T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "outcome": "PASS"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-r3-20261110184936/cleanup-result.json"
+        ],
+        "classification": "UNLISTED_DUPLICATE_EC_GAP_005_BATCH; purpose not recorded in run metadata"
+      },
+      {
+        "runId": "g3-kbgap001-20261110184802",
+        "path": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110184802/run-record.json",
+        "appId": "kanboard",
+        "task": "g0-kanboard",
+        "inSummary": false,
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110184802/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 1,
+            "skipped": 0,
+            "outcome": "FAIL"
+          }
+        ],
+        "cleanupFiles": [
+          "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110184802/cleanup-result.json"
+        ],
+        "classification": "UNLISTED_KB_GAP_001_INITIAL_FAILURE; purpose not recorded in run metadata"
+      }
+    ],
+    "junitExecutionIdsWithoutRunRecord": [
+      {
+        "runId": "g3-kbgap001-20261110190120",
+        "junit": [
+          {
+            "path": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110190120/TEST-tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R2.xml",
+            "tests": 1,
+            "failures": 0,
+            "errors": 1,
+            "skipped": 0,
+            "outcome": "FAIL"
+          }
+        ],
+        "mavenExitFiles": [
+          {
+            "path": "docs/tasks/g3-evidence/kanboard/KB-GAP-001/g3-kbgap001-20261110190120/maven-exit.json",
+            "exitCode": 1,
+            "signal": null,
+            "command": "mvn -B -f experiments/kanboard/bewt-suite/pom.xml -Dtest=tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R2 test"
+          }
+        ],
+        "hasRunRecord": false,
+        "hasCleanupResult": false,
+        "classification": "UNREGISTERED_TEST_EXECUTION_ARTIFACTS; run-record and cleanup evidence absent"
+      }
+    ]
+  },
+  "accounting": {
+    "primarySummaryRunIds": 79,
+    "additionalRunRecordIds": 5,
+    "additionalJunitExecutionIds": 6,
+    "allJunitExecutionIds": 85,
+    "unregisteredExecutionArtifacts": 1,
+    "interpretation": "The consolidated experiment denominator remains the 79 explicitly listed run IDs. Additional records/JUnit artifacts are preserved as supplementary, unclassified historical attempts and are not silently added to that denominator."
+  },
+  "joGap003": {
+    "candidateId": "JO-GAP-003",
+    "initialOutcome": "PASS",
+    "rerunOutcomes": [
+      "FAIL",
+      "PASS",
+      "FAIL"
+    ],
+    "rerunFailures": 2,
+    "rerunCount": 3,
+    "rerunFailureRate": 0.6666666666666666,
+    "allRunFailures": 2,
+    "allRunCount": 4,
+    "allRunFailureRate": 0.5,
+    "definition": "Use failures / 3 reruns when reporting rerun instability (2/3 = 66.7%). For overall execution reliability include initial run plus reruns (2/4 = 50%). Do not label the 2/3 rerun ratio as the all-run failure rate."
+  },
+  "blGap001Cleanup": {
+    "runId": "g3-blgap001-r1-20261110190053",
+    "zeroResidualVerified": false,
+    "residualKanboardNamedVolumes": [
+      "bewt-covext-kanboard-data-g3-kbgap001-20261110190120",
+      "bewt-covext-kanboard-plugins-g3-kbgap001-20261110190120"
+    ],
+    "unclassifiedResidualResourceCount": 4,
+    "interpretation": "Two residual volume names include the exact Kanboard KB-GAP-001 run ID g3-kbgap001-20261110190120 and are attributed by name to that Kanboard attempt, not to Bludit. The remaining opaque container/network/volume IDs lack saved inspect labels here and stay unattributed. This records a global residual check failure; it does not prove the Bludit cleanup routine deleted or owned Kanboard resources."
+  }
+}

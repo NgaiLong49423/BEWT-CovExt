@@ -8,7 +8,7 @@
 | D4 Gherkin candidates | `BLOCKED` | Forty implementation authorizations are not oracle/novelty approval; human decisions remain unsigned. |
 | D5 Java/Selenium tests | `FAILED` | All 40 R2 mappings diverge from scenario/oracle; raw compile status does not cure semantic defects. |
 | D6 Research dataset | `FAILED` | Dataset reviewer identities/timestamps conflict with primary review records; one Java SHA mismatch exists. |
-| D7 Evaluation/replication | `FAILED` | Current metrics code uses hand-written regex parsing, fixed defaults, and unconditional RQ4 PASS. |
+| D7 Evaluation/replication | `PARTIALLY_VERIFIED; acceptance blocked` | Historical metrics defect: hand-written regex parsing, fixed defaults, and fabricated PASS paths. Those specific paths were replaced and 17 negative-control tests pass. Current limitation: RQ2/RQ3 are still permanently `NOT_EVALUATED`; positive evidence-driven transition tests and complete raw-evidence calculations remain outstanding. |
 | D8 Scientific report | `FAILED` pending reconciliation | Published RQ, human review, model, cost, and run-cleanup claims conflict with primary evidence. |
 
 These are audit recommendations. Only the Team Lead can accept a deliverable.

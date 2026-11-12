@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import {
   isHumanOracleAndNoveltyApproval,
   validateGherkinSyntax,
   auditJavaSeleniumQuality,
+  readGitHeadCommit,
   runRecompute,
 } from '../recompute-metrics.mjs';
 
@@ -121,4 +125,36 @@ test('main recomputation is deterministic for the same evidence snapshot', () =>
   const first = runRecompute({ rootDir: process.cwd(), baselineCommit: 'fixture-sha' });
   const second = runRecompute({ rootDir: process.cwd(), baselineCommit: 'fixture-sha' });
   assert.deepEqual(first, second);
+});
+
+test('reads detached HEAD directly from Git metadata', () => {
+  const root = mkdtempSync(join(tmpdir(), 'bewt-git-head-'));
+  try {
+    const gitDir = join(root, '.git');
+    const expected = 'a'.repeat(40);
+    mkdirSync(gitDir);
+    writeFileSync(join(gitDir, 'HEAD'), `${expected}\n`);
+    assert.equal(readGitHeadCommit(root), expected);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('reads linked-worktree branch refs from the common Git directory', () => {
+  const root = mkdtempSync(join(tmpdir(), 'bewt-linked-head-'));
+  try {
+    const commonDir = join(root, 'git-common');
+    const gitDir = join(commonDir, 'worktrees', 'audit');
+    const refPath = join(commonDir, 'refs', 'heads', 'audit');
+    const expected = 'b'.repeat(40);
+    mkdirSync(gitDir, { recursive: true });
+    mkdirSync(join(commonDir, 'refs', 'heads'), { recursive: true });
+    writeFileSync(join(root, '.git'), 'gitdir: git-common/worktrees/audit\n');
+    writeFileSync(join(gitDir, 'commondir'), '../..\n');
+    writeFileSync(join(gitDir, 'HEAD'), 'ref: refs/heads/audit\n');
+    writeFileSync(refPath, `${expected}\n`);
+    assert.equal(readGitHeadCommit(root), expected);
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
 });
