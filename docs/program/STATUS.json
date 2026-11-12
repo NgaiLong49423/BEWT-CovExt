@@ -369,8 +369,8 @@
   "research": {
     "RQ1": "BLOCKED_UNSIGNED_HUMAN_REVIEW_AND_ZERO_MATCHED_IMPLEMENTATIONS",
     "RQ2": "NOT_EVALUATED_BASELINE_DENOMINATOR_AND_NEW_UBUS_UNVERIFIED",
-    "RQ3": "RAW_EXECUTION_REPORTED_BUT_ZERO_SEMANTICALLY_VALIDATED_CASES",
-    "RQ4": "PARTIALLY_VERIFIED_FAILED_ATTEMPTS_ONLY_USAGE_AND_COST_UNKNOWN",
+    "RQ3": "PARTIALLY_VERIFIED_RAW_EVIDENCE_ACCOUNTED_ZERO_SOURCE_BOUND_RUNS_ZERO_VALIDATED_40_BLOCKED",
+    "RQ4": "PARTIALLY_VERIFIED_ONE_APPROVED_SCHEMA_FAILURE_PRIOR_FAILURES_USAGE_AND_COST_UNKNOWN",
     "validatedNewCases": 0,
     "rawG3Summary": {
       "initialPassCandidates": 13,
@@ -453,7 +453,7 @@
     "casesEligibleForValidated": 0,
     "evidence": "docs/final-acceptance/",
     "credentialSecurityRevisionCount": 10,
-    "metricsTests": "20/20_PASS",
+    "metricsTests": "28_PASS_1_PLATFORM_LIMITED_SKIP_0_FAIL_OF_29",
     "metricsOutput": "docs/final-acceptance/RQ1-RQ4-results.json",
     "g3RunAccounting": "docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json",
     "sonarCloudReview": "docs/final-acceptance/SONARCLOUD-REVIEW.md",
