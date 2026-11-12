@@ -1,0 +1,5 @@
+<testsuite tests="1" failures="0" errors="1" name="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R7" time="33.924" skipped="0">
+  <testcase classname="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R7" name="testKB_GAP_001" time="33.924">
+    <error type="org.openqa.selenium.TimeoutException" message="Expected condition failed: waiting for tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R7$$Lambda/0x00007974301b71c8@2e61d218 (tried for 10 second(s) with 500 milliseconds interval)" />
+  </testcase>
+</testsuite>

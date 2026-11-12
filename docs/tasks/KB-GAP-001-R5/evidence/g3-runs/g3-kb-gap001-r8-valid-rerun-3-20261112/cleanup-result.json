@@ -1,0 +1,23 @@
+{
+  "runId": "g3-kb-gap001-r8-valid-rerun-3-20261112",
+  "appId": "kanboard",
+  "stoppedContainers": [
+    "bewt-covext-kanboard-selenium-g3-kb-gap001-r8-valid-rerun-3-20261112",
+    "bewt-covext-kanboard-g3-kb-gap001-r8-valid-rerun-3-20261112"
+  ],
+  "removedContainers": [
+    "bewt-covext-kanboard-selenium-g3-kb-gap001-r8-valid-rerun-3-20261112",
+    "bewt-covext-kanboard-g3-kb-gap001-r8-valid-rerun-3-20261112"
+  ],
+  "removedVolumes": [
+    "bewt-covext-kanboard-data-g3-kb-gap001-r8-valid-rerun-3-20261112",
+    "bewt-covext-kanboard-plugins-g3-kb-gap001-r8-valid-rerun-3-20261112",
+    "7e7a78e6799df3b21b3c60bdb5f739b53802816838bf77b061cae0317ed7b526"
+  ],
+  "removedNetwork": "bewt-covext-kanboard-g3-kb-gap001-r8-valid-rerun-3-20261112-net",
+  "zeroResidualVerified": true,
+  "residualContainers": [],
+  "residualNetworks": [],
+  "residualVolumes": [],
+  "outcome": "PASS"
+}

@@ -1,0 +1,5 @@
+<testsuite tests="1" failures="0" errors="1" name="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R6" time="33.303" skipped="0">
+  <testcase classname="tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R6" name="testKB_GAP_001" time="33.303">
+    <error type="org.openqa.selenium.NoSuchElementException" message="no such element: Unable to locate element: {&quot;method&quot;:&quot;link text&quot;,&quot;selector&quot;:&quot;Reopen this task&quot;}" />
+  </testcase>
+</testsuite>

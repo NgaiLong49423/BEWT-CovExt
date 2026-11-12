@@ -28,12 +28,12 @@
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
     },
     "KB-GAP-001-R5": {
-      "status": "R5_R6_R7_PRELIMINARY_G3_FAIL_R8_COMPILE_PASS_G3_PENDING_HUMAN_REVIEW_PENDING",
+      "status": "R8_PRELIMINARY_G3_PASS_4_OF_4_PENDING_HUMAN_REVIEW_AND_PROVENANCE",
       "branch": "task/claroline-kanboard-r4",
       "candidateId": "KB-GAP-001",
       "revision": 8,
-      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-5/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
-      "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
+      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-8/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
+      "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R8.java",
       "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
       "compile": "PASS",
       "r5G3": "FAIL_NO_SUCH_ELEMENT_PROJECT_LINK_AFTER_CREATE_FIXTURE",
@@ -43,7 +43,9 @@
       "r7G3": "FAIL_SEARCH_RESULT_TIMEOUT_ROOT_CAUSE_UNCONFIRMED",
       "r7Cleanup": "PASS_ZERO_RESIDUAL",
       "r8Compile": "PASS",
-      "r8G3": "NOT_RUN_PENDING",
+      "r8G3": "PRELIMINARY_PASS_4_OF_4",
+      "r8HumanReview": "PENDING_UNSIGNED_ORACLE_NOVELTY",
+      "r8EvidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json",
       "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
       "researchValidated": false
     }
