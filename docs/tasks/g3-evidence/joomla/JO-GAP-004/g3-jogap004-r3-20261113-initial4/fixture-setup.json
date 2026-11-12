@@ -1,0 +1,19 @@
+{
+  "candidateId": "JO-GAP-004",
+  "runId": "g3-jogap004-r3-20261113-initial4",
+  "fixtureTitle": "Living Document",
+  "outcome": "FAIL",
+  "reason": "FIXTURE_SETUP_EXCEPTION",
+  "versionCounter": 0,
+  "initialHistoryRows": 0,
+  "saveHistorySettingValue": "NOT_READ_UI",
+  "fixtureCreatedThroughJoomlaUi": true,
+  "fixtureCleanupOutcome": "PASS_EXACT_ARTICLE_ABSENT",
+  "optionsRoutePath": "NOT_VISITED",
+  "optionsPageTitle": "NOT_VISITED",
+  "optionsContext": "NOT_VISITED",
+  "optionsFormVisible": false,
+  "saveHistoryRadioCount": 0,
+  "candidateJavaSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+  "fixtureSetupSha256": "c69eee809bbb8517e8fc6ffece94273b522b3abe10632ec1f16c897b78670204"
+}

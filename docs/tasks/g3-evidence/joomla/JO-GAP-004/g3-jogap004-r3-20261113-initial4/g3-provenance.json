@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateId": "JO-GAP-004",
+  "runId": "g3-jogap004-r3-20261113-initial4",
+  "taskCommit": "59273526fd1e3471bd1ada21aa3ee69170b9c7c9",
+  "runtimeCheckout": {
+    "head": "59273526fd1e3471bd1ada21aa3ee69170b9c7c9",
+    "dirty": false
+  },
+  "application": {
+    "sourceRepository": "https://github.com/joomla/joomla-cms",
+    "sourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+    "sourceVersion": "3.10.11",
+    "image": "joomla:3.10.11",
+    "imageDigest": "sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+    "benchmarkSuiteCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+  },
+  "candidate": {
+    "gherkinSha256": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
+    "gherkinSourcePath": "data/coverage/joomla/source-backed-gap-proposals.json",
+    "javaSourcePath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-3/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R3.java",
+    "javaSourceSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+    "mavenSuiteCopyPath": "experiments/joomla/bewt-suite/src/test/java/base/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R3.java",
+    "fixtureSetupClass": "base.JO_GAP_004_G3_Suite",
+    "fixtureSetupSourcePath": "experiments/joomla/bewt-suite/src/test/java/base/JO_GAP_004_G3_Suite.java",
+    "fixtureSetupSourceSha256": "c69eee809bbb8517e8fc6ffece94273b522b3abe10632ec1f16c897b78670204"
+  },
+  "harness": {
+    "runnerSourcePath": "experiments/tools/unified-g0-runner.mjs",
+    "runnerSourceSha256": "57dfa6c690e61e6d0c1da089a0bf86d597c0ceaea99807b100075b5c182809c9",
+    "runRecordCapturesContainerIdsAndResolvedImageIds": true,
+    "pomPath": "experiments/joomla/bewt-suite/pom.xml",
+    "pomSha256": "64d2d0f85554529425e960f31249842460b22f071c120cb8fd6f4988840339bd"
+  },
+  "runtime": {
+    "javaVersion": "21.0.13.0.3",
+    "mavenVersion": "3.8.7\u001b[m",
+    "seleniumRuntime": {
+      "httpStatus": 200,
+      "ready": true,
+      "buildVersion": null,
+      "nodes": [
+        {
+          "version": "4.52.0 (revision 5b37fd4 5b37fd4d98c08d6a43a0790417f91b8f6f32fb5c)",
+          "browserStereotypes": [
+            {
+              "browserName": "chrome",
+              "browserVersion": "157.0",
+              "platformName": "linux"
+            }
+          ]
+        }
+      ]
+    },
+    "containers": [
+      {
+        "role": "db",
+        "name": "bewt-covext-joomla-db-g3-jogap004-r3-20261113-initial4",
+        "containerId": "e996abf2ca6a0e7e72c3cad4721b0a71e6c98bbcc8666000532cfb1d1e0b7deb",
+        "imageId": "sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae",
+        "requestedImage": "mysql:5.6",
+        "imageRepoDigests": [
+          "mysql@sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae"
+        ],
+        "imageCreatedAt": "2021-12-21T02:57:59.587337844Z"
+      },
+      {
+        "role": "browser",
+        "name": "bewt-covext-joomla-selenium-g3-jogap004-r3-20261113-initial4",
+        "port": 46285,
+        "containerId": "18d64d702218a1fc23bc83554197c0347cc62c45a5d8414b9d8192fe30ca8367",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "requestedImage": "selenium/standalone-chrome:latest",
+        "imageRepoDigests": [
+          "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec"
+        ],
+        "imageCreatedAt": "2026-11-04T23:50:29.122098629Z"
+      },
+      {
+        "role": "app",
+        "name": "bewt-covext-joomla-g3-jogap004-r3-20261113-initial4",
+        "port": 46237,
+        "containerId": "d76f314c1f94dff8bcc87dd8cd96e8c16f809f06d666df27b897fee10fb80beb",
+        "imageId": "sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+        "requestedImage": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+        "imageRepoDigests": [
+          "joomla@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971"
+        ],
+        "imageCreatedAt": "2023-07-05T07:23:38.783263307Z"
+      }
+    ]
+  },
+  "credentialHandling": {
+    "generation": "EPHEMERAL_PER_RUN",
+    "adminEmailDomain": "example.test",
+    "rawCredentialValuesRecorded": false
+  },
+  "command": "node experiments/joomla/tools/run-jo-gap-004-g3.mjs g3-jogap004-r3-20261113-initial4",
+  "candidateMavenCommand": "mvn -B -f experiments/joomla/bewt-suite/pom.xml -Dtest=base.JO_GAP_004_G3_Suite clean test",
+  "g3Status": "PRELIMINARY_ENGINEERING_EXECUTION",
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}

@@ -41,7 +41,14 @@ public class JO_GAP_004_G3_Suite {
         WebDriver driver = null;
         String frontendWindow = null;
         String adminWindow = null;
+        boolean fixtureCreationAttempted = false;
         boolean fixtureCreated = false;
+        boolean frontendArticleConfirmed = false;
+        boolean adminListTextContainsTitle = false;
+        int articleManagerTitleMatchCount = 0;
+        boolean articleEditorOpened = false;
+        boolean versionFieldRead = false;
+        boolean historyRowsObserved = false;
         boolean fixtureVerified = false;
         String outcome = "FAIL";
         String reason = "FIXTURE_SETUP_EXCEPTION";
@@ -78,45 +85,77 @@ public class JO_GAP_004_G3_Suite {
                     .login();
             adminWindow = driver.getWindowHandle();
             ManageArticlesPage articles = adminHome.articles();
-            List<WebElement> existing = articleTitleLinks(driver);
-            if (!existing.isEmpty()) {
+            List<WebElement> existing = articleTitleRows(driver);
+            if (!existing.isEmpty() || articles.containsArticle(ARTICLE_TITLE)) {
                 outcome = "BLOCKED";
                 reason = "FIXTURE_TITLE_ALREADY_EXISTS";
                 throw new IllegalStateException("Refusing to modify an existing article fixture title");
             }
 
             driver.switchTo().window(frontendWindow);
+            fixtureCreationAttempted = true;
             LoggedHome home = loggedIn.createPost()
                     .setTitle(ARTICLE_TITLE)
                     .setBody(INITIAL_BODY)
                     .save();
-            if (home == null) {
-                driver.switchTo().window(adminWindow);
-                driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
-                fixtureCreated = !articleTitleLinks(driver).isEmpty();
-                outcome = "BLOCKED";
-                reason = "ARTICLE_SAVE_DID_NOT_RETURN_HOME";
-                throw new IllegalStateException("Joomla article setup did not return to the home page");
+            if (home != null) {
+                try {
+                    frontendArticleConfirmed = ARTICLE_TITLE.equals(home.getFirstArticleTitle())
+                            && home.getFirstArticleBody().contains(INITIAL_BODY);
+                } catch (RuntimeException ignored) {
+                    frontendArticleConfirmed = false;
+                }
             }
-            fixtureCreated = true;
+            fixtureCreated = frontendArticleConfirmed;
+            if (!frontendArticleConfirmed) {
+                outcome = "BLOCKED";
+                reason = "FRONTEND_ARTICLE_NOT_CONFIRMED";
+                throw new IllegalStateException("Joomla frontend did not show the exact saved article title and body");
+            }
 
             driver.switchTo().window(adminWindow);
             driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
-            List<WebElement> created = waitForArticleTitle(driver);
-            if (created.size() != 1) {
-                outcome = "FAIL";
-                reason = "EXPECTED_ONE_EXACT_TITLE_MATCH";
-                throw new IllegalStateException("Fixture setup requires exactly one exact-title article");
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.presenceOfElementLocated(By.id("articleList")));
+            } catch (org.openqa.selenium.TimeoutException e) {
+                outcome = "BLOCKED";
+                reason = "ADMIN_ARTICLE_LIST_UNAVAILABLE";
+                throw new IllegalStateException("Joomla admin article list did not load", e);
             }
-            created.get(0).click();
+            adminListTextContainsTitle = articles.containsArticle(ARTICLE_TITLE);
+            List<WebElement> created = articleTitleRows(driver);
+            articleManagerTitleMatchCount = created.size();
+            if (created.size() != 1) {
+                outcome = "BLOCKED";
+                reason = created.isEmpty() ? "ARTICLE_NOT_LISTED_IN_ADMIN_MANAGER" : "AMBIGUOUS_EXACT_TITLE_ARTICLES";
+                throw new IllegalStateException("Joomla admin article manager did not show exactly one exact-title fixture row");
+            }
+            fixtureCreated = true;
+            try {
+                created.get(0).findElement(By.linkText(ARTICLE_TITLE)).click();
+            } catch (RuntimeException e) {
+                outcome = "BLOCKED";
+                reason = "ARTICLE_EDITOR_NAVIGATION_FAILED";
+                throw new IllegalStateException("Joomla exact-title editor link could not be opened", e);
+            }
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.presenceOfElementLocated(By.id("jform_version")));
+            } catch (org.openqa.selenium.TimeoutException e) {
+                outcome = "BLOCKED";
+                reason = "ARTICLE_EDITOR_NOT_OPEN";
+                throw new IllegalStateException("Joomla article editor did not open for the exact-title fixture", e);
+            }
+            articleEditorOpened = true;
             String version = driver.findElement(By.id("jform_version")).getAttribute("value");
+            versionFieldRead = true;
             versionCounter = "1".equals(version) ? 1 : 0;
             if (!"1".equals(version)) {
                 outcome = "BLOCKED";
                 reason = "FIXTURE_VERSION_NOT_ONE";
                 throw new IllegalStateException("Fixture setup requires article version counter 1");
             }
-
             List<WebElement> versionsButtons = driver.findElements(By.cssSelector("a.modal_jform_contenthistory"));
             if (versionsButtons.size() != 1 || !versionsButtons.get(0).isDisplayed()) {
                 outcome = "BLOCKED";
@@ -124,9 +163,16 @@ public class JO_GAP_004_G3_Suite {
                 throw new IllegalStateException("Fixture setup requires Joomla version history to be enabled");
             }
             versionsButtons.get(0).click();
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
+            } catch (org.openqa.selenium.TimeoutException e) {
+                outcome = "BLOCKED";
+                reason = "HISTORY_MODAL_UNAVAILABLE";
+                throw new IllegalStateException("Joomla version history dialog did not open", e);
+            }
             List<WebElement> historyRows = driver.findElements(By.cssSelector("#adminForm tbody tr"));
+            historyRowsObserved = true;
             initialHistoryRows = historyRows.size();
             if (historyRows.size() != 1) {
                 outcome = "BLOCKED";
@@ -139,11 +185,11 @@ public class JO_GAP_004_G3_Suite {
             reason = "EXACT_TITLE_VERSION_AND_HISTORY_VERIFIED";
             System.out.println("JO-GAP-004 fixture setup PASS: exact title, version 1, and one initial history row verified.");
         } catch (Exception | AssertionError e) {
-            if (fixtureCreated && !fixtureVerified) {
+            if (fixtureCreationAttempted && !fixtureVerified) {
                 cleanupOutcome = cleanupCreatedFixture(driver, adminWindow);
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                    fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                    fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
                     optionsContext, optionsFormVisible, saveHistoryRadioCount);
             throw e;
         } finally {
@@ -152,34 +198,37 @@ public class JO_GAP_004_G3_Suite {
             }
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                fixtureCreated, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
                 optionsContext, optionsFormVisible, saveHistoryRadioCount);
     }
 
-    private static List<WebElement> articleTitleLinks(WebDriver driver) {
-        return driver.findElements(By.cssSelector("#articleList a")).stream()
-                .filter(link -> ARTICLE_TITLE.equals(link.getText().trim()))
+    private static List<WebElement> articleTitleRows(WebDriver driver) {
+        return driver.findElements(By.cssSelector("#articleList tbody tr")).stream()
+                .filter(row -> row.findElements(By.linkText(ARTICLE_TITLE)).size() == 1)
                 .toList();
     }
-
-    private static List<WebElement> waitForArticleTitle(WebDriver driver) {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(currentDriver -> !articleTitleLinks(currentDriver).isEmpty());
-        return articleTitleLinks(driver);
-    }
-
     private static String cleanupCreatedFixture(WebDriver driver, String adminWindow) {
         if (driver == null || adminWindow == null) return "FAILED_ADMIN_SESSION_UNAVAILABLE";
         try {
             driver.switchTo().defaultContent();
             driver.switchTo().window(adminWindow);
             driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
-            List<WebElement> matching = articleTitleLinks(driver);
-            if (matching.isEmpty()) return "PASS_EXACT_ARTICLE_ABSENT";
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("articleList")));
+            List<WebElement> matching = articleTitleRows(driver);
+            boolean titleTextPresent = new ManageArticlesPage(driver).containsArticle(ARTICLE_TITLE);
+            if (matching.isEmpty()) {
+                return titleTextPresent
+                        ? "FAILED_TITLE_REMAINS_IN_ADMIN_LIST_TEXT"
+                        : "PASS_EXACT_ARTICLE_ABSENT_VERIFIED_BY_ROWS_AND_LIST_TEXT";
+            }
             if (matching.size() != 1) return "FAILED_EXACT_TITLE_MATCH_COUNT_" + matching.size();
 
-            matching.get(0).click();
+            matching.get(0).findElement(By.linkText(ARTICLE_TITLE)).click();
             List<WebElement> versionsButtons = driver.findElements(By.cssSelector("a.modal_jform_contenthistory"));
-            if (versionsButtons.size() == 1) {
+            if (versionsButtons.size() > 1) return "FAILED_AMBIGUOUS_HISTORY_CONTROLS";
+            boolean historyControlAvailable = versionsButtons.size() == 1 && versionsButtons.get(0).isDisplayed();
+            if (historyControlAvailable) {
                 versionsButtons.get(0).click();
                 new WebDriverWait(driver, Duration.ofSeconds(10))
                         .until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("sbox-content")));
@@ -197,14 +246,23 @@ public class JO_GAP_004_G3_Suite {
             }
 
             driver.get(ExperimentConfig.appUrl() + "administrator/index.php?option=com_content&view=articles");
-            matching = articleTitleLinks(driver);
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.presenceOfElementLocated(By.id("articleList")));
+            matching = articleTitleRows(driver);
             if (matching.size() != 1) return "FAILED_ARTICLE_MATCH_BEFORE_TRASH_" + matching.size();
-            WebElement row = matching.get(0).findElement(By.xpath("./ancestor::tr[1]"));
+            WebElement row = matching.get(0);
             row.findElement(By.cssSelector("td:nth-child(3) div button")).click();
             row.findElement(By.cssSelector("td:nth-child(3) div ul li:nth-child(2) a")).click();
-            new WebDriverWait(driver, Duration.ofSeconds(10)).until(
-                    currentDriver -> articleTitleLinks(currentDriver).isEmpty());
-            return "PASS_HISTORY_AND_EXACT_ARTICLE_REMOVED";
+            new WebDriverWait(driver, Duration.ofSeconds(10)).until(currentDriver -> {
+                List<WebElement> remainingRows = articleTitleRows(currentDriver);
+                return remainingRows.isEmpty() && !new ManageArticlesPage(currentDriver).containsArticle(ARTICLE_TITLE);
+            });
+            boolean exactRowsAbsent = articleTitleRows(driver).isEmpty();
+            boolean listTextAbsent = !new ManageArticlesPage(driver).containsArticle(ARTICLE_TITLE);
+            if (!exactRowsAbsent || !listTextAbsent) return "FAILED_ARTICLE_STILL_PRESENT_AFTER_TRASH";
+            return historyControlAvailable
+                    ? "PASS_HISTORY_AND_EXACT_ARTICLE_REMOVED_VERIFIED_BY_ROWS_AND_LIST_TEXT"
+                    : "PASS_EXACT_ARTICLE_REMOVED_VERIFIED_BY_ROWS_AND_LIST_TEXT_HISTORY_CONTROL_UNAVAILABLE";
         } catch (RuntimeException e) {
             return "FAILED_CLEANUP_" + e.getClass().getSimpleName();
         }
@@ -219,7 +277,10 @@ public class JO_GAP_004_G3_Suite {
     }
 
     private static void writeEvidence(String evidencePath, String runId, String outcome, String reason,
-            int version, int historyRows, boolean fixtureCreated, String saveHistorySetting,
+            int version, int historyRows, boolean fixtureCreated, boolean fixtureCreationAttempted,
+            boolean frontendArticleConfirmed, boolean adminListTextContainsTitle, int articleManagerTitleMatchCount,
+            boolean articleEditorOpened, boolean versionFieldRead, boolean historyRowsObserved,
+            String saveHistorySetting,
             String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
             String optionsContext, boolean optionsFormVisible, int saveHistoryRadioCount) throws Exception {
         Path path = Path.of(evidencePath);
@@ -234,6 +295,13 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"initialHistoryRows\": " + historyRows + ",\n"
                 + "  \"saveHistorySettingValue\": \"" + saveHistorySetting + "\",\n"
                 + "  \"fixtureCreatedThroughJoomlaUi\": " + fixtureCreated + ",\n"
+                + "  \"fixtureCreationAttempted\": " + fixtureCreationAttempted + ",\n"
+                + "  \"frontendArticleConfirmed\": " + frontendArticleConfirmed + ",\n"
+                + "  \"articleManagerExactTitleRowCount\": " + articleManagerTitleMatchCount + ",\n"
+                + "  \"adminListTextContainsExactTitle\": " + adminListTextContainsTitle + ",\n"
+                + "  \"versionFieldRead\": " + versionFieldRead + ",\n"
+                + "  \"initialHistoryRowsObserved\": " + historyRowsObserved + ",\n"
+                + "  \"articleEditorOpened\": " + articleEditorOpened + ",\n"
                 + "  \"fixtureCleanupOutcome\": \"" + cleanupOutcome + "\",\n"
                 + "  \"optionsRoutePath\": \"" + optionsRoutePath + "\",\n"
                 + "  \"optionsPageTitle\": \"" + optionsPageTitle + "\",\n"

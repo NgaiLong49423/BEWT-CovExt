@@ -8,16 +8,21 @@ const testDirectory = dirname(fileURLToPath(import.meta.url));
 const suitePath = resolve(testDirectory, '../../joomla/bewt-suite/src/test/java/base/JO_GAP_004_G3_Suite.java');
 const suiteSource = readFileSync(suitePath, 'utf8');
 
-test('a missing initial history row blocks R3 and routes a created fixture through exact-title cleanup', () => {
+test('missing history blocks R3 and created fixtures use independently verified exact-title cleanup', () => {
   assert.match(suiteSource, /String saveHistorySetting = "NOT_READ_UI";/);
+  assert.match(suiteSource, /ARTICLE_TITLE\.equals\(home\.getFirstArticleTitle\(\)\)[\s\S]*?home\.getFirstArticleBody\(\)\.contains\(INITIAL_BODY\)/);
+  assert.match(suiteSource, /#articleList tbody tr/);
   assert.match(suiteSource, /reason = "EXPECTED_ONE_INITIAL_HISTORY_ROW";[\s\S]*?throw new IllegalStateException\("Fixture setup requires one initial history snapshot"\);/);
-  assert.match(suiteSource, /if \(fixtureCreated && !fixtureVerified\) \{\s*cleanupOutcome = cleanupCreatedFixture\(driver, adminWindow\);/);
+  assert.match(suiteSource, /if \(fixtureCreationAttempted && !fixtureVerified\) \{\s*cleanupOutcome = cleanupCreatedFixture\(driver, adminWindow\);/);
+  assert.match(suiteSource, /articleManagerExactTitleRowCount/);
+  assert.match(suiteSource, /articleEditorOpened/);
 
   const cleanupStart = suiteSource.indexOf('private static String cleanupCreatedFixture');
   assert.notEqual(cleanupStart, -1);
   const cleanup = suiteSource.slice(cleanupStart);
-  assert.match(cleanup, /if \(matching\.isEmpty\(\)\) return "PASS_EXACT_ARTICLE_ABSENT";/);
-  assert.match(cleanup, /if \(matching\.size\(\) != 1\) return "FAILED_EXACT_TITLE_MATCH_COUNT_" \+ matching\.size\(\);/);
-  assert.match(cleanup, /currentDriver -> articleTitleLinks\(currentDriver\)\.isEmpty\(\)/);
-  assert.match(suiteSource, /ARTICLE_TITLE\.equals\(link\.getText\(\)\.trim\(\)\)/);
+  assert.match(cleanup, /new ManageArticlesPage\(driver\)\.containsArticle\(ARTICLE_TITLE\)/);
+  assert.match(cleanup, /PASS_EXACT_ARTICLE_ABSENT_VERIFIED_BY_ROWS_AND_LIST_TEXT/);
+  assert.match(cleanup, /FAILED_EXACT_TITLE_MATCH_COUNT_/);
+  assert.match(cleanup, /new ManageArticlesPage\(currentDriver\)\.containsArticle\(ARTICLE_TITLE\)/);
+  assert.match(suiteSource, /row -> row\.findElements\(By\.linkText\(ARTICLE_TITLE\)\)\.size\(\) == 1/);
 });
