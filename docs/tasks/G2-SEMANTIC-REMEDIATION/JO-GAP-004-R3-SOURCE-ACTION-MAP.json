@@ -146,9 +146,9 @@
       ]
     },
     {
-      "gherkinStep": "Then two distinct revision rows list timestamps and author admin",
+      "gherkinStep": "Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author admin",
       "javaLines": "97-109",
-      "actionOrAssertion": "Asserts exactly two rows, unique cid values, nonempty save-date text, and admin author for each row",
+      "actionOrAssertion": "Asserts exactly two rows, unique cid values, nonempty save-date text, and admin author for each row; it does not assert that the displayed row versions are exactly 1 and 2",
       "sourceRefs": [
         "libraries/src/Table/Content.php:41-42",
         "libraries/src/Table/Observer/ContentHistory.php:80-90",

@@ -3,7 +3,7 @@
   "auditBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
   "auditTargetMain": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "generatedAt": "2026-11-12",
-  "note": "Static source/mapping audit; JO-GAP-004 R3 now maps the unchanged scenario to pinned Joomla UI/source and passes suite test-compile. Runtime and human oracle/novelty acceptance remain pending.",
+  "note": "Static source/mapping audit; JO-GAP-004 R3 maps the unchanged scenario to pinned Joomla UI/source and passes suite test-compile, but final review found it does not assert the history row labels are exactly versions 1 and 2. Runtime and human oracle/novelty acceptance remain pending.",
   "excludedActiveRemediation": [
     "EC-GAP-002",
     "KB-GAP-001"
@@ -2485,8 +2485,8 @@
           "text": "Assert two distinct revision IDs"
         }
       ],
-      "semanticStatus": "MATCHED",
-      "mismatch": null,
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "The history check asserts two distinct history IDs, timestamps, and admin authors, but never verifies the displayed row versions are exactly 1 and 2 as required by the Gherkin.",
       "sourceBasis": {
         "applicationVersion": "3.10.11",
         "repositoryPin": {
@@ -2607,7 +2607,7 @@
         "historicalR2CompileOutcome": "PASS",
         "historicalR2G3Outcome": "VALIDATED",
         "runtimeIdentityBound": false,
-        "compileEvidencePath": "docs/tasks/G2-SEMANTIC-REMEDIATION/evidence/joomla-r3-test-compile.txt",
+      "compileEvidencePath": "docs/tasks/G2-SEMANTIC-REMEDIATION/evidence/joomla-final-review-90bcd092.json",
         "runtimeOutcomeForLatestRevision": "NOT_RUN"
       },
       "scopeDisposition": null,
