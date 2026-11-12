@@ -21,8 +21,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import po.BaseNavBar;
 import po.EditProfilePage;
-import po.LoggedHome;
-import po.ManageArticlesPage;
 import po.SiteAdminHome;
 
 /**
@@ -44,8 +42,6 @@ public class JO_GAP_004_G3_Suite {
         String adminWindow = null;
         boolean fixtureCreationAttempted = false;
         boolean fixtureCreated = false;
-        boolean frontendArticleConfirmed = false;
-        boolean adminListTextContainsTitle = false;
         int articleManagerTitleMatchCount = 0;
         boolean articleEditorOpened = false;
         boolean versionFieldRead = false;
@@ -91,9 +87,9 @@ public class JO_GAP_004_G3_Suite {
                     .login();
             adminWindow = driver.getWindowHandle();
             currentStage = "FIXTURE_TITLE_PRECHECK";
-            ManageArticlesPage articles = adminHome.articles();
+            adminHome.articles();
             List<WebElement> existing = articleTitleRows(driver);
-            if (!existing.isEmpty() || articles.containsArticle(ARTICLE_TITLE)) {
+            if (!existing.isEmpty()) {
                 outcome = "BLOCKED";
                 reason = "FIXTURE_TITLE_ALREADY_EXISTS";
                 throw new IllegalStateException("Refusing to modify an existing article fixture title");
@@ -102,26 +98,10 @@ public class JO_GAP_004_G3_Suite {
             driver.switchTo().window(frontendWindow);
             currentStage = "FRONTEND_SAVE";
             fixtureCreationAttempted = true;
-            LoggedHome home = loggedIn.createPost()
+            loggedIn.createPost()
                     .setTitle(ARTICLE_TITLE)
                     .setBody(INITIAL_BODY)
                     .save();
-            if (home != null) {
-                try {
-                    frontendArticleConfirmed = ARTICLE_TITLE.equals(home.getFirstArticleTitle())
-                            && home.getFirstArticleBody().contains(INITIAL_BODY);
-                } catch (RuntimeException e) {
-                    exceptionClass = e.getClass().getSimpleName();
-                    currentStage = "FRONTEND_VERIFY";
-                    throw e;
-                }
-            }
-            fixtureCreated = frontendArticleConfirmed;
-            if (!frontendArticleConfirmed) {
-                outcome = "BLOCKED";
-                reason = "FRONTEND_ARTICLE_NOT_CONFIRMED";
-                throw new IllegalStateException("Joomla frontend did not show the exact saved article title and body");
-            }
 
             currentStage = "ADMIN_LIST_MATCH";
             driver.switchTo().window(adminWindow);
@@ -134,7 +114,6 @@ public class JO_GAP_004_G3_Suite {
                 reason = "ADMIN_ARTICLE_LIST_UNAVAILABLE";
                 throw new IllegalStateException("Joomla admin article list did not load", e);
             }
-            adminListTextContainsTitle = articles.containsArticle(ARTICLE_TITLE);
             List<WebElement> created = articleTitleRows(driver);
             articleManagerTitleMatchCount = created.size();
             if (created.size() != 1) {
@@ -207,7 +186,7 @@ public class JO_GAP_004_G3_Suite {
                 cleanupOutcome = cleanupCreatedFixture(driver, adminWindow);
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                    fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                    fixtureCreated, fixtureCreationAttempted, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
                     optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
             throw e;
         } finally {
@@ -216,7 +195,7 @@ public class JO_GAP_004_G3_Suite {
             }
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
-                fixtureCreated, fixtureCreationAttempted, frontendArticleConfirmed, adminListTextContainsTitle, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
+                fixtureCreated, fixtureCreationAttempted, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
                 optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
     }
 
@@ -249,11 +228,8 @@ public class JO_GAP_004_G3_Suite {
             new WebDriverWait(driver, Duration.ofSeconds(10))
                     .until(ExpectedConditions.presenceOfElementLocated(By.id("articleList")));
             List<WebElement> matching = articleTitleRows(driver);
-            boolean titleTextPresent = new ManageArticlesPage(driver).containsArticle(ARTICLE_TITLE);
             if (matching.isEmpty()) {
-                return titleTextPresent
-                        ? "FAILED_TITLE_REMAINS_IN_ADMIN_LIST_TEXT"
-                        : "PASS_EXACT_ARTICLE_ABSENT_VERIFIED_BY_ROWS_AND_LIST_TEXT";
+                return "PASS_EXACT_ARTICLE_ABSENT_FROM_ADMIN_TABLE";
             }
             if (matching.size() != 1) return "FAILED_EXACT_TITLE_MATCH_COUNT_" + matching.size();
 
@@ -287,15 +263,13 @@ public class JO_GAP_004_G3_Suite {
             row.findElement(By.cssSelector("td:nth-child(3) div button")).click();
             row.findElement(By.cssSelector("td:nth-child(3) div ul li:nth-child(2) a")).click();
             new WebDriverWait(driver, Duration.ofSeconds(10)).until(currentDriver -> {
-                List<WebElement> remainingRows = articleTitleRows(currentDriver);
-                return remainingRows.isEmpty() && !new ManageArticlesPage(currentDriver).containsArticle(ARTICLE_TITLE);
+                return articleTitleRows(currentDriver).isEmpty();
             });
             boolean exactRowsAbsent = articleTitleRows(driver).isEmpty();
-            boolean listTextAbsent = !new ManageArticlesPage(driver).containsArticle(ARTICLE_TITLE);
-            if (!exactRowsAbsent || !listTextAbsent) return "FAILED_ARTICLE_STILL_PRESENT_AFTER_TRASH";
+            if (!exactRowsAbsent) return "FAILED_ARTICLE_STILL_PRESENT_IN_ADMIN_TABLE_AFTER_TRASH";
             return historyControlAvailable
-                    ? "PASS_HISTORY_AND_EXACT_ARTICLE_REMOVED_VERIFIED_BY_ROWS_AND_LIST_TEXT"
-                    : "PASS_EXACT_ARTICLE_REMOVED_VERIFIED_BY_ROWS_AND_LIST_TEXT_HISTORY_CONTROL_UNAVAILABLE";
+                    ? "PASS_HISTORY_AND_EXACT_ARTICLE_REMOVED_FROM_ADMIN_TABLE"
+                    : "PASS_EXACT_ARTICLE_REMOVED_FROM_ADMIN_TABLE_HISTORY_CONTROL_UNAVAILABLE";
         } catch (RuntimeException e) {
             return "FAILED_CLEANUP_" + e.getClass().getSimpleName();
         }
@@ -311,7 +285,7 @@ public class JO_GAP_004_G3_Suite {
 
     private static void writeEvidence(String evidencePath, String runId, String outcome, String reason,
             int version, int historyRows, boolean fixtureCreated, boolean fixtureCreationAttempted,
-            boolean frontendArticleConfirmed, boolean adminListTextContainsTitle, int articleManagerTitleMatchCount,
+            int articleManagerTitleMatchCount,
             boolean articleEditorOpened, boolean versionFieldRead, boolean historyRowsObserved,
             String saveHistorySetting,
             String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
@@ -330,9 +304,7 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"saveHistorySettingValue\": \"" + saveHistorySetting + "\",\n"
                 + "  \"fixtureCreatedThroughJoomlaUi\": " + fixtureCreated + ",\n"
                 + "  \"fixtureCreationAttempted\": " + fixtureCreationAttempted + ",\n"
-                + "  \"frontendArticleConfirmed\": " + frontendArticleConfirmed + ",\n"
                 + "  \"articleManagerExactTitleRowCount\": " + articleManagerTitleMatchCount + ",\n"
-                + "  \"adminListTextContainsExactTitle\": " + adminListTextContainsTitle + ",\n"
                 + "  \"versionFieldRead\": " + versionFieldRead + ",\n"
                 + "  \"initialHistoryRowsObserved\": " + historyRowsObserved + ",\n"
                 + "  \"articleEditorOpened\": " + articleEditorOpened + ",\n"

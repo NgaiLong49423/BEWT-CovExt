@@ -1,0 +1,25 @@
+{
+  "scope": "JO-GAP-004 G3 fixture precondition and exact-row cleanup",
+  "worktreeHeadBeforeCommit": "0c0efcce380543ba65d0922d8e3432d0b7d644b2",
+  "focusedNodeTest": {
+    "command": "node --test experiments/g0-safety/test/joomla-fixture-precondition.test.mjs",
+    "passed": 2,
+    "failed": 0,
+    "result": "PASS"
+  },
+  "syntaxAndDiffChecks": "PASS: runner/wrapper syntax, STATUS JSON parse, git diff --check",
+  "maven": {
+    "command": "mvn -B clean test-compile",
+    "module": "experiments/joomla/bewt-suite",
+    "result": "BUILD_SUCCESS",
+    "mainSourcesCompiled": 31,
+    "testSourcesCompiled": 47,
+    "exitCode": 0
+  },
+  "fixturePrecondition": "SAVE_RETURN_IS_NOT_TREATED_AS_PERSISTENCE; EXACT_ADMIN_TABLE_ROW_THEN_EDITOR_VERSION_1_AND_ONE_HISTORY_ROW_REQUIRED",
+  "fixtureCleanup": "EXACT_TITLE_ADMIN_TABLE_ROWS_ONLY; NO_PAGE_WIDE_ALERT_TEXT_CHECK",
+  "runtimeAttemptStarted": false,
+  "candidateJavaOrGherkinChanged": false,
+  "humanOracleNoveltyApproval": "PENDING",
+  "validated": false
+}
