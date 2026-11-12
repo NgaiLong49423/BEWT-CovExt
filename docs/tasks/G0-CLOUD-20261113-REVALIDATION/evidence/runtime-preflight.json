@@ -54,8 +54,9 @@
     "runtimeStarted": false
   },
   "credentialHandlingReview": {
-    "installerCredentialArgumentsObservedInRunner": true,
-    "classification": "REQUIRES_HARDENING_OR_BOUNDED_PROCESS_VISIBILITY_CONTROL_BEFORE_REAL_CREDENTIAL_INJECTION",
+    "hostDockerArgumentExposure": "MITIGATED_BY_PR28_E18F3030810513A9BC219C26BE406A3BA3EE9BEF_USING_EPHEMERAL_ENV_FILES",
+    "residualExposure": "DOCKER_DAEMON_CONTAINER_CONFIG_AND_INSTALLER_PROCESS_ARGUMENTS_INSIDE_DISPOSABLE_APP_CONTAINER",
+    "classification": "BOUNDED_RUNTIME_TRUST_BOUNDARY_NOT_EXERCISED_WITH_CREDENTIALS",
     "credentialValuesCaptured": false
   },
   "g0": {

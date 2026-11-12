@@ -82,7 +82,7 @@
       "runtimeSourcePullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/28"
     },
     "G0-CLOUD-20261113-REVALIDATION": {
-      "status": "BLOCKED_CREDENTIAL_SOURCE_AND_INSTALLER_ARGUMENT_EXPOSURE_REVIEW_BEFORE_CONTAINER_START",
+      "status": "BLOCKED_CREDENTIAL_INJECTION_AND_TEAM_LEAD_RUN_SIGNAL_BEFORE_CONTAINER_START",
       "branch": "task/g0-cloud-runtime-acceptance-pr27",
       "pullRequest": 29,
       "pullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/29",
@@ -101,7 +101,7 @@
         "mavenInvocations": 0,
         "g0Rerun": "NOT_RUN",
         "g3": "NOT_RUN",
-        "credentialHandling": "INSTALLER_ARGUMENT_EXPOSURE_REQUIRES_REVIEW_BEFORE_REAL_SECRET_INJECTION"
+        "credentialHandling": "HOST_DOCKER_ARG_EXPOSURE_HARDENED_IN_PR28_E18F303; CONTAINER_ADMIN_PROCESS_VISIBILITY_ISOLATION_BOUNDARY_DOCUMENTED"
       },
       "evidence": [
         "docs/tasks/G0-CLOUD-20261113-REVALIDATION/TASK-REPORT.md",
@@ -474,7 +474,7 @@
   },
   "taskReview": {
     "currentTaskId": "G0-CLOUD-20261113-REVALIDATION",
-    "currentTaskStatus": "G0_PREFLIGHT_BLOCKED_CREDENTIAL_SOURCE_AND_ARGUMENT_EXPOSURE_REVIEW",
+    "currentTaskStatus": "G0_PREFLIGHT_BLOCKED_CREDENTIAL_INJECTION_AND_TEAM_LEAD_SIGNAL",
     "currentTaskBranch": "task/g0-cloud-runtime-acceptance-pr27",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/29",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
