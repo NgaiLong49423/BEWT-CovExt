@@ -3,7 +3,7 @@
   "baselineAuditCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "implementationBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
   "revision": 4,
-  "implementationCommit": "PENDING_COMMIT",
+  "implementationCommit": "e65482a3a5b93dbeaafa969b1f804ee4b3b73e73",
   "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
   "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4.java",
   "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/gherkin.feature",
@@ -74,7 +74,7 @@
     "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/gherkin.feature",
     "javaSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
     "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
-    "implementationCommit": "PENDING_COMMIT"
+    "implementationCommit": "e65482a3a5b93dbeaafa969b1f804ee4b3b73e73"
   },
   "revisions": [
     {
@@ -93,7 +93,7 @@
     },
     {
       "revision": 4,
-      "implementationCommit": "PENDING_COMMIT",
+      "implementationCommit": "e65482a3a5b93dbeaafa969b1f804ee4b3b73e73",
       "g3Initial": "NOT_RUN_PENDING_PUSH",
       "compile": "PASS_46_TEST_SOURCES",
       "javaSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
