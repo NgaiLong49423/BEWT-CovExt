@@ -154,6 +154,22 @@ export function parseSurefireSummary(xmlContent, expectedClass) {
   };
 }
 
+export function requireExpressCartAdminCredentials(env = process.env) {
+  const adminEmail = env.ADMIN_EMAIL;
+  const adminPassword = env.ADMIN_PASSWORD;
+  if (typeof adminEmail !== 'string' || adminEmail.trim() === '') {
+    throw new Error('MISSING_REQUIRED_ENV: ADMIN_EMAIL');
+  }
+  if (typeof adminPassword !== 'string' || adminPassword.trim() === '') {
+    throw new Error('MISSING_REQUIRED_ENV: ADMIN_PASSWORD');
+  }
+  return { ADMIN_EMAIL: adminEmail, ADMIN_PASSWORD: adminPassword };
+}
+
+export function resolveTestEnv(cfg, env = process.env) {
+  if (typeof cfg.testEnv === 'function') return cfg.testEnv(env);
+  return cfg.testEnv || {};
+}
 export const APPS = {
   bludit: {
     appId: 'bludit',
@@ -191,6 +207,7 @@ export const APPS = {
     appUrlProperty: 'expresscart.baseUrl',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://127.0.0.1:${port}`,
+    testEnv: requireExpressCartAdminCredentials,
     appEnv: (dbHost) => ({
       NODE_ENV: 'production',
       PORT: '1111',
@@ -315,6 +332,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const validRunId = validateRunId(rawRunId);
   const cfg = APPS[appId];
   if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
+  // Resolve required app credentials before creating evidence or touching Docker.
+  const appTestEnv = resolveTestEnv(cfg);
 
   const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
@@ -497,12 +516,13 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       try {
         dockerCli(['exec', appName, 'npm', 'run', 'testdata']);
         dockerCli([
-          'exec', appName,
+          'exec', '-e', 'ADMIN_EMAIL', '-e', 'ADMIN_PASSWORD', appName,
           'node', '-e',
-          "const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { await client.db('expresscart_experiment').collection('users').updateOne({ userEmail: 'owner@test.com' }, { $set: { userPassword: bcrypt.hashSync('e2eW3Bt3s71nGB3nchM4rK', 10) } }); await client.close(); });",
+"const bcrypt = require('bcryptjs'); const { MongoClient } = require('mongodb'); const email = process.env.ADMIN_EMAIL; const password = process.env.ADMIN_PASSWORD; if (!email || !email.trim() || !password || !password.trim()) throw new Error('ADMIN_EMAIL and ADMIN_PASSWORD are required'); MongoClient.connect(process.env.databaseConnectionString, { useNewUrlParser: true, useUnifiedTopology: true }).then(async client => { try { const result = await client.db('expresscart_experiment').collection('users').updateOne({ isOwner: true }, { $set: { userEmail: email, userPassword: bcrypt.hashSync(password, 10) } }); if (result.matchedCount !== 1 && result.result?.n !== 1) throw new Error('Expected exactly one seeded owner account'); } finally { await client.close(); } }).catch(error => { console.error('ExpressCart credential fixture failed:', error.message); process.exitCode = 1; });",
         ]);
       } catch (e) {
         console.error(`ExpressCart fixture error: ${e.message}`);
+        throw e;
       }
     } else if (appId === 'bludit') {
       if (cfg.installerClass) {
@@ -520,7 +540,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           encoding: 'utf8',
           env: {
             ...process.env,
-            ...(cfg.testEnv || {}),
+            ...appTestEnv,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
           },
@@ -545,7 +565,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           encoding: 'utf8',
           env: {
             ...process.env,
-            ...(cfg.testEnv || {}),
+            ...appTestEnv,
             BEWT_INSTALL_URL: instUrl,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
@@ -572,7 +592,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     const testEnvVars = {
       ...process.env,
-      ...(cfg.testEnv || {}),
+      ...appTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',

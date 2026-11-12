@@ -3,3 +3,4 @@ exit_code: 0
 result: PASS
 compiled_test_sources: 45 (includes tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3)
 execution: NOT_RUN
+runtime: NOT_RUN_PENDING_ROOT_RUNTIME

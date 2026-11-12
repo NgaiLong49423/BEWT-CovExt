@@ -229,7 +229,19 @@
           "humanOracleNoveltyReview": "PENDING_HUMAN_SIGNATURE",
           "validated": false,
           "traceabilityAddendum": "docs/final-acceptance/EC-GAP-002-REMEDIATION-ADDENDUM.json",
-          "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md"
+          "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
+          "runnerCredentialHandoff": {
+            "status": "IMPLEMENTED_AND_COMPILE_VERIFIED",
+            "requiredEnvironmentVariables": [
+              "ADMIN_EMAIL",
+              "ADMIN_PASSWORD"
+            ],
+            "failClosedBeforeDocker": true,
+            "focusedRunnerTests": "PASS_2",
+            "mavenTestCompile": "PASS_45_TEST_SOURCES",
+            "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
+            "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt"
+          }
         }
       }
     },

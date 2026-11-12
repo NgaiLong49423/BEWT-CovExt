@@ -32,7 +32,21 @@ The source also shows the original named product is absent from the pinned seed.
 
 This agent did not access or change Docker/Cloud resources. The parent will bind G3 evidence to the pushed branch and use `docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/`.
 
-## 3. Research impact
+## 3. Runner credential handoff follow-up
+
+The PR follow-up removes ExpressCart's hard-coded admin identity from the G0 runner. `ADMIN_EMAIL` and `ADMIN_PASSWORD` must both be present and nonblank in the runner process environment; the runner fails before creating evidence or touching Docker if either is absent. The fixture passes those environment keys to its in-container setup process and uses them to set the seeded owner account. The same resolved environment is passed to Maven. No `.env` file or credential values are committed. Other applications' existing configuration is outside this ExpressCart-scoped follow-up.
+
+Focused verification:
+
+| Exact command | Result | Evidence |
+|---|---|---|
+| `node --test experiments/tools/unified-g0-runner.test.mjs` | PASS; 2 tests cover missing/blank values and propagation of synthetic values. | `docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt` |
+| `node --check experiments/tools/unified-g0-runner.mjs` and `node --check experiments/tools/unified-g0-runner.test.mjs` | PASS. | Command output was empty (exit 0). |
+| `mvn -f experiments/expresscart/bewt-suite/pom.xml test-compile` | PASS; 45 test sources compiled. | `docs/tasks/EC-GAP-002-REMEDIATION/evidence/maven-test-compile-summary.txt` |
+
+This follow-up did not execute the runner, Docker, Cloud, or VM. Parent runtime remains `NOT_RUN_PENDING_ROOT_RUNTIME`; provide the two required variables securely in the authorized runtime environment.
+
+## 4. Research impact
 
 - App/candidate: ExpressCart 1.1.19 / EC-GAP-002.
 - R2 semantic status: WRONG_BEHAVIOR (add-to-cart only).
@@ -40,7 +54,7 @@ This agent did not access or change Docker/Cloud resources. The parent will bind
 - Human decision: `APPROVED_FOR_IMPLEMENTATION` only; `reviewStatus=PENDING_HUMAN_SIGNATURE`; reviewer remains unassigned. No human record was modified.
 - Research impact: no novelty, coverage gain, execution, stability, or validation claim is made.
 
-## 4. Safety & integrity
+## 5. Safety & integrity
 
 - `bewt-original/` touched: NO.
 - Docker/project resources touched: NONE.
@@ -48,7 +62,7 @@ This agent did not access or change Docker/Cloud resources. The parent will bind
 - Credentials/secrets: no values in R3; only environment variable names appear.
 - Prior G3 records are not attributed to R3.
 
-## 5. Evidence and reproduction
+## 6. Evidence and reproduction
 
 - Pinned route: `experiments/expresscart/source/routes/index.js:603-643`; 400/message at `:606-610`; cart mutation after checks at `:641-643`.
 - App stock mode: `experiments/expresscart/source/app.js:528-530`; source seed stock: `experiments/expresscart/source/bin/testdata.json:12`; source default `trackStock:false`: `experiments/expresscart/source/config/settings.json:25`.
@@ -57,7 +71,7 @@ This agent did not access or change Docker/Cloud resources. The parent will bind
 - G3 command for the parent VM: `mvn -f experiments/expresscart/bewt-suite/pom.xml -Dtest=tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3 test`; provide `ADMIN_EMAIL`/`ADMIN_PASSWORD` securely and set `expresscart.baseUrl` if required by the authorized runtime.
 - Known limitation: the original proposal's literal error oracle is source-inaccurate. R3 records the corrected message but requires Team Lead oracle review before scientific acceptance.
 
-## 6. Review request
+## 7. Review request
 
 - Review whether the corrected R3 Gherkin/oracle should replace the original proposed oracle for implementation review; do not treat this agent-authored correction as human approval.
 - Verify the exact pushed source, run R3 on the authorized VM, and preserve initial plus three clean-state rerun records only after a passing, semantically eligible initial run.

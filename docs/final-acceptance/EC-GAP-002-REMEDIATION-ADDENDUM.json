@@ -20,14 +20,18 @@
     "seedStockLines": "experiments/expresscart/source/bin/testdata.json:12",
     "defaultStockTrackingLines": "experiments/expresscart/source/config/settings.json:25"
   },
-  "previousRevisionsPreserved": [1,2],
+  "previousRevisionsPreserved": [
+    1,
+    2
+  ],
   "candidateDecision": "APPROVED_FOR_IMPLEMENTATION; HUMAN_ORACLE_AND_NOVELTY_REVIEW_PENDING",
   "technicalStatus": {
     "compile": "PASS",
     "sourceBehaviorAssertions": "IMPLEMENTED_NOT_RUN",
     "g3Initial": "NOT_RUN_PENDING_ROOT_RUNTIME",
     "g3CleanReruns": 0,
-    "validated": false
+    "validated": false,
+    "runnerCredentialHandoff": "IMPLEMENTED_AND_COMPILE_VERIFIED"
   },
   "limitations": [
     "The original proposal expects a different error string than the pinned source returns; revision 3 records the source response without rewriting the historical proposal.",
@@ -35,5 +39,20 @@
     "The runtime path was unavailable locally and no active Cloud authentication was present; G3 and reruns were not attempted."
   ],
   "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
-  "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/"
+  "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/",
+  "runnerCredentialHandoff": {
+    "status": "IMPLEMENTED_AND_COMPILE_VERIFIED",
+    "runnerPath": "experiments/tools/unified-g0-runner.mjs",
+    "requiredEnvironmentVariables": [
+      "ADMIN_EMAIL",
+      "ADMIN_PASSWORD"
+    ],
+    "validation": "Fail closed before evidence directory creation or Docker actions when either variable is missing or blank.",
+    "fixtureSetup": "Passes the process environment keys into the ExpressCart setup process; no credential literals or values are committed.",
+    "focusedTestPath": "experiments/tools/unified-g0-runner.test.mjs",
+    "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
+    "focusedTests": "PASS_2",
+    "mavenTestCompile": "PASS_45_TEST_SOURCES",
+    "g3": "NOT_RUN_PENDING_ROOT_RUNTIME"
+  }
 }
