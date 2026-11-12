@@ -16,6 +16,6 @@ The source-to-action/oracle mapping is JO-GAP-004-R3-SOURCE-ACTION-MAP.json. It 
 
 ## Verification and limits
 
-The affected suite compiled with mvn -B -DskipTests test-compile (PASS). Evidence is in evidence/joomla-r3-test-compile.txt and joomla-r3-test-compile.exit-code.txt. JSON, unique-candidate, canonical-hash, source-registration, and Java-path/line-range checks pass.
+The affected suite compiled with mvn -B -DskipTests test-compile (PASS). Evidence is in evidence/joomla-r3-test-compile.txt and joomla-r3-test-compile.exit-code.txt. The candidate-scoped G3 harness also compiles; evidence is in evidence/joomla-g3-harness-test-compile.txt and its exit-code file. Its setup suite checks the clean-install `save_history` option through Joomla's admin UI, refuses an existing exact-title fixture, creates the article through the existing BEWT UI flow, and requires one initial history row before R3. Setup rolls back only the created exact-title fixture if these checks fail. The live setup harness has not yet run.
 
 No Selenium test was executed and no app, Docker, VM, or G3 run occurred. No candidate is marked VALIDATED. JO-GAP-004 R3 is a preliminary engineering implementation awaiting runtime evidence and human oracle/novelty review; it is not scientific acceptance.
