@@ -423,7 +423,8 @@
   "notes": [
     "Current audit is based on main SHA da6399536ff75a1edf4417819eb4d166cc1d781c; origin/main matched at fetch time.",
     "The current evidence audit supersedes prior acceptance claims where primary review, source, runtime, or metric evidence conflicts.",
-    "See docs/final-acceptance/ for case traceability and evidence-linked blockers. No gate or deliverable is self-accepted."
+    "See docs/final-acceptance/ for case traceability and evidence-linked blockers. No gate or deliverable is self-accepted.",
+    "2026-11-13 ACTIVE-R3-SUITE-INTEGRATION: 10 Claroline/Kanboard R3 execution mirrors and active Maven mappings compile successfully; G3 was not run; all candidate/gate states remain unchanged. Evidence: docs/tasks/ACTIVE-R3-SUITE-INTEGRATION/TASK-REPORT.md."
   ],
   "currentAudit": {
     "baselineCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
