@@ -4,7 +4,7 @@
 - Worktree branch: `task/claroline-kanboard-maven-security` (local branch stacked on PR #27's `task/final-remediation-audit`).
 - Base branch/SHA: `task/final-remediation-audit` / `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
 - Implementation commit: `58b55dada7469a0c32714a1d177399eb62792a73`.
-- PR: `PENDING_PUBLICATION`; task changes are kept separate from PR #27.
+- PR: [#28](https://github.com/NgaiLong49423/BEWT-CovExt/pull/28), open draft, stacked on PR #27's branch; no GitHub check-runs were registered for the observed head `cb923c5cab0cfacdaf0193836866f76993e5d167`.
 - Scope: active Claroline and Kanboard Maven suites; no extension R2 artifact or `bewt-original/` source was modified.
 
 ## Active Maven integration

@@ -33,7 +33,7 @@
       "baseBranch": "task/final-remediation-audit",
       "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
       "implementationCommit": "58b55dada7469a0c32714a1d177399eb62792a73",
-      "pullRequest": "PENDING",
+      "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/28",
       "r3CasesIntegratedIntoMaven": 10,
       "clarolineLoginSitesChecked": 56,
       "inlinePasswordLiteralsRemaining": 0,
