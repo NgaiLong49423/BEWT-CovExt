@@ -8,8 +8,8 @@
  * Install the pinned parser dependency with `npm ci --prefix framework`.
  */
 
-import { readFileSync, existsSync, readdirSync, writeFileSync, statSync } from 'node:fs';
-import { resolve, join, relative, dirname, basename } from 'node:path';
+import { readFileSync, existsSync, readdirSync, writeFileSync, statSync, realpathSync } from 'node:fs';
+import { resolve, join, relative, dirname, basename, isAbsolute, sep } from 'node:path';
 import { createHash, createPublicKey, verify as verifySignature } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { AstBuilder, GherkinClassicTokenMatcher, Parser } from '../../../../framework/node_modules/@cucumber/gherkin/dist/index.js';
@@ -91,6 +91,24 @@ export function verifyPrimaryReviewRecord(line, expectedSha256, candidateId) {
   try { return JSON.parse(line).candidateId === candidateId; } catch { return false; }
 }
 
+export function isContainedRelativePath(relativePath) {
+  if (typeof relativePath !== 'string') return false;
+  if (relativePath === '.' || relativePath === '') return true;
+  if (relativePath === '..' || relativePath.startsWith(`..${sep}`) || relativePath.startsWith('../') || relativePath.startsWith('..\\')) return false;
+  if (isAbsolute(relativePath) || /^[a-z]:/i.test(relativePath) || /^[/\\]{2}/.test(relativePath)) return false;
+  return true;
+}
+
+function resolveContainedPath(rootDir, targetPath) {
+  try {
+    if (!existsSync(rootDir) || !existsSync(targetPath)) return null;
+    const canonicalRoot = realpathSync(rootDir);
+    const canonicalTarget = realpathSync(targetPath);
+    return isContainedRelativePath(relative(canonicalRoot, canonicalTarget)) ? canonicalTarget : null;
+  } catch {
+    return null;
+  }
+}
 function readRefCommit(commonDir, gitDir, refName) {
   const refPattern = /^refs\/(?:heads|remotes|tags)\/[A-Za-z0-9._/-]+$/;
   if (!refPattern.test(refName) || refName.includes('..') || refName.endsWith('/')) {
@@ -159,9 +177,11 @@ function readJson(path, label) {
   }
 }
 
-function readTrustedReviewers(root) {
+export function readTrustedReviewers(root, externallyPinnedSha256) {
   const path = join(root, 'data', 'reviews', 'trusted-reviewers.json');
-  if (!existsSync(path)) return {};
+  if (!/^[0-9a-f]{64}$/i.test(externallyPinnedSha256 ?? '')) return { reviewers: {}, status: 'UNTRUSTED_EXTERNAL_REGISTRY_PIN_MISSING' };
+  if (!existsSync(path)) return { reviewers: {}, status: 'UNTRUSTED_REGISTRY_FILE_MISSING' };
+  if (fileSha256(path) !== externallyPinnedSha256.toLowerCase()) return { reviewers: {}, status: 'UNTRUSTED_REGISTRY_PIN_MISMATCH' };
   const data = readJson(path, 'trusted reviewer key registry');
   if (!Array.isArray(data.trustedReviewers)) throw new Error('INVALID_TRUSTED_REVIEWER_REGISTRY');
   const result = {};
@@ -169,7 +189,7 @@ function readTrustedReviewers(root) {
     if (!key.keyId || !key.reviewerIdentity || !key.reviewerRole || !key.publicKeyPem || result[key.keyId]) throw new Error('INVALID_TRUSTED_REVIEWER_KEY');
     result[key.keyId] = key;
   }
-  return result;
+  return { reviewers: result, status: 'EXTERNALLY_PINNED_REGISTRY' };
 }
 
 function readReviews(root) {
@@ -304,10 +324,8 @@ function fileSha256(path) {
 function evidencePath(root, runDirectory, artifactPath) {
   if (typeof artifactPath !== 'string' || !artifactPath.trim()) return null;
   const resolvedPath = resolve(root, artifactPath);
-  const fromRoot = relative(root, resolvedPath);
-  const fromRun = relative(runDirectory, resolvedPath);
-  if (!fromRoot || fromRoot.startsWith('..') || fromRoot.includes(':') || fromRun.startsWith('..') || fromRun.includes(':')) return null;
-  return resolvedPath;
+  const canonicalPath = resolveContainedPath(root, resolvedPath);
+  return canonicalPath && resolveContainedPath(runDirectory, canonicalPath) ? canonicalPath : null;
 }
 
 function verifyEvidenceArtifact(root, runDirectory, artifact) {
@@ -389,8 +407,8 @@ function runRecordAccounting(root, summary, records) {
   const candidateOutcomesReported = (summary?.results ?? []).map((candidate) => {
     const reruns = candidate.reruns ?? [];
     const attempts = [candidate.initialRun, ...reruns].filter(Boolean);
-    const failures = attempts.filter((run) => run.outcome !== 'PASS').length;
-    const rerunFailures = reruns.filter((run) => run.outcome !== 'PASS').length;
+    const failures = attempts.filter((run) => run.outcome === 'FAIL').length;
+    const rerunFailures = reruns.filter((run) => run.outcome === 'FAIL').length;
     return {
       candidateId: candidate.candidateId,
       application: candidate.application,
@@ -423,7 +441,12 @@ function validateSourceBoundRun(root, candidate, trace, config, item, reviewVali
   if (run.candidateId !== candidate.candidateId || run.runId !== basename(runDirectory)) errors.push('RUN_CANDIDATE_OR_ID_MISMATCH');
   if (!['INITIAL', 'RERUN'].includes(run.runType) || (run.runType === 'INITIAL' && run.rerunIndex !== 0) || (run.runType === 'RERUN' && ![1, 2, 3].includes(run.rerunIndex))) errors.push('RUN_TYPE_OR_INDEX_INVALID');
   if (!run.startedAtUtc || !run.finishedAtUtc || !Number.isFinite(Date.parse(run.startedAtUtc)) || !Number.isFinite(Date.parse(run.finishedAtUtc)) || Date.parse(run.finishedAtUtc) < Date.parse(run.startedAtUtc)) errors.push('RUN_TIMESTAMP_INVALID');
-  if (!config || run.application?.appId !== candidate.application || run.application?.sourceCommit !== config.source?.commit || run.application?.version !== config.benchmarkBaseVersion || !config.runtime?.imageDigest || run.application?.imageDigest !== config.runtime.imageDigest) errors.push('APPLICATION_SOURCE_OR_IMAGE_PROVENANCE_MISMATCH');
+  if (!config) errors.push('APPLICATION_RUNTIME_MANIFEST_MISSING');
+  else {
+    if (run.application?.appId !== candidate.application || run.application?.sourceCommit !== config.source?.commit || run.application?.version !== config.benchmarkBaseVersion) errors.push('APPLICATION_SOURCE_PROVENANCE_MISMATCH');
+    if (!config.runtime?.imageDigest) errors.push('CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST');
+    else if (run.application?.imageDigest !== config.runtime.imageDigest) errors.push('APPLICATION_IMAGE_DIGEST_MISMATCH');
+  }
   if (run.test?.javaSourceSha256 !== trace.javaSourceSha256Observed || run.test?.javaSourceSha256 !== candidate.javaSourceSha256 || run.test?.gherkinSha256 !== trace.gherkinScenarioSha256Observed || run.test?.gherkinSha256 !== candidate.gherkinSha256) errors.push('TEST_SOURCE_HASH_MISMATCH');
   if (!['javaVersion', 'mavenVersion', 'seleniumVersion', 'dockerVersion'].every((field) => typeof run.runtime?.[field] === 'string' && run.runtime[field].trim())) errors.push('RUNTIME_VERSION_INCOMPLETE');
 
@@ -473,28 +496,45 @@ export function evaluateRq3Evidence({ rootDir = '.', candidates, traceabilityByI
     const reviewValid = isHumanOracleAndNoveltyApproval(reviews.get(candidate.candidateId), trustedReviewers);
     const configPath = join(root, 'config', 'apps', candidate.application + '.json');
     const config = existsSync(configPath) ? readJson(configPath, 'application runtime manifest') : null;
+    const manifestSchemaErrors = !config ? ['APPLICATION_RUNTIME_MANIFEST_MISSING'] : !config.runtime?.imageDigest ? ['CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST'] : [];
     const records = byCandidate.get(candidate.candidateId) ?? [];
     const evaluations = records.map((item) => ({ item, evaluation: validateSourceBoundRun(root, candidate, trace, config, item, reviewValid) }));
     if (duplicates.size) for (const entry of evaluations) if (duplicates.has(entry.item.record?.runId)) entry.evaluation = { valid: false, outcome: entry.evaluation.outcome, errors: [...(entry.evaluation.errors ?? []), 'DUPLICATE_RUN_ID'] };
     const verified = evaluations.filter((entry) => entry.evaluation.valid);
-    const initial = verified.filter((entry) => entry.evaluation.runType === 'INITIAL');
-    const reruns = verified.filter((entry) => entry.evaluation.runType === 'RERUN');
-    const oneInitial = initial.length === 1;
-    const exactReruns = reruns.length === 3 && [1, 2, 3].every((index) => reruns.filter((entry) => entry.evaluation.rerunIndex === index).length === 1);
+    const isProtocolTrial = (entry) => (entry.item.record?.runType === 'INITIAL' && entry.item.record?.rerunIndex === 0) || (entry.item.record?.runType === 'RERUN' && [1, 2, 3].includes(entry.item.record?.rerunIndex));
+    const protocolEntries = evaluations.filter(isProtocolTrial);
+    const protocolSlot = (entry) => entry.item.record?.runType === 'INITIAL' ? 'INITIAL' : `RERUN-${entry.item.record?.rerunIndex}`;
+    const protocolSlotCounts = new Map();
+    for (const entry of protocolEntries) protocolSlotCounts.set(protocolSlot(entry), (protocolSlotCounts.get(protocolSlot(entry)) ?? 0) + 1);
+    const duplicateSlotEntries = protocolEntries.filter((entry) => protocolSlotCounts.get(protocolSlot(entry)) > 1);
+    const extraEntries = [
+      ...evaluations.filter((entry) => !isProtocolTrial(entry)).map((entry) => ({ entry, classification: 'NON_PROTOCOL_EXTRA' })),
+      ...duplicateSlotEntries.map((entry) => ({ entry, classification: 'DUPLICATE_PROTOCOL_SLOT' })),
+    ];
+    const initial = protocolEntries.filter((entry) => entry.item.record?.runType === 'INITIAL');
+    const reruns = protocolEntries.filter((entry) => entry.item.record?.runType === 'RERUN');
+    const oneInitial = initial.length === 1 && initial[0].evaluation.valid;
+    const exactReruns = [1, 2, 3].every((index) => {
+      const indexedRuns = reruns.filter((entry) => entry.item.record?.rerunIndex === index);
+      return indexedRuns.length === 1 && indexedRuns[0].evaluation.valid;
+    }) && reruns.length === 3;
     const allVerified = oneInitial && exactReruns;
-    const orderedOutcomes = allVerified ? [initial[0].evaluation.outcome, ...[1, 2, 3].map((index) => reruns.find((entry) => entry.evaluation.rerunIndex === index).evaluation.outcome)] : [];
+    const orderedEntries = allVerified ? [initial[0], ...[1, 2, 3].map((index) => reruns.find((entry) => entry.item.record?.rerunIndex === index))] : [];
+    const orderedOutcomes = orderedEntries.map((entry) => entry.evaluation.outcome);
     const reviewApproved = reviewValid && trace.semanticAudit?.status === 'MATCHED' && trace.semanticAudit?.reviewerDecision === 'APPROVED';
     const validated = allVerified && orderedOutcomes.every((outcome) => outcome === 'PASS') && reviewApproved && trace.javaSourceSha256Observed === candidate.javaSourceSha256 && trace.gherkinScenarioSha256Observed === candidate.gherkinSha256;
     const pathRunRecordCount = runAccounting.runRecordCountByCandidate[candidate.candidateId] ?? 0;
     const hasEvidence = records.length > 0 || pathRunRecordCount > 0;
     const completeButFailing = allVerified && orderedOutcomes.some((outcome) => outcome !== 'PASS');
     const status = validated ? 'VALIDATED' : completeButFailing ? 'FAIL' : !hasEvidence ? 'NOT_RUN' : verified.length ? 'PARTIALLY_VERIFIED' : 'BLOCKED';
-    const outcomeCounts = { PASS: evaluations.filter((entry) => entry.evaluation.outcome === 'PASS').length, FAIL: evaluations.filter((entry) => entry.evaluation.outcome === 'FAIL').length };
-    const rerunFailCount = reruns.filter((entry) => entry.evaluation.outcome === 'FAIL').length;
-    const allTrialFailCount = evaluations.filter((entry) => entry.evaluation.outcome === 'FAIL').length;
+    const canonicalObservedOutcomes = protocolEntries.filter((entry) => protocolSlotCounts.get(protocolSlot(entry)) === 1 && entry.evaluation.valid).map((entry) => entry.evaluation.outcome);
+    const outcomeCounts = { PASS: canonicalObservedOutcomes.filter((outcome) => outcome === 'PASS').length, FAIL: canonicalObservedOutcomes.filter((outcome) => outcome === 'FAIL').length };
+    const rerunFailCount = orderedOutcomes.slice(1).filter((outcome) => outcome === 'FAIL').length;
+    const allTrialFailCount = orderedOutcomes.filter((outcome) => outcome === 'FAIL').length;
     return {
       candidateId: candidate.candidateId,
       application: candidate.application,
+      manifestSchemaErrors,
       status,
       validated,
       sourceBoundRunRecords: records.length,
@@ -502,12 +542,13 @@ export function evaluateRq3Evidence({ rootDir = '.', candidates, traceabilityByI
       verifiedRunRecords: verified.length,
       protocolComplete: allVerified,
       initialOutcome: oneInitial ? initial[0].evaluation.outcome : null,
-      rerunOutcomes: exactReruns ? [1, 2, 3].map((index) => reruns.find((entry) => entry.evaluation.rerunIndex === index).evaluation.outcome) : [],
+      rerunOutcomes: exactReruns ? [1, 2, 3].map((index) => reruns.find((entry) => entry.item.record?.rerunIndex === index).evaluation.outcome) : [],
       outcomeCounts,
+      extraSourceBoundRunRecords: extraEntries.map(({ entry, classification }) => ({ runId: entry.item.record?.runId ?? null, runType: entry.item.record?.runType ?? null, rerunIndex: entry.item.record?.rerunIndex ?? null, verified: entry.evaluation.valid, outcome: entry.evaluation.outcome, classification, evidenceErrors: entry.evaluation.errors ?? [] })),
       outcome: completeButFailing ? 'FAIL' : allVerified ? 'PASS' : verified.length ? 'PARTIALLY_VERIFIED' : 'BLOCKED',
       rerunFailureRate: exactReruns ? rerunFailCount / 3 : null,
       allTrialFailureRate: allVerified ? allTrialFailCount / 4 : null,
-      evidenceErrors: [...evaluations.flatMap((entry) => entry.evaluation.errors ?? []), ...(pathRunRecordCount > records.length ? ['UNBOUND_LEGACY_RUN_RECORD'] : [])],
+      evidenceErrors: [...new Set([...manifestSchemaErrors, ...evaluations.flatMap((entry) => entry.evaluation.errors ?? []), ...(pathRunRecordCount > records.length ? ['UNBOUND_LEGACY_RUN_RECORD'] : [])])],
     };
   });
   const verifiedRunRecords = dispositions.reduce((sum, item) => sum + item.verifiedRunRecords, 0);
@@ -525,7 +566,7 @@ export function evaluateRq3Evidence({ rootDir = '.', candidates, traceabilityByI
     verifiedRunRecords,
     protocolCompleteCandidates,
     validatedCandidates,
-    failedCandidates: dispositions.filter((item) => item.protocolComplete && item.outcomeCounts.FAIL > 0).length,
+    failedCandidates: dispositions.filter((item) => item.status === 'FAIL').length,
     rawExecution: raw,
     rawRunRecordFilesObserved: allRecords.length,
     runRecordAccounting: runAccounting,
@@ -534,6 +575,7 @@ export function evaluateRq3Evidence({ rootDir = '.', candidates, traceabilityByI
     requiredCleanReruns: 3,
     flakinessDefinition: 'A candidate is flaky when its initial run and three reruns do not all have the same derived JUnit outcome; rerunFailureRate and allTrialFailureRate use separate denominators.',
     candidates: dispositions,
+    applicationManifestIdentityGaps: [...new Set(dispositions.flatMap((candidate) => candidate.manifestSchemaErrors.map((error) => `${candidate.application}:${error}`)))],
     reason: protocolCompleteCandidates === candidates.length ? null : 'Source-bound protocol evidence is incomplete; reported historical outcomes remain separate and do not establish VALIDATED cases.',
   };
 }
@@ -543,17 +585,18 @@ function validateBaselineTaxonomy(root, taxonomy, trustedReviewers) {
   const review = taxonomy.baselineReview;
   if (review.decision !== 'APPROVED' || review.baselineCommit !== taxonomy.baselineReference?.commit || !/^[0-9a-f]{64}$/i.test(review.inventorySha256 ?? '') || !verifySignedStatement(review, trustedReviewers)) return { valid: false, reason: 'BASELINE_ATTESTATION_INVALID', denominator: null, ids: new Set() };
   const ids = new Set();
+  const perApplicationBaselineCounts = {};
   let total = 0;
   const digestRows = [];
   for (const app of APPS) {
     const units = taxonomy.perApplicationBaselines?.[app]?.baselineBehavioralUnits;
     if (!Array.isArray(units)) return { valid: false, reason: 'BASELINE_UNIT_INVENTORY_MISSING:' + app, denominator: null, ids };
     if (taxonomy.perApplicationBaselines[app].baselineUniqueBehavioralUnits !== units.length) return { valid: false, reason: 'BASELINE_UNIT_COUNT_MISMATCH:' + app, denominator: null, ids };
+    perApplicationBaselineCounts[app] = units.length;
     for (const unit of units) {
       if (!unit.behavioralUnitId || !unit.evidence?.path || !/^[0-9a-f]{64}$/i.test(unit.evidence.sha256 ?? '') || ids.has(unit.behavioralUnitId)) return { valid: false, reason: 'BASELINE_UNIT_INVALID_OR_DUPLICATE:' + app, denominator: null, ids };
-      const evidencePath = resolve(root, unit.evidence.path);
-      const rel = relative(root, evidencePath);
-      if (!existsSync(evidencePath) || rel.startsWith('..') || fileSha256(evidencePath) !== unit.evidence.sha256) return { valid: false, reason: 'BASELINE_SOURCE_HASH_MISMATCH:' + unit.behavioralUnitId, denominator: null, ids };
+      const evidencePath = resolveContainedPath(root, resolve(root, unit.evidence.path));
+      if (!evidencePath || fileSha256(evidencePath) !== unit.evidence.sha256) return { valid: false, reason: 'BASELINE_SOURCE_HASH_MISMATCH:' + unit.behavioralUnitId, denominator: null, ids };
       ids.add(unit.behavioralUnitId);
       digestRows.push({ application: app, behavioralUnitId: unit.behavioralUnitId, sourceSha256: unit.evidence.sha256 });
       total++;
@@ -562,14 +605,26 @@ function validateBaselineTaxonomy(root, taxonomy, trustedReviewers) {
   digestRows.sort((a, b) => a.application.localeCompare(b.application) || a.behavioralUnitId.localeCompare(b.behavioralUnitId));
   const digest = createHash('sha256').update(JSON.stringify(digestRows), 'utf8').digest('hex');
   const denominator = taxonomy.defensibleDenominator?.totalBaselineDenominator;
-  if (!Number.isInteger(denominator) || denominator !== total || denominator !== taxonomy.aggregateBaselineCounts?.totalBehavioralUnits || review.inventorySha256 !== digest) return { valid: false, reason: 'BASELINE_DENOMINATOR_OR_INVENTORY_DIGEST_MISMATCH', denominator: null, ids };
-  return { valid: true, reason: null, denominator, ids };
+  if (!Number.isInteger(denominator) || denominator <= 0 || denominator !== total || denominator !== taxonomy.aggregateBaselineCounts?.totalBehavioralUnits || review.inventorySha256 !== digest) return { valid: false, reason: 'BASELINE_DENOMINATOR_OR_INVENTORY_DIGEST_MISMATCH', denominator: null, ids };
+  return { valid: true, reason: null, denominator, ids, perApplicationBaselineCounts };
 }
 
 export function evaluateRq2Evidence({ rootDir = '.', taxonomy, candidates, reviews, trustedReviewers = {}, traceabilityById, rq3 }) {
   const root = resolve(rootDir);
   const baseline = validateBaselineTaxonomy(root, taxonomy, trustedReviewers);
-  if (!baseline.valid) return { outcome: 'NOT_EVALUATED', baselineStatus: 'NOT_VERIFIED', baselineDenominator: null, proposedCandidates: candidates.length, finalHumanDispositionCount: 0, approvedNewBehaviorUnits: null, implementedNewBehaviorUnits: null, validatedNewBehaviorUnits: null, coverageGain: null, coverageGainPercent: null, reason: baseline.reason };
+  if (!baseline.valid) {
+    const perApplicationResults = Object.fromEntries(APPS.map((app) => [app, {
+      proposedCandidates: candidates.filter((candidate) => candidate.application === app).length,
+      finalHumanDispositionCount: 0,
+      baselineBehaviorUnits: null,
+      approvedNewBehaviorUnits: null,
+      implementedNewBehaviorUnits: null,
+      validatedNewBehaviorUnits: null,
+      coverageGain: null,
+      coverageGainPercent: null,
+    }]));
+    return { outcome: 'NOT_EVALUATED', baselineStatus: 'NOT_VERIFIED', baselineDenominator: null, proposedCandidates: candidates.length, finalHumanDispositionCount: 0, approvedNewBehaviorUnits: null, implementedNewBehaviorUnits: null, validatedNewBehaviorUnits: null, coverageGain: null, coverageGainPercent: null, perApplicationResults, reason: baseline.reason };
+  }
   const mappings = taxonomy.candidateToTaxonomyMapping ?? {};
   const allEntries = APPS.flatMap((app) => Array.isArray(mappings[app]) ? mappings[app].map((entry) => ({ ...entry, application: app })) : []);
   const byId = new Map(allEntries.map((entry) => [entry.candidateId, entry]));
@@ -582,9 +637,8 @@ export function evaluateRq2Evidence({ rootDir = '.', taxonomy, candidates, revie
     const approval = entry?.approval;
     const unitId = entry?.behavioralUnitId;
     const sourceEvidenceValid = Array.isArray(entry?.sourceEvidence) && entry.sourceEvidence.length > 0 && entry.sourceEvidence.every((evidence) => {
-      const path = resolve(root, evidence.path ?? '');
-      const rel = relative(root, path);
-      return evidence.path && /^[0-9a-f]{64}$/i.test(evidence.sha256 ?? '') && existsSync(path) && !rel.startsWith('..') && fileSha256(path) === evidence.sha256;
+      const path = resolveContainedPath(root, resolve(root, evidence.path ?? ''));
+      return evidence.path && /^[0-9a-f]{64}$/i.test(evidence.sha256 ?? '') && path && fileSha256(path) === evidence.sha256;
     });
     const approved = Boolean(entry && entry.candidateId === candidate.candidateId && entry.application === candidate.application && unitId && !baseline.ids.has(unitId) && !seenBehaviorIds.has(unitId) && approval?.decision === 'APPROVED' && approval.candidateId === candidate.candidateId && approval.application === candidate.application && approval.behavioralUnitId === unitId && verifySignedStatement(approval, trustedReviewers) && isHumanOracleAndNoveltyApproval(review, trustedReviewers) && trace.semanticAudit?.status === 'MATCHED' && trace.semanticAudit?.reviewerDecision === 'APPROVED' && sourceEvidenceValid);
     if (approved) seenBehaviorIds.add(unitId);
@@ -600,6 +654,27 @@ export function evaluateRq2Evidence({ rootDir = '.', taxonomy, candidates, revie
   const approvedNewBehaviorUnits = rows.filter((row) => row.approved).length;
   const implementedNewBehaviorUnits = rows.filter((row) => row.implemented).length;
   const validatedNewBehaviorUnits = rows.filter((row) => row.validated).length;
+  const perApplicationResults = Object.fromEntries(APPS.map((app) => {
+    const appRows = rows.filter((row) => row.application === app);
+    const appCandidates = candidates.filter((candidate) => candidate.application === app);
+    const approved = appRows.filter((row) => row.approved).length;
+    const implemented = appRows.filter((row) => row.implemented).length;
+    const validated = appRows.filter((row) => row.validated).length;
+    const baselineCount = baseline.perApplicationBaselineCounts[app];
+    return [app, {
+      proposedCandidates: appCandidates.length,
+      finalHumanDispositionCount: appCandidates.filter((candidate) => {
+        const review = reviews.get(candidate.candidateId);
+        return isHumanOracleAndNoveltyApproval(review, trustedReviewers) || (review?.decision === 'REJECTED' && verifySignedStatement(review, trustedReviewers));
+      }).length,
+      baselineBehaviorUnits: baselineCount,
+      approvedNewBehaviorUnits: approved,
+      implementedNewBehaviorUnits: implemented,
+      validatedNewBehaviorUnits: validated,
+      coverageGain: baselineCount > 0 ? validated / baselineCount : null,
+      coverageGainPercent: baselineCount > 0 ? validated / baselineCount * 100 : null,
+    }];
+  }));
   const outcome = finalDispositionCount === candidates.length && rows.length === candidates.length ? 'PASS' : finalDispositionCount > 0 ? 'PARTIALLY_VERIFIED' : 'BLOCKED';
   return {
     outcome,
@@ -612,6 +687,7 @@ export function evaluateRq2Evidence({ rootDir = '.', taxonomy, candidates, revie
     validatedNewBehaviorUnits,
     coverageGain: validatedNewBehaviorUnits / baseline.denominator,
     coverageGainPercent: validatedNewBehaviorUnits / baseline.denominator * 100,
+    perApplicationResults,
     candidateDetails: rows,
     reason: outcome === 'PASS' ? null : 'Only signed candidate decisions and source-backed, non-overlapping behavioral units are included; unresolved proposals remain pending.',
   };
@@ -661,7 +737,10 @@ export function runRecompute(options = {}) {
   const ids = candidates.map((candidate) => candidate.candidateId);
   if (new Set(ids).size !== ids.length) throw new Error('DUPLICATE_CANDIDATE_ID');
   const reviews = readReviews(root);
-  const trustedReviewers = options.trustedReviewers ?? readTrustedReviewers(root);
+  const reviewerTrust = options.trustedReviewers
+    ? { reviewers: options.trustedReviewers, status: 'CALLER_SUPPLIED_KEYS_TEST_ONLY' }
+    : readTrustedReviewers(root, process.env.BEWT_TRUSTED_REVIEWERS_SHA256);
+  const trustedReviewers = reviewerTrust.reviewers;
   if (reviews.size !== TARGET_CASES || ids.some((id) => !reviews.has(id))) throw new Error('INCONSISTENT_CANDIDATE_IDS: registry and review ledgers differ');
   const traceability = loadTraceability(root, candidates);
   const details = summarizeCandidates(candidates, traceability.byId, reviews, trustedReviewers);
@@ -692,6 +771,7 @@ export function runRecompute(options = {}) {
     auditBaselineCommit: options.baselineCommit ?? 'UNSPECIFIED',
     candidateCount: TARGET_CASES,
     checks: { uniqueCandidateIds: true, reviewRecords: reviews.size, traceabilityAvailable: !traceability.unavailable, datasetSourceHashMismatches: traceability.sourceHashMismatches?.length ?? null, datasetGherkinHashMismatches: traceability.gherkinHashMismatches?.length ?? null },
+    reviewTrust: { status: reviewerTrust.status, trustedReviewerKeyCount: Object.keys(trustedReviewers).length, trustRoot: 'A repository-local public key registry is trusted only when its SHA-256 is pinned outside the repository via BEWT_TRUSTED_REVIEWERS_SHA256. Missing pin means all approvals remain untrusted.' },
     rq1: { outcome: rq1Outcome, totalCandidates: TARGET_CASES, validGherkinSyntax, humanApprovedCount, semanticNoveltyCount, details },
     rq2,
     rq3,
@@ -720,6 +800,14 @@ export function toCsv(result) {
     ['RQ2', result.rq2.outcome, 'coverageGain', result.rq2.coverageGain, result.rq2.baselineDenominator, result.rq2.reason],
     ['RQ2', result.rq2.outcome, 'coverageGainPercent', result.rq2.coverageGainPercent, '', result.rq2.reason],
     ['RQ2', result.rq2.outcome, 'validatedCases', result.rq2.validatedCases, result.candidateCount, result.rq2.reason],
+    ...(Object.entries(result.rq2.perApplicationResults ?? {}).flatMap(([app, measures]) => [
+      ['RQ2_APP', result.rq2.outcome, `${app}_baselineBehaviorUnits`, measures.baselineBehaviorUnits, '', 'Independently reviewed baseline inventory'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_approvedNewBehaviorUnits`, measures.approvedNewBehaviorUnits, measures.proposedCandidates, 'Signed candidate approval plus source evidence'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_implementedNewBehaviorUnits`, measures.implementedNewBehaviorUnits, measures.proposedCandidates, 'Verified implementation hashes'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_validatedNewBehaviorUnits`, measures.validatedNewBehaviorUnits, measures.baselineBehaviorUnits, 'Validated cases divided by app baseline inventory'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_coverageGain`, measures.coverageGain, measures.baselineBehaviorUnits, 'Validated new UBUs / baseline UBUs'],
+      ['RQ2_APP', result.rq2.outcome, `${app}_coverageGainPercent`, measures.coverageGainPercent, '', 'Percent of baseline inventory'],
+    ])),
     ['RQ3', result.rq3.outcome, 'eligibleBehaviorallyValidatedCases', result.rq3.eligibleBehaviorallyValidatedCases, result.candidateCount, result.rq3.reason],
     ['RQ3', result.rq3.outcome, 'protocolCompleteSourceBoundCandidates', result.rq3.protocolCompleteCandidates, result.rq3.candidateCount, 'One initial plus three source-bound reruns'],
     ['RQ3', result.rq3.outcome, 'sourceBoundCandidates', result.rq3.sourceBoundCandidateCount, result.rq3.candidateCount, 'Per-run candidate identity and provenance required'],
@@ -728,6 +816,7 @@ export function toCsv(result) {
     ['RQ3', result.rq3.outcome, 'matchingRunRecords', runAccounting.matchingRunRecords, runAccounting.runRecordFileCount, 'Run IDs matched to physical run-record JSON'],
     ['RQ3', result.rq3.outcome, 'unsummarizedRunRecords', runAccounting.extraRunRecords?.length ?? '', runAccounting.runRecordFileCount, 'Purpose unresolved unless explicitly recorded'],
     ['RQ3', result.rq3.outcome, 'unboundRunRecordFilesObserved', result.rq3.unboundRunRecordFilesObserved, result.rq3.rawRunRecordFilesObserved, 'Candidate identity absent or unregistered'],
+    ['RQ3', result.rq3.outcome, 'applicationManifestIdentityGaps', result.rq3.applicationManifestIdentityGaps?.length ?? '', '', (result.rq3.applicationManifestIdentityGaps ?? []).join('|')],
     ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawInitialPassCandidatesReported', raw.initialPassCandidates ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
     ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawThreeRerunPassCandidatesReported', raw.validatedCandidatesReported ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
     ['RQ3', raw.status ?? 'NOT_AVAILABLE', 'rawFlakyCandidatesReported', raw.flakyCandidatesReported ?? '', raw.totalCandidates ?? '', raw.source ?? ''],
@@ -740,6 +829,7 @@ export function toCsv(result) {
     ]),
     ['RQ4', result.rq4.outcome, 'successfulModelCalls', result.rq4.successfulCalls ?? '', '', result.rq4.reason ?? result.rq4.status],
     ['RQ4', result.rq4.outcome, 'actualCostUsd', result.rq4.actualCostUsd ?? '', '', 'UNKNOWN unless provider billing evidence exists'],
+    ['REVIEW_TRUST', result.reviewTrust?.status ?? 'NOT_REPORTED', 'trustedReviewerKeyCount', result.reviewTrust?.trustedReviewerKeyCount ?? '', '', result.reviewTrust?.trustRoot ?? ''],
   ];
   return `${rows.map((row) => row.map(csvEscape).join(',')).join('\n')}\n`;
 }

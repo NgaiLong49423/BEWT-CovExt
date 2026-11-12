@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { createHash, generateKeyPairSync, sign } from 'node:crypto';
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import {
@@ -9,10 +9,13 @@ import {
   reviewSignaturePayload,
   evaluateRq2Evidence,
   evaluateRq3Evidence,
+  toCsv,
   validateGherkinSyntax,
   auditJavaSeleniumQuality,
   readGitHeadCommit,
   runRecompute,
+isContainedRelativePath,
+  readTrustedReviewers,
 } from '../recompute-metrics.mjs';
 
 const validScenario = `Feature: Cart stock boundary
@@ -38,10 +41,10 @@ function signStatement(record, privateKey) {
   return { ...record, signature: { algorithm: 'Ed25519', keyId: 'test-key', value: sign(null, Buffer.from(reviewSignaturePayload(record)), privateKey).toString('base64') } };
 }
 
-function createRuntimeFixture({ runCount = 4, failingOracleRun = null, mutateRun = null, badSourceCommit = false } = {}) {
+function createRuntimeFixture({ runCount = 4, failingOracleRun = null, mutateRun = null, badSourceCommit = false, observedImageIdOnly = false } = {}) {
   const root = mkdtempSync(join(tmpdir(), 'bewt-rq3-fixture-'));
   const candidateId = 'MOCK-001';
-  const app = 'bludit';
+  const app = observedImageIdOnly ? 'expresscart' : 'bludit';
   const sourceCommit = 'a'.repeat(40);
   const imageDigest = 'sha256:' + 'b'.repeat(64);
   const sourcePath = join(root, 'extension', app, 'MockCase.java');
@@ -50,10 +53,10 @@ function createRuntimeFixture({ runCount = 4, failingOracleRun = null, mutateRun
   writeFileSync(sourcePath, javaSource);
   const javaHash = sha(javaSource);
   const gherkinHash = sha(validScenario);
-  const candidate = { candidateId, application: app, applicationVersion: '2.3.4', javaClass: 'test.MockCase', javaSourcePath: relative(root, sourcePath), javaSourceSha256: javaHash, gherkinScenario: validScenario, gherkinSha256: gherkinHash, oracle: 'One cart item remains after an over-stock request.' };
+  const candidate = { candidateId, application: app, applicationVersion: observedImageIdOnly ? '1.19' : '2.3.4', javaClass: 'test.MockCase', javaSourcePath: relative(root, sourcePath), javaSourceSha256: javaHash, gherkinScenario: validScenario, gherkinSha256: gherkinHash, oracle: 'One cart item remains after an over-stock request.' };
   const { review, trustedReviewers } = makeSignedReview({ candidateId, application: app });
   const trace = { javaSourceSha256Observed: javaHash, gherkinScenarioSha256Observed: gherkinHash, registrationHashMatchesObservedJava: true, semanticAudit: { status: 'MATCHED', reviewerDecision: 'APPROVED' } };
-  const config = { appId: app, benchmarkBaseVersion: candidate.applicationVersion, source: { commit: sourceCommit }, runtime: { imageDigest } };
+  const config = { appId: app, benchmarkBaseVersion: candidate.applicationVersion, source: { commit: sourceCommit }, runtime: observedImageIdOnly ? { observedImageId: imageDigest.slice('sha256:'.length) } : { imageDigest } };
   const configPath = join(root, 'config', 'apps', app + '.json');
   mkdirSync(join(root, 'config', 'apps'), { recursive: true });
   writeFileSync(configPath, JSON.stringify(config));
@@ -247,6 +250,53 @@ test('reads linked-worktree branch refs from the common Git directory', () => {
   }
 });
 
+test('rejects cross-drive, UNC, and parent traversal relative paths', () => {
+  assert.equal(isContainedRelativePath('D:\\outside\\evidence.txt'), false);
+  assert.equal(isContainedRelativePath('\\\\server\\share\\evidence.txt'), false);
+  assert.equal(isContainedRelativePath('..\\outside\\evidence.txt'), false);
+  assert.equal(isContainedRelativePath('..'), false);
+  assert.equal(isContainedRelativePath('evidence\\baseline.feature'), true);
+});
+
+test('does not trust a repository-local reviewer key registry without an external digest pin', () => {
+  const root = mkdtempSync(join(tmpdir(), 'bewt-reviewer-trust-'));
+  try {
+    const signed = makeSignedReview();
+    const registryPath = join(root, 'data', 'reviews', 'trusted-reviewers.json');
+    mkdirSync(join(root, 'data', 'reviews'), { recursive: true });
+    writeFileSync(registryPath, JSON.stringify({ trustedReviewers: [{ keyId: 'test-key', ...signed.trustedReviewers['test-key'] }] }));
+    const unpinned = readTrustedReviewers(root);
+    assert.equal(unpinned.status, 'UNTRUSTED_EXTERNAL_REGISTRY_PIN_MISSING');
+    assert.deepEqual(unpinned.reviewers, {});
+    const pinned = readTrustedReviewers(root, sha(readFileSync(registryPath)));
+    assert.equal(pinned.status, 'EXTERNALLY_PINNED_REGISTRY');
+    assert.equal(pinned.reviewers['test-key'].reviewerIdentity, signed.review.reviewerIdentity);
+    writeFileSync(registryPath, JSON.stringify({ trustedReviewers: [] }));
+    assert.equal(readTrustedReviewers(root, sha(Buffer.from('old registry'))).status, 'UNTRUSTED_REGISTRY_PIN_MISMATCH');
+  } finally { rmSync(root, { recursive: true, force: true }); }
+});
+
+test('rejects RQ2 baseline evidence that escapes through a symlink', (context) => {
+  const fixture = createTaxonomyFixture();
+  const outside = mkdtempSync(join(tmpdir(), 'bewt-rq2-outside-'));
+  try {
+    const outsideFile = join(outside, 'baseline.feature');
+    const linkedDir = join(fixture.root, 'linked-baseline');
+    writeFileSync(outsideFile, readFileSync(join(fixture.root, 'baseline', 'bludit.feature')));
+    try { symlinkSync(outside, linkedDir, 'junction'); }
+    catch (error) {
+      if (['EPERM', 'EACCES', 'ENOTSUP'].includes(error.code)) return context.skip('Windows symlink/junction creation is unavailable in this environment');
+      throw error;
+    }
+    fixture.taxonomy.perApplicationBaselines.bludit.baselineBehavioralUnits[0].evidence.path = relative(fixture.root, join(linkedDir, 'baseline.feature'));
+    const result = evaluateRq2Evidence({ rootDir: fixture.root, taxonomy: fixture.taxonomy, candidates: [fixture.candidate], reviews: new Map([[fixture.candidate.candidateId, fixture.review]]), trustedReviewers: fixture.trustedReviewers, traceabilityById: fixture.traceabilityById, rq3: fixture.rq3 });
+    assert.equal(result.outcome, 'NOT_EVALUATED');
+    assert.equal(result.reason, 'BASELINE_SOURCE_HASH_MISMATCH:BL-UBU-001');
+  } finally {
+    fixture.dispose();
+    rmSync(outside, { recursive: true, force: true });
+  }
+});
 test('computes RQ3 VALIDATED only from a complete source-bound 1+3 evidence set', () => {
   const fixture = createRuntimeFixture();
   try {
@@ -298,15 +348,67 @@ test('rejects source-hash and application-commit mismatches from RQ3 validation'
     const result = evaluateRq3Evidence({ rootDir: badCommit.root, candidates: [badCommit.candidate], traceabilityById: badCommit.traceabilityById, reviews: badCommit.reviews, trustedReviewers: badCommit.trustedReviewers, rawExecution: { status: 'NOT_AVAILABLE' } });
     assert.equal(result.validatedCandidates, 0);
     assert.equal(result.candidates[0].protocolComplete, false);
-    assert.ok(result.candidates[0].evidenceErrors.includes('APPLICATION_SOURCE_OR_IMAGE_PROVENANCE_MISMATCH'));
+    assert.ok(result.candidates[0].evidenceErrors.includes('APPLICATION_SOURCE_PROVENANCE_MISMATCH'));
   } finally { badCommit.dispose(); }
+});
+
+test('keeps ExpressCart unvalidated until its manifest has a canonical image digest field', () => {
+  const fixture = createRuntimeFixture({ observedImageIdOnly: true });
+  try {
+    const result = evaluateRq3Evidence({ rootDir: fixture.root, candidates: [fixture.candidate], traceabilityById: fixture.traceabilityById, reviews: fixture.reviews, trustedReviewers: fixture.trustedReviewers, rawExecution: { status: 'NOT_AVAILABLE' } });
+    assert.equal(result.validatedCandidates, 0);
+    assert.equal(result.candidates[0].status, 'BLOCKED');
+    assert.ok(result.candidates[0].evidenceErrors.includes('CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST'));
+    assert.deepEqual(result.applicationManifestIdentityGaps, ['expresscart:CANONICAL_IMAGE_DIGEST_REQUIRED_IN_APP_MANIFEST']);
+  } finally { fixture.dispose(); }
+});
+
+test('excludes non-protocol extra records from canonical four-run rates', () => {
+  const fixture = createRuntimeFixture();
+  try {
+    const candidateDir = join(fixture.root, 'docs', 'tasks', 'g3-evidence', 'bludit', 'MOCK-001');
+    const firstRecordPath = join(candidateDir, 'RUN-0', 'run-record.json');
+    const diagnostic = { ...JSON.parse(readFileSync(firstRecordPath, 'utf8')), runId: 'RUN-DIAGNOSTIC', runType: 'DIAGNOSTIC', rerunIndex: null };
+    const diagnosticDir = join(candidateDir, diagnostic.runId);
+    mkdirSync(diagnosticDir, { recursive: true });
+    writeFileSync(join(diagnosticDir, 'run-record.json'), JSON.stringify(diagnostic));
+    const result = evaluateRq3Evidence({ rootDir: fixture.root, candidates: [fixture.candidate], traceabilityById: fixture.traceabilityById, reviews: fixture.reviews, trustedReviewers: fixture.trustedReviewers, rawExecution: { status: 'NOT_AVAILABLE' } });
+    assert.equal(result.candidates[0].status, 'VALIDATED');
+    assert.equal(result.candidates[0].rerunFailureRate, 0);
+    assert.equal(result.candidates[0].allTrialFailureRate, 0);
+    assert.deepEqual(result.candidates[0].outcomeCounts, { PASS: 4, FAIL: 0 });
+    assert.equal(result.candidates[0].extraSourceBoundRunRecords.length, 1);
+    assert.equal(result.candidates[0].extraSourceBoundRunRecords[0].classification, 'NON_PROTOCOL_EXTRA');
+    assert.equal(result.failedCandidates, 0);
+  } finally { fixture.dispose(); }
+});
+
+test('rejects duplicate canonical rerun slots instead of counting them as four trials', () => {
+  const fixture = createRuntimeFixture();
+  try {
+    const candidateDir = join(fixture.root, 'docs', 'tasks', 'g3-evidence', 'bludit', 'MOCK-001');
+    const duplicate = { ...JSON.parse(readFileSync(join(candidateDir, 'RUN-1', 'run-record.json'), 'utf8')), runId: 'RUN-1-DUPLICATE' };
+    const duplicateDir = join(candidateDir, duplicate.runId);
+    mkdirSync(duplicateDir, { recursive: true });
+    writeFileSync(join(duplicateDir, 'run-record.json'), JSON.stringify(duplicate));
+    const result = evaluateRq3Evidence({ rootDir: fixture.root, candidates: [fixture.candidate], traceabilityById: fixture.traceabilityById, reviews: fixture.reviews, trustedReviewers: fixture.trustedReviewers, rawExecution: { status: 'NOT_AVAILABLE' } });
+    assert.equal(result.validatedCandidates, 0);
+    assert.equal(result.candidates[0].protocolComplete, false);
+    assert.equal(result.candidates[0].allTrialFailureRate, null);
+    assert.equal(result.candidates[0].extraSourceBoundRunRecords.length, 2);
+    assert.ok(result.candidates[0].extraSourceBoundRunRecords.every((record) => record.classification === 'DUPLICATE_PROTOCOL_SLOT'));
+  } finally { fixture.dispose(); }
 });
 
 test('refuses RQ2 without a signed, hashed behavioral baseline and computes actual gain when supplied', () => {
   const fixture = createTaxonomyFixture();
   try {
     const base = { rootDir: fixture.root, taxonomy: fixture.taxonomy, candidates: [fixture.candidate], reviews: new Map([[fixture.candidate.candidateId, fixture.review]]), trustedReviewers: fixture.trustedReviewers, traceabilityById: fixture.traceabilityById, rq3: fixture.rq3 };
-    assert.equal(evaluateRq2Evidence({ ...base, taxonomy: null }).outcome, 'NOT_EVALUATED');
+    const unverified = evaluateRq2Evidence({ ...base, taxonomy: null });
+    assert.equal(unverified.outcome, 'NOT_EVALUATED');
+    assert.equal(Object.keys(unverified.perApplicationResults).length, 8);
+    assert.equal(unverified.perApplicationResults.bludit.baselineBehaviorUnits, null);
+    assert.equal(unverified.perApplicationResults.bludit.proposedCandidates, 1);
     const valid = evaluateRq2Evidence(base);
     assert.equal(valid.outcome, 'PASS');
     assert.equal(valid.baselineDenominator, 1);
@@ -315,6 +417,13 @@ test('refuses RQ2 without a signed, hashed behavioral baseline and computes actu
     assert.equal(valid.validatedNewBehaviorUnits, 1);
     assert.equal(valid.coverageGain, 1);
     assert.equal(valid.coverageGainPercent, 100);
+    assert.equal(Object.keys(valid.perApplicationResults).length, 8);
+    assert.deepEqual(valid.perApplicationResults.bludit, { proposedCandidates: 1, finalHumanDispositionCount: 1, baselineBehaviorUnits: 1, approvedNewBehaviorUnits: 1, implementedNewBehaviorUnits: 1, validatedNewBehaviorUnits: 1, coverageGain: 1, coverageGainPercent: 100 });
+    assert.equal(valid.perApplicationResults.claroline.baselineBehaviorUnits, 0);
+    assert.equal(valid.perApplicationResults.claroline.coverageGain, null);
+    const csv = toCsv({ rq1: {}, rq2: { ...valid, validatedCases: valid.validatedNewBehaviorUnits }, rq3: { candidates: [], rawExecution: {} }, rq4: {}, candidateCount: 1 });
+    assert.match(csv, /"RQ2_APP","PASS","bludit_baselineBehaviorUnits","1","","/);
+    assert.match(csv, /"RQ2_APP","PASS","bludit_coverageGain","1","1","/);
     const forged = structuredClone(fixture.taxonomy);
     forged.baselineReview.signature.value = Buffer.from('forged').toString('base64');
     assert.equal(evaluateRq2Evidence({ ...base, taxonomy: forged }).outcome, 'NOT_EVALUATED');
