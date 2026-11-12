@@ -32,7 +32,7 @@
       "branch": "task/paper-provenance-correction",
       "baseBranch": "task/final-remediation-audit",
       "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
-      "headSha": "bada20fe63409143904c8588d75150665125a1a8",
+      "implementationCommit": "bada20fe63409143904c8588d75150665125a1a8",
       "pullRequest": 34,
       "pullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/34",
       "pushStatus": "PUSHED",

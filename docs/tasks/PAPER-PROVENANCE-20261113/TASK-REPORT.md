@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Correct revision attribution in the paper, v2 research report, and replication runbook; G4 documentation integrity only.
 - Base branch + base SHA: `task/final-remediation-audit` / `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
 - Working branch: `task/paper-provenance-correction`.
-- Head commit (full 40-char SHA): `bada20fe63409143904c8588d75150665125a1a8`.
+- Commit containing the substantive documentation correction (full SHA): `bada20fe63409143904c8588d75150665125a1a8`.
 - PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/34 (draft; open).
-- Push status: `PUSHED`; remote branch SHA verified as `bada20fe63409143904c8588d75150665125a1a8`.
+- Push status: `PUSHED`; documentation commit `bada20fe63409143904c8588d75150665125a1a8` and task-report sync commit `a64fe9009556a0b94a9914cf8179747f829610ea` were verified on the remote branch.
 - Runtime/commit/version tested: repository history through PR #27 head; metrics revision `569ca47d40dcc8dd8d5138718078c5f4ec7217bc`.
 - Status proposed by Agent: `PARTIAL`.
 
