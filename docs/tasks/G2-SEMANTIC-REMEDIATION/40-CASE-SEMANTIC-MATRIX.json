@@ -1,0 +1,5127 @@
+{
+  "schemaVersion": "1.0.0",
+  "auditBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+  "auditTargetMain": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+  "generatedAt": "2026-11-12",
+  "note": "Static source/mapping audit only. Latest existing revision used for each candidate; raw R2 compile/G3 claims are retained as historical only when a newer revision exists. Current-revision outcomes are explicitly NOT_RECORDED where no matching record was found. Source pins are independently classified, human oracle/novelty approvals remain pending, and no status is VALIDATED.",
+  "excludedActiveRemediation": [
+    "EC-GAP-002",
+    "KB-GAP-001"
+  ],
+  "candidateCount": 40,
+  "candidates": [
+    {
+      "candidateId": "BL-GAP-001",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/bludit/selenium/7d72afaea3ffefd10d0939bda2aae48a/revision-2/T01C_7d72afaea3ffefd10d0939bda2aae48a_R2.java",
+        "sha256": "a80efe703849aa42d16870c6084a47939d8afaf12e1fc04f36adcc13f9a999d5",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Content Scheduling"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Scheduled pages are promoted on a request after their due time"
+        },
+        {
+          "line": 18,
+          "text": "    Given the administrator is logged into Bludit admin dashboard"
+        },
+        {
+          "line": 19,
+          "text": "    When the administrator creates a page with title \"Scheduled Announcement\" and future date"
+        },
+        {
+          "line": 20,
+          "text": "    Then the page is saved with status \"scheduled\" and is hidden from public blog"
+        },
+        {
+          "line": 21,
+          "text": "    When the application clock advances past the scheduled publication time"
+        },
+        {
+          "line": 22,
+          "text": "    And a visitor requests the public site home page"
+        },
+        {
+          "line": 23,
+          "text": "    Then the page \"Scheduled Announcement\" status changes to \"published\""
+        },
+        {
+          "line": 24,
+          "text": "    And the page title \"Scheduled Announcement\" is visible on the public blog listing"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "Database page entry status transitions from scheduled to published; page renders in published public collection."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "new AdminLogin(driver).setUsername(username).setPassword(password).login();"
+        },
+        {
+          "line": 38,
+          "text": "newContent.setTitle(\"Scheduled Announcement\");"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Content management must list Scheduled Announcement\", contentPage.containsElement(\"Scheduled Announcement\"));"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Status must reflect scheduled or content state\", driver.findElement(By.id(\"bl-view\")).getText().contains(\"Scheduled Announcement\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Creates and lists content but omits scheduling date, public hiding, clock advance, and promotion.",
+      "sourceBasis": {
+        "applicationVersion": "2.3.4",
+        "repositoryPin": {
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/dbpages.class.php",
+            "lines": "313-373",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "scheduler promotes due entries to published"
+          },
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/boot/rules/69.pages.php",
+            "lines": "87-100",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "invokes page scheduler on request boot"
+          }
+        ],
+        "sourceReviewDetail": "PARTIALLY_VERIFIED_SOURCE_PATHS_AND_MECHANISMS"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FLAKY",
+        "declaredReruns": {
+          "passed": 2,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-001/g3-blgap001-20261110190053",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FLAKY",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "BL-GAP-002",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/bludit/selenium/4b05dc3e3caa3daec5f080180a09f349/revision-2/T01C_4b05dc3e3caa3daec5f080180a09f349_R2.java",
+        "sha256": "0788e069f3019d157dd02ee92b570c5d4ae8ac2c17d3531262c9b82540f69289",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-42"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Rich Media Publishing"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Cover image selection persists and renders for content"
+        },
+        {
+          "line": 18,
+          "text": "    Given the administrator is logged into Bludit"
+        },
+        {
+          "line": 19,
+          "text": "    When the administrator creates content \"Post With Cover\""
+        },
+        {
+          "line": 20,
+          "text": "    And selects \"cover-test.png\" as the cover image in the Images sidebar"
+        },
+        {
+          "line": 21,
+          "text": "    And clicks the \"Save\" button"
+        },
+        {
+          "line": 22,
+          "text": "    Then the edit view reloads showing \"cover-test.png\" selected as cover image"
+        },
+        {
+          "line": 23,
+          "text": "    And navigating to the public post URL displays the image in the header cover slot"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "page.coverImage field persists the image identifier and theme template resolves and renders image tag."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 33,
+          "text": "new AdminLogin(driver).setUsername(username).setPassword(password).login();"
+        },
+        {
+          "line": 37,
+          "text": "newContent.setTitle(\"Post With Cover\");"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Content table must list Post With Cover\", contentPage.containsElement(\"Post With Cover\"));"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertNotNull(\"Cover image container must be rendered in view\", driver.findElement(By.id(\"bl-view\")));"
+        }
+      ],
+      "semanticStatus": "WEAK_ORACLE",
+      "mismatch": "Creates content and checks a row/container; never selects, persists, or publicly renders its cover image.",
+      "sourceBasis": {
+        "applicationVersion": "2.3.4",
+        "repositoryPin": {
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/admin/views/edit-content.php",
+            "lines": "91-110",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "cover image selector"
+          },
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/page.class.php",
+            "lines": "311-331",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "coverImage URL resolver"
+          }
+        ],
+        "sourceReviewDetail": "PARTIALLY_VERIFIED_SOURCE_PATHS_AND_MECHANISMS"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-002/g3-blgap002-20261110190053",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "BL-GAP-003",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/bludit/selenium/bc2781aeccd21cfbed609074615611ed/revision-2/T01C_bc2781aeccd21cfbed609074615611ed_R2.java",
+        "sha256": "9325b49728f52cdc3289817f58fff0b44338ed4386209bebf0aca6a3df213a89",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Page Type Classification"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Static status maps to page type and the static-page collection"
+        },
+        {
+          "line": 18,
+          "text": "    Given the administrator is logged into Bludit admin"
+        },
+        {
+          "line": 19,
+          "text": "    When the administrator creates content titled \"About Our Team\""
+        },
+        {
+          "line": 20,
+          "text": "    And changes the status to \"Static\" in the advanced options"
+        },
+        {
+          "line": 21,
+          "text": "    And clicks \"Save\""
+        },
+        {
+          "line": 22,
+          "text": "    Then the content is stored in the static pages collection"
+        },
+        {
+          "line": 23,
+          "text": "    And \"About Our Team\" appears in the static navigation menu"
+        },
+        {
+          "line": 24,
+          "text": "    And \"About Our Team\" does NOT appear in the chronological blog post stream"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "dbPages categorizes record under static collection rather than published posts stream; static navigation resolves page."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "new AdminLogin(driver).setUsername(username).setPassword(password).login();"
+        },
+        {
+          "line": 38,
+          "text": "newContent.setTitle(\"About Our Team\");"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Static page About Our Team must be recorded\", contentPage.containsElement(\"About Our Team\"));"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Bludit admin view rendered\", driver.findElement(By.id(\"bl-view\")).isDisplayed());"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Creates content without Static status or checks for static navigation and exclusion from the blog stream.",
+      "sourceBasis": {
+        "applicationVersion": "2.3.4",
+        "repositoryPin": {
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/dbpages.class.php",
+            "lines": "131-140",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "static status type assignment"
+          }
+        ],
+        "sourceReviewDetail": "PARTIALLY_VERIFIED_SOURCE_PATHS_AND_MECHANISMS"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-003/g3-blgap003-20261110190053",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "BL-GAP-004",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/bludit/selenium/e03c64abc7e2b08cf37e50a1654d4ac0/revision-2/T01C_e03c64abc7e2b08cf37e50a1654d4ac0_R2.java",
+        "sha256": "2959c21fcb84638425e1c3afd600a95ab492ff5963642bcda5470d92e15b0a67",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-46"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: User Access Governance"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Administrator can change a non-admin user's role and retain it"
+        },
+        {
+          "line": 18,
+          "text": "    Given user \"editor_jane\" exists with role \"editor\""
+        },
+        {
+          "line": 19,
+          "text": "    And the administrator is logged into Bludit admin"
+        },
+        {
+          "line": 20,
+          "text": "    When the administrator navigates to Users and edits \"editor_jane\""
+        },
+        {
+          "line": 21,
+          "text": "    And changes the role dropdown from \"Editor\" to \"Administrator\""
+        },
+        {
+          "line": 22,
+          "text": "    And clicks \"Save\""
+        },
+        {
+          "line": 23,
+          "text": "    Then the edit form reloads confirming role \"Administrator\""
+        },
+        {
+          "line": 24,
+          "text": "    And when \"editor_jane\" logs in, the admin-only \"Settings\" route is accessible without restriction"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "dbUsers record updates role field to administrator; subsequent session grants admin route permissions."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "driver.get(app_url);"
+        },
+        {
+          "line": 35,
+          "text": "new AdminLogin(driver).setUsername(username).setPassword(password).login();"
+        },
+        {
+          "line": 40,
+          "text": "new Select(driver.findElement(By.id(\"jsrole\"))).selectByVisibleText(\"Administrator\");"
+        },
+        {
+          "line": 41,
+          "text": "usersPage = editUser.save();"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Admin dashboard accessible\", driver.getTitle().contains(\"Bludit\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 43,
+          "text": "Assert.assertEquals(\"Administrator\", usersPage.getSecondUserAbilitation());"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Users table must display updated user\", usersPage.containsUser(usersPage.getSecondUserName()));"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Admin dashboard accessible\", driver.getTitle().contains(\"Bludit\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Changes a role dropdown but asserts another user field and generic admin title; no target-role confirmation or access check.",
+      "sourceBasis": {
+        "applicationVersion": "2.3.4",
+        "repositoryPin": {
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/admin/controllers/edit-user.php",
+            "lines": "18-44",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "admin role authorization check"
+          },
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/dbusers.class.php",
+            "lines": "61-99",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "role persistence in dbUsers"
+          }
+        ],
+        "sourceReviewDetail": "PARTIALLY_VERIFIED_SOURCE_PATHS_AND_MECHANISMS"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-004/g3-blgap004-20261110190053",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "BL-GAP-005",
+      "application": "bludit",
+      "applicationVersionClaimed": "2.3.4",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/bludit/selenium/b562c8a66b0e3b937a5058867bbfb761/revision-2/T01C_b562c8a66b0e3b937a5058867bbfb761_R2.java",
+        "sha256": "031533622dca739ef3b589eb290de9cf222e46fcd5160d0adecc06b5cb671303",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-46"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Taxonomy Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Category creation and filtered content listing"
+        },
+        {
+          "line": 18,
+          "text": "    Given the administrator is logged into Bludit admin"
+        },
+        {
+          "line": 19,
+          "text": "    When the administrator navigates to Categories and adds \"Tech Insights\""
+        },
+        {
+          "line": 20,
+          "text": "    And creates a new blog post \"Future of AI\" assigned to \"Tech Insights\""
+        },
+        {
+          "line": 21,
+          "text": "    And clicks \"Save\""
+        },
+        {
+          "line": 22,
+          "text": "    Then the Categories management table lists \"Tech Insights\" with 1 associated post"
+        },
+        {
+          "line": 23,
+          "text": "    And visiting \"/category/tech-insights\" displays post \"Future of AI\""
+        },
+        {
+          "line": 24,
+          "text": "    And posts belonging to other categories are excluded from \"/category/tech-insights\""
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "dbCategories registers category slug; public category route filters posts by category key."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "driver.get(app_url);"
+        },
+        {
+          "line": 35,
+          "text": "new AdminLogin(driver).setUsername(username).setPassword(password).login();"
+        },
+        {
+          "line": 39,
+          "text": "NewCategoryPage newCategory = categoriesPage.addCategory();"
+        },
+        {
+          "line": 40,
+          "text": "newCategory.setName(\"Tech Insights\");"
+        },
+        {
+          "line": 41,
+          "text": "categoriesPage = newCategory.save();"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Bludit categories view confirmed\", driver.getTitle().contains(\"Bludit\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Category Tech Insights must be registered\", categoriesPage.containsCategory(\"Tech Insights\"));"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertEquals(\"Tech Insights\", categoriesPage.getFirstCategoryName());"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Bludit categories view confirmed\", driver.getTitle().contains(\"Bludit\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Creates a category only; omits assigned post, count, filtered public route, and exclusion of other-category posts.",
+      "sourceBasis": {
+        "applicationVersion": "2.3.4",
+        "repositoryPin": {
+          "repository": "bludit/bludit",
+          "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+          "treeSha": "15a959ca224f4d2ff86e0e22d9adf2bba40cb584",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "bludit/bludit",
+            "path": "bl-kernel/dbcategories.class.php",
+            "lines": "25-85",
+            "commit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+            "proposalNote": "category persistence and post count mapping"
+          }
+        ],
+        "sourceReviewDetail": "PARTIALLY_VERIFIED_SOURCE_PATHS_AND_MECHANISMS"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/bludit/BL-GAP-005/g3-blgap005-20261110190053",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "CL-GAP-001",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-3/T01C_acd2c6ed41c79d11057a038360ef1dba_R3.java",
+        "sha256": "91c75f8b7a3a770e171712895aed252057a449094fc7a4017e19e83988ae8ee8",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Course Document Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Course document upload, move and delete lifecycle"
+        },
+        {
+          "line": 18,
+          "text": "    Given teacher \"prof_smith\" is logged into Claroline course \"CL-DOC-101\""
+        },
+        {
+          "line": 19,
+          "text": "    When the teacher navigates to Documents and uploads file \"syllabus.pdf\""
+        },
+        {
+          "line": 20,
+          "text": "    Then \"syllabus.pdf\" appears in the course root document directory"
+        },
+        {
+          "line": 21,
+          "text": "    When the teacher moves \"syllabus.pdf\" into folder \"LectureNotes\""
+        },
+        {
+          "line": 22,
+          "text": "    Then \"syllabus.pdf\" is displayed inside \"LectureNotes\" directory"
+        },
+        {
+          "line": 23,
+          "text": "    When the teacher deletes \"syllabus.pdf\""
+        },
+        {
+          "line": 24,
+          "text": "    Then \"syllabus.pdf\" is removed from \"LectureNotes\" and no longer visible"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "Document records in claro_document table update path during move and delete marks record deleted; filesystem confirms file existence then removal."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "DesktopPage desktop = new IndexPage(driver).login(requiredCredential(\"CLAROLINE_TEST_USERNAME\"), requiredCredential(\"CLAROLINE_TEST_PASSWORD\"));"
+        },
+        {
+          "line": 37,
+          "text": "driver.findElement(By.id(\"CLDOC\")).click();"
+        },
+        {
+          "line": 38,
+          "text": "Assert.assertTrue(\"Documents tool header visible\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Documents\") || driver.getTitle().contains(\"Claroline\"));"
+        },
+        {
+          "line": 39,
+          "text": "driver.findElement(By.linkText(\"Create directory\")).click();"
+        },
+        {
+          "line": 40,
+          "text": "driver.findElement(By.id(\"dir_name\")).sendKeys(\"LectureNotes\");"
+        },
+        {
+          "line": 41,
+          "text": "driver.findElement(By.xpath(\"//input[@type='submit' or @name='submit']\")).click();"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Directory must appear in course documents view\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"LectureNotes\") || driver.getPageSource().contains(\"LectureNotes\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 38,
+          "text": "Assert.assertTrue(\"Documents tool header visible\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Documents\") || driver.getTitle().contains(\"Claroline\"));"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Directory must appear in course documents view\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"LectureNotes\") || driver.getPageSource().contains(\"LectureNotes\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Creates a directory; performs none of the requested upload, move, or delete lifecycle.",
+      "sourceBasis": {
+        "applicationVersion": "1.11.10",
+        "repositoryPin": {
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/document/document.php",
+            "lines": "120-210",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "document upload/move/delete controller"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_SOURCE_PATH_PRESENT_ACTION_SET_NOT_FULLY_ANCHORED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-3/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3.java",
+        "sha256": "35700e340d0bc2f7602b142345e8ada5023260b7f52cc2322b0acb0713bd0c0a",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-40"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Group Space Authorization"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Group space is inaccessible to a non-member student in a private group"
+        },
+        {
+          "line": 18,
+          "text": "    Given course \"CL-GRP-101\" has private group \"Private Group B\" with closed registration"
+        },
+        {
+          "line": 19,
+          "text": "    And student \"student_bob\" is enrolled in course \"CL-GRP-101\" but is not a member of \"Private Group B\""
+        },
+        {
+          "line": 20,
+          "text": "    When student \"student_bob\" attempts to access the URL for \"Private Group B\" space"
+        },
+        {
+          "line": 21,
+          "text": "    Then the student is redirected to the main groups list with notification \"Not allowed\""
+        },
+        {
+          "line": 22,
+          "text": "    And the private group document repository and group forum are NOT rendered"
+        },
+        {
+          "line": 23,
+          "text": "    And no self-registration option is displayed for the private group"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "claro_is_in_a_group check fails; claro_disp_auth_url denies access; HTTP redirect and error message triggered."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 33,
+          "text": "DesktopPage desktop = new IndexPage(driver).login(requiredCredential(\"CLAROLINE_TEST_USERNAME\"), requiredCredential(\"CLAROLINE_TEST_PASSWORD\"));"
+        },
+        {
+          "line": 36,
+          "text": "driver.findElement(By.id(\"CLGRP\")).click();"
+        },
+        {
+          "line": 37,
+          "text": "Assert.assertTrue(\"Groups tool header displayed\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Groups\") || driver.getTitle().contains(\"Claroline\"));"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Tool title rendered on course portal\", driver.findElement(By.className(\"toolTitle\")).getText().contains(\"Groups\") || driver.getTitle().contains(\"Claroline\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 37,
+          "text": "Assert.assertTrue(\"Groups tool header displayed\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Groups\") || driver.getTitle().contains(\"Claroline\"));"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Tool title rendered on course portal\", driver.findElement(By.className(\"toolTitle\")).getText().contains(\"Groups\") || driver.getTitle().contains(\"Claroline\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Opens Groups and checks its title; no non-member setup, denied access, hidden resources, or registration check.",
+      "sourceBasis": {
+        "applicationVersion": "1.11.10",
+        "repositoryPin": {
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/group/group_space.php",
+            "lines": "40-80",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "group space authorization gate"
+          },
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/inc/lib/group.lib.inc.php",
+            "lines": "110-145",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "membership verification function"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_SOURCE_PATH_PRESENT_GROUP_MEMBERSHIP_GATE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-3/T01C_e9eda84d440eec2453ed7ae17199f4d5_R3.java",
+        "sha256": "f42643238b6dc136a162acc0765d500919e0cbff11981cd33224ea3567c6f059",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-45"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Exercise Import"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Teacher imports an exercise package into a course"
+        },
+        {
+          "line": 18,
+          "text": "    Given teacher \"prof_smith\" is logged into course \"CL-EX-101\""
+        },
+        {
+          "line": 19,
+          "text": "    And the exercise tool has no exercises"
+        },
+        {
+          "line": 20,
+          "text": "    When the teacher navigates to Exercises and selects \"Import exercise\""
+        },
+        {
+          "line": 21,
+          "text": "    And uploads package \"math-quiz-pkg.zip\" and submits"
+        },
+        {
+          "line": 22,
+          "text": "    Then a success message \"Exercise imported successfully\" is displayed"
+        },
+        {
+          "line": 23,
+          "text": "    And the exercise list displays \"Calculus Quiz 1\" with 5 questions"
+        },
+        {
+          "line": 24,
+          "text": "    And clicking \"Calculus Quiz 1\" presents the imported questions correctly"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "exercise and question tables populated from zip package XML schema; imported exercise immediately available for student attempts."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": ".login(requiredCredential(\"CLAROLINE_TEST_USERNAME\"), requiredCredential(\"CLAROLINE_TEST_PASSWORD\"))"
+        },
+        {
+          "line": 39,
+          "text": ".addExercise(\"Calculus Quiz 1\");"
+        },
+        {
+          "line": 41,
+          "text": "eep.newQuestion().addMCUAQuestion(\"Calculus Question 1\").addMCUA(\"5\", \"-1\").goToEditExercisePage();"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 43,
+          "text": "Assert.assertEquals(\"Exercise added\", eep.getCourseMessage());"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertEquals(\"Calculus Question 1\", eep.getQuestionTitle(1));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Manually creates an exercise instead of importing a ZIP package; does not verify imported package contents.",
+      "sourceBasis": {
+        "applicationVersion": "1.11.10",
+        "repositoryPin": {
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/exercise/exercise.php",
+            "lines": "180-240",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "import_exercise handler and QTI parser"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSED_RANGE_SHOWS_EXPORT_NOT_IMPORT"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-3/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3.java",
+        "sha256": "4b143ff98def206d6f1b42e760e9c89c70e310b2a663e33e90ac41ee1a03c100",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-42"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Course Tracking Governance"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Tracking controls are teacher-only while exercise attempts remain student-facing"
+        },
+        {
+          "line": 18,
+          "text": "    Given student \"student_alice\" completed exercise \"Midterm Quiz\" in course \"CL-TRK-101\""
+        },
+        {
+          "line": 19,
+          "text": "    When student \"student_alice\" views the course tool menu"
+        },
+        {
+          "line": 20,
+          "text": "    Then the \"Tracking\" administration link is NOT visible to \"student_alice\""
+        },
+        {
+          "line": 21,
+          "text": "    When teacher \"prof_smith\" logs into course \"CL-TRK-101\""
+        },
+        {
+          "line": 22,
+          "text": "    And navigates to \"Tracking\" -> \"Exercise statistics\""
+        },
+        {
+          "line": 23,
+          "text": "    Then the teacher views \"student_alice\" submission with score, duration, and attempt date"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "Tracking UI restricted by is_course_allowed('tracking'); tracking database logs student score and renders aggregated analytics for teacher."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": ".login(requiredCredential(\"CLAROLINE_TEST_USERNAME\"), requiredCredential(\"CLAROLINE_TEST_PASSWORD\"))"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Tracking view reflects course statistics\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Statistics\") || driver.getTitle().contains(\"Tracking\") || driver.getTitle().contains(\"Claroline\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 40,
+          "text": "Assert.assertNotNull(\"Tracking statistics view loaded\", track);"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Tracking view reflects course statistics\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Statistics\") || driver.getTitle().contains(\"Tracking\") || driver.getTitle().contains(\"Claroline\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks generic exercise statistics, not student tracking denial or teacher analytics for the named attempt.",
+      "sourceBasis": {
+        "applicationVersion": "1.11.10",
+        "repositoryPin": {
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/tracking/courseLog.php",
+            "lines": "35-95",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "teacher tracking authorization gate"
+          }
+        ],
+        "sourceReviewDetail": "NOT_VERIFIED_SOURCE_PATH_404"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "CL-GAP-005",
+      "application": "claroline",
+      "applicationVersionClaimed": "1.11.10",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-3/T01C_1027165465722d6b6fd9ab1607fba1d8_R3.java",
+        "sha256": "97ce6bd44fb6af51cbcd7f124bc3256434bca3102cba992ae8c8b06a8e5c2ab9",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-43"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Course Announcements"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Course announcement creation, publication, and student notification visibility"
+        },
+        {
+          "line": 18,
+          "text": "    Given teacher \"prof_smith\" is logged into course \"CL-ANN-101\""
+        },
+        {
+          "line": 19,
+          "text": "    When the teacher navigates to Announcements and clicks \"Add announcement\""
+        },
+        {
+          "line": 20,
+          "text": "    And enters title \"Classroom Relocation\" and body \"Classroom moved to Room 302 for Friday.\""
+        },
+        {
+          "line": 21,
+          "text": "    And submits the announcement"
+        },
+        {
+          "line": 22,
+          "text": "    Then the announcement \"Classroom Relocation\" appears in the course announcements table"
+        },
+        {
+          "line": 23,
+          "text": "    When student \"student_bob\" logs into course \"CL-ANN-101\""
+        },
+        {
+          "line": 24,
+          "text": "    Then \"Classroom Relocation\" is prominently displayed on the course welcome banner"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "claro_announcement table receives new record; course home view pulls and displays active announcements."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "DesktopPage desktop = new IndexPage(driver).login(requiredCredential(\"CLAROLINE_TEST_USERNAME\"), requiredCredential(\"CLAROLINE_TEST_PASSWORD\"));"
+        },
+        {
+          "line": 36,
+          "text": "driver.findElement(By.id(\"CLANN\")).click();"
+        },
+        {
+          "line": 38,
+          "text": "driver.findElement(By.linkText(\"Add an announcement\")).click();"
+        },
+        {
+          "line": 39,
+          "text": "driver.findElement(By.id(\"title\")).sendKeys(\"Classroom Relocation\");"
+        },
+        {
+          "line": 40,
+          "text": "driver.findElement(By.xpath(\"//input[@type='submit' or @name='submit']\")).click();"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Announcements table must display Classroom Relocation\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Classroom Relocation\") || driver.getPageSource().contains(\"Classroom Relocation\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Announcements table must display Classroom Relocation\", driver.findElement(By.id(\"courseRightContent\")).getText().contains(\"Classroom Relocation\") || driver.getPageSource().contains(\"Classroom Relocation\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Begins announcement creation but omits body and student banner verification; assertion searches course text for title.",
+      "sourceBasis": {
+        "applicationVersion": "1.11.10",
+        "repositoryPin": {
+          "repository": "zefredz/claroline",
+          "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+          "treeSha": "f10d5b9747f13e0256b3f52f7663a1475340bfe4",
+          "status": "PARTIAL_RELEASE_SOURCE_CORE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "zefredz/claroline",
+            "path": "claroline/announcements/announcements.php",
+            "lines": "50-110",
+            "commit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+            "proposalNote": "announcement creation and visibility handler"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_SOURCE_PATH_PRESENT_ROLE_BOUNDARY"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "EC-GAP-002",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-2/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R2.java",
+        "sha256": "37dea3734cc0ed005722866b7864e8f1a9ab2051566caddf01b133db8535e1c7",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Inventory Control"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Stock tracking rejects a cart quantity above available product or variant stock"
+        },
+        {
+          "line": 18,
+          "text": "    Given product \"Limited Edition T-Shirt\" has stock tracking enabled with available quantity 1"
+        },
+        {
+          "line": 19,
+          "text": "    And customer starts with an empty cart"
+        },
+        {
+          "line": 20,
+          "text": "    When customer adds 1 unit of \"Limited Edition T-Shirt\" to cart"
+        },
+        {
+          "line": 21,
+          "text": "    Then the cart shows 1 unit of \"Limited Edition T-Shirt\""
+        },
+        {
+          "line": 22,
+          "text": "    When customer attempts to update the quantity to 2"
+        },
+        {
+          "line": 23,
+          "text": "    Then the system rejects the update with HTTP 400 and message \"There is not enough stock to fulfill your order\""
+        },
+        {
+          "line": 24,
+          "text": "    And the cart quantity remains at 1"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "routes/index.js cart update validates against productStock; rejects over-quantity and leaves session cart count at 1."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 39,
+          "text": "prod.addToCart();"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Storefront title rendered\", driver.getTitle().contains(\"expressCart\") || driver.getPageSource().contains(\"product\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 37,
+          "text": "Assert.assertNotNull(\"Product page loaded\", prod);"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Cart count should reflect added item\", nav.getCartCount() >= 1);"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Storefront title rendered\", driver.getTitle().contains(\"expressCart\") || driver.getPageSource().contains(\"product\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Adds one product and checks cart count; never tries quantity above stock or verifies rejection and unchanged quantity.",
+      "sourceBasis": {
+        "applicationVersion": "1.1.19",
+        "repositoryPin": {
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "status": "PINNED_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "mrvautin/expressCart",
+            "path": "routes/index.js",
+            "lines": "280-340",
+            "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "proposalNote": "cart update stock boundary check"
+          }
+        ],
+        "sourceReviewDetail": "NOT_REVERIFIED_IN_THIS_TASK_ACTIVE_REMEDIATION_SCOPE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-002/g3-ecgap002-20261110185226",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": "ACTIVE_PR_32_EXCLUDED_FROM_REMEDIATION"
+    },
+    {
+      "candidateId": "EC-GAP-003",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/expresscart/selenium/3a9bea145c1f05e4dffb3fcb27abd8c7/revision-2/T01C_3a9bea145c1f05e4dffb3fcb27abd8c7_R2.java",
+        "sha256": "347b8f24e843db462747bedea7b13fff2ba2ff324dfe412ab6f07fe95bc07d5f",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-43"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Customer Profile and Checkout"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Customer address update persists and is copied from session into checkout information"
+        },
+        {
+          "line": 18,
+          "text": "    Given customer \"[TEST_EMAIL_REDACTED]\" is logged into the storefront"
+        },
+        {
+          "line": 19,
+          "text": "    When the customer navigates to account profile and updates shipping address to \"456 Oak Avenue\", city \"Beverly Hills\", postcode \"90210\""
+        },
+        {
+          "line": 20,
+          "text": "    And clicks \"Update profile\""
+        },
+        {
+          "line": 21,
+          "text": "    Then the customer profile reloads confirming \"456 Oak Avenue\""
+        },
+        {
+          "line": 22,
+          "text": "    When the customer adds an item to cart and proceeds to checkout"
+        },
+        {
+          "line": 23,
+          "text": "    Then the checkout shipping address form is pre-filled with \"456 Oak Avenue\" and \"Beverly Hills\""
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "POST /customer/update updates database and req.session.customer*; checkout view automatically inherits session address."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": "home.addToCart(1);"
+        },
+        {
+          "line": 37,
+          "text": "CartSidebar cart = nav.openCart();"
+        },
+        {
+          "line": 39,
+          "text": "CheckoutPage checkout = cart.checkout();"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Checkout route active\", driver.getCurrentUrl().contains(\"checkout\") || driver.getPageSource().contains(\"checkout\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 41,
+          "text": "Assert.assertNotNull(\"Checkout page must be rendered\", checkout);"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Checkout route active\", driver.getCurrentUrl().contains(\"checkout\") || driver.getPageSource().contains(\"checkout\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Adds an item and opens checkout; never updates/persists the address or checks checkout prefill.",
+      "sourceBasis": {
+        "applicationVersion": "1.1.19",
+        "repositoryPin": {
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "status": "PINNED_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "mrvautin/expressCart",
+            "path": "routes/customer.js",
+            "lines": "110-160",
+            "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "proposalNote": "customer address update handler"
+          }
+        ],
+        "sourceReviewDetail": "NOT_REVERIFIED_IN_THIS_TASK_ACTIVE_REMEDIATION_SCOPE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-003/g3-ecgap003-20261110185226",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "EC-GAP-004",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/expresscart/selenium/6f3be8200d2b1bc4232b8af1b623ed0d/revision-2/T01C_6f3be8200d2b1bc4232b8af1b623ed0d_R2.java",
+        "sha256": "4efa72c8a88530619ee5ab4c72a83b39779b9c32a09204cd395b8b3f3de79b17",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-47"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Promotion Governance"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Invalid discount date windows are rejected during admin update"
+        },
+        {
+          "line": 18,
+          "text": "    Given administrator is logged into expressCart admin"
+        },
+        {
+          "line": 19,
+          "text": "    And discount code \"SUMMER20\" exists in promotions"
+        },
+        {
+          "line": 20,
+          "text": "    When the administrator updates \"SUMMER20\" with an end date earlier than the start date"
+        },
+        {
+          "line": 21,
+          "text": "    And clicks \"Update discount\""
+        },
+        {
+          "line": 22,
+          "text": "    Then the application rejects the update with error \"End date must be after start date\""
+        },
+        {
+          "line": 23,
+          "text": "    And the stored discount date window remains unchanged"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "routes/admin.js discount update validates start_date < end_date; rejects invalid range and preserves prior DB state."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": ".setEmail(\"[REDACTED]\")"
+        },
+        {
+          "line": 36,
+          "text": ".setPassword(\"[REDACTED]\")"
+        },
+        {
+          "line": 40,
+          "text": ".setCode(\"INVALID_DATE_001\")"
+        },
+        {
+          "line": 41,
+          "text": ".setValue(\"10\")"
+        },
+        {
+          "line": 42,
+          "text": ".setStart(\"12/02/2030 00:00\")"
+        },
+        {
+          "line": 43,
+          "text": ".setEnd(\"12/02/2024 00:00\")"
+        },
+        {
+          "line": 44,
+          "text": ".addDiscountError();"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Discount validation rejected inverted dates\", discountPage.discountCodeHasError() || driver.getPageSource().contains(\"Discount\") || driver.getTitle().contains(\"Admin\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Discount validation rejected inverted dates\", discountPage.discountCodeHasError() || driver.getPageSource().contains(\"Discount\") || driver.getTitle().contains(\"Admin\"));"
+        }
+      ],
+      "semanticStatus": "WEAK_ORACLE",
+      "mismatch": "Creates an invalid-date promotion instead of updating existing SUMMER20; generic page/title text substitutes for exact error and unchanged dates.",
+      "sourceBasis": {
+        "applicationVersion": "1.1.19",
+        "repositoryPin": {
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "status": "PINNED_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "mrvautin/expressCart",
+            "path": "routes/admin.js",
+            "lines": "620-670",
+            "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "proposalNote": "discount date range validation"
+          }
+        ],
+        "sourceReviewDetail": "NOT_REVERIFIED_IN_THIS_TASK_ACTIVE_REMEDIATION_SCOPE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-004/g3-ecgap004-20261110185226",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "EC-GAP-005",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/expresscart/selenium/0affc59171fdc4286b78929f3dbbe2e3/revision-2/T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.java",
+        "sha256": "c57313ebfbf7e2dcd95495968b68640e7b14be3ae89ed36124f8e10fca51f685",
+        "gherkinLines": "16-23",
+        "oracleLines": "24-25",
+        "implementationLines": "30-45"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Customer Registration Validation"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Customer registration validation rejects duplicate email address with clear feedback"
+        },
+        {
+          "line": 18,
+          "text": "    Given a customer with email \"[TEST_EMAIL_REDACTED]\" already exists"
+        },
+        {
+          "line": 19,
+          "text": "    When a guest navigates to customer registration page"
+        },
+        {
+          "line": 20,
+          "text": "    And submits registration details with email \"[TEST_EMAIL_REDACTED]\""
+        },
+        {
+          "line": 21,
+          "text": "    Then registration fails with message \"A customer with that email address already exists\""
+        },
+        {
+          "line": 22,
+          "text": "    And the total customer count in the database remains unchanged"
+        },
+        {
+          "line": 23,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 24,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 25,
+          "text": "POST /customer/create queries db.customers.findOne; finds duplicate email and returns HTTP 400 error."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": ".setEmail(\"[REDACTED]\")"
+        },
+        {
+          "line": 35,
+          "text": ".setPassword(\"[REDACTED]\")"
+        },
+        {
+          "line": 38,
+          "text": ".setUsername(\"DuplicateUser\")"
+        },
+        {
+          "line": 39,
+          "text": ".setEmail(\"[REDACTED]\")"
+        },
+        {
+          "line": 40,
+          "text": ".setPassword(\"[REDACTED]\")"
+        },
+        {
+          "line": 41,
+          "text": ".setConfirmPassword(\"[REDACTED]\")"
+        },
+        {
+          "line": 42,
+          "text": ".addUserError();"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Duplicate email registration rejected\", userPage.emailFieldHasError() || driver.getPageSource().contains(\"already exists\") || driver.getPageSource().contains(\"User\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Duplicate email registration rejected\", userPage.emailFieldHasError() || driver.getPageSource().contains(\"already exists\") || driver.getPageSource().contains(\"User\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Uses admin user creation instead of guest storefront registration; no customer-count invariant.",
+      "sourceBasis": {
+        "applicationVersion": "1.1.19",
+        "repositoryPin": {
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "status": "PINNED_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "mrvautin/expressCart",
+            "path": "routes/customer.js",
+            "lines": "45-80",
+            "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "proposalNote": "customer registration duplicate check"
+          }
+        ],
+        "sourceReviewDetail": "NOT_REVERIFIED_IN_THIS_TASK_ACTIVE_REMEDIATION_SCOPE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-005/g3-ecgap005-20261110185226",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "EC-GAP-006",
+      "application": "expresscart",
+      "applicationVersionClaimed": "1.1.19",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/expresscart/selenium/f02b9ed81a318c005e31982c144907a2/revision-2/T01C_f02b9ed81a318c005e31982c144907a2_R2.java",
+        "sha256": "1c1db79a0121f8e3c51783feea41c7c95a348e6a6f97ef3ac0c1d1f7d44bbcee",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-47"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Stock Replenishment Synchronization"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Admin product stock update directly updates storefront inventory badge and cart capability"
+        },
+        {
+          "line": 18,
+          "text": "    Given product \"Solar Charger\" has stock quantity 0"
+        },
+        {
+          "line": 19,
+          "text": "    And the public product page displays badge \"Out of stock\" with \"Add to cart\" disabled"
+        },
+        {
+          "line": 20,
+          "text": "    When administrator logs in and edits \"Solar Charger\" stock to 5"
+        },
+        {
+          "line": 21,
+          "text": "    And clicks \"Save product\""
+        },
+        {
+          "line": 22,
+          "text": "    Then reloading public product page displays \"In stock: 5\""
+        },
+        {
+          "line": 23,
+          "text": "    And the \"Add to cart\" button becomes enabled and functional"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "Stock update persists in MongoDB; storefront product view dynamically renders in-stock badge and unlocks cart addition."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": ".setEmail(\"[REDACTED]\")"
+        },
+        {
+          "line": 36,
+          "text": ".setPassword(\"[REDACTED]\")"
+        },
+        {
+          "line": 39,
+          "text": ".setTitle(\"InventoryItem001\")"
+        },
+        {
+          "line": 40,
+          "text": ".setPrice(\"25.00\")"
+        },
+        {
+          "line": 41,
+          "text": ".setDescr(\"Stock tracked inventory item\")"
+        },
+        {
+          "line": 42,
+          "text": ".addProduct();"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Products table contains new inventory item\", prods.containsProduct(\"InventoryItem001\"));"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertEquals(\"InventoryItem001\", prods.getFirstProductName());"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Creates/lists an inventory item instead of changing stock 0→5 and checking storefront badge/cart capability.",
+      "sourceBasis": {
+        "applicationVersion": "1.1.19",
+        "repositoryPin": {
+          "repository": "mrvautin/expressCart",
+          "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+          "treeSha": "d98ab97ab9ea1b007104f485e36098fdd2c16b61",
+          "status": "PINNED_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "mrvautin/expressCart",
+            "path": "routes/admin.js",
+            "lines": "320-360",
+            "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+            "proposalNote": "product update route"
+          }
+        ],
+        "sourceReviewDetail": "NOT_REVERIFIED_IN_THIS_TASK_ACTIVE_REMEDIATION_SCOPE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/expresscart/EC-GAP-006/g3-ecgap006-20261110185226",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "JO-GAP-001",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/joomla/selenium/89cc3c54cef991d9d154f33111433d61/revision-2/T01C_89cc3c54cef991d9d154f33111433d61_R2.java",
+        "sha256": "c18000d072fe7026bef9293f99e03fab6d7acdd90038b07a97f4ed8b68986f70",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-49"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Featured Content Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Featured article flag appears and is removed from the featured list"
+        },
+        {
+          "line": 18,
+          "text": "    Given administrator is logged into Joomla admin"
+        },
+        {
+          "line": 19,
+          "text": "    And published article \"Featured Launch Article\" is currently not featured"
+        },
+        {
+          "line": 20,
+          "text": "    When administrator toggles the \"Featured\" star on for \"Featured Launch Article\""
+        },
+        {
+          "line": 21,
+          "text": "    Then \"Featured Launch Article\" appears in the \"Featured Articles\" view"
+        },
+        {
+          "line": 22,
+          "text": "    When administrator toggles the \"Featured\" star off"
+        },
+        {
+          "line": 23,
+          "text": "    Then \"Featured Launch Article\" is removed from the \"Featured Articles\" view"
+        },
+        {
+          "line": 24,
+          "text": "    And the article remains published in the standard articles list"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "content_frontpage table entry is created then deleted; article published state in #__content remains 1."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 37,
+          "text": ".setTitle(title)"
+        },
+        {
+          "line": 38,
+          "text": ".setBody(\"Content for featured article evaluation\");"
+        },
+        {
+          "line": 39,
+          "text": "post.save();"
+        },
+        {
+          "line": 43,
+          "text": ".setUsername(adminUser)"
+        },
+        {
+          "line": 44,
+          "text": ".setPassword(adminPsw)"
+        },
+        {
+          "line": 45,
+          "text": ".login()"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 48,
+          "text": "Assert.assertTrue(\"Articles manager must contain created article\", articles.containsArticle(title));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Saves an article but does not toggle Featured or verify featured-list transitions.",
+      "sourceBasis": {
+        "applicationVersion": "3.10.11",
+        "repositoryPin": {
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/models/articles.php",
+            "lines": "380-420",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "proposalNote": "featured toggle handler"
+          }
+        ],
+        "sourceReviewDetail": "MISMATCHED_SOURCE_RANGE_NOT_FEATURED_STATE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-001/g3-jogap001-20261110191702",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "JO-GAP-002",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/joomla/selenium/80b1dfff69f7f00680658ed64a4b7315/revision-2/T01C_80b1dfff69f7f00680658ed64a4b7315_R2.java",
+        "sha256": "91f7fe7026ee93c553869c95acdeabcedf8acd767204bc201562e0558a5173a7",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-47"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Publication Window Scheduling"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Publish-up and publish-down define the article visibility window"
+        },
+        {
+          "line": 18,
+          "text": "    Given administrator is logged into Joomla admin"
+        },
+        {
+          "line": 19,
+          "text": "    When administrator creates article \"Timed Press Release\" with publish-up set to future date"
+        },
+        {
+          "line": 20,
+          "text": "    Then the article status badge shows \"Published but Pending\""
+        },
+        {
+          "line": 21,
+          "text": "    And a guest visiting the public category cannot view \"Timed Press Release\""
+        },
+        {
+          "line": 22,
+          "text": "    When the system time is within the publish-up and publish-down window"
+        },
+        {
+          "line": 23,
+          "text": "    Then a guest visiting the public category can view \"Timed Press Release\""
+        },
+        {
+          "line": 24,
+          "text": "    When the system time advances past publish-down"
+        },
+        {
+          "line": 25,
+          "text": "    Then the article status badge shows \"Expired\" and is hidden from public view"
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "SQL queries filter by (publish_up <= NOW() AND (publish_down >= NOW() OR publish_down = '0000-00-00 00:00:00'))."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 37,
+          "text": ".setUsername(adminUser)"
+        },
+        {
+          "line": 38,
+          "text": ".setPassword(adminPsw)"
+        },
+        {
+          "line": 39,
+          "text": ".login()"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Admin interface confirms article editing\", driver.getTitle().contains(\"Articles\") || driver.getTitle().contains(\"Joomla\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 41,
+          "text": "Assert.assertNotNull(\"Manage articles page loaded\", articles);"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertNotNull(\"Edit article site admin page loaded\", editPage);"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Admin interface confirms article editing\", driver.getTitle().contains(\"Articles\") || driver.getTitle().contains(\"Joomla\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks editor rendering; no publish-up/down changes or visibility-window behavior.",
+      "sourceBasis": {
+        "applicationVersion": "3.10.11",
+        "repositoryPin": {
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "components/com_content/models/articles.php",
+            "lines": "150-210",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "proposalNote": "timed publication filter"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_SOURCE_RANGE_SUPPORTS_PUBLISH_STATE_FILTER"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-002/g3-jogap002-20261110191702",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "JO-GAP-003",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/T01C_2fe8982badb9713cf8935bc53c1d61ad_R2.java",
+        "sha256": "77d6d9d6cbfb56a654c290a6b52c9acac1d86257f94b5344e08c25f108576c87",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-41"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Granular Permission Enforcement"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Editor without edit-state permission cannot change publication state"
+        },
+        {
+          "line": 18,
+          "text": "    Given user \"junior_editor\" has edit permission but lacks edit-state permission"
+        },
+        {
+          "line": 19,
+          "text": "    And published article \"Policy Guidelines\" exists"
+        },
+        {
+          "line": 20,
+          "text": "    When \"junior_editor\" edits \"Policy Guidelines\""
+        },
+        {
+          "line": 21,
+          "text": "    Then the \"Status\" dropdown is disabled or absent from the edit view"
+        },
+        {
+          "line": 22,
+          "text": "    When \"junior_editor\" attempts to unpublish via direct API or URL manipulation"
+        },
+        {
+          "line": 23,
+          "text": "    Then the action is denied with message \"You are not authorized to change the state of this item\""
+        },
+        {
+          "line": 24,
+          "text": "    And \"Policy Guidelines\" remains published"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "com_content checks JAccess::check($userId, 'core.edit.state'); denies unauthorized state change attempt."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": "authorLogin.setUsername(\"author\").setPassword(\"[REDACTED]\");"
+        },
+        {
+          "line": 37,
+          "text": "EditProfilePage profile = authorLogin.login();"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Home feed renders articles without admin publish toggles\", driver.findElement(By.id(\"system-message-container\")).isDisplayed() || driver.getTitle().contains(\"Home\") || driver.getPageSource().contains(\"Joomla\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 39,
+          "text": "Assert.assertNotNull(\"Author profile loaded\", profile);"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Home feed renders articles without admin publish toggles\", driver.findElement(By.id(\"system-message-container\")).isDisplayed() || driver.getTitle().contains(\"Home\") || driver.getPageSource().contains(\"Joomla\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Logs in as author and checks a page, but does not attempt the restricted state change or assert denial.",
+      "sourceBasis": {
+        "applicationVersion": "3.10.11",
+        "repositoryPin": {
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/controllers/article.php",
+            "lines": "80-120",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "proposalNote": "edit.state authorization check"
+          }
+        ],
+        "sourceReviewDetail": "MISMATCHED_SOURCE_RANGE_ALLOW_EDIT_NOT_STATE_PERMISSION"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FLAKY",
+        "declaredReruns": {
+          "passed": 1,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-003/g3-jogap003-20261110191702",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FLAKY",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "JO-GAP-004",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-2/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R2.java",
+        "sha256": "d7294f6dfac865d4e884cfe73446f26e368e1a0e5213187d2d9d34d4ca12d095",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Version History Auditing"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Editing an article increments its version counter and creates history record"
+        },
+        {
+          "line": 18,
+          "text": "    Given article \"Living Document\" exists with version counter 1"
+        },
+        {
+          "line": 19,
+          "text": "    When administrator edits \"Living Document\" body with \"Revised section 3 content.\""
+        },
+        {
+          "line": 20,
+          "text": "    And clicks \"Save\""
+        },
+        {
+          "line": 21,
+          "text": "    Then the article version counter increments to 2"
+        },
+        {
+          "line": 22,
+          "text": "    When administrator opens the \"Versions\" modal"
+        },
+        {
+          "line": 23,
+          "text": "    Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author \"admin\""
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "#__ucm_history inserts new snapshot; #__content.version increments by 1."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": ".setUsername(adminUser)"
+        },
+        {
+          "line": 36,
+          "text": ".setPassword(adminPsw)"
+        },
+        {
+          "line": 37,
+          "text": ".login()"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 42,
+          "text": "Assert.assertNotNull(\"Article category text must be recorded\", category);"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Article list must contain active article\", articles.containsArticle(\"Article 1\") || category.length() > 0);"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Inspects article category/listing; never edits or verifies version increment/history.",
+      "sourceBasis": {
+        "applicationVersion": "3.10.11",
+        "repositoryPin": {
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/models/article.php",
+            "lines": "250-290",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "proposalNote": "version history save handler"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_VERSION_INCREMENT_SOURCE_RANGE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-20261110191702",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "JO-GAP-005",
+      "application": "joomla",
+      "applicationVersionClaimed": "3.10.11",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/joomla/selenium/e43d4dcc5e13acf7d90604fe49850216/revision-2/T01C_e43d4dcc5e13acf7d90604fe49850216_R2.java",
+        "sha256": "d9b7aeaec868b0f0c023b44b94e58c859e27d9ad84bc534637263625254dd7bb",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-46"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Trash and Restore Lifecycle"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Article trash and restore lifecycle restores prior published status"
+        },
+        {
+          "line": 18,
+          "text": "    Given published article \"Article to Trash\" exists"
+        },
+        {
+          "line": 19,
+          "text": "    When administrator selects \"Article to Trash\" and clicks \"Trash\""
+        },
+        {
+          "line": 20,
+          "text": "    Then the article status changes to Trashed (-2)"
+        },
+        {
+          "line": 21,
+          "text": "    And \"Article to Trash\" is hidden from public view and main articles list"
+        },
+        {
+          "line": 22,
+          "text": "    When administrator filters articles by status \"Trashed\""
+        },
+        {
+          "line": 23,
+          "text": "    And selects \"Article to Trash\" and clicks \"Publish\""
+        },
+        {
+          "line": 24,
+          "text": "    Then the article status is restored to Published (1)"
+        },
+        {
+          "line": 25,
+          "text": "    And \"Article to Trash\" reappears in the public blog listing"
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "#__content.state transitions 1 -> -2 -> 1; public view hides trashed articles and re-displays restored articles."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 37,
+          "text": ".setUsername(adminUser)"
+        },
+        {
+          "line": 38,
+          "text": ".setPassword(adminPsw)"
+        },
+        {
+          "line": 39,
+          "text": ".login()"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 44,
+          "text": "Assert.assertNotNull(\"Alert message confirming archive action\", articles.getAlertMessage());"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Alert message confirms article modification\", articles.getAlertMessage().length() > 0);"
+        }
+      ],
+      "semanticStatus": "WEAK_ORACLE",
+      "mismatch": "Asserts a generic alert; does not verify trash, restore, or restored publication status.",
+      "sourceBasis": {
+        "applicationVersion": "3.10.11",
+        "repositoryPin": {
+          "repository": "joomla/joomla-cms",
+          "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+          "treeSha": "3ca858200ae101d31fa2505c3e756f7bd6cb0449",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/models/articles.php",
+            "lines": "120-180",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "proposalNote": "trash and restore model actions"
+          }
+        ],
+        "sourceReviewDetail": "NOT_VERIFIED_DIRECT_ARCHIVE_ACTION"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-005/g3-jogap005-20261110191702",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "KB-GAP-001",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+        "sha256": "c04e0cbc96c6c89865c316f7ebb0075cf130f3a8623097b87c73e2820efa9592",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Task Lifecycle Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Reopen a closed task"
+        },
+        {
+          "line": 18,
+          "text": "    Given the user is logged into Kanboard as \"admin\""
+        },
+        {
+          "line": 19,
+          "text": "    And a closed task \"Task to Reopen\" exists in project \"Test Project\""
+        },
+        {
+          "line": 20,
+          "text": "    When the user navigates to the task page for \"Task to Reopen\""
+        },
+        {
+          "line": 21,
+          "text": "    And the user clicks the \"Reopen this task\" link in the sidebar"
+        },
+        {
+          "line": 22,
+          "text": "    And the user confirms \"Yes\" in the confirmation modal"
+        },
+        {
+          "line": 23,
+          "text": "    Then the task status badge displays \"open\""
+        },
+        {
+          "line": 24,
+          "text": "    And searching \"status:open Task to Reopen\" in the project board returns the task in the board column"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "Task status changes from closed to open in database and UI badge; task reappears on active Kanban board and matches status:open query."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 41,
+          "text": "taskPage = taskPage.closeTask().confirmCloseTask();"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 36,
+          "text": "Assert.assertNotNull(\"Project page rendered\", project);"
+        },
+        {
+          "line": 38,
+          "text": "Assert.assertNotNull(\"First task name must exist\", taskName);"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertEquals(\"closed\", taskPage.getStatus().toLowerCase());"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Navigates to a closed task and asserts it remains closed; no reopen action or reopened-state assertion.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.15",
+        "repositoryPin": {
+          "repository": "benchmark/kanboard",
+          "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+          "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Template/task/sidebar.php",
+            "lines": "81",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "Reopen action in sidebar"
+          },
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Controller/TaskStatusController.php",
+            "lines": "28-36",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "open() action transitions task is_active to 1"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSAL_REPOSITORY_COMMIT_PIN_INVALID_CANDIDATE_SOURCE_REFS_NOT_VERIFIED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": "ACTIVE_PR_30_EXCLUDED_FROM_REMEDIATION"
+    },
+    {
+      "candidateId": "KB-GAP-002",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-3/T01C_ca582c83d0559c38508bf3e1a5420ca9_R3.java",
+        "sha256": "f1e78eb585b9691707a92c9dc51fcca49c73ce409e3c7ddb9be8472e9c881abd",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-45"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Task Collaboration"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Create and view a task comment"
+        },
+        {
+          "line": 18,
+          "text": "    Given the user is logged into Kanboard as \"admin\""
+        },
+        {
+          "line": 19,
+          "text": "    And an open task \"Task With Comments\" exists in project \"Test Project\""
+        },
+        {
+          "line": 20,
+          "text": "    When the user navigates to the task page for \"Task With Comments\""
+        },
+        {
+          "line": 21,
+          "text": "    And the user enters \"This is a verified test comment for task verification.\" in the comment area"
+        },
+        {
+          "line": 22,
+          "text": "    And the user clicks the \"Save\" comment button"
+        },
+        {
+          "line": 23,
+          "text": "    Then the comment \"This is a verified test comment for task verification.\" appears in the comments stream"
+        },
+        {
+          "line": 24,
+          "text": "    And the comment header displays the author \"admin\" with timestamp \"just now\""
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "Comment record is inserted into comments table linked to task_id; comment text and author username render in the task comment stream."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 41,
+          "text": "commentInput.sendKeys(\"Automated verification comment\");"
+        },
+        {
+          "line": 42,
+          "text": "driver.findElement(By.xpath(\"//button[@type='submit']\")).click();"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Task stream contains submitted comment\", driver.getPageSource().contains(\"Automated verification comment\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 38,
+          "text": "Assert.assertNotNull(\"Task page loaded\", taskPage);"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Task stream contains submitted comment\", driver.getPageSource().contains(\"Automated verification comment\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "The test types and submits the comment (latest Java lines 40-42), but its assertion accepts generic page title (line 44), so persisted comment visibility is unproven.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.15",
+        "repositoryPin": {
+          "repository": "benchmark/kanboard",
+          "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+          "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Template/task_comments/create.php",
+            "lines": "1-25",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "Comment creation template"
+          },
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Controller/CommentController.php",
+            "lines": "30-65",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "create/save comment handler"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSAL_REPOSITORY_COMMIT_PIN_INVALID_CANDIDATE_SOURCE_REFS_NOT_VERIFIED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "KB-GAP-003",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-3/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3.java",
+        "sha256": "3b12734b64b45fdef8977f7ab428be3bda54165b1141fc2ad6ee82ba0072d194",
+        "gherkinLines": "16-27",
+        "oracleLines": "28-29",
+        "implementationLines": "34-46"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Task Operations"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Duplicate a task to another project"
+        },
+        {
+          "line": 18,
+          "text": "    Given the user is logged into Kanboard as \"admin\""
+        },
+        {
+          "line": 19,
+          "text": "    And project \"Project Alpha\" contains task \"Task to Clone\""
+        },
+        {
+          "line": 20,
+          "text": "    And empty project \"Project Beta\" exists"
+        },
+        {
+          "line": 21,
+          "text": "    When the user navigates to task \"Task to Clone\" in \"Project Alpha\""
+        },
+        {
+          "line": 22,
+          "text": "    And the user clicks the \"Duplicate to another project\" link"
+        },
+        {
+          "line": 23,
+          "text": "    And the user selects \"Project Beta\" as destination project"
+        },
+        {
+          "line": 24,
+          "text": "    And the user clicks the \"Save\" button"
+        },
+        {
+          "line": 25,
+          "text": "    Then project \"Project Beta\" board contains task \"Task to Clone\""
+        },
+        {
+          "line": 26,
+          "text": "    And original task \"Task to Clone\" remains intact in \"Project Alpha\""
+        },
+        {
+          "line": 27,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 28,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 29,
+          "text": "New task record created in project Beta with copied title/description; source task record in project Alpha remains unmodified."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 42,
+          "text": "driver.findElement(By.linkText(\"Duplicate to another project\")).click();"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Modal title confirms duplication action\", driver.findElement(By.id(\"modal-content\")).getText().contains(\"Duplicate\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 40,
+          "text": "Assert.assertNotNull(\"Task page loaded\", taskPage);"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Modal popup for duplication rendered\", driver.findElement(By.id(\"modal-content\")).isDisplayed());"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Modal title confirms duplication action\", driver.findElement(By.id(\"modal-content\")).getText().contains(\"Duplicate\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Opens/checks duplicate modal but never completes duplication or verifies target task.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.15",
+        "repositoryPin": {
+          "repository": "benchmark/kanboard",
+          "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+          "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Controller/TaskDuplicationController.php",
+            "lines": "45-90",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "duplicate() across projects handler"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSAL_REPOSITORY_COMMIT_PIN_INVALID_CANDIDATE_SOURCE_REFS_NOT_VERIFIED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "KB-GAP-004",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-3/T01C_233eaf16319686f2ab6c351b189cd929_R3.java",
+        "sha256": "817cb5b5102d543b5c7501e651fc039cc6b12be3596876a70f5bf7648085c084",
+        "gherkinLines": "16-27",
+        "oracleLines": "28-29",
+        "implementationLines": "34-46"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Task Operations"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Move a task to another project"
+        },
+        {
+          "line": 18,
+          "text": "    Given the user is logged into Kanboard as \"admin\""
+        },
+        {
+          "line": 19,
+          "text": "    And project \"Project A\" contains task \"Task to Move\""
+        },
+        {
+          "line": 20,
+          "text": "    And project \"Project B\" exists"
+        },
+        {
+          "line": 21,
+          "text": "    When the user navigates to task \"Task to Move\" in \"Project A\""
+        },
+        {
+          "line": 22,
+          "text": "    And the user clicks the \"Move to another project\" link"
+        },
+        {
+          "line": 23,
+          "text": "    And the user selects \"Project B\" as destination"
+        },
+        {
+          "line": 24,
+          "text": "    And the user clicks the \"Save\" button"
+        },
+        {
+          "line": 25,
+          "text": "    Then task \"Task to Move\" is displayed on project \"Project B\" board"
+        },
+        {
+          "line": 26,
+          "text": "    And task \"Task to Move\" is no longer present on project \"Project A\" board"
+        },
+        {
+          "line": 27,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 28,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 29,
+          "text": "Task project_id is updated to Project B; task disappears from Project A board and appears in Project B first column."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 42,
+          "text": "driver.findElement(By.linkText(\"Move to another project\")).click();"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Modal title confirms move action\", driver.findElement(By.id(\"modal-content\")).getText().contains(\"Move\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 40,
+          "text": "Assert.assertNotNull(\"Task page loaded\", taskPage);"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Modal popup for moving task rendered\", driver.findElement(By.id(\"modal-content\")).isDisplayed());"
+        },
+        {
+          "line": 45,
+          "text": "Assert.assertTrue(\"Modal title confirms move action\", driver.findElement(By.id(\"modal-content\")).getText().contains(\"Move\") || driver.getTitle().contains(\"Kanboard\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Opens/checks move modal but does not select destination or verify moved task.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.15",
+        "repositoryPin": {
+          "repository": "benchmark/kanboard",
+          "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+          "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Controller/TaskDuplicationController.php",
+            "lines": "95-140",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "move() across projects handler"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSAL_REPOSITORY_COMMIT_PIN_INVALID_CANDIDATE_SOURCE_REFS_NOT_VERIFIED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "KB-GAP-008",
+      "application": "kanboard",
+      "applicationVersionClaimed": "1.2.15",
+      "revision": "revision-3",
+      "javaSource": {
+        "path": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-3/T01C_882860986d9907549f10245367191c30_R3.java",
+        "sha256": "82e5c4c03b47b8a85801ea168d271c73935cf7bf0a82a9fafb6f11593a19d5b3",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-47"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Subtask Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Add an internal subtask to a task"
+        },
+        {
+          "line": 18,
+          "text": "    Given the user is logged into Kanboard as \"admin\""
+        },
+        {
+          "line": 19,
+          "text": "    And an open task \"Master Feature\" exists in project \"Test Project\""
+        },
+        {
+          "line": 20,
+          "text": "    When the user navigates to task \"Master Feature\""
+        },
+        {
+          "line": 21,
+          "text": "    And the user clicks \"Add a sub-task\" link"
+        },
+        {
+          "line": 22,
+          "text": "    And the user enters \"Subtask Unit 1\" in the \"Title\" field"
+        },
+        {
+          "line": 23,
+          "text": "    And the user clicks the \"Save\" button"
+        },
+        {
+          "line": 24,
+          "text": "    Then the \"Subtasks\" section of task \"Master Feature\" displays \"Subtask Unit 1\""
+        },
+        {
+          "line": 25,
+          "text": "    And the subtask status is displayed as \"Todo\""
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "Subtask row inserted into subtasks table with task_id FK; subtask table renders item with default status 'Todo'."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 41,
+          "text": "driver.findElement(By.linkText(\"Add a sub-task\")).click();"
+        },
+        {
+          "line": 43,
+          "text": "titleInput.sendKeys(\"Subtask 001\");"
+        },
+        {
+          "line": 44,
+          "text": "driver.findElement(By.xpath(\"//*[@id='modal-content']/form/div/div[4]/div/div/button\")).click();"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Subtask list contains Subtask 001\", driver.getPageSource().contains(\"Subtask 001\") || driver.findElement(By.id(\"subtasks\")).isDisplayed());"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 39,
+          "text": "Assert.assertNotNull(\"Task page loaded\", taskPage);"
+        },
+        {
+          "line": 46,
+          "text": "Assert.assertTrue(\"Subtask list contains Subtask 001\", driver.getPageSource().contains(\"Subtask 001\") || driver.findElement(By.id(\"subtasks\")).isDisplayed());"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "The test saves and checks text/list presence (latest Java lines 41-46), but uses “Subtask 001” instead of the requested title and does not assert TODO status.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.15",
+        "repositoryPin": {
+          "repository": "benchmark/kanboard",
+          "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+          "treeSha": "d38fcc0eae8073023c48bb46998741c8c19d4d06"
+        },
+        "sourceReviewStatus": "BLOCKED",
+        "references": [
+          {
+            "repository": "kanboard/kanboard",
+            "path": "app/Controller/SubtaskController.php",
+            "lines": "30-70",
+            "commit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+            "proposalNote": "create/save subtask handler"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSAL_REPOSITORY_COMMIT_PIN_INVALID_CANDIDATE_SOURCE_REFS_NOT_VERIFIED"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 3,
+        "declaredCompileOutcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredG3Outcome": "NOT_RECORDED_FOR_LATEST_REVISION",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MB-GAP-001",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mantisbt/selenium/1406ecc3352e264ca199a0cf7476c671/revision-2/T01C_1406ecc3352e264ca199a0cf7476c671_R2.java",
+        "sha256": "d6beb39a74f3cac818c62c0489835b02a8a24799deb62a313439d8040f7bc483",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Issue Monitoring"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: User monitors and stops monitoring an issue for their own account"
+        },
+        {
+          "line": 18,
+          "text": "    Given developer \"dev_dave\" is viewing issue #201"
+        },
+        {
+          "line": 19,
+          "text": "    And \"dev_dave\" is not currently listed as a monitor"
+        },
+        {
+          "line": 20,
+          "text": "    When \"dev_dave\" clicks the \"Monitor\" button"
+        },
+        {
+          "line": 21,
+          "text": "    Then the page reloads displaying \"dev_dave\" in the \"Users monitoring this issue\" list"
+        },
+        {
+          "line": 22,
+          "text": "    And the action button label changes to \"End Monitoring\""
+        },
+        {
+          "line": 23,
+          "text": "    When \"dev_dave\" clicks \"End Monitoring\""
+        },
+        {
+          "line": 24,
+          "text": "    Then \"dev_dave\" is removed from the monitoring list"
+        },
+        {
+          "line": 25,
+          "text": "    And other monitoring users remain unaffected"
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "mantis_bug_monitor_table adds then deletes (user_id, bug_id) record; UI updates monitor button toggle and list."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 39,
+          "text": "driver.findElement(By.xpath(\"//*[@id='buglist']/tbody/tr[4]/td[4]/a\")).click();"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Issue view header rendered\", driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 37,
+          "text": "Assert.assertNotNull(\"Issue summary must be present\", summary);"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertEquals(summary, details.getSummary());"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Issue view header rendered\", driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Opens issue and checks summary/title; never monitors/unmonitors or verifies monitor-list isolation.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.0",
+        "repositoryPin": {
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "bug_monitor_add.php",
+            "lines": "30-65",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "monitor add handler"
+          },
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "bug_monitor_delete.php",
+            "lines": "30-65",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "monitor delete handler"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_PINNED_SOURCE_MECHANISM"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-001/g3-mbgap001-20261110193403",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MB-GAP-002",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mantisbt/selenium/6bb62c5782120fa9f4b349accb4351d2/revision-2/T01C_6bb62c5782120fa9f4b349accb4351d2_R2.java",
+        "sha256": "1abf47db8f6350cb9ab63b1330cb0f4749f9a77ba84a20c40b92bbbeb1d0aca3",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-42"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Note Privacy Authorization"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Private issue note is hidden from users below the private-note threshold"
+        },
+        {
+          "line": 18,
+          "text": "    Given issue #202 exists in project \"Core System\""
+        },
+        {
+          "line": 19,
+          "text": "    When developer \"dev_dave\" adds a note \"Confidential security vulnerability details\" with \"Private\" checked"
+        },
+        {
+          "line": 20,
+          "text": "    Then the note is displayed to \"dev_dave\" with a \"Private\" badge"
+        },
+        {
+          "line": 21,
+          "text": "    When reporter \"rep_bob\" views issue #202"
+        },
+        {
+          "line": 22,
+          "text": "    Then the note \"Confidential security vulnerability details\" is NOT rendered"
+        },
+        {
+          "line": 23,
+          "text": "    And public notes on issue #202 remain visible to \"rep_bob\""
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "bugnote view query filters by view_state == 50; users below private_bugnote_threshold cannot see private notes."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 37,
+          "text": "driver.findElement(By.xpath(\"//*[@id='buglist']/tbody/tr[4]/td[4]/a\")).click();"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Issue notes container visible to authenticated user\", driver.findElement(By.id(\"bugnotes\")).isDisplayed() || driver.getPageSource().contains(\"Notes\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 35,
+          "text": "Assert.assertNotNull(\"Status column rendered\", status);"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertEquals(status, details.getStatus());"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Issue notes container visible to authenticated user\", driver.findElement(By.id(\"bugnotes\")).isDisplayed() || driver.getPageSource().contains(\"Notes\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks status and notes-container presence; does not create private note or compare visibility across roles.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.0",
+        "repositoryPin": {
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "bugnote_add.php",
+            "lines": "40-90",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "bugnote add handler with view_state"
+          },
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "core/bugnote_api.php",
+            "lines": "120-170",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "visible bugnotes access check"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_PINNED_SOURCE_MECHANISM"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-002/g3-mbgap002-20261110193403",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MB-GAP-003",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mantisbt/selenium/a4f2ce95a2a722305bf2ee9bb788d336/revision-2/T01C_a4f2ce95a2a722305bf2ee9bb788d336_R2.java",
+        "sha256": "86757f38c9fab4a303f9710013f75191ba3e0cef55a40bfbd9fbfbead1a24dde",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-41"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Issue Relationship Constraints"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Issue relationship rejects self-link and duplicate links"
+        },
+        {
+          "line": 18,
+          "text": "    Given issues #203 and #204 exist in project \"Core System\""
+        },
+        {
+          "line": 19,
+          "text": "    When developer links issue #203 as \"parent of\" issue #204"
+        },
+        {
+          "line": 20,
+          "text": "    Then issue #203 shows \"parent of: #204\" and issue #204 shows \"child of: #203\""
+        },
+        {
+          "line": 21,
+          "text": "    When developer attempts to link issue #203 to issue #203"
+        },
+        {
+          "line": 22,
+          "text": "    Then the system rejects with error \"You cannot link a bug to itself\""
+        },
+        {
+          "line": 23,
+          "text": "    When developer attempts to add a duplicate \"parent of\" link between #203 and #204"
+        },
+        {
+          "line": 24,
+          "text": "    Then the system rejects with error \"Relationship already exists\""
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "mantis_bug_relationship_table enforces uniqueness and disallows source_bug_id == dest_bug_id."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 36,
+          "text": "driver.findElement(By.xpath(\"//*[@id='buglist']/tbody/tr[4]/td[4]/a\")).click();"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Relationship controls visible on issue details\", driver.findElements(By.name(\"rel_type\")).size() > 0 || driver.getPageSource().contains(\"Relationships\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 39,
+          "text": "Assert.assertNotNull(\"Priority rendered on issue view\", details.getPriority());"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Relationship controls visible on issue details\", driver.findElements(By.name(\"rel_type\")).size() > 0 || driver.getPageSource().contains(\"Relationships\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks priority and relationship-control presence; does not create links or test self/duplicate rejection.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.0",
+        "repositoryPin": {
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "bug_relationship_add.php",
+            "lines": "35-85",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "relationship validation and same-bug rejection"
+          },
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "core/relationship_api.php",
+            "lines": "80-130",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "relationship_exists check"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_PINNED_SOURCE_MECHANISM"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-003/g3-mbgap003-20261110193403",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MB-GAP-004",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mantisbt/selenium/3b10cef3f23dff894317fc9c42e9ecd4/revision-2/T01C_3b10cef3f23dff894317fc9c42e9ecd4_R2.java",
+        "sha256": "796aef35da2470b6684d3adc3519258fb6f2768c542723a6bdf221b4362c8756",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-40"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Attachment Lifecycle"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Issue attachment upload is persisted and rejects invalid input"
+        },
+        {
+          "line": 18,
+          "text": "    Given issue #205 exists in project \"Core System\""
+        },
+        {
+          "line": 19,
+          "text": "    When reporter uploads file \"stacktrace.txt\" to issue #205"
+        },
+        {
+          "line": 20,
+          "text": "    Then the \"Attached Files\" section displays \"stacktrace.txt\" with file size and upload date"
+        },
+        {
+          "line": 21,
+          "text": "    And clicking \"stacktrace.txt\" downloads the exact original file content"
+        },
+        {
+          "line": 22,
+          "text": "    When reporter attempts to upload an empty file selection"
+        },
+        {
+          "line": 23,
+          "text": "    Then the system displays error \"No file was selected for upload\""
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "mantis_bug_file_table stores file metadata; file content stored in disk/db and retrievable via file_download.php."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": "driver.findElement(By.xpath(\"//*[@id='buglist']/tbody/tr[4]/td[4]/a\")).click();"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"File upload input rendered on issue details\", driver.findElements(By.name(\"ufile[]\")).size() > 0 || driver.getPageSource().contains(\"Upload File\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 38,
+          "text": "Assert.assertNotNull(\"Severity rendered on issue view\", details.getSeverity());"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"File upload input rendered on issue details\", driver.findElements(By.name(\"ufile[]\")).size() > 0 || driver.getPageSource().contains(\"Upload File\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks severity/upload input; does not upload/download or reject an empty selection.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.0",
+        "repositoryPin": {
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "bug_file_add.php",
+            "lines": "40-100",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "bug attachment upload handler"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_PINNED_SOURCE_MECHANISM"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-004/g3-mbgap004-20261110193403",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MB-GAP-005",
+      "application": "mantisbt",
+      "applicationVersionClaimed": "1.2.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mantisbt/selenium/04d0e89a5f7d9303bc9ab5c08d0cfb9c/revision-2/T01C_04d0e89a5f7d9303bc9ab5c08d0cfb9c_R2.java",
+        "sha256": "06129b146c93d2f1c8ed176e0468fd1e5f8c44a1ae4b1863ed19294c3de6e136",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-40"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Tagging and Filtered Retrieval"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Issue tag attachment, display, and tag-based issue filter retrieval"
+        },
+        {
+          "line": 18,
+          "text": "    Given issue #206 exists with no tags"
+        },
+        {
+          "line": 19,
+          "text": "    When developer attaches tag \"regression-v2\" to issue #206"
+        },
+        {
+          "line": 20,
+          "text": "    Then issue #206 details view displays tag badge \"regression-v2\""
+        },
+        {
+          "line": 21,
+          "text": "    When developer navigates to View Issues page and filters by tag \"regression-v2\""
+        },
+        {
+          "line": 22,
+          "text": "    Then issue #206 is returned in the filtered list"
+        },
+        {
+          "line": 23,
+          "text": "    And issues without tag \"regression-v2\" are excluded from the list"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "mantis_tag_table and mantis_bug_tag_table link tag to bug; filter query joins tag table and returns matching issues."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": "driver.findElement(By.xpath(\"//*[@id='buglist']/tbody/tr[4]/td[4]/a\")).click();"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Tagging input or controls present on issue view\", driver.findElements(By.id(\"tag_string\")).size() > 0 || driver.getPageSource().contains(\"Tags\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 38,
+          "text": "Assert.assertNotNull(\"Category rendered on issue view\", issuesPage.getCategory());"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Tagging input or controls present on issue view\", driver.findElements(By.id(\"tag_string\")).size() > 0 || driver.getPageSource().contains(\"Tags\") || driver.getTitle().contains(\"MantisBT\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks category/tag-control presence; does not attach or filter by a tag.",
+      "sourceBasis": {
+        "applicationVersion": "1.2.0",
+        "repositoryPin": {
+          "repository": "mantisbt/mantisbt",
+          "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+          "treeSha": "55de24eebb87e4337e31b2f668554466c591d99d",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "VERIFIED",
+        "references": [
+          {
+            "repository": "mantisbt/mantisbt",
+            "path": "core/tag_api.php",
+            "lines": "40-120",
+            "commit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+            "proposalNote": "tag attach and filter API"
+          }
+        ],
+        "sourceReviewDetail": "VERIFIED_PINNED_SOURCE_MECHANISM"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mantisbt/MB-GAP-005/g3-mbgap005-20261110193403",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MW-GAP-001",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mediawiki/selenium/b078f939f78ca3088b197ccf89f026ba/revision-2/T01C_b078f939f78ca3088b197ccf89f026ba_R2.java",
+        "sha256": "64e33ccb76f52f6cd849333e6ac701422ab112bdbde86dedd368b68c6691d3a0",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-39"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Page Movement and Redirection"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Moving a page preserves content at the target and creates a redirect"
+        },
+        {
+          "line": 18,
+          "text": "    Given page \"Legacy Feature Guide\" exists with text \"Important documentation.\""
+        },
+        {
+          "line": 19,
+          "text": "    And target page \"Current Feature Guide\" does not exist"
+        },
+        {
+          "line": 20,
+          "text": "    When user moves \"Legacy Feature Guide\" to \"Current Feature Guide\" with redirect enabled"
+        },
+        {
+          "line": 21,
+          "text": "    Then page \"Current Feature Guide\" displays \"Important documentation.\""
+        },
+        {
+          "line": 22,
+          "text": "    When user navigates to \"Legacy Feature Guide\""
+        },
+        {
+          "line": 23,
+          "text": "    Then the user is automatically redirected to \"Current Feature Guide\""
+        },
+        {
+          "line": 24,
+          "text": "    And a notification \"(Redirected from Legacy Feature Guide)\" is shown"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "page title is updated in page table; old page title becomes page with redirect flag and body #REDIRECT [[Current Feature Guide]]."
+        }
+      ],
+      "actualActions": [],
+      "actualAssertions": [
+        {
+          "line": 37,
+          "text": "Assert.assertEquals(\"Selenium WebDriver\", wikiPage.getTitle());"
+        },
+        {
+          "line": 38,
+          "text": "Assert.assertTrue(\"Page body has content\", wikiPage.getBody().length() > 0);"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Searches a fixed page and checks unchanged title/nonempty body; does not move page or verify redirect.",
+      "sourceBasis": {
+        "applicationVersion": "1.40.0",
+        "repositoryPin": {
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/MovePage.php",
+            "lines": "110-180",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "page move and redirect insertion handler"
+          }
+        ],
+        "sourceReviewDetail": "NOT_VERIFIED_PROPOSED_PATH_404"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-001/g3-mwgap001-20261110193836",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MW-GAP-002",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mediawiki/selenium/cc9b738b705812d5a51f43f2b4b7c0ce/revision-2/T01C_cc9b738b705812d5a51f43f2b4b7c0ce_R2.java",
+        "sha256": "c38239a9826a3a72e1bd1428775d12d407f9fe277184b4eb945410bc97f018b6",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-43"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Personal Watchlist"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Watch and unwatch state is scoped to the signed-in user"
+        },
+        {
+          "line": 18,
+          "text": "    Given page \"Target Research Page\" exists"
+        },
+        {
+          "line": 19,
+          "text": "    And \"UserAlice\" is logged into MediaWiki"
+        },
+        {
+          "line": 20,
+          "text": "    When \"UserAlice\" clicks the \"Watch\" star on \"Target Research Page\""
+        },
+        {
+          "line": 21,
+          "text": "    Then \"Target Research Page\" appears in \"UserAlice\"'s Special:Watchlist"
+        },
+        {
+          "line": 22,
+          "text": "    When \"UserBob\" logs in and views Special:Watchlist"
+        },
+        {
+          "line": 23,
+          "text": "    Then \"Target Research Page\" is NOT present in \"UserBob\"'s Special:Watchlist"
+        },
+        {
+          "line": 24,
+          "text": "    When \"UserAlice\" un-watches the page"
+        },
+        {
+          "line": 25,
+          "text": "    Then \"Target Research Page\" disappears from \"UserAlice\"'s Special:Watchlist"
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "watchlist table receives row (wl_user, wl_namespace, wl_title) for Alice only; Bob's query returns null."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 40,
+          "text": "watchTab.click();"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Title or URL confirms watchlist interaction\", driver.getTitle().contains(\"Selenium WebDriver\") || driver.getPageSource().contains(\"watch\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 36,
+          "text": "Assert.assertEquals(\"Selenium WebDriver\", wikiPage.getTitle());"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Watch tab visible for signed-in user\", watchTab.isDisplayed());"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Title or URL confirms watchlist interaction\", driver.getTitle().contains(\"Selenium WebDriver\") || driver.getPageSource().contains(\"watch\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Clicks Watch but uses broad page text; no user scoping, watchlist verification, or unwatch.",
+      "sourceBasis": {
+        "applicationVersion": "1.40.0",
+        "repositoryPin": {
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/watchlist/WatchlistManager.php",
+            "lines": "80-140",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "watchlist add/remove manager"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_FILE_EXISTS_REQUESTED_USER_SCOPED_METHOD_NOT_IN_EXCERPT"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-002/g3-mwgap002-20261110193836",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MW-GAP-003",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mediawiki/selenium/5c24156fc88caa06da8d4370e60766fc/revision-2/T01C_5c24156fc88caa06da8d4370e60766fc_R2.java",
+        "sha256": "ac420cc6fc02ab99fccaeef54e51d635cfad74f81f6afeb6a579052e99be3d94",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-41"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: File Upload Governance"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Upload validation rejects a disallowed file extension without creating a file page"
+        },
+        {
+          "line": 18,
+          "text": "    Given an authenticated user is on \"Special:Upload\""
+        },
+        {
+          "line": 19,
+          "text": "    When the user selects disallowed file \"malicious_script.exe\""
+        },
+        {
+          "line": 20,
+          "text": "    And submits the upload form"
+        },
+        {
+          "line": 21,
+          "text": "    Then upload is rejected with error \"File extension .exe does not match the allowed file types\""
+        },
+        {
+          "line": 22,
+          "text": "    And no page titled \"File:Malicious_script.exe\" is created in the File namespace"
+        },
+        {
+          "line": 23,
+          "text": "    And the file repository disk store contains no uploaded artifact"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "UploadBase::checkFileExtension returns FILE_EXTENSION_ERROR; no record in image table or File: page created."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 34,
+          "text": "driver.get(app_url + \"/index.php/Special:Upload\");"
+        },
+        {
+          "line": 36,
+          "text": "Assert.assertTrue(\"Special Upload title rendered\", driver.getTitle().contains(\"Upload\") || driver.getTitle().contains(\"MediaWiki\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 36,
+          "text": "Assert.assertTrue(\"Special Upload title rendered\", driver.getTitle().contains(\"Upload\") || driver.getTitle().contains(\"MediaWiki\"));"
+        },
+        {
+          "line": 39,
+          "text": "Assert.assertTrue(\"Upload form rendered\", uploadForm.isDisplayed());"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertNotNull(\"File upload input present\", driver.findElement(By.id(\"wpUploadFile\")));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Checks upload form presence; never selects/submits a disallowed file or verifies rejection/no artifact.",
+      "sourceBasis": {
+        "applicationVersion": "1.40.0",
+        "repositoryPin": {
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/upload/UploadBase.php",
+            "lines": "410-470",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "file extension and MIME validation"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_FILE_EXISTS_VALIDATION_PATH_NOT_EXACT_REJECTION_ORACLE"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-003/g3-mwgap003-20261110193836",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MW-GAP-004",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mediawiki/selenium/5dbff5381952f882bfd47c571ee4b019/revision-2/T01C_5dbff5381952f882bfd47c571ee4b019_R2.java",
+        "sha256": "f84f47b0ae126474ec71277d584029803765d401505d3e943b9a4efa425871c1",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-41"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Revision Difference Inspection"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Revision history side-by-side diff comparison between two consecutive edits"
+        },
+        {
+          "line": 18,
+          "text": "    Given page \"Diff Comparison Test\" has revision 1 with \"First baseline sentence.\""
+        },
+        {
+          "line": 19,
+          "text": "    And revision 2 with \"Second modified sentence.\""
+        },
+        {
+          "line": 20,
+          "text": "    When user navigates to the page history view"
+        },
+        {
+          "line": 21,
+          "text": "    And selects the radio buttons for revision 1 and revision 2"
+        },
+        {
+          "line": 22,
+          "text": "    And clicks \"Compare selected revisions\""
+        },
+        {
+          "line": 23,
+          "text": "    Then the diff table renders comparing revision 1 (older) and revision 2 (newer)"
+        },
+        {
+          "line": 24,
+          "text": "    And deleted text \"First baseline sentence.\" is highlighted in the left column"
+        },
+        {
+          "line": 25,
+          "text": "    And added text \"Second modified sentence.\" is highlighted in the right column"
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "DifferenceEngine renders table.diff containing class 'diff-deletedline' and class 'diff-addedline' with expected texts."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Revision history title or history list rendered\", driver.getTitle().contains(\"Revision history\") || driver.findElement(By.id(\"pagehistory\")).isDisplayed());"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 39,
+          "text": "Assert.assertNotNull(\"Revision history page loaded\", history);"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Revision history title or history list rendered\", driver.getTitle().contains(\"Revision history\") || driver.findElement(By.id(\"pagehistory\")).isDisplayed());"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Loads history only; does not select two revisions or assert diff contents.",
+      "sourceBasis": {
+        "applicationVersion": "1.40.0",
+        "repositoryPin": {
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/diff/DifferenceEngine.php",
+            "lines": "150-230",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "diff engine table renderer"
+          }
+        ],
+        "sourceReviewDetail": "NOT_VERIFIED_PROPOSED_RANGE_NOT_DIFF_SELECTION"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-004/g3-mwgap004-20261110193836",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "MW-GAP-005",
+      "application": "mediawiki",
+      "applicationVersionClaimed": "1.40.0",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/mediawiki/selenium/83ecf3d51792c82eeb8a3e404724ed8b/revision-2/T01C_83ecf3d51792c82eeb8a3e404724ed8b_R2.java",
+        "sha256": "13e5b0ccaef501317f3b719354a709ca30b0b9c49af89240d4f6351dc686a7aa",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-41"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Page Protection Governance"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Page protection restriction level modification restricts editing to administrators"
+        },
+        {
+          "line": 18,
+          "text": "    Given page \"Community Standards\" is initially editable by all registered users"
+        },
+        {
+          "line": 19,
+          "text": "    When administrator logs in and changes protection level to \"Allow only administrators\""
+        },
+        {
+          "line": 20,
+          "text": "    And submits the protection form"
+        },
+        {
+          "line": 21,
+          "text": "    Then page \"Community Standards\" displays protection status \"Protected\""
+        },
+        {
+          "line": 22,
+          "text": "    When regular editor \"editor_dan\" views \"Community Standards\""
+        },
+        {
+          "line": 23,
+          "text": "    Then the \"Edit\" tab is replaced by \"View source\""
+        },
+        {
+          "line": 24,
+          "text": "    When \"editor_dan\" accesses the direct edit URL for \"Community Standards\""
+        },
+        {
+          "line": 25,
+          "text": "    Then access is denied with error \"This page has been protected to prevent editing\""
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "page_restrictions table receives row (pr_page, pr_type='edit', pr_level='sysop'); userCan checks user_groups; denies non-admin."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Protection form rendered\", driver.findElement(By.id(\"mw-Protect-Form\")).isDisplayed() || driver.getTitle().contains(\"Protect\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 39,
+          "text": "Assert.assertNotNull(\"Page protection page loaded\", protectPage);"
+        },
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Protection form rendered\", driver.findElement(By.id(\"mw-Protect-Form\")).isDisplayed() || driver.getTitle().contains(\"Protect\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Loads protection form only; does not change protection or test editor/direct-edit denial.",
+      "sourceBasis": {
+        "applicationVersion": "1.40.0",
+        "repositoryPin": {
+          "repository": "wikimedia/mediawiki",
+          "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+          "treeSha": "8d24c06db094d7abbadfc0d6ac6f31e3d75c8f5c",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/page/WikiPage.php",
+            "lines": "1400-1460",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "page protection verification"
+          },
+          {
+            "repository": "wikimedia/mediawiki",
+            "path": "includes/specials/SpecialProtect.php",
+            "lines": "80-140",
+            "commit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+            "proposalNote": "protection submission handler"
+          }
+        ],
+        "sourceReviewDetail": "NOT_VERIFIED_PROPOSED_SPECIALPROTECT_PATH_404"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/mediawiki/MW-GAP-005/g3-mwgap005-20261110193836",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "PS-GAP-001",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/prestashop/selenium/25166db489865765701792687cd9d40e/revision-2/T01C_25166db489865765701792687cd9d40e_R2.java",
+        "sha256": "e300c87c1023b4b1a0570ff8256c9661db7e5b7c71910926e20fd03ecc09a923",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-43"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Voucher Usage Quotas"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Cart-rule per-customer usage limit is enforced"
+        },
+        {
+          "line": 18,
+          "text": "    Given cart rule \"WELCOME10\" is active with a usage limit of 1 per customer"
+        },
+        {
+          "line": 19,
+          "text": "    And customer \"[TEST_EMAIL_REDACTED]\" has an active cart with qualifying items"
+        },
+        {
+          "line": 20,
+          "text": "    When the customer applies voucher \"WELCOME10\""
+        },
+        {
+          "line": 21,
+          "text": "    Then voucher \"WELCOME10\" is accepted and a 10% discount is deducted from order total"
+        },
+        {
+          "line": 22,
+          "text": "    When the customer completes the order"
+        },
+        {
+          "line": 23,
+          "text": "    And creates a second cart and attempts to apply voucher \"WELCOME10\" again"
+        },
+        {
+          "line": 24,
+          "text": "    Then voucher application is rejected with message \"You cannot use this voucher anymore (usage limit reached)\""
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "CartRule::checkValidity verifies count in ps_order_cart_rule against quantity_per_user; rejects second redemption."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 36,
+          "text": "driver.get(app_url + \"/index.php?controller=AdminCartRules\");"
+        },
+        {
+          "line": 38,
+          "text": "addRuleBtn.click();"
+        },
+        {
+          "line": 39,
+          "text": "driver.findElement(By.id(\"name_1\")).sendKeys(\"SUMMER2026\");"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Cart rules header rendered\", driver.getTitle().contains(\"Cart Rules\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Voucher form rendered with code name\", driver.findElement(By.id(\"name_1\")).getAttribute(\"value\").contains(\"SUMMER2026\"));"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Cart rules header rendered\", driver.getTitle().contains(\"Cart Rules\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Enters voucher name but does not configure quota, redeem/place order, or verify second-use rejection.",
+      "sourceBasis": {
+        "applicationVersion": "1.6.1.23",
+        "repositoryPin": {
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/CartRule.php",
+            "lines": "450-520",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "per-user voucher quota validation"
+          }
+        ],
+        "sourceReviewDetail": "MISMATCHED_RANGE_CHECKVALIDITY_ACTIVE_QUANTITY_DATE_NOT_PER_USER_QUOTA"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-001/g3-psgap001-20261110194240",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "PS-GAP-002",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/prestashop/selenium/b02cc209824bfa1f986ea340332df898/revision-2/T01C_b02cc209824bfa1f986ea340332df898_R2.java",
+        "sha256": "72d9207c9cf508762e473b75f3e76f97e6dfe56389c804e6b2184fc0989b6f1a",
+        "gherkinLines": "16-25",
+        "oracleLines": "26-27",
+        "implementationLines": "32-43"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Shipping Carrier Eligibility"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Carrier eligibility follows configured price/weight range"
+        },
+        {
+          "line": 18,
+          "text": "    Given carrier \"Express Air\" is configured for minimum order total $50.00"
+        },
+        {
+          "line": 19,
+          "text": "    And carrier \"Standard Ground\" is configured for all order amounts"
+        },
+        {
+          "line": 20,
+          "text": "    When customer has a cart with total value $30.00 and proceeds to shipping step"
+        },
+        {
+          "line": 21,
+          "text": "    Then only \"Standard Ground\" is displayed as an available shipping option"
+        },
+        {
+          "line": 22,
+          "text": "    When customer increases cart quantity so total value becomes $75.00"
+        },
+        {
+          "line": 23,
+          "text": "    And proceeds to shipping step"
+        },
+        {
+          "line": 24,
+          "text": "    Then both \"Standard Ground\" and \"Express Air\" are selectable options"
+        },
+        {
+          "line": 25,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 26,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 27,
+          "text": "Carrier::getCarriersForOrder evaluates ps_range_price; filters available carriers based on order subtotal."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 36,
+          "text": "driver.get(app_url + \"/index.php?controller=AdminCarriers\");"
+        },
+        {
+          "line": 38,
+          "text": "addCarrierBtn.click();"
+        },
+        {
+          "line": 39,
+          "text": "driver.findElement(By.id(\"name\")).sendKeys(\"ExpressCarrier01\");"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Carriers management header rendered\", driver.getTitle().contains(\"Carriers\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Carrier form contains carrier name\", driver.findElement(By.id(\"name\")).getAttribute(\"value\").contains(\"ExpressCarrier01\"));"
+        },
+        {
+          "line": 42,
+          "text": "Assert.assertTrue(\"Carriers management header rendered\", driver.getTitle().contains(\"Carriers\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Creates carrier name only; does not set price range or test eligibility by cart total.",
+      "sourceBasis": {
+        "applicationVersion": "1.6.1.23",
+        "repositoryPin": {
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/Carrier.php",
+            "lines": "320-390",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "carrier range eligibility calculation"
+          }
+        ],
+        "sourceReviewDetail": "MISMATCHED_RANGE_DELIVERY_PRICE_LOOKUP_NOT_CARRIER_SETUP"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-002/g3-psgap002-20261110194240",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "PS-GAP-003",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/prestashop/selenium/202336fd43c393a7395e8722b9e82c8f/revision-2/T01C_202336fd43c393a7395e8722b9e82c8f_R2.java",
+        "sha256": "4f265659420396f466a79e05a695bcfdc24ea666c81cf6db4cdbdc17cdcb5f15",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-45"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Order Placement and Stock Sync"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Successful payment creates one order and applies stock synchronization"
+        },
+        {
+          "line": 18,
+          "text": "    Given product \"Printed Summer Dress\" has available stock 10"
+        },
+        {
+          "line": 19,
+          "text": "    And customer has 2 units of \"Printed Summer Dress\" in cart"
+        },
+        {
+          "line": 20,
+          "text": "    When customer completes payment using \"Bank wire\" payment module"
+        },
+        {
+          "line": 21,
+          "text": "    Then an order confirmation screen is displayed with a unique Order Reference"
+        },
+        {
+          "line": 22,
+          "text": "    And exactly one order record is created in the orders table"
+        },
+        {
+          "line": 23,
+          "text": "    And the available stock for \"Printed Summer Dress\" updates to 8"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "PaymentModule::validateOrder creates ps_orders row, order history entry, and calls StockAvailable::updateQuantity(-2)."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 36,
+          "text": ".addOrder()"
+        },
+        {
+          "line": 37,
+          "text": ".addCustomerName(\"John\")"
+        },
+        {
+          "line": 39,
+          "text": ".addProductName(\"Dress\")"
+        },
+        {
+          "line": 40,
+          "text": ".addQuantity(\"1000\")"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Order creation rejects excessive quantity with error\", addToCart.getErrorMessage().length() > 0 || driver.getPageSource().contains(\"error\") || driver.getTitle().contains(\"Orders\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 43,
+          "text": "Assert.assertNotNull(\"Order creation form loaded\", addToCart);"
+        },
+        {
+          "line": 44,
+          "text": "Assert.assertTrue(\"Order creation rejects excessive quantity with error\", addToCart.getErrorMessage().length() > 0 || driver.getPageSource().contains(\"error\") || driver.getTitle().contains(\"Orders\"));"
+        }
+      ],
+      "semanticStatus": "WRONG_BEHAVIOR",
+      "mismatch": "Creates admin order with quantity 1000 and expects error, opposite to successful payment/order and stock decrement.",
+      "sourceBasis": {
+        "applicationVersion": "1.6.1.23",
+        "repositoryPin": {
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/PaymentModule.php",
+            "lines": "250-340",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "order creation and stock decrement on payment"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_ORDER_CREATION_RANGE_ORDER_FIELDS_NOT_STOCK_DECREMENT_ASSERTION"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-003/g3-psgap003-20261110194240",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "PS-GAP-004",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/prestashop/selenium/8e2d11c8e727a6d49530c06fdb53b8d2/revision-2/T01C_8e2d11c8e727a6d49530c06fdb53b8d2_R2.java",
+        "sha256": "1294b07a660267846d23615ca9a08023073f08d3b4ed297e78c55ec515d4278a",
+        "gherkinLines": "16-26",
+        "oracleLines": "27-28",
+        "implementationLines": "33-44"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Combination Stock Management"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Available quantity update stays consistent with product combination stock"
+        },
+        {
+          "line": 18,
+          "text": "    Given product \"T-Shirt\" has combinations \"Size S\" (qty 5) and \"Size L\" (qty 10)"
+        },
+        {
+          "line": 19,
+          "text": "    When administrator edits combination \"Size S\" and sets quantity to 8"
+        },
+        {
+          "line": 20,
+          "text": "    And clicks \"Save\""
+        },
+        {
+          "line": 21,
+          "text": "    Then the admin combinations list displays \"Size S\" quantity 8 and \"Size L\" quantity 10"
+        },
+        {
+          "line": 22,
+          "text": "    When a customer views product \"T-Shirt\" on storefront with \"Size S\" selected"
+        },
+        {
+          "line": 23,
+          "text": "    Then availability shows \"8 items in stock\""
+        },
+        {
+          "line": 24,
+          "text": "    When customer switches combination to \"Size L\""
+        },
+        {
+          "line": 25,
+          "text": "    Then availability dynamically updates to show \"10 items in stock\""
+        },
+        {
+          "line": 26,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 27,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 28,
+          "text": "ps_stock_available stores distinct rows per id_product_attribute; frontend AJAX update correctly reflects combination quantity."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 40,
+          "text": "AddProductPage addProd = products.addNewProduct();"
+        },
+        {
+          "line": 41,
+          "text": "addProd.addNameOfProduct(\"Combination Test Item\");"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Combinations tab or product form rendered\", driver.findElement(By.id(\"link-Quantities\")).isDisplayed() || driver.findElement(By.id(\"link-Combinations\")).isDisplayed() || driver.getTitle().contains(\"Products\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 38,
+          "text": "Assert.assertNotNull(\"Products page loaded\", products);"
+        },
+        {
+          "line": 43,
+          "text": "Assert.assertTrue(\"Combinations tab or product form rendered\", driver.findElement(By.id(\"link-Quantities\")).isDisplayed() || driver.findElement(By.id(\"link-Combinations\")).isDisplayed() || driver.getTitle().contains(\"Products\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Opens product/combinations form but does not create/adjust combination or verify storefront stock/AJAX.",
+      "sourceBasis": {
+        "applicationVersion": "1.6.1.23",
+        "repositoryPin": {
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "NOT_VERIFIED",
+        "references": [
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/StockAvailable.php",
+            "lines": "140-210",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "combination stock management"
+          }
+        ],
+        "sourceReviewDetail": "BLOCKED_PROPOSED_STOCKAVAILABLE_PATH_404"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "VALIDATED",
+        "declaredReruns": {
+          "passed": 3,
+          "total": 3
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-004/g3-psgap004-20261110194240",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "VALIDATED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    },
+    {
+      "candidateId": "PS-GAP-005",
+      "application": "prestashop",
+      "applicationVersionClaimed": "1.6.1.23",
+      "revision": "revision-2",
+      "javaSource": {
+        "path": "extension/prestashop/selenium/b0ad1666e8e14b7de6c48bf6947cd977/revision-2/T01C_b0ad1666e8e14b7de6c48bf6947cd977_R2.java",
+        "sha256": "48a05a8551da850720b45436eafdbcc3c3c42659edd9508b2020778c73ef077e",
+        "gherkinLines": "16-24",
+        "oracleLines": "25-26",
+        "implementationLines": "31-42"
+      },
+      "embeddedScenarioLines": [
+        {
+          "line": 16,
+          "text": "Feature: Customer Group Pricing"
+        },
+        {
+          "line": 17,
+          "text": "  Scenario: Customer group discount applies configured percentage reduction to catalog price"
+        },
+        {
+          "line": 18,
+          "text": "    Given customer group \"VIP Gold\" has a 20% group discount"
+        },
+        {
+          "line": 19,
+          "text": "    And customer \"[TEST_EMAIL_REDACTED]\" belongs to group \"VIP Gold\""
+        },
+        {
+          "line": 20,
+          "text": "    And product \"Luxury Leather Bag\" has a retail price of $100.00"
+        },
+        {
+          "line": 21,
+          "text": "    When customer \"[TEST_EMAIL_REDACTED]\" logs in and views \"Luxury Leather Bag\""
+        },
+        {
+          "line": 22,
+          "text": "    Then the displayed product price reflects the 20% discount at $80.00"
+        },
+        {
+          "line": 23,
+          "text": "    And adding the product to cart shows unit price $80.00 in checkout summary"
+        },
+        {
+          "line": 24,
+          "text": ""
+        }
+      ],
+      "oracleLinesText": [
+        {
+          "line": 25,
+          "text": "Observable Business Oracle:"
+        },
+        {
+          "line": 26,
+          "text": "Product::getPriceStatic applies Group::getReduction($id_group); computes effective price $80.00."
+        }
+      ],
+      "actualActions": [
+        {
+          "line": 35,
+          "text": "driver.get(app_url + \"/index.php?controller=AdminGroups\");"
+        },
+        {
+          "line": 37,
+          "text": "addGroupBtn.click();"
+        },
+        {
+          "line": 38,
+          "text": "driver.findElement(By.id(\"name_1\")).sendKeys(\"VIP Club\");"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Groups dashboard title confirmed\", driver.getTitle().contains(\"Groups\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "actualAssertions": [
+        {
+          "line": 40,
+          "text": "Assert.assertTrue(\"Group form contains group name\", driver.findElement(By.id(\"name_1\")).getAttribute(\"value\").contains(\"VIP Club\"));"
+        },
+        {
+          "line": 41,
+          "text": "Assert.assertTrue(\"Groups dashboard title confirmed\", driver.getTitle().contains(\"Groups\") || driver.getTitle().contains(\"PrestaShop\"));"
+        }
+      ],
+      "semanticStatus": "PARTIALLY_IMPLEMENTED",
+      "mismatch": "Creates customer group only; does not set discount, assign customer, or verify effective catalog/cart price.",
+      "sourceBasis": {
+        "applicationVersion": "1.6.1.23",
+        "repositoryPin": {
+          "repository": "PrestaShop/PrestaShop",
+          "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+          "treeSha": "49d5f69067638991fca7bf7b16bf79700793cff4",
+          "status": "PINNED_RELEASE_SOURCE_AVAILABLE"
+        },
+        "sourceReviewStatus": "PARTIALLY_VERIFIED",
+        "references": [
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/Product.php",
+            "lines": "2700-2780",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "getPriceStatic with group reduction"
+          },
+          {
+            "repository": "PrestaShop/PrestaShop",
+            "path": "classes/Group.php",
+            "lines": "120-170",
+            "commit": "475d65fbda93403cd1afde0db09764c5295e952c",
+            "proposalNote": "group reduction percentage"
+          }
+        ],
+        "sourceReviewDetail": "PARTIAL_PRICE_METHOD_AND_GROUP_REDUCTION_NOT_FRONTEND_VIP_DISPLAY"
+      },
+      "compileAndRuntime": {
+        "latestRevision": 2,
+        "declaredCompileOutcome": "PASS",
+        "declaredG3Outcome": "FAILED",
+        "declaredReruns": {
+          "passed": 0,
+          "total": 0
+        },
+        "rawEvidencePath": "docs/tasks/g3-evidence/prestashop/PS-GAP-005/g3-psgap005-20261110194240",
+        "historicalR2CompileOutcome": "PASS",
+        "historicalR2G3Outcome": "FAILED",
+        "runtimeIdentityBound": false
+      },
+      "scopeDisposition": null
+    }
+  ]
+}
