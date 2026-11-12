@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: P0-B follow-up for Claroline and Kanboard active Maven test sources; preserve immutable registered R3 artifacts and make the actual `-Dtest` execution classes revision-correct.
 - Base branch + base SHA: `task/final-remediation-audit` / `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00` (verified current PR #27 head).
 - Working branch: `task/active-suite-r3-remediation`
-- Head commit (full 40-char SHA): pending commit.
-- PR: `PR_NOT_CREATED: implementation and local verification are being recorded before publication`.
-- Push status: pending.
+- Implementation commit (full SHA): `a6c44a30ad8c66337f1195f7c566ba0ce8797ffb`.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/27 (updated through a fast-forward push).
+- Push status: PUSHED — verified GitHub PR #27 head and remote branch at `a6c44a30ad8c66337f1195f7c566ba0ce8797ffb`.
 - Runtime/commit/version tested: Claroline `1.11.10` at `22d852f93081bc36b1d08b93f5e0c14b49a573f6`; Kanboard `1.2.15` at `0501249ff3e9a5ea83a06155cd2971dc36197056`; Maven 3.9.16; Java 21.0.12; Selenium 4.35.0. Compile only; no application runtime.
 - Status proposed by Agent: PARTIAL (active revision integration compiled; no G3 behavior execution in this task).
 
@@ -62,4 +62,5 @@ G3 Selenium execution was `NOT_RUN`: this task does not have the user's explicit
 
 - Team Lead decisions still required: human oracle/novelty review for affected candidates; separate G0 authorization/runtime evidence; later acceptance review.
 - Suggested next task: inherit these active R3 mappings into the latest candidate integration branch, retain R10 for KB-GAP-001, compile the updated child branch, then run only after the VM credential-injection signal.
-- GitHub review paths: both `ACTIVE-CANDIDATE-MAPPING.json` files and the ten R3 classes; PR URL pending publication.
+- GitHub review paths: both `ACTIVE-CANDIDATE-MAPPING.json` files, the ten active R3 classes, and this report. PR diff: https://github.com/NgaiLong49423/BEWT-CovExt/pull/27/files.
+
