@@ -46,6 +46,8 @@ Focused verification:
 
 This follow-up did not execute the runner, Docker, Cloud, or VM. Parent runtime remains `NOT_RUN_PENDING_ROOT_RUNTIME`; provide the two required variables securely in the authorized runtime environment.
 
+SonarCloud's PR check reported 2 duplicated new-code lines in the Bludit/Joomla installer setup blocks (18-line duplicated block pair). The runner now shares the Maven invocation while retaining Joomla-only environment values and installation cleanup. The R3 Java/Gherkin artifacts and hashes are unchanged; local focused tests, syntax checks, and Maven test compilation pass. The updated SonarCloud PR gate will be checked after push.
+
 ## 4. Research impact
 
 - App/candidate: ExpressCart 1.1.19 / EC-GAP-002.

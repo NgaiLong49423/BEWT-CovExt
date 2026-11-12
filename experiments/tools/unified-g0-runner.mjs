@@ -170,6 +170,37 @@ export function resolveTestEnv(cfg, env = process.env) {
   if (typeof cfg.testEnv === 'function') return cfg.testEnv(env);
   return cfg.testEnv || {};
 }
+
+function runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evidenceDir, includeInstallUrlEnv = false, appSpecificEnv = {} }) {
+  const installUrl = cfg.installerUrl
+    ? cfg.installerUrl('127.0.0.1', appPort, appName)
+    : `http://${appName}/`;
+  const webdriverUrl = `http://127.0.0.1:${browserPort}/wd/hub`;
+  const args = [
+    '-B',
+    '-f', `${cfg.suitePath}/pom.xml`,
+    `-Dtest=${cfg.installerClass}`,
+    `-D${cfg.appUrlProperty}=${installUrl}`,
+    `-D${cfg.webdriverUrlProperty}=${webdriverUrl}`,
+    'test',
+  ];
+  const result = spawnSync(MAVEN_CLI, args, {
+    cwd: REPO_ROOT,
+    encoding: 'utf8',
+    env: {
+      ...process.env,
+      ...appTestEnv,
+      ...(includeInstallUrlEnv ? { BEWT_INSTALL_URL: installUrl } : {}),
+      ...appSpecificEnv,
+      BEWT_APP_URL: installUrl,
+      BEWT_WEBDRIVER_URL: webdriverUrl,
+    },
+    timeout: 180000,
+  });
+  writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(result.stdout));
+  writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(result.stderr));
+}
+
 export const APPS = {
   bludit: {
     appId: 'bludit',
@@ -526,58 +557,25 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       }
     } else if (appId === 'bludit') {
       if (cfg.installerClass) {
-        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
-        const instArgs = [
-          '-B',
-          '-f', `${cfg.suitePath}/pom.xml`,
-          `-Dtest=${cfg.installerClass}`,
-          `-D${cfg.appUrlProperty}=${instUrl}`,
-          `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
-          'test',
-        ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
-          cwd: REPO_ROOT,
-          encoding: 'utf8',
-          env: {
-            ...process.env,
-            ...appTestEnv,
-            BEWT_APP_URL: instUrl,
-            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
-          },
-          timeout: 180000,
-        });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+        runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evidenceDir });
       }
     } else if (appId === 'joomla') {
       if (cfg.installerClass) {
-        const instUrl = cfg.installerUrl ? cfg.installerUrl('127.0.0.1', appPort, appName) : `http://${appName}/`;
-        const instArgs = [
-          '-B',
-          '-f', `${cfg.suitePath}/pom.xml`,
-          `-Dtest=${cfg.installerClass}`,
-          `-D${cfg.appUrlProperty}=${instUrl}`,
-          `-D${cfg.webdriverUrlProperty}=http://127.0.0.1:${browserPort}/wd/hub`,
-          'test',
-        ];
-        const instRes = spawnSync(MAVEN_CLI, instArgs, {
-          cwd: REPO_ROOT,
-          encoding: 'utf8',
-          env: {
-            ...process.env,
-            ...appTestEnv,
-            BEWT_INSTALL_URL: instUrl,
-            BEWT_APP_URL: instUrl,
-            BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
+        runInstallerMaven({
+          cfg,
+          appPort,
+          browserPort,
+          appName,
+          appTestEnv,
+          evidenceDir,
+          includeInstallUrlEnv: true,
+          appSpecificEnv: {
             BEWT_DB_HOST: dbName,
             BEWT_DB_USER: 'root',
             BEWT_DB_PASSWORD: 'root',
             BEWT_DB_NAME: 'joomla',
           },
-          timeout: 180000,
         });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
         try {
           dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/installation']);
         } catch {}
