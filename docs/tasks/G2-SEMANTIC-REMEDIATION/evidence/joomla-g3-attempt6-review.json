@@ -21,6 +21,7 @@
   "browserReachabilityAtFailure": "REACHABLE_HTTP_200",
   "runnerCleanup": "PASS_ZERO_RESIDUAL_CONTAINERS_NETWORKS_AND_VOLUMES",
   "sourceEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial6/",
+  "attempt7ReviewPath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial7/evidence-review.json",
   "humanOracleNoveltyApproval": "PENDING",
   "validated": false
 }

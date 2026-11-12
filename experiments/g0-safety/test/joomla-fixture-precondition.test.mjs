@@ -11,7 +11,9 @@ const suiteSource = readFileSync(suitePath, 'utf8');
 test('admin table fixture preconditions gate R3 and exact table rows govern cleanup', () => {
   assert.match(suiteSource, /String saveHistorySetting = "NOT_READ_UI";/);
   assert.match(suiteSource, /#articleList tbody tr/);
-  assert.match(suiteSource, /\.setBody\(INITIAL_BODY\)\s*\.save\(\);\s*\s*currentStage = "ADMIN_LIST_MATCH";/);
+  assert.match(suiteSource, /String createPostUrl = driver\.getCurrentUrl\(\);[\s\S]*?\.setBody\(INITIAL_BODY\)\s*\.save\(\);[\s\S]*?until\(currentDriver -> !createPostUrl\.equals\(currentDriver\.getCurrentUrl\(\)\)\)/);
+  assert.match(suiteSource, /currentStage = "ADMIN_LIST_MATCH";[\s\S]*?waitForArticleTitleRows\(driver, Duration\.ofSeconds\(20\)\)/);
+  assert.match(suiteSource, /private static List<WebElement> waitForArticleTitleRows\(WebDriver driver, Duration timeout\)[\s\S]*?implicitlyWait\(Duration\.ZERO\)[\s\S]*?new WebDriverWait\(driver, timeout\)/);
   assert.doesNotMatch(suiteSource, /getFirstArticleTitle|getFirstArticleBody|containsArticle\(ARTICLE_TITLE\)/);
   assert.match(suiteSource, /if \(!existing\.isEmpty\(\)\)/);
   assert.match(suiteSource, /if \(created\.size\(\) !==? 1\)/);
@@ -42,4 +44,12 @@ test('Joomla G3 has a bounded longer timeout while other apps retain the runner 
   const wrapperSource = readFileSync(resolve(testDirectory, '../../joomla/tools/run-jo-gap-004-g3.mjs'), 'utf8');
   assert.match(runnerSource, /timeout: options\.testTimeoutMs \?\? 300000/);
   assert.match(wrapperSource, /testTimeoutMs: 600000/);
+});
+
+test('Joomla provenance invokes Git only through a verified absolute executable', () => {
+  const wrapperSource = readFileSync(resolve(testDirectory, '../../joomla/tools/run-jo-gap-004-g3.mjs'), 'utf8');
+  assert.match(wrapperSource, /const gitExecutablePath = process\.platform === 'win32'[\s\S]*?\? 'C:\\\\Program Files\\\\Git\\\\cmd\\\\git\.exe'[\s\S]*?: '\/usr\/bin\/git'/);
+  assert.match(wrapperSource, /if \(!isAbsolute\(gitExecutablePath\) \|\| !existsSync\(gitExecutablePath\)\)/);
+  assert.equal((wrapperSource.match(/execFileSync\(gitExecutablePath,/g) || []).length, 2);
+  assert.doesNotMatch(wrapperSource, /execFileSync\(['"]git['"]/);
 });

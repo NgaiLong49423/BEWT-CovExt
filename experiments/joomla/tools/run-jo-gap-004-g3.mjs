@@ -1,13 +1,19 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runG0Workflow } from '../../tools/unified-g0-runner.mjs';
 import { createJoomlaRuntimeCredentials, safeCredentialMetadata } from './jo-gap004-runtime-credentials.mjs';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, '../../..');
+const gitExecutablePath = process.platform === 'win32'
+  ? 'C:\\Program Files\\Git\\cmd\\git.exe'
+  : '/usr/bin/git';
+if (!isAbsolute(gitExecutablePath) || !existsSync(gitExecutablePath)) {
+  throw new Error('Verified absolute Git executable is unavailable');
+}
 const runId = process.argv[2] || '';
 const taskCommit = process.env.BEWT_G3_TASK_COMMIT || '';
 if (!/^[a-z0-9][a-z0-9-]{2,62}$/.test(runId)) {
@@ -54,8 +60,8 @@ if (hashFile('experiments/joomla/bewt-suite/src/test/java/base/T01C_ae6c8ee75a51
   throw new Error('Maven suite Java copy does not match immutable R3 registration');
 }
 
-const checkoutSha = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: repoRoot, encoding: 'utf8' }).trim();
-const checkoutDirty = execFileSync('git', ['status', '--porcelain=v1'], { cwd: repoRoot, encoding: 'utf8' }).trim().length > 0;
+const checkoutSha = execFileSync(gitExecutablePath, ['rev-parse', 'HEAD'], { cwd: repoRoot, encoding: 'utf8' }).trim();
+const checkoutDirty = execFileSync(gitExecutablePath, ['status', '--porcelain=v1'], { cwd: repoRoot, encoding: 'utf8' }).trim().length > 0;
 const provenance = {
   schemaVersion: '1.0.0',
   candidateId: 'JO-GAP-004',

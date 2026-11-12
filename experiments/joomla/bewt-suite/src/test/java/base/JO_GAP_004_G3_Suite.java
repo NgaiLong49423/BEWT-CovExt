@@ -20,6 +20,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import po.BaseNavBar;
+import po.CreatePostPage;
 import po.EditProfilePage;
 import po.SiteAdminHome;
 
@@ -98,10 +99,20 @@ public class JO_GAP_004_G3_Suite {
             driver.switchTo().window(frontendWindow);
             currentStage = "FRONTEND_SAVE";
             fixtureCreationAttempted = true;
-            loggedIn.createPost()
+            CreatePostPage postForm = loggedIn.createPost();
+            String createPostUrl = driver.getCurrentUrl();
+            postForm
                     .setTitle(ARTICLE_TITLE)
                     .setBody(INITIAL_BODY)
                     .save();
+            try {
+                new WebDriverWait(driver, Duration.ofSeconds(20))
+                        .until(currentDriver -> !createPostUrl.equals(currentDriver.getCurrentUrl()));
+            } catch (org.openqa.selenium.TimeoutException e) {
+                outcome = "BLOCKED";
+                reason = "FRONTEND_SAVE_DID_NOT_NAVIGATE";
+                throw new IllegalStateException("Joomla frontend Save did not leave the create-post form", e);
+            }
 
             currentStage = "ADMIN_LIST_MATCH";
             driver.switchTo().window(adminWindow);
@@ -114,7 +125,7 @@ public class JO_GAP_004_G3_Suite {
                 reason = "ADMIN_ARTICLE_LIST_UNAVAILABLE";
                 throw new IllegalStateException("Joomla admin article list did not load", e);
             }
-            List<WebElement> created = articleTitleRows(driver);
+            List<WebElement> created = waitForArticleTitleRows(driver, Duration.ofSeconds(20));
             articleManagerTitleMatchCount = created.size();
             if (created.size() != 1) {
                 outcome = "BLOCKED";
@@ -203,6 +214,17 @@ public class JO_GAP_004_G3_Suite {
         return driver.findElements(By.cssSelector("#articleList tbody tr")).stream()
                 .filter(row -> row.findElements(By.linkText(ARTICLE_TITLE)).size() == 1)
                 .toList();
+    }
+    private static List<WebElement> waitForArticleTitleRows(WebDriver driver, Duration timeout) {
+        driver.manage().timeouts().implicitlyWait(Duration.ZERO);
+        try {
+            return new WebDriverWait(driver, timeout).until(currentDriver -> {
+                List<WebElement> rows = articleTitleRows(currentDriver);
+                return rows.isEmpty() ? null : rows;
+            });
+        } finally {
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        }
     }
     private static String seleniumStatusReachability() {
         HttpURLConnection connection = null;
