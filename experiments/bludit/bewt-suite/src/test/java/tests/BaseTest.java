@@ -16,11 +16,11 @@ public class BaseTest {
 	
 	public WebDriver driver;
 	protected static final String password = System.getenv("BLUDIT_TEST_PASSWORD");
-	protected static final String username = "admin";
+	protected static final String username = System.getenv("BLUDIT_TEST_USERNAME");
 	protected static final String app_url = System.getProperty("app.url", "http://127.0.0.1:8080/admin");
 	@Before
 	public void setUp() {
-		if (password == null || password.isBlank()) {
+		if (username == null || username.isBlank() || password == null || password.isBlank()) {
 			throw new IllegalStateException("BLUDIT_TEST_PASSWORD must be provided");
 		}
 		setupRemoteWebdriver();

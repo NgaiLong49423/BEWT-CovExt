@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "joomla",
+  "suitePath": "experiments/joomla/bewt-suite",
+  "registrationStatus": "REGISTERED_COMPILE_ONLY",
+  "compileCommand": "mvn -B -ntp -DskipTests test",
+  "targetedRuntimeSelector": "base.T01C_2fe8982badb9713cf8935bc53c1d61ad_R3",
+  "credentials": [
+    "BEWT_AUTHOR_USERNAME",
+    "BEWT_AUTHOR_PASSWORD",
+    "BEWT_ADMIN_USERNAME",
+    "BEWT_ADMIN_PASSWORD"
+  ],
+  "suiteSelection": "Candidate remains excluded from broad TestSuite and requires candidate-specific fixture ownership before runtime execution.",
+  "cases": [
+    {
+      "schemaVersion": "1.0.0",
+      "appId": "joomla",
+      "candidateId": "JO-GAP-003",
+      "revision": 3,
+      "sourceCommit": "7f17a7866b7738f608b73b6e718928a9451a9586",
+      "sourceVersion": "3.10.11",
+      "gherkinSha256": "c4387d8ee3adfc73fa588e8cc38255ccaeba4bc595831bffc937b6a115e4a8f1",
+      "testClass": "base.T01C_2fe8982badb9713cf8935bc53c1d61ad_R3",
+      "artifactPath": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-3/T01C_2fe8982badb9713cf8935bc53c1d61ad_R3.java",
+      "sourceSha256": "404b7dc82d7792df8ae2ec2bbf83969c5ccea5169796889ffef2e9402c9aefcc",
+      "origin": "SECURITY_REMEDIATION",
+      "parentRevisionPath": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/T01C_2fe8982badb9713cf8935bc53c1d61ad_R2.java"
+    }
+  ],
+  "compileOutcome": "NOT_RUN",
+  "runtimeOutcome": "NOT_RUN",
+  "runtimeReason": "No live app or fixture ownership was verified; runtime test not run."
+}

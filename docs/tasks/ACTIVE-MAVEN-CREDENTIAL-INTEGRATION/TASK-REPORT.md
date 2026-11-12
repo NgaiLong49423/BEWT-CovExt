@@ -45,3 +45,40 @@ The first Claroline recompile after adding the shared credential helper failed b
 Credential rotation status is `NOT_VERIFIED`; the owner should confirm and act through the private credential-management procedure. This public report omits credential values and sensitive identifying details. The historical extension R2 and generator findings remain to be reviewed in their owning tasks.
 
 Compile success does not establish behavioral correctness, human acceptance, or research `VALIDATED` status. Candidate runtime tests still require verified app and WebDriver ownership, approved fixture configuration, source-bound run manifests, and semantic review.
+
+## Cross-app credential follow-up (2026-11-12)
+
+This follow-up covers active non-ExpressCart generated Java candidates and `experiments/tools/unified-g0-runner.mjs` only.
+
+- Bludit shared authentication now requires `BLUDIT_TEST_USERNAME` and `BLUDIT_TEST_PASSWORD`; the shared username no longer has an inline default. Test-created account passwords and deliberately invalid/empty authentication inputs remain fixture data and were not reclassified as runtime credentials.
+- Joomla `JO-GAP-003` now has an immutable security-only Revision 3 at `extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-3/`. Its frontend author identity reads required `BEWT_AUTHOR_USERNAME` and `BEWT_AUTHOR_PASSWORD`. The matching Maven copy is `experiments/joomla/bewt-suite/src/test/java/base/T01C_2fe8982badb9713cf8935bc53c1d61ad_R3.java`, registered by the new extension registration and `experiments/joomla/bewt-suite/extension-revisions.json`. Revision 2 remains unchanged; the candidate remains outside broad `TestSuite` selection.
+- Kanboard's five active generated candidates use the already registered R3 classes and `KANBOARD_TEST_USERNAME` / `KANBOARD_TEST_PASSWORD`. Their active Maven R2 copies were restored byte-for-byte to match immutable extension R2 source; no Kanboard R2 artifact was changed.
+- The shared G0 runner resolves non-ExpressCart application/admin, database, and installer credentials through required environment values for Bludit, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. Configuration resolves before evidence-directory creation or Docker operations. Installer CLI credentials for MediaWiki and PrestaShop are required inputs. No credentials are included in this report.
+- Added `experiments/tools/credential-source-check.mjs` and `.test.mjs`. The scanner checks the latest active revision for each non-ExpressCart generated candidate; historical R2 files remain intact.
+
+Verification for this follow-up:
+
+| Command/action | Result |
+|---|---|
+| `node experiments/tools/credential-source-check.mjs` | PASS; 35 latest active non-ExpressCart candidate revisions, no inline login identity/password literals |
+| `node --test experiments/tools/credential-source-check.test.mjs` | PASS; 5 tests, including literal rejection and missing-environment fail-closed behavior |
+| `node --check experiments/tools/unified-g0-runner.mjs` | PASS |
+| `mvn -B -ntp -DskipTests test` in `experiments/bludit/bewt-suite/` | PASS; 17 main and 31 test sources compiled; tests skipped |
+| Same Maven command in `experiments/joomla/bewt-suite/` | PASS; 31 main and 46 test sources compiled; tests skipped |
+| Same Maven command in `experiments/kanboard/bewt-suite/` | PASS; 42 test sources compiled; tests skipped |
+| Normalized hash comparisons | PASS; active Joomla/Kanboard R2 copies match immutable extension R2 sources; Joomla R3 extension, active copy, and registration hashes match |
+
+Runtime tests were not run. App ownership, WebDriver ownership, and candidate fixture state remain unverified. The account identity used by the removed active login literals may have been reused outside disposable fixtures; assess and rotate it out of band if applicable. The immutable Joomla and Kanboard extension R2 historical files still contain their original literals by design; their registered active R3 successors are credential-safe. Independent test-created user passwords and explicit negative-auth inputs remain separately classified fixture data.
+
+Required runner environment variable names for secure injection:
+
+| App | Required environment variables |
+|---|---|
+| Bludit | `BLUDIT_TEST_USERNAME`, `BLUDIT_TEST_PASSWORD` |
+| Joomla | `JOOMLA_DB_ROOT_PASSWORD`, `JOOMLA_DB_USER`, `JOOMLA_DB_PASSWORD`, `BEWT_ADMIN_USERNAME`, `BEWT_ADMIN_PASSWORD`, `BEWT_ADMIN_EMAIL`, `BEWT_ADMIN_PASSWORD_ROTATED` |
+| Kanboard | `KANBOARD_TEST_USERNAME`, `KANBOARD_TEST_PASSWORD` |
+| MantisBT | `BEWT_ADMIN_USERNAME`, `BEWT_ADMIN_PASSWORD` |
+| MediaWiki | `MEDIAWIKI_DB_ROOT_PASSWORD`, `MEDIAWIKI_DB_USER`, `MEDIAWIKI_DB_PASSWORD`, `MEDIAWIKI_DB_INSTALL_USER`, `BEWT_ADMIN_USERNAME`, `BEWT_ADMIN_PASSWORD` |
+| PrestaShop | `PRESTASHOP_DB_ROOT_PASSWORD`, `PRESTASHOP_DB_NAME`, `PRESTASHOP_DB_USER`, `PRESTASHOP_DB_PASSWORD`, `PRESTASHOP_ADMIN_NAME`, `BEWT_ADMIN_USERNAME`, `BEWT_ADMIN_PASSWORD`, `BEWT_ADMIN_EMAIL` |
+
+The selector-only Joomla `JO-GAP-003` additionally requires `BEWT_AUTHOR_USERNAME` and `BEWT_AUTHOR_PASSWORD`; these are not required for the broad G0 runner because the candidate is excluded from `TestSuite`.

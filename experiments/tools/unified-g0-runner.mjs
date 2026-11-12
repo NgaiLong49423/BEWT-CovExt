@@ -13,6 +13,18 @@ const REPO_ROOT = resolve(__dirname, '../..');
 export const DOCKER_CLI = 'docker';
 export const MAVEN_CLI = 'mvn';
 
+export function requiredEnvironment(name) {
+  const value = process.env[name];
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
+export function resolveEnvironmentConfig(config) {
+  return typeof config === 'function' ? config() : config;
+}
+
 export function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
 }
@@ -166,7 +178,7 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remoteUrl',
     getAppUrl: (host, port, appName) => `http://${appName}/admin`,
     installerUrl: (host, port, appName) => `http://${appName}/`,
-    testEnv: { BLUDIT_TEST_PASSWORD: 'n0tl34k1ngP4ssw0rd' },
+    testEnv: () => ({ BLUDIT_TEST_USERNAME: requiredEnvironment('BLUDIT_TEST_USERNAME'), BLUDIT_TEST_PASSWORD: requiredEnvironment('BLUDIT_TEST_PASSWORD') }),
   },
   claroline: {
     appId: 'claroline',
@@ -212,22 +224,24 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
     installerUrl: (host, port, appName) => `http://${appName}/`,
-    dbEnv: {
-      MYSQL_ROOT_PASSWORD: 'root',
+    dbEnv: () => ({
+      MYSQL_ROOT_PASSWORD: requiredEnvironment('JOOMLA_DB_ROOT_PASSWORD'),
       MYSQL_DATABASE: 'joomla',
-    },
+    }),
     appEnv: (dbHost) => ({
       JOOMLA_DB_HOST: dbHost,
-      JOOMLA_DB_USER: 'root',
-      JOOMLA_DB_PASSWORD: 'root',
+      JOOMLA_DB_USER: requiredEnvironment('JOOMLA_DB_USER'),
+      JOOMLA_DB_PASSWORD: requiredEnvironment('JOOMLA_DB_PASSWORD'),
       JOOMLA_DB_NAME: 'joomla',
     }),
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'administrator',
-      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
-      BEWT_ADMIN_EMAIL: 'admin@example.com',
-      BEWT_ADMIN_PASSWORD_ROTATED: 'e2eW3Bt3s71nGB3nchM4rK',
-    },
+    testEnv: () => ({
+      BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+      BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+      BEWT_ADMIN_EMAIL: requiredEnvironment('BEWT_ADMIN_EMAIL'),
+      BEWT_ADMIN_PASSWORD_ROTATED: requiredEnvironment('BEWT_ADMIN_PASSWORD_ROTATED'),
+      BEWT_DB_USER: requiredEnvironment('JOOMLA_DB_USER'),
+      BEWT_DB_PASSWORD: requiredEnvironment('JOOMLA_DB_PASSWORD'),
+    }),
   },
   kanboard: {
     appId: 'kanboard',
@@ -238,7 +252,7 @@ export const APPS = {
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
-    testEnv: { KANBOARD_TEST_PASSWORD: 'admin' },
+    testEnv: () => ({ KANBOARD_TEST_USERNAME: requiredEnvironment('KANBOARD_TEST_USERNAME'), KANBOARD_TEST_PASSWORD: requiredEnvironment('KANBOARD_TEST_PASSWORD') }),
     volumes: [
       { suffix: 'data', mount: '/var/www/app/data' },
       { suffix: 'plugins', mount: '/var/www/app/plugins' },
@@ -254,10 +268,10 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remote.url',
     appUrlPath: '/mantisbt/',
     getAppUrl: (host, port, appName) => `http://${appName}/mantisbt/`,
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'administrator',
-      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
-    },
+    testEnv: () => ({
+      BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+      BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+    }),
   },
   mediawiki: {
     appId: 'mediawiki',
@@ -271,14 +285,17 @@ export const APPS = {
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
-    dbEnv: {
-      MYSQL_ROOT_PASSWORD: 'root',
+    dbEnv: () => ({
+      MYSQL_ROOT_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
       MYSQL_DATABASE: 'mediawiki',
-    },
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'Admin',
-      BEWT_ADMIN_PASSWORD: 'adminpassword123',
-    },
+    }),
+    testEnv: () => ({
+      BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+      BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+      BEWT_DB_USER: requiredEnvironment('MEDIAWIKI_DB_USER'),
+      BEWT_DB_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
+      MEDIAWIKI_DB_INSTALL_USER: requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER'),
+    }),
   },
   prestashop: {
     appId: 'prestashop',
@@ -292,22 +309,25 @@ export const APPS = {
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/administrator/`,
-    dbEnv: {
-      MYSQL_ROOT_PASSWORD: 'root',
-      MYSQL_DATABASE: 'prestashop',
-    },
+    dbEnv: () => ({
+      MYSQL_ROOT_PASSWORD: requiredEnvironment('PRESTASHOP_DB_ROOT_PASSWORD'),
+      MYSQL_DATABASE: requiredEnvironment('PRESTASHOP_DB_NAME'),
+    }),
     appEnv: (dbHost) => ({
       DB_SERVER: dbHost,
-      DB_USER: 'root',
-      DB_PASSWD: 'root',
+      DB_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
+      DB_PASSWD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
       DB_NAME: 'prestashop',
       PS_DEV_MODE: '0',
     }),
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'admin@prestashop.com',
-      BEWT_ADMIN_PASSWORD: 'adminpassword123',
-      BEWT_ADMIN_EMAIL: 'admin@prestashop.com',
-    },
+    testEnv: () => ({
+      BEWT_ADMIN_USERNAME: requiredEnvironment('BEWT_ADMIN_USERNAME'),
+      BEWT_ADMIN_PASSWORD: requiredEnvironment('BEWT_ADMIN_PASSWORD'),
+      BEWT_ADMIN_EMAIL: requiredEnvironment('BEWT_ADMIN_EMAIL'),
+      BEWT_DB_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
+      BEWT_DB_PASSWORD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
+      PRESTASHOP_ADMIN_NAME: requiredEnvironment('PRESTASHOP_ADMIN_NAME'),
+    }),
   },
 };
 
@@ -315,6 +335,9 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   const validRunId = validateRunId(rawRunId);
   const cfg = APPS[appId];
   if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
+  const configuredTestEnv = resolveEnvironmentConfig(cfg.testEnv) || {};
+  const configuredDbEnv = resolveEnvironmentConfig(cfg.dbEnv) || {};
+  if (cfg.appEnv) cfg.appEnv('__BEWT_G0_PREFLIGHT__');
 
   const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
@@ -363,7 +386,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 3. Start DB container if needed
     if (cfg.hasDb) {
-      const dbEnvArgs = Object.entries(cfg.dbEnv || {}).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
+      const dbEnvArgs = Object.entries(configuredDbEnv).flatMap(([k, v]) => ['-e', `${k}=${v}`]);
       dockerCli([
         'run', '-d',
         '--name', dbName,
@@ -455,15 +478,15 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           '--dbserver', dbName,
           '--dbtype', 'mysql',
           '--dbname', 'mediawiki',
-          '--dbuser', 'root',
-          '--dbpass', 'root',
-          '--installdbuser', 'root',
-          '--installdbpass', 'root',
-          '--pass', 'adminpassword123',
+          '--dbuser', requiredEnvironment('MEDIAWIKI_DB_USER'),
+          '--dbpass', requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
+          '--installdbuser', requiredEnvironment('MEDIAWIKI_DB_INSTALL_USER'),
+          '--installdbpass', requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
+          '--pass', requiredEnvironment('BEWT_ADMIN_PASSWORD'),
           '--scriptpath', '',
           '--server', `http://${appName}`,
           'E2E Web Testing wiki',
-          'Admin',
+          requiredEnvironment('BEWT_ADMIN_USERNAME'),
         ]);
         dockerCli([
           'exec', appName,
@@ -479,14 +502,14 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           'exec', appName,
           'php', '/var/www/html/install/index_cli.php',
           `--db_server=${dbName}`,
-          '--db_user=root',
-          '--db_password=root',
-          '--db_name=prestashop',
+          `--db_user=${requiredEnvironment("PRESTASHOP_DB_USER")}`,
+          `--db_password=${requiredEnvironment("PRESTASHOP_DB_PASSWORD")}`,
+          `--db_name=${requiredEnvironment("PRESTASHOP_DB_NAME")}`,
           '--db_create=1',
           `--domain=${appName}`,
-          '--name=PrestaShop',
-          '--email=admin@prestashop.com',
-          '--password=adminpassword123',
+          `--name=${requiredEnvironment("PRESTASHOP_ADMIN_NAME")}`,
+          `--email=${requiredEnvironment("BEWT_ADMIN_EMAIL")}`,
+          `--password=${requiredEnvironment("BEWT_ADMIN_PASSWORD")}`,
         ]);
         dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/install']);
         dockerCli(['exec', appName, 'mv', '/var/www/html/admin', '/var/www/html/administrator']);
@@ -520,7 +543,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           encoding: 'utf8',
           env: {
             ...process.env,
-            ...(cfg.testEnv || {}),
+            ...configuredTestEnv,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
           },
@@ -545,13 +568,11 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           encoding: 'utf8',
           env: {
             ...process.env,
-            ...(cfg.testEnv || {}),
+            ...configuredTestEnv,
             BEWT_INSTALL_URL: instUrl,
             BEWT_APP_URL: instUrl,
             BEWT_WEBDRIVER_URL: `http://127.0.0.1:${browserPort}/wd/hub`,
             BEWT_DB_HOST: dbName,
-            BEWT_DB_USER: 'root',
-            BEWT_DB_PASSWORD: 'root',
             BEWT_DB_NAME: 'joomla',
           },
           timeout: 180000,
@@ -572,12 +593,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     const testEnvVars = {
       ...process.env,
-      ...(cfg.testEnv || {}),
+      ...configuredTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
-      BEWT_DB_USER: 'root',
-      BEWT_DB_PASSWORD: 'root',
       BEWT_DB_NAME: cfg.appId,
     };
 
