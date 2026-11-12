@@ -66,7 +66,9 @@
         "docs/tasks/g0-evidence/",
         "docs/tasks/G0-CLOUD-20261112/evidence/g0-final4-runtime-manifest.json",
         "docs/tasks/G0-CLOUD-20261112/evidence/g0-final4-safe-evidence.tgz"
-      ]
+      ],
+      "runtimeSourcePullRequest": 28,
+      "runtimeSourcePullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/28"
     }
   },
   "targets": {

@@ -19,7 +19,7 @@ The latest final4 run executed one original BEWT base smoke class per applicatio
 - After final4 cleanup, Docker showed no containers, three default networks, and no experiment volumes. No global prune was used.
 - The VM's external address is omitted from this public repository. The gcloud SSH connection added its SSH principal to project-level SSH metadata; no key material was included in repository evidence.
 
-The final4 run used a fresh VM worktree at repository commit `08f3c32ed723f938e351b304859a35c2bdac4f9e`. Each run record reports tracked files clean; generated untracked evidence was excluded from that cleanliness check. The pinned BEWT baseline source commit is `0501249ff3e9a5ea83a06155cd2971dc36197056`.
+The final4 run used a fresh VM worktree at repository commit `08f3c32ed723f938e351b304859a35c2bdac4f9e`, the then-current head of open PR #28. This is candidate-branch evidence and does not imply that the commit is in `main` or accepted. Each run record reports tracked files clean; generated untracked evidence was excluded from that cleanliness check. The pinned BEWT baseline source commit is `0501249ff3e9a5ea83a06155cd2971dc36197056`.
 
 ## Final4 results
 
