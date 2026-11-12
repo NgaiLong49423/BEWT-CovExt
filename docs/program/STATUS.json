@@ -222,7 +222,7 @@
       "candidateRemediation": {
         "EC-GAP-002": {
           "revision": 5,
-          "implementationCommit": "PENDING_COMMIT",
+          "implementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
           "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
           "compile": "PASS_R5_47_TEST_SOURCES",
           "g3": "R3_INITIAL_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS; R4_FAIL_PRE_MAVEN_REFERENCE_ERROR_CLEANUP_PASS; R5_NOT_RUN_PENDING_PUSH",
@@ -253,7 +253,7 @@
               "newCodeDuplication": "0.0%"
             }
           },
-          "latestImplementationCommit": "PENDING_COMMIT",
+          "latestImplementationCommit": "e881c9813dc58cd692a02c31faf9f698d49ac49a",
           "runtimeEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/"
         }
       }
