@@ -390,7 +390,7 @@
     "currentTaskId": "FINAL-REMEDIATION-AUDIT",
     "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
     "currentTaskBranch": "task/final-remediation-audit",
-    "currentTaskPrUrl": null,
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },

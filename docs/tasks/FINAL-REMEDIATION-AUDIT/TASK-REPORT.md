@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: baseline reconciliation; 40-case semantic audit; human-review, runtime, model, metrics, and credential provenance; G0–G4/D1–D8 acceptance readiness.
 - Base branch + base SHA: `main` / `da6399536ff75a1edf4417819eb4d166cc1d781c` (`origin/main` matched at fetch time).
 - Working branch: `task/final-remediation-audit`.
-- Current HEAD (before task commit): `da6399536ff75a1edf4417819eb4d166cc1d781c`; worktree contains uncommitted task changes.
-- PR: `PR_NOT_CREATED: remediation and audit package are still in progress; no push performed`.
-- Push status: `NOT_ATTEMPTED`.
+- Task implementation commit: `34b923ff778d4b8cd25a9b1bde23ae1d9c37c77f` on `task/final-remediation-audit`.
+- PR: [#27](https://github.com/NgaiLong49423/BEWT-CovExt/pull/27) (draft; review requested, not merged).
+- Push status: `PUSHED`; branch tracks `origin/task/final-remediation-audit`.
 - Runtime/commit/version tested: audit baseline and pinned R2 artifacts; no app runtime, browser, Maven, Docker, Cloud, or live model execution in this task.
 - Status proposed by Agent: `PARTIAL / ACCEPTANCE_BLOCKED`.
 
@@ -47,7 +47,7 @@
 - Docker/cloud resources touched? **NONE**.
 - Existing untracked/worktree files preserved? **YES**; existing active worktrees were inspected and left unchanged.
 - Secret review: 10 R2 login calls had literals; values omitted. Security-only R3 uses required runtime config. Whether any prior value was reused outside test fixtures is unknown; assess privately for rotation.
-- No commit, push, merge, or PR action has occurred.
+- No merge action has occurred. The audit branch and draft PR are published for Team Lead review.
 
 ## 5. Evidence and reproduction
 
