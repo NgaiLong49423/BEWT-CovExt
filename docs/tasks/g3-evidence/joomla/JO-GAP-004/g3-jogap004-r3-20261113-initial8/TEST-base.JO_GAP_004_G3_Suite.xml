@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="base.JO_GAP_004_G3_Suite" tests="1" failures="0" errors="1" skipped="0" time="412.842">
+  <testcase classname="base.JO_GAP_004_G3_Suite" name="base.JO_GAP_004_G3_Suite" time="412.842">
+    <error type="org.openqa.selenium.TimeoutException" message="Wait for exact-title admin row timed out after 20 seconds at waitForArticleTitleRows; prepareFixture stage ADMIN_LIST_MATCH. Source locations: JO_GAP_004_G3_Suite.java:221 and :128." />
+  </testcase>
+</testsuite>

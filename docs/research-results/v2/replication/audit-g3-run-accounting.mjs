@@ -82,7 +82,11 @@ export function buildRunAccounting(rootDir = '.') {
           ? 'UNLISTED_KB_GAP_001_INITIAL_FAILURE; purpose not recorded in run metadata'
           : runId === 'g3-jogap004-r3-20261113-initial6'
             ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; runner cleanup PASS'
-          : 'UNLISTED_RUN_RECORD; purpose not established',
+            : runId === 'g3-jogap004-r3-20261113-initial7'
+              ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_BLOCKED; candidate NOT_RUN before oracle; fixture absence NOT_INDEPENDENTLY_VERIFIED; JUnit XML NOT_AVAILABLE; Maven exit 143; runner cleanup PASS'
+              : runId === 'g3-jogap004-r3-20261113-initial8'
+                ? 'SUPPLEMENTARY_PRELIMINARY_FIXTURE_SETUP_FAILED; candidate NOT_RUN before oracle; fixture absence VERIFIED_BY_EXACT_ADMIN_TABLE_AND_DISPOSABLE_DB_TEARDOWN; runner cleanup PASS'
+                : 'UNLISTED_RUN_RECORD; purpose not established',
     }));
   const orphanJUnit = [...junitByRunId.entries()]
     .filter(([runId]) => !records.has(runId))

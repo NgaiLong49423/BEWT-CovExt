@@ -37,17 +37,17 @@
 
 Metrics follow-up note: the fresh scoped branch is based on the current audit branch, which already contains the RQ2/RQ3 implementation from `a27d093` and hardening from `569ca47`. This follow-up introduced no source or test changes; it reran the checks and refreshed the generated audit baseline commit to `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`. At that snapshot RQ2 had eight per-app null measures and RQ3 had 84 run records; the current supplementary-attempt reconciliation below supersedes those raw artifact counts. This verification does not change any acceptance gate.
 
-## Metrics follow-up — supplementary Joomla attempt 6 (2026-11-13)
+## Metrics follow-up — supplementary Joomla attempts 6–8 (2026-11-13)
 
-The strict allowlist evidence from PR #33 commit `6f5a5cbf688213f6f8ce8f14cef8e085f69d6fa6` adds one run record and one JUnit XML to the locally observed inventory. Current counts are **79 canonical summary run IDs, 85 run-record files (79 matched + 6 supplementary), and 86 JUnit XML files** (85 execution-directory IDs plus one artifact-only Kanboard execution). The five earlier extras retain their historical unresolved-purpose classifications. Attempt `g3-jogap004-r3-20261113-initial6` is classified as supplementary preliminary engineering: fixture setup blocked at `FRONTEND_SAVE` (`FRONTEND_ARTICLE_NOT_CONFIRMED`), JUnit recorded one suite setup error and zero assertion failures, and the candidate oracle was not reached (`candidateOutcome: NOT_RUN`). Fixture absence remains `NOT_INDEPENDENTLY_VERIFIED`; a page-wide title flag is not exact-row proof. The separate Docker runner cleanup record passed with zero residual resources. This attempt is excluded from the 79-run denominator and does not alter any candidate outcome or validation count.
+The strict allowlist evidence for Joomla attempts 6–8 was imported from PR #33 commit `8defea19bbbc84006abea1af76bb48f7994564e4`. The scanner observes **79 canonical summary run IDs, 87 run-record files (79 matched + 8 supplementary), and 87 JUnit XML files** (86 execution-directory IDs plus one artifact-only Kanboard execution); attempt7 has a run record but no JUnit XML. Five historical extras retain unresolved-purpose classifications. Attempts `g3-jogap004-r3-20261113-initial6` through `initial8` are supplementary preliminary setup outcomes and each stopped before the candidate oracle. Attempt6 blocked at `FRONTEND_SAVE`; attempt7 blocked at `ADMIN_LIST_MATCH` and ended with Maven exit 143 but no JUnit XML; attempt8 fixture setup failed at `ADMIN_LIST_MATCH`, with fixture absence verified by exact admin-table check and disposable database teardown. Fixture absence remains `NOT_INDEPENDENTLY_VERIFIED` for attempts6–7. Each run's Docker cleanup separately passed with zero residual resources. These attempts remain outside the 79-run denominator and do not alter any candidate outcome or validation count.
 
 Verification on the existing metrics worktree/branch `task/metrics-engine-separate-pr`:
 
 | Exact command | Result | Evidence |
 |---|---|---|
 | `node --check docs/research-results/v2/replication/audit-g3-run-accounting.mjs` and `node --check docs/research-results/v2/replication/recompute-metrics.mjs` | PASS | Syntax checks, exit 0. |
-| `node --test docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs` | PASS, 32/32, 0 skipped | Focused metrics/accounting tests against the imported attempt-6 evidence. |
-| `git diff --check` and JSON parse of `docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json` | PASS | No whitespace errors; generated accounting JSON parses and reports 79 / 85 / 86. |
+| `node --test docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs` | PASS, 32/32, 0 skipped | Focused metrics/accounting tests against the imported attempts 6–8 evidence. |
+| `git diff --check` and JSON parse of `docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json` | PASS | No whitespace errors; generated accounting JSON parses and reports 79 / 87 / 87. |
 
 No VM access, Docker action, `STATUS.json` edit, or candidate status change occurred in this metrics follow-up. The RQ2/RQ3 acceptance gates remain unchanged; the next recomputation binds the generated metrics output to the committed evidence and metrics revision.
 
@@ -58,7 +58,7 @@ R10 candidate-task evidence review: PR #30 head `cdb6347d386542c20b9fa0ea1a53b73
 - Apps affected: all eight; target remains 5 candidates per app / 40 total.
 - Candidate semantic status: 22 `WRONG_BEHAVIOR`, 14 `PARTIALLY_IMPLEMENTED`, 4 `WEAK_ORACLE`, 0 `MATCHED`.
 - Human oracle/novelty approval: 0/40 evidenced; all primary records remain unsigned/pending.
-- Runtime: historical summary reports 13 initial pass candidates, 11 three-rerun passes, 2 flaky, 27 failed, and 79 invocations. These remain raw reported outcomes; the current inventory has 85 run records and 86 JUnit XML files, zero run records carry the full required runtime identity, and one historical cleanup check failed. The supplementary attempt 6 was fixture-blocked before its oracle and does not increase the canonical denominator.
+- Runtime: historical summary reports 13 initial pass candidates, 11 three-rerun passes, 2 flaky, 27 failed, and 79 invocations. These remain raw reported outcomes; the current inventory has 87 run records and 87 JUnit XML files, zero run records carry the full required runtime identity, and one historical cleanup check failed. Supplementary attempts 6–8 stopped before their oracles and do not increase the canonical denominator.
 - Current cases meeting `VALIDATED`: 0/40.
 - RQ1: `BLOCKED`; RQ2: `NOT_EVALUATED` with null per-app baseline/gain for all eight apps; RQ3: `PARTIALLY_VERIFIED`, 0 validated and all 40 candidates `BLOCKED`; RQ4: `PARTIALLY_VERIFIED`, five historical Gemini 3.1 Flash-Lite failures and one authorized Gemini 3.8 Flash schema failure, usage/cost unknown, no savings comparison.
 - G0–G4 and D1–D8: see `docs/final-acceptance/G0-G4-ACCEPTANCE-MATRIX.md` and `D1-D8-ACCEPTANCE-MATRIX.md`.

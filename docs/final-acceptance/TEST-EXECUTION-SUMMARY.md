@@ -16,7 +16,7 @@
 | Read-only review of 40 registration records and R2 classes | Completed | 40 IDs inspected; 0 semantic matches. Detailed paths, line ranges, hashes, and mismatch summary in `40-CASE-TRACEABILITY.json`. |
 | Read-only review of review ledgers | Completed | 40 records; 0 signed human oracle/novelty approvals. |
 | Read-only artifact inventory (2026-11-12 snapshot) | Completed | 31 G0 run records, 84 G3 run records, 85 G3 JUnit XML files; one false cleanup verification. The 2026-11-13 follow-up is recorded separately below. |
-| 2026-11-13 supplementary-attempt reconciliation | 32/32 focused tests PASS | Current metrics worktree observes the same 79 canonical IDs plus attempt6: 85 run records / 86 JUnit XML. Attempt6 is supplementary and fixture-blocked before the oracle; cleanup separately PASS. |
+| 2026-11-13 supplementary-attempt reconciliation | 32/32 focused tests PASS | Current metrics worktree observes 79 canonical IDs plus attempts6–8: 87 run records / 87 JUnit XML. All three attempts stopped before the oracle; attempt7 has no JUnit XML, and cleanup separately PASSed for each. |
 | Read-only nested BEWT status | Completed | Baseline SHA recorded; pre-existing build artifacts/dirty files observed and preserved. |
 | Security-only R3 validation | 10/10 registration hashes match; no literal credentials remain in login calls | Five Claroline and five Kanboard classes now read required runtime config; Maven compile/runtime checks remain NOT_RUN. |
 
