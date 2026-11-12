@@ -1,0 +1,7 @@
+Command: node --check experiments/tools/unified-g0-runner.mjs
+Result: PASS (exit 0)
+
+Command: node --test experiments/tools/unified-g0-runner.test.mjs
+Result: PASS (3 tests, 0 failures, 0 skipped)
+
+Date: 2026-11-12

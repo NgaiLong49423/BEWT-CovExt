@@ -668,6 +668,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       `-Dtest=${activeTestClass}`,
       `-D${cfg.appUrlProperty}=${targetAppUrl}`,
       `-D${cfg.webdriverUrlProperty}=${remoteWebdriverUrl}`,
+      `-Dexperiment.evidence.dir=${relative(REPO_ROOT, evidenceDir)}`,
       'clean', 'test',
     ];
 
@@ -683,7 +684,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify({
       exitCode: mvnRes.status,
       signal: mvnRes.signal,
-      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} clean test`,
+      command: sanitizeEvidenceText([MAVEN_CLI, ...mvnArgs].join(' ')),
     }, null, 2));
 
     // 8. Capture and sanitize Surefire JUnit report
