@@ -458,7 +458,7 @@
     "metricsOutputBaselineCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
     "metricsFollowUpBranch": "task/metrics-engine-separate-pr",
     "metricsFollowUpSourceCodeDelta": false,
-    "metricsExcludedCandidateEvidence": "KB-GAP-001 R10 preliminary 4/4 on PR #30 head 5cf9bdf1edee2dbd6ba35006d72e29251eb1477b; excluded from source-bound RQ3 pending per-run candidate/source/slot/image binding and JUnit hash reconciliation; oracle and novelty review pending; counts unchanged.",
+    "metricsExcludedCandidateEvidence": "KB-GAP-001 R10 preliminary 4/4 on PR #30 head cdb6347d386542c20b9fa0ea1a53b730f53ce9a8; three-stage original/sanitized/public hash chain verified; excluded from source-bound RQ3 pending per-run candidate/source/slot/image binding; oracle and novelty review pending; counts unchanged.",
     "g3RunAccounting": "docs/final-acceptance/G3-RAW-RUN-ACCOUNTING.json",
     "sonarCloudReview": "docs/final-acceptance/SONARCLOUD-REVIEW.md",
     "sonarCloudGate": "PASS_CHECK_131077184684_0_NEW_ISSUES_0_HOTSPOTS_0_0_DUPLICATION_0_0_COVERAGE_REPORT_NOT_UPLOADED",
