@@ -38,6 +38,7 @@
       "clarolineLoginSitesChecked": 56,
       "inlinePasswordLiteralsRemaining": 0,
       "activeAndExtensionHashesVerified": 20,
+      "credentialTransportHardeningCommit": "6a530f089a992cf38a6a0ea475bc994939e19f64",
       "credentialTransportHardening": "EPHEMERAL_0700_0600_ENV_FILES_REMOVE_HOST_ARG_VALUES_INSTALLER_ARGS_EXPANDED_INSIDE_DISPOSABLE_CONTAINER",
       "credentialTransportHardeningVerification": "35_OF_35_FOCUSED_TESTS_PASS_NODE_SYNTAX_AND_CREDENTIAL_SCAN_PASS",
       "liveG0": "NOT_RUN_CREDENTIAL_SOURCE_NOT_YET_INJECTED",
