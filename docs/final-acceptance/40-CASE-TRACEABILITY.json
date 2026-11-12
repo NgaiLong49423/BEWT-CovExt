@@ -2259,5 +2259,34 @@
       "humanReviewRecordLine": 5,
       "humanReviewRecordSha256": "2ae49a25dba799306d0c00e2f31c9de4146193dcbec1540f2bf5c7957f2410e2"
     }
-  ]
+  ],
+  "postAuditRemediation": {
+    "recordedOn": "2026-11-12",
+    "baselineSnapshotPreserved": true,
+    "candidateId": "KB-GAP-001",
+    "currentRevision": 8,
+    "status": "PRELIMINARY_ENGINEERING_PASS_NOT_VALIDATED",
+    "sourceCommitUsedForR8Runs": "3b6dd4141bcf350ff7556ba2121c212a846e5e11",
+    "applicationVersion": "1.2.15",
+    "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+    "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+    "javaSha256": "7fe5d2dfe49e634117aad2d6dae9da6587bcabde4171d6ac60b4b888aa26d98a",
+    "g3": {
+      "initialRun": "PASS",
+      "cleanStateReruns": "3/3_PASS",
+      "totalSuccessfulRuns": "4/4",
+      "cleanupZeroResidual": "10/10 attempts",
+      "failedRemediationRevisions": [
+        5,
+        6,
+        7
+      ],
+      "fixtureConfigurationFailuresExcludedFromRerunCount": 3,
+      "researchValidation": "NOT_ACCEPTED_HUMAN_ORACLE_NOVELTY_REVIEW_PENDING",
+      "provenance": "PARTIAL_BROWSER_IMAGE_AND_PER_CONTAINER_BINDING_GAP"
+    },
+    "humanDecisionPacket": "docs/tasks/KB-GAP-001-R5/HUMAN-DECISION-PACKET.md",
+    "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
+    "evidenceManifest": "docs/tasks/KB-GAP-001-R5/evidence/g3-r8-acceptance-manifest.json"
+  }
 }
