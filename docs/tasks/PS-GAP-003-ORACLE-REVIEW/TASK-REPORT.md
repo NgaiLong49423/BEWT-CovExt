@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Determine whether the existing customer-payment Gherkin oracle is observable in the pinned PrestaShop 1.6.1.23 default theme; do not silently change the approved proposal.
 - Base branch + base SHA: `origin/task/final-remediation-audit` at `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
 - Working branch: `task/ps-gap003-payment-stock-oracle`
-- Head commit (full 40-char SHA): `NOT_COMMITTED`; report is in the working tree.
-- PR: `PR_NOT_CREATED: review packet is awaiting Team Lead decision and commit authorization`
-- Push status: `NOT_ATTEMPTED: report awaits review and commit authorization`
+- Report-introducing commit (full 40-char SHA): `fe4c7be33b5b5d473e0677e15be2a702ccfccd80`; latest branch head is recorded in the task handoff.
+- PR: `PR_NOT_CREATED: Team Lead decision is requested on the source-backed oracle finding; branch is based on the shared audit branch`
+- Push status: `PUSHED: report-introducing commit was verified at the remote task branch; latest branch head is recorded in the task handoff`
 - Runtime/commit/version tested: Source review only; proposal pins PrestaShop `1.6.1.23`; no runtime or Docker execution.
 - Status proposed by Agent: `PARTIAL`
 
