@@ -6,7 +6,7 @@
 - Acceptance branch: `main`.
 - Main commit tested: `55a3a3a6c3ea9fbffa72e773aaab57496e84a93f`.
 - Working branch for this closure record: `codex/final-project-acceptance`.
-- Closure PR: pending creation; this report will be updated with the PR URL and final integrated main SHA before closure.
+- Closure PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/37 (head `7ad67c9ce2b3c17ad49632c12f1370e833774f2a`; final merge SHA is recorded in GitHub and the completion notice).
 - Proposed status: `PARTIAL`; Development Phase `CLOSED` by Project Owner decision.
 
 ## 1. GitHub finalization
@@ -80,4 +80,4 @@ The Gherkin-dependent negative test initially could not import `@cucumber/gherki
 - Development Phase: **CLOSED** by Project Owner decision, with PARTIAL result and outstanding issues recorded.
 - Scientific Report Phase: **READY TO START** after this task.
 - Scientific Report Writing: **NOT STARTED**.
-- Current task: **CLOSED** after this record is merged and the final main SHA is verified.
+- Current task: **CLOSED** when PR #37 integrates this record; the final main SHA is verified in the completion notice.

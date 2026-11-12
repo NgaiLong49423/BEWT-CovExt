@@ -435,9 +435,9 @@
   },
   "taskReview": {
     "currentTaskId": "FINAL-PROJECT-ACCEPTANCE-20261113",
-    "currentTaskStatus": "CLOSURE_RECORD_IN_PROGRESS",
+    "currentTaskStatus": "FINAL_ACCEPTANCE_PARTIAL_CLOSED",
     "currentTaskBranch": "codex/final-project-acceptance",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/37",
     "integrationBaseMainSha": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
     "agentCannotSelfApprove": true
   },
@@ -535,9 +535,9 @@
     "g0G3Live": "NOT_VERIFIED",
     "scientificReportPhase": "READY_TO_START",
     "scientificReportWriting": "NOT_STARTED",
-    "task": "CLOSED_AFTER_CLOSURE_PR",
+    "task": "CLOSED",
     "report": "docs/tasks/FINAL-PROJECT-ACCEPTANCE-20261113/TASK-REPORT.md",
     "evidence": "docs/final-acceptance/evidence/2026-11-13-main-acceptance/maven-test-compile-results.json",
-    "closurePr": "PENDING_CREATION"
+    "closurePr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/37"
   }
 }
