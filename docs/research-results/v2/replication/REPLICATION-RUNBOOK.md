@@ -41,7 +41,7 @@ No active authorized Google Cloud project/VM was available to the current audit.
 
 - There are 40 parseable candidate Gherkin scenarios, but 0/40 evidenced signed oracle-and-novelty approvals and 0/40 approved semantic mappings.
 - The historical `180` UBU denominator is not verified; do not calculate a coverage-gain percentage from it.
-- The consolidated G3 summary lists 79 runs; 84 run-record files and 85 JUnit XML files exist. These are preserved as raw historical accounting, not current validated outcomes.
+- The consolidated G3 summary lists the canonical 79 runs; the 2026-11-13 inventory observes 85 run-record files and 86 JUnit XML files. Six supplementary run records and one artifact-only JUnit execution remain outside that denominator. The added `g3-jogap004-r3-20261113-initial6` attempt blocked during fixture setup before the candidate oracle; fixture absence is not independently verified, while Docker runner cleanup passed with zero residual resources. These remain raw accounting, not validated candidate outcomes.
 - The latest authorized live Gemini call failed; token usage and actual billing are unknown. No retries are covered by that approval.
 - The checked-in PDF is a compiled draft. Its author and affiliation placeholders remain; it is not a final accepted manuscript.
 

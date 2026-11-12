@@ -661,7 +661,7 @@ The baseline inventory contains provisional records, but the audit did not estab
 
 \subsection{RQ3: Executability, Oracle Adherence, and Rerun Stability}
 
-RQ3 evaluates execution evidence, provenance, oracle alignment, and stability. The consolidated historical summary lists 79 run IDs and reports 13 initial passes, 11 candidates with three reported passing reruns, two flaky candidates, and 27 failed candidates. The audit found 84 physical run-record files, of which 79 IDs match the summary and five are additional unsummarized records; there is also one JUnit execution artifact without a run record. None of the 84 run records satisfies the required source-bound provenance contract. These reported outcomes are therefore raw historical results, not validated case outcomes.
+RQ3 evaluates execution evidence, provenance, oracle alignment, and stability. The consolidated historical summary lists 79 run IDs and reports 13 initial passes, 11 candidates with three reported passing reruns, two flaky candidates, and 27 failed candidates. The 12 November audit found 84 physical run-record files, of which 79 IDs match the summary and five were additional historical records. A 13 November follow-up adds supplementary preliminary attempt `g3-jogap004-r3-20261113-initial6`, bringing the current inventory to 85 run records (79 canonical plus 6 supplementary) and 86 JUnit XML files; one JUnit execution remains artifact-only without a run record. Attempt 6 blocked during fixture setup before the candidate oracle; fixture absence is not independently verified, while runner cleanup separately passed. None of the 85 run records satisfies the required source-bound provenance contract. These raw outcomes do not validate any candidate case.
 
 \begin{table*}[t]
 \caption{Audit accounting of historical G3 execution evidence.}\label{tab:g3-audit-accounting}
@@ -672,8 +672,8 @@ RQ3 evaluates execution evidence, provenance, oracle alignment, and stability. T
 \textbf{Evidence item} & \textbf{Count} & \textbf{Current interpretation} \\
 \midrule
 Consolidated summary IDs & 79 & Historical reported invocations; not source-bound to all required run identities. \\
-Physical run records & 84 & 79 IDs match the summary; 5 additional records have unresolved purpose. \\
-JUnit XML files & 85 & One execution ID has no corresponding run record. \\
+Physical run records & 85 & 79 canonical IDs match the summary; 6 supplementary records remain outside it. \\
+JUnit XML files & 86 & One artifact-only execution has no corresponding run record; attempt 6 is fixture-blocked before oracle. \\
 Source-bound run records & 0 & None meets the current application, source, image, test, runtime, reset, and cleanup evidence contract. \\
 Eligible validated cases & 0 / 40 & No candidate qualifies for \texttt{VALIDATED} under the current acceptance criteria. \\
 \bottomrule
@@ -723,7 +723,7 @@ Table~\ref{tab:bewt-comparison} contrasts the original BEWT benchmark with the B
 \textbf{9. Human Governance} & Informal peer review during original paper publication. & Signed independent oracle and novelty decisions. & Existing authorizations/review records do not meet current signature requirement; 0 evidenced approvals. & Review acceptance blocked \\
 \textbf{10. Test Execution} & Manual Maven executions; test suites execute sequentially. & Containerized execution with clean-state DB resets and isolation. & Historical raw runs exist; 0 source-bound run records under current contract. & G0 partial; G3 blocked \\
 \textbf{11. Error Recovery} & Manual test script debugging and repair. & Automated bounded self-repair loop ($r \le 2$ iterations). & Historical repair reports exist; current candidate validation incomplete. & Offline repair controls tested \\
-\textbf{12. Reproducibility} & Public GitHub repository with Docker Compose configurations. & Pinned source, image, test, runtime, reset, and cleanup evidence. & 84 run records lack complete source-bound identity. & Not established for candidates \\
+\textbf{12. Reproducibility} & Public GitHub repository with Docker Compose configurations. & Pinned source, image, test, runtime, reset, and cleanup evidence. & 85 run records lack complete source-bound identity. & Not established for candidates \\
 \textbf{13. Datasets} & 36 static Java suites; 1,166 variant test files. & Accepted 40-case delta with traces. & Candidate files and partial historical evidence; no accepted release. & Release not ready \\
 \textbf{14. Evaluation} & Pass rates and execution times across 5 test variants. & Four research questions (RQ1--RQ4) and five gates (G0--G4). & RQ1 blocked; RQ2 not evaluated; RQ3 not evaluated for candidate outcomes (raw accounting partial); RQ4 partial. & Acceptance blocked \\
 \bottomrule
@@ -749,7 +749,7 @@ To maintain rigorous scientific integrity, we explicitly demarcate the boundarie
         \item The original BEWT benchmark contains documented structural anomalies (M1--M6) and happy-path behavioral skew.
         \item Offline workflow tests exercise graph coordination and bounded-repair behavior; this does not establish acceptance of the current candidate set.
         \item The checked-in candidate dataset contains 40 Gherkin scenarios that parse; this is syntax evidence only. Current audit results show zero signed oracle-and-novelty approvals and zero approved semantic mappings.
-        \item The consolidated G3 summary reports 79 run IDs, with 84 physical run records and one orphan JUnit artifact observed. None of the run records meets the source-bound evidence contract, so zero cases qualify as behaviorally validated.
+        \item The consolidated G3 summary reports 79 canonical run IDs; the 13 November follow-up observes 85 run records and 86 JUnit XML files, including six supplementary run records and one artifact-only JUnit execution. Attempt 6 was fixture-blocked before oracle, so it adds no candidate behavior outcome. None of the 85 run records meets the source-bound evidence contract, and zero cases qualify as behaviorally validated.
     \end{itemize}
     \item \textbf{What Remains Under Development:}
     \begin{itemize}
@@ -845,7 +845,7 @@ The evidence-backed status at this snapshot is:
 \begin{enumerate}
     \item \textbf{RQ1:} \texttt{BLOCKED}; syntax passes for 40/40 candidate scenarios, but approvals and semantic matches are not evidenced.
     \item \textbf{RQ2:} \texttt{NOT\_EVALUATED}; no verified baseline UBU denominator or approved candidate-to-UBU mappings exist.
-    \item \textbf{RQ3:} Historical raw execution reports are partially accounted (79 summarized run IDs, 84 physical run records, one orphan JUnit artifact), but none of the 84 run records is source-bound and zero cases qualify as validated.
+    \item \textbf{RQ3:} Historical raw execution reports are partially accounted (79 canonical run IDs, 85 physical run records, 86 JUnit XML files, one orphan JUnit artifact). Attempt 6 is supplementary and fixture-blocked before oracle. None of the 85 run records is source-bound and zero cases qualify as validated.
     \item \textbf{RQ4:} \texttt{PARTIALLY\_VERIFIED}; the latest approved generation request failed, and actual usage, billing, and human-effort savings are not established.
 \end{enumerate}
 

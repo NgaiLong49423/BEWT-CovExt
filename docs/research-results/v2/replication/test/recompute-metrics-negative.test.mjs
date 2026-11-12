@@ -206,8 +206,9 @@ test('main recomputation detects dataset hash mismatch and blocks case validatio
   assert.deepEqual(result.rq3.gherkinHashMismatches, []);
   assert.equal(result.rq1.humanApprovedCount, 0);
   assert.equal(result.rq3.eligibleBehaviorallyValidatedCases, 0);
-  assert.equal(result.rq3.rawExecution.runRecordFilesObserved, 84);
-  assert.equal(result.rq3.rawExecution.junitXmlFilesObserved, 85);
+  assert.equal(result.rq3.rawExecution.totalRunInvocationsReported, 79);
+  assert.equal(result.rq3.rawExecution.runRecordFilesObserved, 85);
+  assert.equal(result.rq3.rawExecution.junitXmlFilesObserved, 86);
   assert.equal(result.rq3.rawExecution.runRecordsWithCompleteIdentity, 0);
   assert.equal(result.rq3.rawExecution.cleanupResidualFailuresObserved, 1);
 });
