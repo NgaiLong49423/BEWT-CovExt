@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: baseline reconciliation; 40-case semantic audit; human-review, runtime, model, metrics, and credential provenance; G0–G4/D1–D8 acceptance readiness.
 - Base branch + base SHA: `main` / `da6399536ff75a1edf4417819eb4d166cc1d781c` (`origin/main` matched at fetch time).
 - Working branch: `task/final-remediation-audit`.
-- Task implementation commits: `34b923ff778d4b8cd25a9b1bde23ae1d9c37c77f` (initial audit), `6e5e0c51a48e5ced5465aa28f42830e3ebea4c40` (evidence-aligned report/PDF), `a27d093fd33b6a43260aba130aa839784a5b42d2` (evidence-based RQ2/RQ3), and `569ca47d40dcc8dd8d5138718078c5f4ec7217bc` (metrics hardening). Current local head: `569ca47d40dcc8dd8d5138718078c5f4ec7217bc`.
+- Task implementation commits: `34b923ff778d4b8cd25a9b1bde23ae1d9c37c77f` (initial audit), `6e5e0c51a48e5ced5465aa28f42830e3ebea4c40` (evidence-aligned report/PDF), `a27d093fd33b6a43260aba130aa839784a5b42d2` (evidence-based RQ2/RQ3), `569ca47d40dcc8dd8d5138718078c5f4ec7217bc` (metrics hardening), and `3bfee33aa40a5adc760fb87a2ee9999b06f5d347` (metrics output/status/handoff sync). Published branch head verified at `3bfee33aa40a5adc760fb87a2ee9999b06f5d347` before this report-only metadata sync.
 - PR: [#27](https://github.com/NgaiLong49423/BEWT-CovExt/pull/27) (draft and open; no reviewer requested in the latest GitHub snapshot; not merged).
-- Push status for initial PR head: `PUSHED`; three newer commits are local and pending publication until the integrated diff and checks are complete.
+- Push status: `PUSHED`; `git ls-remote`, GitHub PR #27, and local branch all reported `3bfee33aa40a5adc760fb87a2ee9999b06f5d347` before this report-only metadata sync.
 - Runtime/commit/version tested: audit baseline and pinned R2 artifacts; no app runtime, browser, Maven, Docker, Cloud, or live model execution in this task.
 - Status proposed by Agent: `PARTIAL / ACCEPTANCE_BLOCKED`.
 
@@ -25,7 +25,7 @@
 | Exact command/action | Exit code | PASS/FAIL/BLOCKED/NOT_RUN | Evidence path |
 |---|---:|---|---|
 | `git fetch origin main` | 0 | PASS | Remote main matched baseline SHA at fetch. |
-| `node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs` | 0 | PASS (28 passed, 1 skipped, 0 failed; 29 total) | Symlink/junction test skipped because creation is unavailable in this execution context. |
+| `node --test docs/research-results/v2/replication/test/recompute-metrics-negative.test.mjs docs/research-results/v2/replication/test/audit-g3-run-accounting.test.mjs` | 0 | PASS (31 passed, 1 skipped, 0 failed; 32 total) | Symlink/junction test skipped because creation is unavailable in this execution context. |
 | `node --check docs/research-results/v2/replication/recompute-metrics.mjs` | 0 | PASS | Command output. |
 | `node docs/research-results/v2/replication/recompute-metrics.mjs` | 0 | PASS as an audit run | `docs/final-acceptance/RQ1-RQ4-results.json` and `.csv`; baseline `569ca47`, RQ1 BLOCKED, RQ2 NOT_EVALUATED, RQ3/RQ4 PARTIALLY_VERIFIED. |
 | Secret-safe R3 registration/hash and login-literal check | 0 | PASS (10/10) | `docs/final-acceptance/SECURITY-AND-PROVENANCE-AUDIT.md`; raw credential values were not emitted. |
