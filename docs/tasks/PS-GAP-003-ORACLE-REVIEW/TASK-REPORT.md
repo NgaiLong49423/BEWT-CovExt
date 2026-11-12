@@ -32,7 +32,7 @@ No implementation files changed. This report records a source-backed feasibility
 - Candidate: `PS-GAP-003` remains `WRONG_BEHAVIOR`; active R2 performs an admin order-creation attempt with quantity `1000` and accepts generic error/page text. It does not execute customer checkout/payment, establish a unique reference, count exactly one order, or verify stock `10 → 8`.
 - Source finding: In the official 1.6 default-bootstrap confirmation template, a guest sees a formatted **order ID**; the order reference is only placed in the guest-tracking link URL. A registered customer gets a link to order history, and the confirmation template itself does not print the order reference. The controller assigns `reference_order` only for guests. The `Order` model describes the reference as not globally unique, but unique for a payment.
 - Consequently, the current wording “confirmation screen ... with a unique Order Reference” is not directly supported as visible confirmation text by the stock 1.6 default theme. Do not weaken the test to generic confirmation text or substitute the order ID. A new Java revision should wait for a Team Lead decision on whether to revise the Gherkin oracle or whether a different explicitly approved observable meets it.
-- No RQ counts, gate status, metrics, or `STATUS.json` values changed. No human novelty/oracle approval is inferred.
+- No RQ counts, gate-status values, or metrics changed. `STATUS.json` now links this reviewer packet; no human novelty/oracle approval is inferred.
 
 ## 4. Safety & integrity
 
