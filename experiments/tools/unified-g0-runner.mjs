@@ -518,6 +518,11 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remote.url',
     appUrlPath: '/claroline11110/claroline/index.php',
     getAppUrl: (host, port, appName) => `http://${appName}/claroline11110/claroline/index.php`,
+    testEnv: () => ({
+      CLAROLINE_TEST_USERNAME: requiredEnvironment('CLAROLINE_TEST_USERNAME'),
+      CLAROLINE_TEST_PASSWORD: requiredEnvironment('CLAROLINE_TEST_PASSWORD'),
+      CLAROLINE_TEST_FIXTURE_USER_PASSWORD: requiredEnvironment('CLAROLINE_TEST_FIXTURE_USER_PASSWORD'),
+    }),
   },
   expresscart: {
     appId: 'expresscart',

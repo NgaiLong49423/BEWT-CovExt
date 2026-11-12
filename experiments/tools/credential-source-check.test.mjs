@@ -87,6 +87,24 @@ test('runner rejects invalid evidence destinations before creating output', asyn
   assert.equal(existsSync(outside), false);
 });
 
+test('Claroline missing runtime credentials fail before evidence or Docker resource creation', async (t) => {
+  const keys = ['CLAROLINE_TEST_USERNAME', 'CLAROLINE_TEST_PASSWORD', 'CLAROLINE_TEST_FIXTURE_USER_PASSWORD'];
+  const previous = new Map(keys.map((key) => [key, process.env[key]]));
+  for (const key of keys) delete process.env[key];
+  const runId = `preflight-${Date.now()}`;
+  const evidenceDir = resolveEvidenceDirectory(undefined, 'claroline', runId);
+  try {
+    assert.equal(existsSync(evidenceDir), false);
+    await assert.rejects(runG0Workflow('claroline', runId), /Missing required environment variable: CLAROLINE_TEST_USERNAME/);
+    assert.equal(existsSync(evidenceDir), false);
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+});
+
 test('tool resolution requires an allowlisted executable and returns a trusted absolute path', (t) => {
   const tempRoot = mkdtempSync(join(tmpdir(), 'bewt-tool-resolution-'));
   t.after(() => rmSync(tempRoot, { recursive: true, force: true }));
@@ -131,7 +149,8 @@ test('Windows batch tools use an absolute command processor and reject shell met
 
 test('non-ExpressCart app configuration resolves lazily and rejects missing credentials', () => {
   const keys = [
-    'BLUDIT_TEST_USERNAME','BLUDIT_TEST_PASSWORD','JOOMLA_DB_ROOT_PASSWORD','JOOMLA_DB_USER','JOOMLA_DB_PASSWORD',
+    'BLUDIT_TEST_USERNAME','BLUDIT_TEST_PASSWORD','CLAROLINE_TEST_USERNAME','CLAROLINE_TEST_PASSWORD','CLAROLINE_TEST_FIXTURE_USER_PASSWORD',
+    'JOOMLA_DB_ROOT_PASSWORD','JOOMLA_DB_USER','JOOMLA_DB_PASSWORD',
     'BEWT_ADMIN_USERNAME','BEWT_ADMIN_PASSWORD','BEWT_ADMIN_EMAIL','BEWT_ADMIN_PASSWORD_ROTATED','BEWT_AUTHOR_USERNAME','BEWT_AUTHOR_PASSWORD',
     'KANBOARD_TEST_USERNAME','KANBOARD_TEST_PASSWORD','MEDIAWIKI_DB_ROOT_PASSWORD','MEDIAWIKI_DB_USER','MEDIAWIKI_DB_PASSWORD','MEDIAWIKI_DB_INSTALL_USER',
     'PRESTASHOP_DB_ROOT_PASSWORD','PRESTASHOP_DB_USER','PRESTASHOP_DB_PASSWORD','PRESTASHOP_DB_NAME','PRESTASHOP_ADMIN_NAME',
@@ -139,7 +158,7 @@ test('non-ExpressCart app configuration resolves lazily and rejects missing cred
   const previous = new Map(keys.map((key) => [key, process.env[key]]));
   for (const key of keys) delete process.env[key];
   try {
-    for (const app of ['bludit','joomla','kanboard','mantisbt','mediawiki','prestashop']) {
+    for (const app of ['bludit','claroline','joomla','kanboard','mantisbt','mediawiki','prestashop']) {
       assert.equal(typeof APPS[app].testEnv, 'function');
       assert.throws(() => resolveEnvironmentConfig(APPS[app].testEnv), /Missing required environment variable/);
     }
@@ -450,8 +469,9 @@ test('container logs are sanitized before any container stop or removal', () => 
   assert.ok(source.includes('setup-mediawiki-${step}.stderr.log'));
 });
 
-test('MediaWiki and PrestaShop runtime DB names and app users match their fixtures', () => {
+test('Claroline, MediaWiki, and PrestaShop runtime credential config matches fixtures', () => {
   const keys = [
+    'CLAROLINE_TEST_USERNAME', 'CLAROLINE_TEST_PASSWORD', 'CLAROLINE_TEST_FIXTURE_USER_PASSWORD',
     'MEDIAWIKI_DB_ROOT_PASSWORD', 'MEDIAWIKI_DB_USER', 'MEDIAWIKI_DB_PASSWORD', 'MEDIAWIKI_DB_INSTALL_USER',
     'PRESTASHOP_DB_ROOT_PASSWORD', 'PRESTASHOP_DB_USER', 'PRESTASHOP_DB_PASSWORD', 'PRESTASHOP_DB_NAME',
     'BEWT_ADMIN_USERNAME', 'BEWT_ADMIN_PASSWORD', 'BEWT_ADMIN_EMAIL', 'PRESTASHOP_ADMIN_NAME',
@@ -460,6 +480,11 @@ test('MediaWiki and PrestaShop runtime DB names and app users match their fixtur
   const synthetic = Object.fromEntries(keys.map((key) => [key, `fixture-${key.toLowerCase()}`]));
   Object.assign(process.env, synthetic);
   try {
+    const clarolineTest = resolveEnvironmentConfig(APPS.claroline.testEnv);
+    assert.equal(clarolineTest.CLAROLINE_TEST_USERNAME, synthetic.CLAROLINE_TEST_USERNAME);
+    assert.equal(clarolineTest.CLAROLINE_TEST_PASSWORD, synthetic.CLAROLINE_TEST_PASSWORD);
+    assert.equal(clarolineTest.CLAROLINE_TEST_FIXTURE_USER_PASSWORD, synthetic.CLAROLINE_TEST_FIXTURE_USER_PASSWORD);
+
     const mediawikiDb = resolveEnvironmentConfig(APPS.mediawiki.dbEnv);
     const mediawikiTest = resolveEnvironmentConfig(APPS.mediawiki.testEnv);
     assert.equal(mediawikiDb.MYSQL_DATABASE, 'mediawiki');
