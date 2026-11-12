@@ -2486,7 +2486,7 @@
         }
       ],
       "semanticStatus": "PARTIALLY_IMPLEMENTED",
-      "mismatch": "The history check asserts two distinct history IDs, timestamps, and admin authors, but never verifies the displayed row versions are exactly 1 and 2 as required by the Gherkin.",
+      "mismatch": "The test asserts two distinct history IDs, timestamps, and admin authors, but not row versions 1 and 2. The pinned stock history list has no numeric version column, and its linked default preview hides the version field, so those labels are not UI-observable without changing configuration or using a non-UI data channel.",
       "sourceBasis": {
         "applicationVersion": "3.10.11",
         "repositoryPin": {
@@ -2596,7 +2596,7 @@
             "note": "history rows, save timestamp, and editor author"
           }
         ],
-        "sourceReviewDetail": "Pinned Joomla 3.10.11 source confirms editor/version fields, version increment, history persistence and row rendering, plus selected-history deletion; see source-action map."
+        "sourceReviewDetail": "Pinned Joomla 3.10.11 source confirms version snapshots are stored, but the list has no numeric version column and default preview hides version. See source-action map and joomla-history-version-oracle-feasibility.json."
       },
       "compileAndRuntime": {
         "latestRevision": 3,
