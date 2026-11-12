@@ -32,6 +32,8 @@
       "branch": "task/g0-cloud-runtime-acceptance-pr27",
       "baseBranch": "task/final-remediation-audit",
       "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+      "pullRequest": 29,
+      "pullRequestUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/29",
       "runtimeSourceCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
       "vm": {
         "project": "gen-lang-client-0311012609",
@@ -432,7 +434,7 @@
     "currentTaskId": "G0-CLOUD-20261112",
     "currentTaskStatus": "G0_BASE_SMOKE_PASS_8_OF_8_ACCEPTANCE_PARTIAL_PROVENANCE_GAPS",
     "currentTaskBranch": "task/g0-cloud-runtime-acceptance-pr27",
-    "currentTaskPrUrl": null,
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/29",
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },
