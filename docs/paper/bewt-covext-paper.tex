@@ -32,7 +32,7 @@ The research proposal motivates evaluating whether the BEWT baseline leaves gaps
 
 To address these limitations, this paper proposes \textbf{BEWT-CovExt}, a stateful multi-agent workflow targeting all eight BEWT applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. Its LangGraph design separates coverage analysis, Gherkin generation, Selenium implementation, and validation. The repository implements tool allowlists, path confinement, SQLite checkpointing, and an append-only model-call budget ledger; the current audit does not establish that the full generation and validation flow has completed across all eight applications.
 
-The target remains 40 new Gherkin scenarios and 40 corresponding Java/Selenium cases (5 per application); this is a study target, not a completed benchmark delta. The source/data audit uses main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the later recomputation is recorded on analysis revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}. The candidate dataset contains 40 parseable Gherkin scenarios, but the audit found no evidenced signed oracle-and-novelty approvals and no semantic mappings eligible for validation. RQ1 is therefore blocked, RQ2 is not evaluated because the baseline behavioral-unit denominator is unverified, and RQ3 is not evaluated for candidate behavior: the current computation reports 0/40 eligible cases, while historical raw execution accounting remains unbound. No new case currently qualifies as behaviorally validated. A single approved Gemini Gherkin request, recorded in later remediation commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}, failed with a provider schema error; it produced no review packet or Java artifact, and actual token usage and billing remain unknown. The 40-case expansion remains under development.
+The target remains 40 new Gherkin scenarios and 40 corresponding Java/Selenium cases (5 per application); this is a study target, not a completed benchmark delta. The source/data audit uses main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the checked-in RQ recomputation was run at analysis revision \texttt{569ca47d40dcc8dd8d5138718078c5f4ec7217bc}, recorded as \texttt{auditBaselineCommit} in its JSON output. The candidate dataset contains 40 parseable Gherkin scenarios, but the audit found no evidenced signed oracle-and-novelty approvals and no semantic mappings eligible for validation. RQ1 is therefore blocked, RQ2 is not evaluated because the baseline behavioral-unit denominator is unverified, and RQ3 is not evaluated for candidate behavior: the current computation reports 0/40 eligible cases, while historical raw execution accounting remains unbound. No new case currently qualifies as behaviorally validated. A single approved Gemini Gherkin request, recorded in later remediation commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}, failed with a provider schema error; it produced no review packet or Java artifact, and actual token usage and billing remain unknown. The 40-case expansion remains under development.
 }
 
 \keywords{End-to-End Web Testing, Benchmark Expansion, AI Agents, Coverage-Guided Testing, LangGraph, Selenium WebDriver, Gherkin, Software Engineering Reproducibility}
@@ -616,7 +616,7 @@ We define formal quantitative metrics to answer RQ1--RQ4:
 
 \section{Results and Empirical Findings}\label{sec:results}
 
-This section reports the 12 November 2026 source/data audit of main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}. Recomputed RQ outputs and later live-call evidence are recorded in analysis revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}; the failed live attempt itself is recorded in commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}. Candidate files and raw execution reports do not, by themselves, establish approval, semantic coverage gain, or a validated benchmark case.
+This section reports the 12 November 2026 source/data audit of main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}. Recomputed RQ outputs are recorded at analysis revision \texttt{569ca47d40dcc8dd8d5138718078c5f4ec7217bc}; the failed live attempt itself is recorded in earlier commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}. Candidate files and raw execution reports do not, by themselves, establish approval, semantic coverage gain, or a validated benchmark case.
 
 \subsection{RQ1: Scenario Novelty, Validity, and Human Review}
 
@@ -837,7 +837,7 @@ Upon completion of the 40-scenario validation, the research initiative will publ
 
 This study defines \textbf{BEWT-CovExt}, a coverage-guided, stateful multi-agent framework intended to expand the Benchmark for End-to-End Web Testing (BEWT; Olianas et al., 2026, \textit{Journal of Systems and Software}) across eight open-source web applications: Bludit, Claroline, ExpressCart, Joomla, Kanboard, MantisBT, MediaWiki, and PrestaShop. The study target remains five new cases per application, 40 total.
 
-The source/data snapshot is repository main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the later evidence analysis is on remediation revision \texttt{e32b25e027573a63de3da8dbb3d89ee135517cc2}. The BEWT source audit remains pinned to its recorded source revision. The audit confirms that the candidate dataset contains 40 parseable scenarios, but found zero signed oracle-and-novelty approvals, zero approved semantic mappings, an unverified behavioral-unit baseline denominator, and no source-bound G3 run records under the current contract.
+The source/data snapshot is repository main commit \texttt{da6399536ff75a1edf4417819eb4d166cc1d781c}; the RQ metrics computation is recorded at remediation revision \texttt{569ca47d40dcc8dd8d5138718078c5f4ec7217bc}. The failed live Gemini attempt is separately recorded in commit \texttt{3c6ca2014ef60384e3c23a9dcd4c0880af76f099}. The BEWT source audit remains pinned to its recorded source revision. The audit confirms that the candidate dataset contains 40 parseable scenarios, but found zero signed oracle-and-novelty approvals, zero approved semantic mappings, an unverified behavioral-unit baseline denominator, and no source-bound G3 run records under the current contract.
 
 To resolve these challenges, BEWT-CovExt establishes a disciplined multi-agent architecture powered by LangGraph, organizing generation into four specialized roles: Coverage Analysis, Gherkin Generation, Selenium Implementation, and Validation. The framework incorporates closed tool allowlists, path confinement, deterministic SQLite checkpointing with process crash recovery, append-only financial model call budget ledgers, and Human-in-the-Loop review gates to prevent semantic hallucination and superficial parameter duplication.
 
@@ -922,8 +922,8 @@ To reproduce the empirical findings reported in this paper on a local Linux or m
 # 1. Clone the repository and fetch the verified research baseline
 git clone https://github.com/NgaiLong49423/BEWT-CovExt.git
 cd BEWT-CovExt
-# Analysis/evidence revision. Its data inputs descend from the main snapshot below.
-git checkout e32b25e027573a63de3da8dbb3d89ee135517cc2
+# Metrics computation revision recorded in the checked-in RQ output.
+git checkout 569ca47d40dcc8dd8d5138718078c5f4ec7217bc
 # Source/data audit baseline used by the traceability ledger:
 git show da6399536ff75a1edf4417819eb4d166cc1d781c:docs/program/STATUS.json
 
