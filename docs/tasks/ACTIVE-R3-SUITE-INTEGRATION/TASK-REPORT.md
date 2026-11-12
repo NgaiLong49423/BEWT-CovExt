@@ -63,4 +63,3 @@ G3 Selenium execution was `NOT_RUN`: this task does not have the user's explicit
 - Team Lead decisions still required: human oracle/novelty review for affected candidates; separate G0 authorization/runtime evidence; later acceptance review.
 - Suggested next task: inherit these active R3 mappings into the latest candidate integration branch, retain R10 for KB-GAP-001, compile the updated child branch, then run only after the VM credential-injection signal.
 - GitHub review paths: both `ACTIVE-CANDIDATE-MAPPING.json` files, the ten active R3 classes, and this report. PR diff: https://github.com/NgaiLong49423/BEWT-CovExt/pull/27/files.
-
