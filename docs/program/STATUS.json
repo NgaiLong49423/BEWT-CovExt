@@ -539,5 +539,14 @@
     "report": "docs/tasks/FINAL-PROJECT-ACCEPTANCE-20261113/TASK-REPORT.md",
     "evidence": "docs/final-acceptance/evidence/2026-11-13-main-acceptance/maven-test-compile-results.json",
     "closurePr": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/37"
+  },
+  "paperAuthoring": {
+    "status": "DRAFT_REVIEW_REQUIRED",
+    "evidenceSnapshot": "0c7f1e35fc0ad82ccf37df82c86b08863e83b9cf",
+    "testedAcceptanceSource": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
+    "manuscript": "docs/paper/springer-nature/bewt-covext-paper.tex",
+    "qualityReview": "docs/paper/springer-nature/MANUSCRIPT-QUALITY-REVIEW.md",
+    "note": "PDF compiled and DOCX rendered; final content parity, author metadata and independent Team Lead review remain outstanding. No research gate is promoted."
   }
 }
+
