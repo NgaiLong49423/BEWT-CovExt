@@ -4,6 +4,7 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { runG0Workflow } from '../../tools/unified-g0-runner.mjs';
+import { createJoomlaRuntimeCredentials, safeCredentialMetadata } from './jo-gap004-runtime-credentials.mjs';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(scriptDir, '../../..');
@@ -15,6 +16,9 @@ if (!/^[a-z0-9][a-z0-9-]{2,62}$/.test(runId)) {
 if (!/^[a-f0-9]{40}$/.test(taskCommit)) {
   throw new Error('BEWT_G3_TASK_COMMIT must be the full tested PR #33 commit SHA');
 }
+
+const runtimeCredentials = createJoomlaRuntimeCredentials(runId);
+Object.assign(process.env, runtimeCredentials);
 
 const hashFile = (relativePath) => createHash('sha256')
   .update(readFileSync(resolve(repoRoot, relativePath)).toString('utf8').replace(/\r\n/g, '\n'))
@@ -84,6 +88,7 @@ const provenance = {
     pomSha256: hashFile('experiments/joomla/bewt-suite/pom.xml'),
   },
   runtime: { javaVersion, mavenVersion, seleniumAndBrowserDetails: 'CAPTURED_AFTER_RUN_IN_RUN_RECORD' },
+  credentialHandling: safeCredentialMetadata(),
   command: `node experiments/joomla/tools/run-jo-gap-004-g3.mjs ${runId}`,
   candidateMavenCommand: 'mvn -B -f experiments/joomla/bewt-suite/pom.xml -Dtest=base.JO_GAP_004_G3_Suite clean test',
   g3Status: 'PRELIMINARY_ENGINEERING_EXECUTION',

@@ -493,12 +493,12 @@
     "sourceUnavailableOrMismatchedPins": "Recorded as BLOCKED/NOT_VERIFIED in matrix; not used as repair basis.",
     "sourceCodeRevisionsCreated": 1,
     "compile": "PASS_JOOMLA_TEST_COMPILE",
-    "focusedTests": "PASS: Node JSON/path/hash/line and G3 runner/wrapper syntax validations; PASS: mvn -B -DskipTests test-compile in experiments/joomla/bewt-suite, including candidate-scoped fixture preflight",
-    "g3Harness": "COMPILED_FAIL_CLOSED_ARTICLES_OPTIONS_UI_PREFLIGHT_AND_CONTAINER_IMAGE_PROVENANCE; ATTEMPT_1_BLOCKED_SETUP_CANDIDATE_NOT_RUN",
-    "g3": "NOT_RUN_CANDIDATE_INITIAL_SETUP_BLOCKED; CORRECTED_INITIAL_ATTEMPT_PENDING",
+    "focusedTests": "PASS: Node JSON/path/hash/line and G3 runner/wrapper syntax validations; PASS: node --test experiments/g0-safety/test/joomla-runtime-credentials.test.mjs (2/2); PASS: mvn -B -DskipTests test-compile in experiments/joomla/bewt-suite, including candidate-scoped fixture preflight",
+    "g3Harness": "COMPILED_FAIL_CLOSED_ARTICLES_OPTIONS_UI_PREFLIGHT_AND_EPHEMERAL_JOOMLA_CREDENTIALS; ATTEMPT_1_BLOCKED_SETUP_CANDIDATE_NOT_RUN",
+    "g3": "NOT_RUN_CANDIDATE_INITIAL_SETUP_BLOCKED; CREDENTIAL_FIX_TESTED_PENDING_COMMIT_AND_FRESH_WORKTREE",
     "humanOracleNoveltyApproval": "PENDING",
     "validatedCandidates": 0,
     "evidence": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-r3-20261113-initial/",
-    "note": "JO-GAP-004 R3 is an ACCEPTED_FOR_IMPLEMENTATION preliminary engineering revision; source mapping and compile pass. G3 attempt 1 failed in fixture setup before candidate execution because save_history was not visible on the direct options route; candidate outcome is NOT_RUN, Docker cleanup passed, and the attempt is preserved. The corrected Articles > Options UI preflight is compiled; a fresh initial attempt is pending. Human oracle/novelty review also remains pending. No scientific acceptance is claimed."
+    "note": "JO-GAP-004 R3 is an ACCEPTED_FOR_IMPLEMENTATION preliminary engineering revision; source mapping and compile pass. G3 attempt 1 failed in fixture setup before candidate execution because save_history was not visible on the direct options route; candidate outcome is NOT_RUN, Docker cleanup passed, and the attempt is preserved. The corrected Articles > Options preflight and Joomla-only ephemeral credential injection compile and focused tests pass; a fresh exact-head initial attempt is pending commit and worktree setup. Human oracle/novelty review also remains pending. No scientific acceptance is claimed."
   }
 }
