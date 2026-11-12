@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "1.0.0",
+  "observedAtUtc": "2026-11-12T20:20:24Z",
+  "observationType": "READ_ONLY_RUNTIME_PREFLIGHT",
+  "projectId": "gen-lang-client-0311012609",
+  "vm": {
+    "name": "bewt-covext-runner",
+    "instanceId": "3042402845209891905",
+    "zone": "asia-southeast1-a",
+    "machineType": "c4d-highmem-8",
+    "state": "RUNNING",
+    "startAction": "STARTED_AFTER_LATER_TERMINATED_OBSERVATION",
+    "os": "Ubuntu 24.04.5 LTS",
+    "cpuCount": 8,
+    "memoryTotal": "61 GiB",
+    "memoryAvailable": "60 GiB",
+    "rootDiskTotal": "193 GiB",
+    "rootDiskAvailable": "173 GiB",
+    "scheduling": {
+      "provisioningModel": "STANDARD",
+      "preemptible": false,
+      "automaticRestart": true,
+      "onHostMaintenance": "MIGRATE",
+      "maxRunDurationSeconds": 18000,
+      "terminationAction": "STOP"
+    }
+  },
+  "restartRevalidation": {
+    "observedTerminated": true,
+    "startAuthorized": true,
+    "lastStartTimestampUtc": "2026-11-12T20:40:25.329Z",
+    "stateAfterStart": "RUNNING",
+    "dockerService": "active",
+    "dockerEngineVersion": "29.9.3",
+    "dockerContainers": 0,
+    "composeVersion": "5.7.0",
+    "runnerEnvironmentCredentialKeyNamesPresent": false,
+    "nonExampleEnvironmentFilesFound": false
+  },
+  "docker": {
+    "service": "active",
+    "engineVersion": "29.9.3",
+    "composeVersion": "5.7.0",
+    "storageDriver": "overlayfs",
+    "containerCount": 0,
+    "imageCount": 17,
+    "cleanupPerformed": false
+  },
+  "applicationImages": [
+    { "appId": "bludit", "reference": "bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9", "locallyResolvable": true },
+    { "appId": "claroline", "reference": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af", "locallyResolvable": true },
+    { "appId": "expresscart", "reference": "bewt-covext/expresscart:1.1.19-b31302f", "locallyResolvable": true },
+    { "appId": "joomla", "reference": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971", "locallyResolvable": true },
+    { "appId": "kanboard", "reference": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e", "locallyResolvable": true },
+    { "appId": "mantisbt", "reference": "olianasd/mantisbt-strongpsw:1.2.0@sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01", "locallyResolvable": true },
+    { "appId": "mediawiki", "reference": "mediawiki:1.40.0@sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d", "locallyResolvable": true },
+    { "appId": "prestashop", "reference": "prestashop/prestashop:1.6.1.23@sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e", "locallyResolvable": true }
+  ],
+  "vmCheckout": {
+    "path": "/home/runner/BEWT-CovExt",
+    "branch": "main",
+    "head": "a21e65dcce44f85b3ad1d0eaa350ce717e1bf22c",
+    "remote": "https://github.com/NgaiLong49423/BEWT-CovExt.git",
+    "gitStatusEntryCount": 25,
+    "workingTreeClean": false,
+    "uncommittedChangesPreserved": true
+  },
+  "credentialAvailability": {
+    "requiredCredentialEnvironmentKeysPresent": false,
+    "credentialValuesRead": false,
+    "runtimeEnvFileFound": false,
+    "secretManagerList": "BLOCKED_API_DISABLED_AND_PERMISSION_UNAVAILABLE",
+    "secretManagerApiEnableAttempted": false,
+    "runtimeStarted": false
+  },
+  "credentialHandlingReview": {
+    "hostDockerArgumentExposure": "MITIGATED_BY_PR28_E18F3030810513A9BC219C26BE406A3BA3EE9BEF_USING_EPHEMERAL_ENV_FILES",
+    "residualExposure": "DOCKER_DAEMON_CONTAINER_CONFIG_AND_INSTALLER_PROCESS_ARGUMENTS_INSIDE_DISPOSABLE_APP_CONTAINER",
+    "classification": "BOUNDED_RUNTIME_TRUST_BOUNDARY_NOT_EXERCISED_WITH_CREDENTIALS",
+    "credentialValuesCaptured": false
+  },
+  "g0": {
+    "status": "BLOCKED_MISSING_SECURE_CREDENTIAL_SOURCE",
+    "applicationContainersStarted": 0,
+    "mavenInvocations": 0,
+    "junitReports": 0,
+    "experimentResourcesCreated": 0,
+    "evidenceGeneratedByG0Runner": false
+  },
+  "limitations": [
+    "The existing VM main checkout was not modified or synchronized to the PR #28 source head.",
+    "Image resolution does not establish application readiness or G0 acceptance.",
+    "The prior final4 eight-app result is historical and was not rerun in this observation."
+  ]
+}

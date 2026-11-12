@@ -1,0 +1,572 @@
+{
+  "schemaVersion": "1.0.0",
+  "capturedAtUtc": "2026-11-12",
+  "gate": "G0",
+  "executionStatus": "ENGINEERING_VERIFIED_8_OF_8_BASE_SMOKE_TESTS",
+  "acceptanceStatus": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+  "repository": {
+    "url": "https://github.com/NgaiLong49423/BEWT-CovExt",
+    "commit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+    "branch": "detached-origin-main",
+    "workingTree": "CLEAN_BEFORE_RUN",
+    "runnerSourcePath": "experiments/tools/unified-g0-runner.mjs",
+    "runnerSourceSha256": "023689795ac37e61a6aa3ed8643527081aec26ae6dab7cec9595f4f2b3025cc2"
+  },
+  "benchmark": {
+    "repository": "OlianasD/BEWT",
+    "commit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+    "workingTree": "CLEAN_READ_ONLY"
+  },
+  "googleCloud": {
+    "projectId": "gen-lang-client-0311012609",
+    "vmName": "bewt-covext-runner",
+    "zone": "asia-southeast1-a",
+    "instanceId": "3042402845209891905",
+    "machineType": "c4d-highmem-8",
+    "state": "RUNNING",
+    "cpuCount": 8,
+    "memoryTotalGiB": 61,
+    "memoryAvailableBeforeRunsGiB": 60,
+    "rootDiskProvisionedGiB": 200,
+    "rootFilesystemGiB": 193,
+    "rootDiskAvailableGiB": 174,
+    "internalNetwork": "default VPC; internal IPv4 assigned",
+    "externalNat": "assigned after start; IP omitted from public evidence"
+  },
+  "runtime": {
+    "os": "Ubuntu 24.04 LTS",
+    "kernel": "7.0.0-1017-gcp",
+    "dockerEngine": "29.9.3",
+    "node": "20.20.2",
+    "java": "21.0.13.0.3",
+    "maven": "3.8.7",
+    "chrome": "157.0.8103.38",
+    "chromeDriver": "157.0.8103.38"
+  },
+  "runs": [
+    {
+      "application": "bludit",
+      "applicationVersion": "2.3.4",
+      "applicationSourceCommit": "44de235a5eedda9b80d9f0babd9fd5cb8c6943bd",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "bludit/docker:2.3.4@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+        "imageId": "sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9",
+        "repoDigest": "bludit/docker@sha256:fa1bfd57ced7638676cef221907cc43d14ec37aa2393e57f2ddd925df3f4fae9"
+      },
+      "databaseImage": null,
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-bludit-20261112-a",
+      "startedAtUtc": "2026-11-12T10:26:08.007Z",
+      "baselineGherkin": {
+        "path": "bewt-original/bludit/gherkin/bludit-3.13.1/01_AddContentTest.feature",
+        "sha256": "36a14a23d8ec7b6862dbbd1434c73b4ddf20ebef31c85693cae14a6dac42ed25",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "tests.AddContentTest",
+        "path": "experiments/bludit/bewt-suite/src/test/java/tests/AddContentTest.java",
+        "sha256": "34eb6db98025713fd24c79b0aa666d1f9e57f1fe3155ab8b31b1887da05dbfb4",
+        "expectedBenchmarkSha256": "34eb6db98025713fd24c79b0aa666d1f9e57f1fe3155ab8b31b1887da05dbfb4",
+        "matchesBenchmarkSource": true
+      },
+      "readinessHttpStatus": 302,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\bludit\\g0-bludit-20261112-a/TEST-tests.AddContentTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "2703dcf9dff52fb0fa38daa432eea6b2bfdd7743c94f7abc5e149d17b411cba8",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "5d0d22b2f601d6a9e46b18752c1a865935aeb85d414788b8241734d270de0336"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "claroline",
+      "applicationVersion": "1.11.10",
+      "applicationSourceCommit": "22d852f93081bc36b1d08b93f5e0c14b49a573f6",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+        "imageId": "sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af",
+        "repoDigest": "olianasd/claroline-strongpsw@sha256:a49cb592d9bb11fab615c01534d26f50389f7290682dd99e0d6d410cf7bb40af"
+      },
+      "databaseImage": null,
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-claroline-20261112-a",
+      "startedAtUtc": "2026-11-12T10:33:07.108Z",
+      "baselineGherkin": {
+        "path": "bewt-original/claroline/gherkin/01_AddUserTest.feature",
+        "sha256": "a5a0f8da31329490e5d359904d75f89ad09640ebac527aa4f307611cea311d6f",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "test.Claroline_AddUserTest",
+        "path": "experiments/claroline/bewt-suite/src/test/java/test/Claroline_AddUserTest.java",
+        "sha256": "d5b953134af6ef4d50f1e678c3f4413598f14297d584a5059ca08c7a81b170c5",
+        "expectedBenchmarkSha256": "d5b953134af6ef4d50f1e678c3f4413598f14297d584a5059ca08c7a81b170c5",
+        "matchesBenchmarkSource": true
+      },
+      "readinessHttpStatus": 302,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\claroline\\g0-claroline-20261112-a/TEST-test.Claroline_AddUserTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "3b8734a798e18d196e2818a98807ffe5c64f16aae9fa24049bfbd1477beb4775",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "9b1f272f8428225152d983bb507e1b08481d33a8f20e01f96825af197aeb6ca2"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "expresscart",
+      "applicationVersion": "1.1.19",
+      "applicationSourceCommit": "b31302f4e99c3293bd742c6d076a721e168118b0",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "bewt-covext/expresscart:1.1.19-b31302f",
+        "imageId": "sha256:6bdde03731b1d4931af572f626aae6be7d14494e189f795bedc8d71bafa3ff06",
+        "repoDigest": "bewt-covext/expresscart@sha256:6bdde03731b1d4931af572f626aae6be7d14494e189f795bedc8d71bafa3ff06"
+      },
+      "databaseImage": {
+        "reference": "mongo:4.4.29",
+        "observedRepoDigest": "sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0"
+      },
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-expresscart-20261112-a",
+      "startedAtUtc": "2026-11-12T10:29:24.439Z",
+      "baselineGherkin": {
+        "path": "bewt-original/expresscart/gherkin/01_AddUserTest.feature",
+        "sha256": "bf99a81f2bc1a58d56c92cdf6c533f79b8740ca0e1318354286ed8097d8be02e",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "tests.AddUserTest",
+        "path": "experiments/expresscart/bewt-suite/src/test/java/tests/AddUserTest.java",
+        "sha256": "68c3629d58e84fb22dab9e8becb603fef79e9fce83861a2d0457d944c567312d",
+        "expectedBenchmarkSha256": "9b6404c5c38ee17836f8e0c6b92d9d5ed14686a39f4e1f630fbb263b2a7d06c8",
+        "matchesBenchmarkSource": false
+      },
+      "readinessHttpStatus": 200,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\expresscart\\g0-expresscart-20261112-a/TEST-tests.AddUserTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "fd7bbd5c48e91fc51f3a8ccba5d33549e960f19813e24de2a9b2e4ea6191ff29",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "a0fbf94e845ee06700b48b894defc8ce32e559d9de677d9372ce89f98dce8aa7"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "joomla",
+      "applicationVersion": "3.10.11",
+      "applicationSourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "joomla:3.10.11@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+        "imageId": "sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971",
+        "repoDigest": "joomla@sha256:1cb08c55b99dfe231825291634b814b038f98a85442169d7811731bf43912971"
+      },
+      "databaseImage": {
+        "reference": "mysql:5.6",
+        "observedRepoDigest": "sha256:20575ecebe6216036d25dab5903808211f1e9ba63dc7825ac20cb975e34cfcae"
+      },
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-joomla-20261112-a",
+      "startedAtUtc": "2026-11-12T10:26:54.509Z",
+      "baselineGherkin": {
+        "path": "bewt-original/joomla/gherkin/01_AdminLoginTest.feature",
+        "sha256": "bafa7b1793249af237867091f1a5b681ffd245af74665ec7a34a000ad2faf710",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "base.AdminLoginTest",
+        "path": "experiments/joomla/bewt-suite/src/test/java/base/AdminLoginTest.java",
+        "sha256": "0e1f0383d86c952f83e57bf740b73f46561d7b1fbf0249505806f23cb574eea5",
+        "expectedBenchmarkSha256": "e06153e22370068499bb06c1c02316bca7e0e16042d51274d61eef9423e0cc2d",
+        "matchesBenchmarkSource": false
+      },
+      "readinessHttpStatus": 302,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\joomla\\g0-joomla-20261112-a/TEST-base.AdminLoginTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "c53b5aa2be7b2dcbbbd021ad8565254ba3e751c805ce9044579c7de6657940ca",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "5980e069dbb775ce8cd02a31b757b4f4d4478971425dcf0442034544169aa2a8"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "kanboard",
+      "applicationVersion": "1.2.15",
+      "applicationSourceCommit": "00a8b2d7ea55ee43e92e0e9eb193ce1e915d146b",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "kanboard/kanboard:v1.2.15@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+        "imageId": "sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e",
+        "repoDigest": "kanboard/kanboard@sha256:e2fd04bcb9dd2c5ddaa58a260a8b53ba28a0ab8ac5d15eaebd1a9d699b13a52e"
+      },
+      "databaseImage": null,
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-kanboard-20261112-a",
+      "startedAtUtc": "2026-11-12T10:25:04.069Z",
+      "baselineGherkin": {
+        "path": "bewt-original/kanboard/gherkin/01_AddNewProject.feature",
+        "sha256": "0e7d62fee2042ccd6792902e34ab97535fc1361c4a60fa24066c548fa570f32f",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "tests.AddNewProject",
+        "path": "experiments/kanboard/bewt-suite/src/test/java/tests/AddNewProject.java",
+        "sha256": "026ef30394dd9833869bbc900ecad93b428742f2f767c623233c59102d713ecd",
+        "expectedBenchmarkSha256": "026ef30394dd9833869bbc900ecad93b428742f2f767c623233c59102d713ecd",
+        "matchesBenchmarkSource": true
+      },
+      "readinessHttpStatus": 302,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\kanboard\\g0-kanboard-20261112-a/TEST-tests.AddNewProject.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "778b717db6be7315561bfe268c08a16ee33e1bb90f412a06b8c92515c9ba8c1f",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "347de74bdf46f96b9640f9a5f1d26497284f2f5ad1c9f499387a143a4ef123a8"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "mantisbt",
+      "applicationVersion": "1.2.0",
+      "applicationSourceCommit": "d06bf60f5ed9f96029bb830a005d4819a4f87b45",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "olianasd/mantisbt-strongpsw:1.2.0@sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01",
+        "imageId": "sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01",
+        "repoDigest": "olianasd/mantisbt-strongpsw@sha256:5c26712d1ade6204613e5a2059d6effbcd0c945bc9a77940b39509ca19d72c01"
+      },
+      "databaseImage": null,
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-mantisbt-20261112-a",
+      "startedAtUtc": "2026-11-12T10:28:00.966Z",
+      "baselineGherkin": {
+        "path": "bewt-original/mantisbt/gherkin/01_AddUser.feature",
+        "sha256": "86abae41bd6bf3d8bca26729f7fa38be7fb1db20f98334c72f16fca80a7181c9",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "base.AddUser",
+        "path": "experiments/mantisbt/bewt-suite/src/test/java/base/AddUser.java",
+        "sha256": "11c1bdbf0be9e1855f69c4e72da47c47b5fffc6f1c7136379232d5d95aa6d605",
+        "expectedBenchmarkSha256": "c6130f5987f948c29c89606cd09da8697402599a7de8c900752245bffd3fb0ed",
+        "matchesBenchmarkSource": false
+      },
+      "readinessHttpStatus": 200,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\mantisbt\\g0-mantisbt-20261112-a/TEST-base.AddUser.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "de9f8db1c091f0b3a962b600a13b8da738a150c6e831d382a425a13aa9c617f6",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "527e4e27e6dc8945c4eca7f8ddc9d9f24816ba84dc6dc4d78307ce23d39ebcf4"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "mediawiki",
+      "applicationVersion": "1.40.0",
+      "applicationSourceCommit": "468dd69d6ee8e84b9ab26d0ee3d52f215faaf0d4",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "mediawiki:1.40.0@sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d",
+        "imageId": "sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d",
+        "repoDigest": "mediawiki@sha256:5cb83f2b332e05982a8642aff6a4265aa28d11ec66195a2b872cf5f2c234299d"
+      },
+      "databaseImage": {
+        "reference": "mariadb:10.5",
+        "observedRepoDigest": "sha256:a530aeeefd82f4fa5150f391b6c75462140904780338766f6b03acecb1cca3ce"
+      },
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-mediawiki-20261112-a",
+      "startedAtUtc": "2026-11-12T10:28:41.494Z",
+      "baselineGherkin": {
+        "path": "bewt-original/mediawiki/gherkin/01_CreateUserTest.feature",
+        "sha256": "086ac7c4a5a0234e80c24efed12f4bc53a73d7d22c6e96514a4351b415d0d8ce",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "mediawiki.CreateUserTest",
+        "path": "experiments/mediawiki/bewt-suite/src/test/java/mediawiki/CreateUserTest.java",
+        "sha256": "e973eadf059a6796ac24c87f788fe54fa21ad8a454d2c0652585f0298d82d2be",
+        "expectedBenchmarkSha256": "6a7b4171057d38fd896dc89063f797f1e49bc8e8f900d6e9727072e8b9532221",
+        "matchesBenchmarkSource": false
+      },
+      "readinessHttpStatus": 200,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\mediawiki\\g0-mediawiki-20261112-a/TEST-mediawiki.CreateUserTest.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "fdf320993a0632e644b7946c67cbbd47bb1fef8a2b3a1b33741e238ad6a78ced",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "63920e3714c39bc21652b8a22089338266b09dfcae63d524e1f02c4660e8287f"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    },
+    {
+      "application": "prestashop",
+      "applicationVersion": "1.6.1.23",
+      "applicationSourceCommit": "475d65fbda93403cd1afde0db09764c5295e952c",
+      "benchmarkCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+      "applicationImage": {
+        "reference": "prestashop/prestashop:1.6.1.23@sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e",
+        "imageId": "sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e",
+        "repoDigest": "prestashop/prestashop@sha256:c6b779bca959503d25058cec1fa7f6a4cea940694ce099d2e47e4e23a8637b2e"
+      },
+      "databaseImage": {
+        "reference": "mysql:5.7",
+        "observedRepoDigest": "sha256:4bc6bc963e6d8443453676cae56536f4b8156d78bae03c0145cbe47c2aad73bb"
+      },
+      "browserImage": {
+        "reference": "selenium/standalone-chrome:latest",
+        "imageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "repoDigest": "selenium/standalone-chrome@sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec",
+        "chromeVersion": "157.0.8103.38",
+        "chromeDriverVersion": "157.0.8103.38"
+      },
+      "runId": "g0-prestashop-20261112-a",
+      "startedAtUtc": "2026-11-12T10:30:10.468Z",
+      "baselineGherkin": {
+        "path": "bewt-original/prestashop/gherkin/14_AddNewCategory.feature",
+        "sha256": "36af9caeceb6a9019aba870dfd9598176e8afbbba87cbd0ee855ecc28775d444",
+        "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056"
+      },
+      "baselineJava": {
+        "testClass": "tests.AddNewCategory",
+        "path": "experiments/prestashop/bewt-suite/src/test/java/tests/AddNewCategory.java",
+        "sha256": "a6ac0b7ca4eaad8915bd24e27c52ae36e122bf660928cd22ffdb35603819f2f9",
+        "expectedBenchmarkSha256": "0144550b65e92926ffffe7258bc7a82f8e91925a1dd5d75baac0fe5bca9294b8",
+        "matchesBenchmarkSource": false
+      },
+      "readinessHttpStatus": 302,
+      "mavenExitCode": 0,
+      "junit": {
+        "path": "docs\\tasks\\g0-evidence\\prestashop\\g0-prestashop-20261112-a/TEST-tests.AddNewCategory.xml",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "outcome": "PASS",
+        "sanitizedXmlSha256": "5ae9bf36e7ba1fd9f3c59ddf22574929ea4fd872aa44a49942a0b52cf951f23b",
+        "matchesSanitizedHash": true,
+        "originalXmlSha256": "22046b1524b80501c3607a15e78bc90c2e8c44d90a55010675c8425edf18fe01"
+      },
+      "dockerBefore": {
+        "containerCount": 0,
+        "networkCount": 3,
+        "volumeCount": 0
+      },
+      "cleanup": {
+        "outcome": "PASS",
+        "zeroResidualVerified": true,
+        "residualContainerCount": 0,
+        "residualNetworkCount": 0,
+        "residualVolumeCount": 0
+      },
+      "reportedOutcome": "PASS",
+      "runtimeLogs": {
+        "publicCopy": "OMITTED",
+        "reason": "Raw Maven output is retained on the VM; it was excluded from the public evidence bundle to avoid accidental fixture-credential disclosure."
+      }
+    }
+  ],
+  "limitations": [
+    "The shared historical VM checkout had tracked modifications and extensive untracked evidence; it was preserved unchanged. Runs used a new clean detached worktree at the exact origin/main commit above.",
+    "The G0 runner records unique resource names and ownership labels but omits per-container IDs and the image IDs actually used by each created container. App image digest observations are paired with the runner configuration; database and Selenium images are configured by tags. Full per-container digest binding remains incomplete.",
+    "The runner writes installer Maven logs but does not record installer exit codes. The succeeding baseline smoke test proves the application was usable for the test, but not that the installer process itself returned zero.",
+    "The maven-exit.json command field omits the clean goal even though source at the recorded commit invokes clean test; the JUnit result and Maven exit code are direct run outputs.",
+    "The Bludit baseline Gherkin is from 3.13.1 while the exercised application and Java suite are 2.3.4; this is a source/version mapping discrepancy and Bludit G0 remains partial.",
+    "No corrected extension candidate or three-rerun G3 experiment was executed in this G0 task. Existing R2 candidates remain excluded from scientific validation due audited semantic mismatches and pending human oracle/novelty approvals."
+  ]
+}

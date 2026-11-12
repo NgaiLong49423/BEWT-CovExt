@@ -1,0 +1,32 @@
+{
+  "appId": "bludit",
+  "runId": "g0-bludit-20261112-a",
+  "startedAtUtc": "2026-11-12T10:26:08.007Z",
+  "labels": {
+    "project": "bewt-covext",
+    "owner": "bewt-covext",
+    "managed-by": "bewt-covext-agent",
+    "app": "bludit",
+    "task": "g0-bludit",
+    "runId": "g0-bludit-20261112-a"
+  },
+  "containers": [
+    {
+      "role": "browser",
+      "name": "bewt-covext-bludit-selenium-g0-bludit-20261112-a",
+      "port": 35083
+    },
+    {
+      "role": "app",
+      "name": "bewt-covext-bludit-g0-bludit-20261112-a",
+      "port": 37875
+    }
+  ],
+  "network": {
+    "id": "a4f2f3583fb76ccbba7ebb0d0d01f8da0b6d8b9b6383f0f3132cfddd6a029d4f",
+    "name": "bewt-covext-bludit-g0-bludit-20261112-a-net"
+  },
+  "volumes": [],
+  "appPort": 37875,
+  "browserPort": 35083
+}
