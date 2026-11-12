@@ -474,15 +474,15 @@
     "agentCannotSelfApprove": true
   },
   "g2SemanticRemediation": {
-    "status": "PARTIAL_STATIC_AUDIT_COMPLETE_SOURCE_REVIEW_AND_IMPLEMENTATION_REMAIN_OPEN",
+    "status": "PARTIAL_SOURCE_BACKED_R3_COMPILE_PASS_HUMAN_REVIEW_AND_RUNTIME_PENDING",
     "baselineCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
     "branch": "task/g2-semantic-remediation",
     "matrix": "docs/tasks/G2-SEMANTIC-REMEDIATION/40-CASE-SEMANTIC-MATRIX.json",
     "report": "docs/tasks/G2-SEMANTIC-REMEDIATION/TASK-REPORT.md",
     "candidateCount": 40,
     "semanticCounts": {
-      "MATCHED": 0,
-      "WRONG_BEHAVIOR": 22,
+      "MATCHED": 1,
+      "WRONG_BEHAVIOR": 21,
       "PARTIALLY_IMPLEMENTED": 15,
       "WEAK_ORACLE": 3
     },
@@ -491,12 +491,12 @@
       "KB-GAP-001: PR #30"
     ],
     "sourceUnavailableOrMismatchedPins": "Recorded as BLOCKED/NOT_VERIFIED in matrix; not used as repair basis.",
-    "sourceCodeRevisionsCreated": 0,
-    "compile": "NOT_RUN",
-    "focusedTests": "PASS: Node JSON parse, 40 unique IDs, required Java/source fields and controlled status enums; all 40 latest Java paths and line ranges in bounds",
+    "sourceCodeRevisionsCreated": 1,
+    "compile": "PASS_JOOMLA_TEST_COMPILE",
+    "focusedTests": "PASS: Node JSON/path/hash/line validations; PASS: mvn -B -DskipTests test-compile in experiments/joomla/bewt-suite",
     "g3": "NOT_RUN",
-    "humanOracleNoveltyApproval": "NOT_EVIDENCED",
+    "humanOracleNoveltyApproval": "PENDING",
     "validatedCandidates": 0,
-    "note": "Static G2 audit only. No new Java revision created because verified evidence did not establish a safe fixture and the required Joomla version-number oracle is not exposed in the history UI. Human review remains pending."
+    "note": "JO-GAP-004 R3 is an ACCEPTED_FOR_IMPLEMENTATION preliminary engineering revision; source mapping and compile pass, but G3 runtime and human oracle/novelty review remain pending. No scientific acceptance is claimed."
   }
 }

@@ -3,7 +3,7 @@
   "auditBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
   "auditTargetMain": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "generatedAt": "2026-11-12",
-  "note": "Static source/mapping audit only. Latest existing revision used for each candidate; raw R2 compile/G3 claims are retained as historical only when a newer revision exists. Current-revision outcomes are explicitly NOT_RECORDED where no matching record was found. Source pins are independently classified, human oracle/novelty approvals remain pending, and no status is VALIDATED.",
+  "note": "Static source/mapping audit; JO-GAP-004 R3 now maps the unchanged scenario to pinned Joomla UI/source and passes suite test-compile. Runtime and human oracle/novelty acceptance remain pending.",
   "excludedActiveRemediation": [
     "EC-GAP-002",
     "KB-GAP-001"
@@ -17,10 +17,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/bludit/selenium/7d72afaea3ffefd10d0939bda2aae48a/revision-2/T01C_7d72afaea3ffefd10d0939bda2aae48a_R2.java",
-        "sha256": "a80efe703849aa42d16870c6084a47939d8afaf12e1fc04f36adcc13f9a999d5",
+        "sha256": "8ccbc3c41b9c85bff6797745d53fd5af6525537506bf71d923510435569ce468",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-44"
+        "implementationLines": "32-44",
+        "checkoutByteSha256": "a80efe703849aa42d16870c6084a47939d8afaf12e1fc04f36adcc13f9a999d5"
       },
       "embeddedScenarioLines": [
         {
@@ -145,10 +146,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/bludit/selenium/4b05dc3e3caa3daec5f080180a09f349/revision-2/T01C_4b05dc3e3caa3daec5f080180a09f349_R2.java",
-        "sha256": "0788e069f3019d157dd02ee92b570c5d4ae8ac2c17d3531262c9b82540f69289",
+        "sha256": "97c0c4c73d4a0bdb24649cf6879595c3b95f6e805a415bbd34e9dad0b7485349",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-42"
+        "implementationLines": "31-42",
+        "checkoutByteSha256": "0788e069f3019d157dd02ee92b570c5d4ae8ac2c17d3531262c9b82540f69289"
       },
       "embeddedScenarioLines": [
         {
@@ -269,10 +271,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/bludit/selenium/bc2781aeccd21cfbed609074615611ed/revision-2/T01C_bc2781aeccd21cfbed609074615611ed_R2.java",
-        "sha256": "9325b49728f52cdc3289817f58fff0b44338ed4386209bebf0aca6a3df213a89",
+        "sha256": "4cab56d5ea65e49c23462a73a93686b46ee91b2410fb23eed96fb54d8c581ad1",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-44"
+        "implementationLines": "32-44",
+        "checkoutByteSha256": "9325b49728f52cdc3289817f58fff0b44338ed4386209bebf0aca6a3df213a89"
       },
       "embeddedScenarioLines": [
         {
@@ -390,10 +393,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/bludit/selenium/e03c64abc7e2b08cf37e50a1654d4ac0/revision-2/T01C_e03c64abc7e2b08cf37e50a1654d4ac0_R2.java",
-        "sha256": "2959c21fcb84638425e1c3afd600a95ab492ff5963642bcda5470d92e15b0a67",
+        "sha256": "1360bfec214ba193ee8b4ce7853c469db037272ee204a2749c82849652a3e43d",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-46"
+        "implementationLines": "32-46",
+        "checkoutByteSha256": "2959c21fcb84638425e1c3afd600a95ab492ff5963642bcda5470d92e15b0a67"
       },
       "embeddedScenarioLines": [
         {
@@ -534,10 +538,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/bludit/selenium/b562c8a66b0e3b937a5058867bbfb761/revision-2/T01C_b562c8a66b0e3b937a5058867bbfb761_R2.java",
-        "sha256": "031533622dca739ef3b589eb290de9cf222e46fcd5160d0adecc06b5cb671303",
+        "sha256": "0bc51ae1707b1e2863dee8f31888d4bf8dcaa0b410f7102b15e6e72b55e04bd4",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-46"
+        "implementationLines": "32-46",
+        "checkoutByteSha256": "031533622dca739ef3b589eb290de9cf222e46fcd5160d0adecc06b5cb671303"
       },
       "embeddedScenarioLines": [
         {
@@ -675,10 +680,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-3/T01C_acd2c6ed41c79d11057a038360ef1dba_R3.java",
-        "sha256": "91c75f8b7a3a770e171712895aed252057a449094fc7a4017e19e83988ae8ee8",
+        "sha256": "9c9e6df99545fca3a9b46c7529a7779ce8caf2c7acd43ed1f95beaef80b58bbd",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-44"
+        "implementationLines": "32-44",
+        "checkoutByteSha256": "91c75f8b7a3a770e171712895aed252057a449094fc7a4017e19e83988ae8ee8"
       },
       "embeddedScenarioLines": [
         {
@@ -813,10 +819,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-3/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3.java",
-        "sha256": "35700e340d0bc2f7602b142345e8ada5023260b7f52cc2322b0acb0713bd0c0a",
+        "sha256": "e51c8a2a67ac151ada76bcea80a4e935b51fbb5e8701e256cfe80690fe086e80",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-40"
+        "implementationLines": "31-40",
+        "checkoutByteSha256": "35700e340d0bc2f7602b142345e8ada5023260b7f52cc2322b0acb0713bd0c0a"
       },
       "embeddedScenarioLines": [
         {
@@ -942,10 +949,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-3/T01C_e9eda84d440eec2453ed7ae17199f4d5_R3.java",
-        "sha256": "f42643238b6dc136a162acc0765d500919e0cbff11981cd33224ea3567c6f059",
+        "sha256": "7dd735bfed59ad35e3bbcdd058e1aa1536b445f31b8609055a5f9f9a331af8a6",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-45"
+        "implementationLines": "32-45",
+        "checkoutByteSha256": "f42643238b6dc136a162acc0765d500919e0cbff11981cd33224ea3567c6f059"
       },
       "embeddedScenarioLines": [
         {
@@ -1064,10 +1072,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-3/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3.java",
-        "sha256": "4b143ff98def206d6f1b42e760e9c89c70e310b2a663e33e90ac41ee1a03c100",
+        "sha256": "e438b16dd468bf8b9412b6dd27fe6ba9a58126dae8927e8914cad35e6fd45195",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-42"
+        "implementationLines": "31-42",
+        "checkoutByteSha256": "4b143ff98def206d6f1b42e760e9c89c70e310b2a663e33e90ac41ee1a03c100"
       },
       "embeddedScenarioLines": [
         {
@@ -1178,10 +1187,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-3/T01C_1027165465722d6b6fd9ab1607fba1d8_R3.java",
-        "sha256": "97ce6bd44fb6af51cbcd7f124bc3256434bca3102cba992ae8c8b06a8e5c2ab9",
+        "sha256": "3081b79e929bfc2b3b43b5e9fd63f5848335868efa3b98921bd9e1a5c1e4ebbe",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-43"
+        "implementationLines": "32-43",
+        "checkoutByteSha256": "97ce6bd44fb6af51cbcd7f124bc3256434bca3102cba992ae8c8b06a8e5c2ab9"
       },
       "embeddedScenarioLines": [
         {
@@ -1308,10 +1318,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-2/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R2.java",
-        "sha256": "37dea3734cc0ed005722866b7864e8f1a9ab2051566caddf01b133db8535e1c7",
+        "sha256": "208357eb4bd49279c7b4778707fdf7123d939110b23be67dc53e550ca156da00",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-44"
+        "implementationLines": "32-44",
+        "checkoutByteSha256": "37dea3734cc0ed005722866b7864e8f1a9ab2051566caddf01b133db8535e1c7"
       },
       "embeddedScenarioLines": [
         {
@@ -1433,10 +1444,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/expresscart/selenium/3a9bea145c1f05e4dffb3fcb27abd8c7/revision-2/T01C_3a9bea145c1f05e4dffb3fcb27abd8c7_R2.java",
-        "sha256": "347b8f24e843db462747bedea7b13fff2ba2ff324dfe412ab6f07fe95bc07d5f",
+        "sha256": "c0cf8f428d4a786678f15c21f3faf54ebc670dffcfc9b27a884f6d4cd076894d",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-43"
+        "implementationLines": "31-43",
+        "checkoutByteSha256": "347b8f24e843db462747bedea7b13fff2ba2ff324dfe412ab6f07fe95bc07d5f"
       },
       "embeddedScenarioLines": [
         {
@@ -1558,10 +1570,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/expresscart/selenium/6f3be8200d2b1bc4232b8af1b623ed0d/revision-2/T01C_6f3be8200d2b1bc4232b8af1b623ed0d_R2.java",
-        "sha256": "4efa72c8a88530619ee5ab4c72a83b39779b9c32a09204cd395b8b3f3de79b17",
+        "sha256": "73d5fc21e2367b398578d571da649401dc99a8d324ecdb83aed5014d2f4441b4",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-47"
+        "implementationLines": "31-47",
+        "checkoutByteSha256": "4efa72c8a88530619ee5ab4c72a83b39779b9c32a09204cd395b8b3f3de79b17"
       },
       "embeddedScenarioLines": [
         {
@@ -1695,10 +1708,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/expresscart/selenium/0affc59171fdc4286b78929f3dbbe2e3/revision-2/T01C_0affc59171fdc4286b78929f3dbbe2e3_R2.java",
-        "sha256": "c57313ebfbf7e2dcd95495968b68640e7b14be3ae89ed36124f8e10fca51f685",
+        "sha256": "a4d9d655b1a1a5dc87f5758bbbf1d380b57e51b7e5a36e3807113792b90ada98",
         "gherkinLines": "16-23",
         "oracleLines": "24-25",
-        "implementationLines": "30-45"
+        "implementationLines": "30-45",
+        "checkoutByteSha256": "c57313ebfbf7e2dcd95495968b68640e7b14be3ae89ed36124f8e10fca51f685"
       },
       "embeddedScenarioLines": [
         {
@@ -1828,10 +1842,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/expresscart/selenium/f02b9ed81a318c005e31982c144907a2/revision-2/T01C_f02b9ed81a318c005e31982c144907a2_R2.java",
-        "sha256": "1c1db79a0121f8e3c51783feea41c7c95a348e6a6f97ef3ac0c1d1f7d44bbcee",
+        "sha256": "f4ad48913230fd371f0cafeb1c3ac96d08329cba4010a24567674a960d657687",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-47"
+        "implementationLines": "31-47",
+        "checkoutByteSha256": "1c1db79a0121f8e3c51783feea41c7c95a348e6a6f97ef3ac0c1d1f7d44bbcee"
       },
       "embeddedScenarioLines": [
         {
@@ -1961,10 +1976,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/joomla/selenium/89cc3c54cef991d9d154f33111433d61/revision-2/T01C_89cc3c54cef991d9d154f33111433d61_R2.java",
-        "sha256": "c18000d072fe7026bef9293f99e03fab6d7acdd90038b07a97f4ed8b68986f70",
+        "sha256": "71465916987904fa579cbfa738042b3b0bc71cdef9a5c1548b0bed3ba085264f",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-49"
+        "implementationLines": "32-49",
+        "checkoutByteSha256": "c18000d072fe7026bef9293f99e03fab6d7acdd90038b07a97f4ed8b68986f70"
       },
       "embeddedScenarioLines": [
         {
@@ -2094,10 +2110,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/joomla/selenium/80b1dfff69f7f00680658ed64a4b7315/revision-2/T01C_80b1dfff69f7f00680658ed64a4b7315_R2.java",
-        "sha256": "91f7fe7026ee93c553869c95acdeabcedf8acd767204bc201562e0558a5173a7",
+        "sha256": "8189142a334736b05f13b883c70b9108214284416457dfeb74d5be1c9a4daf14",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-47"
+        "implementationLines": "33-47",
+        "checkoutByteSha256": "91f7fe7026ee93c553869c95acdeabcedf8acd767204bc201562e0558a5173a7"
       },
       "embeddedScenarioLines": [
         {
@@ -2231,10 +2248,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/joomla/selenium/2fe8982badb9713cf8935bc53c1d61ad/revision-2/T01C_2fe8982badb9713cf8935bc53c1d61ad_R2.java",
-        "sha256": "77d6d9d6cbfb56a654c290a6b52c9acac1d86257f94b5344e08c25f108576c87",
+        "sha256": "9b3f82ac4466f3694fa2c6ab67ff6cc4c8ec204c3a2796f49d0537697c7374ef",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-41"
+        "implementationLines": "32-41",
+        "checkoutByteSha256": "77d6d9d6cbfb56a654c290a6b52c9acac1d86257f94b5344e08c25f108576c87"
       },
       "embeddedScenarioLines": [
         {
@@ -2353,88 +2371,122 @@
       "candidateId": "JO-GAP-004",
       "application": "joomla",
       "applicationVersionClaimed": "3.10.11",
-      "revision": "revision-2",
+      "revision": "revision-3",
       "javaSource": {
-        "path": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-2/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R2.java",
-        "sha256": "d7294f6dfac865d4e884cfe73446f26e368e1a0e5213187d2d9d34d4ca12d095",
-        "gherkinLines": "16-24",
-        "oracleLines": "25-26",
-        "implementationLines": "31-44"
+        "path": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-3/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R3.java",
+        "sha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+        "gherkinLines": "7-16",
+        "oracleLines": "17-19",
+        "implementationLines": "54-115",
+        "checkoutByteSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+        "registrationPath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-3/registration.json"
       },
       "embeddedScenarioLines": [
         {
-          "line": 16,
+          "line": 8,
           "text": "Feature: Version History Auditing"
         },
         {
-          "line": 17,
-          "text": "  Scenario: Editing an article increments its version counter and creates history record"
+          "line": 9,
+          "text": "Scenario: Editing an article increments its version counter and creates history record"
         },
         {
-          "line": 18,
-          "text": "    Given article \"Living Document\" exists with version counter 1"
+          "line": 10,
+          "text": "Given article \"Living Document\" exists with version counter 1"
         },
         {
-          "line": 19,
-          "text": "    When administrator edits \"Living Document\" body with \"Revised section 3 content.\""
+          "line": 11,
+          "text": "When administrator edits \"Living Document\" body with \"Revised section 3 content.\""
         },
         {
-          "line": 20,
-          "text": "    And clicks \"Save\""
+          "line": 12,
+          "text": "And clicks \"Save\""
         },
         {
-          "line": 21,
-          "text": "    Then the article version counter increments to 2"
+          "line": 13,
+          "text": "Then the article version counter increments to 2"
         },
         {
-          "line": 22,
-          "text": "    When administrator opens the \"Versions\" modal"
+          "line": 14,
+          "text": "When administrator opens the \"Versions\" modal"
         },
         {
-          "line": 23,
-          "text": "    Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author \"admin\""
-        },
-        {
-          "line": 24,
-          "text": ""
+          "line": 15,
+          "text": "Then two distinct revision rows (version 1 and version 2) are listed with timestamps and author \"admin\""
         }
       ],
       "oracleLinesText": [
         {
-          "line": 25,
-          "text": "Observable Business Oracle:"
-        },
-        {
-          "line": 26,
+          "line": 18,
           "text": "#__ucm_history inserts new snapshot; #__content.version increments by 1."
         }
       ],
       "actualActions": [
         {
-          "line": 35,
-          "text": ".setUsername(adminUser)"
+          "line": 65,
+          "text": "Open exact article fixture"
         },
         {
-          "line": 36,
-          "text": ".setPassword(adminPsw)"
+          "line": 71,
+          "text": "Switch into articletext editor iframe"
         },
         {
-          "line": 37,
-          "text": ".login()"
+          "line": 75,
+          "text": "Enter revised body"
+        },
+        {
+          "line": 79,
+          "text": "Save article"
+        },
+        {
+          "line": 82,
+          "text": "Reopen exact article"
+        },
+        {
+          "line": 93,
+          "text": "Open Versions modal"
         }
       ],
       "actualAssertions": [
         {
-          "line": 42,
-          "text": "Assert.assertNotNull(\"Article category text must be recorded\", category);"
+          "line": 64,
+          "text": "Assert exact article fixture exists"
         },
         {
-          "line": 43,
-          "text": "Assert.assertTrue(\"Article list must contain active article\", articles.containsArticle(\"Article 1\") || category.length() > 0);"
+          "line": 68,
+          "text": "Assert starting version equals 1"
+        },
+        {
+          "line": 80,
+          "text": "Assert saved article remains listed"
+        },
+        {
+          "line": 84,
+          "text": "Assert version equals 2"
+        },
+        {
+          "line": 88,
+          "text": "Assert revised body is persisted"
+        },
+        {
+          "line": 98,
+          "text": "Assert exactly two history rows"
+        },
+        {
+          "line": 105,
+          "text": "Assert each timestamp is present"
+        },
+        {
+          "line": 106,
+          "text": "Assert each revision author is admin"
+        },
+        {
+          "line": 109,
+          "text": "Assert two distinct revision IDs"
         }
       ],
-      "semanticStatus": "WRONG_BEHAVIOR",
-      "mismatch": "Inspects article category/listing; never edits or verifies version increment/history.",
+      "semanticStatus": "MATCHED",
+      "mismatch": null,
       "sourceBasis": {
         "applicationVersion": "3.10.11",
         "repositoryPin": {
@@ -2447,28 +2499,143 @@
         "references": [
           {
             "repository": "joomla/joomla-cms",
-            "path": "administrator/components/com_content/models/article.php",
-            "lines": "250-290",
+            "path": "administrator/components/com_content/models/forms/article.xml",
+            "lines": "61-67",
             "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
-            "proposalNote": "version history save handler"
+            "note": "article body editor field"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/models/forms/article.xml",
+            "lines": "191-200",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "readonly article version field"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/views/article/tmpl/edit.php",
+            "lines": "60-72",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "article edit form and editor rendering"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/models/article.php",
+            "lines": "275-276",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "save path increments table version"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "libraries/src/Table/Content.php",
+            "lines": "41-42",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "ContentHistory observer attached to article table"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "libraries/src/Table/Observer/ContentHistory.php",
+            "lines": "80-90",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "successful store writes history snapshot when save_history enabled"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "libraries/src/Table/ContentHistory.php",
+            "lines": "46-90",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "history table #__ucm_history stores editor and timestamp fields"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_content/views/article/view.html.php",
+            "lines": "148-151",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "versions toolbar enabled when history is active"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "libraries/src/Toolbar/ToolbarHelper.php",
+            "lines": "620-638",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "renders versions toolbar action"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "layouts/joomla/toolbar/versions.php",
+            "lines": "15-18",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "history modal route and trigger class"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_contenthistory/views/history/tmpl/modal.php",
+            "lines": "94-103",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "history deletion action in modal"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_contenthistory/controllers/history.php",
+            "lines": "26-48",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "history.delete controller dispatches selected version IDs"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_contenthistory/models/history.php",
+            "lines": "105-135",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "deletes selected history records"
+          },
+          {
+            "repository": "joomla/joomla-cms",
+            "path": "administrator/components/com_contenthistory/views/history/tmpl/modal.php",
+            "lines": "109-180",
+            "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+            "note": "history rows, save timestamp, and editor author"
           }
         ],
-        "sourceReviewDetail": "VERIFIED_VERSION_INCREMENT_SOURCE_RANGE"
+        "sourceReviewDetail": "Pinned Joomla 3.10.11 source confirms editor/version fields, version increment, history persistence and row rendering, plus selected-history deletion; see source-action map."
       },
       "compileAndRuntime": {
-        "latestRevision": 2,
-        "declaredCompileOutcome": "PASS",
-        "declaredG3Outcome": "VALIDATED",
-        "declaredReruns": {
-          "passed": 3,
-          "total": 3
-        },
-        "rawEvidencePath": "docs/tasks/g3-evidence/joomla/JO-GAP-004/g3-jogap004-20261110191702",
+        "latestRevision": 3,
+        "declaredCompileOutcome": "PASS_MAVEN_TEST_COMPILE",
+        "declaredG3Outcome": "NOT_RUN",
+        "declaredReruns": null,
+        "rawEvidencePath": null,
         "historicalR2CompileOutcome": "PASS",
         "historicalR2G3Outcome": "VALIDATED",
-        "runtimeIdentityBound": false
+        "runtimeIdentityBound": false,
+        "compileEvidencePath": "docs/tasks/G2-SEMANTIC-REMEDIATION/evidence/joomla-r3-test-compile.txt",
+        "runtimeOutcomeForLatestRevision": "NOT_RUN"
       },
-      "scopeDisposition": null
+      "scopeDisposition": null,
+      "priorRevisionSemanticStatus": "WRONG_BEHAVIOR",
+      "priorRevisionMismatch": "Inspects article category/listing; never edits or verifies version increment/history.",
+      "cleanupActions": [
+        {
+          "line": 125,
+          "text": "Open exact title article fixture"
+        },
+        {
+          "line": 128,
+          "text": "Open version history modal"
+        },
+        {
+          "line": 135,
+          "text": "Select every history row"
+        },
+        {
+          "line": 140,
+          "text": "Delete selected history rows"
+        },
+        {
+          "line": 154,
+          "text": "Trash the exact title article fixture"
+        }
+      ],
+      "sourceActionMappingPath": "docs/tasks/G2-SEMANTIC-REMEDIATION/JO-GAP-004-R3-SOURCE-ACTION-MAP.json"
     },
     {
       "candidateId": "JO-GAP-005",
@@ -2477,10 +2644,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/joomla/selenium/e43d4dcc5e13acf7d90604fe49850216/revision-2/T01C_e43d4dcc5e13acf7d90604fe49850216_R2.java",
-        "sha256": "d9b7aeaec868b0f0c023b44b94e58c859e27d9ad84bc534637263625254dd7bb",
+        "sha256": "5c4745bc032ec78f9a929394c47bb5765186c91076da63da6860c890ebee9445",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-46"
+        "implementationLines": "33-46",
+        "checkoutByteSha256": "d9b7aeaec868b0f0c023b44b94e58c859e27d9ad84bc534637263625254dd7bb"
       },
       "embeddedScenarioLines": [
         {
@@ -2606,10 +2774,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
-        "sha256": "c04e0cbc96c6c89865c316f7ebb0075cf130f3a8623097b87c73e2820efa9592",
+        "sha256": "02053480d03a7fe13a174a59d4bbc4c4b8508eeb408300211646a4a188d8090b",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-44"
+        "implementationLines": "32-44",
+        "checkoutByteSha256": "c04e0cbc96c6c89865c316f7ebb0075cf130f3a8623097b87c73e2820efa9592"
       },
       "embeddedScenarioLines": [
         {
@@ -2730,10 +2899,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-3/T01C_ca582c83d0559c38508bf3e1a5420ca9_R3.java",
-        "sha256": "f1e78eb585b9691707a92c9dc51fcca49c73ce409e3c7ddb9be8472e9c881abd",
+        "sha256": "2f8c9c1f1345bc7c4e3c8996055b27bb0b65df4df6f868413ad40373e3a96f8a",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-45"
+        "implementationLines": "32-45",
+        "checkoutByteSha256": "f1e78eb585b9691707a92c9dc51fcca49c73ce409e3c7ddb9be8472e9c881abd"
       },
       "embeddedScenarioLines": [
         {
@@ -2858,10 +3028,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-3/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3.java",
-        "sha256": "3b12734b64b45fdef8977f7ab428be3bda54165b1141fc2ad6ee82ba0072d194",
+        "sha256": "f7a9cb8e7dee7f22b964b4265fd8a9e212bf6188d1faaf2f42e23fb46df30ee3",
         "gherkinLines": "16-27",
         "oracleLines": "28-29",
-        "implementationLines": "34-46"
+        "implementationLines": "34-46",
+        "checkoutByteSha256": "3b12734b64b45fdef8977f7ab428be3bda54165b1141fc2ad6ee82ba0072d194"
       },
       "embeddedScenarioLines": [
         {
@@ -2987,10 +3158,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-3/T01C_233eaf16319686f2ab6c351b189cd929_R3.java",
-        "sha256": "817cb5b5102d543b5c7501e651fc039cc6b12be3596876a70f5bf7648085c084",
+        "sha256": "74fbf733e60655735d61e30b694e0c3e5fcca5ad639b794ed0582cda2a793527",
         "gherkinLines": "16-27",
         "oracleLines": "28-29",
-        "implementationLines": "34-46"
+        "implementationLines": "34-46",
+        "checkoutByteSha256": "817cb5b5102d543b5c7501e651fc039cc6b12be3596876a70f5bf7648085c084"
       },
       "embeddedScenarioLines": [
         {
@@ -3116,10 +3288,11 @@
       "revision": "revision-3",
       "javaSource": {
         "path": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-3/T01C_882860986d9907549f10245367191c30_R3.java",
-        "sha256": "82e5c4c03b47b8a85801ea168d271c73935cf7bf0a82a9fafb6f11593a19d5b3",
+        "sha256": "7d7ffcdb9d5dddaad5cad9ad693644bafe29b63738eb7dcda007823dc27f7175",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-47"
+        "implementationLines": "33-47",
+        "checkoutByteSha256": "82e5c4c03b47b8a85801ea168d271c73935cf7bf0a82a9fafb6f11593a19d5b3"
       },
       "embeddedScenarioLines": [
         {
@@ -3245,10 +3418,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mantisbt/selenium/1406ecc3352e264ca199a0cf7476c671/revision-2/T01C_1406ecc3352e264ca199a0cf7476c671_R2.java",
-        "sha256": "d6beb39a74f3cac818c62c0489835b02a8a24799deb62a313439d8040f7bc483",
+        "sha256": "594e53bb5092d8508f97511a619a782de2b9943125443c6f0dc525c687fafdd2",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-44"
+        "implementationLines": "33-44",
+        "checkoutByteSha256": "d6beb39a74f3cac818c62c0489835b02a8a24799deb62a313439d8040f7bc483"
       },
       "embeddedScenarioLines": [
         {
@@ -3381,10 +3555,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mantisbt/selenium/6bb62c5782120fa9f4b349accb4351d2/revision-2/T01C_6bb62c5782120fa9f4b349accb4351d2_R2.java",
-        "sha256": "1abf47db8f6350cb9ab63b1330cb0f4749f9a77ba84a20c40b92bbbeb1d0aca3",
+        "sha256": "bd0a134385a61ba53b7f32ff6540b57c4f559a3b605180f9f41bd87ba7279991",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-42"
+        "implementationLines": "31-42",
+        "checkoutByteSha256": "1abf47db8f6350cb9ab63b1330cb0f4749f9a77ba84a20c40b92bbbeb1d0aca3"
       },
       "embeddedScenarioLines": [
         {
@@ -3509,10 +3684,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mantisbt/selenium/a4f2ce95a2a722305bf2ee9bb788d336/revision-2/T01C_a4f2ce95a2a722305bf2ee9bb788d336_R2.java",
-        "sha256": "86757f38c9fab4a303f9710013f75191ba3e0cef55a40bfbd9fbfbead1a24dde",
+        "sha256": "1fa28e0373ccbc8f771c9da61abce6e2df8f68cff8f0889ba2be895633b84014",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-41"
+        "implementationLines": "32-41",
+        "checkoutByteSha256": "86757f38c9fab4a303f9710013f75191ba3e0cef55a40bfbd9fbfbead1a24dde"
       },
       "embeddedScenarioLines": [
         {
@@ -3637,10 +3813,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mantisbt/selenium/3b10cef3f23dff894317fc9c42e9ecd4/revision-2/T01C_3b10cef3f23dff894317fc9c42e9ecd4_R2.java",
-        "sha256": "796aef35da2470b6684d3adc3519258fb6f2768c542723a6bdf221b4362c8756",
+        "sha256": "c9fec19003850ff06549ef4b31a43793aff1ba9ba262eae8d5c09c6049644819",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-40"
+        "implementationLines": "31-40",
+        "checkoutByteSha256": "796aef35da2470b6684d3adc3519258fb6f2768c542723a6bdf221b4362c8756"
       },
       "embeddedScenarioLines": [
         {
@@ -3754,10 +3931,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mantisbt/selenium/04d0e89a5f7d9303bc9ab5c08d0cfb9c/revision-2/T01C_04d0e89a5f7d9303bc9ab5c08d0cfb9c_R2.java",
-        "sha256": "06129b146c93d2f1c8ed176e0468fd1e5f8c44a1ae4b1863ed19294c3de6e136",
+        "sha256": "0ba675755d5853f1a2c12ceb8527131b2a2c541ba90ed04be1bbffe8baed5f2d",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-40"
+        "implementationLines": "31-40",
+        "checkoutByteSha256": "06129b146c93d2f1c8ed176e0468fd1e5f8c44a1ae4b1863ed19294c3de6e136"
       },
       "embeddedScenarioLines": [
         {
@@ -3871,10 +4049,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mediawiki/selenium/b078f939f78ca3088b197ccf89f026ba/revision-2/T01C_b078f939f78ca3088b197ccf89f026ba_R2.java",
-        "sha256": "64e33ccb76f52f6cd849333e6ac701422ab112bdbde86dedd368b68c6691d3a0",
+        "sha256": "15dc6c016bf1780ecd0548e3d188a2960accfd11ff73689177761fe383734d49",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-39"
+        "implementationLines": "32-39",
+        "checkoutByteSha256": "64e33ccb76f52f6cd849333e6ac701422ab112bdbde86dedd368b68c6691d3a0"
       },
       "embeddedScenarioLines": [
         {
@@ -3983,10 +4162,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mediawiki/selenium/cc9b738b705812d5a51f43f2b4b7c0ce/revision-2/T01C_cc9b738b705812d5a51f43f2b4b7c0ce_R2.java",
-        "sha256": "c38239a9826a3a72e1bd1428775d12d407f9fe277184b4eb945410bc97f018b6",
+        "sha256": "84840efb854fa55519a0b655db68b24ab684b49c8ce3bd38a66e6b9b1ee53e56",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-43"
+        "implementationLines": "33-43",
+        "checkoutByteSha256": "c38239a9826a3a72e1bd1428775d12d407f9fe277184b4eb945410bc97f018b6"
       },
       "embeddedScenarioLines": [
         {
@@ -4112,10 +4292,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mediawiki/selenium/5c24156fc88caa06da8d4370e60766fc/revision-2/T01C_5c24156fc88caa06da8d4370e60766fc_R2.java",
-        "sha256": "ac420cc6fc02ab99fccaeef54e51d635cfad74f81f6afeb6a579052e99be3d94",
+        "sha256": "c22b40c2e03dbc4b21b4eb3f29264e3e4f56478d95ae3ccfced0ef09213c62fe",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-41"
+        "implementationLines": "31-41",
+        "checkoutByteSha256": "ac420cc6fc02ab99fccaeef54e51d635cfad74f81f6afeb6a579052e99be3d94"
       },
       "embeddedScenarioLines": [
         {
@@ -4233,10 +4414,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mediawiki/selenium/5dbff5381952f882bfd47c571ee4b019/revision-2/T01C_5dbff5381952f882bfd47c571ee4b019_R2.java",
-        "sha256": "f84f47b0ae126474ec71277d584029803765d401505d3e943b9a4efa425871c1",
+        "sha256": "db7d43622b41ce11474f5b1d6f064f301a593b6b9238b029ed63ed870001b267",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-41"
+        "implementationLines": "33-41",
+        "checkoutByteSha256": "f84f47b0ae126474ec71277d584029803765d401505d3e943b9a4efa425871c1"
       },
       "embeddedScenarioLines": [
         {
@@ -4354,10 +4536,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/mediawiki/selenium/83ecf3d51792c82eeb8a3e404724ed8b/revision-2/T01C_83ecf3d51792c82eeb8a3e404724ed8b_R2.java",
-        "sha256": "13e5b0ccaef501317f3b719354a709ca30b0b9c49af89240d4f6351dc686a7aa",
+        "sha256": "668c184c325731ae5c96ab677feecd3357faf5f5d235a6847bff144b855ca56f",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-41"
+        "implementationLines": "33-41",
+        "checkoutByteSha256": "13e5b0ccaef501317f3b719354a709ca30b0b9c49af89240d4f6351dc686a7aa"
       },
       "embeddedScenarioLines": [
         {
@@ -4482,10 +4665,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/prestashop/selenium/25166db489865765701792687cd9d40e/revision-2/T01C_25166db489865765701792687cd9d40e_R2.java",
-        "sha256": "e300c87c1023b4b1a0570ff8256c9661db7e5b7c71910926e20fd03ecc09a923",
+        "sha256": "6c119a38dffa47542223a7c0bfa25bf95f3c32b917a86708898234cb527274ae",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-43"
+        "implementationLines": "32-43",
+        "checkoutByteSha256": "e300c87c1023b4b1a0570ff8256c9661db7e5b7c71910926e20fd03ecc09a923"
       },
       "embeddedScenarioLines": [
         {
@@ -4611,10 +4795,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/prestashop/selenium/b02cc209824bfa1f986ea340332df898/revision-2/T01C_b02cc209824bfa1f986ea340332df898_R2.java",
-        "sha256": "72d9207c9cf508762e473b75f3e76f97e6dfe56389c804e6b2184fc0989b6f1a",
+        "sha256": "8fea440146a44281440f48559a93bd8665ac09f8471f79a9b21c7e019b61e032",
         "gherkinLines": "16-25",
         "oracleLines": "26-27",
-        "implementationLines": "32-43"
+        "implementationLines": "32-43",
+        "checkoutByteSha256": "72d9207c9cf508762e473b75f3e76f97e6dfe56389c804e6b2184fc0989b6f1a"
       },
       "embeddedScenarioLines": [
         {
@@ -4740,10 +4925,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/prestashop/selenium/202336fd43c393a7395e8722b9e82c8f/revision-2/T01C_202336fd43c393a7395e8722b9e82c8f_R2.java",
-        "sha256": "4f265659420396f466a79e05a695bcfdc24ea666c81cf6db4cdbdc17cdcb5f15",
+        "sha256": "65692bb27b32f5a6282e044fdd88bf4f37177fb4b28b25e7ea77a73a3d90a063",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-45"
+        "implementationLines": "31-45",
+        "checkoutByteSha256": "4f265659420396f466a79e05a695bcfdc24ea666c81cf6db4cdbdc17cdcb5f15"
       },
       "embeddedScenarioLines": [
         {
@@ -4869,10 +5055,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/prestashop/selenium/8e2d11c8e727a6d49530c06fdb53b8d2/revision-2/T01C_8e2d11c8e727a6d49530c06fdb53b8d2_R2.java",
-        "sha256": "1294b07a660267846d23615ca9a08023073f08d3b4ed297e78c55ec515d4278a",
+        "sha256": "3aa2333717ddb07049177ff7e6bf87bee780f2193686feaa273428760ca20ec2",
         "gherkinLines": "16-26",
         "oracleLines": "27-28",
-        "implementationLines": "33-44"
+        "implementationLines": "33-44",
+        "checkoutByteSha256": "1294b07a660267846d23615ca9a08023073f08d3b4ed297e78c55ec515d4278a"
       },
       "embeddedScenarioLines": [
         {
@@ -4998,10 +5185,11 @@
       "revision": "revision-2",
       "javaSource": {
         "path": "extension/prestashop/selenium/b0ad1666e8e14b7de6c48bf6947cd977/revision-2/T01C_b0ad1666e8e14b7de6c48bf6947cd977_R2.java",
-        "sha256": "48a05a8551da850720b45436eafdbcc3c3c42659edd9508b2020778c73ef077e",
+        "sha256": "a1b640a8b427565e7c46fe7cb068c1c3e80a50fa4b3ed6cf7b238a495a451541",
         "gherkinLines": "16-24",
         "oracleLines": "25-26",
-        "implementationLines": "31-42"
+        "implementationLines": "31-42",
+        "checkoutByteSha256": "48a05a8551da850720b45436eafdbcc3c3c42659edd9508b2020778c73ef077e"
       },
       "embeddedScenarioLines": [
         {

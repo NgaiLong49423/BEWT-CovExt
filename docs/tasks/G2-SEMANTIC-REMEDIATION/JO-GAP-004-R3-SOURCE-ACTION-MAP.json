@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "1.0.0",
+  "candidateId": "JO-GAP-004",
+  "revision": 3,
+  "applicationVersion": "3.10.11",
+  "sourceCommit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+  "javaSourcePath": "extension/joomla/selenium/ae6c8ee75a51838ce2ddfa2df16cb9ed/revision-3/T01C_ae6c8ee75a51838ce2ddfa2df16cb9ed_R3.java",
+  "javaSourceSha256": "a563d1737fcc59d06653f95a13f48c0fdec817e499942589e3efda93f1333591",
+  "gherkinSha256": "1325202da5aab85ebb51c02190adb297eed2db595835878befbac4549bf80b35",
+  "scenarioAndOraclePreserved": true,
+  "sourceReferences": [
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_content/models/forms/article.xml",
+      "lines": "61-67",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "article body editor field"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_content/models/forms/article.xml",
+      "lines": "191-200",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "readonly article version field"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_content/views/article/tmpl/edit.php",
+      "lines": "60-72",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "article edit form and editor rendering"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_content/models/article.php",
+      "lines": "275-276",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "save path increments table version"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "libraries/src/Table/Content.php",
+      "lines": "41-42",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "ContentHistory observer attached to article table"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "libraries/src/Table/Observer/ContentHistory.php",
+      "lines": "80-90",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "successful store writes history snapshot when save_history enabled"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "libraries/src/Table/ContentHistory.php",
+      "lines": "46-90",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "history table #__ucm_history stores editor and timestamp fields"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_content/views/article/view.html.php",
+      "lines": "148-151",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "versions toolbar enabled when history is active"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "libraries/src/Toolbar/ToolbarHelper.php",
+      "lines": "620-638",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "renders versions toolbar action"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "layouts/joomla/toolbar/versions.php",
+      "lines": "15-18",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "history modal route and trigger class"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_contenthistory/views/history/tmpl/modal.php",
+      "lines": "94-103",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "history deletion action in modal"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_contenthistory/controllers/history.php",
+      "lines": "26-48",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "history.delete controller dispatches selected version IDs"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_contenthistory/models/history.php",
+      "lines": "105-135",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "deletes selected history records"
+    },
+    {
+      "repository": "joomla/joomla-cms",
+      "path": "administrator/components/com_contenthistory/views/history/tmpl/modal.php",
+      "lines": "109-180",
+      "commit": "01deee0a7b8cf91fc503b2cc13359c6e43aac47f",
+      "note": "history rows, save timestamp, and editor author"
+    }
+  ],
+  "mappings": [
+    {
+      "gherkinStep": "Given article Living Document exists with version counter 1",
+      "javaLines": "64-68",
+      "actionOrAssertion": "Requires exact title and checks readonly jform_version equals 1",
+      "sourceRefs": [
+        "administrator/components/com_content/models/forms/article.xml:191-200"
+      ]
+    },
+    {
+      "gherkinStep": "When administrator edits the body with Revised section 3 content and clicks Save",
+      "javaLines": "71-80",
+      "actionOrAssertion": "Edits TinyMCE iframe body, submits through EditArticleSiteAdminPage.save, confirms article remains listed",
+      "sourceRefs": [
+        "administrator/components/com_content/models/forms/article.xml:61-67",
+        "administrator/components/com_content/views/article/tmpl/edit.php:60-72"
+      ]
+    },
+    {
+      "gherkinStep": "Then the article version counter increments to 2",
+      "javaLines": "82-84",
+      "actionOrAssertion": "Reopens exact article and asserts jform_version is 2",
+      "sourceRefs": [
+        "administrator/components/com_content/models/article.php:275-276",
+        "administrator/components/com_content/models/forms/article.xml:191-200"
+      ]
+    },
+    {
+      "gherkinStep": "When administrator opens the Versions modal",
+      "javaLines": "91-95",
+      "actionOrAssertion": "Clicks modal_jform_contenthistory and switches into sbox-content iframe",
+      "sourceRefs": [
+        "administrator/components/com_content/views/article/view.html.php:148-151",
+        "libraries/src/Toolbar/ToolbarHelper.php:620-638",
+        "layouts/joomla/toolbar/versions.php:15-18"
+      ]
+    },
+    {
+      "gherkinStep": "Then two distinct revision rows list timestamps and author admin",
+      "javaLines": "97-109",
+      "actionOrAssertion": "Asserts exactly two rows, unique cid values, nonempty save-date text, and admin author for each row",
+      "sourceRefs": [
+        "libraries/src/Table/Content.php:41-42",
+        "libraries/src/Table/Observer/ContentHistory.php:80-90",
+        "libraries/src/Table/ContentHistory.php:46-90",
+        "administrator/components/com_contenthistory/views/history/tmpl/modal.php:109-180"
+      ]
+    },
+    {
+      "gherkinStep": "Fixture teardown deletes article and associated version history",
+      "javaLines": "117-158",
+      "actionOrAssertion": "Deletes all exact fixture history rows, then trashes only the unique exact-title article",
+      "sourceRefs": [
+        "administrator/components/com_contenthistory/views/history/tmpl/modal.php:94-103",
+        "administrator/components/com_contenthistory/controllers/history.php:26-48",
+        "administrator/components/com_contenthistory/models/history.php:105-135",
+        "experiments/joomla/bewt-suite/src/test/java/base/DeleteArticle.java:14-23"
+      ]
+    }
+  ],
+  "compile": {
+    "command": "mvn -B -DskipTests test-compile",
+    "result": "PASS",
+    "exitCode": 0,
+    "evidence": "docs/tasks/G2-SEMANTIC-REMEDIATION/evidence/joomla-r3-test-compile.txt"
+  },
+  "runtime": {
+    "g3": "NOT_RUN",
+    "g3Runs": 0,
+    "reason": "No app/VM/Docker execution in this follow-up."
+  },
+  "acceptance": {
+    "humanOracleNoveltyReview": "PENDING",
+    "validated": false
+  }
+}
