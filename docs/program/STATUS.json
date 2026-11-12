@@ -26,6 +26,19 @@
       "status": "MERGED",
       "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    },
+    "CL-KB-MAVEN-CREDENTIAL": {
+      "status": "PARTIALLY_VERIFIED_LOCAL_COMPILE_AND_CREDENTIAL_SCAN_PASS_RUNTIME_NOT_RUN_REVIEW_PENDING",
+      "branch": "task/claroline-kanboard-maven-security",
+      "baseBranch": "task/final-remediation-audit",
+      "baseSha": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
+      "implementationCommit": "58b55dada7469a0c32714a1d177399eb62792a73",
+      "pullRequest": "PENDING",
+      "r3CasesIntegratedIntoMaven": 10,
+      "clarolineLoginSitesChecked": 56,
+      "inlinePasswordLiteralsRemaining": 0,
+      "activeAndExtensionHashesVerified": 20,
+      "evidence": "docs/tasks/ACTIVE-MAVEN-CREDENTIAL-INTEGRATION/TASK-REPORT.md"
     }
   },
   "targets": {

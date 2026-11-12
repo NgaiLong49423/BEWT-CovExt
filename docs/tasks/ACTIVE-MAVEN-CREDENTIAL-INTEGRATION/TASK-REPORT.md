@@ -1,9 +1,10 @@
 # Active Maven Credential Integration
 
 - Status: `PARTIAL`; Claroline and Kanboard candidate classes compile. Runtime/E2E validation remains `NOT_RUN`.
-- Worktree branch: `task/active-maven-credential-integration`.
-- Starting HEAD for this remediation pass: `31390d7021da34b0e54a424fd7590bbfcde06f51`.
-- Earlier integration commit: `04892f44309418f0294381e2d33ea54fda2c24dd`.
+- Worktree branch: `task/claroline-kanboard-maven-security` (local branch stacked on PR #27's `task/final-remediation-audit`).
+- Base branch/SHA: `task/final-remediation-audit` / `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
+- Implementation commit: `58b55dada7469a0c32714a1d177399eb62792a73`.
+- PR: `PENDING_PUBLICATION`; task changes are kept separate from PR #27.
 - Scope: active Claroline and Kanboard Maven suites; no extension R2 artifact or `bewt-original/` source was modified.
 
 ## Active Maven integration
@@ -29,14 +30,15 @@ A secret-safe, in-memory comparison classified the 51 active literal-login sites
 
 | Command/action | Result | Evidence |
 |---|---|---|
-| `node experiments/claroline/bewt-suite/credential-source-check.mjs` | `PASS`; 56 Java login call sites checked, no inline password literals | Reproducible static regression check |
+| `node credential-source-check.mjs` (from `experiments/claroline/bewt-suite/`) | `PASS`; 56 Java login call sites checked, no inline password literals | Reproducible static regression check |
+| Hash comparison for all active and extension paths in both `extension-revisions.json` manifests | `PASS`; 20 hashes match | Current source tree and registrations |
 | Historical credential fingerprint check against active Claroline Java sources | `PASS`; 0 matches | Only a boolean/count was emitted; credential value was not printed |
 | Active R2 and upstream artifact registration hashes | `PASS`; 5 active source hashes recorded; all 5 upstream hashes match extension registrations | `experiments/claroline/bewt-suite/extension-revisions.json` |
-| `mvn -B -ntp -DskipTests test` in `experiments/claroline/bewt-suite/` | `PASS`; 22 main and 52 test sources compiled; Surefire skipped execution | Maven output from this remediation pass |
-| `mvn -B -ntp -DskipTests test` in `experiments/kanboard/bewt-suite/` | `PASS` on the preceding integration pass; 27 main and 42 test sources compiled | Same command; no Kanboard source changed during this pass |
+| `mvn -B -ntp -DskipTests test` in `experiments/claroline/bewt-suite/` | `PASS`; 52 test sources compiled; Surefire skipped execution | Current Maven output; main classes were already up to date |
+| `mvn -B -ntp -DskipTests test` in `experiments/kanboard/bewt-suite/` | `PASS`; 42 test sources compiled; Surefire skipped execution | Current Maven output |
 | Runtime candidate or full-suite execution | `NOT_RUN` | No verified app/WebDriver ownership or candidate fixture state; full-suite shell scripts have globally named Docker lifecycle commands |
 
-The first Claroline recompile after adding the shared credential helper failed because its name collided with private helpers in the five R3 classes. The helper and active call sites were renamed to `requiredRuntimeCredential`; the subsequent Maven compile passed.
+The first Claroline recompile after adding the shared credential helper failed because its name collided with private helpers in the five R3 classes. The helper and active call sites were renamed to `requiredRuntimeCredential`; the subsequent Maven compile passed. The current Maven commands printed a leading Windows `Access is denied.` message before the Maven logs, but both commands returned exit code 0 and ended with `BUILD SUCCESS`.
 
 ## Rotation risk and remaining work
 
