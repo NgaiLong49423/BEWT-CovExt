@@ -2,7 +2,20 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { scanJavaSource } from './credential-source-check.mjs';
-import { APPS, containerProvenance, requiredEnvironment, resolveEnvironmentConfig, sanitizeCommandArgv } from './unified-g0-runner.mjs';
+import {
+  APPS,
+  containerProvenance,
+  credentialValuesFrom,
+  findBaselineGherkinBinding,
+  loginControlsReady,
+  readinessEvidence,
+  requiredEnvironment,
+  resolveEnvironmentConfig,
+  sanitizeCommandArgv,
+  sanitizeEvidenceText,
+  sha256,
+  setupEvidence,
+} from './unified-g0-runner.mjs';
 
 test('credential source checker rejects inline login credentials', () => {
   const result = scanJavaSource('new LoginPage(d).loginToKanboard("unit-user", configuredPassword());');
@@ -83,4 +96,108 @@ test('Maven argv metadata preserves order while redacting credential values', ()
   const actual = sanitizeCommandArgv(['-B', '-Ddb.password=synthetic-secret', '--token', 'synthetic-token', '-Dapp.password', 'synthetic-property-value', '-Dtest=Suite']);
   assert.deepEqual(actual, ['-B', '-Ddb.password=<redacted>', '--token', '<redacted>', '-Dapp.password', '<redacted>', '-Dtest=Suite']);
   assert.equal(actual.some((arg) => arg.includes('synthetic')), false);
+});
+
+test('app and login readiness evidence records path, timestamp, status and validator without host data', () => {
+  const result = readinessEvidence('http://127.0.0.1:8421/administrator/', 200, 'prestashop-admin-login', '2026-11-12T00:00:00.000Z');
+  assert.deepEqual(result, {
+    outcome: 'PASS',
+    status: 200,
+    endpointPath: '/administrator/',
+    validator: 'prestashop-admin-login',
+    checkedAtUtc: '2026-11-12T00:00:00.000Z',
+  });
+  assert.equal('url' in result, false);
+});
+
+test('setup evidence persists installer or fixture exit state', () => {
+  assert.deepEqual(setupEvidence('PASS', 0, '2026-11-12T00:00:00.000Z'), {
+    outcome: 'PASS', exitCode: 0, checkedAtUtc: '2026-11-12T00:00:00.000Z',
+  });
+  assert.equal(setupEvidence('FAIL', 1).outcome, 'FAIL');
+});
+
+test('MediaWiki and PrestaShop login readiness validates installed login controls', () => {
+  assert.equal(loginControlsReady('mediawiki', '<a id="pt-login">Log in</a>'), true);
+  assert.equal(loginControlsReady('mediawiki', '<title>Install MediaWiki</title>'), false);
+  assert.equal(loginControlsReady('prestashop', '<input name="email"><input name="passwd">'), true);
+  assert.equal(loginControlsReady('prestashop', '<title>Install PrestaShop</title>'), false);
+});
+
+test('evidence sanitization redacts configured usernames and secrets', () => {
+  const values = credentialValuesFrom({ BEWT_ADMIN_USERNAME: 'synthetic-user', BEWT_ADMIN_PASSWORD: 'synthetic-pass' });
+  const safe = sanitizeEvidenceText('login synthetic-user rejected with synthetic-pass', values);
+  assert.equal(safe.includes('synthetic-user'), false);
+  assert.equal(safe.includes('synthetic-pass'), false);
+});
+
+test('baseline Gherkin binding returns the catalog path and source blob hash', () => {
+  const catalog = {
+    units: [{
+      application: 'prestashop',
+      baselineCaseIds: ['prestashop-14-addnewcategory'],
+      javaAssertionEvidence: { path: 'prestashop/baseline/prestashop-1.6.1.23/src/test/java/tests/AddNewCategory.java' },
+      gherkinEvidence: { path: 'prestashop/gherkin/14_AddNewCategory.feature', blobSha: 'f'.repeat(40) },
+    }],
+  };
+  const result = findBaselineGherkinBinding(catalog, 'prestashop', 'tests.AddNewCategory', 'catalog.json', 'a'.repeat(64));
+  assert.equal(result.status, 'MAPPED');
+  assert.equal(result.path, 'prestashop/gherkin/14_AddNewCategory.feature');
+  assert.equal(result.sha256, 'f'.repeat(40));
+  assert.equal(result.mappingCatalogPath, 'catalog.json');
+});
+
+test('runtime classes bind to available baseline Gherkin catalog entries', () => {
+  const catalogPath = new URL('../../docs/tasks/T04-G/evidence/cat.json', import.meta.url);
+  const catalogText = readFileSync(catalogPath, 'utf8');
+  const catalog = JSON.parse(catalogText);
+  const catalogHash = sha256(catalogText);
+  const mediawiki = findBaselineGherkinBinding(catalog, 'mediawiki', 'mediawiki.CreatePageTest', 'docs/tasks/T04-G/evidence/cat.json', catalogHash);
+  const prestashop = findBaselineGherkinBinding(catalog, 'prestashop', 'tests.AddNewCategory', 'docs/tasks/T04-G/evidence/cat.json', catalogHash);
+  assert.equal(mediawiki.path, 'mediawiki/gherkin/03_CreatePageTest.feature');
+  assert.equal(mediawiki.sha256, 'd4a1d563069fdf3a5223d9b160539a398dc8a463');
+  assert.equal(prestashop.path, 'prestashop/gherkin/14_AddNewCategory.feature');
+  assert.equal(prestashop.sha256, '193ff284dc574d1810593c1e3acde399967dc228');
+});
+
+test('container logs are sanitized before any container stop or removal', () => {
+  const source = readFileSync(new URL('./unified-g0-runner.mjs', import.meta.url), 'utf8');
+  const capture = source.indexOf("dockerCli(['logs', '--timestamps', name])");
+  const stop = source.indexOf("dockerCli(['stop', c])");
+  const remove = source.indexOf("dockerCli(['rm', '-f', '-v', c])");
+  assert.ok(capture >= 0 && stop > capture && remove > capture);
+  assert.ok(source.includes('sanitizeEvidenceText(logs, evidenceSecrets)'));
+  assert.ok(source.includes("setupFixtures.prestashop = setupEvidence('FAIL'"));
+  assert.ok(source.includes('PrestaShop setup fixture failed.'));
+});
+
+test('MediaWiki and PrestaShop runtime DB names and app users match their fixtures', () => {
+  const keys = [
+    'MEDIAWIKI_DB_ROOT_PASSWORD', 'MEDIAWIKI_DB_USER', 'MEDIAWIKI_DB_PASSWORD',
+    'PRESTASHOP_DB_ROOT_PASSWORD', 'PRESTASHOP_DB_USER', 'PRESTASHOP_DB_PASSWORD', 'PRESTASHOP_DB_NAME',
+    'BEWT_ADMIN_USERNAME', 'BEWT_ADMIN_PASSWORD', 'BEWT_ADMIN_EMAIL', 'PRESTASHOP_ADMIN_NAME',
+  ];
+  const previous = new Map(keys.map((key) => [key, process.env[key]]));
+  const synthetic = Object.fromEntries(keys.map((key) => [key, `fixture-${key.toLowerCase()}`]));
+  Object.assign(process.env, synthetic);
+  try {
+    const mediawikiDb = resolveEnvironmentConfig(APPS.mediawiki.dbEnv);
+    assert.equal(mediawikiDb.MYSQL_DATABASE, 'mediawiki');
+    assert.equal(mediawikiDb.MYSQL_USER, synthetic.MEDIAWIKI_DB_USER);
+    assert.equal(mediawikiDb.MYSQL_PASSWORD, synthetic.MEDIAWIKI_DB_PASSWORD);
+
+    const prestashopDb = resolveEnvironmentConfig(APPS.prestashop.dbEnv);
+    const prestashopApp = APPS.prestashop.appEnv('db-host');
+    const prestashopTest = resolveEnvironmentConfig(APPS.prestashop.testEnv);
+    assert.equal(prestashopDb.MYSQL_DATABASE, synthetic.PRESTASHOP_DB_NAME);
+    assert.equal(prestashopDb.MYSQL_USER, synthetic.PRESTASHOP_DB_USER);
+    assert.equal(prestashopDb.MYSQL_PASSWORD, synthetic.PRESTASHOP_DB_PASSWORD);
+    assert.equal(prestashopApp.DB_NAME, prestashopDb.MYSQL_DATABASE);
+    assert.equal(prestashopTest.BEWT_DB_NAME, prestashopDb.MYSQL_DATABASE);
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
 });

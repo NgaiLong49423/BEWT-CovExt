@@ -18,7 +18,7 @@
     "experimentKey": "bewt-covext-prestashop",
     "prepareTool": "prepare-fixture",
     "cleanupTool": "cleanup-experiment",
-    "resetStrategy": "Two-container custom network deployment with labels. Setup executes tests.Installer JUnit test on working copy, followed by container exec commands to delete install/ and rename admin to administrator. Reset stops and removes both containers.",
+    "resetStrategy": "Run-scoped app and MySQL containers on a labeled network. The active G0 runner executes install/index_cli.php inside the app container with environment-injected database and admin values, then removes install/ and renames admin to administrator. Database initialization and app configuration share the configured database name and app user. Setup failure is recorded and aborts before the Maven smoke test. Cleanup captures sanitized container logs before stopping and removing run-owned containers.",
     "destructive": true
   },
   "allowedTools": [

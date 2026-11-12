@@ -32,6 +32,50 @@ export function containerProvenance(inspectInfo) {
   return { containerId: inspectInfo.Id, imageReference: inspectInfo.Config.Image, imageId: inspectInfo.Image, createdAt: inspectInfo.Created };
 }
 
+export function readinessEvidence(url, status, validator, checkedAtUtc = new Date().toISOString()) {
+  return {
+    outcome: 'PASS',
+    status,
+    endpointPath: new URL(url).pathname,
+    validator,
+    checkedAtUtc,
+  };
+}
+
+export function setupEvidence(outcome, exitCode = null, checkedAtUtc = new Date().toISOString(), errorCode = null, signal = null) {
+  return { outcome, exitCode, checkedAtUtc, ...(errorCode ? { errorCode } : {}), ...(signal ? { signal } : {}) };
+}
+
+export function credentialValuesFrom(...envObjects) {
+  return [...new Set(envObjects.flatMap((env) => Object.entries(env || {})
+    .filter(([key, value]) => /password|passwd|username|email|(?:^|_)user(?:_|$)|token|secret|api[-_]?key/i.test(key)
+      && typeof value === 'string' && value.length > 0)
+    .map(([, value]) => value)))];
+}
+
+export function findBaselineGherkinBinding(catalog, appId, testClass, catalogPath, catalogSha256) {
+  const sourceSuffix = `/src/test/java/${testClass.replaceAll('.', '/')}.java`;
+  const unit = (catalog?.units || []).find((entry) => entry.application === appId
+    && entry.javaAssertionEvidence?.path?.endsWith(sourceSuffix)
+    && entry.gherkinEvidence?.path
+    && entry.gherkinEvidence?.blobSha);
+  if (!unit) return { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' };
+  return {
+    status: 'MAPPED',
+    path: unit.gherkinEvidence.path,
+    sha256: unit.gherkinEvidence.blobSha,
+    mappingCatalogPath: catalogPath,
+    mappingCatalogSha256: catalogSha256,
+    baselineCaseIds: unit.baselineCaseIds || [],
+  };
+}
+
+export function loginControlsReady(appId, body) {
+  if (appId === 'mediawiki') return /id=["']pt-login["']/.test(body);
+  if (appId === 'prestashop') return /name=["']email["']/.test(body) && /name=["']passwd["']/.test(body);
+  throw new Error(`No login readiness validator is defined for '${appId}'.`);
+}
+
 function inspectContainerProvenance(name) {
   const result = JSON.parse(dockerCli(['inspect', name]));
   return containerProvenance(result[0]);
@@ -132,7 +176,7 @@ export function probeHttp(url, timeoutMs = 3000) {
   });
 }
 
-export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400) {
+export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400, validatorName = 'http-status-2xx-3xx') {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
   console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
@@ -142,7 +186,7 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
       const body = await res.text();
       if (validator(body, res)) {
         console.log(`[waitHttpReady] ${label} is ready! HTTP ${res.status}`);
-        return { outcome: 'PASS', status: res.status, url };
+        return readinessEvidence(url, res.status, validatorName);
       }
       lastErr = `HTTP ${res.status}: validator failed`;
     } catch (e) {
@@ -153,8 +197,12 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
   throw new Error(`${label} readiness timeout (${timeoutMs}ms): ${lastErr}`);
 }
 
-export function sanitizeEvidenceText(text) {
-  return String(text || '')
+export function sanitizeEvidenceText(text, secretValues = []) {
+  let safeText = String(text || '');
+  for (const secret of [...new Set(secretValues.filter((value) => typeof value === 'string' && value.length > 0))].sort((a, b) => b.length - a.length)) {
+    safeText = safeText.replaceAll(secret, '<REDACTED_CREDENTIAL>');
+  }
+  return safeText
     .replace(/\bn0tl[\w-]+\b/gi, '<TEST_FIXTURE_SECRET>')
     .replace(/[A-Z]:[\\/][^\r\n"'<>\s]*/gi, '<LOCAL_PATH>')
     .replace(/\/home\/[a-zA-Z0-9._-]+\/[^\r\n"'<>\s]*/g, '<LOCAL_PATH>')
@@ -308,12 +356,14 @@ export const APPS = {
     dbImage: 'mariadb:10.5',
     dbInternalPort: 3306,
     suitePath: 'experiments/mediawiki/bewt-suite',
-    testClass: 'mediawiki.CreateUserTest',
+    testClass: 'mediawiki.CreatePageTest',
     appUrlProperty: 'app.url',
     webdriverUrlProperty: 'webdriver.remote.url',
     getAppUrl: (host, port, appName) => `http://${appName}/`,
     dbEnv: () => ({
       MYSQL_ROOT_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_ROOT_PASSWORD'),
+      MYSQL_USER: requiredEnvironment('MEDIAWIKI_DB_USER'),
+      MYSQL_PASSWORD: requiredEnvironment('MEDIAWIKI_DB_PASSWORD'),
       MYSQL_DATABASE: 'mediawiki',
     }),
     testEnv: () => ({
@@ -338,13 +388,15 @@ export const APPS = {
     getAppUrl: (host, port, appName) => `http://${appName}/administrator/`,
     dbEnv: () => ({
       MYSQL_ROOT_PASSWORD: requiredEnvironment('PRESTASHOP_DB_ROOT_PASSWORD'),
+      MYSQL_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
+      MYSQL_PASSWORD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
       MYSQL_DATABASE: requiredEnvironment('PRESTASHOP_DB_NAME'),
     }),
     appEnv: (dbHost) => ({
       DB_SERVER: dbHost,
       DB_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
       DB_PASSWD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
-      DB_NAME: 'prestashop',
+      DB_NAME: requiredEnvironment('PRESTASHOP_DB_NAME'),
       PS_DEV_MODE: '0',
     }),
     testEnv: () => ({
@@ -353,6 +405,7 @@ export const APPS = {
       BEWT_ADMIN_EMAIL: requiredEnvironment('BEWT_ADMIN_EMAIL'),
       BEWT_DB_USER: requiredEnvironment('PRESTASHOP_DB_USER'),
       BEWT_DB_PASSWORD: requiredEnvironment('PRESTASHOP_DB_PASSWORD'),
+      BEWT_DB_NAME: requiredEnvironment('PRESTASHOP_DB_NAME'),
       PRESTASHOP_ADMIN_NAME: requiredEnvironment('PRESTASHOP_ADMIN_NAME'),
     }),
   },
@@ -364,7 +417,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
   if (!cfg) throw new Error(`UNKNOWN_APP_ID: '${appId}'`);
   const configuredTestEnv = resolveEnvironmentConfig(cfg.testEnv) || {};
   const configuredDbEnv = resolveEnvironmentConfig(cfg.dbEnv) || {};
-  if (cfg.appEnv) cfg.appEnv('__BEWT_G0_PREFLIGHT__');
+  const appEnvPreflight = cfg.appEnv ? cfg.appEnv('__BEWT_G0_PREFLIGHT__') : {};
+  const evidenceSecrets = credentialValuesFrom(process.env, configuredTestEnv, configuredDbEnv, appEnvPreflight);
 
   const evidenceDir = resolve(REPO_ROOT, options.evidenceDir || `docs/tasks/g0-evidence/${appId}/${validRunId}`);
   mkdirSync(evidenceDir, { recursive: true });
@@ -392,6 +446,31 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     containers: [],
     network: null,
     volumes: [],
+    readiness: {},
+    setupFixtures: {},
+  };
+
+  const activeTestClass = options.testClass || cfg.testClass;
+  const sourcePath = resolve(REPO_ROOT, cfg.suitePath, 'src/test/java', `${activeTestClass.replaceAll('.', '/')}.java`);
+  const sourceConfig = JSON.parse(readFileSync(resolve(REPO_ROOT, `config/apps/${appId}.json`), 'utf8'));
+  const repositoryCommit = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim();
+  const workingTreeDirty = execFileSync('git', ['status', '--porcelain'], { cwd: REPO_ROOT, encoding: 'utf8' }).trim().length > 0;
+  const gherkinCatalogPath = resolve(REPO_ROOT, 'docs/tasks/T04-G/evidence/cat.json');
+  const gherkinCatalog = existsSync(gherkinCatalogPath) ? readFileSync(gherkinCatalogPath, 'utf8') : null;
+  runRecord.source = {
+    repositoryCommit,
+    workingTreeDirty,
+    runnerSha256: sha256(readFileSync(__filename)),
+    applicationSourceCommit: sourceConfig.source?.commit || 'NOT_AVAILABLE',
+    applicationVersion: sourceConfig.benchmarkBaseVersion || 'NOT_AVAILABLE',
+    applicationImageReference: cfg.image,
+    testClass: activeTestClass,
+    testSource: existsSync(sourcePath)
+      ? { path: sourcePath.slice(REPO_ROOT.length + 1).replaceAll('\\', '/'), sha256: sha256(readFileSync(sourcePath)) }
+      : { path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' },
+    baselineGherkin: gherkinCatalog
+      ? findBaselineGherkinBinding(JSON.parse(gherkinCatalog), appId, activeTestClass, 'docs/tasks/T04-G/evidence/cat.json', sha256(gherkinCatalog))
+      : { status: 'NOT_AVAILABLE', path: 'NOT_AVAILABLE', sha256: 'NOT_AVAILABLE' },
   };
 
   try {
@@ -485,16 +564,22 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     // 5. Readiness verification
     const seleniumStatusUrl = `http://127.0.0.1:${browserPort}/status`;
-    await waitHttpReady(seleniumStatusUrl, 'Selenium', 90000, (body) => {
+    runRecord.readiness.selenium = {
+      ...await waitHttpReady(seleniumStatusUrl, 'Selenium', 90000, (body) => {
       try {
         return JSON.parse(body)?.value?.ready === true;
       } catch {
         return false;
       }
-    });
+      }, 'selenium-status-value-ready'),
+      completedBeforeMaven: true,
+    };
 
     const hostAppProbeUrl = `http://127.0.0.1:${appPort}${cfg.appUrlPath || '/'}`;
-    await waitHttpReady(hostAppProbeUrl, `${appId} App`, 120000);
+    runRecord.readiness.appHttp = {
+      ...await waitHttpReady(hostAppProbeUrl, `${appId} App`, 120000),
+      completedBeforeMaven: true,
+    };
 
     // 6. Application-specific setup fixtures
     if (appId === 'mediawiki') {
@@ -520,8 +605,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           'bash', '-c',
           'echo "wfLoadExtension( \'WikiEditor\' );" >> /var/www/html/LocalSettings.php && echo "wfLoadExtension( \'VisualEditor\' );" >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-enable"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-hidebetawelcome"] = 1;\' >> /var/www/html/LocalSettings.php && echo \'$wgDefaultUserOptions["visualeditor-welcomedialog"] = 0;\' >> /var/www/html/LocalSettings.php'
         ]);
+        runRecord.setupFixtures.mediawiki = setupEvidence('PASS', 0);
       } catch (e) {
-        console.error(`MediaWiki fixture error: ${e.message}`);
+        runRecord.setupFixtures.mediawiki = setupEvidence('FAIL', Number.isInteger(e.status) ? e.status : null, new Date().toISOString(), typeof e.code === 'string' ? e.code : null);
+        throw new Error('MediaWiki setup fixture failed. See per-run setup state and sanitized app/DB logs.');
       }
     } else if (appId === 'prestashop') {
       try {
@@ -540,8 +627,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
         ]);
         dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/install']);
         dockerCli(['exec', appName, 'mv', '/var/www/html/admin', '/var/www/html/administrator']);
+        runRecord.setupFixtures.prestashop = setupEvidence('PASS', 0);
       } catch (e) {
-        console.error(`PrestaShop fixture error: ${e.message}`);
+        runRecord.setupFixtures.prestashop = setupEvidence('FAIL', Number.isInteger(e.status) ? e.status : null, new Date().toISOString(), typeof e.code === 'string' ? e.code : null);
+        throw new Error('PrestaShop setup fixture failed. See per-run setup state and sanitized app/DB logs.');
       }
     } else if (appId === 'expresscart') {
       try {
@@ -576,8 +665,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           },
           timeout: 180000,
         });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout, evidenceSecrets));
+        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr, evidenceSecrets));
+        runRecord.setupFixtures.installer = setupEvidence(instRes.status === 0 ? 'PASS' : 'FAIL', instRes.status, undefined, instRes.error?.code || null, instRes.signal);
+        if (instRes.status !== 0) throw new Error('Bludit Maven installer failed. See installer exit state and sanitized logs.');
       }
     } else if (appId === 'joomla') {
       if (cfg.installerClass) {
@@ -604,8 +695,10 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           },
           timeout: 180000,
         });
-        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout));
-        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr));
+        writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(instRes.stdout, evidenceSecrets));
+        writeFileSync(join(evidenceDir, 'installer-maven.stderr.log'), sanitizeEvidenceText(instRes.stderr, evidenceSecrets));
+        runRecord.setupFixtures.installer = setupEvidence(instRes.status === 0 ? 'PASS' : 'FAIL', instRes.status, undefined, instRes.error?.code || null, instRes.signal);
+        if (instRes.status !== 0) throw new Error('Joomla Maven installer failed. See installer exit state and sanitized logs.');
         try {
           dockerCli(['exec', appName, 'rm', '-rf', '/var/www/html/installation']);
         } catch {}
@@ -618,17 +711,27 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       : `http://127.0.0.1:${appPort}/`;
     const remoteWebdriverUrl = `http://127.0.0.1:${browserPort}/wd/hub`;
 
+    if (appId === 'mediawiki' || appId === 'prestashop') {
+      const loginReadyValidator = (body) => loginControlsReady(appId, body);
+      const loginValidatorName = appId === 'mediawiki'
+        ? 'mediawiki-installed-login-link'
+        : 'prestashop-admin-email-and-password-controls';
+      runRecord.readiness.appLogin = {
+        ...await waitHttpReady(targetAppUrl, `${appId} login controls`, 120000, loginReadyValidator, loginValidatorName),
+        completedBeforeMaven: true,
+      };
+    }
+
     const testEnvVars = {
       ...process.env,
       ...configuredTestEnv,
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',
-      BEWT_DB_NAME: cfg.appId,
+      BEWT_DB_NAME: configuredTestEnv.BEWT_DB_NAME || cfg.appId,
     };
 
     const mavenStartTime = Date.now();
-    const activeTestClass = options.testClass || cfg.testClass;
     const mvnArgs = [
       '-B',
       '-f', `${cfg.suitePath}/pom.xml`,
@@ -645,8 +748,8 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       timeout: 300000,
     });
 
-    writeFileSync(join(evidenceDir, 'maven.stdout.log'), sanitizeEvidenceText(mvnRes.stdout));
-    writeFileSync(join(evidenceDir, 'maven.stderr.log'), sanitizeEvidenceText(mvnRes.stderr));
+    writeFileSync(join(evidenceDir, 'maven.stdout.log'), sanitizeEvidenceText(mvnRes.stdout, evidenceSecrets));
+    writeFileSync(join(evidenceDir, 'maven.stderr.log'), sanitizeEvidenceText(mvnRes.stderr, evidenceSecrets));
     runRecord.maven = {
       executable: MAVEN_CLI,
       argv: sanitizeCommandArgv(mvnArgs),
@@ -685,8 +788,9 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       exitCode = 0;
     }
   } catch (err) {
-    console.error(`[runG0Workflow ERROR] ${appId}:`, err);
-    writeFileSync(join(evidenceDir, 'run-failure.txt'), `${err.name}: ${err.message}\n${err.stack || ''}`);
+    const safeFailure = sanitizeEvidenceText(`${err.name}: ${err.message}\n${err.stack || ''}`, evidenceSecrets);
+    console.error(`[runG0Workflow ERROR] ${appId}:`, safeFailure);
+    writeFileSync(join(evidenceDir, 'run-failure.txt'), safeFailure);
   } finally {
     // 9. Fail-closed cleanup
     const cleanupReport = {
@@ -708,6 +812,21 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
           if (!createdVolumes.includes(vn)) createdVolumes.push(vn);
         }
       } catch {}
+    }
+
+    runRecord.containerLogs = [];
+    const roleByContainerName = new Map([[dbName, 'db'], [appName, 'app'], [browserName, 'browser']]);
+    for (const name of createdContainers) {
+      const container = runRecord.containers.find((entry) => entry.name === name) || { name, role: roleByContainerName.get(name) || 'unknown' };
+      const fileName = `container-${container.role}.log`;
+      try {
+        const logs = dockerCli(['logs', '--timestamps', name]);
+        const safeLogs = sanitizeEvidenceText(logs, evidenceSecrets);
+        writeFileSync(join(evidenceDir, fileName), safeLogs);
+        runRecord.containerLogs.push({ role: container.role, name, outcome: 'CAPTURED', path: fileName, sha256: sha256(safeLogs) });
+      } catch (e) {
+        runRecord.containerLogs.push({ role: container.role, name, outcome: 'CAPTURE_FAILED', errorCode: typeof e.code === 'string' ? e.code : 'DOCKER_LOGS_FAILED' });
+      }
     }
 
     for (const c of createdContainers) {
