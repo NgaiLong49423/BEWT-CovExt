@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "repository": "NgaiLong49423/BEWT-CovExt",
+  "mainSha": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
+  "generatedAt": "2026-11-13T05:19:16+07:00",
+  "interpretation": "Structured summary extracted from the eight command logs; all eight Maven commands exited 0. -DskipTests means test execution was skipped.",
+  "runs": [
+    {
+      "app": "bludit",
+      "command": "mvn -B -ntp -f experiments/bludit/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "b2bc32667c72bf20522ba7488aaba394b26cc74dbb139d8f55cd64a2f07146d2",
+      "totalTime": " 3.888 s\r",
+      "finishedAt": "2026-11-13T05:12:20+07:00\r"
+    },
+    {
+      "app": "claroline",
+      "command": "mvn -B -ntp -f experiments/claroline/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "12367d882c522ea3c9d69f74c2e540c95c01d707d9046eeb8c002c4c506a4c74",
+      "totalTime": " 3.912 s\r",
+      "finishedAt": "2026-11-13T05:12:26+07:00\r"
+    },
+    {
+      "app": "expresscart",
+      "command": "mvn -B -ntp -f experiments/expresscart/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "88021cc3455734d1f075a1063e457f798f76dd30e3a6ad0815b8b7d5fa1174f4",
+      "totalTime": " 1.848 s\r",
+      "finishedAt": "2026-11-13T05:12:29+07:00\r"
+    },
+    {
+      "app": "joomla",
+      "command": "mvn -B -ntp -f experiments/joomla/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "ec4da8eabd47a92a5c5899f79beada1d1948fd89d9e67f717165b4875d2b3936",
+      "totalTime": " 3.986 s\r",
+      "finishedAt": "2026-11-13T05:12:35+07:00\r"
+    },
+    {
+      "app": "kanboard",
+      "command": "mvn -B -ntp -f experiments/kanboard/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "35162663404d004d4064df8ff02f729804c9e42e3eeaf6ca73c5dd049cedf697",
+      "totalTime": " 3.749 s\r",
+      "finishedAt": "2026-11-13T05:12:40+07:00\r"
+    },
+    {
+      "app": "mantisbt",
+      "command": "mvn -B -ntp -f experiments/mantisbt/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "fd79e2af04bebf9ba7acc13b1f410a3647b96008e530eff32fdc03dcfc541220",
+      "totalTime": " 3.887 s\r",
+      "finishedAt": "2026-11-13T05:12:46+07:00\r"
+    },
+    {
+      "app": "mediawiki",
+      "command": "mvn -B -ntp -f experiments/mediawiki/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "1490c75faa80cba3b58d41f6be83412adf1913e599aa1027308c1a61bb840dce",
+      "totalTime": " 4.037 s\r",
+      "finishedAt": "2026-11-13T05:12:52+07:00\r"
+    },
+    {
+      "app": "prestashop",
+      "command": "mvn -B -ntp -f experiments/prestashop/bewt-suite/pom.xml -DskipTests test",
+      "exitCode": 0,
+      "result": "BUILD SUCCESS; test execution skipped",
+      "sourceLogSha256": "43768fc33c43b3a2cb9a5b1a6ea6c910d8bcd4b96d494d626225d31a8358100b",
+      "totalTime": " 4.320 s\r",
+      "finishedAt": "2026-11-13T05:12:58+07:00\r"
+    }
+  ]
+}

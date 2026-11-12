@@ -2,13 +2,13 @@
   "schemaVersion": "1.0.0",
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
-  "statusType": "FINAL_ACCEPTANCE_BLOCKED_BY_AUDIT",
-  "snapshotDate": "2026-11-12",
+  "statusType": "FINAL_ACCEPTANCE_PARTIAL_DEVELOPMENT_CLOSED",
+  "snapshotDate": "2026-11-13",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
-    "observedHeadSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
-    "note": "Verified from the GitHub API on 2026-11-12; current main HEAD is da6399536ff75a1edf4417819eb4d166cc1d781c. PR #27 remains open as a draft against this base."
+    "observedHeadSha": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
+    "note": "Verified from the GitHub API at the 2026-11-13 final acceptance snapshot. The acceptance source was main HEAD 55a3a3a6c3ea9fbffa72e773aaab57496e84a93f; closure documentation is being integrated by PR."
   },
   "repositoryMilestones": {
     "T02": {
@@ -434,11 +434,11 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "FINAL-REMEDIATION-AUDIT",
-    "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
-    "currentTaskBranch": "task/final-remediation-audit",
+    "currentTaskId": "FINAL-PROJECT-ACCEPTANCE-20261113",
+    "currentTaskStatus": "CLOSURE_RECORD_IN_PROGRESS",
+    "currentTaskBranch": "codex/final-project-acceptance",
     "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
-    "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+    "integrationBaseMainSha": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
     "agentCannotSelfApprove": true
   },
   "evidenceRoots": [
@@ -515,5 +515,29 @@
     "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
     "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
     "agentCannotSelfApprove": true
+  },
+  "finalAcceptance": {
+    "date": "2026-11-13",
+    "sourceMainSha": "55a3a3a6c3ea9fbffa72e773aaab57496e84a93f",
+    "status": "PARTIAL",
+    "developmentPhase": "CLOSED",
+    "targetApplications": 8,
+    "targetCases": 40,
+    "validatedCases": 0,
+    "remainingIssues": 12,
+    "frameworkBuild": "PASS",
+    "unitTests": "23_PASS_0_FAIL",
+    "integrationTests": "18_PASS_1_FAIL_1_SKIP",
+    "mavenTestCompile": "8_OF_8_PASS_TESTS_SKIPPED",
+    "metricsNegativeTests": "29_PASS_0_FAIL",
+    "g3AccountingTests": "3_PASS_0_FAIL",
+    "mainSonar": "FAIL_DUPLICATION_6.3_SECURITY_D_RELIABILITY_D",
+    "g0G3Live": "NOT_VERIFIED",
+    "scientificReportPhase": "READY_TO_START",
+    "scientificReportWriting": "NOT_STARTED",
+    "task": "CLOSED_AFTER_CLOSURE_PR",
+    "report": "docs/tasks/FINAL-PROJECT-ACCEPTANCE-20261113/TASK-REPORT.md",
+    "evidence": "docs/final-acceptance/evidence/2026-11-13-main-acceptance/maven-test-compile-results.json",
+    "closurePr": "PENDING_CREATION"
   }
 }
