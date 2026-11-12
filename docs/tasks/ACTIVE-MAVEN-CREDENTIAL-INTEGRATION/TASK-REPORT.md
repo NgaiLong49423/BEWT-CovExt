@@ -42,6 +42,6 @@ The first Claroline recompile after adding the shared credential helper failed b
 
 ## Rotation risk and remaining work
 
-The removed literal appeared in positive admin runtime logins and was reused by test-created fixture/course inputs. The repository does not establish whether it was only a disposable experiment credential. Assess privately and rotate it if it was reused outside the isolated Claroline fixture environment. No credential values are included here. The historical extension R2 and generator findings remain to be reviewed in their owning tasks.
+Credential rotation status is `NOT_VERIFIED`; the owner should confirm and act through the private credential-management procedure. This public report omits credential values and sensitive identifying details. The historical extension R2 and generator findings remain to be reviewed in their owning tasks.
 
 Compile success does not establish behavioral correctness, human acceptance, or research `VALIDATED` status. Candidate runtime tests still require verified app and WebDriver ownership, approved fixture configuration, source-bound run manifests, and semantic review.
