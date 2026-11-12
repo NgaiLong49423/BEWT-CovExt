@@ -13,6 +13,14 @@ const REPO_ROOT = resolve(__dirname, '../..');
 export const DOCKER_CLI = 'docker';
 export const MAVEN_CLI = 'mvn';
 
+export function requiredEnvironmentValue(name, env = process.env) {
+  const value = env[name];
+  if (typeof value !== 'string' || value.trim() === '') {
+    throw new Error(`Missing required environment variable: ${name}`);
+  }
+  return value;
+}
+
 export function sha256(value) {
   return createHash('sha256').update(value).digest('hex');
 }
@@ -254,10 +262,10 @@ export const APPS = {
     webdriverUrlProperty: 'webdriver.remote.url',
     appUrlPath: '/mantisbt/',
     getAppUrl: (host, port, appName) => `http://${appName}/mantisbt/`,
-    testEnv: {
-      BEWT_ADMIN_USERNAME: 'administrator',
-      BEWT_ADMIN_PASSWORD: 'e2eW3Bt3s71nGB3nchM4rK',
-    },
+    testEnv: (env) => ({
+      BEWT_ADMIN_USERNAME: requiredEnvironmentValue('BEWT_ADMIN_USERNAME', env),
+      BEWT_ADMIN_PASSWORD: requiredEnvironmentValue('BEWT_ADMIN_PASSWORD', env),
+    }),
   },
   mediawiki: {
     appId: 'mediawiki',
@@ -572,7 +580,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
 
     const testEnvVars = {
       ...process.env,
-      ...(cfg.testEnv || {}),
+      ...(typeof cfg.testEnv === 'function' ? cfg.testEnv(process.env) : (cfg.testEnv || {})),
       BEWT_APP_URL: targetAppUrl,
       BEWT_WEBDRIVER_URL: remoteWebdriverUrl,
       BEWT_DB_HOST: cfg.hasDb ? dbName : '127.0.0.1',

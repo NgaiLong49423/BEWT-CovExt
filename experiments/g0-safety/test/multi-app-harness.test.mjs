@@ -5,6 +5,7 @@ import * as joomla from '../../joomla/tools/joomla-g0.mjs';
 import * as mantisbt from '../../mantisbt/tools/mantisbt-g0.mjs';
 import * as mediawiki from '../../mediawiki/tools/mediawiki-g0.mjs';
 import * as prestashop from '../../prestashop/tools/prestashop-g0.mjs';
+import { APPS, requiredEnvironmentValue } from '../../tools/unified-g0-runner.mjs';
 
 test('Joomla G0 harness contract adheres to safety and isolation rules', () => {
   assert.equal(joomla.APP_ID, 'joomla');
@@ -36,6 +37,22 @@ test('MantisBT G0 harness contract adheres to safety and isolation rules', () =>
   assert.equal(names.network, `bewt-covext-mantisbt-${runId}-net`);
   const args = mantisbt.seleniumTestArguments(50002);
   assert.deepEqual(args, ['-Dtest=base.AddUser', '-Dapp.url=http://127.0.0.1:50002/mantisbt/', 'test']);
+});
+
+test('MantisBT runner reads admin credentials from runtime environment only', () => {
+  const env = {
+    BEWT_ADMIN_USERNAME: 'runtime-test-user',
+    BEWT_ADMIN_PASSWORD: 'p'.repeat(24),
+  };
+  assert.deepEqual(APPS.mantisbt.testEnv(env), env);
+  assert.throws(
+    () => APPS.mantisbt.testEnv({ BEWT_ADMIN_USERNAME: env.BEWT_ADMIN_USERNAME }),
+    /Missing required environment variable: BEWT_ADMIN_PASSWORD/,
+  );
+  assert.throws(
+    () => requiredEnvironmentValue('BEWT_ADMIN_USERNAME', {}),
+    /Missing required environment variable: BEWT_ADMIN_USERNAME/,
+  );
 });
 
 test('MediaWiki G0 harness contract adheres to safety and isolation rules', () => {
