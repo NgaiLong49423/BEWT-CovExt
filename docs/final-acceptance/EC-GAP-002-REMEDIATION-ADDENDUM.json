@@ -115,5 +115,5 @@
       "g3Evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r5-runs-20261112/"
     }
   ],
-  "runnerEvidenceSanitizerFixCommit": "PENDING_COMMIT"
+  "runnerEvidenceSanitizerFixCommit": "eda7f2af5e3b1a4b3bdd8378cdbbe5ab16da910e"
 }
