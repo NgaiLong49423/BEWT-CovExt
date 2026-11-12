@@ -12,3 +12,9 @@
 10. **Final protocol:** after decisions and fixes, rerun correct test revisions from known clean states, bind each execution to exact source/runtime identity, verify cleanup, and record required reruns.
 
 No human identity, decision, runtime result, or model telemetry can be supplied by the coding agent on behalf of the Team Lead.
+
+## Candidate and run update (2026-11-12)
+
+The primary audit counts above remain the historical baseline. A separate preliminary engineering task exercised `KB-GAP-001` through R8: R5–R7 attempts failed during remediation; R8 had four behavior-test passes (initial plus three clean-state reruns), while three additional early attempts failed before candidate actions because the run command omitted `KANBOARD_TEST_USERNAME`. All ten attempts reported zero-residual cleanup. See `docs/tasks/KB-GAP-001-R5/TASK-REPORT.md` and its evidence package. These new records do not rewrite or add to the historical 79-invocation accounting.
+
+The R8 browser used `selenium/standalone-chrome:latest`; the post-run digest was inspected, but the runner does not bind a resolved browser image ID to each container record. The report therefore keeps R8 preliminary and not scientifically validated. Human oracle/novelty approval remains pending for all 40 candidates; 39 candidates have no corrected G3 implementation evidenced in this task, and the KB-GAP-001 wording decision is pending in its reviewer packet.
