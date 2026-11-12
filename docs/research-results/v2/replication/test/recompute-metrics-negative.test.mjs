@@ -1,206 +1,124 @@
-/**
- * Automated Negative Test Controls for BEWT-CovExt v2.0 Metric Recomputation
- *
- * Verifies that recompute-metrics.mjs fails closed and accurately detects:
- * - Malformed Gherkin syntax (missing Feature, missing Scenario, missing When/Then steps)
- * - Unapproved candidates and unverified novelty
- * - Trivial and tautological assertions (currentUrl.length() >= 0, assertTrue(true), swallowed errors)
- * - Baseline denominator tampering
- */
-
 import assert from 'node:assert/strict';
-import { validateGherkinSyntax, auditJavaSeleniumQuality, runRecompute } from '../recompute-metrics.mjs';
+import test from 'node:test';
+import {
+  isHumanOracleAndNoveltyApproval,
+  validateGherkinSyntax,
+  auditJavaSeleniumQuality,
+  runRecompute,
+} from '../recompute-metrics.mjs';
 
-console.log('Running Negative Controls for recompute-metrics.mjs...\n');
+const validScenario = `Feature: Cart stock boundary
+  Scenario: Reject quantity above available stock
+    Given a product has one item in stock
+    When a customer requests quantity two
+    Then the application rejects the quantity and leaves the cart unchanged`;
 
-let passCount = 0;
-let failCount = 0;
-
-function test(name, fn) {
-  try {
-    fn();
-    console.log(`[PASS] ${name}`);
-    passCount++;
-  } catch (err) {
-    console.error(`[FAIL] ${name}: ${err.message}`);
-    failCount++;
-  }
-}
-
-// --- Group 1: Gherkin AST Negative Controls ---
-test('Gherkin Neg 1: Rejects empty string', () => {
-  const res = validateGherkinSyntax('');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Empty or non-string/);
+test('uses the Cucumber parser to accept a complete scenario', () => {
+  const result = validateGherkinSyntax(validScenario);
+  assert.equal(result.valid, true);
+  assert.equal(result.scenarioCount, 1);
+  assert.equal(result.steps, 3);
 });
 
-test('Gherkin Neg 2: Rejects missing Feature header', () => {
-  const res = validateGherkinSyntax('Scenario: Sample\n  Given step 1\n  When step 2\n  Then step 3');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Missing Feature/);
+test('rejects empty input', () => {
+  assert.equal(validateGherkinSyntax('').valid, false);
 });
 
-test('Gherkin Neg 3: Rejects missing Scenario header', () => {
-  const res = validateGherkinSyntax('Feature: Sample\n  Given step 1\n  When step 2\n  Then step 3');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Missing Scenario/);
+test('rejects a scenario missing Feature', () => {
+  assert.equal(validateGherkinSyntax('Scenario: Missing feature\n Given a state\n When an action\n Then a result').valid, false);
 });
 
-test('Gherkin Neg 4: Rejects scenario with no steps', () => {
-  const res = validateGherkinSyntax('Feature: Sample\n  Scenario: Empty');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /no steps/);
+test('rejects malformed Gherkin that regex line scanning would accept', () => {
+  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n When an action\n Then a result\n And').valid, false);
 });
 
-test('Gherkin Neg 5: Rejects scenario missing Then clause', () => {
-  const res = validateGherkinSyntax('Feature: Sample\n  Scenario: Incomplete\n    Given user is logged in\n    When user clicks button');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Missing core Gherkin step clause.*Then: false/);
+test('rejects scenario missing When', () => {
+  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n Then a result').valid, false);
 });
 
-test('Gherkin Neg 6: Rejects scenario missing When clause', () => {
-  const res = validateGherkinSyntax('Feature: Sample\n  Scenario: Incomplete\n    Given user is logged in\n    Then user sees dashboard');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Missing core Gherkin step clause.*When: false/);
+test('rejects a scenario missing Then', () => {
+  assert.equal(validateGherkinSyntax('Feature: X\n Scenario: Y\n Given a state\n When an action').valid, false);
 });
 
-test('Gherkin Neg 7: Rejects scenario missing Given clause', () => {
-  const res = validateGherkinSyntax('Feature: Sample\n  Scenario: Incomplete\n    When user clicks button\n    Then user sees error');
-  assert.equal(res.valid, false);
-  assert.match(res.error, /Missing core Gherkin step clause.*Given: false/);
+test('rejects tautological Java assertions', () => {
+  const result = auditJavaSeleniumQuality('driver.get("/x"); Assert.assertTrue(currentUrl.length() >= 0);');
+  assert.equal(result.pass, false);
 });
 
-// --- Group 2: Anti-Trivial Java Quality Gate Negative Controls ---
-test('Java Neg 1: Rejects currentUrl.length() >= 0', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testTrivial() {
-        driver.get("http://localhost");
-        Assert.assertTrue("oracle", currentUrl.length() >= 0);
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /currentUrl\.length\(\) >= 0 is a non-behavioral tautology/);
+test('rejects driver-presence as the only oracle', () => {
+  const result = auditJavaSeleniumQuality('driver.get("/x"); Assert.assertNotNull(driver);');
+  assert.equal(result.pass, false);
 });
 
-test('Java Neg 2: Rejects Assert.assertTrue(true)', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testTautology() {
-        driver.get("http://localhost");
-        Assert.assertTrue(true);
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /Assert\.assertTrue\(true\) is tautological/);
+test('implementation authorization alone is not human oracle or novelty approval', () => {
+  assert.equal(isHumanOracleAndNoveltyApproval({ decision: 'APPROVED_FOR_IMPLEMENTATION' }), false);
+  assert.equal(isHumanOracleAndNoveltyApproval({
+    decision: 'APPROVED_FOR_IMPLEMENTATION',
+    reviewerIdentity: 'UNASSIGNED_PENDING_TEAM_LEAD_REVIEW',
+    reviewStatus: 'PENDING_HUMAN_SIGNATURE',
+  }), false);
 });
 
-test('Java Neg 3: Rejects Assert.assertFalse(false)', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testTautology() {
-        driver.get("http://localhost");
-        Assert.assertFalse(false);
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /Assert\.assertFalse\(false\) is tautological/);
+test('requires assigned reviewer, signature, timestamp, oracle and novelty decisions', () => {
+  const partial = {
+    reviewer: 'Reviewer', reviewerRole: 'Independent reviewer', signature: 'signed', approvedAt: '2026-11-12T00:00:00Z',
+    rationale: 'Reviewed source, overlap and oracle.', reviewStatus: 'APPROVED', oracleDecision: 'APPROVED',
+  };
+  assert.equal(isHumanOracleAndNoveltyApproval(partial), false);
+  assert.equal(isHumanOracleAndNoveltyApproval({ ...partial, noveltyDecision: 'APPROVED' }), true);
 });
 
-test('Java Neg 4: Rejects swallowed assertion failures in catch block', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testSwallowed() {
-        try {
-          driver.get("http://localhost");
-          Assert.assertEquals("expected", driver.getTitle());
-        } catch (AssertionError e) {
-          // swallowed
-        }
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /Catch block swallows assertion failures/);
+test('unapproved candidate is BLOCKED and unknown RQ evidence stays NOT_EVALUATED', () => {
+  const result = runRecompute({ overrideCandidates: [{
+    candidateId: 'MOCK-001', application: 'bludit', gherkinScenario: validScenario,
+    decision: 'APPROVED_FOR_IMPLEMENTATION', reviewer: 'Team Lead',
+  }] });
+  assert.equal(result.rq1.outcome, 'BLOCKED');
+  assert.equal(result.rq1.humanApprovedCount, 0);
+  assert.equal(result.rq2.outcome, 'NOT_EVALUATED');
+  assert.equal(result.rq3.outcome, 'NOT_EVALUATED');
+  assert.equal(result.rq4.outcome, 'NOT_EVALUATED');
 });
 
-test('Java Neg 5: Rejects test with zero Selenium / browser interactions', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testNoSelenium() {
-        String s = "hello";
-        Assert.assertEquals("hello", s);
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /Method lacks browser or PageObject interactions/);
+test('correctly signed review does not establish semantic mapping or runtime evidence', () => {
+  const humanReview = {
+    reviewer: 'Reviewer', reviewerRole: 'Independent reviewer', signature: 'signed', approvedAt: '2026-11-12T00:00:00Z',
+    rationale: 'Reviewed source, overlap and oracle.', reviewStatus: 'APPROVED', oracleDecision: 'APPROVED', noveltyDecision: 'APPROVED',
+  };
+  const result = runRecompute({ overrideCandidates: [{
+    candidateId: 'MOCK-002', application: 'bludit', gherkinScenario: validScenario,
+    humanReview, semanticAudit: { status: 'MATCHED', reviewerDecision: 'APPROVED' },
+  }] });
+  assert.equal(result.rq1.humanApprovedCount, 1);
+  assert.equal(result.rq1.semanticNoveltyCount, 1);
+  assert.equal(result.rq3.outcome, 'NOT_EVALUATED');
 });
 
-test('Java Neg 6: Rejects generic dummy test checking only body presence', () => {
-  const code = `
-    public class SampleTest extends BaseTest {
-      @Test
-      public void testGenericOnly() {
-        driver.get("http://localhost");
-      }
-    }
-  `;
-  const res = auditJavaSeleniumQuality(code);
-  assert.equal(res.pass, false);
-  assert.match(res.error, /Test performs only generic checks without business assertions/);
+test('invalid scenario fails syntax validation without inventing other RQ results', () => {
+  const result = runRecompute({ overrideCandidates: [{
+    candidateId: 'MOCK-003', application: 'bludit', gherkinScenario: 'Feature: invalid\n Scenario: invalid\n Given x\n When y',
+  }] });
+  assert.equal(result.rq1.outcome, 'FAIL');
+  assert.equal(result.rq1.validGherkinSyntax, 0);
+  assert.equal(result.rq2.outcome, 'NOT_EVALUATED');
 });
 
-// --- Group 3: Metric Recomputation Engine Negative Controls ---
-test('Engine Neg 1: Injected unapproved candidate fails RQ1 evaluation', () => {
-  const mockCandidates = [
-    {
-      candidateId: 'MOCK-001',
-      app: 'bludit',
-      gherkinScenario: 'Feature: F\n  Scenario: S\n    Given g\n    When w\n    Then t',
-      decision: 'REJECTED',
-      classification: 'SOURCE_SUPPORTED_PROPOSAL',
-      sourceRefs: ['ref.php'],
-    },
-  ];
-  const res = runRecompute({ overrideCandidates: mockCandidates, silent: true });
-  assert.equal(res.rq1.outcome, 'FAIL');
-  assert.equal(res.rq1.humanApprovedCount, 0);
+test('main recomputation detects dataset hash mismatch and blocks case validation', () => {
+  const result = runRecompute({ rootDir: process.cwd(), baselineCommit: 'fixture-sha' });
+  assert.equal(result.checks.datasetSourceHashMismatches, 1);
+  assert.equal(result.checks.datasetGherkinHashMismatches, 0);
+  assert.deepEqual(result.rq3.sourceHashMismatches, ['JO-GAP-004']);
+  assert.deepEqual(result.rq3.gherkinHashMismatches, []);
+  assert.equal(result.rq1.humanApprovedCount, 0);
+  assert.equal(result.rq3.eligibleBehaviorallyValidatedCases, 0);
+  assert.equal(result.rq3.rawExecution.runRecordFilesObserved, 84);
+  assert.equal(result.rq3.rawExecution.junitXmlFilesObserved, 85);
+  assert.equal(result.rq3.rawExecution.runRecordsWithCompleteIdentity, 0);
+  assert.equal(result.rq3.rawExecution.cleanupResidualFailuresObserved, 1);
 });
 
-test('Engine Neg 2: Injected invalid Gherkin fails RQ1 evaluation', () => {
-  const mockCandidates = [
-    {
-      candidateId: 'MOCK-002',
-      app: 'bludit',
-      gherkinScenario: 'Not a valid gherkin scenario',
-      decision: 'ACCEPTED_FOR_IMPLEMENTATION',
-      classification: 'SOURCE_SUPPORTED_PROPOSAL',
-      sourceRefs: ['ref.php'],
-    },
-  ];
-  const res = runRecompute({ overrideCandidates: mockCandidates, silent: true });
-  assert.equal(res.rq1.outcome, 'FAIL');
-  assert.equal(res.rq1.validGherkinSyntax, 0);
+test('main recomputation is deterministic for the same evidence snapshot', () => {
+  const first = runRecompute({ rootDir: process.cwd(), baselineCommit: 'fixture-sha' });
+  const second = runRecompute({ rootDir: process.cwd(), baselineCommit: 'fixture-sha' });
+  assert.deepEqual(first, second);
 });
-
-console.log(`\n======================================================================`);
-console.log(`Negative Controls Summary: ${passCount} Passed, ${failCount} Failed`);
-console.log(`======================================================================`);
-
-if (failCount > 0) {
-  process.exit(1);
-}

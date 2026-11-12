@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "kanboard",
+  "candidateId": "KB-GAP-001",
+  "revision": 3,
+  "sourceCommit": "0501249ff3e9a5ea83a06155cd2971dc36197056",
+  "sourceVersion": "1.2.15",
+  "gherkinSha256": "f14129dbbe8ef3788643689cdea05678e09372d2fc6e5961a02d9cbe1d67bf62",
+  "testClass": "tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R3",
+  "artifactPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+  "sourceSha256": "02053480d03a7fe13a174a59d4bbc4c4b8508eeb408300211646a4a188d8090b",
+  "origin": "SECURITY_REMEDIATION",
+  "parentRevisionPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-2/T01C_244fbbc3c7e19c2ceb6a56738e493041_R2.java"
+}

@@ -2,8 +2,8 @@
   "schemaVersion": "1.0.0",
   "program": "BEWT-CovExt",
   "scopeSource": "De_cuong_BEWT_CovExt_AI_Agent_8_Web_40_Kich_Ban.docx v2.0",
-  "statusType": "REMEDIATION_VALIDATED_EVIDENCED",
-  "snapshotDate": "2026-11-10",
+  "statusType": "FINAL_ACCEPTANCE_BLOCKED_BY_AUDIT",
+  "snapshotDate": "2026-11-12",
   "remote": {
     "repository": "NgaiLong49423/BEWT-CovExt",
     "branch": "main",
@@ -129,17 +129,17 @@
       "proposalOriginalCases": 23,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_2_VALIDATED_1_FLAKY_2_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 3,
-      "validatedNewCases": 2,
-      "coverageGainMeasured": true,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/bludit/human-review-decisions.jsonl",
@@ -149,7 +149,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/bludit/",
         "docs/tasks/g0-evidence/bludit/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "claroline",
@@ -157,17 +158,17 @@
       "proposalOriginalCases": 40,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 0,
+      "finalE2ePassCandidates": null,
       "validatedNewCases": 0,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/claroline/human-review-decisions.jsonl",
@@ -177,7 +178,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/claroline/",
         "docs/tasks/g0-evidence/claroline/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "expresscart",
@@ -185,17 +187,17 @@
       "proposalOriginalCases": 31,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_5_VALIDATED_0_FLAKY_0_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 5,
-      "validatedNewCases": 5,
-      "coverageGainMeasured": true,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/expresscart/human-review-decisions.jsonl",
@@ -210,7 +212,8 @@
       "observedUpstreamVersion": "1.1.19",
       "note": "Historical ExpressCart feasibility only; 2 PASS, C02 app UI defect, C01 inconclusive, C03 revise. G0–G4 require explicit gate review for program.",
       "t01bExecution": "CURRENT_CODE_CRASH_REPLAY_ONE_E2E_PASS_REUSED_ARTIFACT_NOT_VALIDATED",
-      "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/"
+      "t01bEvidence": "docs/tasks/T01-B/evidence/t01b-crash-eb909347-2b33-4a21-8599-3051a1b14a5f/",
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "joomla",
@@ -218,17 +221,17 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_2_VALIDATED_1_FLAKY_2_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 3,
-      "validatedNewCases": 2,
-      "coverageGainMeasured": true,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/joomla/human-review-decisions.jsonl",
@@ -238,7 +241,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/joomla/",
         "docs/tasks/g0-evidence/joomla/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "kanboard",
@@ -246,17 +250,17 @@
       "proposalOriginalCases": 30,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 0,
+      "finalE2ePassCandidates": null,
       "validatedNewCases": 0,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/kanboard/human-review-decisions.jsonl",
@@ -266,7 +270,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/kanboard/",
         "docs/tasks/g0-evidence/kanboard/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "mantisbt",
@@ -274,17 +279,17 @@
       "proposalOriginalCases": 37,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 0,
+      "finalE2ePassCandidates": null,
       "validatedNewCases": 0,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mantisbt/human-review-decisions.jsonl",
@@ -294,7 +299,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/mantisbt/",
         "docs/tasks/g0-evidence/mantisbt/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "mediawiki",
@@ -302,17 +308,17 @@
       "proposalOriginalCases": 27,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_0_VALIDATED_5_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 0,
+      "finalE2ePassCandidates": null,
       "validatedNewCases": 0,
-      "coverageGainMeasured": true,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/mediawiki/human-review-decisions.jsonl",
@@ -322,7 +328,8 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/mediawiki/",
         "docs/tasks/g0-evidence/mediawiki/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     },
     {
       "app": "prestashop",
@@ -330,17 +337,17 @@
       "proposalOriginalCases": 35,
       "targetNewCases": 5,
       "gates": {
-        "G0": "VERIFIED_ON_CLOUD_VM",
-        "G1": "ACCEPTED",
-        "G2": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-        "G3": "EVALUATED_2_VALIDATED_0_FLAKY_3_FAILED",
-        "G4": "VERIFIED_METRICS_ENGINE"
+        "G0": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+        "G1": "BLOCKED_UNSIGNED_ORACLE_NOVELTY_REVIEW",
+        "G2": "PARTIALLY_VERIFIED_SEMANTIC_GATE_INSUFFICIENT",
+        "G3": "NOT_VALIDATED_SEMANTIC_MISMATCH",
+        "G4": "BLOCKED_METRICS_ENGINE_INVALID"
       },
       "candidateCount": 5,
       "acceptedForImplementationCount": 5,
-      "finalE2ePassCandidates": 2,
-      "validatedNewCases": 2,
-      "coverageGainMeasured": true,
+      "finalE2ePassCandidates": null,
+      "validatedNewCases": 0,
+      "coverageGainMeasured": false,
       "lastAcceptedTask": null,
       "evidence": [
         "data/reviews/prestashop/human-review-decisions.jsonl",
@@ -350,38 +357,41 @@
         "docs/research-results/v2/",
         "docs/tasks/g3-evidence/prestashop/",
         "docs/tasks/g0-evidence/prestashop/"
-      ]
+      ],
+      "auditEvidence": "docs/final-acceptance/40-CASE-TRACEABILITY.json"
     }
   ],
   "research": {
-    "RQ1": "PASS_AST_STRUCTURAL_AND_HUMAN_REVIEW_VERIFIED",
-    "RQ2": "PASS_NOMINAL_22_22_PCT_EMPIRICALLY_VALIDATED_6_11_PCT",
-    "RQ3": "PASS_40_OF_40_COMPILE_11_VALIDATED_E2E_2_FLAKY_27_FAILED",
-    "RQ4": "PASS_GEMINI_38_FLASH_OPERATIONAL_ECONOMICS",
-    "validatedNewCases": 11,
-    "notes": "Milestone M4 E2E execution evaluated all 40 candidates in isolated Docker containers on GCP VM bewt-covext-runner. 11 candidates fully validated across 3 clean reruns (0% flakiness), 2 flaky (BL-001 @ 33%, JO-003 @ 67%), 27 failed due to unmet clean-container fixture preconditions. Zero residual state verified across all 79 runs."
+    "RQ1": "BLOCKED_UNSIGNED_HUMAN_REVIEW_AND_ZERO_MATCHED_IMPLEMENTATIONS",
+    "RQ2": "NOT_EVALUATED_BASELINE_DENOMINATOR_AND_NEW_UBUS_UNVERIFIED",
+    "RQ3": "RAW_EXECUTION_REPORTED_BUT_ZERO_SEMANTICALLY_VALIDATED_CASES",
+    "RQ4": "PARTIALLY_VERIFIED_FAILED_ATTEMPTS_ONLY_USAGE_AND_COST_UNKNOWN",
+    "validatedNewCases": 0,
+    "rawG3Summary": {
+      "initialPassCandidates": 13,
+      "threeRerunPassCandidates": 11,
+      "flakyCandidates": 2,
+      "failedCandidates": 27,
+      "reportedInvocations": 79
+    },
+    "notes": "Raw outcomes are preserved as reported; none qualifies as VALIDATED because no R2 mapping matches its Gherkin/oracle, review approval is unsigned, and runtime identity is incomplete. One cleanup result reports zeroResidualVerified=false."
   },
   "deliverables": {
-    "D1": "ACCEPTED",
-    "D2": "ACCEPTED",
-    "D3": "ACCEPTED",
-    "D4": "ACCEPTED",
-    "D5": "ACCEPTED_REVISION_2_ANTI_TRIVIAL_PASS",
-    "D6": "ACCEPTED_DATASET_RECONCILED",
-    "D7": "ACCEPTED_REPLICATION_ENGINE_VERIFIED",
-    "D8": "ACCEPTED_REPORT_RECONCILED"
+    "D1": "PARTIALLY_VERIFIED",
+    "D2": "PARTIALLY_VERIFIED_PROVENANCE_GAPS",
+    "D3": "NOT_VERIFIED_BASELINE_BEHAVIOR_DENOMINATOR",
+    "D4": "BLOCKED_UNSIGNED_HUMAN_REVIEW",
+    "D5": "FAILED_40_SEMANTIC_MISMATCHES",
+    "D6": "FAILED_REVIEW_AND_HASH_CONTRADICTIONS",
+    "D7": "FAILED_FALSE_PASS_METRICS_ENGINE",
+    "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "T04-A",
-    "currentTaskStatus": "STATIC_INVENTORY_ACCEPTED_MAIN_INTEGRATION_REVIEW_PENDING",
-    "currentTaskBranch": "feature/t04a-kanboard-coverage-inventory",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/8",
-    "reviewedTaskHeadSha": "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
-    "integrationBaseMainSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
-    "integrationEvidence": "docs/tasks/T04-A/FINAL-MAIN-INTEGRATION.md",
-    "lastApprovedTaskId": "T01-A",
-    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
-    "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
+    "currentTaskId": "FINAL-REMEDIATION-AUDIT",
+    "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
+    "currentTaskBranch": "task/final-remediation-audit",
+    "currentTaskPrUrl": null,
+    "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },
   "evidenceRoots": [
@@ -400,7 +410,56 @@
   "statusGuidance": "Only update via a task with source evidence/PR; mark NOT_VERIFIED or null when measurement has not occurred.",
   "remediation": {
     "ledgerPath": "docs/program/remediation/REMEDIATION-LEDGER.json",
-    "status": "ALL_DEFECTS_RESOLVED_G0_THROUGH_G4_EVIDENCED",
-    "reopenedCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28"
+    "status": "REOPENED_AFTER_PRIMARY_EVIDENCE_AUDIT",
+    "reopenedCommit": "a11b46e4d05a9dc7f8631e154d8d2db937d6ac28",
+    "reopenedAt": "2026-11-12",
+    "auditFindings": "docs/final-acceptance/BASELINE-AUDIT.md"
+  },
+  "notes": [
+    "Current audit is based on main SHA da6399536ff75a1edf4417819eb4d166cc1d781c; origin/main matched at fetch time.",
+    "The current evidence audit supersedes prior acceptance claims where primary review, source, runtime, or metric evidence conflicts.",
+    "See docs/final-acceptance/ for case traceability and evidence-linked blockers. No gate or deliverable is self-accepted."
+  ],
+  "currentAudit": {
+    "baselineCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
+    "auditDate": "2026-11-12",
+    "candidateCount": 40,
+    "semanticMappingsMatched": 0,
+    "semanticWrongBehavior": 22,
+    "semanticPartiallyImplemented": 14,
+    "semanticWeakOracle": 4,
+    "humanOracleNoveltyApprovalsEvidenced": 0,
+    "datasetJavaHashMismatches": 1,
+    "datasetGherkinHashMismatches": 0,
+    "rawG3Reported": {
+      "initialPassCandidates": 13,
+      "threeRerunPassCandidates": 11,
+      "flakyCandidates": 2,
+      "failedCandidates": 27,
+      "reportedInvocations": 79
+    },
+    "g3RunRecordFilesObserved": 84,
+    "g3JUnitXmlFilesObserved": 85,
+    "g3RunRecordsWithCompleteIdentity": 0,
+    "g3CleanupZeroResidualFailures": 1,
+    "casesEligibleForValidated": 0,
+    "evidence": "docs/final-acceptance/",
+    "credentialSecurityRevisionCount": 10,
+    "metricsTests": "15/15_PASS",
+    "metricsOutput": "docs/final-acceptance/RQ1-RQ4-results.json",
+    "taskReport": "docs/tasks/FINAL-REMEDIATION-AUDIT/TASK-REPORT.md"
+  },
+  "previousTaskReviewSnapshot": {
+    "currentTaskId": "T04-A",
+    "currentTaskStatus": "STATIC_INVENTORY_ACCEPTED_MAIN_INTEGRATION_REVIEW_PENDING",
+    "currentTaskBranch": "feature/t04a-kanboard-coverage-inventory",
+    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/8",
+    "reviewedTaskHeadSha": "87c56c6b1bee2c6b550fbb0ce3f002bd18027f18",
+    "integrationBaseMainSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
+    "integrationEvidence": "docs/tasks/T04-A/FINAL-MAIN-INTEGRATION.md",
+    "lastApprovedTaskId": "T01-A",
+    "lastTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/2",
+    "lastReviewedHeadSha": "1610790b0a4f031608d59a9e52e085ee52454d29",
+    "agentCannotSelfApprove": true
   }
 }
