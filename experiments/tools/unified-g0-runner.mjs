@@ -86,9 +86,10 @@ export function setupCommandEvidence(result, secretValues = []) {
   };
 }
 
-export async function waitAndRecordReadiness(runRecord, stage, url, label, timeoutMs, validator, validatorName, waiter = waitHttpReady) {
+export async function waitAndRecordReadiness(runRecord, stage, url, label, timeoutMs, validator, validatorName, options = {}) {
   try {
-    const evidence = await waiter(url, label, timeoutMs, validator, validatorName);
+    const waiter = options.waiter || waitHttpReady;
+    const evidence = await waiter(url, label, timeoutMs, validator, validatorName, options.redirectPolicy || {});
     runRecord.readiness[stage] = { ...evidence, completedBeforeMaven: true };
     return evidence;
   } catch (error) {
@@ -105,11 +106,25 @@ export function hostAppReadinessUrl(appId, port, cfg = APPS[appId]) {
   return `http://127.0.0.1:${port}${path}`;
 }
 
-export function resolveSameOriginRedirect(currentUrl, location) {
+export function resolveReadinessRedirect(currentUrl, location, policy = {}, requestHeaders = {}) {
   const current = new URL(currentUrl);
   const target = new URL(location, current);
-  if (target.origin !== current.origin) throw new Error('cross-origin HTTP redirect rejected');
-  return target;
+  if (target.origin === current.origin) return { url: target, requestHeaders, targetKind: 'same-origin' };
+
+  const allowedHost = String(policy.allowedInternalHostname || '').toLowerCase();
+  const allowedPort = String(policy.internalPort || 80);
+  const targetPort = target.port || (target.protocol === 'http:' ? '80' : '443');
+  if (target.protocol !== 'http:' || !allowedHost || target.hostname.toLowerCase() !== allowedHost || targetPort !== allowedPort) {
+    throw new Error('cross-origin HTTP redirect rejected');
+  }
+
+  const loopbackOrigin = new URL(policy.loopbackOrigin);
+  const rewritten = new URL(`${target.pathname}${target.search}`, loopbackOrigin);
+  return {
+    url: rewritten,
+    requestHeaders: { ...requestHeaders, Host: target.host },
+    targetKind: 'configured-app-hostname-mapped',
+  };
 }
 
 export function credentialValuesFrom(...envObjects) {
@@ -226,10 +241,10 @@ export function snapshotInventory() {
   };
 }
 
-export function probeHttp(url, timeoutMs = 3000) {
+export function probeHttp(url, timeoutMs = 3000, headers = {}) {
   return new Promise((resolve, reject) => {
     try {
-      const req = http.get(url, { timeout: timeoutMs }, (res) => {
+      const req = http.get(url, { timeout: timeoutMs, headers }, (res) => {
         let data = '';
         res.on('data', (chunk) => { data += chunk; });
         res.on('end', () => resolve({
@@ -246,18 +261,20 @@ export function probeHttp(url, timeoutMs = 3000) {
   });
 }
 
-export async function followHttpRedirects(url, timeoutMs = 3000, maxRedirects = 5) {
+export async function followHttpRedirects(url, timeoutMs = 3000, maxRedirects = 5, redirectPolicy = {}) {
   let currentUrl = new URL(url);
   const redirects = [];
+  let requestHeaders = {};
   try {
     for (;;) {
-      const response = await probeHttp(currentUrl.href, timeoutMs);
+      const response = await probeHttp(currentUrl.href, timeoutMs, requestHeaders);
       const isRedirect = [301, 302, 303, 307, 308].includes(response.status) && Boolean(response.location);
       if (!isRedirect) return { response, finalUrl: currentUrl, redirects };
       if (redirects.length >= maxRedirects) throw new Error('HTTP redirect limit exceeded');
-      const nextUrl = resolveSameOriginRedirect(currentUrl.href, response.location);
-      redirects.push({ status: response.status, fromPath: currentUrl.pathname, toPath: nextUrl.pathname });
-      currentUrl = nextUrl;
+      const resolved = resolveReadinessRedirect(currentUrl.href, response.location, redirectPolicy, requestHeaders);
+      redirects.push({ status: response.status, fromPath: currentUrl.pathname, toPath: resolved.url.pathname, targetKind: resolved.targetKind });
+      currentUrl = resolved.url;
+      requestHeaders = resolved.requestHeaders;
     }
   } catch (error) {
     error.finalUrl = currentUrl.href;
@@ -266,7 +283,7 @@ export async function followHttpRedirects(url, timeoutMs = 3000, maxRedirects = 
   }
 }
 
-export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400, validatorName = 'http-status-2xx-3xx') {
+export async function waitHttpReady(url, label, timeoutMs = 120000, validator = (body, res) => res.status >= 200 && res.status < 400, validatorName = 'http-status-2xx-3xx', redirectPolicy = {}) {
   const deadline = Date.now() + timeoutMs;
   let lastErr = '';
   let lastStatus = null;
@@ -275,7 +292,7 @@ export async function waitHttpReady(url, label, timeoutMs = 120000, validator = 
   console.log(`[waitHttpReady] Polling ${label} at ${url}...`);
   while (Date.now() < deadline) {
     try {
-      const followed = await followHttpRedirects(url, 3000);
+      const followed = await followHttpRedirects(url, 3000, 5, redirectPolicy);
       const res = followed.response;
       lastEndpointUrl = followed.finalUrl.href;
       lastRedirects = followed.redirects;
@@ -832,7 +849,13 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       const loginValidatorName = appId === 'mediawiki'
         ? 'mediawiki-installed-login-link'
         : 'prestashop-admin-email-and-password-controls';
-      await waitAndRecordReadiness(runRecord, 'appLogin', hostAppReadinessUrl(appId, appPort, cfg), `${appId} login controls`, 120000, loginReadyValidator, loginValidatorName);
+      await waitAndRecordReadiness(runRecord, 'appLogin', hostAppReadinessUrl(appId, appPort, cfg), `${appId} login controls`, 120000, loginReadyValidator, loginValidatorName, {
+        redirectPolicy: {
+          allowedInternalHostname: appName,
+          internalPort: cfg.appInternalPort,
+          loopbackOrigin: `http://127.0.0.1:${appPort}`,
+        },
+      });
     }
 
     const testEnvVars = {

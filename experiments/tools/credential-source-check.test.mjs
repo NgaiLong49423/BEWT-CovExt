@@ -15,7 +15,7 @@ import {
   mediawikiTestEnvironment,
   readinessEvidence,
   readinessFailureEvidence,
-  resolveSameOriginRedirect,
+  resolveReadinessRedirect,
   requiredEnvironment,
   resolveEnvironmentConfig,
   sanitizeCommandArgv,
@@ -126,7 +126,7 @@ test('failed readiness is persisted with timestamp, status, validator and endpoi
   const failure = new Error('timeout');
   failure.readiness = readinessFailureEvidence(url, 302, 'login-controls', '2026-11-12T00:00:00.000Z');
   await assert.rejects(
-    waitAndRecordReadiness(runRecord, 'appLogin', url, 'login', 10, () => false, 'login-controls', async () => { throw failure; }),
+    waitAndRecordReadiness(runRecord, 'appLogin', url, 'login', 10, () => false, 'login-controls', { waiter: async () => { throw failure; } }),
     /timeout/,
   );
   assert.deepEqual(runRecord.readiness.appLogin, {
@@ -174,12 +174,15 @@ test('host-side login readiness uses loopback paths while Maven keeps internal a
   assert.ok(source.includes('BEWT_APP_URL: targetAppUrl'));
 });
 
-test('login readiness follows bounded same-origin redirects and records only redirect paths', async () => {
+test('login readiness maps only the configured app hostname to loopback and records safe redirect metadata', async () => {
+  const configuredHost = 'mediawiki-run-123';
+  const observedHosts = [];
   const server = createServer((req, res) => {
+    observedHosts.push(req.headers.host);
     if (req.url === '/admin-start') {
       res.writeHead(302, { Location: '/administrator/' }).end();
     } else if (req.url === '/administrator/') {
-      res.writeHead(301, { Location: '/login?fixture=query-secret' }).end();
+      res.writeHead(301, { Location: `http://${configuredHost}/login?fixture=query-secret` }).end();
     } else {
       res.writeHead(200, { 'Content-Type': 'text/html' }).end('<input name="email"><input name="passwd">');
     }
@@ -195,21 +198,40 @@ test('login readiness follows bounded same-origin redirects and records only red
       1000,
       (body, response) => response.status === 200 && loginControlsReady('prestashop', body),
       'prestashop-admin-email-and-password-controls',
+      { redirectPolicy: {
+        allowedInternalHostname: configuredHost,
+        internalPort: 80,
+        loopbackOrigin: `http://127.0.0.1:${port}`,
+      } },
     );
     assert.equal(result.endpointPath, '/login');
     assert.deepEqual(result.redirects, [
-      { status: 302, fromPath: '/admin-start', toPath: '/administrator/' },
-      { status: 301, fromPath: '/administrator/', toPath: '/login' },
+      { status: 302, fromPath: '/admin-start', toPath: '/administrator/', targetKind: 'same-origin' },
+      { status: 301, fromPath: '/administrator/', toPath: '/login', targetKind: 'configured-app-hostname-mapped' },
     ]);
-    assert.equal(JSON.stringify(result).includes('query-secret'), false);
+    assert.deepEqual(observedHosts, [`127.0.0.1:${port}`, `127.0.0.1:${port}`, configuredHost]);
+    const evidence = JSON.stringify(result);
+    assert.equal(evidence.includes('query-secret'), false);
+    assert.equal(evidence.includes(configuredHost), false);
   } finally {
     await new Promise((resolve, reject) => server.close((error) => error ? reject(error) : resolve()));
   }
 });
 
-test('redirect helper rejects cross-origin targets', () => {
-  assert.throws(() => resolveSameOriginRedirect('http://127.0.0.1:8000/admin/', 'http://app:80/login'), /cross-origin/);
-  assert.throws(() => resolveSameOriginRedirect('http://127.0.0.1:8000/admin/', '//example.test/login'), /cross-origin/);
+test('redirect helper maps the exact configured host and rejects other cross-origin targets', () => {
+  const policy = {
+    allowedInternalHostname: 'expected-app',
+    internalPort: 80,
+    loopbackOrigin: 'http://127.0.0.1:8000',
+  };
+  const mapped = resolveReadinessRedirect('http://127.0.0.1:8000/admin/', 'http://expected-app/login', policy);
+  assert.equal(mapped.url.href, 'http://127.0.0.1:8000/login');
+  assert.deepEqual(mapped.requestHeaders, { Host: 'expected-app' });
+  assert.equal(mapped.targetKind, 'configured-app-hostname-mapped');
+  assert.throws(() => resolveReadinessRedirect('http://127.0.0.1:8000/admin/', 'http://expected-app.attacker/login', policy), /cross-origin/);
+  assert.throws(() => resolveReadinessRedirect('http://127.0.0.1:8000/admin/', 'http://example.test/login', policy), /cross-origin/);
+  assert.throws(() => resolveReadinessRedirect('http://127.0.0.1:8000/admin/', 'https://expected-app/login', policy), /cross-origin/);
+  assert.throws(() => resolveReadinessRedirect('http://127.0.0.1:8000/admin/', 'http://expected-app:8080/login', policy), /cross-origin/);
 });
 
 test('redirect following stops at the configured hop bound', async () => {
