@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.util.List;
+import java.util.Locale;
 
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -62,6 +63,8 @@ public class JO_GAP_004_G3_Suite {
         String currentStage = "DRIVER_STARTUP";
         String exceptionClass = "NONE";
         String browserReachabilityAtFailure = "NOT_PROBED";
+        String frontendSaveMessageCode = "NOT_CAPTURED";
+        String adminListMessageCode = "NOT_CAPTURED";
 
         try {
             ChromeOptions options = new ChromeOptions();
@@ -109,10 +112,12 @@ public class JO_GAP_004_G3_Suite {
                 new WebDriverWait(driver, Duration.ofSeconds(20))
                         .until(currentDriver -> !createPostUrl.equals(currentDriver.getCurrentUrl()));
             } catch (org.openqa.selenium.TimeoutException e) {
+                frontendSaveMessageCode = classifyJoomlaMessageCode(driver);
                 outcome = "BLOCKED";
                 reason = "FRONTEND_SAVE_DID_NOT_NAVIGATE";
                 throw new IllegalStateException("Joomla frontend Save did not leave the create-post form", e);
             }
+            frontendSaveMessageCode = classifyJoomlaMessageCode(driver);
 
             currentStage = "ADMIN_LIST_MATCH";
             driver.switchTo().window(adminWindow);
@@ -121,10 +126,12 @@ public class JO_GAP_004_G3_Suite {
                 new WebDriverWait(driver, Duration.ofSeconds(10))
                         .until(ExpectedConditions.presenceOfElementLocated(By.id("articleList")));
             } catch (org.openqa.selenium.TimeoutException e) {
+                adminListMessageCode = classifyJoomlaMessageCode(driver);
                 outcome = "BLOCKED";
                 reason = "ADMIN_ARTICLE_LIST_UNAVAILABLE";
                 throw new IllegalStateException("Joomla admin article list did not load", e);
             }
+            adminListMessageCode = classifyJoomlaMessageCode(driver);
             List<WebElement> created = waitForArticleTitleRows(driver, Duration.ofSeconds(20));
             articleManagerTitleMatchCount = created.size();
             if (created.size() != 1) {
@@ -198,7 +205,8 @@ public class JO_GAP_004_G3_Suite {
             }
             writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                     fixtureCreated, fixtureCreationAttempted, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                    optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
+                    optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure,
+                    frontendSaveMessageCode, adminListMessageCode);
             throw e;
         } finally {
             if (driver != null) {
@@ -207,7 +215,8 @@ public class JO_GAP_004_G3_Suite {
         }
         writeEvidence(evidencePath, runId, outcome, reason, versionCounter, initialHistoryRows,
                 fixtureCreated, fixtureCreationAttempted, articleManagerTitleMatchCount, articleEditorOpened, versionFieldRead, historyRowsObserved, saveHistorySetting, cleanupOutcome, optionsRoutePath, optionsPageTitle,
-                optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure);
+                optionsContext, optionsFormVisible, saveHistoryRadioCount, currentStage, exceptionClass, browserReachabilityAtFailure,
+                frontendSaveMessageCode, adminListMessageCode);
     }
 
     private static List<WebElement> articleTitleRows(WebDriver driver) {
@@ -224,6 +233,39 @@ public class JO_GAP_004_G3_Suite {
             });
         } finally {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        }
+    }
+    private static String classifyJoomlaMessageCode(WebDriver driver) {
+        try {
+            driver.manage().timeouts().implicitlyWait(Duration.ZERO);
+            List<WebElement> messages = driver.findElements(By.cssSelector(
+                    "#system-message-container .alert-message, #system-message-container .alert-heading"));
+            if (messages.isEmpty()) return "NO_SYSTEM_MESSAGE";
+
+            String text = messages.stream().map(WebElement::getText).reduce("", (left, right) -> left + " " + right)
+                    .toLowerCase(Locale.ROOT).replaceAll("\\s+", " ").trim();
+            if (text.contains("successfully saved") || text.contains("successfully created") || text.contains("saved successfully")) {
+                return "SAVE_SUCCESS";
+            }
+            if (text.contains("invalid field") || text.contains("required field") || text.contains("is required")) {
+                return "VALIDATION_ERROR";
+            }
+            if (text.contains("not authorized") || text.contains("not authorised") || text.contains("not permitted")
+                    || text.contains("permission denied")) {
+                return "AUTHORIZATION_ERROR";
+            }
+            if (text.contains("error") || text.contains("failed") || text.contains("unable to")) {
+                return "SAVE_ERROR";
+            }
+            return "UNRECOGNIZED_MESSAGE_PRESENT";
+        } catch (RuntimeException e) {
+            return "MESSAGE_PROBE_UNAVAILABLE";
+        } finally {
+            try {
+                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+            } catch (RuntimeException ignored) {
+                // The diagnostic must not mask the fixture setup outcome.
+            }
         }
     }
     private static String seleniumStatusReachability() {
@@ -312,7 +354,8 @@ public class JO_GAP_004_G3_Suite {
             String saveHistorySetting,
             String cleanupOutcome, String optionsRoutePath, String optionsPageTitle,
             String optionsContext, boolean optionsFormVisible, int saveHistoryRadioCount,
-            String currentStage, String exceptionClass, String browserReachabilityAtFailure) throws Exception {
+            String currentStage, String exceptionClass, String browserReachabilityAtFailure,
+            String frontendSaveMessageCode, String adminListMessageCode) throws Exception {
         Path path = Path.of(evidencePath);
         Files.createDirectories(path.getParent());
         String json = "{\n"
@@ -334,6 +377,8 @@ public class JO_GAP_004_G3_Suite {
                 + "  \"currentStage\": \"" + currentStage + "\",\n"
                 + "  \"exceptionClass\": \"" + exceptionClass + "\",\n"
                 + "  \"browserReachabilityAtFailure\": \"" + browserReachabilityAtFailure + "\",\n"
+                + "  \"frontendSaveMessageCode\": \"" + frontendSaveMessageCode + "\",\n"
+                + "  \"adminListMessageCode\": \"" + adminListMessageCode + "\",\n"
                 + "  \"optionsRoutePath\": \"" + optionsRoutePath + "\",\n"
                 + "  \"optionsPageTitle\": \"" + optionsPageTitle + "\",\n"
                 + "  \"optionsContext\": \"" + optionsContext + "\",\n"

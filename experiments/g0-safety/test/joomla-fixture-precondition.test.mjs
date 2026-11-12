@@ -14,6 +14,11 @@ test('admin table fixture preconditions gate R3 and exact table rows govern clea
   assert.match(suiteSource, /String createPostUrl = driver\.getCurrentUrl\(\);[\s\S]*?\.setBody\(INITIAL_BODY\)\s*\.save\(\);[\s\S]*?until\(currentDriver -> !createPostUrl\.equals\(currentDriver\.getCurrentUrl\(\)\)\)/);
   assert.match(suiteSource, /currentStage = "ADMIN_LIST_MATCH";[\s\S]*?waitForArticleTitleRows\(driver, Duration\.ofSeconds\(20\)\)/);
   assert.match(suiteSource, /private static List<WebElement> waitForArticleTitleRows\(WebDriver driver, Duration timeout\)[\s\S]*?implicitlyWait\(Duration\.ZERO\)[\s\S]*?new WebDriverWait\(driver, timeout\)/);
+  assert.match(suiteSource, /frontendSaveMessageCode = classifyJoomlaMessageCode\(driver\);[\s\S]*?adminListMessageCode = classifyJoomlaMessageCode\(driver\);/);
+  assert.match(suiteSource, /private static String classifyJoomlaMessageCode\(WebDriver driver\)[\s\S]*?return "SAVE_SUCCESS";[\s\S]*?return "VALIDATION_ERROR";[\s\S]*?return "AUTHORIZATION_ERROR";[\s\S]*?return "SAVE_ERROR";[\s\S]*?return "UNRECOGNIZED_MESSAGE_PRESENT";/);
+  assert.match(suiteSource, /frontendSaveMessageCode/);
+  assert.match(suiteSource, /adminListMessageCode/);
+  assert.doesNotMatch(suiteSource, /frontendSaveMessageText|adminListMessageText|rawMessageText/);
   assert.doesNotMatch(suiteSource, /getFirstArticleTitle|getFirstArticleBody|containsArticle\(ARTICLE_TITLE\)/);
   assert.match(suiteSource, /if \(!existing\.isEmpty\(\)\)/);
   assert.match(suiteSource, /if \(created\.size\(\) !==? 1\)/);
