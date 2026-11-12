@@ -80,3 +80,14 @@ Canonical R3 hashes were reconciled to the UTF-8/LF Git file bytes using the Lin
 - Review whether the corrected R3 Gherkin/oracle should replace the original proposed oracle for implementation review; do not treat this agent-authored correction as human approval.
 - Verify the exact pushed source, run R3 on the authorized VM, and preserve initial plus three clean-state rerun records only after a passing, semantically eligible initial run.
 - Suggested status: R3 compile PASS, G3 pending root VM execution, human oracle/novelty review pending, not VALIDATED.
+
+
+## 8. 2026-11-12 VM runtime follow-up
+
+The existing VM was already running, so no restart was performed. Verified identity: project `gen-lang-client-0311012609`, `bewt-covext-runner`, instance `3042402845209891905`, zone `asia-southeast1-a`, machine `c4d-highmem-8`. Docker Engine 29.9.3 was active with 8 CPUs, 61.8 GiB RAM, and 174 GiB root-disk space available at verification. Image IDs, Java/Maven/Selenium/Chrome versions, source/test hashes, execution time, and cleanup evidence are in `docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r3-initial-20261112/runtime-provenance.json`.
+
+Exactly one initial R3 Docker/Selenium attempt ran from clean VM worktree commit `f9d123bb822fd660dd45742b28c6ab2a5938c202`. The app and Selenium readiness checks passed before Maven. JUnit reported 1 test, 0 failures, 1 error; Maven exited 1. The error was a 15-second Selenium visibility timeout waiting for `.cart-product-quantity` at the cart-page step. The test did not send the stock update request, so this establishes neither a stock-oracle PASS nor a stock-behavior FAIL. Cleanup verified zero residual containers, networks, and volumes. Only sanitized JUnit XML and structured JSON evidence were copied; Maven stdout/stderr and runner console output were excluded. See `docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r3-initial-20261112/`.
+
+R4 is registered as a new immutable revision. It reads the cart line from the pinned `/checkout/cartdata` endpoint, submits the same URL-encoded fields used by the pinned storefront to `/product/updatecart` from the browser session, and verifies HTTP 400, the source-backed message, and unchanged server-side quantity. The original Gherkin behavior is unchanged. R4 compiled successfully with 46 test sources on Windows; its VM G3 has not run and awaits branch push. This remains preliminary engineering evidence; novelty and oracle review are pending, and `VALIDATED=false`.
+
+The runner's Maven evidence command previously omitted the `clean` goal despite invoking it. The command record is corrected for future runs. The R3 record is preserved unchanged and the discrepancy is noted in its runtime provenance.

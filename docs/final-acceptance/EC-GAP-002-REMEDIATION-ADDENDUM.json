@@ -2,12 +2,12 @@
   "candidateId": "EC-GAP-002",
   "baselineAuditCommit": "da6399536ff75a1edf4417819eb4d166cc1d781c",
   "implementationBaseCommit": "8c1abafb5254af73bdc43ef9d2f5849bd5c64b00",
-  "revision": 3,
-  "implementationCommit": "ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e",
+  "revision": 4,
+  "implementationCommit": "PENDING_COMMIT",
   "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
-  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3.java",
-  "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/gherkin.feature",
-  "javaSha256": "cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595",
+  "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4.java",
+  "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/gherkin.feature",
+  "javaSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
   "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
   "source": {
     "repository": "mrvautin/expressCart",
@@ -26,17 +26,18 @@
   ],
   "candidateDecision": "APPROVED_FOR_IMPLEMENTATION; HUMAN_ORACLE_AND_NOVELTY_REVIEW_PENDING",
   "technicalStatus": {
-    "compile": "PASS",
-    "sourceBehaviorAssertions": "IMPLEMENTED_NOT_RUN",
-    "g3Initial": "NOT_RUN_PENDING_ROOT_RUNTIME",
+    "compile": "PASS_R4_46_TEST_SOURCES",
+    "sourceBehaviorAssertions": "R4_IMPLEMENTED_COMPILE_PASS_NOT_RUN",
+    "g3Initial": "R3_FAIL_SELECTOR_TIMEOUT_CLEANUP_PASS",
     "g3CleanReruns": 0,
     "validated": false,
-    "runnerCredentialHandoff": "IMPLEMENTED_AND_COMPILE_VERIFIED"
+    "runnerCredentialHandoff": "IMPLEMENTED_AND_COMPILE_VERIFIED",
+    "latestRevision": "R4_COMPILE_PASS_G3_NOT_RUN_PENDING_PUSH"
   },
   "limitations": [
     "The original proposal expects a different error string than the pinned source returns; revision 3 records the source response without rewriting the historical proposal.",
     "Source seed data has stock 10 rather than the proposed product/stock-one fixture; revision 3 creates an isolated product fixture and enables stock tracking through the admin session.",
-    "The runtime path was unavailable locally and no active Cloud authentication was present; G3 and reruns were not attempted."
+    "R3 initial VM execution failed at the cart quantity DOM locator before the stock update request; cleanup was verified zero-residual. R4 changes the browser-session interaction and is pending runtime execution."
   ],
   "taskReport": "docs/tasks/EC-GAP-002-REMEDIATION/TASK-REPORT.md",
   "executionEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/",
@@ -66,8 +67,37 @@
     }
   },
   "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)",
-  "windowsCheckoutHashes": {
-    "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
-    "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999"
-  }
+  "latestRevision": {
+    "revision": 4,
+    "status": "COMPILE_PASS_G3_NOT_RUN_PENDING_PUSH",
+    "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R4.java",
+    "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-4/gherkin.feature",
+    "javaSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
+    "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+    "implementationCommit": "PENDING_COMMIT"
+  },
+  "revisions": [
+    {
+      "revision": 3,
+      "implementationCommit": "ffe7fc583b3cebd343e3a0eb148dd8124cbacf3e",
+      "g3Initial": "FAIL_SELECTOR_TIMEOUT",
+      "cleanup": "PASS_ZERO_RESIDUAL",
+      "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/g3/r3-initial-20261112/",
+      "javaSha256": "cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595",
+      "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+      "windowsCheckoutHashes": {
+        "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
+        "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999"
+      },
+      "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3.java"
+    },
+    {
+      "revision": 4,
+      "implementationCommit": "PENDING_COMMIT",
+      "g3Initial": "NOT_RUN_PENDING_PUSH",
+      "compile": "PASS_46_TEST_SOURCES",
+      "javaSha256": "3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8",
+      "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f"
+    }
+  ]
 }

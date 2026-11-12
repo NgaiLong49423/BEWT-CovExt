@@ -683,7 +683,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
     writeFileSync(join(evidenceDir, 'maven-exit.json'), JSON.stringify({
       exitCode: mvnRes.status,
       signal: mvnRes.signal,
-      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} test`,
+      command: `mvn -B -f ${cfg.suitePath}/pom.xml -Dtest=${activeTestClass} clean test`,
     }, null, 2));
 
     // 8. Capture and sanitize Surefire JUnit report

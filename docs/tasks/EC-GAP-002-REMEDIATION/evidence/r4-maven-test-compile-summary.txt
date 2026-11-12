@@ -1,0 +1,6 @@
+Command: mvn -B -f experiments/expresscart/bewt-suite/pom.xml -DskipTests test-compile
+Outcome: PASS (exit 0)
+Compiled: 46 test sources, including immutable EC-GAP-002 R4
+Observed on: 2026-11-12
+Code hash basis: SHA-256 of UTF-8/LF Java file; 3368282e0a427c24b86863973d0e0279d6e241585a37cf2e89fd881dc6882dc8
+R4 Docker/Selenium execution: NOT_RUN_PENDING_PUSH

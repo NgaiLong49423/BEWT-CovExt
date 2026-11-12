@@ -1,0 +1,75 @@
+{
+  "runId": "ecgap002-r3-initial-20261112",
+  "startedAtUtc": "2026-11-12T13:37:58.767Z",
+  "repository": {
+    "testedCommit": "f9d123bb822fd660dd45742b28c6ab2a5938c202",
+    "branch": "task/ec-gap002-remediation",
+    "worktree": "runner-owned isolated checkout",
+    "stateBeforeRun": "clean"
+  },
+  "gcp": {
+    "projectId": "gen-lang-client-0311012609",
+    "instanceName": "bewt-covext-runner",
+    "instanceId": "3042402845209891905",
+    "zone": "asia-southeast1-a",
+    "machineType": "c4d-highmem-8",
+    "state": "RUNNING",
+    "restart": "NOT_NEEDED_ALREADY_RUNNING",
+    "cpuCount": 8,
+    "memoryBytes": 66362478592,
+    "rootDisk": {
+      "sizeGiB": 193,
+      "availableGiBAtVerification": 174
+    }
+  },
+  "docker": {
+    "engineVersion": "29.9.3",
+    "appImage": "bewt-covext/expresscart:1.1.19-b31302f",
+    "appImageId": "sha256:6bdde03731b1d4931af572f626aae6be7d14494e189f795bedc8d71bafa3ff06",
+    "databaseImage": "mongo:4.4.29",
+    "databaseImageId": "sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0",
+    "browserImage": "selenium/standalone-chrome:latest",
+    "browserImageId": "sha256:3fa985d1a73d1a3ae43c758d546b505b9d73e31ecaffd7a77725f19d1a70edec"
+  },
+  "runtime": {
+    "java": "21.0.13.0.3",
+    "maven": "3.8.7",
+    "selenium": "4.35.0",
+    "chrome": "157.0.8103.50",
+    "chromedriver": "157.0.8103.78"
+  },
+  "applicationSource": {
+    "repository": "mrvautin/expressCart",
+    "version": "1.1.19",
+    "commit": "b31302f4e99c3293bd742c6d076a721e168118b0"
+  },
+  "test": {
+    "revision": 3,
+    "testClass": "tests.T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3",
+    "javaSha256": "cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595",
+    "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f"
+  },
+  "execution": {
+    "applicationAndSeleniumReadiness": "PASS_BEFORE_MAVEN",
+    "mavenGoalActuallyInvoked": "clean test",
+    "mavenExitCode": 1,
+    "junit": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 1,
+      "skipped": 0,
+      "outcome": "FAIL"
+    },
+    "failure": {
+      "type": "org.openqa.selenium.TimeoutException",
+      "locator": ".cart-product-quantity",
+      "conclusion": "The stock-rejection request was not reached; no stock oracle result established."
+    },
+    "cleanup": "PASS_ZERO_RESIDUAL_VERIFIED",
+    "credentials": "Ephemeral ADMIN_EMAIL and ADMIN_PASSWORD generated in-process; values were not logged or copied into evidence."
+  },
+  "provenanceLimitations": [
+    "runner maven-exit.json command field omits the clean goal although runner source invokes clean test; retained as-is and explicitly corrected for future R4 runs.",
+    "The Selenium image is configured with a mutable latest tag; actual image ID is recorded for this run."
+  ]
+}
