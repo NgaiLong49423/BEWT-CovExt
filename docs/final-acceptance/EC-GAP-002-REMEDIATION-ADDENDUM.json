@@ -7,8 +7,8 @@
   "pullRequest": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/32",
   "artifactPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/T01C_bcb5b700f06dd8c8ce6c99c01e12cdeb_R3.java",
   "gherkinPath": "extension/expresscart/selenium/bcb5b700f06dd8c8ce6c99c01e12cdeb/revision-3/gherkin.feature",
-  "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
-  "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999",
+  "javaSha256": "cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
   "source": {
     "repository": "mrvautin/expressCart",
     "commit": "b31302f4e99c3293bd742c6d076a721e168118b0",
@@ -51,8 +51,14 @@
     "fixtureSetup": "Passes the process environment keys into the ExpressCart setup process; no credential literals or values are committed.",
     "focusedTestPath": "experiments/tools/unified-g0-runner.test.mjs",
     "focusedTestEvidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
-    "focusedTests": "PASS_2",
+    "focusedTests": "PASS_3",
     "mavenTestCompile": "PASS_45_TEST_SOURCES",
-    "g3": "NOT_RUN_PENDING_ROOT_RUNTIME"
+    "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
+    "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories"
+  },
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)",
+  "windowsCheckoutHashes": {
+    "javaSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
+    "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999"
   }
 }

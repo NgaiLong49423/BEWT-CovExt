@@ -40,13 +40,15 @@ Focused verification:
 
 | Exact command | Result | Evidence |
 |---|---|---|
-| `node --test experiments/tools/unified-g0-runner.test.mjs` | PASS; 2 tests cover missing/blank values and propagation of synthetic values. | `docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt` |
+| `node --test experiments/tools/unified-g0-runner.test.mjs` | PASS; 3 tests cover missing/blank values, propagation of synthetic values, and absolute Maven executable/path validation. | `docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt` |
 | `node --check experiments/tools/unified-g0-runner.mjs` and `node --check experiments/tools/unified-g0-runner.test.mjs` | PASS. | Command output was empty (exit 0). |
 | `mvn -f experiments/expresscart/bewt-suite/pom.xml test-compile` | PASS; 45 test sources compiled. | `docs/tasks/EC-GAP-002-REMEDIATION/evidence/maven-test-compile-summary.txt` |
 
 This follow-up did not execute the runner, Docker, Cloud, or VM. Parent runtime remains `NOT_RUN_PENDING_ROOT_RUNTIME`; provide the two required variables securely in the authorized runtime environment.
 
-SonarCloud's PR check reported 2 duplicated new-code lines in the Bludit/Joomla installer setup blocks (18-line duplicated block pair). The runner now shares the Maven invocation while retaining Joomla-only environment values and installation cleanup. The R3 Java/Gherkin artifacts and hashes are unchanged; local focused tests, syntax checks, and Maven test compilation pass. The updated SonarCloud PR gate will be checked after push.
+SonarCloud's PR check reported 2 duplicated new-code lines in the Bludit/Joomla installer setup blocks (18-line duplicated block pair); after that reached 0%, the next analysis flagged `javascript:S4036` on child-process PATH handling. The runner now shares the Maven invocation while retaining Joomla-only environment values and installation cleanup. The shared installer path requires `BEWT_MAVEN_EXECUTABLE` as an absolute file, verifies its location, and replaces inherited `PATH` with validated Java and fixed system directories (including Windows batch-file support). The R3 Java/Gherkin artifacts and content are unchanged; local focused tests, syntax checks, and Maven test compilation pass. The updated SonarCloud PR gate will be checked after push.
+
+Canonical R3 hashes were reconciled to the UTF-8/LF Git file bytes using the Linux VM SHA-256 values supplied by the parent, which also confirmed the extension Java and Maven-suite copies match. Java: `cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595`; Gherkin: `a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f`. The former Windows-checkout byte hashes are retained in the registration, provenance, and traceability addendum under `windowsCheckoutHashes`; no Java or Gherkin content changed.
 
 ## 4. Research impact
 

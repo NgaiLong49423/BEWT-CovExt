@@ -1,9 +1,9 @@
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash, randomBytes } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, realpathSync, statSync, writeFileSync } from 'node:fs';
 import http from 'node:http';
 import { createServer } from 'node:net';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -171,6 +171,60 @@ export function resolveTestEnv(cfg, env = process.env) {
   return cfg.testEnv || {};
 }
 
+export function buildTrustedMavenRuntime(env = process.env, platform = process.platform) {
+  const configuredExecutable = env.BEWT_MAVEN_EXECUTABLE;
+  if (typeof configuredExecutable !== 'string' || !isAbsolute(configuredExecutable)) {
+    throw new Error('MISSING_OR_INVALID_ENV: BEWT_MAVEN_EXECUTABLE must be an absolute path');
+  }
+
+  let executable;
+  try {
+    executable = realpathSync(configuredExecutable);
+  } catch {
+    throw new Error('INVALID_MAVEN_EXECUTABLE: configured path does not exist');
+  }
+  const executableStat = statSync(executable);
+  if (!executableStat.isFile() || (platform !== 'win32' && ((executableStat.mode & 0o111) === 0 || (executableStat.mode & 0o022) !== 0))) {
+    throw new Error('INVALID_MAVEN_EXECUTABLE: path must be an executable file');
+  }
+
+  const executableDirectory = dirname(executable);
+  const trustedDirectories = [];
+  const addTrustedDirectory = (directory) => {
+    if (!isAbsolute(directory) || !existsSync(directory) || !statSync(directory).isDirectory()) return;
+    const directoryStat = statSync(directory);
+    const ownerWritableByRunner = typeof process.getuid === 'function'
+      && directoryStat.uid === process.getuid()
+      && (directoryStat.mode & 0o200) !== 0;
+    if (platform !== 'win32' && ((directoryStat.mode & 0o022) !== 0 || ownerWritableByRunner)) {
+      throw new Error('UNTRUSTED_RUNTIME_DIRECTORY: child PATH contains a writable directory');
+    }
+    if (!trustedDirectories.includes(directory)) trustedDirectories.push(directory);
+  };
+
+  addTrustedDirectory(executableDirectory);
+
+  const javaHome = env.JAVA_HOME;
+  if (javaHome) {
+    if (!isAbsolute(javaHome)) throw new Error('INVALID_JAVA_HOME: JAVA_HOME must be an absolute path');
+    addTrustedDirectory(join(javaHome, 'bin'));
+  } else if (platform === 'win32') {
+    throw new Error('MISSING_REQUIRED_ENV: JAVA_HOME');
+  }
+
+  const systemDirectories = platform === 'win32'
+    ? [join(env.SystemRoot || env.WINDIR || 'C:\\Windows', 'System32')]
+    : ['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin'];
+  for (const directory of systemDirectories) addTrustedDirectory(directory);
+
+  if (trustedDirectories.length === 0) throw new Error('UNTRUSTED_RUNTIME_PATH: no trusted child PATH directories found');
+  return {
+    executable,
+    path: trustedDirectories.join(platform === 'win32' ? ';' : ':'),
+    shell: platform === 'win32' && /\.(cmd|bat)$/i.test(executable),
+  };
+}
+
 function runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evidenceDir, includeInstallUrlEnv = false, appSpecificEnv = {} }) {
   const installUrl = cfg.installerUrl
     ? cfg.installerUrl('127.0.0.1', appPort, appName)
@@ -184,17 +238,24 @@ function runInstallerMaven({ cfg, appPort, browserPort, appName, appTestEnv, evi
     `-D${cfg.webdriverUrlProperty}=${webdriverUrl}`,
     'test',
   ];
-  const result = spawnSync(MAVEN_CLI, args, {
+  const mavenRuntime = buildTrustedMavenRuntime();
+  const childEnv = {
+    ...process.env,
+    ...appTestEnv,
+    ...(includeInstallUrlEnv ? { BEWT_INSTALL_URL: installUrl } : {}),
+    ...appSpecificEnv,
+    BEWT_APP_URL: installUrl,
+    BEWT_WEBDRIVER_URL: webdriverUrl,
+  };
+  for (const key of Object.keys(childEnv)) {
+    if (key.toLowerCase() === 'path') delete childEnv[key];
+  }
+  childEnv.PATH = mavenRuntime.path;
+  const result = spawnSync(mavenRuntime.executable, args, {
     cwd: REPO_ROOT,
     encoding: 'utf8',
-    env: {
-      ...process.env,
-      ...appTestEnv,
-      ...(includeInstallUrlEnv ? { BEWT_INSTALL_URL: installUrl } : {}),
-      ...appSpecificEnv,
-      BEWT_APP_URL: installUrl,
-      BEWT_WEBDRIVER_URL: webdriverUrl,
-    },
+    shell: mavenRuntime.shell,
+    env: childEnv,
     timeout: 180000,
   });
   writeFileSync(join(evidenceDir, 'installer-maven.stdout.log'), sanitizeEvidenceText(result.stdout));

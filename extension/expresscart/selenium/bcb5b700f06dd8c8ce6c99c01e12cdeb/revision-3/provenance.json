@@ -14,9 +14,14 @@
     "experiments/expresscart/source/bin/testdata.json:12",
     "experiments/expresscart/source/config/settings.json:25"
   ],
-  "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999",
-  "sourceSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792",
+  "gherkinSha256": "a961fb109f0a4ec10dccf4bcc0ffaccf1d02d2fcb787c30fabee88e8ae1cbf9f",
+  "sourceSha256": "cbaf93858f0c8a72cf9d89899c09603558dcd86be088ced79be3794f032f2595",
   "humanReviewStatus": "PENDING_HUMAN_SIGNATURE",
   "compileOutcome": "PASS",
-  "e2eOutcome": "NOT_RUN_PENDING_ROOT_RUNTIME"
+  "e2eOutcome": "NOT_RUN_PENDING_ROOT_RUNTIME",
+  "hashEncoding": "SHA-256 over canonical UTF-8 bytes with LF line endings (Git file content)",
+  "windowsCheckoutHashes": {
+    "gherkinSha256": "665925445587500a4e637274b1a160a9161327ab53a993204ec3e19ac8894999",
+    "sourceSha256": "53c32dfc883bac922a50468b1c1557c1c8a4d3e879ab044d3339e31b51d10792"
+  }
 }

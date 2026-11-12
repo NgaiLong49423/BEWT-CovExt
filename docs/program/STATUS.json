@@ -240,7 +240,9 @@
             "focusedRunnerTests": "PASS_2",
             "mavenTestCompile": "PASS_45_TEST_SOURCES",
             "g3": "NOT_RUN_PENDING_ROOT_RUNTIME",
-            "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt"
+            "evidence": "docs/tasks/EC-GAP-002-REMEDIATION/evidence/runner-credential-tests.txt",
+            "focusedTests": "PASS_3",
+            "mavenExecutableRequirement": "BEWT_MAVEN_EXECUTABLE absolute path for installer G0; child PATH restricted to validated Java and fixed system directories"
           }
         }
       }

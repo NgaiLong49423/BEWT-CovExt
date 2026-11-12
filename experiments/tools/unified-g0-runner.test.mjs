@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { APPS, requireExpressCartAdminCredentials, resolveTestEnv } from './unified-g0-runner.mjs';
+import { APPS, buildTrustedMavenRuntime, requireExpressCartAdminCredentials, resolveTestEnv } from './unified-g0-runner.mjs';
 
 test('ExpressCart credentials fail closed when either required variable is missing or blank', () => {
   assert.throws(
@@ -28,4 +28,27 @@ test('ExpressCart test environment propagates supplied process values without fa
     ADMIN_PASSWORD: 'synthetic-password',
   };
   assert.deepEqual(resolveTestEnv(APPS.expresscart, supplied), supplied);
+});
+
+
+test('installer Maven runtime requires an absolute executable and drops inherited PATH entries', () => {
+  assert.throws(
+    () => buildTrustedMavenRuntime({ PATH: 'attacker-controlled' }, process.platform),
+    /MISSING_OR_INVALID_ENV: BEWT_MAVEN_EXECUTABLE/,
+  );
+  assert.throws(
+    () => buildTrustedMavenRuntime({ BEWT_MAVEN_EXECUTABLE: 'mvn', PATH: 'attacker-controlled' }, process.platform),
+    /MISSING_OR_INVALID_ENV: BEWT_MAVEN_EXECUTABLE/,
+  );
+
+  const runtime = buildTrustedMavenRuntime({
+    BEWT_MAVEN_EXECUTABLE: process.execPath,
+    JAVA_HOME: process.env.JAVA_HOME,
+    SystemRoot: process.env.SystemRoot,
+    WINDIR: process.env.WINDIR,
+    PATH: 'attacker-controlled',
+  }, process.platform);
+  assert.equal(runtime.executable, process.execPath);
+  assert.ok(runtime.path.length > 0);
+  assert.equal(runtime.path.includes('attacker-controlled'), false);
 });
