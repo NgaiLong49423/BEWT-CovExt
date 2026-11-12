@@ -3,9 +3,9 @@
 - Task scope / acceptance gate: Correct revision attribution in the paper, v2 research report, and replication runbook; G4 documentation integrity only.
 - Base branch + base SHA: `task/final-remediation-audit` / `8c1abafb5254af73bdc43ef9d2f5849bd5c64b00`.
 - Working branch: `task/paper-provenance-correction`.
-- Head commit (full 40-char SHA): pending commit.
-- PR: `PR_NOT_CREATED: commit and verify task branch first`.
-- Push status: `PUSH_BLOCKED: pending commit`.
+- Head commit (full 40-char SHA): `bada20fe63409143904c8588d75150665125a1a8`.
+- PR: https://github.com/NgaiLong49423/BEWT-CovExt/pull/34 (draft; open).
+- Push status: `PUSHED`; remote branch SHA verified as `bada20fe63409143904c8588d75150665125a1a8`.
 - Runtime/commit/version tested: repository history through PR #27 head; metrics revision `569ca47d40dcc8dd8d5138718078c5f4ec7217bc`.
 - Status proposed by Agent: `PARTIAL`.
 
@@ -60,4 +60,4 @@ The extra attempt6 record is preserved supplementary evidence and is not part of
 
 - What the Team Lead needs to decide: Review the provenance wording and the follow-on reconciliation of counts after attempt6 evidence is integrated.
 - Suggested next task if accepted: Recompute RQ1–RQ4 from the committed evidence set, update run-count controls, then rebuild and visually inspect the manuscript PDF.
-- GitHub PR diff URL and file paths to inspect: Pending PR creation; see the three source documents in the change table.
+- GitHub PR diff URL and file paths to inspect: https://github.com/NgaiLong49423/BEWT-CovExt/pull/34/files; see the three source documents in the change table.
