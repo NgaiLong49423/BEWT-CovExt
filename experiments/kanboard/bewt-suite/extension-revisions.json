@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "kanboard",
+  "suitePath": "experiments/kanboard/bewt-suite/",
+  "registrationStatus": "INTEGRATED_COMPILE_PASS_RUNTIME_PENDING",
+  "compileCommand": "mvn -B -ntp -DskipTests test",
+  "targetedRuntimeSelector": "mvn -B -ntp -Dtest=T01C_233eaf16319686f2ab6c351b189cd929_R3,T01C_244fbbc3c7e19c2ceb6a56738e493041_R3,T01C_882860986d9907549f10245367191c30_R3,T01C_ca582c83d0559c38508bf3e1a5420ca9_R3,T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3 test",
+  "credentials": [
+    "KANBOARD_TEST_USERNAME",
+    "KANBOARD_TEST_PASSWORD"
+  ],
+  "suiteSelection": "Candidate classes are intentionally excluded from broad TestSuite and must be selected explicitly after candidate-specific fixture and runtime ownership are verified.",
+  "cases": [
+    {
+      "candidateId": "KB-GAP-004",
+      "revision": 3,
+      "sourceVersion": "1.2.15",
+      "testClass": "tests.T01C_233eaf16319686f2ab6c351b189cd929_R3",
+      "activeTestSourcePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_233eaf16319686f2ab6c351b189cd929_R3.java",
+      "activeSourceSha256": "f1e342fd0d5ce3ea29bc045a0d366c29e42b0795778714634ea1b5be8874302a",
+      "extensionArtifactPath": "extension/kanboard/selenium/233eaf16319686f2ab6c351b189cd929/revision-3/T01C_233eaf16319686f2ab6c351b189cd929_R3.java",
+      "extensionArtifactSha256": "74fbf733e60655735d61e30b694e0c3e5fcca5ad639b794ed0582cda2a793527",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "KB-GAP-001",
+      "revision": 3,
+      "sourceVersion": "1.2.15",
+      "testClass": "tests.T01C_244fbbc3c7e19c2ceb6a56738e493041_R3",
+      "activeTestSourcePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+      "activeSourceSha256": "3228474c0547b2366601d8e88e4eff4d92f0995e17433ccf842535da3b923b4b",
+      "extensionArtifactPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-3/T01C_244fbbc3c7e19c2ceb6a56738e493041_R3.java",
+      "extensionArtifactSha256": "02053480d03a7fe13a174a59d4bbc4c4b8508eeb408300211646a4a188d8090b",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "KB-GAP-008",
+      "revision": 3,
+      "sourceVersion": "1.2.15",
+      "testClass": "tests.T01C_882860986d9907549f10245367191c30_R3",
+      "activeTestSourcePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_882860986d9907549f10245367191c30_R3.java",
+      "activeSourceSha256": "72372ec3886fec5e4ba82296d7172792d4460a358c6bfe73135091f4ad400173",
+      "extensionArtifactPath": "extension/kanboard/selenium/882860986d9907549f10245367191c30/revision-3/T01C_882860986d9907549f10245367191c30_R3.java",
+      "extensionArtifactSha256": "7d7ffcdb9d5dddaad5cad9ad693644bafe29b63738eb7dcda007823dc27f7175",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "KB-GAP-002",
+      "revision": 3,
+      "sourceVersion": "1.2.15",
+      "testClass": "tests.T01C_ca582c83d0559c38508bf3e1a5420ca9_R3",
+      "activeTestSourcePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_ca582c83d0559c38508bf3e1a5420ca9_R3.java",
+      "activeSourceSha256": "cc5d266710bc9bcd05921a8654c7d1adac1afee13f7c35d524a899aabf36d834",
+      "extensionArtifactPath": "extension/kanboard/selenium/ca582c83d0559c38508bf3e1a5420ca9/revision-3/T01C_ca582c83d0559c38508bf3e1a5420ca9_R3.java",
+      "extensionArtifactSha256": "2f8c9c1f1345bc7c4e3c8996055b27bb0b65df4df6f868413ad40373e3a96f8a",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "KB-GAP-003",
+      "revision": 3,
+      "sourceVersion": "1.2.15",
+      "testClass": "tests.T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3",
+      "activeTestSourcePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3.java",
+      "activeSourceSha256": "58259c86de42f23cf3c2742c9949119a494793e2cdb724412a39e0c8b51ef1a7",
+      "extensionArtifactPath": "extension/kanboard/selenium/e92738fe6f9cb45aecc4349f3b52dff0/revision-3/T01C_e92738fe6f9cb45aecc4349f3b52dff0_R3.java",
+      "extensionArtifactSha256": "f7a9cb8e7dee7f22b964b4265fd8a9e212bf6188d1faaf2f42e23fb46df30ee3",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    }
+  ],
+  "compileOutcome": "PASS",
+  "runtimeOutcome": "NOT_RUN",
+  "runtimeReason": "Application, WebDriver, fixture ownership, and runtime credential configuration were not verified for this worktree; no browser test was executed."
+}

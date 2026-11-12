@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "appId": "claroline",
+  "suitePath": "experiments/claroline/bewt-suite/",
+  "registrationStatus": "INTEGRATED_COMPILE_PASS_RUNTIME_PENDING",
+  "compileCommand": "mvn -B -ntp -DskipTests test",
+  "targetedRuntimeSelector": "mvn -B -ntp -Dtest=T01C_1027165465722d6b6fd9ab1607fba1d8_R3,T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3,T01C_acd2c6ed41c79d11057a038360ef1dba_R3,T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3,T01C_e9eda84d440eec2453ed7ae17199f4d5_R3 test",
+  "credentials": [
+    "CLAROLINE_TEST_USERNAME",
+    "CLAROLINE_TEST_PASSWORD"
+  ],
+  "suiteSelection": "Candidate classes are intentionally excluded from broad TestSuite and must be selected explicitly after candidate-specific fixture and runtime ownership are verified.",
+  "cases": [
+    {
+      "candidateId": "CL-GAP-005",
+      "revision": 3,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_1027165465722d6b6fd9ab1607fba1d8_R3",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_1027165465722d6b6fd9ab1607fba1d8_R3.java",
+      "activeSourceSha256": "e8d4b84ad5eb98da23345f356998dcafed8dd49bd214007d754845e52af0fae4",
+      "extensionArtifactPath": "extension/claroline/selenium/1027165465722d6b6fd9ab1607fba1d8/revision-3/T01C_1027165465722d6b6fd9ab1607fba1d8_R3.java",
+      "extensionArtifactSha256": "3081b79e929bfc2b3b43b5e9fd63f5848335868efa3b98921bd9e1a5c1e4ebbe",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "CL-GAP-004",
+      "revision": 3,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3.java",
+      "activeSourceSha256": "4b71c2533eaf3d150de4e4fa7f5bf542546346f26648bacc88a49715619ad29d",
+      "extensionArtifactPath": "extension/claroline/selenium/6fa57d00aa4eab3729b958a3b4e300c9/revision-3/T01C_6fa57d00aa4eab3729b958a3b4e300c9_R3.java",
+      "extensionArtifactSha256": "e438b16dd468bf8b9412b6dd27fe6ba9a58126dae8927e8914cad35e6fd45195",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "CL-GAP-001",
+      "revision": 3,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_acd2c6ed41c79d11057a038360ef1dba_R3",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_acd2c6ed41c79d11057a038360ef1dba_R3.java",
+      "activeSourceSha256": "eb82a0471f4fcf1ce1200bfd8f28398ddadd4eb2a8641c9ed89fe6ceb177a201",
+      "extensionArtifactPath": "extension/claroline/selenium/acd2c6ed41c79d11057a038360ef1dba/revision-3/T01C_acd2c6ed41c79d11057a038360ef1dba_R3.java",
+      "extensionArtifactSha256": "9c9e6df99545fca3a9b46c7529a7779ce8caf2c7acd43ed1f95beaef80b58bbd",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "CL-GAP-002",
+      "revision": 3,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3.java",
+      "activeSourceSha256": "ff4f6efd1945373eee7b91dd6e702ae05115f53225686d7f93b2d5c528f3f47b",
+      "extensionArtifactPath": "extension/claroline/selenium/ad5f4f7643527d5a497ce6af6e466c2e/revision-3/T01C_ad5f4f7643527d5a497ce6af6e466c2e_R3.java",
+      "extensionArtifactSha256": "e51c8a2a67ac151ada76bcea80a4e935b51fbb5e8701e256cfe80690fe086e80",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    },
+    {
+      "candidateId": "CL-GAP-003",
+      "revision": 3,
+      "sourceVersion": "1.11.10",
+      "testClass": "test.T01C_e9eda84d440eec2453ed7ae17199f4d5_R3",
+      "activeTestSourcePath": "experiments/claroline/bewt-suite/src/test/java/test/T01C_e9eda84d440eec2453ed7ae17199f4d5_R3.java",
+      "activeSourceSha256": "68acd9c86e8ef57ea7ba994ddc34fd8910113fcd51f21ccf89d1d16b0a067e56",
+      "extensionArtifactPath": "extension/claroline/selenium/e9eda84d440eec2453ed7ae17199f4d5/revision-3/T01C_e9eda84d440eec2453ed7ae17199f4d5_R3.java",
+      "extensionArtifactSha256": "7dd735bfed59ad35e3bbcdd058e1aa1536b445f31b8609055a5f9f9a331af8a6",
+      "origin": "SECURITY_REMEDIATION_COPY",
+      "eligibility": "COMPILE_ONLY_PENDING_SEMANTIC_AND_RUNTIME_REVIEW"
+    }
+  ],
+  "compileOutcome": "PASS",
+  "runtimeOutcome": "NOT_RUN",
+  "runtimeReason": "Application, WebDriver, fixture ownership, and runtime credential configuration were not verified for this worktree; no browser test was executed."
+}
