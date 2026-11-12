@@ -668,7 +668,7 @@ export async function runG0Workflow(appId, rawRunId, options = {}) {
       `-Dtest=${activeTestClass}`,
       `-D${cfg.appUrlProperty}=${targetAppUrl}`,
       `-D${cfg.webdriverUrlProperty}=${remoteWebdriverUrl}`,
-      `-Dexperiment.evidence.dir=${relative(REPO_ROOT, evidenceDir)}`,
+      `-Dexperiment.evidence.dir=${relative(resolve(REPO_ROOT, cfg.suitePath), evidenceDir)}`,
       'clean', 'test',
     ];
 
