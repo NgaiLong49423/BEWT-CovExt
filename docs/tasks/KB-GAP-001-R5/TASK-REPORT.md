@@ -26,3 +26,12 @@ This task integrates successive immutable technical revisions of the Kanboard `K
 ## Acceptance boundary
 
 Revision 5's FAIL is retained and is not counted as a candidate PASS. Revision 6 is not `VALIDATED` based on compile success. It requires live execution, three additional clean-state passes after an initial pass, complete source/runtime provenance, and actual human oracle/novelty decisions.
+
+### Revision 6 preliminary run
+
+- Outcome: **FAIL**; one test error, zero JUnit assertion failures; run `g3-kb-gap001-r6-20261112-prelim-a`.
+- Root cause: the pinned Kanboard source renders **“Open this task”** for closed tasks; the Gherkin literal “Reopen this task” did not match the UI label. The action maps to `TaskStatusController::open` in the pinned upstream source.
+- Cleanup: **PASS**, zero residual containers, networks, and volumes.
+- The Gherkin remains unchanged. Revision 7 targets the observed source-backed UI label. See `HUMAN-DECISION-PACKET.md`; reviewer decision remains pending.
+- Revision 7 Maven test compilation: **PASS**, 40 test sources compiled; `mvn -B -DskipTests test-compile`, exit 0, 2026-11-12.
+- Revision 7 preliminary Cloud G3 and reruns: **NOT_RUN yet**.
