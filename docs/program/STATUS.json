@@ -26,6 +26,18 @@
       "status": "MERGED",
       "mergeSha": "464d9e2fb5d1a3705d1d7d6f4dc9a2782bde4a1d",
       "headSha": "6ddb34d96f02730407462d3ee57fd9b58d156151"
+    },
+    "KB-GAP-001-R5": {
+      "status": "MAVEN_TEST_COMPILE_PASS_G3_PENDING_PRELIMINARY_HUMAN_REVIEW_PENDING",
+      "branch": "task/claroline-kanboard-r4",
+      "candidateId": "KB-GAP-001",
+      "revision": 5,
+      "javaPath": "extension/kanboard/selenium/244fbbc3c7e19c2ceb6a56738e493041/revision-5/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
+      "testSuitePath": "experiments/kanboard/bewt-suite/src/test/java/tests/T01C_244fbbc3c7e19c2ceb6a56738e493041_R5.java",
+      "taskReport": "docs/tasks/KB-GAP-001-R5/TASK-REPORT.md",
+      "compile": "PASS",
+      "g3": "NOT_RUN_AT_REPORT_CREATION",
+      "researchValidated": false
     }
   },
   "targets": {
@@ -392,10 +404,10 @@
     "D8": "FAILED_CLAIM_RECONCILIATION_REQUIRED"
   },
   "taskReview": {
-    "currentTaskId": "FINAL-REMEDIATION-AUDIT",
+    "currentTaskId": "KB-GAP-001-R5",
     "currentTaskStatus": "PARTIAL_ACCEPTANCE_BLOCKED_HUMAN_REVIEW_RUNTIME_AND_SEMANTIC_FIXES",
-    "currentTaskBranch": "task/final-remediation-audit",
-    "currentTaskPrUrl": "https://github.com/NgaiLong49423/BEWT-CovExt/pull/27",
+    "currentTaskBranch": "task/claroline-kanboard-r4",
+    "currentTaskPrUrl": null,
     "integrationBaseMainSha": "da6399536ff75a1edf4417819eb4d166cc1d781c",
     "agentCannotSelfApprove": true
   },
